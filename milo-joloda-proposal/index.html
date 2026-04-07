@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Joloda Hydraroll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #1a1a18;
+  --bg-light: #222220;
+  --bg-card: #1f1f1c;
+  --accent: #c8922a;
+  --accent-dim: rgba(200, 146, 42, 0.15);
+  --accent-border: rgba(200, 146, 42, 0.22);
+  --text: #f0ebe0;
+  --text-dim: #a09b8e;
+  --text-muted: #6b6760;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 64px 48px 56px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 52px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.topbar-left {
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topbar-right {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  line-height: 1.18;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+h1 .em { color: var(--accent); }
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Stat bar */
+.stat-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1px;
+  background: rgba(240,235,224,0.05);
+  border: 1px solid rgba(240,235,224,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.stat {
+  background: var(--bg-card);
+  padding: 20px 18px;
+  text-align: center;
+}
+
+.stat .stat-number {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat .stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* Problem cards */
+.problem-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.problem-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.05);
+  border-radius: 10px;
+  padding: 22px 20px;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.problem-card .p-icon { font-size: 1.3rem; margin-bottom: 10px; }
+
+.problem-card h4 {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.problem-card p {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.2;
+  margin: 36px 0;
+}
+
+/* Fix flow */
+.fix-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fix-sources { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+.fix-source {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 7px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+.fix-arrow { color: var(--accent); font-size: 1.2rem; flex-shrink: 0; }
+
+.fix-milo {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.14), rgba(200, 146, 42, 0.04));
+  border: 1px solid var(--accent-border);
+  border-radius: 9px;
+  padding: 10px 24px;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.fix-result {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 7px;
+  padding: 8px 18px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+/* Chat demo */
+.chat-demo { margin-bottom: 36px; }
+
+.chat-exchange {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.chat-q {
+  background: #2a2a27;
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 10px 10px 10px 3px;
+  padding: 14px 16px;
+  font-size: 0.84rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.chat-q::before {
+  content: 'You ask';
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.chat-a {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.07), rgba(200, 146, 42, 0.02));
+  border: 1px solid rgba(200, 146, 42, 0.12);
+  border-radius: 10px 10px 3px 10px;
+  padding: 14px 16px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.chat-a::before {
+  content: 'Milo';
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 5px;
+}
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.feat {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.05);
+  border-radius: 10px;
+  padding: 20px 18px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.feat .f-icon { font-size: 1.2rem; margin-bottom: 8px; }
+
+.feat h4 {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.feat p {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.07), rgba(200, 146, 42, 0.02));
+  border: 1px solid var(--accent-border);
+  border-radius: 12px;
+  padding: 32px 28px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.cta h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.cta p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.cta a {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+/* Print */
+@media print {
+  body::before { display: none; }
+  .page { padding: 36px 28px; }
+  * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Responsive */
+@media (max-width: 680px) {
+  .page { padding: 40px 20px; }
+  .stat-bar { grid-template-columns: 1fr 1fr; }
+  .problem-strip, .features { grid-template-columns: 1fr; }
+  .chat-exchange { grid-template-columns: 1fr; }
+  .fix-flow { flex-direction: column; }
+  .fix-arrow { transform: rotate(90deg); }
+  .topbar { flex-direction: column; gap: 6px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<section class="page">
+
+  <div class="topbar">
+    <div class="topbar-left">Milo × Joloda Hydraroll</div>
+    <div class="topbar-right">Prepared for Michele Dematties</div>
+  </div>
+
+  <h1 class="animate-target" style="opacity:0; transform:translateY(12px)">
+    Four continents.<br>One business. <span class="em">How does it actually look right now?</span>
+  </h1>
+
+  <p class="subtitle animate-target" style="opacity:0; transform:translateY(12px)">
+    You've built something genuinely global — Joloda, Hydraroll, Actiw, 35+ partners, 100+ engineers. Getting a clear picture across all of it shouldn't require a morning of pulling reports. Milo gives you that view in a conversation.
+  </p>
+
+  <div class="stat-bar">
+    <div class="stat">
+      <div class="stat-number">60+</div>
+      <div class="stat-label">years of loading expertise</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4</div>
+      <div class="stat-label">continents of operations</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">35+</div>
+      <div class="stat-label">sales & support partners</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">100+</div>
+      <div class="stat-label">engineers in the field</div>
+    </div>
+  </div>
+
+  <div class="section-label">The tension at this stage of growth</div>
+
+  <div class="problem-strip">
+    <div class="problem-card">
+      <div class="p-icon">🌍</div>
+      <h4>Global business, fragmented view</h4>
+      <p>Revenue across regions, partners and brands — Joloda, Hydraroll, Actiw — all running slightly differently. Getting one coherent picture takes someone's morning.</p>
+    </div>
+    <div class="problem-card">
+      <div class="p-icon">📊</div>
+      <h4>BI tools that don't quite answer it</h4>
+      <p>You've invested in business intelligence. But the questions that matter to you as CEO still end up as a request to someone else, then a wait for the answer.</p>
+    </div>
+    <div class="problem-card">
+      <div class="p-icon">🔧</div>
+      <h4>Post-acquisition blind spots</h4>
+      <p>Actiw adds new product lines, new data, new complexity. Understanding the combined business clearly — not just on paper — is still a work in progress.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">What Milo does</div>
+
+  <div class="fix-flow">
+    <div class="fix-sources">
+      <div class="fix-source">ERP</div>
+      <div class="fix-source">CRM</div>
+      <div class="fix-source">Finance</div>
+      <div class="fix-source">Field data</div>
+    </div>
+    <div class="fix-arrow">→</div>
+    <div class="fix-milo">Milo</div>
+    <div class="fix-arrow">→</div>
+    <div class="fix-result">Plain English answers</div>
+  </div>
+
+  <p class="subtitle animate-target" style="opacity:0; transform:translateY(12px); margin-bottom: 28px;">
+    Milo connects to your existing systems and lets you — or anyone in the business — ask questions in plain English. No exports, no dashboards to rebuild, no analyst in the loop for routine questions.
+  </p>
+
+  <div class="section-label">What this looks like in practice</div>
+
+  <div class="chat-demo">
+    <div class="chat-exchange">
+      <div class="chat-q">How is revenue tracking across regions this quarter vs last year?</div>
+      <div class="chat-a">Group revenue is up 11% YoY. EMEA is strongest at +16%, driven by Actiw's container loading pipeline. APAC is up 7%. Americas is flat — two large projects pushed to Q2.</div>
+    </div>
+    <div class="chat-exchange">
+      <div class="chat-q">Where are we on the automated systems pipeline right now?</div>
+      <div class="chat-a">14 automated projects in the pipeline across both brands. 6 are at proposal stage. 3 have been in negotiation for 60+ days — DHL, a German 3PL, and a beverage manufacturer. Worth reviewing those.</div>
+    </div>
+    <div class="chat-exchange">
+      <div class="chat-q">How is the service and maintenance division performing vs installation?</div>
+      <div class="chat-a">Maintenance revenue is up 18% YoY and growing faster than installation for the first time. Recurring contract base has expanded following Actiw customers onboarding. Margin on maintenance is 8 points higher than install.</div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feat">
+      <div class="f-icon">🔌</div>
+      <h4>Connects to your stack</h4>
+      <p>ERP, CRM, finance systems — Milo works with what you have. No migration, no rebuild.</p>
+    </div>
+    <div class="feat">
+      <div class="f-icon">🌐</div>
+      <h4>One view of the whole business</h4>
+      <p>Joloda, Hydraroll, Actiw — cross-brand, cross-region answers without pulling three reports.</p>
+    </div>
+    <div class="feat">
+      <div class="f-icon">⚡</div>
+      <h4>Live in days</h4>
+      <p>Typical setup is under a week. You're not waiting months for a data warehouse project to finish.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h3>20 minutes whenever suits you.</h3>
+    <p>We'll show it live — real questions, real answers, relevant to how Joloda runs.</p>
+    <a href="https://milo.ai" target="_blank">milo.ai</a>
+  </div>
+
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  const selectors = [
+    '.animate-target', '.section-label', '.stat-bar',
+    '.problem-card', '.fix-flow', '.feat',
+    '.chat-exchange', '.cta'
+  ];
+
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.08}s`;
+      observer.observe(el);
+    });
+  });
+
+  const immediate = document.querySelectorAll('.animate-target, .stat-bar, .section-label, .problem-card');
+  immediate.forEach((el, i) => {
+    setTimeout(() => el.classList.add('anim'), 180 + (i * 100));
+  });
+});
+</script>
+
+</body>
+</html>

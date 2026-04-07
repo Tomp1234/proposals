@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × CAKE Entertainment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #1a1a18;
+  --bg-light: #222220;
+  --bg-card: #1f1f1c;
+  --accent: #c8922a;
+  --accent-dim: rgba(200, 146, 42, 0.15);
+  --text: #f0ebe0;
+  --text-dim: #a09b8e;
+  --text-muted: #6b6760;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 64px 48px 56px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 52px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.topbar-left {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topbar-right {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  line-height: 1.18;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+h1 .em { color: var(--accent); }
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Problem Cards */
+.problem-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.problem-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.05);
+  border-radius: 10px;
+  padding: 22px 20px;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.problem-card .p-icon { font-size: 1.3rem; margin-bottom: 10px; }
+
+.problem-card h4 {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.problem-card p {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.2;
+  margin: 36px 0;
+}
+
+/* Fix Flow */
+.fix-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fix-sources { display: flex; gap: 8px; }
+
+.fix-source {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 7px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+.fix-arrow { color: var(--accent); font-size: 1.2rem; flex-shrink: 0; }
+
+.fix-milo {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.14), rgba(200, 146, 42, 0.04));
+  border: 1px solid rgba(200, 146, 42, 0.28);
+  border-radius: 9px;
+  padding: 10px 24px;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.fix-result {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 7px;
+  padding: 8px 18px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.feat {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.05);
+  border-radius: 10px;
+  padding: 20px 18px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.feat .f-icon { font-size: 1.2rem; margin-bottom: 8px; }
+
+.feat h4 {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.feat p {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* Chat Demo */
+.chat-demo { margin-bottom: 36px; }
+
+.chat-exchange {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.chat-q {
+  background: #2a2a27;
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 10px 10px 10px 3px;
+  padding: 14px 16px;
+  font-size: 0.84rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.chat-q::before {
+  content: 'You ask';
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.chat-a {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.07), rgba(200, 146, 42, 0.02));
+  border: 1px solid rgba(200, 146, 42, 0.12);
+  border-radius: 10px 10px 3px 10px;
+  padding: 14px 16px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.chat-a::before {
+  content: 'Milo';
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 5px;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.07), rgba(200, 146, 42, 0.02));
+  border: 1px solid rgba(200, 146, 42, 0.18);
+  border-radius: 12px;
+  padding: 32px 28px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.cta h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.cta p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.cta .cta-link {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+/* Print */
+@media print {
+  body::before { display: none; }
+  .page { padding: 36px 28px; }
+  * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Responsive */
+@media (max-width: 680px) {
+  .page { padding: 40px 20px; }
+  .problem-strip, .features { grid-template-columns: 1fr; }
+  .chat-exchange { grid-template-columns: 1fr; }
+  .fix-flow { flex-direction: column; }
+  .fix-sources { flex-wrap: wrap; justify-content: center; }
+  .fix-arrow { transform: rotate(90deg); }
+  .topbar { flex-direction: column; gap: 6px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<section class="page">
+
+  <div class="topbar">
+    <div class="topbar-left">Milo × CAKE</div>
+    <div class="topbar-right">Prepared for Cat Seddon</div>
+  </div>
+
+  <h1 class="animate-target" style="opacity:0; transform:translateY(12px)">
+    COO and CFO.<br><span class="em">One person. Every question.</span>
+  </h1>
+
+  <p class="subtitle animate-target" style="opacity:0; transform:translateY(12px)">
+    When you're wearing both hats across production, distribution and finance, every answer takes longer than it should. Milo gives you a faster way to get to the numbers that matter.
+  </p>
+
+  <div class="section-label">The pattern we keep seeing</div>
+
+  <div class="problem-strip">
+    <div class="problem-card">
+      <div class="p-icon">🌍</div>
+      <h4>Revenue scattered everywhere</h4>
+      <p>Licensing deals, broadcast sales, streaming, co-productions. Revenue lives in different places, reported differently, reconciled manually.</p>
+    </div>
+    <div class="problem-card">
+      <div class="p-icon">📋</div>
+      <h4>Spreadsheets hold it together</h4>
+      <p>Production budgets, distribution forecasts, royalty tracking. It all works until someone asks a question that cuts across two of them.</p>
+    </div>
+    <div class="problem-card">
+      <div class="p-icon">⏳</div>
+      <h4>Every answer is a dig</h4>
+      <p>A simple question about title performance or territory revenue turns into 30 minutes of pulling files, checking tabs and rebuilding a view.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">What Milo does</div>
+
+  <div class="fix-flow">
+    <div class="fix-sources">
+      <div class="fix-source">Accounting</div>
+      <div class="fix-source">Distribution</div>
+      <div class="fix-source">Production</div>
+    </div>
+    <div class="fix-arrow">→</div>
+    <div class="fix-milo">Milo</div>
+    <div class="fix-arrow">→</div>
+    <div class="fix-result">Plain English answers</div>
+  </div>
+
+  <p class="subtitle animate-target" style="opacity:0; transform:translateY(12px); margin-bottom: 28px;">
+    Milo connects to your existing systems and lets anyone ask questions in plain English. No exports, no dashboards to build, no analyst in the loop.
+  </p>
+
+  <div class="features">
+    <div class="feat">
+      <div class="f-icon">🔌</div>
+      <h4>Plugs into your stack</h4>
+      <p>Accounting, CRM, spreadsheets, databases. Milo connects to what you already use. No migration needed.</p>
+    </div>
+    <div class="feat">
+      <div class="f-icon">💬</div>
+      <h4>Ask, don't build</h4>
+      <p>Type a question, get an answer. No pivot tables, no formulas, no waiting for someone to pull the data.</p>
+    </div>
+    <div class="feat">
+      <div class="f-icon">🔒</div>
+      <h4>Your data stays yours</h4>
+      <p>No company data leaves your environment. Secure, governed, auditable. Not a personal ChatGPT workaround.</p>
+    </div>
+  </div>
+
+  <div class="section-label">What it looks like in practice</div>
+
+  <div class="chat-demo">
+    <div class="chat-exchange">
+      <div class="chat-q">How are our top 5 titles performing on revenue vs forecast this quarter?</div>
+      <div class="chat-a">Pocoyo is 12% ahead of forecast, driven by strong LATAM streaming renewals. Pablo is on track. Angelo Rules is 8% behind, with two broadcast deals slipping into Q2.</div>
+    </div>
+    <div class="chat-exchange">
+      <div class="chat-q">What does our distribution revenue look like by territory this year vs last?</div>
+      <div class="chat-a">Total distribution revenue is up 6% YoY. EMEA is strongest at +14%, driven by new Jetpack catalogue titles. APAC is flat. North America is down 3%, mostly timing on renewals.</div>
+    </div>
+    <div class="chat-exchange">
+      <div class="chat-q">Where are we on production spend vs budget across active shows?</div>
+      <div class="chat-a">3 of 5 active productions are within 5% of budget. One co-production is 11% over due to post-production delays. Total overspend exposure is £82k if current pace holds.</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h3>20 minutes. We'll show you how it works.</h3>
+    <p>No prep needed. We'll walk through Milo with examples relevant to CAKE.</p>
+    <a href="https://milo.ai" class="cta-link" target="_blank">milo.ai</a>
+  </div>
+
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  const selectors = [
+    '.animate-target', '.problem-card', '.section-label',
+    '.fix-flow', '.feat', '.chat-exchange', '.cta'
+  ];
+
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.08}s`;
+      observer.observe(el);
+    });
+  });
+
+  const immediate = document.querySelectorAll('.animate-target, .problem-card, .section-label');
+  immediate.forEach((el, i) => {
+    setTimeout(() => el.classList.add('anim'), 180 + (i * 100));
+  });
+});
+</script>
+
+</body>
+</html>

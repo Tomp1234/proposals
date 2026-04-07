@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Flash Group — Solution Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0e0e16;
+  --bg-mid: #13131e;
+  --bg-card: #16161f;
+  --bg-elevated: #1e1e2a;
+  --accent: #b2fa00;
+  --accent-dim: rgba(178, 250, 0, 0.1);
+  --accent-border: rgba(178, 250, 0, 0.22);
+  --accent-glow: rgba(178, 250, 0, 0.06);
+  --purple: #7efa6e;
+  --purple-dim: rgba(126, 250, 110, 0.08);
+  --purple-border: rgba(126, 250, 110, 0.2);
+  --blue: #4772ff;
+  --blue-dim: rgba(71, 114, 255, 0.1);
+  --blue-border: rgba(71, 114, 255, 0.2);
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.08);
+  --green-border: rgba(52, 211, 153, 0.18);
+  --red-dim: rgba(239, 68, 68, 0.1);
+  --red: #f87171;
+  --text: #eeeef4;
+  --text-dim: #9898aa;
+  --text-muted: #5a5a72;
+  --border: rgba(255, 255, 255, 0.07);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'DM Mono', 'SF Mono', monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Layout */
+.page { max-width: 920px; margin: 0 auto; padding: 0 48px; }
+
+/* Section spacing */
+.section { padding: 72px 0; }
+.section + .section { border-top: 1px solid var(--border); }
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 48px;
+  max-width: 920px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.topbar-brand {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topbar-meta {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.topbar-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.topbar-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+/* Hero */
+.hero {
+  padding: 80px 0 64px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.eyebrow-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(178, 250, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.eyebrow-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 20px;
+  max-width: 720px;
+}
+
+h1 .em { color: var(--accent); }
+h1 .dim { color: var(--text-dim); font-weight: 500; }
+
+.hero-lead {
+  font-size: 1.08rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.75;
+  margin-bottom: 48px;
+}
+
+/* Flash stats */
+.flash-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.flash-stat {
+  background: var(--bg-card);
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.flash-stat .s-num {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.flash-stat .s-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* Section headings */
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.eyebrow-line {
+  width: 24px; height: 1px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+.eyebrow-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+h2 .em { color: var(--accent); }
+
+.section-lead {
+  font-size: 1rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+/* Problem cards */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 0;
+}
+
+.p-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 22px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.p-card .p-icon { font-size: 1.3rem; margin-bottom: 12px; }
+
+.p-card h4 {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.p-card p {
+  font-size: 0.83rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* How it works */
+.how-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.flow-node {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.flow-node.milo-node {
+  background: linear-gradient(135deg, rgba(178, 250, 0, 0.1), rgba(178, 250, 0, 0.03));
+  border-color: var(--accent-border);
+}
+
+.flow-node .node-icon { font-size: 1.3rem; margin-bottom: 6px; }
+
+.flow-node .node-label {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.flow-node.milo-node .node-label { color: var(--accent); font-size: 1.1rem; }
+
+.flow-node .node-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.flow-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flow-source {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 9px 16px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.flow-arrow {
+  color: var(--accent);
+  font-size: 1.4rem;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+/* Chat demo */
+.chat-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.chat-header {
+  padding: 12px 18px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-header-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.chat-header-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.chat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-row:last-child { border-bottom: none; }
+
+.chat-q-wrap, .chat-a-wrap {
+  padding: 18px 20px;
+}
+
+.chat-q-wrap {
+  border-right: 1px solid var(--border);
+}
+
+.chat-a-wrap {
+  background: var(--accent-glow);
+}
+
+.chat-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.chat-q-wrap .chat-label { color: var(--text-muted); }
+.chat-a-wrap .chat-label { color: var(--accent); }
+
+.chat-q-wrap p {
+  font-size: 0.84rem;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.chat-a-wrap p {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* Comparison section */
+.compare-wrap {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+  margin-bottom: 12px;
+}
+
+.compare-table thead tr {
+  background: var(--bg-elevated);
+}
+
+.compare-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-table th.milo-col { color: var(--accent); }
+.compare-table th.copilot-col { color: var(--text-dim); }
+
+.compare-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  vertical-align: top;
+}
+
+.compare-table td:first-child {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.compare-table .yes {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.compare-table .no {
+  color: var(--red);
+}
+
+.compare-table .partial {
+  color: #f59e0b;
+}
+
+.compare-table tr:last-child td { border-bottom: none; }
+
+.compare-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Pricing */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.price-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 20px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.price-card.featured {
+  border-color: var(--accent-border);
+  background: linear-gradient(135deg, rgba(178, 250, 0, 0.08), rgba(178, 250, 0, 0.02));
+}
+
+.price-card .pc-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.price-card.featured .pc-label { color: var(--accent); }
+
+.price-card .pc-price {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.price-card.featured .pc-price { color: var(--accent); }
+
+.price-card .pc-unit {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.price-card .pc-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.price-card .pc-features li {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  line-height: 1.4;
+}
+
+.price-card .pc-features li::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.price-card .pc-features li.no-feature::before {
+  content: '—';
+  color: var(--text-muted);
+}
+
+.pricing-footnote {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.pricing-footnote strong { color: var(--text-dim); }
+
+/* References */
+.ref-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.ref-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 18px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.ref-card.sa-card {
+  border-color: var(--accent-border);
+  background: linear-gradient(135deg, rgba(178, 250, 0, 0.06), transparent);
+}
+
+.ref-tag {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.ref-tag.igaming { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue-border); }
+.ref-tag.ecommerce { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+.ref-tag.saas { background: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); }
+.ref-tag.sa { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+
+.ref-card h4 {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.ref-card p {
+  font-size: 0.79rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* CTA */
+.cta-section {
+  padding: 72px 0;
+  border-top: 1px solid var(--border);
+}
+
+.cta-inner {
+  background: linear-gradient(135deg, rgba(178, 250, 0, 0.08), rgba(178, 250, 0, 0.02));
+  border: 1px solid var(--accent-border);
+  border-radius: 14px;
+  padding: 48px 40px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.cta-inner h2 {
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+
+.cta-inner p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.cta-facts {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.cta-fact {
+  text-align: center;
+}
+
+.cta-fact .cf-num {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.cta-fact .cf-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.cta-link {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  display: block;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+/* Print */
+@media print {
+  body::before { display: none; }
+  .page, .topbar { padding-left: 24px; padding-right: 24px; }
+  .section { padding: 40px 0; }
+  * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .topbar { padding: 20px 24px; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .page { padding: 0 24px; }
+  .flash-stats { grid-template-columns: 1fr 1fr; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .how-flow { grid-template-columns: 1fr; }
+  .flow-arrow { transform: rotate(90deg); text-align: center; }
+  .chat-row { grid-template-columns: 1fr; }
+  .chat-q-wrap { border-right: none; border-bottom: 1px solid var(--border); }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .ref-grid { grid-template-columns: 1fr 1fr; }
+  .cta-facts { gap: 20px; }
+}
+
+@media (max-width: 480px) {
+  .ref-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <img src="https://cdn.prod.website-files.com/642b08d9f919f4a6470dea8f/643d1ef7f1401943c7f25af6_logo-white.svg" alt="Flash" style="height:28px; opacity:0.9;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
+    <span style="display:none; font-weight:700; font-size:1rem; color:var(--text); letter-spacing:0.04em;">Flash Group</span>
+    <span style="color:var(--text-muted); margin: 0 10px; font-size:0.9rem;">×</span>
+    <span style="display:flex; align-items:center; gap:7px;">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+        <defs>
+          <linearGradient id="miloGrad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#5b6ef5"/>
+            <stop offset="100%" stop-color="#b44fff"/>
+          </linearGradient>
+        </defs>
+        <rect width="28" height="28" rx="7" fill="url(#miloGrad)"/>
+        <!-- Sparkle (upper-left) -->
+        <path d="M9.5 5.5 L10.4 8.1 L13 9 L10.4 9.9 L9.5 12.5 L8.6 9.9 L6 9 L8.6 8.1 Z" fill="white"/>
+        <!-- Small sparkle dot (upper area) -->
+        <circle cx="14.5" cy="6.5" r="1" fill="white" opacity="0.85"/>
+        <!-- Trend line with dots (lower-right area) -->
+        <polyline points="7,21 11,17.5 15,19.5 21,13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="21" cy="13" r="2" fill="white"/>
+        <circle cx="7" cy="21" r="1.3" fill="white" opacity="0.6"/>
+        <circle cx="11" cy="17.5" r="1.3" fill="white" opacity="0.6"/>
+        <circle cx="15" cy="19.5" r="1.3" fill="white" opacity="0.6"/>
+      </svg>
+      <span style="font-weight:700; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:#4772ff;">Milo</span>
+    </span>
+  </div>
+  <div class="topbar-meta">
+    <span class="topbar-tag">Solution Overview</span>
+    <span class="topbar-date">March 2026</span>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div class="page">
+<section class="hero">
+
+  <div class="hero-eyebrow animate-target" style="opacity:0; transform:translateY(10px)">
+    <div class="eyebrow-dot"></div>
+    <span class="eyebrow-text">Prepared for the Flash Analytics Team · Pepkor Group</span>
+  </div>
+
+  <h1 class="animate-target" style="opacity:0; transform:translateY(12px)">
+    Flash is becoming a bank.<br>
+    <span class="em">The questions you need to answer</span><br>
+    <span class="dim">are about to get much harder.</span>
+  </h1>
+
+  <p class="hero-lead animate-target" style="opacity:0; transform:translateY(12px)">
+    Prudential Authority approval secured. Banking products launching now. Flash is about to need to understand 25 million customers at a depth — credit behaviour, product uptake, regional risk — that airtime and voucher analytics never demanded. Your analytics team is at the centre of that expansion. Milo is built for exactly this moment.
+  </p>
+
+  <div class="flash-stats">
+    <div class="flash-stat">
+      <span class="s-num">25M+</span>
+      <span class="s-label">cash-based customers served</span>
+    </div>
+    <div class="flash-stat">
+      <span class="s-num">20+</span>
+      <span class="s-label">years of transaction data</span>
+    </div>
+    <div class="flash-stat">
+      <span class="s-num">~$467M</span>
+      <span class="s-label">annual revenue (Pepkor Group)</span>
+    </div>
+    <div class="flash-stat">
+      <span class="s-num">1,000+</span>
+      <span class="s-label">employees across the network</span>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ THE PROBLEM ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">The real problem</span>
+  </div>
+
+  <h2>Your analysts are brilliant.<br><span class="em">Free up their time.</span></h2>
+
+  <p class="section-lead">
+    Flash is scaling faster than any dashboard can keep up with. You have Oracle Analytics and Salesforce CRM Analytics — but every cross-source question from ops, product or exec still lands in your team's queue. As Flash moves into banking, that queue gets longer. Milo sits on top of what you've already built and lets business users self-serve — so your team focuses on the analysis that actually needs them.
+  </p>
+
+  <div class="problem-grid">
+    <div class="p-card">
+      <div class="p-icon">📥</div>
+      <h4>The analyst queue never empties</h4>
+      <p>Ops wants to know why volumes dropped in a region. Finance wants a merchant breakdown. Exec needs a number before a board meeting. All of it lands on the same team. Milo lets business users ask directly — your analysts focus on work that actually needs them.</p>
+    </div>
+    <div class="p-card">
+      <div class="p-icon">🔀</div>
+      <h4>Cross-source questions are a manual job</h4>
+      <p>A question that cuts across transaction data, CRM and product mix requires pulling from multiple systems and stitching it together. Milo connects all of it and answers in one response, in seconds.</p>
+    </div>
+    <div class="p-card">
+      <div class="p-icon">⚡</div>
+      <h4>Transaction anomalies need instant context</h4>
+      <p>When volume spikes or drops on the network, the question isn't just "what happened" — it's "which product, which region, which merchant tier, and why." Getting that answer currently takes hours.</p>
+    </div>
+    <div class="p-card">
+      <div class="p-icon">🏦</div>
+      <h4>Banking demands a new depth of customer insight</h4>
+      <p>Airtime analytics tells you what customers buy. Banking requires you to understand how they behave, their risk profile, their credit readiness — across 25 million people, in real time. That's a different question entirely, and it starts now.</p>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ WHAT MILO IS ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">How Milo works</span>
+  </div>
+
+  <h2>A natural language query layer.<br><span class="em">On top of your existing data.</span></h2>
+
+  <p class="section-lead">
+    Milo isn't a replacement for Oracle Analytics or your data warehouse — it's a conversational interface that sits on top of everything you've already built. Your infrastructure stays as it is. What changes is who can ask questions, and how fast they get answers.
+  </p>
+
+  <div class="how-flow">
+    <div class="flow-sources">
+      <div class="flow-source">Transaction DB (SQL)</div>
+      <div class="flow-source">Salesforce CRM Analytics</div>
+      <div class="flow-source">Oracle Analytics</div>
+      <div class="flow-source">Merchant data</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node milo-node">
+      <div class="node-icon">🤖</div>
+      <div class="node-label">Milo</div>
+      <div class="node-sub">Secure, isolated instance</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="node-icon">💬</div>
+      <div class="node-label">Plain English answer</div>
+      <div class="node-sub">Anyone. Instantly.</div>
+    </div>
+  </div>
+
+  <div class="chat-block">
+    <div class="chat-header">
+      <div class="chat-header-dot"></div>
+      <span class="chat-header-label">Example queries — Flash transaction environment</span>
+    </div>
+    <div class="chat-row">
+      <div class="chat-q-wrap">
+        <div class="chat-label">Business user asks</div>
+        <p>Why did airtime top-up volumes drop 18% in Gauteng last Tuesday?</p>
+      </div>
+      <div class="chat-a-wrap">
+        <div class="chat-label">Milo answers</div>
+        <p>Volume dropped across 340 merchants between 14:00 and 19:00. The drop correlates with a Vodacom network outage in that window — MTN top-ups in the same region were up 22% during the same period. No platform-side issue detected.</p>
+      </div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-q-wrap">
+        <div class="chat-label">Business user asks</div>
+        <p>Which merchant tier is driving the most electricity voucher revenue this month, and how does that compare to last quarter?</p>
+      </div>
+      <div class="chat-a-wrap">
+        <div class="chat-label">Milo answers</div>
+        <p>Tier 2 merchants account for 48% of electricity voucher revenue this month, up from 39% last quarter. Tier 1 has dropped 6 points, driven by 3 large merchants reducing order frequency. Worth reviewing their account activity.</p>
+      </div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-q-wrap">
+        <div class="chat-label">Business user asks</div>
+        <p>How is our DStv voucher product performing vs prepaid data across the Western Cape this quarter?</p>
+      </div>
+      <div class="chat-a-wrap">
+        <div class="chat-label">Milo answers</div>
+        <p>Prepaid data is outperforming DStv vouchers by 2.3x in the Western Cape, reversing the trend from Q3 last year. DStv volumes are flat but margins are higher. Prepaid data growth is concentrated in Cape Flats and Stellenbosch corridors.</p>
+      </div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-q-wrap">
+        <div class="chat-label">Banking readiness query</div>
+        <p>Which customer segments show the most consistent transaction behaviour that would support a credit product?</p>
+      </div>
+      <div class="chat-a-wrap">
+        <div class="chat-label">Milo answers</div>
+        <p>3.2M customers show 8+ transactions/month with 12+ months of consistent history. Highest concentration in Gauteng and KZN. Electricity and prepaid data buyers are most regular — strong proxy for income stability. This segment is 4x more active than the median user.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ MILO VS COPILOT ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">Milo vs Microsoft Copilot</span>
+  </div>
+
+  <h2>You mentioned Copilot.<br><span class="em">Here's the honest comparison.</span></h2>
+
+  <p class="section-lead">
+    Microsoft Copilot is a powerful tool — for Microsoft 365 data. Documents, emails, Teams threads, SharePoint. It cannot query your transaction database, your SQL tables, or your CRM analytics data. Your analytics team already knows this. The question is what you tell leadership when they ask why Copilot isn't solving the problem. Milo is the answer.
+  </p>
+
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:38%">Capability</th>
+          <th class="milo-col" style="width:22%">Milo</th>
+          <th class="copilot-col" style="width:22%">Microsoft Copilot</th>
+          <th style="width:18%">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Queries live SQL / transaction databases</td>
+          <td class="yes">✓ Yes</td>
+          <td class="no">✗ No</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)">Core gap for Flash</td>
+        </tr>
+        <tr>
+          <td>Connects to Salesforce CRM Analytics</td>
+          <td class="yes">✓ Yes</td>
+          <td class="no">✗ No</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)"></td>
+        </tr>
+        <tr>
+          <td>Works across multiple data sources in one query</td>
+          <td class="yes">✓ Yes</td>
+          <td class="no">✗ No</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)">Copilot is per-app</td>
+        </tr>
+        <tr>
+          <td>Your data never sent to external model</td>
+          <td class="yes">✓ Yes</td>
+          <td class="partial">⚠ Partial</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)">Depends on tenant config</td>
+        </tr>
+        <tr>
+          <td>Isolated, dedicated instance per customer</td>
+          <td class="yes">✓ Yes</td>
+          <td class="no">✗ No</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)">Shared model</td>
+        </tr>
+        <tr>
+          <td>No per-seat licence required</td>
+          <td class="yes">✓ Yes</td>
+          <td class="no">✗ No</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)">Copilot ~£30/user/mo</td>
+        </tr>
+        <tr>
+          <td>Full audit trail on every query</td>
+          <td class="yes">✓ Yes</td>
+          <td class="partial">⚠ Partial</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)"></td>
+        </tr>
+        <tr>
+          <td>Works on Microsoft 365 content (docs, email)</td>
+          <td class="partial">⚠ Partial</td>
+          <td class="yes">✓ Yes</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)">Copilot wins here</td>
+        </tr>
+        <tr>
+          <td>Ready to use within days</td>
+          <td class="yes">✓ Yes</td>
+          <td class="yes">✓ Yes</td>
+          <td style="font-size:0.75rem; color:var(--text-muted)"></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="compare-note">Based on default enterprise configurations as of March 2026. Copilot M365 does not natively support direct SQL or external database queries without custom plugin development.</p>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ PRICING ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">Pricing</span>
+  </div>
+
+  <h2>Transparent pricing.<br><span class="em">No per-seat surprises.</span></h2>
+
+  <p class="section-lead">
+    Milo is priced as a flat monthly licence — not per user. The whole Flash analytics team and the business users they support are covered under one cost. Compare that to per-seat models that scale against you as adoption grows.
+  </p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="pc-label">Microsoft Copilot</div>
+      <div class="pc-price">~£30</div>
+      <div class="pc-unit">per user / month</div>
+      <ul class="pc-features">
+        <li>Works on M365 docs and email</li>
+        <li>Teams and SharePoint integration</li>
+        <li class="no-feature">Cannot query transaction databases</li>
+        <li class="no-feature">Cannot query Salesforce CRM Analytics directly</li>
+        <li class="no-feature">Requires E3/E5 licence to activate</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <div class="pc-label">Milo</div>
+      <div class="pc-price">$2,000</div>
+      <div class="pc-unit">per month (~R37,000) · unlimited users · whole organisation</div>
+      <ul class="pc-features">
+        <li>Connects to your transaction DB, SQL, CRM, analytics tools</li>
+        <li>Dedicated, isolated instance — your data stays yours</li>
+        <li>No per-seat cost — scale adoption freely</li>
+        <li>Full audit trail and role-based access</li>
+        <li>Live within days of data connection</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="pc-label">In-house analyst capacity</div>
+      <div class="pc-price">£70k+</div>
+      <div class="pc-unit">per analyst / year (fully loaded)</div>
+      <ul class="pc-features">
+        <li>Deep analytical expertise</li>
+        <li>Complex modelling and strategy</li>
+        <li class="no-feature">Not scalable for ad-hoc volume</li>
+        <li class="no-feature">Creates a bottleneck for business users</li>
+        <li class="no-feature">Highest-value time spent on lowest-value requests</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pricing-footnote">
+    <strong>The right framing:</strong> Milo at $2,000/month (~R37,000) doesn't replace your analysts — it frees them from the routine request queue so they can focus on work that actually needs them. As Flash moves into banking, that distinction matters more, not less. The ROI is analyst capacity redirected to the work that's genuinely complex.
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ REFERENCES ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">Live deployments</span>
+  </div>
+
+  <h2>High-transaction environments.<br><span class="em">Already live.</span></h2>
+
+  <p class="section-lead">
+    Milo is deployed across businesses where data volume, transaction complexity and real-time insight matter. A selection of live customers in relevant industries — including two with specific relevance to the South African market.
+  </p>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <span class="ref-tag igaming">iGaming</span>
+      <h4>BetGames</h4>
+      <p>Live dealer gaming platform operating across multiple markets. Real-time betting transaction data, player behaviour and revenue tracking across regions. Milo in active daily use across the business.</p>
+    </div>
+    <div class="ref-card">
+      <span class="ref-tag igaming">Lottery</span>
+      <h4>loto.lt</h4>
+      <p>Lithuanian national lottery operator. Extremely high transaction frequency, real-time draw data and ticket sales across channels. One of the highest-volume transactional environments in Milo's customer base.</p>
+    </div>
+    <div class="ref-card">
+      <span class="ref-tag igaming">iGaming</span>
+      <h4>Intelligent Gaming</h4>
+      <p>iGaming platform with complex multi-market data. Player acquisition, retention and revenue analytics across jurisdictions — the kind of cross-source, high-frequency questions Milo handles at scale.</p>
+    </div>
+    <div class="ref-card">
+      <span class="ref-tag ecommerce">eCommerce</span>
+      <h4>Pulsetto</h4>
+      <p>Health technology brand operating across UK, EU and Baltic markets. Multi-market ecommerce and subscription transaction data, customer lifecycle analytics, and cross-region performance reporting.</p>
+    </div>
+    <div class="ref-card">
+      <span class="ref-tag ecommerce">eCommerce</span>
+      <h4>Orbio</h4>
+      <p>Online retail brand builder managing data across multiple brands and storefronts. Complex multi-channel transaction data and performance analytics across a growing portfolio of DTC brands.</p>
+    </div>
+    <div class="ref-card">
+      <span class="ref-tag saas">SaaS</span>
+      <h4>Coolr</h4>
+      <p>Social media and brand platform with multi-client data complexity. Operational reporting, client performance and commercial analytics — Milo deployed as their primary business intelligence layer.</p>
+    </div>
+  </div>
+
+  <!-- References note -->
+  <div class="ref-card" style="grid-column: 1 / -1; background: var(--bg-elevated); border-style: dashed; display: flex; align-items: center; gap: 16px; padding: 22px 24px; border-radius: 10px; border: 1px dashed var(--border); margin-top: 0;">
+    <span style="font-size: 1.4rem; flex-shrink:0;">🤝</span>
+    <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; margin: 0;"><strong style="color:var(--text-dim)">References available on request.</strong> Customer conversations can be arranged across iGaming, fintech and high-volume ecommerce. All of the above operate in regulated, data-sensitive environments comparable to Flash's.</p>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ CTA ═══ -->
+<div class="page">
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>The timing is right. Let's show you live.</h2>
+    <p>As Flash moves into banking, the questions your team needs to answer are changing. We'd suggest a focused session — real queries against a connected environment, not a slide deck. We can be ready quickly.</p>
+
+    <div class="cta-facts">
+      <div class="cta-fact">
+        <span class="cf-num">~1 week</span>
+        <span class="cf-label">to connect data sources</span>
+      </div>
+      <div class="cta-fact">
+        <span class="cf-num">$2,000</span>
+        <span class="cf-label">per month (~R37k), all users</span>
+      </div>
+      <div class="cta-fact">
+        <span class="cf-num">No migration</span>
+        <span class="cf-label">your stack stays as-is</span>
+      </div>
+      <div class="cta-fact">
+        <span class="cf-num">Isolated</span>
+        <span class="cf-label">your data never leaves</span>
+      </div>
+    </div>
+
+    <a href="https://milo.ai" class="cta-link" target="_blank">milo.ai</a>
+  </div>
+</section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const selectors = [
+    '.animate-target', '.flash-stats', '.section-eyebrow',
+    '.p-card', '.how-flow', '.compare-wrap',
+    '.price-card', '.ref-card', '.cta-inner'
+  ];
+
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.07}s`;
+      observer.observe(el);
+    });
+  });
+
+  // Immediate load animations
+  const immediate = document.querySelectorAll('.animate-target, .flash-stats');
+  immediate.forEach((el, i) => {
+    setTimeout(() => el.classList.add('anim'), 200 + (i * 120));
+  });
+});
+</script>
+
+</body>
+</html>

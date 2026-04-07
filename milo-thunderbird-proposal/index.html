@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Thunderbird</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #1a1a18;
+  --bg-light: #222220;
+  --bg-card: #1f1f1c;
+  --accent: #c8922a;
+  --accent-dim: rgba(200, 146, 42, 0.15);
+  --text: #f0ebe0;
+  --text-dim: #a09b8e;
+  --text-muted: #6b6760;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 64px 48px 56px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 52px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.topbar-left {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topbar-right {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  line-height: 1.18;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+h1 .em { color: var(--accent); }
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* ── Insight Strip ────────────────────────────── */
+.insight-strip {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.07), rgba(200, 146, 42, 0.02));
+  border: 1px solid rgba(200, 146, 42, 0.16);
+  border-radius: 12px;
+  padding: 28px 28px;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.insight-strip p {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+.insight-strip p:last-child { margin-bottom: 0; }
+
+.insight-strip strong { color: var(--text); font-weight: 600; }
+
+.insight-strip .highlight {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1.5;
+}
+
+/* ── Problem Cards ────────────────────────────── */
+.problem-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.problem-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.05);
+  border-radius: 10px;
+  padding: 22px 20px;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.problem-card .p-icon { font-size: 1.3rem; margin-bottom: 10px; }
+
+.problem-card h4 {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.problem-card p {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.2;
+  margin: 36px 0;
+}
+
+/* ── Fix Flow ─────────────────────────────────── */
+.fix-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fix-sources { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+.fix-source {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 7px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+.fix-arrow { color: var(--accent); font-size: 1.2rem; flex-shrink: 0; }
+
+.fix-milo {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.14), rgba(200, 146, 42, 0.04));
+  border: 1px solid rgba(200, 146, 42, 0.28);
+  border-radius: 9px;
+  padding: 10px 24px;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.fix-result {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 7px;
+  padding: 8px 18px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+/* ── Features ─────────────────────────────────── */
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.feat {
+  background: var(--bg-card);
+  border: 1px solid rgba(240, 235, 224, 0.05);
+  border-radius: 10px;
+  padding: 20px 18px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.feat .f-icon { font-size: 1.2rem; margin-bottom: 8px; }
+
+.feat h4 {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.feat p {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* ── Chat Demo ────────────────────────────────── */
+.chat-demo { margin-bottom: 36px; }
+
+.chat-exchange {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.chat-q {
+  background: #2a2a27;
+  border: 1px solid rgba(240, 235, 224, 0.07);
+  border-radius: 10px 10px 10px 3px;
+  padding: 14px 16px;
+  font-size: 0.84rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.chat-q::before {
+  content: 'You ask';
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.chat-a {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.07), rgba(200, 146, 42, 0.02));
+  border: 1px solid rgba(200, 146, 42, 0.12);
+  border-radius: 10px 10px 3px 10px;
+  padding: 14px 16px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.chat-a::before {
+  content: 'Milo';
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 5px;
+}
+
+/* ── CTA ──────────────────────────────────────── */
+.cta {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.07), rgba(200, 146, 42, 0.02));
+  border: 1px solid rgba(200, 146, 42, 0.18);
+  border-radius: 12px;
+  padding: 32px 28px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.cta h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.cta p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.cta .cta-link {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+/* ── Animations ───────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+/* ── Print ────────────────────────────────────── */
+@media print {
+  body::before { display: none; }
+  .page { padding: 36px 28px; }
+  * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 680px) {
+  .page { padding: 40px 20px; }
+  .problem-strip, .features { grid-template-columns: 1fr; }
+  .chat-exchange { grid-template-columns: 1fr; }
+  .fix-flow { flex-direction: column; }
+  .fix-sources { flex-wrap: wrap; justify-content: center; }
+  .fix-arrow { transform: rotate(90deg); }
+  .topbar { flex-direction: column; gap: 6px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<section class="page">
+
+  <div class="topbar">
+    <div class="topbar-left">Milo × Thunderbird</div>
+    <div class="topbar-right">Prepared for Chris Nunn</div>
+  </div>
+
+  <h1 class="animate-target" style="opacity:0; transform:translateY(12px)">
+    You're building for 20 venues.<br><span class="em">Your data setup is still built for 2.</span>
+  </h1>
+
+  <p class="subtitle animate-target" style="opacity:0; transform:translateY(12px)">
+    Spreadsheets from Xero work fine when you're small. But every QSR brand we speak to in expansion mode hits the same wall — the reporting that got you here won't get you there.
+  </p>
+
+  <div class="insight-strip">
+    <p class="highlight">The brands that scale well aren't the ones with the best data teams. They're the ones where everyone can get answers without waiting.</p>
+    <p>We're working with a London-based multi-site operator right now going through the same expansion. Same stack — POS, Harri, Xero. They started with Milo at 5 venues specifically so they wouldn't have to rebuild everything at 15.</p>
+  </div>
+
+  <div class="section-label">Where it gets painful as you grow</div>
+
+  <div class="problem-strip">
+    <div class="problem-card">
+      <div class="p-icon">📊</div>
+      <h4>Xero spreadsheets don't scale</h4>
+      <p>Manual exports, manual formatting, manual cross-referencing. Fine at 5 venues. Fragile at 10. Broken at 20.</p>
+    </div>
+    <div class="problem-card">
+      <div class="p-icon">🤷</div>
+      <h4>Marketing is flying blind</h4>
+      <p>Meta, TikTok, campaigns running across venues — but connecting spend to actual revenue per location means asking someone to build a spreadsheet.</p>
+    </div>
+    <div class="problem-card">
+      <div class="p-icon">⏳</div>
+      <h4>Every answer needs a person</h4>
+      <p>When ops, marketing or leadership need a number, someone has to stop what they're doing and pull it. That's a tax on growth.</p>
+    </div>
+    <div class="problem-card">
+      <div class="p-icon">🔌</div>
+      <h4>Systems that don't talk</h4>
+      <p>WRS POS, Harri, Xero, Meta, TikTok — each one has data you need. None of them are connected. Milo changes that.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">How Milo works</div>
+
+  <div class="fix-flow">
+    <div class="fix-sources">
+      <div class="fix-source">WRS POS</div>
+      <div class="fix-source">Harri</div>
+      <div class="fix-source">Xero</div>
+      <div class="fix-source">Meta</div>
+      <div class="fix-source">TikTok</div>
+    </div>
+    <div class="fix-arrow">→</div>
+    <div class="fix-milo">Milo</div>
+    <div class="fix-arrow">→</div>
+    <div class="fix-result">Plain English answers</div>
+  </div>
+
+  <p class="subtitle animate-target" style="opacity:0; transform:translateY(12px); margin-bottom: 28px;">
+    Milo connects directly to your tools — POS, HR, finance, marketing. Anyone on the team can ask a question and get an answer. No exports. No waiting. Marketing channels like Meta and TikTok are plug-and-play.
+  </p>
+
+  <div class="features">
+    <div class="feat">
+      <div class="f-icon">🚀</div>
+      <h4>Built for expansion</h4>
+      <p>Add a venue, Milo sees it automatically. No rebuilding reports every time you open a new site.</p>
+    </div>
+    <div class="feat">
+      <div class="f-icon">📣</div>
+      <h4>Marketing gets answers</h4>
+      <p>Connect Meta and TikTok spend to actual venue revenue. No spreadsheet gymnastics required.</p>
+    </div>
+    <div class="feat">
+      <div class="f-icon">⚡</div>
+      <h4>Plug and play</h4>
+      <p>Xero, Harri, WRS, Meta, TikTok — Milo integrates in days, not months. No IT team needed.</p>
+    </div>
+  </div>
+
+  <div class="section-label">What it looks like in practice</div>
+
+  <div class="chat-demo">
+    <div class="chat-exchange">
+      <div class="chat-q">How did our TikTok campaign perform vs Meta across venues last month?</div>
+      <div class="chat-a">TikTok drove 34% more first-time orders than Meta across all venues. Clapham Junction and Stratford saw the biggest uplift. Cost per acquisition was £2.40 lower on TikTok — worth shifting more budget there.</div>
+    </div>
+    <div class="chat-exchange">
+      <div class="chat-q">What's labour cost as a percentage of revenue at each venue this week?</div>
+      <div class="chat-a">Group average is 28.3%. Canary Wharf is lowest at 24.1% — high footfall, efficient scheduling. Wimbledon is at 33.6% — Harri shows 12 extra hours rostered vs covers. Worth reviewing with the GM.</div>
+    </div>
+    <div class="chat-exchange">
+      <div class="chat-q">How's revenue tracking across venues vs last year?</div>
+      <div class="chat-a">Group revenue is up 18% YoY. Charing Cross is strongest at +26%. The O2 is flat — event calendar was lighter this month. Clapham is up 14% and climbing week on week.</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h3>30 minutes. We'll show you what this looks like with your data.</h3>
+    <p>No setup required — we'll walk through real examples relevant to Thunderbird.</p>
+    <a href="https://milo.ai" class="cta-link" target="_blank">milo.ai</a>
+  </div>
+
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  const selectors = [
+    '.animate-target', '.insight-strip', '.problem-card', '.section-label',
+    '.fix-flow', '.feat', '.chat-exchange', '.cta'
+  ];
+
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.08}s`;
+      observer.observe(el);
+    });
+  });
+
+  const immediate = document.querySelectorAll('.animate-target, .insight-strip, .problem-card, .section-label');
+  immediate.forEach((el, i) => {
+    setTimeout(() => el.classList.add('anim'), 180 + (i * 100));
+  });
+});
+</script>
+
+</body>
+</html>

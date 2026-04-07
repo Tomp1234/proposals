@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Portland Brown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0B0F1E;
+  --accent: #4B7BFF;
+  --accent-dim: rgba(75, 123, 255, 0.12);
+  --accent-border: rgba(75, 123, 255, 0.3);
+  --accent-glow: rgba(75, 123, 255, 0.08);
+  --purple: #8B5CF6;
+  --purple-dim: rgba(139, 92, 246, 0.1);
+  --purple-border: rgba(139, 92, 246, 0.25);
+  --green: #34d399;
+  --red: #f87171;
+  --text: #F0F4FF;
+  --text-dim: #94A3C0;
+  --text-muted: #5A6A85;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout */
+.page { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+
+/* Section spacing */
+.section { padding: 64px 0; border-top: 1px solid var(--glass-border); }
+
+/* ── HERO ── */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 48px 0 56px;
+}
+
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.1s forwards;
+}
+
+.hero-brand span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero-brand .brand-sep {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.hero-brand .brand-milo {
+  color: var(--accent);
+}
+
+h1 {
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.12;
+  color: var(--text);
+  margin-bottom: 20px;
+  max-width: 660px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.2s forwards;
+}
+
+h1 .em { color: var(--accent); }
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 580px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.35s forwards;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 14px 36px;
+  border-radius: 8px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.5s forwards;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(75, 123, 255, 0.3);
+}
+
+/* ── SECTION HEADINGS ── */
+h2 {
+  font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+h2 .em { color: var(--accent); }
+
+.section-sub {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  max-width: 560px;
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+/* ── PAIN POINTS ── */
+.pain-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pain-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.pain-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pain-card h3 {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.pain-card p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* ── CHAT DEMO ── */
+.chat-block {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--glass-border);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.chat-bubbles {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bubble {
+  max-width: 88%;
+  padding: 16px 18px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.bubble-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bubble.question {
+  align-self: flex-end;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+}
+
+.bubble.question .bubble-label { color: var(--text-muted); }
+.bubble.question p { color: var(--text); font-weight: 500; }
+
+.bubble.answer {
+  align-self: flex-start;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.bubble.answer .bubble-label { color: var(--accent); }
+.bubble.answer p { color: var(--text-dim); }
+
+/* ── STACK PILLS ── */
+.stack-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stack-pill {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.stack-pill .check {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.stack-pill strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── MINI COMPARE TABLE ── */
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.mini-table th {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.mini-table th.milo-col { color: var(--accent); }
+
+.mini-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--text-dim);
+}
+
+.mini-table tr:last-child td { border-bottom: none; }
+
+.mini-table td:first-child {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.mini-table .yes { color: var(--green); font-weight: 600; }
+.mini-table .no { color: var(--red); font-weight: 500; }
+
+.table-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── QUOTE ── */
+.quote-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 36px 32px;
+  text-align: center;
+}
+
+.quote-card blockquote {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.quote-card cite {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ── PRICING + FINAL CTA ── */
+.final-section {
+  padding: 64px 0 80px;
+  border-top: 1px solid var(--glass-border);
+  text-align: center;
+}
+
+.final-section h2 {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.stat-pills {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.stat-pill {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.stat-pill strong {
+  display: block;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.82rem;
+  margin-bottom: 2px;
+}
+
+.final-contact {
+  margin-top: 20px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.final-contact a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim-target {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ── PRINT ── */
+@media print {
+  * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .page { padding: 0 20px; }
+  .hero { padding: 36px 0 40px; }
+  .pain-card { flex-direction: column; gap: 8px; }
+  .stat-pills { flex-direction: column; align-items: center; }
+  .stat-pill { width: 100%; }
+  .bubble { max-width: 95%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SECTION 1 — HERO ═══ -->
+<div class="page">
+<section class="hero">
+
+  <div class="hero-brand">
+    <span>Portland Brown</span>
+    <span class="brand-sep">&times;</span>
+    <span class="brand-milo">Milo</span>
+  </div>
+
+  <h1>
+    500 apartments. 5 cities.<br>
+    <span class="em">How long does it take to know which ones are underperforming &mdash; and why?</span>
+  </h1>
+
+  <p class="hero-sub">
+    Portland Brown's corporate clients expect instant answers. But when occupancy drops in Bristol or a key account is at risk of churning, that answer still requires someone to pull it together manually.
+  </p>
+
+  <a href="https://calendly.com/tom-milo" class="cta-btn">Book 15 minutes</a>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 2 — THE PROBLEM ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="pain-grid">
+    <div class="pain-card anim-target">
+      <div class="pain-icon">&#127970;</div>
+      <div>
+        <h3>Occupancy across 5 cities &mdash; no single view</h3>
+        <p>London, Bristol, New York, Paris and global partners all generate data. Knowing which properties are underperforming this week, and why, still requires someone to manually pull it together.</p>
+      </div>
+    </div>
+    <div class="pain-card anim-target">
+      <div class="pain-icon">&#128203;</div>
+      <div>
+        <h3>Corporate client reporting is a manual exercise</h3>
+        <p>Your bank and law firm clients want to know how their people's stays are performing. Building that view across bookings, Zendesk interactions and financials takes time you don't have.</p>
+      </div>
+    </div>
+    <div class="pain-card anim-target">
+      <div class="pain-icon">&#128274;</div>
+      <div>
+        <h3>Your team is using ChatGPT with client and financial data</h3>
+        <p>With no engineering team, your ops staff find their own shortcuts. Occupancy figures, client names, revenue data &mdash; it's going into personal AI accounts for quick analysis. Zero visibility on what's leaving the business.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 3 — ONE EXAMPLE QUERY ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="chat-block anim-target">
+    <div class="chat-header">Example &mdash; Portland Brown operational environment</div>
+    <div class="chat-bubbles">
+      <div class="bubble question">
+        <div class="bubble-label">&#128100; COO asks</div>
+        <p>Which properties had the lowest occupancy last month and what's driving it?</p>
+      </div>
+      <div class="bubble answer">
+        <div class="bubble-label">
+          <svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" rx="7" fill="#4B7BFF"/>
+            <path d="M9.5 5.5 L10.4 8.1 L13 9 L10.4 9.9 L9.5 12.5 L8.6 9.9 L6 9 L8.6 8.1 Z" fill="white"/>
+            <polyline points="7,21 11,17.5 15,19.5 21,13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="21" cy="13" r="2" fill="white"/>
+          </svg>
+          Milo answers
+        </div>
+        <p>Three Bristol properties averaged 61% occupancy in February vs 84% portfolio average. Two have had repeat maintenance requests in the last 30 days &mdash; both flagged in Zendesk but not yet resolved. The third had a corporate client (financial services, 4-unit block booking) complete their secondment with no renewal confirmed. Recommend proactive outreach this week.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 4 — WORKS WITH YOUR STACK ═══ -->
+<div class="page">
+<section class="section">
+
+  <h2>Connects to the tools <span class="em">you already use</span></h2>
+  <p class="section-sub">No migration. No engineering resource. Live within a week.</p>
+
+  <div class="stack-pills">
+    <div class="stack-pill anim-target">
+      <span class="check">&#10003;</span>
+      <span><strong>Zendesk</strong> &mdash; support and client interaction data</span>
+    </div>
+    <div class="stack-pill anim-target">
+      <span class="check">&#10003;</span>
+      <span><strong>Microsoft 365</strong> &mdash; operational and financial data</span>
+    </div>
+    <div class="stack-pill anim-target">
+      <span class="check">&#10003;</span>
+      <span><strong>Circle</strong> &mdash; financial and revenue data</span>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 5 — WHY NOT REPORTS ═══ -->
+<div class="page">
+<section class="section">
+
+  <h2>You have reports.<br><span class="em">You're still waiting for answers.</span></h2>
+
+  <div class="anim-target" style="margin-top: 32px;">
+    <table class="mini-table">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th class="milo-col">Milo</th>
+          <th>Reports / Spreadsheets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Answers "why" not just "what"</td>
+          <td class="yes">&#10003;</td>
+          <td class="no">&#10007;</td>
+        </tr>
+        <tr>
+          <td>Cross-source queries in one question</td>
+          <td class="yes">&#10003;</td>
+          <td class="no">&#10007;</td>
+        </tr>
+        <tr>
+          <td>No engineering team needed</td>
+          <td class="yes">&#10003;</td>
+          <td class="no">&#10007;</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-note">Milo handles the questions your reports can't answer &mdash; without a single engineer.</p>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 6 — QUOTE ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="quote-card anim-target">
+    <blockquote>&ldquo;Being able to answer questions live in management meetings instead of waiting a week for an analyst.&rdquo;</blockquote>
+    <cite>&mdash; Greta, Perlas</cite>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 7 — PRICING + CTA ═══ -->
+<div class="page">
+<section class="final-section">
+
+  <h2>&pound;1,490/month. Unlimited users.<br><span class="em">Live within a week.</span></h2>
+
+  <div class="stat-pills">
+    <div class="stat-pill anim-target">
+      <strong>Unlimited users</strong>
+      Whole organisation
+    </div>
+    <div class="stat-pill anim-target">
+      <strong>~1 week</strong>
+      To connect
+    </div>
+    <div class="stat-pill anim-target">
+      <strong>Isolated instance</strong>
+      Your data stays yours
+    </div>
+    <div class="stat-pill anim-target">
+      <strong>No engineering resource needed</strong>
+      We handle setup
+    </div>
+  </div>
+
+  <a href="https://calendly.com/tom-milo" class="cta-btn" style="animation-delay: 0s; opacity: 1;">Book 15 minutes</a>
+
+  <p class="final-contact">tom@usemilo.ai &middot; <a href="https://usemilo.ai">usemilo.ai</a></p>
+
+</section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.anim-target').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.06}s`;
+    observer.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>

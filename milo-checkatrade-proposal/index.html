@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Checkatrade — Security & Architecture Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0c0c0e;
+  --bg-card: #141416;
+  --bg-elevated: #1a1a1e;
+  --accent: #4f8cff;
+  --accent-dim: rgba(79, 140, 255, 0.12);
+  --accent-border: rgba(79, 140, 255, 0.2);
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.1);
+  --green-border: rgba(52, 211, 153, 0.2);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245, 158, 11, 0.1);
+  --text: #e4e4e8;
+  --text-dim: #9a9aa0;
+  --text-muted: #5a5a62;
+  --border: rgba(255, 255, 255, 0.06);
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'DM Mono', 'SF Mono', monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 56px 48px 48px;
+}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.topbar-left {
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topbar-right {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+/* Typography */
+h1 {
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.5vw, 2.3rem);
+  line-height: 1.25;
+  color: var(--text);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+h1 .dim { color: var(--text-dim); font-weight: 400; }
+
+.lead {
+  font-size: 1rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.section-tag.blue { color: var(--accent); background: var(--accent-dim); }
+.section-tag.green { color: var(--green); background: var(--green-dim); }
+.section-tag.amber { color: var(--amber); background: var(--amber-dim); }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 36px 0;
+}
+
+/* Architecture section */
+.arch-point {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.arch-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  margin-top: 2px;
+}
+
+.arch-icon.green-bg { background: var(--green-dim); border: 1px solid var(--green-border); }
+.arch-icon.blue-bg { background: var(--accent-dim); border: 1px solid var(--accent-border); }
+
+.arch-text h4 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.arch-text p {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* Comparison table */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.compare-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+}
+
+.compare-table td:first-child {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.compare-table .check { color: var(--green); font-weight: 600; }
+.compare-table .cross { color: var(--text-muted); }
+.compare-table .partial { color: var(--amber); }
+
+.table-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+/* Value prop strip */
+.value-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.value-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 18px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.value-card h4 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.value-card p {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* Chat demo */
+.chat-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.chat-header {
+  padding: 10px 16px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-row {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-row:last-child { border-bottom: none; }
+
+.chat-q {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.chat-q::before { content: '> '; color: var(--text-muted); }
+
+.chat-a {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent-dim);
+}
+
+/* Stack acknowledgement */
+.stack-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.stack-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+
+.stack-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+/* CTA */
+.cta {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  padding: 28px 24px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.cta h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.cta p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.cta a {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+/* Print */
+@media print {
+  .page { padding: 32px 24px; }
+  * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Responsive */
+@media (max-width: 680px) {
+  .page { padding: 36px 20px; }
+  .value-strip { grid-template-columns: 1fr; }
+  .topbar { flex-direction: column; gap: 6px; align-items: flex-start; }
+  .compare-table { font-size: 0.75rem; }
+  .compare-table th, .compare-table td { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<section class="page">
+
+  <div class="topbar">
+    <div class="topbar-left">Milo × Checkatrade</div>
+    <div class="topbar-right">security overview / mataza</div>
+  </div>
+
+  <h1 class="animate-target" style="opacity:0; transform:translateY(10px)">
+    You already have the tools.<br><span class="dim">Your team still can't get quick answers.</span>
+  </h1>
+
+  <p class="lead animate-target" style="opacity:0; transform:translateY(10px)">
+    BigQuery. Salesforce. Power BI. Tableau. Mode. You've invested heavily. But a finance question that cuts across two of those systems still turns into a request to the data team and a wait. Milo sits on top of what you already have and lets anyone ask questions in plain English, without exposing data outside your environment.
+  </p>
+
+  <div class="section-tag green">Security architecture</div>
+
+  <p class="lead animate-target" style="opacity:0; transform:translateY(10px); margin-bottom: 24px;">
+    You asked about data ownership and how this compares to Gemini. Here's the direct answer.
+  </p>
+
+  <div class="arch-point">
+    <div class="arch-icon green-bg">🔒</div>
+    <div class="arch-text">
+      <h4>Your data never leaves your environment</h4>
+      <p>Milo connects to your data sources via read-only access. Queries are processed in a secure, isolated instance. No data is stored, cached or used for model training.</p>
+    </div>
+  </div>
+
+  <div class="arch-point">
+    <div class="arch-icon green-bg">🏗️</div>
+    <div class="arch-text">
+      <h4>Not a wrapper on a general-purpose LLM</h4>
+      <p>Unlike Gemini or Copilot, Milo doesn't send your data to a shared model. Your instance is isolated. There's no cross-tenant data exposure, even under enterprise agreements.</p>
+    </div>
+  </div>
+
+  <div class="arch-point">
+    <div class="arch-icon green-bg">🔑</div>
+    <div class="arch-text">
+      <h4>Role-based access and audit trail</h4>
+      <p>Users only see data they're authorised to see. Every query is logged. Your infosec team gets full visibility on what's being asked and by whom.</p>
+    </div>
+  </div>
+
+  <div class="arch-point">
+    <div class="arch-icon green-bg">📋</div>
+    <div class="arch-text">
+      <h4>Built for regulated and PE-backed environments</h4>
+      <p>SOC 2 alignment, data residency controls, SSO integration. Designed for companies where "we'll look into it" isn't good enough for the board.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-tag blue">Gemini / Copilot / Claude comparison</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Milo</th>
+        <th>Gemini</th>
+        <th>Copilot</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Queries your live data sources directly</td>
+        <td class="check">✓</td>
+        <td class="cross">✗</td>
+        <td class="partial">Partial</td>
+      </tr>
+      <tr>
+        <td>No data sent to shared model</td>
+        <td class="check">✓</td>
+        <td class="cross">✗</td>
+        <td class="cross">✗</td>
+      </tr>
+      <tr>
+        <td>Cross-source queries (e.g. Salesforce + BigQuery)</td>
+        <td class="check">✓</td>
+        <td class="cross">✗</td>
+        <td class="cross">✗</td>
+      </tr>
+      <tr>
+        <td>Works without SQL or technical knowledge</td>
+        <td class="check">✓</td>
+        <td class="check">✓</td>
+        <td class="partial">Partial</td>
+      </tr>
+      <tr>
+        <td>Full audit trail on every query</td>
+        <td class="check">✓</td>
+        <td class="cross">✗</td>
+        <td class="partial">Partial</td>
+      </tr>
+      <tr>
+        <td>No data used for model training</td>
+        <td class="check">✓</td>
+        <td class="cross">✗</td>
+        <td class="cross">✗</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note">Based on default enterprise configurations as of March 2026.</p>
+
+  <div class="divider"></div>
+
+  <div class="section-tag blue">What this looks like for finance</div>
+
+  <p class="lead animate-target" style="opacity:0; transform:translateY(10px); margin-bottom: 20px;">
+    We know you have BigQuery, Salesforce and multiple BI tools. Milo doesn't replace them. It sits on top and gives your finance team a way to ask questions without waiting for an analyst or building a new dashboard.
+  </p>
+
+  <div class="stack-strip">
+    <span class="stack-tag">BigQuery</span>
+    <span class="stack-tag">Salesforce</span>
+    <span class="stack-tag">Power BI</span>
+    <span class="stack-tag">Tableau</span>
+    <span class="stack-tag">Mode</span>
+    <span class="stack-tag">PostgreSQL</span>
+  </div>
+  <p class="stack-note">Milo connects to all of these. Read-only. No migration.</p>
+
+  <div class="divider"></div>
+
+  <div class="chat-block">
+    <div class="chat-header">Example queries from a finance lens</div>
+    <div class="chat-row">
+      <div class="chat-q">What's our revenue per trade category this quarter vs last?</div>
+      <div class="chat-a">Subscription revenue is up 7% QoQ. Plumbing and electrical remain the top categories. Landscaping grew 14%, the fastest of any category. Painting is flat, worth reviewing pricing.</div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-q">How's member churn tracking against forecast?</div>
+      <div class="chat-a">Monthly churn is at 3.1%, 0.4 points below forecast. Retention improved in the cohort that onboarded with the new vetting flow. First-year churn is still elevated at 5.8%.</div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-q">What's our cost per acquisition by channel this month?</div>
+      <div class="chat-a">Blended CPA is £42. Paid search is £38, best performing. TikTok is £67 but trending down. Referral programme is £19 per acquisition, lowest cost channel by a wide margin.</div>
+    </div>
+  </div>
+
+  <div class="value-strip">
+    <div class="value-card">
+      <h4>No more dashboard requests</h4>
+      <p>Finance teams ask directly. No tickets, no analyst queue, no waiting for a new Power BI view.</p>
+    </div>
+    <div class="value-card">
+      <h4>Cross-source answers</h4>
+      <p>Salesforce pipeline + BigQuery revenue + marketing spend in one answer. No manual joins.</p>
+    </div>
+    <div class="value-card">
+      <h4>Infosec-friendly by design</h4>
+      <p>Read-only connections, isolated instance, full audit trail. Built for the conversation you're about to have with your security team.</p>
+    </div>
+    <div class="value-card">
+      <h4>Live in days, not months</h4>
+      <p>Connects to BigQuery and Salesforce in under a week. No data warehouse rebuild. No new infrastructure.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h3>Happy to walk your infosec team through the architecture.</h3>
+    <p>Or keep it simple: 20 minutes, we'll show you live queries against a demo environment.</p>
+    <a href="https://milo.ai" target="_blank">milo.ai</a>
+  </div>
+
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const selectors = [
+    '.animate-target', '.section-tag', '.arch-point',
+    '.compare-table', '.value-card', '.chat-block',
+    '.stack-strip', '.cta'
+  ];
+
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.07}s`;
+      observer.observe(el);
+    });
+  });
+
+  const immediate = document.querySelectorAll('.animate-target, .section-tag, .arch-point');
+  immediate.forEach((el, i) => {
+    setTimeout(() => el.classList.add('anim'), 150 + (i * 90));
+  });
+});
+</script>
+
+</body>
+</html>

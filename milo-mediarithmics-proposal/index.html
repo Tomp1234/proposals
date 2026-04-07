@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × mediarithmics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0B0F1E;
+  --accent: #4B7BFF;
+  --accent-dim: rgba(75, 123, 255, 0.12);
+  --accent-border: rgba(75, 123, 255, 0.3);
+  --accent-glow: rgba(75, 123, 255, 0.08);
+  --purple: #8B5CF6;
+  --purple-dim: rgba(139, 92, 246, 0.1);
+  --purple-border: rgba(139, 92, 246, 0.25);
+  --green: #34d399;
+  --red: #f87171;
+  --text: #F0F4FF;
+  --text-dim: #94A3C0;
+  --text-muted: #5A6A85;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout */
+.page { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+
+/* Section spacing */
+.section { padding: 64px 0; border-top: 1px solid var(--glass-border); }
+
+/* ── HERO ── */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 48px 0 56px;
+}
+
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.1s forwards;
+}
+
+.hero-brand span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero-brand .brand-sep {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.hero-brand .brand-milo {
+  color: var(--accent);
+}
+
+h1 {
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.12;
+  color: var(--text);
+  margin-bottom: 20px;
+  max-width: 620px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.2s forwards;
+}
+
+h1 .em { color: var(--accent); }
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.35s forwards;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 14px 36px;
+  border-radius: 8px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.5s forwards;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(75, 123, 255, 0.3);
+}
+
+/* ── SECTION HEADINGS ── */
+h2 {
+  font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+h2 .em { color: var(--accent); }
+
+.section-sub {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  max-width: 560px;
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+/* ── PAIN POINTS ── */
+.pain-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pain-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.pain-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pain-card h3 {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.pain-card p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* ── CHAT DEMO ── */
+.chat-block {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--glass-border);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.chat-bubbles {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bubble {
+  max-width: 88%;
+  padding: 16px 18px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.bubble-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bubble.question {
+  align-self: flex-end;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+}
+
+.bubble.question .bubble-label { color: var(--text-muted); }
+.bubble.question p { color: var(--text); font-weight: 500; }
+
+.bubble.answer {
+  align-self: flex-start;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.bubble.answer .bubble-label { color: var(--accent); }
+.bubble.answer p { color: var(--text-dim); }
+
+/* ── STACK PILLS ── */
+.stack-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stack-pill {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.stack-pill .check {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.stack-pill strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── MINI COMPARE TABLE ── */
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.mini-table th {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.mini-table th.milo-col { color: var(--accent); }
+
+.mini-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--text-dim);
+}
+
+.mini-table tr:last-child td { border-bottom: none; }
+
+.mini-table td:first-child {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.mini-table .yes { color: var(--green); font-weight: 600; }
+.mini-table .no { color: var(--red); font-weight: 500; }
+
+.table-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── QUOTE ── */
+.quote-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 36px 32px;
+  text-align: center;
+}
+
+.quote-card blockquote {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.quote-card cite {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ── PRICING + FINAL CTA ── */
+.final-section {
+  padding: 64px 0 80px;
+  border-top: 1px solid var(--glass-border);
+  text-align: center;
+}
+
+.final-section h2 {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.stat-pills {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.stat-pill {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.stat-pill strong {
+  display: block;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.82rem;
+  margin-bottom: 2px;
+}
+
+.final-contact {
+  margin-top: 20px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.final-contact a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim-target {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ── PRINT ── */
+@media print {
+  * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .hero { min-height: auto; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .page { padding: 0 20px; }
+  .hero { padding: 36px 0 40px; }
+  .pain-card { flex-direction: column; gap: 8px; }
+  .stat-pills { flex-direction: column; align-items: center; }
+  .stat-pill { width: 100%; }
+  .bubble { max-width: 95%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SECTION 1 — HERO ═══ -->
+<div class="page">
+<section class="hero">
+
+  <div class="hero-brand">
+    <span>mediarithmics</span>
+    <span class="brand-sep">&times;</span>
+    <span class="brand-milo">Milo</span>
+  </div>
+
+  <h1>
+    You sell data-driven decisions.<br>
+    <span class="em">How long does it take to get your own?</span>
+  </h1>
+
+  <p class="hero-sub">
+    mediarithmics processes billions of data points for clients. But when your commercial team needs pipeline health across markets or board metrics, that answer still lands in someone's inbox and waits.
+  </p>
+
+  <a href="https://calendly.com/tom-milo" class="cta-btn">Book 15 minutes</a>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 2 — THE PROBLEM ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="pain-grid">
+    <div class="pain-card anim-target">
+      <div class="pain-icon">&#127758;</div>
+      <div>
+        <h3>Multi-market visibility takes too long</h3>
+        <p>You run subsidiaries across Europe. Knowing which market is outperforming and why still requires someone to pull it together manually.</p>
+      </div>
+    </div>
+    <div class="pain-card anim-target">
+      <div class="pain-icon">&#128202;</div>
+      <div>
+        <h3>Board reporting is still a manual sprint</h3>
+        <p>Revenue trends, NRR, pipeline coverage &mdash; assembling that view is a multi-day exercise that shouldn't be.</p>
+      </div>
+    </div>
+    <div class="pain-card anim-target">
+      <div class="pain-icon">&#128274;</div>
+      <div>
+        <h3>Your team is uploading client data to personal AI accounts</h3>
+        <p>Channel 4. TF1. Canal+. Your people are pasting pipeline data and client names into ChatGPT for quick answers. As a data platform, one leak doesn't just cost you internally &mdash; it costs you a client.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 3 — ONE EXAMPLE QUERY ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="chat-block anim-target">
+    <div class="chat-header">Example &mdash; mediarithmics commercial environment</div>
+    <div class="chat-bubbles">
+      <div class="bubble question">
+        <div class="bubble-label">&#128100; CRO asks</div>
+        <p>Which market is underperforming against pipeline targets and why?</p>
+      </div>
+      <div class="bubble answer">
+        <div class="bubble-label">
+          <svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" rx="7" fill="#4B7BFF"/>
+            <path d="M9.5 5.5 L10.4 8.1 L13 9 L10.4 9.9 L9.5 12.5 L8.6 9.9 L6 9 L8.6 8.1 Z" fill="white"/>
+            <polyline points="7,21 11,17.5 15,19.5 21,13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="21" cy="13" r="2" fill="white"/>
+          </svg>
+          Milo answers
+        </div>
+        <p>UK is at 62% of Q1 pipeline target vs 91% for France and 88% for Benelux. The gap is concentrated in broadcast &mdash; 3 deals pushed to Q2 after Channel 4 procurement froze new vendor spend. Retail pipeline in UK is actually ahead of target by 15%.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 4 — WORKS WITH YOUR STACK ═══ -->
+<div class="page">
+<section class="section">
+
+  <h2>Already works with <span class="em">your infrastructure</span></h2>
+  <p class="section-sub">No migration. No changes. Milo sits on top.</p>
+
+  <div class="stack-pills">
+    <div class="stack-pill anim-target">
+      <span class="check">&#10003;</span>
+      <span><strong>ClickHouse</strong> &mdash; native connector</span>
+    </div>
+    <div class="stack-pill anim-target">
+      <span class="check">&#10003;</span>
+      <span><strong>PostgreSQL &amp; Elasticsearch</strong> &mdash; supported out of the box</span>
+    </div>
+    <div class="stack-pill anim-target">
+      <span class="check">&#10003;</span>
+      <span><strong>Any CRM or data warehouse</strong> &mdash; via standard connectors</span>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 5 — WHY NOT DASHBOARDS ═══ -->
+<div class="page">
+<section class="section">
+
+  <h2>You have dashboards.<br><span class="em">Your team still asks analysts for help.</span></h2>
+
+  <div class="anim-target" style="margin-top: 32px;">
+    <table class="mini-table">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th class="milo-col">Milo</th>
+          <th>Dashboards / BI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Answers "why" not just "what"</td>
+          <td class="yes">&#10003;</td>
+          <td class="no">&#10007;</td>
+        </tr>
+        <tr>
+          <td>Cross-source queries in one question</td>
+          <td class="yes">&#10003;</td>
+          <td class="no">&#10007;</td>
+        </tr>
+        <tr>
+          <td>No per-seat licence</td>
+          <td class="yes">&#10003;</td>
+          <td class="no">&#10007;</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-note">Milo handles the follow-up questions your dashboards can't answer.</p>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 6 — QUOTE ═══ -->
+<div class="page">
+<section class="section">
+
+  <div class="quote-card anim-target">
+    <blockquote>&ldquo;Being able to answer questions live in management meetings instead of waiting a week for an analyst.&rdquo;</blockquote>
+    <cite>&mdash; Greta, Perlas</cite>
+  </div>
+
+</section>
+</div>
+
+<!-- ═══ SECTION 7 — PRICING + CTA ═══ -->
+<div class="page">
+<section class="final-section">
+
+  <h2>&pound;1,490/month. Unlimited users.<br><span class="em">Live within a week.</span></h2>
+
+  <div class="stat-pills">
+    <div class="stat-pill anim-target">
+      <strong>Unlimited users</strong>
+      Whole organisation
+    </div>
+    <div class="stat-pill anim-target">
+      <strong>~1 week</strong>
+      To connect
+    </div>
+    <div class="stat-pill anim-target">
+      <strong>Isolated instance</strong>
+      Your data stays yours
+    </div>
+    <div class="stat-pill anim-target">
+      <strong>Full audit trail</strong>
+      Every query logged
+    </div>
+  </div>
+
+  <a href="https://calendly.com/tom-milo" class="cta-btn" style="animation-delay: 0s; opacity: 1;">Book 15 minutes</a>
+
+  <p class="final-contact">tom@usemilo.ai &middot; <a href="https://usemilo.ai">usemilo.ai</a></p>
+
+</section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.anim-target').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.06}s`;
+    observer.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>

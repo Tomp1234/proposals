@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Urban Leisure Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #1a1a18;
+  --bg-light: #222220;
+  --accent: #c8922a;
+  --accent-dim: rgba(200, 146, 42, 0.15);
+  --accent-glow: rgba(200, 146, 42, 0.08);
+  --text: #f0ebe0;
+  --text-dim: #a09b8e;
+  --text-muted: #6b6760;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Noise Texture Overlay ────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ── Page Sections ────────────────────────────── */
+.page {
+  min-height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 48px;
+  position: relative;
+}
+
+.page-divider {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.3;
+}
+
+/* ── Top Bar ──────────────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 72px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.topbar-left {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topbar-right {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── Typography ───────────────────────────────── */
+h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+h1 .em { color: var(--accent); }
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+h2 .em { color: var(--accent); }
+
+.subtitle {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 56px;
+  font-weight: 400;
+}
+
+/* ── Process Flow (Page 1) ────────────────────── */
+.process-flow {
+  margin: 0 0 56px 0;
+}
+
+.flow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  border-left: 2px solid var(--accent-dim);
+  position: relative;
+  opacity: 0;
+  transform: translateX(-12px);
+}
+
+.flow-step::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(200, 146, 42, 0.4);
+}
+
+.flow-step:last-child { border-left-color: transparent; }
+
+.flow-step .step-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.flow-step .step-text {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.flow-step .step-text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  padding-left: 46px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  gap: 8px;
+  margin: -4px 0;
+}
+
+.flow-arrow::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--text-muted);
+}
+
+/* ── Callout Box ──────────────────────────────── */
+.callout {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.08), rgba(200, 146, 42, 0.03));
+  border: 1px solid rgba(200, 146, 42, 0.2);
+  border-radius: 12px;
+  padding: 40px 36px;
+  margin: 48px 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.callout h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.callout p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+/* ── Tool Strip ───────────────────────────────── */
+.tool-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(240, 235, 224, 0.06);
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.tool-item {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tool-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+/* ── Page 2: New Flow ─────────────────────────── */
+.new-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 0 56px 0;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.new-flow-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.new-flow-source {
+  background: var(--bg-light);
+  border: 1px solid rgba(240, 235, 224, 0.08);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.new-flow-arrow {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.new-flow-milo {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.15), rgba(200, 146, 42, 0.05));
+  border: 1px solid rgba(200, 146, 42, 0.3);
+  border-radius: 12px;
+  padding: 20px 32px;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: center;
+}
+
+.new-flow-result {
+  background: var(--bg-light);
+  border: 1px solid rgba(240, 235, 224, 0.08);
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ── Feature Cards ────────────────────────────── */
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 56px;
+}
+
+.feature-card {
+  background: var(--bg-light);
+  border: 1px solid rgba(240, 235, 224, 0.06);
+  border-radius: 12px;
+  padding: 28px 24px;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.feature-card h4 {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.feature-card p {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* ── Chat Demo ────────────────────────────────── */
+.chat-demo {
+  margin-bottom: 56px;
+}
+
+.chat-exchange {
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.chat-query {
+  background: #2a2a27;
+  border: 1px solid rgba(240, 235, 224, 0.08);
+  border-radius: 12px 12px 12px 4px;
+  padding: 16px 20px;
+  font-size: 0.92rem;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: inline-block;
+  max-width: 85%;
+  font-weight: 500;
+}
+
+.chat-query::before {
+  content: 'You';
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.chat-response {
+  background: linear-gradient(135deg, rgba(200, 146, 42, 0.08), rgba(200, 146, 42, 0.03));
+  border: 1px solid rgba(200, 146, 42, 0.15);
+  border-radius: 12px 12px 4px 12px;
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-left: auto;
+  max-width: 85%;
+  display: block;
+  margin-left: 15%;
+}
+
+.chat-response::before {
+  content: 'Milo';
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+/* ── CTA Footer ───────────────────────────────── */
+.cta-footer {
+  text-align: center;
+  padding: 48px 0 0;
+  border-top: 1px solid rgba(240, 235, 224, 0.06);
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.cta-footer h3 {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.cta-footer p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.cta-footer .cta-link {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+/* ── Animations ───────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.flow-step.animate-in {
+  transform: translateX(0) !important;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ── Print Styles ─────────────────────────────── */
+@media print {
+  body::before { display: none; }
+  .page {
+    min-height: auto;
+    padding: 40px 32px;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+  .page-divider { page-break-after: always; height: 0; }
+  * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 680px) {
+  .page { padding: 48px 24px; }
+  .features { grid-template-columns: 1fr; }
+  .tool-strip { flex-wrap: wrap; gap: 16px; }
+  .new-flow { flex-direction: column; text-align: center; }
+  .new-flow-arrow { transform: rotate(90deg); }
+  .chat-query, .chat-response { max-width: 100%; }
+  .chat-response { margin-left: 8%; }
+  .topbar { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ PAGE 1 ═══ -->
+<section class="page" id="page-1">
+
+  <div class="topbar">
+    <div class="topbar-left">Milo × Urban Leisure Group</div>
+    <div class="topbar-right">Prepared for ULG</div>
+  </div>
+
+  <h1 class="animate-target" style="opacity:0; transform:translateY(12px)">
+    Every Monday.<br>Three hours. <span class="em">Gone.</span>
+  </h1>
+
+  <p class="subtitle animate-target" style="opacity:0; transform:translateY(12px)">
+    Across 9 venues, your reporting still runs on one person, three logins, and a lot of copy-paste.
+  </p>
+
+  <div class="process-flow">
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="step-icon">🟧</div>
+        <div class="step-text"><strong>Log into Toast</strong> — pull sales numbers for each venue</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-icon">📋</div>
+        <div class="step-text"><strong>Export to Excel</strong> — copy, paste, format</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-icon">👥</div>
+        <div class="step-text"><strong>Log into Harri</strong> — pull labour hours and compliance</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-icon">📋</div>
+        <div class="step-text"><strong>Export to Excel</strong> — copy, paste, cross-reference</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-icon">📦</div>
+        <div class="step-text"><strong>Cross-reference MarketMan</strong> — inventory and waste</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-icon">📋</div>
+        <div class="step-text"><strong>Manual entry into Excel</strong> — make it all work together</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-icon">📄</div>
+        <div class="step-text"><strong>PDF it</strong> — upload to Teams — send it out</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-icon">⏳</div>
+        <div class="step-text"><strong>Wait</strong> — and hope nobody asks a follow-up question</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h3>"What happens when she goes on holiday?"</h3>
+    <p>This isn't a data problem. It's a process problem.</p>
+  </div>
+
+  <div class="tool-strip">
+    <div class="tool-item"><span class="tool-dot"></span>Toast</div>
+    <div class="tool-item"><span class="tool-dot"></span>Harri</div>
+    <div class="tool-item"><span class="tool-dot"></span>MarketMan</div>
+    <div class="tool-item"><span class="tool-dot"></span>Excel</div>
+    <div class="tool-item"><span class="tool-dot"></span>Microsoft Teams</div>
+  </div>
+
+</section>
+
+<div class="page-divider"></div>
+
+<!-- ═══════════════════════════════════════════════ PAGE 2 ═══ -->
+<section class="page" id="page-2">
+
+  <div class="topbar">
+    <div class="topbar-left">The Fix</div>
+    <div class="topbar-right">milo.ai</div>
+  </div>
+
+  <h2 class="animate-target" style="opacity:0; transform:translateY(12px)">
+    Ask Milo. Get answers. <span class="em">Move on.</span>
+  </h2>
+
+  <p class="subtitle animate-target" style="opacity:0; transform:translateY(12px)">
+    Milo connects to Toast, Harri and MarketMan — so your data is always there, always current, no exports needed.
+  </p>
+
+  <div class="new-flow animate-target" style="opacity:0; transform:translateY(12px)">
+    <div class="new-flow-sources">
+      <div class="new-flow-source">Toast</div>
+      <div class="new-flow-source">Harri</div>
+      <div class="new-flow-source">MarketMan</div>
+    </div>
+    <div class="new-flow-arrow">→</div>
+    <div class="new-flow-milo">Milo</div>
+    <div class="new-flow-arrow">→</div>
+    <div class="new-flow-result">Plain English answers</div>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🔌</div>
+      <h4>Toast is live</h4>
+      <p>Real-time POS data across all 9 venues. No Monday exports.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h4>Just ask</h4>
+      <p>Type a question, get an answer. No pivot tables. No Power BI.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏖️</div>
+      <h4>Holiday-proof</h4>
+      <p>Works whether she's in the office or on a beach.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h4>Built around your metrics</h4>
+      <p>From EBITDA vs Budget to Net RPH, Timesheet Compliance and Overservice %.</p>
+    </div>
+  </div>
+
+  <div class="chat-demo">
+    <div class="chat-exchange">
+      <div class="chat-query">How are all 9 venues tracking against budget this week?</div>
+      <div class="chat-response">Revenue is up 4% vs budget across the group. Heist Bank and Coin Laundry are leading. Never For Ever is 11% behind — lower weekend covers vs forecast.</div>
+    </div>
+    <div class="chat-exchange">
+      <div class="chat-query">What's our overservice rate looking like this month?</div>
+      <div class="chat-response">Group overservice is at 6.2%. Bobby Fitzpatrick is highest at 9.1% — worth flagging to ops.</div>
+    </div>
+    <div class="chat-exchange">
+      <div class="chat-query">How's timesheet compliance across venues?</div>
+      <div class="chat-response">7 of 9 venues are above 90%. Ask for Janice and The Gallery are below threshold — Harri data as of this morning.</div>
+    </div>
+  </div>
+
+  <div class="cta-footer">
+    <h3>We've got 15 minutes blocked out Thursday.</h3>
+    <p>Let's show you this live with your actual data.</p>
+    <a href="https://milo.ai" class="cta-link" target="_blank">milo.ai</a>
+  </div>
+
+</section>
+
+<script>
+// ── Staggered fade-in animations on scroll ──
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  // Animate all elements with staggered delays
+  const selectors = [
+    '.animate-target',
+    '.flow-step',
+    '.callout',
+    '.tool-strip',
+    '.feature-card',
+    '.chat-exchange',
+    '.cta-footer',
+    '.new-flow'
+  ];
+
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+      observer.observe(el);
+    });
+  });
+
+  // Also trigger Page 1 elements immediately with stagger
+  const page1Els = document.querySelectorAll('#page-1 .animate-target, #page-1 .flow-step, #page-1 .callout, #page-1 .tool-strip');
+  page1Els.forEach((el, i) => {
+    setTimeout(() => {
+      el.classList.add('animate-in');
+    }, 200 + (i * 120));
+  });
+});
+</script>
+
+</body>
+</html>
