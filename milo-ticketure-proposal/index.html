@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ticketure × Milo — Solution Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a1220;
+  --bg-mid: #0e1829;
+  --bg-card: #111d2f;
+  --bg-elevated: #162236;
+  --accent: #0F8FE8;
+  --accent-dim: rgba(15, 143, 232, 0.10);
+  --accent-border: rgba(15, 143, 232, 0.25);
+  --accent-glow: rgba(15, 143, 232, 0.06);
+  --green: #057656;
+  --green-light: #34d399;
+  --green-dim: rgba(5, 118, 86, 0.12);
+  --green-border: rgba(5, 118, 86, 0.25);
+  --gold: #fab03b;
+  --gold-dim: rgba(250, 176, 59, 0.10);
+  --gold-border: rgba(250, 176, 59, 0.22);
+  --navy: #003567;
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.1);
+  --text: #e8ecf2;
+  --text-dim: #8b97a8;
+  --text-muted: #4e5d6e;
+  --border: rgba(255, 255, 255, 0.06);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'DM Mono', 'SF Mono', monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Ambient glow orbs */
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 {
+  top: -10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(15, 143, 232, 0.06) 0%, transparent 70%);
+}
+.glow-orb-2 {
+  bottom: 20%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(5, 118, 86, 0.04) 0%, transparent 70%);
+}
+
+.page { max-width: 920px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 1; }
+.section { padding: 72px 0; }
+.section + .section { border-top: 1px solid var(--border); }
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 48px;
+  max-width: 920px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+  position: relative;
+  z-index: 1;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-brand svg { flex-shrink: 0; }
+
+.topbar-x {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0 2px;
+}
+
+.topbar-meta {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.topbar-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.topbar-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+/* Hero */
+.hero {
+  padding: 80px 0 64px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.eyebrow-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(15, 143, 232, 0.5);
+  flex-shrink: 0;
+}
+
+.eyebrow-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 20px;
+  max-width: 720px;
+}
+
+h1 .em { color: var(--accent); }
+h1 .dim { color: var(--text-dim); font-weight: 400; font-style: italic; }
+
+.hero-lead {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.75;
+  margin-bottom: 48px;
+}
+
+.hero-prepared {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+/* Section headings */
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.eyebrow-line {
+  width: 24px; height: 1px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+.eyebrow-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+h2 .em { color: var(--accent); }
+
+.section-lead {
+  font-size: 1rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+/* Team columns */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 0;
+}
+
+.team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 20px;
+  opacity: 0;
+  transform: translateY(12px);
+  border-top: 3px solid var(--accent);
+}
+
+.team-card.green-accent { border-top-color: var(--green); }
+.team-card.gold-accent { border-top-color: var(--gold); }
+
+.team-card .team-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.team-card.green-accent .team-label { color: var(--green-light); }
+.team-card.gold-accent .team-label { color: var(--gold); }
+
+.team-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.team-card li {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  padding-left: 16px;
+  position: relative;
+}
+
+.team-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+.team-card.green-accent li::before { background: var(--green-light); }
+.team-card.gold-accent li::before { background: var(--gold); }
+
+/* Feature cards */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.f-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 22px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.f-card:hover {
+  border-color: var(--accent-border);
+  transform: translateY(-2px);
+}
+
+.f-card .f-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+}
+
+.f-card h4 {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.f-card p {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* Case study dashboard */
+.case-study-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.cs-header {
+  padding: 14px 20px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs-header-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green-light);
+}
+
+.cs-header-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cs-header-tag {
+  margin-left: auto;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--green-dim);
+  color: var(--green-light);
+  border: 1px solid var(--green-border);
+}
+
+.metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.metrics-table th {
+  padding: 13px 20px;
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.metrics-table th.before-col { color: var(--red); }
+.metrics-table th.after-col { color: var(--green-light); }
+
+.metrics-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.84rem;
+  color: var(--text-dim);
+}
+
+.metrics-table tr:last-child td { border-bottom: none; }
+
+.metrics-table td:first-child {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.metrics-table .val-before {
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+.metrics-table .val-after {
+  color: var(--green-light);
+  font-weight: 600;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+.cs-quote {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(15, 143, 232, 0.05), rgba(5, 118, 86, 0.03));
+  border-top: 1px solid var(--border);
+}
+
+.cs-quote p {
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+
+.cs-quote .cs-attr {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+/* Timeline */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.timeline-week {
+  background: var(--bg-card);
+  padding: 20px 16px;
+}
+
+.timeline-week .tw-num {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.timeline-week .tw-title {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.timeline-week .tw-desc {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.poc-includes {
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.poc-includes .inc-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.poc-includes ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.poc-includes li {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.poc-includes li::before {
+  content: '\2713';
+  color: var(--green-light);
+  font-weight: 700;
+  font-size: 0.72rem;
+}
+
+/* Pricing cards */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.price-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px 24px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.price-card.featured {
+  border-color: var(--accent-border);
+  background: linear-gradient(135deg, rgba(15, 143, 232, 0.08), rgba(15, 143, 232, 0.02));
+}
+
+.price-card .pc-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.price-card.featured .pc-label { color: var(--accent); }
+
+.price-card .pc-price {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.price-card.featured .pc-price { color: var(--accent); }
+
+.price-card .pc-unit {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-family: var(--mono);
+}
+
+.price-card .pc-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.price-card .pc-features li {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  line-height: 1.4;
+}
+
+.price-card .pc-features li::before {
+  content: '\2713';
+  color: var(--green-light);
+  font-weight: 700;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pricing-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.pricing-note strong { color: var(--text-dim); }
+
+/* White-label section */
+.wl-block {
+  padding: 28px 24px;
+  background: linear-gradient(135deg, rgba(250, 176, 59, 0.06), rgba(250, 176, 59, 0.02));
+  border: 1px solid var(--gold-border);
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.wl-block .wl-tag {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid var(--gold-border);
+  margin-bottom: 12px;
+}
+
+.wl-block p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* Next steps */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-family: var(--mono);
+}
+
+.step-item p {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.step-item strong {
+  color: var(--text);
+}
+
+/* CTA */
+.cta-block {
+  text-align: center;
+  padding: 48px 40px;
+  background: linear-gradient(135deg, rgba(15, 143, 232, 0.08), rgba(5, 118, 86, 0.04));
+  border: 1px solid var(--accent-border);
+  border-radius: 14px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.cta-block h2 {
+  font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+  margin-bottom: 14px;
+}
+
+.cta-block p {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  margin-bottom: 28px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.65;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, var(--accent), var(--navy));
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(15, 143, 232, 0.3);
+}
+
+/* Footer */
+.footer-meta {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+/* Ticket stub (decorative) */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.ticket-decoration {
+  position: relative;
+  max-width: 580px;
+  margin: 0 auto 0;
+  background: linear-gradient(145deg, #f8f6f0, #ede9df);
+  border-radius: 12px;
+  color: #1a1a1a;
+  display: flex;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.ticket-decoration::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(105deg, transparent 20%, rgba(15, 143, 232, 0.06) 30%, rgba(5, 118, 86, 0.05) 40%, rgba(15, 143, 232, 0.06) 50%, transparent 60%);
+  background-size: 200% 100%;
+  animation: shimmer 4s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ticket-main {
+  flex: 1;
+  padding: 24px 22px;
+}
+
+.ticket-event-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.ticket-event-name {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  color: #1a1a1a;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.ticket-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.ticket-detail-label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 2px;
+}
+
+.ticket-detail-value {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.ticket-barcode {
+  margin-top: 14px;
+  height: 32px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(90deg, #1a1a1a 0px, #1a1a1a 2px, transparent 2px, transparent 4px, #1a1a1a 4px, #1a1a1a 5px, transparent 5px, transparent 8px, #1a1a1a 8px, #1a1a1a 11px, transparent 11px, transparent 13px);
+  opacity: 0.6;
+}
+
+.ticket-perf {
+  width: 2px;
+  flex-shrink: 0;
+  background: repeating-linear-gradient(180deg, #c0b8a8 0, #c0b8a8 4px, transparent 4px, transparent 8px);
+}
+
+.ticket-stub {
+  width: 140px;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--accent), var(--navy));
+  color: #fff;
+}
+
+.ticket-stub-label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 6px;
+}
+
+.ticket-stub-text {
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* Print */
+@media print {
+  body::before, .glow-orb { display: none; }
+  .page, .topbar { padding-left: 24px; padding-right: 24px; }
+  .section { padding: 40px 0; }
+  * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .topbar { padding: 20px 24px; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .page { padding: 0 24px; }
+  .team-grid { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .ticket-decoration { flex-direction: column; }
+  .ticket-perf { width: 100%; height: 2px; background: repeating-linear-gradient(90deg, #c0b8a8 0, #c0b8a8 4px, transparent 4px, transparent 8px); }
+  .ticket-stub { width: 100%; padding: 18px; }
+  .ticket-details { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .timeline { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <!-- Ticketure logo mark -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="18" viewBox="0 0 160 23" fill="none">
+      <path d="M6.46659 3.45597H0V1.45047H15.1346V3.45597H8.66797V20.6787H6.46714L6.46659 3.45597Z" fill="#0F8FE8"/>
+      <path d="M19.3947 1.45047H21.5687V20.6787H19.3947V1.45047Z" fill="#0F8FE8"/>
+      <path d="M43.3523 1.45047H45.5263V12.9327L56.5891 1.45047H59.3959L51.1406 9.85564L59.7535 20.6782H57.0283L49.6252 11.3664L45.5252 15.5141V20.6782H43.3521L43.3523 1.45047Z" fill="#0F8FE8"/>
+      <path d="M63.1349 1.45047H77.0588V3.42835H65.3086V9.99321H75.8204V11.9711H65.3086V18.7011H77.1958V20.6787H63.1349V1.45047Z" fill="#0F8FE8"/>
+      <path d="M87.2715 3.45597H80.8049V1.45047H95.9395V3.45597H89.4729V20.6787H87.2721L87.2715 3.45597Z" fill="#0F8FE8"/>
+      <path d="M99.7092 12.6305V1.45047H101.883V12.4932C101.883 16.6409 104.112 18.9757 107.772 18.9757C111.322 18.9757 113.578 16.8332 113.578 12.6305V1.45047H115.752V12.4658C115.752 18.0694 112.533 20.9809 107.717 20.9809C102.956 20.9809 99.7092 18.0694 99.7092 12.6305Z" fill="#0F8FE8"/>
+      <path d="M120.903 1.45047H129.186C131.552 1.45047 133.451 2.16483 134.661 3.37338C135.597 4.30735 136.148 5.65347 136.148 7.16395V7.21947C136.148 10.4059 133.947 12.2738 130.919 12.823L136.835 20.679H134.166L128.58 13.2075H123.076V20.679H120.902L120.903 1.45047ZM128.993 11.257C131.882 11.257 133.946 9.77359 133.946 7.30152V7.24654C133.946 4.88414 132.13 3.45597 129.02 3.45597H123.076V11.257H128.993Z" fill="#0F8FE8"/>
+      <path d="M140.795 1.45047H154.72V3.42835H142.969V9.99321H153.481V11.9711H142.969V18.7011H154.857V20.6787H140.795V1.45047H140.795Z" fill="#0F8FE8"/>
+      <path d="M39.7118 20.32L29.3743 22.3255C29.191 21.4582 28.3455 20.8992 27.4734 21.0671L27.4718 21.0688L27.1584 19.4593C28.0354 19.2695 28.5907 18.4058 28.4006 17.5304C28.2154 16.6815 27.3951 16.129 26.5364 16.277L26.1663 14.3746C27.0482 14.208 27.6285 13.361 27.4636 12.4804C27.2967 11.6 26.4482 11.0208 25.566 11.1854C25.5595 11.187 25.5526 11.1887 25.5444 11.1903L25.1559 9.1996C26.0329 9.00979 26.5882 8.14611 26.3981 7.27067C26.2129 6.42176 25.3926 5.86931 24.534 6.01727L24.194 4.27131C25.071 4.07986 25.6279 3.21618 25.4362 2.34074C25.4145 2.23763 25.3811 2.1359 25.3395 2.03935L35.7485 0.0177153C36.2787 -0.0837495 36.7924 0.260848 36.8956 0.790051L37.6959 4.88775L37.6041 4.90444C34.7896 5.45196 32.9524 8.17319 33.5008 10.9827C34.0493 13.7923 36.7754 15.6263 39.5899 15.0788C39.6217 15.0739 39.6516 15.0671 39.6817 15.0605L40.4853 19.1749C40.5855 19.7041 40.2403 20.215 39.7118 20.32Z" fill="#0F8FE8"/>
+    </svg>
+    <span class="topbar-x">&times;</span>
+    <!-- Milo logo -->
+    <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="mg" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5b6ef5"/><stop offset="100%" stop-color="#b44fff"/></linearGradient></defs>
+      <rect width="28" height="28" rx="7" fill="url(#mg)"/>
+      <path d="M9.5 5.5 L10.4 8.1 L13 9 L10.4 9.9 L9.5 12.5 L8.6 9.9 L6 9 L8.6 8.1 Z" fill="white"/>
+      <circle cx="14.5" cy="6.5" r="1" fill="white" opacity="0.85"/>
+      <polyline points="7,21 11,17.5 15,19.5 21,13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="21" cy="13" r="2" fill="white"/>
+      <circle cx="7" cy="21" r="1.3" fill="white" opacity="0.6"/>
+      <circle cx="11" cy="17.5" r="1.3" fill="white" opacity="0.6"/>
+      <circle cx="15" cy="19.5" r="1.3" fill="white" opacity="0.6"/>
+    </svg>
+    <span style="font-weight:700; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; color:#5b6ef5;">Milo</span>
+  </div>
+  <div class="topbar-meta">
+    <span class="topbar-tag">Solution Overview</span>
+    <span class="topbar-date">April 2026</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="page">
+<section class="hero">
+
+  <div class="hero-eyebrow animate-target" style="opacity:0; transform:translateY(10px)">
+    <div class="eyebrow-dot"></div>
+    <span class="eyebrow-text">Prepared for Dom, Tom, Eddie, Neila &amp; Paul &mdash; Ticketure</span>
+  </div>
+
+  <h1 class="animate-target" style="opacity:0; transform:translateY(12px)">
+    Ticketure <span class="em">&times;</span> Milo<br>
+    <span class="dim">A smarter way to answer every data question &mdash; across your team, your clients, and your revenue.</span>
+  </h1>
+
+  <p class="hero-lead animate-target" style="opacity:0; transform:translateY(12px)">
+    Ticketure powers visitor experiences for museums, zoos and cultural attractions worldwide. But internal questions about client health, revenue trends and campaign performance still require manual effort across multiple systems. Milo sits on top of what you already have and turns every question into an instant, explainable answer.
+  </p>
+
+  <!-- Decorative ticket -->
+  <div class="ticket-decoration">
+    <div class="ticket-main">
+      <div class="ticket-event-label">Admit One</div>
+      <div class="ticket-event-name">Data Intelligence for Ticketure</div>
+      <div class="ticket-details">
+        <div>
+          <div class="ticket-detail-label">Date</div>
+          <div class="ticket-detail-value">8 Apr 2026</div>
+        </div>
+        <div>
+          <div class="ticket-detail-label">Venue</div>
+          <div class="ticket-detail-value">Your data stack</div>
+        </div>
+        <div>
+          <div class="ticket-detail-label">Seat</div>
+          <div class="ticket-detail-value">Front row</div>
+        </div>
+      </div>
+      <div class="ticket-barcode"></div>
+    </div>
+    <div class="ticket-perf"></div>
+    <div class="ticket-stub">
+      <div class="ticket-stub-label">Powered by</div>
+      <div class="ticket-stub-text">Milo &times; Autonomous Minds</div>
+    </div>
+  </div>
+
+  <p class="hero-prepared animate-target" style="opacity:0; transform:translateY(8px); margin-top:32px;">
+    8 April 2026 &nbsp;&middot;&nbsp; Prepared by Liam Rabone &amp; Tom Pickett, Autonomous Minds
+  </p>
+
+</section>
+</div>
+
+<!-- WHAT WE HEARD -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">What We Heard</span>
+  </div>
+
+  <h2>Three teams. <span class="em">One set of problems.</span></h2>
+
+  <p class="section-lead">
+    Every conversation pointed to the same thing: the data exists, but getting to it takes too long, involves too many people, and often arrives too late to act on.
+  </p>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-label">Dom &amp; the US Team</div>
+      <ul>
+        <li>Raw data in Snowflake but not everyone can query it</li>
+        <li>Reporting layer works but not built for speed</li>
+        <li>Client-facing analytics as a competitive differentiator vs competitors</li>
+      </ul>
+    </div>
+
+    <div class="team-card green-accent">
+      <div class="team-label">UK Biz Dev &mdash; Neila</div>
+      <ul>
+        <li>Performance metrics for sector outreach require chasing multiple teams</li>
+        <li>Weekly leadership reporting done manually in HubSpot dashboards</li>
+        <li>CRM data messy &mdash; duplicates, legacy Tick Track contacts, can't rely on it for campaigns</li>
+      </ul>
+    </div>
+
+    <div class="team-card gold-accent">
+      <div class="team-label">UK CS &amp; Support &mdash; Eddie &amp; Paul</div>
+      <ul>
+        <li>360 client view requires manually searching HubSpot, Slack, and Jira separately</li>
+        <li>Client health scoring (evangelist programme) partially built in HubSpot automation</li>
+        <li>Revenue protection &mdash; identifying churn risk before it happens</li>
+        <li>Support ticket trend analysis currently done manually</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- HOW MILO SOLVES THIS -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">How Milo Solves This</span>
+  </div>
+
+  <h2>Plain English in. <span class="em">Answers with reasoning out.</span></h2>
+
+  <p class="section-lead">
+    Milo connects to your existing tools and lets anyone on the team ask questions in natural language. No SQL, no dashboards to build, no waiting for someone else to pull the numbers.
+  </p>
+
+  <div class="feature-grid">
+    <div class="f-card">
+      <div class="f-icon">💬</div>
+      <h4>Ask in plain English</h4>
+      <p>"Which clients are at churn risk this quarter?" &mdash; Milo returns the answer with reasoning, not just a chart. Anyone on the team can ask. The data answers.</p>
+    </div>
+
+    <div class="f-card">
+      <div class="f-icon">🔗</div>
+      <h4>360 client view in 2 minutes</h4>
+      <p>Connect HubSpot, Jira, Slack, Snowflake. One query pulls support history, health score, usage trends, open tickets. No more tabbing between four systems.</p>
+    </div>
+
+    <div class="f-card">
+      <div class="f-icon">📊</div>
+      <h4>Automated reporting</h4>
+      <p>Daily performance digest to Slack or WhatsApp at 9am. Weekly leadership report auto-generated. No one needs to log in and build it.</p>
+    </div>
+
+    <div class="f-card">
+      <div class="f-icon">🧠</div>
+      <h4>The why, not just the what</h4>
+      <p>Revenue drops, marketing attribution, churn signals &mdash; Milo explains the cause and suggests actions. Not just numbers. Decisions.</p>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- CASE STUDY -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">Case Study</span>
+  </div>
+
+  <h2>UK Ticketing Platform. <span class="em">Before &amp; after.</span></h2>
+
+  <p class="section-lead">
+    A major UK ticketing platform deployed Milo across their analytics, operations and client-facing teams. Here's what changed.
+  </p>
+
+  <div class="case-study-block">
+    <div class="cs-header">
+      <div class="cs-header-dot"></div>
+      <span class="cs-header-label">Performance Metrics &mdash; Ticketing Industry</span>
+      <span class="cs-header-tag">Live data</span>
+    </div>
+
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th style="width:38%">Metric</th>
+          <th class="before-col" style="width:28%">Before Milo</th>
+          <th class="after-col" style="width:34%">After Milo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Time to answer ad-hoc query</td>
+          <td class="val-before">5&ndash;7 days</td>
+          <td class="val-after">Under 5 minutes</td>
+        </tr>
+        <tr>
+          <td>Analyst hours on repetitive requests</td>
+          <td class="val-before">40+ hrs/week</td>
+          <td class="val-after">8 hrs/week</td>
+        </tr>
+        <tr>
+          <td>Client satisfaction (data access)</td>
+          <td class="val-before">6.2 / 10</td>
+          <td class="val-after">8.7 / 10</td>
+        </tr>
+        <tr>
+          <td>Queries answered per week</td>
+          <td class="val-before">~25</td>
+          <td class="val-after">200+</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cs-quote">
+      <p>"If we can put client-facing analytics in front of our customers, that's a differentiator. Milo gets us there faster than building it ourselves."</p>
+      <span class="cs-attr">&mdash; Group CEO, UK Ticketing Platform</span>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- POC STRUCTURE -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">POC Structure</span>
+  </div>
+
+  <h2>Four weeks. <span class="em">Prove it or walk away.</span></h2>
+
+  <p class="section-lead">
+    A focused pilot designed to show measurable value before any long-term commitment.
+  </p>
+
+  <div class="timeline">
+    <div class="timeline-week">
+      <div class="tw-num">Week 1</div>
+      <div class="tw-title">Connect &amp; Map</div>
+      <div class="tw-desc">Snowflake connection, HubSpot + Jira integration, data mapping, context setup</div>
+    </div>
+    <div class="timeline-week">
+      <div class="tw-num">Week 2</div>
+      <div class="tw-title">Onboard &amp; Train</div>
+      <div class="tw-desc">Pilot user onboarding (Neila, Paul, Eddie + 2&ndash;3 US team members), training sessions</div>
+    </div>
+    <div class="timeline-week">
+      <div class="tw-num">Weeks 3&ndash;4</div>
+      <div class="tw-title">Use &amp; Iterate</div>
+      <div class="tw-desc">Active usage across both teams, feedback collection, rapid iteration on context and accuracy</div>
+    </div>
+    <div class="timeline-week">
+      <div class="tw-num">Week 4</div>
+      <div class="tw-title">Review &amp; Decide</div>
+      <div class="tw-desc">Review meeting, results analysis, go/no-go decision based on measurable outcomes</div>
+    </div>
+  </div>
+
+  <div class="poc-includes">
+    <div class="inc-label">What's included in the POC</div>
+    <ul>
+      <li>Full platform access</li>
+      <li>Dedicated onboarding</li>
+      <li>Data source setup</li>
+      <li>Slack support channel</li>
+      <li>End-of-pilot review</li>
+    </ul>
+  </div>
+
+</section>
+</div>
+
+<!-- INVESTMENT -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">Investment</span>
+  </div>
+
+  <h2>Simple pricing. <span class="em">No lock-in.</span></h2>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="pc-label">Proof of Concept</div>
+      <div class="pc-price">$1,500</div>
+      <div class="pc-unit">USD one-time &middot; 3&ndash;4 weeks</div>
+      <ul class="pc-features">
+        <li>Full platform access for pilot team</li>
+        <li>Up to 3 connected data sources</li>
+        <li>Dedicated onboarding &amp; training</li>
+        <li>Credited against subscription on conversion</li>
+      </ul>
+    </div>
+
+    <div class="price-card featured">
+      <div class="pc-label">Ongoing Subscription</div>
+      <div class="pc-price">$2,100</div>
+      <div class="pc-unit">USD / month</div>
+      <ul class="pc-features">
+        <li>Unlimited users across US &amp; UK teams</li>
+        <li>Up to 3 connected data sources</li>
+        <li>Automated reporting &amp; alerts</li>
+        <li>Dedicated Slack support channel</li>
+        <li>Quarterly business reviews</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pricing-note">
+    <strong>Walk-away terms.</strong> If it doesn't deliver value in the POC, you don't continue. No pressure. The POC fee is credited in full against the subscription if you move forward.
+  </div>
+
+</section>
+</div>
+
+<!-- WHITE-LABEL PARTNERSHIP -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">Future</span>
+  </div>
+
+  <h2>Beyond internal. <span class="em">White-label partnership.</span></h2>
+
+  <div class="wl-block">
+    <div class="wl-tag">Exploring together</div>
+    <p>Ticketure mentioned interest in offering Milo capabilities to your clients &mdash; cultural institutions wanting visitor insights, attendance analytics and revenue intelligence. We're actively exploring embedded analytics, bundled offerings and revenue share models with other ticketing partners. The right path: validate the internal use case first during the POC, then explore the client-facing opportunity together with a clear commercial framework.</p>
+  </div>
+
+</section>
+</div>
+
+<!-- NEXT STEPS -->
+<div class="page">
+<section class="section">
+
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-label">Next Steps</span>
+  </div>
+
+  <h2>Three steps to <span class="em">kick-off.</span></h2>
+
+  <div class="steps-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <p><strong>Dom confirms POC scope</strong> &mdash; data sources, pilot users, and any specific questions you want Milo to answer from day one. Target kick-off within 1 week of agreement.</p>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <p><strong>Technical call with Paul + Philip</strong> (Milo CTO) to spec the Snowflake connection, map HubSpot properties, and confirm Jira project scope.</p>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <p><strong>Liam sets up shared Slack channel</strong> for POC comms &mdash; direct access to the Milo team for questions, feedback and iteration throughout the pilot.</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <h2>Ready to see it <span class="em">in action?</span></h2>
+    <p>Book a 30-minute call with Liam to walk through the POC setup and get your team connected.</p>
+    <a href="https://calendly.com/tom-milo" target="_blank" rel="noopener" class="cta-btn">Book a call with Liam &rarr;</a>
+  </div>
+
+</section>
+</div>
+
+<div class="footer-meta">
+  Autonomous Minds Ltd &middot; Confidential &middot; Prepared for Ticketure &middot; April 2026
+</div>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const targets = entry.target.querySelectorAll('.team-card, .f-card, .case-study-block, .timeline, .poc-includes, .price-card, .wl-block, .step-item, .cta-block, .ticket-decoration');
+      if (targets.length) {
+        targets.forEach((t, j) => {
+          setTimeout(() => t.classList.add('anim'), j * 80);
+        });
+      }
+      // Section-level elements
+      const sectionEyebrow = entry.target.querySelector('.section-eyebrow');
+      if (sectionEyebrow) sectionEyebrow.classList.add('anim');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.section, .hero').forEach(s => observer.observe(s));
+
+// Hero elements animate on load
+setTimeout(() => {
+  document.querySelectorAll('.hero .animate-target').forEach((el, i) => {
+    setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    }, i * 150);
+  });
+}, 200);
+</script>
+
+</body>
+</html>
