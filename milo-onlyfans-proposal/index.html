@@ -14,14 +14,16 @@
   --blue: #008ccf;
   --blue-light: #00AFF0;
   --blue-vivid: #00c2ff;
+  --blue-sky: #60dfff;
   --blue-glow: rgba(0, 175, 240, 0.15);
   --blue-dim: rgba(0, 175, 240, 0.06);
-  --dark: #0a0a0a;
-  --dark-mid: #111;
+  --dark: #08090a;
+  --dark-mid: #111214;
   --white: #ffffff;
   --off-white: #f8f9fb;
   --grey-50: #f2f3f5;
   --grey-100: #e5e7eb;
+  --grey-200: #d1d5db;
   --grey-300: #c4c8d0;
   --grey-500: #6b7280;
   --grey-700: #374151;
@@ -41,11 +43,23 @@ body {
   overflow-x: hidden;
 }
 
+/* ─── Scroll progress bar ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--blue-vivid), var(--blue-sky));
+  z-index: 200;
+  transition: width 0.05s linear;
+}
+
 /* ─── Reveal on scroll ─── */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.visible {
   opacity: 1;
@@ -59,16 +73,16 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  background: rgba(255, 255, 255, 0.72);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .topbar-inner {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 16px 48px;
+  padding: 14px 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,41 +91,33 @@ body {
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 
-.topbar-logo {
-  font-weight: 800;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  background: linear-gradient(135deg, var(--blue), var(--blue-vivid));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.topbar-logos {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.topbar-sep {
+.topbar-x {
   color: var(--grey-300);
   font-weight: 300;
-  font-size: 1.2rem;
-}
-
-.topbar-client {
-  font-weight: 500;
   font-size: 0.85rem;
-  color: var(--grey-700);
 }
 
 .topbar-date {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--grey-500);
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
 }
 
 /* ─── Hero ─── */
 .hero {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -119,60 +125,139 @@ body {
   background: var(--dark);
 }
 
-.hero::before {
-  content: '';
+/* Animated gradient mesh */
+.hero-mesh {
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(ellipse at 30% 50%, rgba(0, 175, 240, 0.12) 0%, transparent 50%),
-              radial-gradient(ellipse at 70% 60%, rgba(0, 140, 207, 0.08) 0%, transparent 50%);
-  animation: drift 20s ease-in-out infinite alternate;
+  inset: 0;
+  overflow: hidden;
 }
 
-@keyframes drift {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  100% { transform: translate(-3%, 2%) rotate(2deg); }
+.hero-mesh .orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+
+.orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0, 175, 240, 0.25), transparent 70%);
+  top: -15%; left: 15%;
+  animation: float1 18s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0, 140, 207, 0.2), transparent 70%);
+  bottom: -10%; right: 10%;
+  animation: float2 22s ease-in-out infinite;
+}
+
+.orb-3 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(96, 223, 255, 0.15), transparent 70%);
+  top: 40%; right: 25%;
+  animation: float3 15s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -30px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(1.05); }
+  66% { transform: translate(60px, -20px) scale(0.9); }
+}
+@keyframes float3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.15); }
+}
+
+/* Grid overlay */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 900px;
+  max-width: 920px;
   padding: 0 48px;
   text-align: center;
 }
 
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 40px;
+  backdrop-filter: blur(10px);
+}
+
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  box-shadow: 0 0 10px rgba(0, 175, 240, 0.6);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 10px rgba(0, 175, 240, 0.6); }
+  50% { box-shadow: 0 0 20px rgba(0, 175, 240, 0.9); }
+}
+
+.hero-badge-text {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .hero h1 {
   font-weight: 800;
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-  line-height: 1.08;
+  font-size: clamp(2.8rem, 6.5vw, 5rem);
+  line-height: 1.05;
   color: var(--white);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   margin-bottom: 28px;
 }
 
 .hero h1 .gradient {
-  background: linear-gradient(135deg, var(--blue-light), var(--blue-vivid), #60dfff);
+  background: linear-gradient(135deg, var(--blue-light), var(--blue-vivid), var(--blue-sky));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .hero-sub {
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  color: rgba(255, 255, 255, 0.55);
-  max-width: 620px;
-  margin: 0 auto 56px;
-  line-height: 1.7;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.45);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.75;
   font-weight: 300;
 }
 
 .hero-prepared {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.25);
-  letter-spacing: 0.08em;
+  margin-top: 48px;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -182,23 +267,28 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
-  margin-top: 72px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
+  margin-top: 80px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .hero-stat {
-  padding: 36px 24px;
-  background: rgba(255, 255, 255, 0.03);
+  padding: 44px 24px;
+  background: rgba(255, 255, 255, 0.02);
   text-align: center;
-  backdrop-filter: blur(10px);
+  transition: background 0.3s ease;
+}
+
+.hero-stat:hover {
+  background: rgba(0, 175, 240, 0.04);
 }
 
 .hero-stat-number {
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   background: linear-gradient(135deg, var(--blue-light), var(--blue-vivid));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -207,20 +297,60 @@ body {
 }
 
 .hero-stat-label {
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.35);
-  margin-top: 6px;
-  font-weight: 400;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 8px;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
-/* Animated counter */
-.counter { display: inline-block; }
+/* ─── Ticker ─── */
+.ticker-wrap {
+  overflow: hidden;
+  background: var(--grey-50);
+  border-bottom: 1px solid var(--grey-100);
+  border-top: 1px solid var(--grey-100);
+  padding: 18px 0;
+}
+
+.ticker {
+  display: flex;
+  animation: ticker 30s linear infinite;
+  width: max-content;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 40px;
+  white-space: nowrap;
+}
+
+.ticker-item span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--grey-500);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ticker-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  opacity: 0.6;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
 /* ─── Sections (white) ─── */
 .page {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 48px;
 }
@@ -235,7 +365,7 @@ body {
 }
 
 .section-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -245,10 +375,10 @@ body {
 
 h2 {
   font-weight: 700;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  line-height: 1.15;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  line-height: 1.12;
   color: var(--grey-900);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   margin-bottom: 20px;
   max-width: 600px;
 }
@@ -266,23 +396,38 @@ h2 {
   margin-top: 56px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 16px;
 }
 
 .question-card {
   padding: 32px;
   border-radius: 16px;
-  background: var(--grey-50);
-  border: 1px solid transparent;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--white);
+  border: 1px solid var(--grey-100);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--blue-light), var(--blue-vivid));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .question-card:hover {
-  background: var(--white);
-  border-color: var(--blue-light);
-  box-shadow: 0 8px 40px rgba(0, 175, 240, 0.08), 0 0 0 1px rgba(0, 175, 240, 0.1);
-  transform: translateY(-2px);
+  border-color: rgba(0, 175, 240, 0.2);
+  box-shadow: 0 8px 40px rgba(0, 175, 240, 0.06), 0 0 0 1px rgba(0, 175, 240, 0.08);
+  transform: translateY(-3px);
+}
+
+.question-card:hover::before {
+  opacity: 1;
 }
 
 .question-card p {
@@ -303,15 +448,27 @@ h2 {
 .demo-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(0, 175, 240, 0.06) 0%, transparent 60%);
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(0, 175, 240, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(0, 140, 207, 0.05) 0%, transparent 50%);
+}
+
+/* Subtle grid in demo section */
+.demo-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
 }
 
 .demo-inner {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 48px;
   position: relative;
@@ -324,103 +481,121 @@ h2 {
 }
 
 .demo-header .section-label { color: var(--blue-light); }
-.demo-header h2 { color: var(--white); margin-left: auto; margin-right: auto; max-width: 500px; }
-.demo-header .section-intro { color: rgba(255,255,255,0.5); margin-left: auto; margin-right: auto; }
+.demo-header h2 { color: var(--white); margin-left: auto; margin-right: auto; max-width: 540px; }
+.demo-header .section-intro { color: rgba(255,255,255,0.45); margin-left: auto; margin-right: auto; }
 
 .milo-cards {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  max-width: 720px;
+  gap: 20px;
+  max-width: 740px;
   margin: 0 auto;
 }
 
 .milo-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
   padding: 36px;
   backdrop-filter: blur(10px);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.milo-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .milo-card:hover {
-  border-color: rgba(0, 175, 240, 0.2);
-  box-shadow: 0 0 40px rgba(0, 175, 240, 0.06);
+  border-color: rgba(0, 175, 240, 0.15);
+  box-shadow: 0 0 60px rgba(0, 175, 240, 0.06);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.milo-card:hover::before {
+  opacity: 1;
 }
 
 .milo-label {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
 
-.milo-label.q { color: rgba(255,255,255,0.3); }
+.milo-label.q { color: rgba(255,255,255,0.25); }
 .milo-label.a { color: var(--blue-light); }
 
 .milo-question {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.55);
   line-height: 1.6;
   font-weight: 400;
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .milo-answer {
   font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.82);
   line-height: 1.8;
   font-weight: 300;
 }
 
-/* Typing cursor effect on first card */
-.milo-card:first-child .milo-answer::after {
-  content: '|';
+.milo-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--blue-light);
+  margin-left: 3px;
+  vertical-align: text-bottom;
   animation: blink 1s step-end infinite;
-  color: var(--blue-light);
-  font-weight: 300;
-  margin-left: 2px;
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
-}
+@keyframes blink { 50% { opacity: 0; } }
 
 /* ─── Lean teams ─── */
 .features-grid {
   margin-top: 56px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
 }
 
 .feature-card {
   padding: 40px 32px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(0, 175, 240, 0.03), rgba(0, 175, 240, 0.01));
+  border-radius: 20px;
+  background: var(--white);
   border: 1px solid var(--grey-100);
-  transition: all 0.35s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
 .feature-card:hover {
-  border-color: rgba(0, 175, 240, 0.2);
-  box-shadow: 0 12px 48px rgba(0, 175, 240, 0.06);
-  transform: translateY(-3px);
+  border-color: rgba(0, 175, 240, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 175, 240, 0.06);
+  transform: translateY(-4px);
 }
 
 .feature-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
   background: linear-gradient(135deg, var(--blue), var(--blue-vivid));
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(0, 175, 240, 0.2);
 }
 
 .feature-icon svg {
@@ -458,7 +633,7 @@ h2 {
 
 /* ─── POC section ─── */
 .poc-section {
-  background: linear-gradient(135deg, var(--blue), #0090d9, var(--blue-vivid));
+  background: linear-gradient(135deg, #0077b6, var(--blue), var(--blue-vivid));
   padding: 120px 0;
   position: relative;
   overflow: hidden;
@@ -468,11 +643,42 @@ h2 {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.1) 0%, transparent 50%);
+}
+
+/* Floating particles in POC */
+.poc-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.poc-particles span {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  animation: float-particle 12s ease-in-out infinite;
+}
+
+.poc-particles span:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.poc-particles span:nth-child(2) { top: 60%; left: 80%; animation-delay: -3s; animation-duration: 15s; }
+.poc-particles span:nth-child(3) { top: 80%; left: 30%; animation-delay: -6s; animation-duration: 10s; }
+.poc-particles span:nth-child(4) { top: 30%; left: 70%; animation-delay: -2s; animation-duration: 18s; }
+.poc-particles span:nth-child(5) { top: 50%; left: 50%; animation-delay: -8s; animation-duration: 14s; }
+.poc-particles span:nth-child(6) { top: 10%; left: 90%; animation-delay: -4s; }
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.15; }
+  25% { transform: translateY(-20px) translateX(10px); opacity: 0.3; }
+  50% { transform: translateY(-10px) translateX(-15px); opacity: 0.15; }
+  75% { transform: translateY(15px) translateX(5px); opacity: 0.25; }
 }
 
 .poc-inner {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 48px;
   position: relative;
@@ -490,16 +696,17 @@ h2 {
 }
 
 .poc-left .section-intro {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.65);
   margin-top: 16px;
 }
 
 .poc-right {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 44px 40px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  padding: 48px 40px;
 }
 
 .poc-list {
@@ -517,19 +724,19 @@ h2 {
   font-weight: 400;
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 14px;
 }
 
 .poc-check {
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .poc-check svg {
@@ -544,25 +751,25 @@ h2 {
   display: inline-block;
   background: var(--white);
   color: var(--blue);
-  font-weight: 600;
-  font-size: 0.92rem;
-  padding: 14px 32px;
-  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 16px 36px;
+  border-radius: 12px;
   text-decoration: none;
-  letter-spacing: 0.01em;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.01em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .poc-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .poc-price {
   margin-top: 24px;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
   font-weight: 300;
 }
 
@@ -571,6 +778,7 @@ h2 {
   padding: 48px 0;
   text-align: center;
   background: var(--white);
+  border-top: 1px solid var(--grey-100);
 }
 
 .footer-text {
@@ -593,10 +801,10 @@ h2 {
 @media (max-width: 768px) {
   .page, .demo-inner, .poc-inner, .topbar-inner { padding: 0 24px; }
   .topbar-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
-  .hero { min-height: auto; padding: 140px 0 80px; }
+  .hero { min-height: auto; padding: 130px 0 80px; }
   .hero-content { padding: 0 24px; }
   .hero-stats { grid-template-columns: 1fr; }
-  .hero-stat { padding: 24px 20px; }
+  .hero-stat { padding: 28px 20px; }
   .section-white { padding: 80px 0; }
   .demo-section { padding: 80px 0; }
   .questions-grid { grid-template-columns: 1fr; }
@@ -606,24 +814,45 @@ h2 {
   .poc-right { padding: 32px 24px; }
   .milo-card { padding: 28px; }
   .question-card { padding: 24px; }
-  h1 { font-size: 2.2rem; }
+  .ticker-wrap { display: none; }
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 1.8rem; }
+  h1 { font-size: 2rem !important; }
   h2 { font-size: 1.5rem; }
 }
 </style>
 </head>
 <body>
 
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <!-- Topbar -->
 <nav class="topbar">
   <div class="topbar-inner">
     <div class="topbar-left">
-      <span class="topbar-logo">MILO</span>
-      <span class="topbar-sep">/</span>
-      <span class="topbar-client">OnlyFans</span>
+      <div class="topbar-logos">
+        <!-- OnlyFans logo icon -->
+        <svg width="28" height="28" viewBox="-20.62 0.53 820.42 555.49" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M266.82.53c35 0 69.65 6.91 101.98 20.34s61.71 33.11 86.45 57.93c24.75 24.81 44.37 54.27 57.77 86.7a267.919 267.919 0 0 1 20.29 102.27c0 108.09-64.93 205.53-164.51 246.89s-214.2 18.5-290.41-57.93C2.18 380.3-20.62 265.36 20.62 165.5 61.87 65.64 159.04.53 266.82.53zm0 347.4c10.5.01 20.9-2.05 30.61-6.07s18.52-9.93 25.95-17.38 13.31-16.29 17.33-26.02a80.365 80.365 0 0 0 6.06-30.7c0-32.43-19.48-61.66-49.35-74.07s-64.26-5.55-87.12 17.38-29.7 57.41-17.33 87.37 41.53 49.49 73.86 49.49z" fill="#00aeef"/>
+          <path d="M566.35 200.96c67.71 19.54 147.63 0 147.63 0-23.19 101.55-96.75 165.15-202.81 172.89a266.766 266.766 0 0 1-40.48 65.86 266.208 266.208 0 0 1-57.62 51.43c-21.6 14.24-45.15 25.25-69.92 32.68s-50.48 11.19-76.33 11.18l79.95-254.81C428.95 18.28 471.08.54 665.98.54H799.8c-22.38 98.88-99.54 174.41-233.44 200.42z" fill="#008ccf"/>
+        </svg>
+        <span class="topbar-x">&times;</span>
+        <!-- Milo logo -->
+        <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="mg" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5b6ef5"/><stop offset="100%" stop-color="#b44fff"/></linearGradient></defs>
+          <rect width="28" height="28" rx="7" fill="url(#mg)"/>
+          <path d="M9.5 5.5 L10.4 8.1 L13 9 L10.4 9.9 L9.5 12.5 L8.6 9.9 L6 9 L8.6 8.1 Z" fill="white"/>
+          <circle cx="14.5" cy="6.5" r="1" fill="white" opacity="0.85"/>
+          <polyline points="7,21 11,17.5 15,19.5 21,13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="21" cy="13" r="2" fill="white"/>
+          <circle cx="7" cy="21" r="1.3" fill="white" opacity="0.6"/>
+          <circle cx="11" cy="17.5" r="1.3" fill="white" opacity="0.6"/>
+          <circle cx="15" cy="19.5" r="1.3" fill="white" opacity="0.6"/>
+        </svg>
+        <span style="font-weight:700; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; background: linear-gradient(135deg, #5b6ef5, #b44fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Milo</span>
+      </div>
     </div>
     <span class="topbar-date">April 2026</span>
   </div>
@@ -631,10 +860,21 @@ h2 {
 
 <!-- Hero -->
 <section class="hero">
+  <div class="hero-mesh">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-grid"></div>
+
   <div class="hero-content">
-    <h1>42 people.<br><span class="gradient">$7 billion</span> moving through your platform.</h1>
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span class="hero-badge-text">Prepared for Lee Taylor, Head of Finance</span>
+    </div>
+
+    <h1>42 people.<br><span class="gradient">$7 billion</span> moving through<br>your platform.</h1>
     <p class="hero-sub">Every revenue question, every creator cohort shift, every geographic concentration risk — answered by whoever can pull the report. Or not answered at all.</p>
-    <p class="hero-prepared">Prepared for Lee Taylor, Head of Finance</p>
 
     <div class="hero-stats reveal">
       <div class="hero-stat">
@@ -653,6 +893,37 @@ h2 {
   </div>
 </section>
 
+<!-- Ticker -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item"><span class="ticker-dot"></span><span>PostgreSQL</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>BigQuery</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Snowflake</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Slack</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Teams</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>WhatsApp</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>ISO 27001</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>EU-hosted</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Redshift</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>SQL Server</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Unlimited users</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>No per-seat pricing</span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="ticker-item"><span class="ticker-dot"></span><span>PostgreSQL</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>BigQuery</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Snowflake</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Slack</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Teams</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>WhatsApp</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>ISO 27001</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>EU-hosted</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Redshift</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>SQL Server</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>Unlimited users</span></div>
+    <div class="ticker-item"><span class="ticker-dot"></span><span>No per-seat pricing</span></div>
+  </div>
+</div>
+
 <!-- Questions -->
 <div class="page">
   <section class="section-white">
@@ -662,24 +933,12 @@ h2 {
     </div>
 
     <div class="questions-grid">
-      <div class="question-card reveal">
-        <p>Which of your top 500 creators showed declining subscription renewals last month — and are they concentrated in a single geography?</p>
-      </div>
-      <div class="question-card reveal">
-        <p>How much of last month's revenue came from your top 100 accounts — and what happens to your P&L if 10 of them churn?</p>
-      </div>
-      <div class="question-card reveal">
-        <p>Is your revenue mix shifting toward PPV and away from subscriptions? Is that good or bad for long-term fan LTV?</p>
-      </div>
-      <div class="question-card reveal">
-        <p>Which fan acquisition sources are producing the highest 90-day LTV — YouTube, Reddit, or Twitter/X?</p>
-      </div>
-      <div class="question-card reveal">
-        <p>Are early churn signals in your US subscriber base accelerating or stabilising this quarter?</p>
-      </div>
-      <div class="question-card reveal">
-        <p>If competitors with lower fee structures are pulling mid-tier creators, which cohort do you stand to lose first?</p>
-      </div>
+      <div class="question-card reveal"><p>Which of your top 500 creators showed declining subscription renewals last month — and are they concentrated in a single geography?</p></div>
+      <div class="question-card reveal"><p>How much of last month's revenue came from your top 100 accounts — and what happens to your P&L if 10 of them churn?</p></div>
+      <div class="question-card reveal"><p>Is your revenue mix shifting toward PPV and away from subscriptions? Is that good or bad for long-term fan LTV?</p></div>
+      <div class="question-card reveal"><p>Which fan acquisition sources are producing the highest 90-day LTV — YouTube, Reddit, or Twitter/X?</p></div>
+      <div class="question-card reveal"><p>Are early churn signals in your US subscriber base accelerating or stabilising this quarter?</p></div>
+      <div class="question-card reveal"><p>If competitors with lower fee structures are pulling mid-tier creators, which cohort do you stand to lose first?</p></div>
     </div>
   </section>
 </div>
@@ -698,7 +957,7 @@ h2 {
         <div class="milo-label q">Question</div>
         <div class="milo-question">"Which creator cohorts in the US had the biggest drop in subscription renewals last month?"</div>
         <div class="milo-label a">Milo</div>
-        <div class="milo-answer">US-based lifestyle creators (accounts with 1k–10k subscribers) saw a 14% drop in renewal rates in March vs February. Adult content accounts in the same tier were flat. The drop is concentrated in accounts that haven't posted in 10+ days — suggesting inactivity is the driver, not pricing.</div>
+        <div class="milo-answer">US-based lifestyle creators (accounts with 1k–10k subscribers) saw a 14% drop in renewal rates in March vs February. Adult content accounts in the same tier were flat. The drop is concentrated in accounts that haven't posted in 10+ days — suggesting inactivity is the driver, not pricing.<span class="milo-cursor"></span></div>
       </div>
 
       <div class="milo-card reveal">
@@ -766,6 +1025,9 @@ h2 {
 
 <!-- POC -->
 <section class="poc-section">
+  <div class="poc-particles">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
   <div class="poc-inner">
     <div class="poc-left reveal">
       <h2>See it working on your data in 2 weeks.</h2>
@@ -773,22 +1035,10 @@ h2 {
     </div>
     <div class="poc-right reveal">
       <ul class="poc-list">
-        <li>
-          <span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-          2-week POC on your live data
-        </li>
-        <li>
-          <span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-          ~£1,000–1,200, credited in full on conversion
-        </li>
-        <li>
-          <span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-          Connects directly to your existing data layer
-        </li>
-        <li>
-          <span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-          EU-hosted. ISO 27001 certified.
-        </li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>2-week POC on your live data</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>~£1,000–1,200, credited in full on conversion</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Connects directly to your existing data layer</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>EU-hosted. ISO 27001 certified.</li>
       </ul>
       <a href="mailto:tom@usemilo.ai?subject=OnlyFans%20%C3%97%20Milo%20%E2%80%94%20Let%27s%20talk&body=Hi%20Tom%2C%0A%0AI%27d%20like%20to%20discuss%20the%20Milo%20POC%20for%20OnlyFans.%0A%0A" class="poc-cta">Let's talk &rarr;</a>
       <p class="poc-price">Full platform: £1,490/month &middot; Unlimited users</p>
@@ -803,25 +1053,31 @@ h2 {
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Intersection Observer for reveals
+  // Scroll progress bar
+  const progressBar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = progress + '%';
+  });
+
+  // Intersection Observer for reveals with stagger
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Stagger siblings
-        const siblings = entry.target.parentElement.querySelectorAll('.reveal');
-        let delay = 0;
-        siblings.forEach((sib, idx) => {
-          if (sib === entry.target) delay = idx * 0.08;
-        });
-        entry.target.style.transitionDelay = `${delay}s`;
+        const parent = entry.target.parentElement;
+        const siblings = Array.from(parent.querySelectorAll(':scope > .reveal'));
+        const idx = siblings.indexOf(entry.target);
+        entry.target.style.transitionDelay = `${idx * 0.08}s`;
         entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -60px 0px'
+    threshold: 0.06,
+    rootMargin: '0px 0px -40px 0px'
   });
   reveals.forEach(el => observer.observe(el));
 
@@ -833,29 +1089,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = entry.target;
         const target = parseFloat(el.dataset.target);
         const isDecimal = target % 1 !== 0;
-        const duration = 2000;
+        const duration = 2200;
         const startTime = performance.now();
 
         function update(currentTime) {
           const elapsed = currentTime - startTime;
           const progress = Math.min(elapsed / duration, 1);
-          // Ease out cubic
-          const eased = 1 - Math.pow(1 - progress, 3);
+          const eased = 1 - Math.pow(1 - progress, 4);
           const current = target * eased;
-
-          if (isDecimal) {
-            el.textContent = current.toFixed(1);
-          } else {
-            el.textContent = Math.round(current);
-          }
-
-          if (progress < 1) {
-            requestAnimationFrame(update);
-          } else {
-            el.textContent = isDecimal ? target.toFixed(1) : target;
-          }
+          el.textContent = isDecimal ? current.toFixed(1) : Math.round(current);
+          if (progress < 1) requestAnimationFrame(update);
+          else el.textContent = isDecimal ? target.toFixed(1) : target;
         }
-
         requestAnimationFrame(update);
         counterObserver.unobserve(el);
       }
@@ -866,16 +1111,33 @@ document.addEventListener('DOMContentLoaded', () => {
   // Topbar show/hide on scroll
   const topbar = document.querySelector('.topbar');
   let lastScroll = 0;
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    if (currentScroll > 100) {
-      topbar.style.transform = currentScroll > lastScroll ? 'translateY(-100%)' : 'translateY(0)';
-    } else {
-      topbar.style.transform = 'translateY(0)';
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 80) {
+          topbar.style.transform = currentScroll > lastScroll ? 'translateY(-100%)' : 'translateY(0)';
+        } else {
+          topbar.style.transform = 'translateY(0)';
+        }
+        topbar.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+        lastScroll = currentScroll;
+        ticking = false;
+      });
+      ticking = true;
     }
-    topbar.style.transition = 'transform 0.3s ease';
-    lastScroll = currentScroll;
   });
+
+  // Hero entrance animation
+  const heroContent = document.querySelector('.hero-content');
+  heroContent.style.opacity = '0';
+  heroContent.style.transform = 'translateY(30px)';
+  setTimeout(() => {
+    heroContent.style.transition = 'opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+    heroContent.style.opacity = '1';
+    heroContent.style.transform = 'translateY(0)';
+  }, 200);
 });
 </script>
 </body>
