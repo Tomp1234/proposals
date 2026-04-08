@@ -3,629 +3,878 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OnlyFans × Milo — Conversational BI for the Creator Economy</title>
+<title>OnlyFans × Milo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0d0d0d;
-  --bg-card: #111111;
-  --bg-elevated: #161616;
-  --accent: #00AFF0;
-  --accent-dim: rgba(0, 175, 240, 0.08);
-  --accent-border: rgba(0, 175, 240, 0.20);
-  --accent-glow: rgba(0, 175, 240, 0.15);
-  --text: #FFFFFF;
-  --text-dim: #8a8a8a;
-  --text-muted: #555555;
-  --border: rgba(255, 255, 255, 0.06);
+  --blue: #008ccf;
+  --blue-light: #00AFF0;
+  --blue-vivid: #00c2ff;
+  --blue-glow: rgba(0, 175, 240, 0.15);
+  --blue-dim: rgba(0, 175, 240, 0.06);
+  --dark: #0a0a0a;
+  --dark-mid: #111;
+  --white: #ffffff;
+  --off-white: #f8f9fb;
+  --grey-50: #f2f3f5;
+  --grey-100: #e5e7eb;
+  --grey-300: #c4c8d0;
+  --grey-500: #6b7280;
+  --grey-700: #374151;
+  --grey-900: #111827;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--white);
+  color: var(--grey-900);
   font-family: var(--sans);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Noise overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-}
-
-/* Ambient glow */
-.glow-orb {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-.glow-orb-1 {
-  top: -15%;
-  right: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(0, 175, 240, 0.04) 0%, transparent 70%);
-}
-.glow-orb-2 {
-  bottom: 10%;
-  left: -15%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(0, 175, 240, 0.03) 0%, transparent 70%);
-}
-
-.page {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 0 40px;
-  position: relative;
-  z-index: 1;
-}
-
-.section {
-  padding: 80px 0;
-}
-
-.section + .section {
-  border-top: 1px solid var(--border);
-}
-
-/* Fade-in on scroll */
+/* ─── Reveal on scroll ─── */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Topbar */
+/* ─── Topbar ─── */
 .topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.topbar-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 40px;
-  max-width: 860px;
-  margin: 0 auto;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  z-index: 1;
 }
 
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .topbar-logo {
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  color: var(--text);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  background: linear-gradient(135deg, var(--blue), var(--blue-vivid));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .topbar-sep {
-  color: var(--text-muted);
-  font-size: 0.85rem;
+  color: var(--grey-300);
+  font-weight: 300;
+  font-size: 1.2rem;
 }
 
 .topbar-client {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 0.85rem;
-  color: var(--text-dim);
-}
-
-.topbar-meta {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.topbar-tag {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 4px;
-  background: var(--accent-dim);
-  color: var(--accent);
-  border: 1px solid var(--accent-border);
+  color: var(--grey-700);
 }
 
 .topbar-date {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--grey-500);
   font-variant-numeric: tabular-nums;
 }
 
-/* Hero */
+/* ─── Hero ─── */
 .hero {
-  padding: 100px 0 80px;
-  border-bottom: 1px solid var(--border);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--dark);
 }
 
-h1 {
-  font-weight: 600;
-  font-size: clamp(2rem, 4.5vw, 2.8rem);
-  line-height: 1.2;
-  color: var(--text);
-  margin-bottom: 24px;
-  max-width: 680px;
-  letter-spacing: -0.02em;
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(0, 175, 240, 0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 60%, rgba(0, 140, 207, 0.08) 0%, transparent 50%);
+  animation: drift 20s ease-in-out infinite alternate;
 }
 
-h1 .accent {
-  color: var(--accent);
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-3%, 2%) rotate(2deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 0 48px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-weight: 800;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  line-height: 1.08;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  margin-bottom: 28px;
+}
+
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--blue-light), var(--blue-vivid), #60dfff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-sub {
-  font-size: 1.1rem;
-  color: var(--text-dim);
-  max-width: 600px;
-  line-height: 1.75;
-  font-weight: 300;
-}
-
-.hero-prepared {
-  margin-top: 48px;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-/* Section headings */
-.section-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
-}
-
-h2 {
-  font-weight: 600;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  line-height: 1.25;
-  color: var(--text);
-  margin-bottom: 24px;
-  letter-spacing: -0.015em;
-}
-
-.section-intro {
-  font-size: 1rem;
-  color: var(--text-dim);
-  max-width: 600px;
-  line-height: 1.75;
-  font-weight: 300;
-}
-
-/* Questions section */
-.questions-list {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.question-item {
-  font-size: 1.05rem;
-  color: var(--text);
-  line-height: 1.6;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-  font-weight: 300;
-}
-
-.question-item:first-child {
-  border-top: 1px solid var(--border);
-}
-
-/* Milo interaction cards */
-.milo-cards {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.milo-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: 8px;
-  padding: 32px;
-  box-shadow: 0 0 30px rgba(0, 175, 240, 0.04);
-}
-
-.milo-card-label {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.milo-card-label.q { color: var(--text-muted); }
-.milo-card-label.a { color: var(--accent); }
-
-.milo-card-question {
-  font-size: 1rem;
-  color: var(--text-dim);
-  line-height: 1.6;
-  font-weight: 400;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--border);
-}
-
-.milo-card-answer {
-  font-size: 0.95rem;
-  color: var(--text);
-  line-height: 1.75;
-  font-weight: 300;
-}
-
-/* Stat blocks */
-.stat-blocks {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.stat-block {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 28px 32px;
-  box-shadow: 0 0 20px rgba(0, 175, 240, 0.04);
-}
-
-.stat-block-headline {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-
-.stat-block-body {
-  font-size: 0.9rem;
-  color: var(--text-dim);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 620px;
+  margin: 0 auto 56px;
   line-height: 1.7;
   font-weight: 300;
 }
 
-/* Context section */
-.context-body {
-  margin-top: 24px;
-  font-size: 0.95rem;
-  color: var(--text-dim);
-  line-height: 1.8;
-  font-weight: 300;
-  max-width: 640px;
+.hero-prepared {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
-/* POC flip card */
-.poc-card-container {
-  margin-top: 48px;
-  perspective: 1000px;
-  cursor: pointer;
-  max-width: 560px;
+/* Hero stats */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 72px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-.poc-card {
-  position: relative;
-  width: 100%;
-  transition: transform 0.6s ease;
-  transform-style: preserve-3d;
-}
-
-.poc-card-container.flipped .poc-card {
-  transform: rotateY(180deg);
-}
-
-.poc-front, .poc-back {
-  backface-visibility: hidden;
-  border-radius: 12px;
-  padding: 48px 40px;
-}
-
-.poc-front {
-  background: var(--bg-card);
-  border: 1px solid var(--accent-border);
-  box-shadow: 0 0 40px rgba(0, 175, 240, 0.08);
+.hero-stat {
+  padding: 36px 24px;
+  background: rgba(255, 255, 255, 0.03);
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 
-.poc-front-headline {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
+.hero-stat-number {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--blue-light), var(--blue-vivid));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
 }
 
-.poc-front-sub {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+.hero-stat-label {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 6px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.poc-back {
+/* Animated counter */
+.counter { display: inline-block; }
+
+/* ─── Sections (white) ─── */
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.section-white {
+  padding: 120px 0;
+  position: relative;
+}
+
+.section-white + .section-white {
+  border-top: 1px solid var(--grey-100);
+}
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  line-height: 1.15;
+  color: var(--grey-900);
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+  max-width: 600px;
+}
+
+.section-intro {
+  font-size: 1.05rem;
+  color: var(--grey-500);
+  max-width: 560px;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+/* ─── Questions ─── */
+.questions-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.question-card {
+  padding: 32px;
+  border-radius: 16px;
+  background: var(--grey-50);
+  border: 1px solid transparent;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+}
+
+.question-card:hover {
+  background: var(--white);
+  border-color: var(--blue-light);
+  box-shadow: 0 8px 40px rgba(0, 175, 240, 0.08), 0 0 0 1px rgba(0, 175, 240, 0.1);
+  transform: translateY(-2px);
+}
+
+.question-card p {
+  font-size: 0.95rem;
+  color: var(--grey-700);
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+/* ─── Milo Demo ─── */
+.demo-section {
+  background: var(--dark);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-section::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  background: rgba(0, 175, 240, 0.08);
-  border: 1px solid var(--accent-border);
-  transform: rotateY(180deg);
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 175, 240, 0.06) 0%, transparent 60%);
 }
 
-.poc-back-list {
+.demo-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.demo-header .section-label { color: var(--blue-light); }
+.demo-header h2 { color: var(--white); margin-left: auto; margin-right: auto; max-width: 500px; }
+.demo-header .section-intro { color: rgba(255,255,255,0.5); margin-left: auto; margin-right: auto; }
+
+.milo-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.milo-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 36px;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.milo-card:hover {
+  border-color: rgba(0, 175, 240, 0.2);
+  box-shadow: 0 0 40px rgba(0, 175, 240, 0.06);
+}
+
+.milo-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.milo-label.q { color: rgba(255,255,255,0.3); }
+.milo-label.a { color: var(--blue-light); }
+
+.milo-question {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  font-weight: 400;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.milo-answer {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* Typing cursor effect on first card */
+.milo-card:first-child .milo-answer::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: var(--blue-light);
+  font-weight: 300;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ─── Lean teams ─── */
+.features-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  padding: 40px 32px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 175, 240, 0.03), rgba(0, 175, 240, 0.01));
+  border: 1px solid var(--grey-100);
+  transition: all 0.35s ease;
+}
+
+.feature-card:hover {
+  border-color: rgba(0, 175, 240, 0.2);
+  box-shadow: 0 12px 48px rgba(0, 175, 240, 0.06);
+  transform: translateY(-3px);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-vivid));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  stroke-width: 2;
+  fill: none;
+}
+
+.feature-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--grey-900);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.feature-desc {
+  font-size: 0.9rem;
+  color: var(--grey-500);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ─── Creator economy context ─── */
+.context-body {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: var(--grey-500);
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 600px;
+}
+
+/* ─── POC section ─── */
+.poc-section {
+  background: linear-gradient(135deg, var(--blue), #0090d9, var(--blue-vivid));
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.poc-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.poc-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.poc-left h2 {
+  color: var(--white);
+  max-width: 420px;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+}
+
+.poc-left .section-intro {
+  color: rgba(255,255,255,0.7);
+  margin-top: 16px;
+}
+
+.poc-right {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 44px 40px;
+}
+
+.poc-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 32px;
+  gap: 18px;
+  margin-bottom: 36px;
 }
 
-.poc-back-list li {
-  font-size: 0.92rem;
-  color: var(--text);
+.poc-list li {
+  font-size: 0.95rem;
+  color: var(--white);
   line-height: 1.6;
-  font-weight: 300;
-  padding-left: 20px;
-  position: relative;
+  font-weight: 400;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
 }
 
-.poc-back-list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 10px;
-  width: 6px;
-  height: 6px;
+.poc-check {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: var(--accent);
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.poc-check svg {
+  width: 12px;
+  height: 12px;
+  stroke: white;
+  stroke-width: 2.5;
+  fill: none;
 }
 
 .poc-cta {
   display: inline-block;
-  background: var(--accent);
-  color: #000;
+  background: var(--white);
+  color: var(--blue);
   font-weight: 600;
-  font-size: 0.85rem;
-  padding: 12px 28px;
-  border-radius: 6px;
+  font-size: 0.92rem;
+  padding: 14px 32px;
+  border-radius: 10px;
   text-decoration: none;
-  letter-spacing: 0.02em;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.01em;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .poc-cta:hover {
-  background: #33c0f3;
-  box-shadow: 0 0 20px rgba(0, 175, 240, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
-/* Footer */
+.poc-price {
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+/* ─── Footer ─── */
 .footer {
-  padding: 60px 0;
+  padding: 48px 0;
   text-align: center;
-  border-top: 1px solid var(--border);
+  background: var(--white);
 }
 
 .footer-text {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--grey-500);
   line-height: 1.8;
 }
 
 .footer-text a {
-  color: var(--text-muted);
+  color: var(--grey-500);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .footer-text a:hover {
-  color: var(--accent);
+  color: var(--blue);
 }
 
-/* Responsive */
-@media (max-width: 640px) {
-  .page { padding: 0 24px; }
-  .topbar { padding: 20px 24px; flex-direction: column; gap: 12px; align-items: flex-start; }
-  .hero { padding: 60px 0 48px; }
-  .section { padding: 56px 0; }
-  .milo-card { padding: 24px; }
-  .stat-block { padding: 24px; }
-  .poc-front, .poc-back { padding: 32px 24px; }
-  .poc-card-container { max-width: 100%; }
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .page, .demo-inner, .poc-inner, .topbar-inner { padding: 0 24px; }
+  .topbar-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+  .hero { min-height: auto; padding: 140px 0 80px; }
+  .hero-content { padding: 0 24px; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .hero-stat { padding: 24px 20px; }
+  .section-white { padding: 80px 0; }
+  .demo-section { padding: 80px 0; }
+  .questions-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr; }
+  .poc-section { padding: 80px 0; }
+  .poc-inner { grid-template-columns: 1fr; gap: 40px; }
+  .poc-right { padding: 32px 24px; }
+  .milo-card { padding: 28px; }
+  .question-card { padding: 24px; }
+  h1 { font-size: 2.2rem; }
+}
+
+@media (max-width: 480px) {
   h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<div class="glow-orb glow-orb-1"></div>
-<div class="glow-orb glow-orb-2"></div>
-
 <!-- Topbar -->
-<div class="topbar">
-  <div class="topbar-left">
-    <span class="topbar-logo">MILO</span>
-    <span class="topbar-sep">/</span>
-    <span class="topbar-client">OnlyFans</span>
-  </div>
-  <div class="topbar-meta">
-    <span class="topbar-tag">Proposal</span>
+<nav class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-logo">MILO</span>
+      <span class="topbar-sep">/</span>
+      <span class="topbar-client">OnlyFans</span>
+    </div>
     <span class="topbar-date">April 2026</span>
   </div>
-</div>
+</nav>
 
-<div class="page">
-
-  <!-- Section 1: Hero -->
-  <section class="hero">
-    <h1>42 people. <span class="accent">$7 billion</span> moving through your platform. The questions don't stop.</h1>
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>42 people.<br><span class="gradient">$7 billion</span> moving through your platform.</h1>
     <p class="hero-sub">Every revenue question, every creator cohort shift, every geographic concentration risk — answered by whoever can pull the report. Or not answered at all.</p>
-    <p class="hero-prepared">Prepared for Lee Taylor, Head of Finance, OnlyFans</p>
-  </section>
+    <p class="hero-prepared">Prepared for Lee Taylor, Head of Finance</p>
 
-  <!-- Section 2: Questions -->
-  <section class="section reveal">
-    <span class="section-label">The reality</span>
-    <h2>Questions that should take 30 seconds.</h2>
+    <div class="hero-stats reveal">
+      <div class="hero-stat">
+        <div class="hero-stat-number"><span class="counter" data-target="4.6">0</span>M</div>
+        <div class="hero-stat-label">Creators</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number"><span class="counter" data-target="377">0</span>M</div>
+        <div class="hero-stat-label">Fans globally</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">$<span class="counter" data-target="7.2">0</span>B</div>
+        <div class="hero-stat-label">Creator GMV (2024)</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="questions-list">
-      <div class="question-item">Which of your top 500 creators showed declining subscription renewals last month — and are they concentrated in a single geography?</div>
-      <div class="question-item">How much of last month's revenue came from your top 100 accounts — and what happens to your P&L if 10 of them churn?</div>
-      <div class="question-item">Is your revenue mix shifting toward PPV and away from subscriptions? Is that good or bad for long-term fan LTV?</div>
-      <div class="question-item">Which fan acquisition sources are producing the highest 90-day LTV — YouTube, Reddit, or Twitter/X?</div>
-      <div class="question-item">Are early churn signals in your US subscriber base accelerating or stabilising this quarter?</div>
-      <div class="question-item">If competitors with lower fee structures are pulling mid-tier creators, which cohort do you stand to lose first?</div>
+<!-- Questions -->
+<div class="page">
+  <section class="section-white">
+    <div class="reveal">
+      <span class="section-label">The reality</span>
+      <h2>Questions that should take 30 seconds.</h2>
+    </div>
+
+    <div class="questions-grid">
+      <div class="question-card reveal">
+        <p>Which of your top 500 creators showed declining subscription renewals last month — and are they concentrated in a single geography?</p>
+      </div>
+      <div class="question-card reveal">
+        <p>How much of last month's revenue came from your top 100 accounts — and what happens to your P&L if 10 of them churn?</p>
+      </div>
+      <div class="question-card reveal">
+        <p>Is your revenue mix shifting toward PPV and away from subscriptions? Is that good or bad for long-term fan LTV?</p>
+      </div>
+      <div class="question-card reveal">
+        <p>Which fan acquisition sources are producing the highest 90-day LTV — YouTube, Reddit, or Twitter/X?</p>
+      </div>
+      <div class="question-card reveal">
+        <p>Are early churn signals in your US subscriber base accelerating or stabilising this quarter?</p>
+      </div>
+      <div class="question-card reveal">
+        <p>If competitors with lower fee structures are pulling mid-tier creators, which cohort do you stand to lose first?</p>
+      </div>
     </div>
   </section>
+</div>
 
-  <!-- Section 3: What Milo does -->
-  <section class="section reveal">
-    <span class="section-label">How it works</span>
-    <h2>Ask the question. Get the answer and the explanation.</h2>
-    <p class="section-intro">Milo connects to your existing data layer and lets anyone ask questions in plain English — in Slack, Teams, WhatsApp, or the web app. No tickets. No dashboards. No waiting.</p>
+<!-- Milo Demo -->
+<section class="demo-section">
+  <div class="demo-inner">
+    <div class="demo-header reveal">
+      <span class="section-label">How it works</span>
+      <h2>Ask the question. Get the answer and the explanation.</h2>
+      <p class="section-intro">Milo connects to your existing data layer and lets anyone ask questions in plain English — in Slack, Teams, WhatsApp, or the web app. No tickets. No dashboards. No waiting.</p>
+    </div>
 
     <div class="milo-cards">
       <div class="milo-card reveal">
-        <div class="milo-card-label q">Question</div>
-        <div class="milo-card-question">"Which creator cohorts in the US had the biggest drop in subscription renewals last month?"</div>
-        <div class="milo-card-label a">Milo</div>
-        <div class="milo-card-answer">US-based lifestyle creators (accounts with 1k–10k subscribers) saw a 14% drop in renewal rates in March vs February. Adult content accounts in the same tier were flat. The drop is concentrated in accounts that haven't posted in 10+ days — suggesting inactivity is the driver, not pricing.</div>
+        <div class="milo-label q">Question</div>
+        <div class="milo-question">"Which creator cohorts in the US had the biggest drop in subscription renewals last month?"</div>
+        <div class="milo-label a">Milo</div>
+        <div class="milo-answer">US-based lifestyle creators (accounts with 1k–10k subscribers) saw a 14% drop in renewal rates in March vs February. Adult content accounts in the same tier were flat. The drop is concentrated in accounts that haven't posted in 10+ days — suggesting inactivity is the driver, not pricing.</div>
       </div>
 
       <div class="milo-card reveal">
-        <div class="milo-card-label q">Question</div>
-        <div class="milo-card-question">"How is our revenue split between subscriptions, PPV and tips trending over the last 90 days?"</div>
-        <div class="milo-card-label a">Milo</div>
-        <div class="milo-card-answer">Subscription revenue is down 3% as a share of GMV; PPV is up 5%. This is consistent with top-tier creators shifting toward pay-per-view as their primary monetisation strategy. Net GMV is up, but subscription churn risk is worth watching — recurring revenue is easier to forecast.</div>
+        <div class="milo-label q">Question</div>
+        <div class="milo-question">"How is our revenue split between subscriptions, PPV and tips trending over the last 90 days?"</div>
+        <div class="milo-label a">Milo</div>
+        <div class="milo-answer">Subscription revenue is down 3% as a share of GMV; PPV is up 5%. This is consistent with top-tier creators shifting toward pay-per-view as their primary monetisation strategy. Net GMV is up, but subscription churn risk is worth watching — recurring revenue is easier to forecast.</div>
       </div>
 
       <div class="milo-card reveal">
-        <div class="milo-card-label q">Question</div>
-        <div class="milo-card-question">"Which of our top 100 creators by GMV showed the earliest warning signs of declining engagement this week?"</div>
-        <div class="milo-card-label a">Milo</div>
-        <div class="milo-card-answer">11 of your top 100 creators posted fewer than 3 times this week vs their 90-day average. 4 of those accounts are in the top 30 by GMV. Historical data suggests posting frequency drops 3–4 weeks before subscriber churn accelerates.</div>
+        <div class="milo-label q">Question</div>
+        <div class="milo-question">"Which of our top 100 creators by GMV showed the earliest warning signs of declining engagement this week?"</div>
+        <div class="milo-label a">Milo</div>
+        <div class="milo-answer">11 of your top 100 creators posted fewer than 3 times this week vs their 90-day average. 4 of those accounts are in the top 30 by GMV. Historical data suggests posting frequency drops 3–4 weeks before subscriber churn accelerates.</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Section 4: Built for lean teams -->
-  <section class="section reveal">
-    <span class="section-label">Why it fits</span>
-    <h2>A 24/7 analyst. Without the headcount.</h2>
-
-    <div class="stat-blocks">
-      <div class="stat-block reveal">
-        <div class="stat-block-headline">No BI tickets. No dashboard backlog.</div>
-        <div class="stat-block-body">Ask the question, get the answer — in the tool you're already in. Slack, Teams, WhatsApp, or web.</div>
-      </div>
-      <div class="stat-block reveal">
-        <div class="stat-block-headline">Connects to your existing data layer.</div>
-        <div class="stat-block-body">PostgreSQL, BigQuery, Snowflake, Redshift, SQL Server. No new infrastructure, no migration, no rip-and-replace.</div>
-      </div>
-      <div class="stat-block reveal">
-        <div class="stat-block-headline">Built for platforms that can't afford a data incident.</div>
-        <div class="stat-block-body">EU-hosted. ISO 27001 certified. SOC 2 in progress. Your data stays where it is — Milo queries it, never stores it.</div>
-      </div>
+<!-- Built for lean teams -->
+<div class="page">
+  <section class="section-white">
+    <div class="reveal">
+      <span class="section-label">Why it fits</span>
+      <h2>A 24/7 analyst. Without the headcount.</h2>
     </div>
-  </section>
 
-  <!-- Section 5: Creator economy context -->
-  <section class="section reveal">
-    <span class="section-label">Our world</span>
-    <h2>We understand the creator economy.</h2>
-    <p class="context-body">We're active across gaming, iGaming and creator economy platforms — working with companies where the data questions aren't abstract. They're about who's churning, who's growing, and what's going to move the P&L this quarter.</p>
-    <p class="context-body" style="margin-top: 16px;">We work with BetGames on creator and player analytics and Perlas on real-time commercial reporting. The questions we've mapped out for OnlyFans aren't hypothetical — they're the exact questions platforms operating at your scale are trying to answer every day.</p>
-  </section>
-
-  <!-- Section 6: POC Offer -->
-  <section class="section reveal">
-    <span class="section-label">Next step</span>
-    <h2>See it on your data.</h2>
-
-    <div class="poc-card-container" onclick="this.classList.toggle('flipped')" role="button" tabindex="0" aria-label="Click to reveal proof of concept details">
-      <div class="poc-card">
-        <div class="poc-front">
-          <div class="poc-front-headline">See it working on your data in 2 weeks.</div>
-          <div class="poc-front-sub">Click to see how it works</div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <div class="poc-back">
-          <ul class="poc-back-list">
-            <li>2-week proof of concept on your live data</li>
-            <li>~£1,000–1,200, credited in full on conversion</li>
-            <li>Walk-away terms — no lock-in if it doesn't work</li>
-            <li>Connects directly to your existing data layer</li>
-            <li>EU-hosted. ISO 27001 certified.</li>
-            <li>Full platform: £1,490/month. Unlimited users.</li>
-          </ul>
-          <a href="mailto:tom@usemilo.ai?subject=OnlyFans%20%C3%97%20Milo%20%E2%80%94%20POC%20discussion&body=Hi%20Tom%2C%0A%0AI%27d%20like%20to%20discuss%20the%20Milo%20POC%20for%20OnlyFans.%0A%0A" class="poc-cta">Let's talk &rarr;</a>
+        <div class="feature-title">No BI tickets. No dashboard backlog.</div>
+        <div class="feature-desc">Ask the question, get the answer — in the tool you're already in. Slack, Teams, WhatsApp, or web.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="22" x2="4" y2="15" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
+        <div class="feature-title">Connects to your existing data layer.</div>
+        <div class="feature-desc">PostgreSQL, BigQuery, Snowflake, Redshift, SQL Server. No new infrastructure, no migration, no rip-and-replace.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="feature-title">Built for sensitive platforms.</div>
+        <div class="feature-desc">EU-hosted. ISO 27001 certified. SOC 2 in progress. Your data stays where it is — Milo queries it, never stores it.</div>
       </div>
     </div>
   </section>
-
 </div>
+
+<!-- Creator economy context -->
+<div class="page">
+  <section class="section-white">
+    <div class="reveal">
+      <span class="section-label">Our world</span>
+      <h2>We understand the creator economy.</h2>
+      <p class="context-body">We're active across gaming, iGaming and creator economy platforms — working with companies where the data questions aren't abstract. They're about who's churning, who's growing, and what's going to move the P&L this quarter.</p>
+      <p class="context-body">We work with BetGames on creator and player analytics and Perlas on real-time commercial reporting. The questions we've mapped out for OnlyFans aren't hypothetical — they're the exact questions platforms operating at your scale are trying to answer every day.</p>
+    </div>
+  </section>
+</div>
+
+<!-- POC -->
+<section class="poc-section">
+  <div class="poc-inner">
+    <div class="poc-left reveal">
+      <h2>See it working on your data in 2 weeks.</h2>
+      <p class="section-intro">A focused proof of concept on your live data. Walk-away terms. No lock-in if it doesn't work.</p>
+    </div>
+    <div class="poc-right reveal">
+      <ul class="poc-list">
+        <li>
+          <span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+          2-week POC on your live data
+        </li>
+        <li>
+          <span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+          ~£1,000–1,200, credited in full on conversion
+        </li>
+        <li>
+          <span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+          Connects directly to your existing data layer
+        </li>
+        <li>
+          <span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+          EU-hosted. ISO 27001 certified.
+        </li>
+      </ul>
+      <a href="mailto:tom@usemilo.ai?subject=OnlyFans%20%C3%97%20Milo%20%E2%80%94%20Let%27s%20talk&body=Hi%20Tom%2C%0A%0AI%27d%20like%20to%20discuss%20the%20Milo%20POC%20for%20OnlyFans.%0A%0A" class="poc-cta">Let's talk &rarr;</a>
+      <p class="poc-price">Full platform: £1,490/month &middot; Unlimited users</p>
+    </div>
+  </div>
+</section>
 
 <!-- Footer -->
-<div class="page">
-  <footer class="footer">
-    <p class="footer-text">Milo by Autonomous Minds &nbsp;|&nbsp; <a href="https://usemilo.ai">usemilo.ai</a> &nbsp;|&nbsp; <a href="mailto:tom@usemilo.ai">tom@usemilo.ai</a></p>
-  </footer>
-</div>
+<footer class="footer">
+  <p class="footer-text">Milo by Autonomous Minds &nbsp;&middot;&nbsp; <a href="https://usemilo.ai">usemilo.ai</a> &nbsp;&middot;&nbsp; <a href="mailto:tom@usemilo.ai">tom@usemilo.ai</a></p>
+</footer>
 
 <script>
-// Intersection Observer for fade-in on scroll
 document.addEventListener('DOMContentLoaded', () => {
+  // Intersection Observer for reveals
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
+        // Stagger siblings
+        const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+        let delay = 0;
+        siblings.forEach((sib, idx) => {
+          if (sib === entry.target) delay = idx * 0.08;
+        });
+        entry.target.style.transitionDelay = `${delay}s`;
         entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.08,
+    rootMargin: '0px 0px -60px 0px'
   });
-
   reveals.forEach(el => observer.observe(el));
 
-  // Keyboard support for flip card
-  const card = document.querySelector('.poc-card-container');
-  card.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      card.classList.toggle('flipped');
+  // Animated counters
+  const counters = document.querySelectorAll('.counter');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.dataset.target);
+        const isDecimal = target % 1 !== 0;
+        const duration = 2000;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = target * eased;
+
+          if (isDecimal) {
+            el.textContent = current.toFixed(1);
+          } else {
+            el.textContent = Math.round(current);
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = isDecimal ? target.toFixed(1) : target;
+          }
+        }
+
+        requestAnimationFrame(update);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterObserver.observe(el));
+
+  // Topbar show/hide on scroll
+  const topbar = document.querySelector('.topbar');
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 100) {
+      topbar.style.transform = currentScroll > lastScroll ? 'translateY(-100%)' : 'translateY(0)';
+    } else {
+      topbar.style.transform = 'translateY(0)';
     }
+    topbar.style.transition = 'transform 0.3s ease';
+    lastScroll = currentScroll;
   });
 });
 </script>
