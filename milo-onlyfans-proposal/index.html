@@ -925,6 +925,325 @@ h2 {
   font-weight: 300;
 }
 
+/* ─── Architecture section (for tech team) ─── */
+.tech-section {
+  background: linear-gradient(180deg, #fafbfc 0%, #f4f6f9 100%);
+  padding: 120px 0;
+  border-top: 1px solid var(--grey-100);
+  border-bottom: 1px solid var(--grey-100);
+}
+
+.tech-header {
+  max-width: 1120px;
+  margin: 0 auto 64px;
+  padding: 0 48px;
+}
+
+.arch-grid {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.arch-card {
+  background: var(--white);
+  border: 1px solid var(--grey-100);
+  border-radius: 20px;
+  padding: 40px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.arch-card:hover {
+  border-color: rgba(0, 175, 240, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 175, 240, 0.08);
+  transform: translateY(-4px);
+}
+
+.arch-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: var(--blue-dim);
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+
+.arch-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--grey-900);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.arch-desc {
+  font-size: 0.92rem;
+  color: var(--grey-500);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+
+.arch-diagram {
+  background: var(--grey-50);
+  border: 1px solid var(--grey-100);
+  border-radius: 14px;
+  padding: 28px 20px;
+  margin-bottom: 24px;
+}
+
+.arch-diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.arch-footnote {
+  font-size: 0.78rem;
+  color: var(--grey-500);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arch-footnote::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  flex-shrink: 0;
+}
+
+/* Technical proof points grid */
+.tech-proof {
+  max-width: 1120px;
+  margin: 80px auto 0;
+  padding: 0 48px;
+}
+
+.tech-proof-header {
+  margin-bottom: 40px;
+}
+
+.tech-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--grey-100);
+  border: 1px solid var(--grey-100);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.tech-proof-item {
+  background: var(--white);
+  padding: 28px 24px;
+  transition: background 0.3s ease;
+}
+
+.tech-proof-item:hover {
+  background: var(--blue-dim);
+}
+
+.tech-proof-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--grey-900);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tech-proof-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  flex-shrink: 0;
+}
+
+.tech-proof-desc {
+  font-size: 0.82rem;
+  color: var(--grey-500);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ─── Beyond Q&A (dashboards + roadmap) ─── */
+.beyond-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.beyond-card {
+  padding: 40px;
+  border-radius: 20px;
+  background: var(--white);
+  border: 1px solid var(--grey-100);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.beyond-card.highlight {
+  background: linear-gradient(135deg, #08090a 0%, #101418 100%);
+  border: 1px solid rgba(0, 175, 240, 0.2);
+  color: var(--white);
+}
+
+.beyond-card.highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(0, 175, 240, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.beyond-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  color: var(--blue);
+}
+
+.beyond-card.highlight .beyond-label {
+  color: var(--blue-light);
+}
+
+.beyond-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  color: var(--grey-900);
+}
+
+.beyond-card.highlight .beyond-title {
+  color: var(--white);
+}
+
+.beyond-desc {
+  font-size: 0.92rem;
+  color: var(--grey-500);
+  line-height: 1.7;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+}
+
+.beyond-card.highlight .beyond-desc {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ─── Phased next steps ─── */
+.phases-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.phase-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 28px 24px;
+  position: relative;
+}
+
+.phase-card.current {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.phase-number {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 14px;
+}
+
+.phase-card.current .phase-number {
+  color: var(--white);
+}
+
+.phase-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.phase-desc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.phase-when {
+  margin-top: 14px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.phase-card.current .phase-when {
+  color: var(--blue-sky);
+}
+
+.poc-meta-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 16px;
+}
+
+/* Responsive for new sections */
+@media (max-width: 768px) {
+  .tech-section { padding: 80px 0; }
+  .tech-header, .arch-grid, .tech-proof { padding: 0 24px; }
+  .arch-grid { grid-template-columns: 1fr; }
+  .arch-card { padding: 28px; }
+  .tech-proof-grid { grid-template-columns: 1fr; }
+  .beyond-grid { grid-template-columns: 1fr; }
+  .beyond-card { padding: 28px; }
+  .phases-grid { grid-template-columns: 1fr; }
+}
+
 /* ─── Footer ─── */
 .footer {
   padding: 48px 0;
@@ -1022,11 +1341,12 @@ h2 {
   <div class="hero-content">
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
-      <span class="hero-badge-text">Prepared for Lee Taylor, CFO</span>
+      <span class="hero-badge-text">Updated following our call · 9 April 2026</span>
     </div>
 
     <h1><span class="gradient">$7 billion</span> moving through<br>your platform.<br>The questions don't stop.</h1>
     <p class="hero-sub">Every revenue question, every creator cohort shift, every geographic concentration risk — answered by whoever can pull the report. Or not answered at all.</p>
+    <p class="hero-prepared">Prepared for Lee Taylor, CFO</p>
 
     <div class="hero-stats reveal">
       <div class="hero-stat">
@@ -1085,14 +1405,12 @@ h2 {
     </div>
 
     <div class="questions-grid">
-      <div class="question-card reveal"><p>Which of your top 500 creators showed declining subscription renewals last month — and are they concentrated in a single geography?</p></div>
-      <div class="question-card reveal"><p>How much of last month's revenue came from your top 100 accounts — and what happens to your P&L if 10 of them churn?</p></div>
-      <div class="question-card reveal"><p>Is your revenue mix shifting toward PPV and away from subscriptions? Is that good or bad for long-term fan LTV?</p></div>
-      <div class="question-card reveal"><p>Which fan acquisition sources are producing the highest 90-day LTV — YouTube, Reddit, or Twitter/X?</p></div>
-      <div class="question-card reveal"><p>Are early churn signals in your US subscriber base accelerating or stabilising this quarter?</p></div>
-      <div class="question-card reveal"><p>If competitors with lower fee structures are pulling mid-tier creators, which cohort do you stand to lose first?</p></div>
-      <div class="question-card reveal"><p>What happens to subscriber growth if we increase the budget on campaign X by 20%?</p></div>
+      <div class="question-card reveal"><p>What's driving the spike in support tickets from Brazilian creators this week?</p></div>
+      <div class="question-card reveal"><p>Was last week's campaign successful — and should we increase the budget by 20%?</p></div>
       <div class="question-card reveal"><p>What effect did the new messaging feature have on subscriber retention in the 1k–10k creator cohort?</p></div>
+      <div class="question-card reveal"><p>How much of last month's revenue came from your top 100 accounts — and what happens to your P&L if 10 of them churn?</p></div>
+      <div class="question-card reveal"><p>Which of your top 100 creators showed the earliest warning signs of declining engagement this week?</p></div>
+      <div class="question-card reveal"><p>Are early churn signals in your US subscriber base accelerating or stabilising this quarter?</p></div>
     </div>
   </section>
 </div>
@@ -1134,29 +1452,28 @@ h2 {
 
       <div class="milo-card reveal">
         <div class="milo-label q">Question</div>
-        <div class="milo-question">"How is our revenue split between subscriptions, PPV and tips trending over the last 90 days?"</div>
+        <div class="milo-question">"What's the biggest issue happening in Brazil right now for creators?"</div>
         <div class="milo-label a">Milo</div>
-        <div class="milo-answer">Subscription revenue is down 3% as a share of GMV; PPV is up 5%. This is consistent with top-tier creators shifting toward pay-per-view as their primary monetisation strategy. Net GMV is up, but subscription churn risk is worth watching — recurring revenue is easier to forecast.</div>
-        <div class="milo-sparkline">
-          <div class="milo-chart-title">Revenue share trend — 90 days</div>
-          <svg viewBox="0 0 300 48" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,175,240,0.3)"/><stop offset="100%" stop-color="rgba(0,175,240,0)"/></linearGradient>
-            </defs>
-            <path d="M0,20 Q30,18 60,22 T120,26 T180,24 T240,30 T300,32" fill="none" stroke="var(--blue-light)" stroke-width="2"/>
-            <path d="M0,20 Q30,18 60,22 T120,26 T180,24 T240,30 T300,32 L300,48 L0,48 Z" fill="url(#sparkGrad)"/>
-            <path d="M0,35 Q30,34 60,32 T120,28 T180,26 T240,22 T300,18" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="4,3"/>
-          </svg>
+        <div class="milo-answer">Support volume from Brazilian creators is up 37% week-on-week. 64% of tickets relate to delayed payouts — average delay is now 4.2 days vs a 1.8-day baseline. The spike correlates with the PIX gateway incident on April 3. 11 creators in your top 500 have raised formal complaints. Social mentions are also up 22% on X, mostly tagging your support handle.</div>
+        <div class="milo-chart">
+          <div class="milo-chart-title">Ticket categories — Brazil, this week</div>
+          <div class="milo-bars">
+            <div class="milo-bar-group"><div class="milo-bar blue" style="height:95%"></div><div class="milo-bar-label">Delayed<br>payouts</div></div>
+            <div class="milo-bar-group"><div class="milo-bar blue" style="height:38%"></div><div class="milo-bar-label">Account<br>access</div></div>
+            <div class="milo-bar-group"><div class="milo-bar blue" style="height:28%"></div><div class="milo-bar-label">Content<br>upload</div></div>
+            <div class="milo-bar-group"><div class="milo-bar blue" style="height:18%"></div><div class="milo-bar-label">Tax<br>docs</div></div>
+            <div class="milo-bar-group"><div class="milo-bar blue" style="height:12%"></div><div class="milo-bar-label">Other</div></div>
+          </div>
           <div class="milo-metric-row">
-            <div class="milo-metric"><span class="milo-metric-value negative">-3%</span><span class="milo-metric-label">Subscriptions (share)</span></div>
-            <div class="milo-metric"><span class="milo-metric-value positive">+5%</span><span class="milo-metric-label">PPV (share)</span></div>
-            <div class="milo-metric"><span class="milo-metric-value positive">+2.1%</span><span class="milo-metric-label">Net GMV</span></div>
+            <div class="milo-metric"><span class="milo-metric-value negative">+37%</span><span class="milo-metric-label">Ticket volume WoW</span></div>
+            <div class="milo-metric"><span class="milo-metric-value negative">4.2d</span><span class="milo-metric-label">Avg payout delay</span></div>
+            <div class="milo-metric"><span class="milo-metric-value negative">11</span><span class="milo-metric-label">Top-500 complaints</span></div>
           </div>
         </div>
         <div class="milo-action">
-          <div class="milo-action-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-          <span class="milo-action-text">Recommendation: Monitor top-tier subscription churn weekly. Want me to set up an automated alert?</span>
-          <div class="milo-action-buttons"><button class="milo-action-btn primary">Set alert</button><button class="milo-action-btn secondary">Later</button></div>
+          <div class="milo-action-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="milo-action-text">Shall I draft a status update for the creator partnerships team in Slack?</span>
+          <div class="milo-action-buttons"><button class="milo-action-btn primary">Draft update</button><button class="milo-action-btn secondary">Skip</button></div>
         </div>
       </div>
 
@@ -1234,25 +1551,184 @@ h2 {
   </section>
 </div>
 
-<!-- POC -->
+<!-- Architecture (for tech team) -->
+<section class="tech-section">
+  <div class="tech-header reveal">
+    <span class="section-label">For the technical team</span>
+    <h2>Built two ways. You choose where your data lives.</h2>
+    <p class="section-intro">We know internal data teams are rightly protective. Milo is built so that nothing about your data model, storage, or access control needs to change. You keep control — Milo brings the intelligence layer.</p>
+  </div>
+
+  <div class="arch-grid">
+    <!-- Option A: Direct Connect -->
+    <div class="arch-card reveal">
+      <span class="arch-tag">Option A</span>
+      <div class="arch-title">Direct connect</div>
+      <p class="arch-desc">Milo queries your data warehouse through a secure, read-only connection. Nothing leaves your environment. Preferred by technical teams who need full control over data residency.</p>
+
+      <div class="arch-diagram">
+        <svg viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- Your environment box -->
+          <rect x="10" y="20" width="200" height="120" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+          <text x="20" y="38" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#6b7280" letter-spacing="1">YOUR ENVIRONMENT</text>
+          <!-- Warehouse -->
+          <rect x="30" y="55" width="100" height="50" rx="8" fill="#f2f3f5" stroke="#c4c8d0" stroke-width="1"/>
+          <text x="80" y="77" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#111827" text-anchor="middle">Data warehouse</text>
+          <text x="80" y="92" font-family="Inter, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">BigQuery · Snowflake</text>
+          <!-- Access layer -->
+          <rect x="140" y="55" width="60" height="50" rx="8" fill="#e0f3fc" stroke="#00AFF0" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="170" y="77" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#008ccf" text-anchor="middle">Read-only</text>
+          <text x="170" y="89" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#008ccf" text-anchor="middle">access</text>
+          <!-- Connection line -->
+          <line x1="210" y1="80" x2="255" y2="80" stroke="#00AFF0" stroke-width="2" stroke-dasharray="4,3"/>
+          <polygon points="255,76 265,80 255,84" fill="#00AFF0"/>
+          <!-- Milo agent -->
+          <rect x="265" y="55" width="85" height="50" rx="8" fill="#008ccf"/>
+          <text x="307" y="77" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">Milo agent</text>
+          <text x="307" y="91" font-family="Inter, sans-serif" font-size="8" fill="rgba(255,255,255,0.8)" text-anchor="middle">Context · Intelligence</text>
+        </svg>
+      </div>
+      <div class="arch-footnote">Data never leaves your environment</div>
+    </div>
+
+    <!-- Option B: Ingest -->
+    <div class="arch-card reveal">
+      <span class="arch-tag">Option B</span>
+      <div class="arch-title">Ingest to EU (Frankfurt)</div>
+      <p class="arch-desc">Fully hosted in Frankfurt. Faster response times, built-in processing, no infrastructure on your side. ISO 27001 certified, SOC 2 in progress, GDPR compliant.</p>
+
+      <div class="arch-diagram">
+        <svg viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- Your environment box -->
+          <rect x="10" y="20" width="130" height="120" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+          <text x="20" y="38" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#6b7280" letter-spacing="1">YOUR ENVIRONMENT</text>
+          <rect x="30" y="55" width="90" height="50" rx="8" fill="#f2f3f5" stroke="#c4c8d0" stroke-width="1"/>
+          <text x="75" y="77" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#111827" text-anchor="middle">Data sources</text>
+          <text x="75" y="91" font-family="Inter, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">Warehouse · APIs</text>
+          <!-- Encrypted pipeline -->
+          <line x1="140" y1="80" x2="195" y2="80" stroke="#00AFF0" stroke-width="2"/>
+          <polygon points="195,76 205,80 195,84" fill="#00AFF0"/>
+          <text x="167" y="73" font-family="Inter, sans-serif" font-size="7" font-weight="600" fill="#008ccf" text-anchor="middle">ENCRYPTED</text>
+          <!-- Milo EU box -->
+          <rect x="205" y="20" width="145" height="120" rx="10" fill="#08090a" stroke="#008ccf" stroke-width="1.5"/>
+          <text x="215" y="38" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#00AFF0" letter-spacing="1">MILO · FRANKFURT</text>
+          <rect x="220" y="55" width="115" height="50" rx="8" fill="#111" stroke="rgba(0,175,240,0.3)" stroke-width="1"/>
+          <text x="277" y="77" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">Milo agent</text>
+          <text x="277" y="91" font-family="Inter, sans-serif" font-size="8" fill="rgba(255,255,255,0.6)" text-anchor="middle">ISO 27001 · GDPR</text>
+          <!-- Dots indicating EU -->
+          <circle cx="225" cy="122" r="2" fill="#00AFF0"/>
+          <circle cx="235" cy="122" r="2" fill="#00AFF0" opacity="0.6"/>
+          <circle cx="245" cy="122" r="2" fill="#00AFF0" opacity="0.3"/>
+        </svg>
+      </div>
+      <div class="arch-footnote">Fully hosted. EU data residency.</div>
+    </div>
+  </div>
+
+  <!-- Technical proof points -->
+  <div class="tech-proof">
+    <div class="tech-proof-header reveal">
+      <span class="section-label">Under the hood</span>
+      <h2>Built so your tech team can trust it.</h2>
+    </div>
+
+    <div class="tech-proof-grid reveal">
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>No hallucinations</div>
+        <p class="tech-proof-desc">Calculations are never done by the LLM. Internal guardrails and a code engine handle math, SQL validation, and statistical work.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>Role-based access control</div>
+        <p class="tech-proof-desc">Fine-grained permissions. Define who sees what — by team, role, metric, or data domain. The CEO and a regional lead see different answers to the same question.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>Knowledge base & memory</div>
+        <p class="tech-proof-desc">Your definitions of DAU, revenue, churn and anything else are uploaded once. Milo references them on every query. It learns as your team uses it.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>Data labelling & relationships</div>
+        <p class="tech-proof-desc">Before day one, we map your tables, fields and relationships together with your team. No lucky-guess joins. No ambiguous field names.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>Code engine for scale</div>
+        <p class="tech-proof-desc">For large-scale qualitative analysis — tens of thousands of support tickets, logs, reviews — Milo builds micro-apps that process data at code speed, not LLM speed.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>700+ integrations, or API</div>
+        <p class="tech-proof-desc">Native connectors for Jira, Zendesk, HubSpot, Salesforce, PostHog and more. Anything with an API — internal or third-party — plugs in within days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Beyond Q&A: dashboards + roadmap -->
+<div class="page">
+  <section class="section-white">
+    <div class="reveal">
+      <span class="section-label">Beyond Q&A</span>
+      <h2>Milo isn't just a chat window.</h2>
+    </div>
+
+    <div class="beyond-grid">
+      <div class="beyond-card reveal">
+        <div class="beyond-label">Today</div>
+        <div class="beyond-title">Dashboards. Because sometimes you just want to click.</div>
+        <p class="beyond-desc">Full dashboard engine built in. Interactive. Point-in-time comparisons against any period. Built by asking Milo — no drag-and-drop, no tickets to the BI team. And when a chart surprises you, click it and ask Milo <em>why</em>. It explains the movement in plain English.</p>
+      </div>
+
+      <div class="beyond-card highlight reveal">
+        <div class="beyond-label">Late 2026</div>
+        <div class="beyond-title">Zero-prompt analytics.</div>
+        <p class="beyond-desc">Milo goes proactive. It scans your data layer continuously for meaningful signals — a spike in Brazilian complaints, an unusual drop in top-tier renewals, a campaign outperforming forecast — and pings you on Slack before you've thought to ask. No prompt. No dashboard check. Just the answer when it matters.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Next steps -->
 <section class="poc-section">
   <div class="poc-particles">
     <span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
   <div class="poc-inner">
     <div class="poc-left reveal">
-      <h2>See it working on your data in 4 weeks.</h2>
-      <p class="section-intro">A focused proof of concept on your live data. Walk-away terms. No lock-in if it doesn't work.</p>
+      <span class="poc-meta-tag">Next steps</span>
+      <h2>We know the sequence matters.</h2>
+      <p class="section-intro">Your team told us the data warehouse decision comes first. We're building around that — not against it.</p>
     </div>
     <div class="poc-right reveal">
       <ul class="poc-list">
-        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>4-week pilot on your live data</li>
-        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>£1,500 pilot fee</li>
-        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Connects directly to your existing data layer</li>
-        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>EU-hosted. ISO 27001 certified.</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><strong>£1,500/month.</strong> Unlimited users. 500 interactions included.</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Dashboard refreshes and repeat queries don't count as interactions</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>No per-seat pricing. No surprise bills.</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>4-week paid pilot option — walk away anytime</li>
       </ul>
-      <a href="mailto:tom@milo.ai?subject=OnlyFans%20%C3%97%20Milo%20%E2%80%94%20Let%27s%20talk&body=Hi%20Tom%2C%0A%0AI%27d%20like%20to%20discuss%20the%20Milo%20POC%20for%20OnlyFans.%0A%0A" class="poc-cta">Let's talk &rarr;</a>
-      <p class="poc-price">Full platform: £1,490/month &middot; Unlimited users</p>
+      <a href="mailto:tom@milo.ai?subject=OnlyFans%20%C3%97%20Milo%20%E2%80%94%20Follow-up&body=Hi%20Tom%2C%0A%0A" class="poc-cta">Reply to Tom &rarr;</a>
+      <p class="poc-price">tom@milo.ai &middot; Milo by Autonomous Minds</p>
+    </div>
+  </div>
+
+  <!-- Phases -->
+  <div class="poc-inner" style="margin-top: 64px; display:block;">
+    <div class="phases-grid reveal">
+      <div class="phase-card current">
+        <div class="phase-number">Phase 1 — Now</div>
+        <div class="phase-title">Share internally</div>
+        <p class="phase-desc">Lee shares this with the technical team. Questions answered async, architecture reviewed, no pressure from our side.</p>
+        <div class="phase-when">April 2026</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-number">Phase 2</div>
+        <div class="phase-title">Warehouse decision</div>
+        <p class="phase-desc">Your team finalises the data warehouse — which provider, which fields, which pipelines. We stay out of the way.</p>
+        <div class="phase-when">Q2 / Q3 2026</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-number">Phase 3</div>
+        <div class="phase-title">4-week pilot</div>
+        <p class="phase-desc">We plug into the new warehouse, map the key definitions with your team, and show Milo answering real questions. Paid. Walk-away terms.</p>
+        <div class="phase-when">Sept / Oct 2026</div>
+      </div>
     </div>
   </div>
 </section>
