@@ -1,0 +1,2348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snap × Milo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --yellow: #FFFC00;
+  --yellow-hot: #FFE600;
+  --yellow-soft: #FFF47A;
+  --yellow-warm: #FFD200;
+  --yellow-dim: rgba(255, 252, 0, 0.08);
+  --black: #000000;
+  --ink: #0a0a0a;
+  --dark-soft: #141414;
+  --white: #ffffff;
+  --off-white: #fafaf7;
+  --cream: #FFFDF0;
+  --grey-50: #f4f4f5;
+  --grey-100: #e5e7eb;
+  --grey-200: #d4d4d8;
+  --grey-400: #a1a1aa;
+  --grey-500: #6b7280;
+  --grey-700: #374151;
+  --grey-900: #111111;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --display: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  --shadow-sticker: 8px 8px 0 var(--black);
+  --shadow-sticker-sm: 5px 5px 0 var(--black);
+  --shadow-sticker-lg: 12px 12px 0 var(--black);
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Scroll progress bar ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: var(--yellow);
+  z-index: 200;
+  transition: width 0.05s linear;
+}
+
+/* ─── Reveal on scroll ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Topbar ─── */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--black);
+  border-bottom: 3px solid var(--yellow);
+}
+
+.topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-logos {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-x {
+  color: rgba(255, 252, 0, 0.4);
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.topbar-date {
+  font-size: 0.72rem;
+  color: var(--yellow);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.snap-logo-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--black);
+}
+
+.milo-logo-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.milo-text {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+/* ─── Hero ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--black);
+  padding-top: 100px;
+}
+
+/* Ghost backdrop */
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-mesh .orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.55;
+}
+
+.orb-1 {
+  width: 680px; height: 680px;
+  background: radial-gradient(circle, rgba(255, 252, 0, 0.35), transparent 70%);
+  top: -20%; left: 10%;
+  animation: float1 18s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(255, 230, 0, 0.25), transparent 70%);
+  bottom: -10%; right: 8%;
+  animation: float2 22s ease-in-out infinite;
+}
+
+.orb-3 {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(255, 244, 122, 0.2), transparent 70%);
+  top: 38%; right: 28%;
+  animation: float3 15s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -30px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(1.05); }
+  66% { transform: translate(60px, -20px) scale(0.9); }
+}
+@keyframes float3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.15); }
+}
+
+/* Dotted grid overlay */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,252,0,0.08) 1px, transparent 1.5px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  padding: 60px 48px 80px;
+  text-align: center;
+}
+
+/* Floating ghost mascot */
+.hero-ghost {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 130px;
+  height: auto;
+  z-index: 2;
+  animation: bob 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.hero-ghost-2 {
+  position: absolute;
+  bottom: 14%;
+  left: 8%;
+  width: 90px;
+  opacity: 0.85;
+  animation: bob 5s ease-in-out infinite 0.5s;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-16px) rotate(2deg); }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  margin-bottom: 48px;
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.hero-badge-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--black);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}
+
+.hero-badge-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  line-height: 0.95;
+  color: var(--white);
+  letter-spacing: -0.045em;
+  margin-bottom: 36px;
+}
+
+.hero h1 .highlight {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 0 18px 4px;
+  border-radius: 14px;
+  transform: rotate(-1.5deg);
+  margin: 0 4px;
+  box-shadow: 5px 5px 0 rgba(255, 252, 0, 0.25);
+}
+
+.hero h1 .stroke {
+  -webkit-text-stroke: 2px var(--yellow);
+  color: transparent;
+}
+
+.hero-sub {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+.hero-prepared {
+  margin-top: 52px;
+  font-size: 0.72rem;
+  color: var(--yellow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  padding: 8px 16px;
+  border: 2px solid var(--yellow);
+  border-radius: 100px;
+}
+
+/* Hero stats */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 56px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-stat {
+  padding: 18px 12px;
+  background: var(--yellow);
+  border: 2.5px solid var(--black);
+  border-radius: 16px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-shadow: 4px 4px 0 var(--black);
+}
+
+.hero-stat:nth-child(1) { transform: rotate(-1.5deg); }
+.hero-stat:nth-child(2) { transform: rotate(0.5deg) translateY(-4px); }
+.hero-stat:nth-child(3) { transform: rotate(1.2deg); }
+
+.hero-stat:hover {
+  transform: rotate(0deg) translateY(-4px) !important;
+}
+
+.hero-stat-number {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--black);
+  line-height: 1;
+}
+
+.hero-stat-label {
+  font-size: 0.55rem;
+  color: var(--black);
+  margin-top: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─── Ticker (yellow) ─── */
+.ticker-wrap {
+  overflow: hidden;
+  background: var(--yellow);
+  border-top: 4px solid var(--black);
+  border-bottom: 4px solid var(--black);
+  padding: 18px 0;
+}
+
+.ticker {
+  display: flex;
+  animation: ticker 36s linear infinite;
+  width: max-content;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 32px;
+  white-space: nowrap;
+}
+
+.ticker-item span {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ticker-star {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Questions section (black bg, yellow stickers) ─── */
+.questions-section {
+  background: var(--black);
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.questions-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,252,0,0.04) 1px, transparent 1.5px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.questions-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-header {
+  max-width: 760px;
+  margin-bottom: 72px;
+}
+
+.section-label {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  background: var(--yellow);
+  color: var(--black);
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+.section-label.dark {
+  background: var(--black);
+  color: var(--yellow);
+  border: 2px solid var(--black);
+}
+
+.questions-section h2,
+.demo-section h2 {
+  color: var(--white);
+}
+
+h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  line-height: 1.02;
+  color: var(--black);
+  letter-spacing: -0.035em;
+  margin-bottom: 24px;
+}
+
+h2 .mark {
+  background: var(--yellow);
+  color: var(--black);
+  padding: 0 12px 2px;
+  border-radius: 10px;
+  display: inline-block;
+  transform: rotate(-0.8deg);
+}
+
+.section-intro {
+  font-size: 1.1rem;
+  max-width: 640px;
+  line-height: 1.7;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.section-white .section-intro,
+.section-cream .section-intro {
+  color: var(--grey-500);
+}
+
+/* Questions grid */
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.q-card {
+  grid-column: span 2;
+  padding: 32px 28px;
+  border-radius: 22px;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  color: var(--black);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.q-card:nth-child(1) { transform: rotate(-0.8deg); }
+.q-card:nth-child(2) { transform: rotate(0.5deg); }
+.q-card:nth-child(3) { transform: rotate(0.6deg); }
+.q-card:nth-child(4) { transform: rotate(-0.4deg); }
+.q-card:nth-child(5) { transform: rotate(-0.3deg); }
+.q-card:nth-child(6) { transform: rotate(0.7deg); }
+.q-card:nth-child(7) { transform: rotate(-0.6deg); }
+.q-card:nth-child(8) { transform: rotate(0.4deg); }
+
+.q-card:hover {
+  transform: rotate(0deg) translate(-3px, -3px);
+  box-shadow: var(--shadow-sticker);
+}
+
+.q-num {
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.55;
+}
+
+.q-card p {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--black);
+}
+
+/* ─── Milo Demo (yellow section with phones) ─── */
+.demo-section {
+  background: var(--yellow);
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid var(--black);
+  border-bottom: 4px solid var(--black);
+}
+
+.demo-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1.5px, transparent 2px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.demo-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.demo-header {
+  max-width: 800px;
+  margin: 0 auto 100px;
+  text-align: center;
+}
+
+.demo-header .section-label { background: var(--black); color: var(--yellow); }
+.demo-header h2 { color: var(--black); margin-left: auto; margin-right: auto; max-width: 760px; }
+.demo-header h2 .mark { background: var(--black); color: var(--yellow); }
+.demo-header .section-intro { color: rgba(0,0,0,0.65); margin: 0 auto; font-weight: 500; }
+
+/* Demo row layout — asymmetric alternating */
+.demo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-bottom: 120px;
+}
+
+.demo-row:last-child { margin-bottom: 0; }
+
+.demo-row.reverse .phone-wrap { order: 2; }
+.demo-row.reverse .demo-copy { order: 1; text-align: right; }
+
+.phone-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.demo-copy {
+  max-width: 440px;
+}
+
+.demo-copy .demo-num {
+  font-family: var(--display);
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  margin-bottom: 20px;
+  display: inline-block;
+  -webkit-text-stroke: 2px var(--black);
+  color: transparent;
+}
+
+.demo-copy h3 {
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 18px;
+}
+
+.demo-copy p {
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+/* Phone frame */
+.phone {
+  width: 340px;
+  height: 680px;
+  background: var(--black);
+  border-radius: 48px;
+  padding: 14px;
+  box-shadow:
+    0 0 0 3px var(--black),
+    12px 12px 0 var(--black),
+    0 40px 80px rgba(0,0,0,0.35);
+  position: relative;
+  flex-shrink: 0;
+  transform: rotate(-2deg);
+}
+
+.demo-row.reverse .phone { transform: rotate(2deg); }
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #f6f6f8;
+  border-radius: 36px;
+  overflow: hidden;
+  position: relative;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  background: var(--black);
+  border-radius: 20px;
+  z-index: 10;
+}
+
+.phone-statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--black);
+  position: relative;
+  z-index: 5;
+}
+
+.phone-icons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.phone-icons svg {
+  width: 14px;
+  height: 10px;
+  fill: var(--black);
+}
+
+.phone-header {
+  margin-top: 24px;
+  padding: 14px 20px;
+  background: var(--yellow);
+  border-top: 3px solid var(--black);
+  border-bottom: 3px solid var(--black);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.phone-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2.5px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.phone-avatar svg {
+  width: 22px;
+  height: auto;
+}
+
+.phone-header-name {
+  font-family: var(--display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.1;
+}
+
+.phone-header-status {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--black);
+  opacity: 0.65;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.phone-chat {
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: calc(100% - 96px);
+  overflow-y: auto;
+  background: #f6f6f8;
+}
+
+.phone-chat::-webkit-scrollbar { width: 0; }
+
+.bubble-q {
+  align-self: flex-end;
+  max-width: 88%;
+  padding: 10px 14px;
+  background: #e4e4e7;
+  color: var(--black);
+  border-radius: 18px 18px 6px 18px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.bubble-a {
+  align-self: flex-start;
+  max-width: 94%;
+  padding: 12px 14px;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 18px 18px 18px 6px;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.bubble-a em { color: var(--yellow); font-style: normal; font-weight: 700; }
+
+/* Mini chart in phone chat */
+.bubble-chart {
+  align-self: flex-start;
+  max-width: 96%;
+  padding: 14px;
+  background: var(--white);
+  border: 2.5px solid var(--black);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+.bubble-chart-title {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.bubble-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 52px;
+  margin-bottom: 10px;
+}
+
+.bubble-bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.bubble-bar {
+  width: 100%;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  border-radius: 3px 3px 0 0;
+}
+
+.bubble-bar.dim {
+  background: #e4e4e7;
+}
+
+.bubble-bar-label {
+  font-size: 0.52rem;
+  color: var(--black);
+  font-weight: 600;
+  text-align: center;
+  opacity: 0.75;
+}
+
+.bubble-metrics {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1.5px dashed rgba(0,0,0,0.2);
+}
+
+.bubble-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.bubble-metric-val {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1;
+}
+
+.bubble-metric-val.negative { color: #dc2626; }
+.bubble-metric-val.positive { color: #059669; }
+
+.bubble-metric-label {
+  font-size: 0.5rem;
+  font-weight: 600;
+  color: var(--black);
+  opacity: 0.55;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.bubble-action {
+  align-self: flex-start;
+  max-width: 96%;
+  padding: 12px;
+  background: var(--yellow);
+  border: 2.5px solid var(--black);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+.bubble-action-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--black);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.bubble-action-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.bubble-action-btn {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 100px;
+  border: 2px solid var(--black);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bubble-action-btn.primary {
+  background: var(--black);
+  color: var(--yellow);
+}
+
+.bubble-action-btn.secondary {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* Typing dots at bottom of last message */
+.bubble-time {
+  align-self: flex-start;
+  font-size: 0.55rem;
+  color: rgba(0,0,0,0.4);
+  font-weight: 600;
+  padding-left: 6px;
+  margin-top: 2px;
+}
+
+/* ─── Sections ─── */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.section-white {
+  background: var(--white);
+  padding: 140px 0;
+  position: relative;
+}
+
+.section-cream {
+  background: var(--cream);
+  padding: 140px 0;
+  position: relative;
+  border-top: 4px solid var(--black);
+  border-bottom: 4px solid var(--black);
+}
+
+/* ─── Features (chunky sticker cards) ─── */
+.features-grid {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  padding: 40px 32px 36px;
+  border-radius: 28px;
+  background: var(--white);
+  border: 3px solid var(--black);
+  box-shadow: var(--shadow-sticker);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.feature-card:nth-child(1) { transform: rotate(-1deg); }
+.feature-card:nth-child(2) { transform: rotate(0.5deg) translateY(-8px); }
+.feature-card:nth-child(3) { transform: rotate(-0.5deg); }
+
+.feature-card:hover {
+  transform: rotate(0deg) translate(-4px, -4px);
+  box-shadow: 14px 14px 0 var(--black);
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  box-shadow: 4px 4px 0 var(--black);
+}
+
+.feature-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--black);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.feature-title {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.feature-desc {
+  font-size: 0.95rem;
+  color: var(--grey-500);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* ─── "If you were Evan" full-bleed yellow ─── */
+.evan-section {
+  background: var(--yellow);
+  padding: 160px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid var(--black);
+  border-bottom: 4px solid var(--black);
+}
+
+.evan-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(0,0,0,0.04) 28px, rgba(0,0,0,0.04) 30px);
+  pointer-events: none;
+}
+
+.evan-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.evan-left .section-label {
+  background: var(--black);
+  color: var(--yellow);
+}
+
+.evan-left h2 {
+  color: var(--black);
+  font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+  line-height: 0.95;
+  max-width: 100%;
+}
+
+.evan-left h2 .underline {
+  display: inline-block;
+  background: var(--black);
+  color: var(--yellow);
+  padding: 2px 22px 6px;
+  border-radius: 14px;
+  transform: rotate(-1.5deg);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.22);
+}
+
+.evan-left p {
+  margin-top: 28px;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(0,0,0,0.82);
+  font-weight: 500;
+  max-width: 560px;
+}
+
+.evan-ghost-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.evan-ghost {
+  width: 260px;
+  height: auto;
+  animation: bob 5s ease-in-out infinite;
+  filter: drop-shadow(10px 10px 0 var(--black));
+}
+
+/* ─── Architecture ─── */
+.tech-header {
+  max-width: 1200px;
+  margin: 0 auto 72px;
+  padding: 0 48px;
+}
+
+.arch-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.arch-card {
+  background: var(--white);
+  border: 3px solid var(--black);
+  border-radius: 24px;
+  padding: 44px 40px;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: var(--shadow-sticker);
+}
+
+.arch-card:nth-child(1) { transform: rotate(-0.4deg); }
+.arch-card:nth-child(2) { transform: rotate(0.4deg); }
+
+.arch-card:hover {
+  transform: rotate(0) translate(-3px, -3px);
+  box-shadow: 12px 12px 0 var(--black);
+}
+
+.arch-tag {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: var(--yellow);
+  color: var(--black);
+  border: 2px solid var(--black);
+  margin-bottom: 18px;
+}
+
+.arch-title {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 14px;
+  letter-spacing: -0.025em;
+}
+
+.arch-desc {
+  font-size: 0.95rem;
+  color: var(--grey-500);
+  line-height: 1.7;
+  font-weight: 400;
+  margin-bottom: 28px;
+}
+
+.arch-diagram {
+  background: var(--cream);
+  border: 2.5px solid var(--black);
+  border-radius: 16px;
+  padding: 28px 20px;
+  margin-bottom: 24px;
+}
+
+.arch-diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.arch-footnote {
+  font-size: 0.82rem;
+  color: var(--black);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.arch-footnote::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  flex-shrink: 0;
+}
+
+/* Tech proof grid */
+.tech-proof {
+  max-width: 1200px;
+  margin: 100px auto 0;
+  padding: 0 48px;
+}
+
+.tech-proof-header {
+  margin-bottom: 48px;
+  max-width: 680px;
+}
+
+.tech-proof-header h2 {
+  color: var(--black);
+}
+
+.tech-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.tech-proof-item {
+  background: var(--white);
+  padding: 32px 28px;
+  border: 3px solid var(--black);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.tech-proof-item:hover {
+  background: var(--yellow);
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-sticker);
+}
+
+.tech-proof-title {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tech-proof-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  flex-shrink: 0;
+}
+
+.tech-proof-item:hover .tech-proof-dot {
+  background: var(--black);
+}
+
+.tech-proof-desc {
+  font-size: 0.87rem;
+  color: var(--grey-500);
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+.tech-proof-item:hover .tech-proof-desc {
+  color: var(--black);
+}
+
+/* ─── Context ─── */
+.context-body {
+  margin-top: 24px;
+  font-size: 1.05rem;
+  color: var(--grey-500);
+  line-height: 1.75;
+  font-weight: 400;
+  max-width: 680px;
+}
+
+/* ─── Beyond Q&A ─── */
+.beyond-grid {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.beyond-card {
+  padding: 48px 40px;
+  border-radius: 28px;
+  background: var(--white);
+  border: 3px solid var(--black);
+  box-shadow: var(--shadow-sticker);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.beyond-card:nth-child(1) { transform: rotate(-0.5deg); }
+.beyond-card:nth-child(2) { transform: rotate(0.5deg); }
+
+.beyond-card:hover {
+  transform: rotate(0deg) translate(-3px, -3px);
+  box-shadow: 12px 12px 0 var(--black);
+}
+
+.beyond-card.highlight {
+  background: var(--black);
+  color: var(--white);
+}
+
+.beyond-label {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  padding: 5px 12px;
+  background: var(--yellow);
+  color: var(--black);
+  border-radius: 100px;
+  border: 2px solid var(--black);
+}
+
+.beyond-card.highlight .beyond-label {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.beyond-title {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  color: var(--black);
+  line-height: 1.15;
+}
+
+.beyond-card.highlight .beyond-title {
+  color: var(--white);
+}
+
+.beyond-desc {
+  font-size: 0.95rem;
+  color: var(--grey-500);
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.beyond-card.highlight .beyond-desc {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ─── Next steps ─── */
+.poc-section {
+  background: var(--black);
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid var(--yellow);
+}
+
+.poc-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,252,0,0.05) 1px, transparent 1.5px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.poc-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.poc-particles span {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  animation: float-particle 12s ease-in-out infinite;
+}
+
+.poc-particles span:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.poc-particles span:nth-child(2) { top: 60%; left: 80%; animation-delay: -3s; animation-duration: 15s; }
+.poc-particles span:nth-child(3) { top: 80%; left: 30%; animation-delay: -6s; animation-duration: 10s; }
+.poc-particles span:nth-child(4) { top: 30%; left: 70%; animation-delay: -2s; animation-duration: 18s; }
+.poc-particles span:nth-child(5) { top: 50%; left: 50%; animation-delay: -8s; animation-duration: 14s; }
+.poc-particles span:nth-child(6) { top: 10%; left: 90%; animation-delay: -4s; }
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.35; }
+  25% { transform: translateY(-20px) translateX(10px); opacity: 0.7; }
+  50% { transform: translateY(-10px) translateX(-15px); opacity: 0.4; }
+  75% { transform: translateY(15px) translateX(5px); opacity: 0.6; }
+}
+
+.poc-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.poc-left h2 {
+  color: var(--white);
+  max-width: 520px;
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+}
+
+.poc-left h2 .mark {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.poc-left .section-intro {
+  color: rgba(255,255,255,0.68);
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+.poc-left .section-label {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.poc-right {
+  background: var(--yellow);
+  border: 3px solid var(--yellow);
+  border-radius: 28px;
+  padding: 48px 42px;
+  box-shadow: 14px 14px 0 rgba(255, 252, 0, 0.25), 14px 14px 0 3px var(--yellow);
+  transform: rotate(1deg);
+}
+
+.poc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 40px;
+}
+
+.poc-list li {
+  font-size: 1rem;
+  color: var(--black);
+  line-height: 1.55;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.poc-check {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--black);
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.poc-check svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--yellow);
+  stroke-width: 3.5;
+  fill: none;
+}
+
+.poc-cta {
+  display: inline-block;
+  background: var(--black);
+  color: var(--yellow);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 18px 38px;
+  border-radius: 100px;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 3px solid var(--black);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+}
+
+.poc-cta:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0 rgba(0,0,0,0.3);
+}
+
+.poc-price {
+  margin-top: 24px;
+  font-size: 0.78rem;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+}
+
+/* Phases */
+.phases-wrap {
+  max-width: 1200px;
+  margin: 100px auto 0;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.phases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.phase-card {
+  background: rgba(255, 252, 0, 0.08);
+  border: 3px solid var(--yellow);
+  border-radius: 24px;
+  padding: 32px 28px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.phase-card.current {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.phase-card.current .phase-number,
+.phase-card.current .phase-title,
+.phase-card.current .phase-desc,
+.phase-card.current .phase-when {
+  color: var(--black);
+}
+
+.phase-number {
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 16px;
+}
+
+.phase-title {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.phase-desc {
+  font-size: 0.87rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.phase-card.current .phase-desc {
+  color: rgba(0,0,0,0.7);
+}
+
+.phase-when {
+  margin-top: 16px;
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── Footer ─── */
+.footer {
+  padding: 56px 0;
+  text-align: center;
+  background: var(--black);
+  border-top: 3px solid var(--yellow);
+}
+
+.footer-text {
+  font-size: 0.82rem;
+  color: var(--yellow);
+  line-height: 1.8;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.footer-text a {
+  color: var(--yellow);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  font-weight: 700;
+}
+
+.footer-text a:hover {
+  opacity: 1;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .questions-grid { grid-template-columns: 1fr 1fr; }
+  .q-card { grid-column: span 1; }
+  .demo-row { grid-template-columns: 1fr; gap: 48px; }
+  .demo-row.reverse .phone-wrap { order: 1; }
+  .demo-row.reverse .demo-copy { order: 2; text-align: left; }
+  .evan-inner { grid-template-columns: 1fr; gap: 60px; }
+  .poc-inner { grid-template-columns: 1fr; gap: 48px; }
+}
+
+@media (max-width: 768px) {
+  .topbar-inner, .page, .demo-inner, .poc-inner, .questions-inner, .tech-header, .arch-grid, .tech-proof, .evan-inner, .phases-wrap {
+    padding-left: 24px; padding-right: 24px;
+  }
+  .topbar-inner { padding-top: 12px; padding-bottom: 12px; }
+  .hero { min-height: auto; padding: 130px 24px 80px; }
+  .hero-content { padding: 0; }
+  .hero-ghost { width: 80px; top: 100px; right: 5%; }
+  .hero-ghost-2 { width: 60px; }
+  .hero-stats { grid-template-columns: 1fr; gap: 16px; max-width: 100%; }
+  .hero-stats .hero-stat { transform: none; }
+  .section-white, .section-cream, .questions-section, .demo-section, .evan-section, .poc-section { padding: 90px 0; }
+  .questions-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr; }
+  .arch-grid { grid-template-columns: 1fr; }
+  .tech-proof-grid { grid-template-columns: 1fr; }
+  .beyond-grid { grid-template-columns: 1fr; }
+  .phases-grid { grid-template-columns: 1fr; }
+  .phone { width: 280px; height: 580px; }
+  .evan-ghost { width: 180px; }
+  .poc-right { transform: none; padding: 36px 28px; }
+  .ticker-wrap { padding: 14px 0; }
+  .hero-stat:hover, .q-card:hover, .feature-card:hover, .arch-card:hover, .beyond-card:hover { transform: none !important; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2.2rem !important; }
+  .hero-ghost, .hero-ghost-2 { display: none; }
+  h2 { font-size: 1.7rem; }
+  .demo-copy .demo-num { font-size: 3.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Topbar -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <div class="topbar-logos">
+        <!-- Snap ghost logo in yellow square -->
+        <div class="snap-logo-box">
+          <svg width="22" height="22" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 6C29 6 16 22 16 40v29c0 4-3 5-6 7-3 1-3 5 0 6 3 1 7-1 11-2 1 4 5 6 9 4 4-2 8-2 12 0 4 2 8 2 12 0 4-2 8-2 12 0 4 2 8 0 9-4 4 1 8 3 11 2 3-1 3-5 0-6-3-2-6-3-6-7V40C84 22 71 6 50 6Z" fill="#000"/>
+          </svg>
+        </div>
+        <span class="topbar-x">×</span>
+        <!-- Milo logo -->
+        <div class="milo-logo-box">
+          <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="mg" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5b6ef5"/><stop offset="100%" stop-color="#b44fff"/></linearGradient></defs>
+            <rect width="28" height="28" rx="7" fill="url(#mg)"/>
+            <path d="M9.5 5.5 L10.4 8.1 L13 9 L10.4 9.9 L9.5 12.5 L8.6 9.9 L6 9 L8.6 8.1 Z" fill="white"/>
+            <circle cx="14.5" cy="6.5" r="1" fill="white" opacity="0.85"/>
+            <polyline points="7,21 11,17.5 15,19.5 21,13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="21" cy="13" r="2" fill="white"/>
+          </svg>
+        </div>
+        <span class="milo-text">Milo</span>
+      </div>
+    </div>
+    <span class="topbar-date">April 2026</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-mesh">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-grid"></div>
+
+  <!-- Floating ghost mascot -->
+  <svg class="hero-ghost" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 6C29 6 16 22 16 40v29c0 4-3 5-6 7-3 1-3 5 0 6 3 1 7-1 11-2 1 4 5 6 9 4 4-2 8-2 12 0 4 2 8 2 12 0 4-2 8-2 12 0 4 2 8 0 9-4 4 1 8 3 11 2 3-1 3-5 0-6-3-2-6-3-6-7V40C84 22 71 6 50 6Z" fill="#FFFC00" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="38" cy="44" r="4" fill="#000"/>
+    <circle cx="62" cy="44" r="4" fill="#000"/>
+  </svg>
+
+  <svg class="hero-ghost-2" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 6C29 6 16 22 16 40v29c0 4-3 5-6 7-3 1-3 5 0 6 3 1 7-1 11-2 1 4 5 6 9 4 4-2 8-2 12 0 4 2 8 2 12 0 4-2 8-2 12 0 4 2 8 0 9-4 4 1 8 3 11 2 3-1 3-5 0-6-3-2-6-3-6-7V40C84 22 71 6 50 6Z" fill="#FFFC00" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span class="hero-badge-text">First introduction · 9 April 2026</span>
+    </div>
+
+    <h1>"How well are we selling<br><span class="highlight">Sponsored Snaps</span>?"<br>Should be one question away.</h1>
+    <p class="hero-sub">Every product line, every seller, every deal in motion. Answered in plain English, in Slack, in seconds. Not a ticket. Not a dashboard. An answer.</p>
+    <div><span class="hero-prepared">Prepared for Sales Ops, Business Ops &amp; Finance · Snap</span></div>
+
+    <div class="hero-stats reveal">
+      <div class="hero-stat">
+        <div class="hero-stat-number"><span class="counter" data-target="850">0</span>M+</div>
+        <div class="hero-stat-label">Monthly Active Users</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">$<span class="counter" data-target="5.4">0</span>B</div>
+        <div class="hero-stat-label">2024 Revenue</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number"><span class="counter" data-target="4">0</span>M+</div>
+        <div class="hero-stat-label">Active Advertisers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Salesforce</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Snowflake</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>BigQuery</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Looker</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Tableau</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Pardot</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>NetSuite</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Workday</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Chorus</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Slack</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>ISO 27001</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Unlimited users</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>No per-seat pricing</span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Salesforce</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Snowflake</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>BigQuery</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Looker</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Tableau</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Pardot</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>NetSuite</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Workday</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Chorus</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Slack</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>ISO 27001</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>Unlimited users</span></div>
+    <div class="ticker-item"><svg class="ticker-star" viewBox="0 0 24 24" fill="#000"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg><span>No per-seat pricing</span></div>
+  </div>
+</div>
+
+<!-- Questions -->
+<section class="questions-section">
+  <div class="questions-inner">
+    <div class="section-header reveal">
+      <span class="section-label">The reality</span>
+      <h2>Questions that should take <span class="mark">30 seconds</span>.</h2>
+      <p class="section-intro">If a VP, a CFO, or an exec asked these today, how fast would the answer come back? And would it come from one place, or five different analysts stitching slides together?</p>
+    </div>
+
+    <div class="questions-grid">
+      <div class="q-card reveal">
+        <div class="q-num">Q.01 · Sales Ops</div>
+        <p>How well is the team selling First Commercials vs Sponsored Snaps this quarter. Where's the gap?</p>
+      </div>
+      <div class="q-card reveal">
+        <div class="q-num">Q.02 · Finance</div>
+        <p>How much revenue came from advertisers who interacted with Technical Advisor Solutions vs those who didn't. What's the lift?</p>
+      </div>
+      <div class="q-card reveal">
+        <div class="q-num">Q.03 · Sales Ops</div>
+        <p>How many calls has each seller been on this week, and is call activity tracking with win rate?</p>
+      </div>
+      <div class="q-card reveal">
+        <div class="q-num">Q.04 · Business Ops</div>
+        <p>Which of our top 50 advertiser accounts showed early warning signs of declining spend this week?</p>
+      </div>
+      <div class="q-card reveal">
+        <div class="q-num">Q.05 · Finance</div>
+        <p>What's the forecasted Q2 revenue impact if our top 10 advertisers hold spend flat for the next 30 days?</p>
+      </div>
+      <div class="q-card reveal">
+        <div class="q-num">Q.06 · Sales Ops</div>
+        <p>Which AEs have the highest call volume but the lowest conversion? And what do the Chorus transcripts say about why?</p>
+      </div>
+      <div class="q-card reveal">
+        <div class="q-num">Q.07 · Business Ops</div>
+        <p>What's the pipeline coverage for Q2 by product line. Which teams are under-indexed on AR Lenses?</p>
+      </div>
+      <div class="q-card reveal">
+        <div class="q-num">Q.08 · Exec</div>
+        <p>What's going to happen in the next 30 days if the EMEA SMB team's pipeline velocity doesn't recover?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Milo Demo — Phone frames -->
+<section class="demo-section">
+  <div class="demo-inner">
+    <div class="demo-header reveal">
+      <span class="section-label">How it works</span>
+      <h2>Ask the question. <span class="mark">Get the answer.</span></h2>
+      <p class="section-intro">Milo connects to Salesforce, Snowflake, BigQuery, Chorus, Looker. Anyone can ask questions in plain English, in Slack or on mobile. No tickets. No dashboards. No waiting.</p>
+    </div>
+
+    <!-- Demo 1 — phone left -->
+    <div class="demo-row reveal">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <div class="phone-icons">
+                <svg viewBox="0 0 18 12"><path d="M1 10h2v2H1zm3-2h2v4H4zm3-2h2v6H7zm3-2h2v8h-2zm3-2h2v10h-2z"/></svg>
+                <svg viewBox="0 0 16 12"><path d="M8 2C4 2 1 5 1 9l1 1c0-4 3-7 6-7s6 3 6 7l1-1c0-4-3-7-6-7z"/></svg>
+              </div>
+            </div>
+            <div class="phone-header">
+              <div class="phone-avatar">
+                <svg viewBox="0 0 100 110" fill="none"><path d="M50 6C29 6 16 22 16 40v29c0 4-3 5-6 7-3 1-3 5 0 6 3 1 7-1 11-2 1 4 5 6 9 4 4-2 8-2 12 0 4 2 8 2 12 0 4-2 8-2 12 0 4 2 8 0 9-4 4 1 8 3 11 2 3-1 3-5 0-6-3-2-6-3-6-7V40C84 22 71 6 50 6Z" fill="#FFFC00" stroke="#000" stroke-width="5" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div class="phone-header-name">Milo</div>
+                <div class="phone-header-status">● Online</div>
+              </div>
+            </div>
+            <div class="phone-chat">
+              <div class="bubble-q">How well is the sales team selling First Commercials vs Sponsored Snaps this quarter?</div>
+              <div class="bubble-a">Sponsored Snaps are pacing <em>112% to plan</em>, led by the EMEA mid-market team. First Commercials are pacing <em>78%</em>, with the gap concentrated in NA SMB. 34 AEs in that segment have closed zero First Commercials this quarter.</div>
+              <div class="bubble-chart">
+                <div class="bubble-chart-title">Pace to plan · Q2</div>
+                <div class="bubble-bars">
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:92%"></div><div class="bubble-bar-label">Spons.<br>Snaps</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:64%"></div><div class="bubble-bar-label">First<br>Comm.</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:82%"></div><div class="bubble-bar-label">AR<br>Lens</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:88%"></div><div class="bubble-bar-label">Story<br>Ads</div></div>
+                </div>
+                <div class="bubble-metrics">
+                  <div class="bubble-metric"><span class="bubble-metric-val positive">112%</span><span class="bubble-metric-label">Snaps pace</span></div>
+                  <div class="bubble-metric"><span class="bubble-metric-val negative">78%</span><span class="bubble-metric-label">FC pace</span></div>
+                  <div class="bubble-metric"><span class="bubble-metric-val negative">34</span><span class="bubble-metric-label">Zero-AEs</span></div>
+                </div>
+              </div>
+              <div class="bubble-action">
+                <div class="bubble-action-text">Shall I post the NA SMB AE list to #sales-leadership?</div>
+                <div class="bubble-action-btns">
+                  <button class="bubble-action-btn primary">Yes, send</button>
+                  <button class="bubble-action-btn secondary">Skip</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-copy">
+        <div class="demo-num">01</div>
+        <h3>Pace by product.<br>Gap by team.</h3>
+        <p>One question. One answer. The pacing, the gap, the exact segment, the named team. Ready to push into Slack with one tap. No spreadsheet, no request queue, no analyst in the middle.</p>
+      </div>
+    </div>
+
+    <!-- Demo 2 — phone right -->
+    <div class="demo-row reverse reveal">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-statusbar">
+              <span>10:23</span>
+              <div class="phone-icons">
+                <svg viewBox="0 0 18 12"><path d="M1 10h2v2H1zm3-2h2v4H4zm3-2h2v6H7zm3-2h2v8h-2zm3-2h2v10h-2z"/></svg>
+                <svg viewBox="0 0 16 12"><path d="M8 2C4 2 1 5 1 9l1 1c0-4 3-7 6-7s6 3 6 7l1-1c0-4-3-7-6-7z"/></svg>
+              </div>
+            </div>
+            <div class="phone-header">
+              <div class="phone-avatar">
+                <svg viewBox="0 0 100 110" fill="none"><path d="M50 6C29 6 16 22 16 40v29c0 4-3 5-6 7-3 1-3 5 0 6 3 1 7-1 11-2 1 4 5 6 9 4 4-2 8-2 12 0 4 2 8 2 12 0 4-2 8-2 12 0 4 2 8 0 9-4 4 1 8 3 11 2 3-1 3-5 0-6-3-2-6-3-6-7V40C84 22 71 6 50 6Z" fill="#FFFC00" stroke="#000" stroke-width="5" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div class="phone-header-name">Milo</div>
+                <div class="phone-header-status">● Online</div>
+              </div>
+            </div>
+            <div class="phone-chat">
+              <div class="bubble-q">How many calls has each seller been on this week? Is activity tracking with pipeline health?</div>
+              <div class="bubble-a">NA enterprise avg: <em>18.4 calls/seller</em>, flat vs 4-week baseline. But pipeline per call is <em>-22%</em>. Call durations dropped from 27 to 19 min. Chorus transcripts show <em>41%</em> were status updates, not discovery or demo.</div>
+              <div class="bubble-chart">
+                <div class="bubble-chart-title">Pipeline per call · NA Ent</div>
+                <div class="bubble-bars">
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:68%"></div><div class="bubble-bar-label">Wk<br>-3</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:72%"></div><div class="bubble-bar-label">Wk<br>-2</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:70%"></div><div class="bubble-bar-label">Wk<br>-1</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:48%"></div><div class="bubble-bar-label">This<br>wk</div></div>
+                </div>
+                <div class="bubble-metrics">
+                  <div class="bubble-metric"><span class="bubble-metric-val">18.4</span><span class="bubble-metric-label">Calls/rep</span></div>
+                  <div class="bubble-metric"><span class="bubble-metric-val negative">-22%</span><span class="bubble-metric-label">Pipe/call</span></div>
+                  <div class="bubble-metric"><span class="bubble-metric-val negative">41%</span><span class="bubble-metric-label">Status calls</span></div>
+                </div>
+              </div>
+              <div class="bubble-action">
+                <div class="bubble-action-text">Pull the Chorus transcripts flagged as status updates and summarise themes?</div>
+                <div class="bubble-action-btns">
+                  <button class="bubble-action-btn primary">Pull it</button>
+                  <button class="bubble-action-btn secondary">Skip</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-copy">
+        <div class="demo-num">02</div>
+        <h3>Activity is flat.<br>Quality isn't.</h3>
+        <p>Call counts are the easy number. The hard one is whether the calls are <em>working</em>. Milo crosses Salesforce activity with Chorus transcripts to tell you when the motion looks healthy but the substance isn't.</p>
+      </div>
+    </div>
+
+    <!-- Demo 3 — phone left -->
+    <div class="demo-row reveal">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-statusbar">
+              <span>14:07</span>
+              <div class="phone-icons">
+                <svg viewBox="0 0 18 12"><path d="M1 10h2v2H1zm3-2h2v4H4zm3-2h2v6H7zm3-2h2v8h-2zm3-2h2v10h-2z"/></svg>
+                <svg viewBox="0 0 16 12"><path d="M8 2C4 2 1 5 1 9l1 1c0-4 3-7 6-7s6 3 6 7l1-1c0-4-3-7-6-7z"/></svg>
+              </div>
+            </div>
+            <div class="phone-header">
+              <div class="phone-avatar">
+                <svg viewBox="0 0 100 110" fill="none"><path d="M50 6C29 6 16 22 16 40v29c0 4-3 5-6 7-3 1-3 5 0 6 3 1 7-1 11-2 1 4 5 6 9 4 4-2 8-2 12 0 4 2 8 2 12 0 4-2 8-2 12 0 4 2 8 0 9-4 4 1 8 3 11 2 3-1 3-5 0-6-3-2-6-3-6-7V40C84 22 71 6 50 6Z" fill="#FFFC00" stroke="#000" stroke-width="5" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div class="phone-header-name">Milo</div>
+                <div class="phone-header-status">● Online</div>
+              </div>
+            </div>
+            <div class="phone-chat">
+              <div class="bubble-q">Which of our top 50 advertisers showed warning signs of declining spend this week?</div>
+              <div class="bubble-a"><em>7 accounts</em> are tracking below their 90-day weekly avg. <em>3 are in the top 15</em>: a CPG holdco, a QSR brand, and a streaming service. Historical pattern: this combination has preceded mid-quarter pullbacks <em>68%</em> of the time.</div>
+              <div class="bubble-chart">
+                <div class="bubble-chart-title">Spend delta · top accounts</div>
+                <div class="bubble-bars">
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:38%"></div><div class="bubble-bar-label">CPG<br>holdco</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:44%"></div><div class="bubble-bar-label">QSR<br>brand</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:48%"></div><div class="bubble-bar-label">Stream<br>svc</div></div>
+                  <div class="bubble-bar-group"><div class="bubble-bar" style="height:60%"></div><div class="bubble-bar-label">Auto<br>OEM</div></div>
+                </div>
+                <div class="bubble-metrics">
+                  <div class="bubble-metric"><span class="bubble-metric-val negative">7</span><span class="bubble-metric-label">At-risk</span></div>
+                  <div class="bubble-metric"><span class="bubble-metric-val negative">3</span><span class="bubble-metric-label">In top 15</span></div>
+                  <div class="bubble-metric"><span class="bubble-metric-val">68%</span><span class="bubble-metric-label">Hit rate</span></div>
+                </div>
+              </div>
+              <div class="bubble-action">
+                <div class="bubble-action-text">Send the at-risk list with SFDC opportunity links to client partners?</div>
+                <div class="bubble-action-btns">
+                  <button class="bubble-action-btn primary">Send</button>
+                  <button class="bubble-action-btn secondary">Skip</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-copy">
+        <div class="demo-num">03</div>
+        <h3>Catch the leak<br>before the quarter.</h3>
+        <p>Seven accounts slipping quietly. Three of them in the top fifteen. By the time it shows up in the weekly dashboard it's a Q2 miss. Milo flags it on Monday, with the historical pattern match attached.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why it fits -->
+<div class="section-white">
+  <div class="page">
+    <div class="section-header reveal">
+      <span class="section-label dark">Why it fits</span>
+      <h2>A 24/7 sales analyst. <span class="mark">Without the headcount.</span></h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="feature-title">No SFDC tickets.<br>No dashboard backlog.</div>
+        <div class="feature-desc">Ask the question, get the answer, in the tool you're already in. Slack, Teams, or web. No waiting on the analytics queue.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="22" x2="4" y2="15" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="feature-title">Connects to<br>your existing stack.</div>
+        <div class="feature-desc">Salesforce, Snowflake, BigQuery, Looker, Chorus, Pardot, NetSuite. No new infrastructure, no migration, no rip-and-replace.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="feature-title">Built for<br>regulated platforms.</div>
+        <div class="feature-desc">ISO 27001 certified. SOC 2 in progress. Role-based access. A regional lead and the CEO see different answers to the same question.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Evan full-bleed yellow -->
+<section class="evan-section">
+  <div class="evan-inner">
+    <div class="evan-left reveal">
+      <span class="section-label">The top-floor view</span>
+      <h2>If you were <span class="underline">Evan</span>,<br>what would you want to ask?</h2>
+      <p>Wins and losses. What's going right and what's going wrong. What's going to happen in the next 30 days. The most useful thing an AI layer can do for a CEO isn't run a dashboard. It's answer the questions they can't ask any other way.</p>
+      <p>One interface. Every product, every seller, every deal, every advertiser. Ask it anything. If the answer matters, Milo pushes the next one to you before you've thought to ask.</p>
+    </div>
+    <div class="evan-ghost-wrap reveal">
+      <svg class="evan-ghost" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 6C29 6 16 22 16 40v29c0 4-3 5-6 7-3 1-3 5 0 6 3 1 7-1 11-2 1 4 5 6 9 4 4-2 8-2 12 0 4 2 8 2 12 0 4-2 8-2 12 0 4 2 8 0 9-4 4 1 8 3 11 2 3-1 3-5 0-6-3-2-6-3-6-7V40C84 22 71 6 50 6Z" fill="#FFFC00" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="38" cy="44" r="5" fill="#000"/>
+        <circle cx="62" cy="44" r="5" fill="#000"/>
+        <path d="M38 62 Q 50 72 62 62" stroke="#000" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section class="section-cream">
+  <div class="tech-header reveal">
+    <span class="section-label dark">For the data team</span>
+    <h2>Built two ways.<br>You choose where data lives.</h2>
+    <p class="section-intro">Data teams are rightly protective. Milo is built so nothing about your model, storage, or access control has to change. You keep control. Milo brings the intelligence layer.</p>
+  </div>
+
+  <div class="arch-grid">
+    <div class="arch-card reveal">
+      <span class="arch-tag">Option A</span>
+      <div class="arch-title">Direct connect</div>
+      <p class="arch-desc">Milo queries Salesforce, Snowflake and BigQuery through secure read-only connections. Nothing leaves your environment. Preferred by data teams who need full control over residency.</p>
+
+      <div class="arch-diagram">
+        <svg viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="20" width="200" height="120" rx="12" fill="#ffffff" stroke="#000" stroke-width="2"/>
+          <text x="20" y="38" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#000" letter-spacing="1">SNAP ENVIRONMENT</text>
+          <rect x="30" y="55" width="100" height="50" rx="10" fill="#FFFDF0" stroke="#000" stroke-width="2"/>
+          <text x="80" y="75" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="700" fill="#000" text-anchor="middle">Salesforce ·</text>
+          <text x="80" y="88" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="700" fill="#000" text-anchor="middle">Snowflake · BQ</text>
+          <rect x="140" y="55" width="60" height="50" rx="10" fill="#FFFC00" stroke="#000" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="170" y="77" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#000" text-anchor="middle">Read-only</text>
+          <text x="170" y="89" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#000" text-anchor="middle">access</text>
+          <line x1="210" y1="80" x2="253" y2="80" stroke="#000" stroke-width="3" stroke-dasharray="5,3"/>
+          <polygon points="253,75 265,80 253,85" fill="#000"/>
+          <rect x="265" y="55" width="85" height="50" rx="10" fill="#000" stroke="#000" stroke-width="2"/>
+          <text x="307" y="77" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700" fill="#FFFC00" text-anchor="middle">Milo agent</text>
+          <text x="307" y="91" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="500" fill="rgba(255,252,0,0.75)" text-anchor="middle">Context · Intelligence</text>
+        </svg>
+      </div>
+      <div class="arch-footnote">Data never leaves your environment</div>
+    </div>
+
+    <div class="arch-card reveal">
+      <span class="arch-tag">Option B</span>
+      <div class="arch-title">Hosted</div>
+      <p class="arch-desc">Fully hosted by Milo. Faster response times, built-in processing, no infrastructure on your side. ISO 27001 certified, SOC 2 in progress, GDPR-ready.</p>
+
+      <div class="arch-diagram">
+        <svg viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="20" width="130" height="120" rx="12" fill="#ffffff" stroke="#000" stroke-width="2"/>
+          <text x="20" y="38" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#000" letter-spacing="1">SNAP ENVIRONMENT</text>
+          <rect x="30" y="55" width="90" height="50" rx="10" fill="#FFFDF0" stroke="#000" stroke-width="2"/>
+          <text x="75" y="77" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="700" fill="#000" text-anchor="middle">SFDC · Warehouse</text>
+          <text x="75" y="91" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="500" fill="#000" text-anchor="middle">Chorus · Pardot</text>
+          <line x1="140" y1="80" x2="195" y2="80" stroke="#000" stroke-width="3"/>
+          <polygon points="195,75 207,80 195,85" fill="#000"/>
+          <text x="167" y="73" font-family="Space Grotesk, sans-serif" font-size="7" font-weight="700" fill="#000" text-anchor="middle">ENCRYPTED</text>
+          <rect x="207" y="20" width="143" height="120" rx="12" fill="#000" stroke="#000" stroke-width="2"/>
+          <text x="277" y="38" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#FFFC00" letter-spacing="1" text-anchor="middle">MILO · HOSTED</text>
+          <rect x="222" y="55" width="115" height="50" rx="10" fill="#141414" stroke="#FFFC00" stroke-width="2"/>
+          <text x="279" y="77" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Milo agent</text>
+          <text x="279" y="91" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="500" fill="#FFFC00" text-anchor="middle">ISO 27001 · GDPR</text>
+          <circle cx="225" cy="122" r="2.5" fill="#FFFC00"/>
+          <circle cx="236" cy="122" r="2.5" fill="#FFFC00" opacity="0.65"/>
+          <circle cx="247" cy="122" r="2.5" fill="#FFFC00" opacity="0.3"/>
+        </svg>
+      </div>
+      <div class="arch-footnote">Fully hosted by Milo. EU residency.</div>
+    </div>
+  </div>
+
+  <!-- Tech proof -->
+  <div class="tech-proof">
+    <div class="tech-proof-header reveal">
+      <span class="section-label dark">Under the hood</span>
+      <h2>Built so your data team can <span class="mark">trust it</span>.</h2>
+    </div>
+
+    <div class="tech-proof-grid reveal">
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>No hallucinations</div>
+        <p class="tech-proof-desc">Calculations are never done by the LLM. Internal guardrails and a code engine handle all math, SQL validation, and statistical work. Quota math, pipeline coverage, pacing: all deterministic.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>Role-based access</div>
+        <p class="tech-proof-desc">Fine-grained permissions by team, role, region, or product line. Evan and a regional sales lead see different answers to "how's the quarter going". Exactly as they should.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>Knowledge base</div>
+        <p class="tech-proof-desc">Your definitions of pipeline, pace, qualified deal and anything else are uploaded once. Milo references them on every query. It learns as the team uses it.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>Data labelling</div>
+        <p class="tech-proof-desc">Before day one, we map your SFDC objects, warehouse tables and field relationships with your team. No lucky-guess joins. No ambiguous field names.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>Code engine for scale</div>
+        <p class="tech-proof-desc">For large-scale qualitative analysis (tens of thousands of Chorus transcripts, tickets, rep notes), Milo builds micro-apps that process data at code speed, not LLM speed.</p>
+      </div>
+      <div class="tech-proof-item">
+        <div class="tech-proof-title"><span class="tech-proof-dot"></span>700+ integrations</div>
+        <p class="tech-proof-desc">Native connectors for Salesforce, Snowflake, BigQuery, Chorus, Pardot, NetSuite, Workday, Slack, Jira and more. Anything with an API plugs in within days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- We understand sales ops -->
+<div class="section-white">
+  <div class="page">
+    <div class="section-header reveal">
+      <span class="section-label dark">Our world</span>
+      <h2>We understand commercial ops <span class="mark">at scale</span>.</h2>
+      <p class="context-body">We're active across gaming, ad-tech, and creator economy platforms, working with companies where the data questions aren't abstract. They're about which rep, which product, which deal, and what's going to move revenue this quarter.</p>
+      <p class="context-body">We work with BetGames on real-time commercial reporting and Perlas on pipeline and activity analytics across distributed revenue teams. The questions we've sketched out for Snap aren't hypothetical. They're the exact questions commercial teams operating at your scale are trying to answer every day.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Beyond Q&A -->
+<div class="section-white" style="padding-top:0;">
+  <div class="page">
+    <div class="section-header reveal">
+      <span class="section-label dark">Beyond Q&amp;A</span>
+      <h2>Milo isn't just a <span class="mark">chat window</span>.</h2>
+    </div>
+
+    <div class="beyond-grid">
+      <div class="beyond-card reveal">
+        <div class="beyond-label">Today</div>
+        <div class="beyond-title">Dashboards. Because sometimes you just want to click.</div>
+        <p class="beyond-desc">Full dashboard engine built in. Interactive. Point-in-time comparisons against any period. Pipeline coverage, quota attainment, rep activity, product pacing. All built by asking Milo. Click a chart that surprises you and ask Milo <em>why</em>. It explains the movement in plain English.</p>
+      </div>
+
+      <div class="beyond-card highlight reveal">
+        <div class="beyond-label">Late 2026</div>
+        <div class="beyond-title">Zero-prompt analytics.</div>
+        <p class="beyond-desc">Milo goes proactive. It scans your commercial data continuously for signals that matter: a top-15 advertiser slowing spend, a rep's call quality dropping, a product line falling behind pace, a deal slipping two weeks in a row. Then it pings the right person in Slack before they've thought to ask.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Next steps -->
+<section class="poc-section">
+  <div class="poc-particles">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="poc-inner">
+    <div class="poc-left reveal">
+      <span class="section-label">Next steps</span>
+      <h2>Low pressure.<br>Low lift. <span class="mark">High signal.</span></h2>
+      <p class="section-intro">We haven't met yet, so the ask here is small. Read the proposal. If it resonates, a 30-minute call to walk through a live Milo instance on a comparable stack. No obligation beyond that.</p>
+    </div>
+    <div class="poc-right reveal">
+      <ul class="poc-list">
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><strong>£1,500/month.</strong> Unlimited users. 500 interactions included.</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Dashboard refreshes and repeat queries don't count as interactions</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>No per-seat pricing. No surprise bills.</li>
+        <li><span class="poc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>4-week paid pilot. Walk away anytime</li>
+      </ul>
+      <a href="mailto:tom@milo.ai?subject=Snap%20%C3%97%20Milo%20%E2%80%94%20Intro&body=Hi%20Tom%2C%0A%0A" class="poc-cta">Reply to Tom &rarr;</a>
+      <p class="poc-price">tom@milo.ai · Milo by Autonomous Minds</p>
+    </div>
+  </div>
+
+  <!-- Phases -->
+  <div class="phases-wrap">
+    <div class="phases-grid reveal">
+      <div class="phase-card current">
+        <div class="phase-number">Phase 1 — Now</div>
+        <div class="phase-title">Read at your own pace</div>
+        <p class="phase-desc">This proposal lives on a URL. Share it internally, pick it apart, stress-test the architecture. No pressure from our side.</p>
+        <div class="phase-when">April 2026</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-number">Phase 2</div>
+        <div class="phase-title">30-minute intro call</div>
+        <p class="phase-desc">If it resonates, we walk through a live Milo instance connected to a comparable SFDC + warehouse setup, and answer questions from your sales ops and data teams.</p>
+        <div class="phase-when">When you're ready</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-number">Phase 3</div>
+        <div class="phase-title">4-week paid pilot</div>
+        <p class="phase-desc">We plug into a scoped slice of your stack, map the key definitions with your team, and show Milo answering the questions that matter to your leadership. Walk-away terms.</p>
+        <div class="phase-when">After the call</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p class="footer-text">Milo by Autonomous Minds &nbsp;·&nbsp; <a href="https://milo.ai">milo.ai</a> &nbsp;·&nbsp; <a href="mailto:tom@milo.ai">tom@milo.ai</a></p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Scroll progress bar
+  const progressBar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = progress + '%';
+  });
+
+  // Intersection Observer for reveals with stagger
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const parent = entry.target.parentElement;
+        const siblings = Array.from(parent.querySelectorAll(':scope > .reveal'));
+        const idx = siblings.indexOf(entry.target);
+        entry.target.style.transitionDelay = `${idx * 0.08}s`;
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.06,
+    rootMargin: '0px 0px -40px 0px'
+  });
+  reveals.forEach(el => observer.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.counter');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.dataset.target);
+        const isDecimal = target % 1 !== 0;
+        const duration = 2200;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          const current = target * eased;
+          el.textContent = isDecimal ? current.toFixed(1) : Math.round(current);
+          if (progress < 1) requestAnimationFrame(update);
+          else el.textContent = isDecimal ? target.toFixed(1) : target;
+        }
+        requestAnimationFrame(update);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterObserver.observe(el));
+
+  // Topbar show/hide on scroll
+  const topbar = document.querySelector('.topbar');
+  let lastScroll = 0;
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 80) {
+          topbar.style.transform = currentScroll > lastScroll ? 'translateY(-100%)' : 'translateY(0)';
+        } else {
+          topbar.style.transform = 'translateY(0)';
+        }
+        topbar.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+        lastScroll = currentScroll;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Hero entrance animation
+  const heroContent = document.querySelector('.hero-content');
+  heroContent.style.opacity = '0';
+  heroContent.style.transform = 'translateY(30px)';
+  setTimeout(() => {
+    heroContent.style.transition = 'opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+    heroContent.style.opacity = '1';
+    heroContent.style.transform = 'translateY(0)';
+  }, 200);
+});
+</script>
+</body>
+</html>
