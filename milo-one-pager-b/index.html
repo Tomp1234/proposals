@@ -500,12 +500,18 @@ body::before {
 
 .ans-stat {
   position: absolute;
-  bottom: 60px;
-  left: 20px;
-  width: 220px;
-  transform: rotate(-2deg);
-  padding: 18px 20px;
-  z-index: 1;
+  bottom: -20px;
+  left: -30px;
+  width: 240px;
+  transform: rotate(-3deg);
+  padding: 20px 22px;
+  z-index: 5;
+  background: linear-gradient(180deg, rgba(22, 28, 52, 0.99), rgba(12, 16, 32, 0.99));
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.12) inset,
+    0 30px 60px -20px rgba(0, 0, 0, 0.9),
+    0 0 50px -8px rgba(34, 211, 238, 0.4);
   animation: float-stat 11s ease-in-out infinite;
 }
 .ans-stat-label {
