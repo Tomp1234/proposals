@@ -123,21 +123,25 @@ body > * { position: relative; z-index: 2; }
   text-align: right;
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--faint);
+  border-bottom: 1.5px dashed rgba(10, 10, 10, 0.42);
   outline: none;
   color: var(--ink);
   width: 100%;
   padding: 8px 0 10px;
-  transition: border-color 160ms;
+  transition: border-color 160ms, border-bottom-style 160ms;
+  cursor: text;
 }
-.item-amount:focus { border-bottom-color: var(--ink); }
+.item-amount:hover { border-bottom-color: rgba(10, 10, 10, 0.7); }
+.item-amount:focus {
+  border-bottom: 1.5px solid var(--ink);
+}
 .item-amount::placeholder {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
+  font-family: 'Instrument Serif', serif;
   font-style: italic;
-  letter-spacing: 0.12em;
-  color: var(--faint);
-  text-transform: uppercase;
+  font-size: inherit;
+  letter-spacing: inherit;
+  color: rgba(10, 10, 10, 0.22);
+  text-transform: none;
 }
 
 /* Total — the monument */
@@ -401,7 +405,7 @@ body > * { position: relative; z-index: 2; }
         <div class="item-title">The hire you can&rsquo;t make</div>
         <div class="item-help">Fully-loaded annual cost of the open analyst role.</div>
       </div>
-      <input class="item-amount" inputmode="numeric" data-v="1" placeholder="£0" aria-label="Item 01 amount">
+      <input class="item-amount" inputmode="numeric" data-v="1" placeholder="Enter amount" aria-label="Item 01 amount">
     </div>
     <div class="item">
       <div class="mono item-num">02</div>
@@ -409,7 +413,7 @@ body > * { position: relative; z-index: 2; }
         <div class="item-title">The tools your team doesn&rsquo;t use</div>
         <div class="item-help">Annual spend on Power BI, Tableau, Metabase &mdash; including seats nobody logs into.</div>
       </div>
-      <input class="item-amount" inputmode="numeric" data-v="2" placeholder="£0" aria-label="Item 02 amount">
+      <input class="item-amount" inputmode="numeric" data-v="2" placeholder="Enter amount" aria-label="Item 02 amount">
     </div>
     <div class="item">
       <div class="mono item-num">03</div>
@@ -417,7 +421,7 @@ body > * { position: relative; z-index: 2; }
         <div class="item-title">The data work that never gets done</div>
         <div class="item-help">What a consultancy would charge to connect your stack properly.</div>
       </div>
-      <input class="item-amount" inputmode="numeric" data-v="3" placeholder="£0" aria-label="Item 03 amount">
+      <input class="item-amount" inputmode="numeric" data-v="3" placeholder="Enter amount" aria-label="Item 03 amount">
     </div>
     <div class="item">
       <div class="mono item-num">04</div>
@@ -425,7 +429,7 @@ body > * { position: relative; z-index: 2; }
         <div class="item-title">The AI exposure nobody&rsquo;s tracking</div>
         <div class="item-help">ICO fines, SOC 2 remediation, failed AI policy questionnaires.</div>
       </div>
-      <input class="item-amount" inputmode="numeric" data-v="4" placeholder="£0" aria-label="Item 04 amount">
+      <input class="item-amount" inputmode="numeric" data-v="4" placeholder="Enter amount" aria-label="Item 04 amount">
     </div>
     <div class="item">
       <div class="mono item-num">05</div>
@@ -433,7 +437,7 @@ body > * { position: relative; z-index: 2; }
         <div class="item-title">The governance gap the board will ask about</div>
         <div class="item-help">EU AI Act, audit findings, enterprise deals blocked by missing AI policy.</div>
       </div>
-      <input class="item-amount" inputmode="numeric" data-v="5" placeholder="£0" aria-label="Item 05 amount">
+      <input class="item-amount" inputmode="numeric" data-v="5" placeholder="Enter amount" aria-label="Item 05 amount">
     </div>
   </div>
 
