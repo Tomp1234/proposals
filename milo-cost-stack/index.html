@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carried cost and exposure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F4F1EB;
+  --ink: #0A0A0A;
+  --muted: #6B6560;
+  --faint: #B8B3AC;
+  --milo: #4361EE;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+html, body { background: var(--paper); color: var(--ink); }
+body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+body > * { position: relative; z-index: 2; }
+
+.mono {
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+}
+.num, input { font-variant-numeric: tabular-nums; }
+
+/* Meta strip */
+.meta {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 20px 7vw;
+  border-bottom: 1px solid var(--ink);
+}
+.logo { height: 28px; width: auto; display: block; filter: invert(1) brightness(0.1); }
+.ref { color: var(--muted); text-align: center; }
+.meta-right { display: flex; gap: 28px; align-items: center; }
+.meta-input {
+  background: transparent; border: none; outline: none;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  font-size: 11px; color: var(--ink);
+  text-align: right; padding: 2px 0;
+  border-bottom: 1px solid transparent;
+}
+.meta-input:focus { border-bottom-color: var(--ink); }
+.meta-input::placeholder { color: var(--faint); }
+#company { width: 260px; }
+#date { width: 160px; }
+
+/* Document head */
+.head { padding: 10vh 7vw 4vh; }
+.head .kicker { color: var(--muted); }
+.title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(56px, 9vw, 108px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  margin-top: 18px;
+}
+.subtitle {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(20px, 2vw, 28px);
+  color: var(--muted);
+  margin-top: 16px;
+  min-height: 1.4em;
+  transition: opacity 260ms ease-out;
+}
+.subtitle .num { color: var(--milo); font-style: italic; }
+
+/* Line items */
+.items { padding: 0 7vw; margin-top: 6vh; }
+.item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 40%;
+  gap: 28px;
+  align-items: start;
+  padding: 3.4vh 0;
+  border-top: 1px solid var(--ink);
+}
+.item-num { color: var(--faint); padding-top: 16px; }
+.item-body { padding-top: 6px; }
+.item-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.item-help {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 10px;
+  max-width: 44ch;
+}
+.item-amount {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(44px, 5.4vw, 72px);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  text-align: right;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--faint);
+  outline: none;
+  color: var(--ink);
+  width: 100%;
+  padding: 8px 0 10px;
+  transition: border-color 160ms;
+}
+.item-amount:focus { border-bottom-color: var(--ink); }
+.item-amount::placeholder {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+/* Total — the monument */
+.total {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: end;
+  padding: 6vh 7vw 3vh;
+  border-top: 3px double var(--ink);
+  margin-top: 6vh;
+}
+.total-left { padding-bottom: 32px; }
+.total-label { display: block; margin-bottom: 18px; }
+.margin-note {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.15vw, 18px);
+  line-height: 1.45;
+  color: var(--muted);
+  max-width: 36ch;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 420ms ease-out, transform 420ms ease-out;
+}
+.margin-note.on { opacity: 1; transform: none; }
+
+.monument {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(180px, 22vw, 360px);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.monument .pound {
+  font-size: 0.72em;
+  vertical-align: 0.18em;
+  margin-right: -0.01em;
+  margin-left: -0.18em;
+}
+
+/* Milo counterweight */
+.milo-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: baseline;
+  padding: 3vh 7vw 2vh;
+  border-top: 1px solid var(--milo);
+}
+.milo-row .mono { color: var(--milo); }
+.milo-right { text-align: right; }
+.milo-value {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(48px, 6vw, 72px);
+  color: var(--milo);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.milo-note {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(13px, 1vw, 15px);
+  color: var(--muted);
+  line-height: 1.45;
+  margin-top: 14px;
+  max-width: 54ch;
+  margin-left: auto;
+}
+
+/* Multiple */
+.multiple {
+  padding: 0 7vw;
+  margin-top: 2.6vh;
+  min-height: clamp(32px, 3.6vw, 44px);
+  text-align: right;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(22px, 2.8vw, 34px);
+  line-height: 1.2;
+  opacity: 0;
+  transition: opacity 260ms ease-out;
+}
+.multiple.on { opacity: 1; }
+.multiple .num { color: var(--milo); font-style: italic; }
+
+/* Delay / forcing line */
+.delay {
+  padding: 3vh 7vw;
+  border-top: 1px solid var(--ink);
+  margin-top: 4vh;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 32px;
+  opacity: 0;
+  transition: opacity 260ms ease-out;
+}
+.delay.on { opacity: 1; }
+.delay-text {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.4vw, 28px);
+  text-align: right;
+  line-height: 1.2;
+}
+.delay-text .num { color: var(--milo); font-style: italic; }
+
+/* Tape */
+.tape {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8vh 7vw 6vh;
+  margin-top: 12vh;
+  position: relative;
+}
+.tape::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.05;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.tape > * { position: relative; }
+.tape-kicker { color: var(--paper); margin-bottom: 28px; }
+.tape-bar {
+  height: clamp(72px, 11vw, 140px);
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  background-color: transparent;
+  background-image: repeating-linear-gradient(135deg, rgba(244,241,235,0.08) 0 1px, transparent 1px 10px);
+}
+.tape-cream {
+  background: var(--paper);
+  flex-basis: 0%;
+}
+.tape-milo {
+  background: var(--milo);
+  flex-basis: 3px;
+  min-width: 3px;
+  position: relative;
+  overflow: hidden;
+}
+.tape-milo::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.22) 48%, rgba(255,255,255,0.22) 52%, transparent 100%);
+  transform: translateX(-120%);
+  animation: miloShimmer 7.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes miloShimmer {
+  0%, 18% { transform: translateX(-120%); opacity: 0; }
+  28% { opacity: 1; }
+  62% { transform: translateX(140%); opacity: 1; }
+  72%, 100% { transform: translateX(140%); opacity: 0; }
+}
+.tape-caps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 26px;
+}
+.tape-caps .left { color: var(--paper); }
+.tape-caps .right { color: var(--milo); }
+
+/* Footer */
+.footer {
+  padding: 3vh 7vw;
+  border-top: 1px solid var(--ink);
+  color: var(--muted);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .tape-milo::after { animation: none; display: none; }
+  .multiple, .delay, .subtitle, .margin-note { transition: none; }
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .meta { grid-template-columns: auto 1fr; gap: 16px; padding: 16px 5vw; }
+  .ref { grid-column: 1 / -1; order: 3; text-align: left; }
+  .meta-right { grid-column: 2; justify-content: flex-end; flex-wrap: wrap; gap: 14px; }
+  #company, #date { width: auto; max-width: 180px; }
+  .head { padding: 7vh 5vw 3vh; }
+  .items { padding: 0 5vw; }
+  .item {
+    grid-template-columns: 36px minmax(0, 1fr);
+    row-gap: 12px; column-gap: 16px;
+  }
+  .item-amount { grid-column: 1 / -1; }
+  .total { padding: 4vh 5vw 2vh; grid-template-columns: 1fr; gap: 16px; }
+  .total-left { padding-bottom: 0; }
+  .monument { font-size: clamp(88px, 20vw, 160px); text-align: right; }
+  .milo-row, .multiple, .delay, .footer { padding-left: 5vw; padding-right: 5vw; }
+  .tape { padding: 6vh 5vw 5vh; }
+}
+
+/* Print */
+@media print {
+  @page { size: A4 portrait; margin: 12mm; }
+  html, body {
+    background: var(--paper) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body::before, .tape::before, .tape-milo::after { display: none; }
+  body { padding: 0; font-size: 10pt; }
+  .meta, .head, .items, .total, .milo-row, .multiple, .delay, .tape, .footer {
+    padding-left: 0; padding-right: 0;
+  }
+  .meta { padding-top: 0; padding-bottom: 8mm; }
+  .head { padding-top: 10mm; padding-bottom: 4mm; }
+  .title { font-size: 40pt; }
+  .subtitle { font-size: 13pt; }
+  .item { padding: 4mm 0; }
+  .item-title { font-size: 16pt; }
+  .item-amount { font-size: 24pt; border-bottom: none !important; }
+  .item-help { font-size: 9pt; }
+  .meta-input { border-bottom: none !important; }
+  .total { padding-top: 8mm; padding-bottom: 4mm; margin-top: 6mm; }
+  .monument { font-size: 108pt; }
+  .milo-row { padding: 4mm 0; }
+  .milo-value { font-size: 30pt; }
+  .milo-note { font-size: 10pt; }
+  .delay, .multiple { padding: 2mm 0; }
+  .tape { margin-top: 10mm; padding: 8mm 0; page-break-inside: avoid; }
+  .tape-bar { height: 22mm; }
+  .footer { padding-top: 4mm; }
+  .margin-note, .multiple, .delay { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+  <div class="meta">
+    <img class="logo" src="assets/logo.png" alt="">
+    <div class="ref mono" id="ref">REF · 2026-04-20 · 0001</div>
+    <div class="meta-right">
+      <input class="meta-input" id="company" placeholder="Company name · optional" autocomplete="off">
+      <input class="meta-input" id="date" autocomplete="off" aria-label="Date">
+    </div>
+  </div>
+
+  <div class="head">
+    <div class="mono kicker" id="doc-kicker">CONFIDENTIAL · PREPARED FOR REVIEW</div>
+    <h1 class="title">Carried cost and exposure</h1>
+    <div class="subtitle" id="subtitle" aria-live="polite">As carried today, against Milo&rsquo;s annual cost.</div>
+  </div>
+
+  <div class="items" id="items">
+    <div class="item">
+      <div class="mono item-num">01</div>
+      <div class="item-body">
+        <div class="item-title">The hire you can&rsquo;t make</div>
+        <div class="item-help">Fully-loaded annual cost of the open analyst role.</div>
+      </div>
+      <input class="item-amount" inputmode="numeric" data-v="1" placeholder="£0" aria-label="Item 01 amount">
+    </div>
+    <div class="item">
+      <div class="mono item-num">02</div>
+      <div class="item-body">
+        <div class="item-title">The tools your team doesn&rsquo;t use</div>
+        <div class="item-help">Annual spend on Power BI, Tableau, Metabase &mdash; including seats nobody logs into.</div>
+      </div>
+      <input class="item-amount" inputmode="numeric" data-v="2" placeholder="£0" aria-label="Item 02 amount">
+    </div>
+    <div class="item">
+      <div class="mono item-num">03</div>
+      <div class="item-body">
+        <div class="item-title">The data work that never gets done</div>
+        <div class="item-help">What a consultancy would charge to connect your stack properly.</div>
+      </div>
+      <input class="item-amount" inputmode="numeric" data-v="3" placeholder="£0" aria-label="Item 03 amount">
+    </div>
+    <div class="item">
+      <div class="mono item-num">04</div>
+      <div class="item-body">
+        <div class="item-title">The AI exposure nobody&rsquo;s tracking</div>
+        <div class="item-help">ICO fines, SOC 2 remediation, failed AI policy questionnaires.</div>
+      </div>
+      <input class="item-amount" inputmode="numeric" data-v="4" placeholder="£0" aria-label="Item 04 amount">
+    </div>
+    <div class="item">
+      <div class="mono item-num">05</div>
+      <div class="item-body">
+        <div class="item-title">The governance gap the board will ask about</div>
+        <div class="item-help">EU AI Act, audit findings, enterprise deals blocked by missing AI policy.</div>
+      </div>
+      <input class="item-amount" inputmode="numeric" data-v="5" placeholder="£0" aria-label="Item 05 amount">
+    </div>
+  </div>
+
+  <div class="total">
+    <div class="total-left">
+      <div class="mono total-label">TOTAL CARRIED</div>
+      <div class="margin-note" id="margin-note" aria-live="polite"></div>
+    </div>
+    <div class="monument"><span class="pound">£</span><span id="total">0</span></div>
+  </div>
+
+  <div class="milo-row">
+    <div class="mono">MILO ANNUAL COST</div>
+    <div class="milo-right">
+      <div class="milo-value">£18,000</div>
+      <div class="milo-note">Includes five hours of senior engineering at onboarding &mdash; our cost, not yours. We&rsquo;re that confident you&rsquo;ll see it working in week one.</div>
+    </div>
+  </div>
+
+  <div class="multiple" id="multiple" aria-live="polite"></div>
+
+  <div class="delay" id="delay" aria-live="polite">
+    <div class="mono">COST OF DELAY</div>
+    <div class="delay-text" id="delay-text"></div>
+  </div>
+
+  <section class="tape">
+    <div class="mono tape-kicker">THE RATIO &middot; AT SCALE</div>
+    <div class="tape-bar">
+      <div class="tape-cream" id="tape-cream"></div>
+      <div class="tape-milo" id="tape-milo"></div>
+    </div>
+    <div class="tape-caps mono">
+      <div class="left" id="tape-left">CARRIED · £0</div>
+      <div class="right">MILO · £18,000</div>
+    </div>
+  </section>
+
+  <div class="footer mono">MILO · CONFIDENTIAL · NOT FOR DISTRIBUTION</div>
+
+<script>
+(function () {
+  const MILO = 18000;
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const fmt = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
+  const fmtNoSymbol = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 0 });
+
+  const $ = id => document.getElementById(id);
+  const inputs = Array.from(document.querySelectorAll('input[data-v]'));
+  const companyEl = $('company');
+  const dateEl = $('date');
+  const refEl = $('ref');
+  const kickerEl = $('doc-kicker');
+  const totalEl = $('total');
+  const subtitleEl = $('subtitle');
+  const marginNoteEl = $('margin-note');
+  const multipleEl = $('multiple');
+  const delayEl = $('delay');
+  const delayTextEl = $('delay-text');
+  const tapeCream = $('tape-cream');
+  const tapeMilo = $('tape-milo');
+  const tapeLeft = $('tape-left');
+
+  const digitsOnly = s => (s || '').replace(/[^0-9]/g, '');
+  const pad = n => String(n).padStart(2, '0');
+  function isoToday() {
+    const d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function prettyFromISO(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+    if (!m) return null;
+    const mo = +m[2], da = +m[3];
+    if (mo < 1 || mo > 12 || da < 1 || da > 31) return null;
+    return da + ' ' + MONTHS[mo - 1] + ' ' + m[1];
+  }
+  function isoFromAny(s) {
+    const t = (s || '').trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+    const m = /^(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})$/.exec(t);
+    if (!m) return null;
+    const mi = MONTHS.findIndex(x => x.toLowerCase() === m[2].toLowerCase());
+    if (mi < 0) return null;
+    return m[3] + '-' + pad(mi + 1) + '-' + pad(+m[1]);
+  }
+
+  /* Margin commentary — editorial voice, one line per threshold */
+  function commentaryFor(total) {
+    if (total <= 0) return '';
+    if (total < MILO) return 'Still under Milo\u2019s annual cost \u2014 for now.';
+    if (total <= 50000) return 'About a junior analyst\u2019s annual salary, unspent.';
+    if (total <= 100000) return 'You\u2019re paying more to not hire than to hire.';
+    if (total <= 200000) return 'Larger than most UK data teams\u2019 discretionary budgets.';
+    if (total <= 400000) return 'At this scale, enterprise deals have been lost over the governance gap alone.';
+    return 'Into the range CFOs escalate to the board.';
+  }
+
+  function subtitleFor(total) {
+    if (total <= 0) return 'As carried today, against Milo\u2019s annual cost.';
+    if (total < MILO) return 'So far, less than Milo itself costs you in a year.';
+    const m = (total / MILO).toFixed(1);
+    const tail = total > 100000 ? ', and growing.' : '.';
+    return {
+      pre: 'On the numbers you\u2019ve given me: ',
+      num: m + '\u00d7',
+      post: ' Milo\u2019s cost' + tail
+    };
+  }
+
+  /* Ticker — one eased interpolation drives total, multiple, delay, tape */
+  let displayed = 0;
+  let target = 0;
+  let tickFrom = 0;
+  let tickStart = 0;
+  let rafId = null;
+  const TICK_MS = 380;
+
+  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+  function renderDerived(value) {
+    totalEl.textContent = fmtNoSymbol.format(value);
+
+    if (value > MILO) {
+      const mult = (value / MILO).toFixed(1);
+      multipleEl.innerHTML =
+        'You\u2019re carrying <span class="num">' + mult + '\u00d7</span> Milo\u2019s cost.';
+      multipleEl.classList.add('on');
+    } else {
+      multipleEl.innerHTML = '';
+      multipleEl.classList.remove('on');
+    }
+
+    if (value > 100000) {
+      const delayAmt = Math.round(value / 4);
+      delayTextEl.innerHTML =
+        'Delaying three months adds <span class="num">' + fmt.format(delayAmt) +
+        '</span> to carried cost.';
+      delayEl.classList.add('on');
+    } else {
+      delayTextEl.innerHTML = '';
+      delayEl.classList.remove('on');
+    }
+
+    if (value <= 0) {
+      tapeCream.style.flexBasis = '0%';
+      tapeMilo.style.flexBasis = '3px';
+    } else {
+      const sum = value + MILO;
+      tapeCream.style.flexBasis = (value / sum * 100) + '%';
+      tapeMilo.style.flexBasis = (MILO / sum * 100) + '%';
+    }
+    tapeLeft.textContent = 'CARRIED · ' + fmt.format(value);
+  }
+
+  function step(now) {
+    const elapsed = now - tickStart;
+    const t = Math.min(1, elapsed / TICK_MS);
+    const eased = easeOutCubic(t);
+    displayed = Math.round(tickFrom + (target - tickFrom) * eased);
+    renderDerived(displayed);
+    if (t < 1) {
+      rafId = requestAnimationFrame(step);
+    } else {
+      displayed = target;
+      renderDerived(displayed);
+      rafId = null;
+    }
+  }
+
+  function retickTo(next) {
+    if (document.hidden) {
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      displayed = next;
+      target = next;
+      renderDerived(displayed);
+      return;
+    }
+    if (next === target && rafId === null) return;
+    if (rafId) cancelAnimationFrame(rafId);
+    tickFrom = displayed;
+    target = next;
+    tickStart = performance.now();
+    rafId = requestAnimationFrame(step);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) render();
+  });
+
+  /* Subtitle — only rewrite when text actually changes */
+  let lastSubtitleKey = '';
+  function updateSubtitle(total) {
+    const s = subtitleFor(total);
+    if (typeof s === 'string') {
+      if (s === lastSubtitleKey) return;
+      lastSubtitleKey = s;
+      subtitleEl.textContent = s;
+    } else {
+      const key = s.pre + '|' + s.num + '|' + s.post;
+      if (key === lastSubtitleKey) return;
+      lastSubtitleKey = key;
+      subtitleEl.innerHTML = s.pre + '<span class="num">' + s.num + '</span>' + s.post;
+    }
+  }
+
+  let lastCommentaryKey = '';
+  function updateCommentary(total) {
+    const text = commentaryFor(total);
+    if (text === lastCommentaryKey) return;
+    lastCommentaryKey = text;
+    if (text) {
+      marginNoteEl.textContent = text;
+      marginNoteEl.classList.add('on');
+    } else {
+      marginNoteEl.classList.remove('on');
+      setTimeout(() => { if (lastCommentaryKey === '') marginNoteEl.textContent = ''; }, 440);
+    }
+  }
+
+  function render() {
+    const values = inputs.map(i => +digitsOnly(i.value) || 0);
+    const total = values.reduce((a, b) => a + b, 0);
+
+    retickTo(total);
+    updateSubtitle(total);
+    updateCommentary(total);
+
+    const c = companyEl.value.trim();
+    kickerEl.textContent = 'CONFIDENTIAL · PREPARED FOR ' + (c ? c.toUpperCase() : 'REVIEW');
+    const iso = isoFromAny(dateEl.value) || isoToday();
+    refEl.textContent = 'REF · ' + iso + ' · 0001';
+
+    syncUrl();
+  }
+
+  function syncUrl() {
+    const p = new URLSearchParams();
+    const c = companyEl.value.trim();
+    if (c) p.set('c', c);
+    const iso = isoFromAny(dateEl.value);
+    if (iso && iso !== isoToday()) p.set('d', iso);
+    inputs.forEach((inp, i) => {
+      const d = digitsOnly(inp.value);
+      if (d) p.set('v' + (i + 1), d);
+    });
+    const qs = p.toString();
+    history.replaceState(null, '', qs ? '?' + qs : location.pathname);
+  }
+
+  function onValueInput(e) {
+    const el = e.target;
+    const raw = el.value;
+    const digits = digitsOnly(raw);
+    const cursor = el.selectionStart == null ? raw.length : el.selectionStart;
+    const dbc = digitsOnly(raw.slice(0, cursor)).length;
+    el.value = digits ? fmt.format(+digits) : '';
+    let pos = 0, seen = 0;
+    while (pos < el.value.length && seen < dbc) {
+      if (/\d/.test(el.value[pos])) seen++;
+      pos++;
+    }
+    try { el.setSelectionRange(pos, pos); } catch (_) {}
+    render();
+  }
+
+  inputs.forEach(i => i.addEventListener('input', onValueInput));
+  companyEl.addEventListener('input', render);
+  dateEl.addEventListener('input', render);
+  dateEl.addEventListener('blur', () => {
+    const iso = isoFromAny(dateEl.value);
+    if (iso) {
+      const pretty = prettyFromISO(iso);
+      if (pretty) dateEl.value = pretty;
+    }
+    render();
+  });
+
+  (function init() {
+    const p = new URLSearchParams(location.search);
+    const c = p.get('c');
+    if (c) companyEl.value = c;
+    const d = p.get('d');
+    dateEl.value = d ? (prettyFromISO(d) || d) : prettyFromISO(isoToday());
+    inputs.forEach((inp, i) => {
+      const digits = digitsOnly(p.get('v' + (i + 1)) || '');
+      if (digits) inp.value = fmt.format(+digits);
+    });
+    render();
+  })();
+})();
+</script>
+</body>
+</html>
