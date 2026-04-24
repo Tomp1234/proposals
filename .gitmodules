@@ -1,3 +1,6 @@
 [submodule "milo-iberica-proposal"]
 	path = milo-iberica-proposal
 	url = https://github.com/Tomp1234/milo-iberica-proposal.git
+[submodule "milo-newflag-proposal"]
+	path = milo-newflag-proposal
+	url = https://github.com/Tomp1234/milo-newflag-proposal.git
