@@ -4,3 +4,6 @@
 [submodule "milo-newflag-proposal"]
 	path = milo-newflag-proposal
 	url = https://github.com/Tomp1234/milo-newflag-proposal.git
+[submodule "milo-boots-opticians-proposal"]
+	path = milo-boots-opticians-proposal
+	url = https://github.com/Tomp1234/milo-boots-opticians-proposal.git
