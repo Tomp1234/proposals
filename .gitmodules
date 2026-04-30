@@ -10,3 +10,6 @@
 [submodule "milo-bluediamond-proposal"]
 	path = milo-bluediamond-proposal
 	url = https://github.com/Tomp1234/milo-bluediamond-proposal.git
+[submodule "milo-mgasia-proposal"]
+	path = milo-mgasia-proposal
+	url = https://github.com/Tomp1234/milo-mgasia-proposal.git
