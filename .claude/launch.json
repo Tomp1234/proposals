@@ -6,6 +6,24 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8765", "--directory", "milo-one-pager-b"],
       "port": 8765
+    },
+    {
+      "name": "iberica",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8770", "--directory", "milo-iberica-proposal"],
+      "port": 8770
+    },
+    {
+      "name": "cost-stack",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8780", "--directory", "milo-cost-stack"],
+      "port": 8780
+    },
+    {
+      "name": "bellcomp",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8790", "--directory", "milo-bellcomp-proposal"],
+      "port": 8790
     }
   ]
 }
