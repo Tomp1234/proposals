@@ -7,71 +7,119 @@
 <meta name="description" content="Trial recap for BeatHub Entertainment. Confirms the paid trial, lists connectors, covers user access, and sets out next steps.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0B0F1E;
-  --bg-card: #111827;
-  --bg-card-hover: #161F38;
-  --bg-elevated: #0E1426;
-  --blue: #4B7BFF;
-  --purple: #8B5CF6;
-  --blue-soft: rgba(75, 123, 255, 0.10);
-  --purple-soft: rgba(139, 92, 246, 0.10);
-  --text: #F0F4FF;
-  --text-dim: #B8C0D4;
-  --text-muted: #8892B0;
-  --text-faint: #5A647C;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-soft: rgba(255, 255, 255, 0.04);
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --black: #0A0A0B;
+  --black-soft: #131316;
+  --card: #16161A;
+  --card-hover: #1C1C22;
+  --elevated: #1F1F26;
+  --yellow: #FFD60A;
+  --yellow-bright: #FFEC4D;
+  --yellow-deep: #C9A800;
+  --yellow-soft: rgba(255, 214, 10, 0.10);
+  --yellow-glow: rgba(255, 214, 10, 0.18);
+  --white: #FAFAFA;
+  --text: #ECECF0;
+  --text-dim: #B8B8C0;
+  --text-muted: #7A7A85;
+  --text-faint: #4A4A52;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-yellow: rgba(255, 214, 10, 0.22);
+  --display: 'Bricolage Grotesque', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
 }
 
 html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
+  background: var(--black);
   color: var(--text);
-  font-family: var(--font);
-  line-height: 1.65;
+  font-family: var(--sans);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-::selection { background: var(--blue); color: #fff; }
+::selection { background: var(--yellow); color: var(--black); }
 
-body::before {
+/* Film grain */
+body::after {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 9999;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 12% 8%, rgba(75, 123, 255, 0.08) 0%, transparent 42%),
-    radial-gradient(circle at 88% 92%, rgba(139, 92, 246, 0.07) 0%, transparent 45%);
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }
 
+/* ─── Marquee ────────────────────────── */
+.marquee {
+  position: relative;
+  background: var(--yellow);
+  color: var(--black);
+  overflow: hidden;
+  border-bottom: 2px solid var(--black);
+  z-index: 5;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 48px;
+  padding: 12px 0;
+  white-space: nowrap;
+  animation: scroll 38s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track span {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.marquee-track span::after {
+  content: '◆';
+  color: var(--black);
+  font-size: 0.62rem;
+  opacity: 0.6;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── Page wrapper ───────────────────── */
 .page {
-  max-width: 880px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 56px 40px 72px;
+  padding: 56px 48px 72px;
   position: relative;
   z-index: 1;
 }
 
-@media (max-width: 640px) {
-  .page { padding: 32px 22px 56px; }
+@media (max-width: 720px) {
+  .page { padding: 36px 24px 56px; }
 }
 
-/* ─── Header ────────────────────────── */
+/* ─── Top bar ────────────────────────── */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 56px;
+  margin-bottom: 64px;
   padding-bottom: 22px;
   border-bottom: 1px solid var(--line);
 }
@@ -79,193 +127,396 @@ body::before {
 .brandmark {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
+  font-family: var(--mono);
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-dim);
 }
 
 .brandmark img {
-  height: 22px;
+  height: 26px;
   width: auto;
+  border-radius: 5px;
   display: block;
-  border-radius: 4px;
 }
 
 .brandmark .x {
-  color: var(--blue);
+  color: var(--yellow);
+  font-family: var(--display);
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
+  letter-spacing: 0;
 }
 
 .brandmark .bh {
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: 0.18em;
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.005em;
+  font-size: 1.05rem;
+  text-transform: none;
 }
 
 .meta {
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-muted);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 22px;
 }
 
-.meta .dot {
-  width: 6px; height: 6px;
+.meta .live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--yellow);
+  font-weight: 600;
+}
+
+.meta .live::before {
+  content: '';
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--blue);
-  box-shadow: 0 0 0 4px rgba(75, 123, 255, 0.14);
+  background: var(--yellow);
+  box-shadow: 0 0 0 4px var(--yellow-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px var(--yellow-glow); }
+  50% { box-shadow: 0 0 0 10px rgba(255, 214, 10, 0.04); }
 }
 
 /* ─── Hero ────────────────────────── */
 .hero {
-  margin-bottom: 56px;
+  position: relative;
+  margin-bottom: 88px;
+  padding-bottom: 56px;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 6px;
+  background: var(--yellow);
 }
 
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 22px;
-  padding: 6px 12px;
-  background: var(--blue-soft);
-  border: 1px solid rgba(75, 123, 255, 0.22);
-  border-radius: 100px;
+  color: var(--yellow);
+  margin-bottom: 30px;
 }
 
 .eyebrow::before {
   content: '';
-  width: 6px;
-  height: 6px;
-  background: var(--blue);
-  border-radius: 50%;
+  width: 24px;
+  height: 1px;
+  background: var(--yellow);
 }
 
 h1.headline {
-  font-weight: 600;
-  font-size: clamp(2rem, 4.4vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.025em;
-  color: var(--text);
-  margin-bottom: 22px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  margin-bottom: 36px;
+  font-variation-settings: "opsz" 96;
 }
 
-h1.headline em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+h1.headline .yellow {
+  color: var(--yellow);
+  font-style: italic;
+  font-weight: 700;
+  display: inline-block;
+  position: relative;
+}
+
+h1.headline .yellow::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 6%;
+  height: 22%;
+  background: var(--yellow);
+  opacity: 0.15;
+  z-index: -1;
+  transform: skewX(-8deg);
+}
+
+h1.headline .stamp {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  font-family: var(--mono);
+  font-size: 0.32em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.45em 0.8em 0.38em;
+  border-radius: 6px;
+  vertical-align: middle;
+  transform: translateY(-0.4em) rotate(-2deg);
+  margin-left: 0.15em;
+  text-transform: uppercase;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 56px;
+  align-items: end;
 }
 
 .lede {
-  font-size: 1.02rem;
-  line-height: 1.7;
+  font-size: 1.08rem;
+  line-height: 1.65;
   color: var(--text-dim);
-  max-width: 62ch;
+  max-width: 52ch;
 }
 
 .lede strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* Ticket stub */
+.stub {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px 28px 26px;
+  overflow: hidden;
+}
+
+.stub::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--yellow);
+}
+
+.stub-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.stub-figure {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.stub-figure .unit {
+  color: var(--yellow);
+  font-size: 0.5em;
+  margin-left: 6px;
+  letter-spacing: 0;
+}
+
+.stub-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 18px -28px;
+  position: relative;
+}
+
+.stub-divider::before,
+.stub-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: var(--black);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.stub-divider::before { left: -8px; }
+.stub-divider::after { right: -8px; }
+
+.stub-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+}
+
+.stub-row .k {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.66rem;
+}
+
+.stub-row .v {
   color: var(--text);
   font-weight: 600;
 }
 
 /* ─── Sections ────────────────────────── */
 .section {
-  margin-bottom: 52px;
+  margin-bottom: 84px;
+  position: relative;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  margin-bottom: 36px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-num {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 4.5rem;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--yellow);
+  flex-shrink: 0;
+  font-variation-settings: "opsz" 96;
+}
+
+.section-title-block {
+  flex: 1;
+  padding-bottom: 6px;
 }
 
 .section-label {
   font-family: var(--mono);
   font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--purple);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.3), transparent);
+  color: var(--text-muted);
+  margin-bottom: 6px;
 }
 
 h2 {
+  font-family: var(--display);
   font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  color: var(--text);
-  margin-bottom: 22px;
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  color: var(--white);
 }
 
-h3 {
-  font-weight: 600;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 12px;
+@media (max-width: 640px) {
+  .section-num { font-size: 3rem; }
+  .section-head { gap: 18px; }
 }
 
 /* ─── Agreed list ────────────────────── */
 .agreed {
   list-style: none;
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .agreed li {
+  position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 16px 20px;
-  background: var(--bg-card);
+  gap: 22px;
+  padding: 22px 26px;
+  background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  font-size: 0.96rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  line-height: 1.55;
   color: var(--text-dim);
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-.agreed li::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  margin-top: 9px;
-  background: var(--blue);
-  border-radius: 50%;
+.agreed li:hover {
+  border-color: var(--line-yellow);
+  transform: translateX(2px);
+}
+
+.agreed li .num {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--yellow);
+  letter-spacing: 0.06em;
   flex-shrink: 0;
+  padding-top: 3px;
+  min-width: 26px;
 }
 
 .agreed li strong {
-  color: var(--text);
+  color: var(--white);
   font-weight: 600;
 }
 
 /* ─── Connectors ─────────────────────── */
 .connector-group {
-  background: var(--bg-card);
+  background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 22px 24px;
-  margin-bottom: 14px;
+  border-radius: 14px;
+  padding: 26px 28px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.connector-group h3 {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.connector-group h3 .sub {
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  font-size: 0.92em;
+  font-style: italic;
 }
 
 .connector-items {
@@ -277,229 +528,428 @@ h3 {
 .chip {
   display: inline-flex;
   align-items: center;
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   font-weight: 500;
   color: var(--text);
-  padding: 6px 12px;
-  background: var(--bg-elevated);
+  padding: 8px 14px;
+  background: var(--elevated);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.chip:hover {
+  border-color: var(--line-yellow);
+  background: var(--card-hover);
+  color: var(--white);
 }
 
 .chip.custom {
-  background: var(--purple-soft);
-  border-color: rgba(139, 92, 246, 0.22);
-  color: var(--text);
+  background: rgba(255, 214, 10, 0.06);
+  border-color: var(--line-yellow);
+  color: var(--yellow);
+  font-weight: 600;
+}
+
+.chip.custom:hover {
+  background: rgba(255, 214, 10, 0.12);
+  color: var(--yellow-bright);
 }
 
 .connector-note {
   font-size: 0.86rem;
   color: var(--text-muted);
   font-style: italic;
-  margin-top: 6px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
 }
 
-/* ─── Access table ────────────────────── */
+/* ─── Access ────────────────────────── */
 .access {
-  background: var(--bg-card);
+  background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
 }
 
 .access-row {
   display: grid;
   grid-template-columns: 200px 1fr;
-  gap: 24px;
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--line-soft);
-  font-size: 0.94rem;
+  gap: 32px;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.98rem;
+  align-items: baseline;
+  transition: background 0.2s ease;
 }
 
+.access-row:hover { background: var(--card-hover); }
 .access-row:last-child { border-bottom: 0; }
 
 .access-row .k {
-  color: var(--text-muted);
   font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding-top: 2px;
+  color: var(--yellow);
 }
 
 .access-row .v {
   color: var(--text-dim);
+  line-height: 1.55;
 }
 
 .access-row .v strong {
-  color: var(--text);
+  color: var(--white);
   font-weight: 600;
 }
 
 @media (max-width: 640px) {
-  .access-row { grid-template-columns: 1fr; gap: 4px; }
+  .access-row { grid-template-columns: 1fr; gap: 6px; padding: 18px 22px; }
 }
 
 /* ─── Trial timeline ──────────────────── */
 .trial {
-  background: linear-gradient(135deg, var(--blue-soft), var(--purple-soft));
-  border: 1px solid rgba(75, 123, 255, 0.18);
-  border-radius: 14px;
-  padding: 8px 0;
-}
-
-.trial-row {
   display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 20px;
-  padding: 14px 24px;
-  align-items: baseline;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: 0.94rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  position: relative;
 }
 
-.trial-row:last-child { border-bottom: 0; }
+.trial::before {
+  content: '';
+  position: absolute;
+  top: 52px;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--yellow) 0%, var(--yellow) 70%, transparent 100%);
+  z-index: 0;
+}
 
-.trial-row .when {
+.trial-cell {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  z-index: 1;
+}
+
+.trial-cell:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-yellow);
+}
+
+.trial-cell .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  margin-bottom: 4px;
+  align-self: flex-start;
+}
+
+.trial-cell .when {
   font-family: var(--mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-  font-weight: 500;
-  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: var(--yellow);
 }
 
-.trial-row .what {
+.trial-cell .what {
+  font-size: 0.92rem;
+  line-height: 1.5;
   color: var(--text-dim);
 }
 
-@media (max-width: 640px) {
-  .trial-row { grid-template-columns: 1fr; gap: 2px; padding: 14px 20px; }
+@media (max-width: 820px) {
+  .trial { grid-template-columns: 1fr 1fr; }
+  .trial::before { display: none; }
 }
 
-/* ─── Questions list ─────────────────── */
+@media (max-width: 480px) {
+  .trial { grid-template-columns: 1fr; }
+}
+
+/* ─── Questions ─────────────────────── */
 .questions {
   list-style: none;
   display: grid;
-  gap: 10px;
-}
-
-.questions li {
-  padding: 14px 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  font-size: 0.94rem;
-  color: var(--text-dim);
-  position: relative;
-  padding-left: 48px;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.questions li:hover {
-  border-color: rgba(75, 123, 255, 0.25);
-  background: var(--bg-card-hover);
-}
-
-.questions li::before {
-  content: counter(q, decimal-leading-zero);
-  counter-increment: q;
-  position: absolute;
-  left: 20px;
-  top: 14px;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--purple);
-  letter-spacing: 0.04em;
-}
-
-.questions {
+  gap: 12px;
   counter-reset: q;
 }
 
-/* ─── Next steps ──────────────────────── */
-.next {
-  display: grid;
-  gap: 14px;
-}
-
-.next-item {
-  display: flex;
-  gap: 18px;
-  padding: 18px 22px;
-  background: var(--bg-card);
+.questions li {
+  position: relative;
+  padding: 22px 28px 22px 84px;
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: 12px;
-  align-items: flex-start;
-}
-
-.next-item .tag {
-  font-family: var(--mono);
-  font-size: 0.68rem;
+  font-family: var(--display);
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 100px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.next-item .tag.bh {
-  color: var(--blue);
-  background: var(--blue-soft);
-  border: 1px solid rgba(75, 123, 255, 0.22);
-}
-
-.next-item .tag.milo {
-  color: var(--purple);
-  background: var(--purple-soft);
-  border: 1px solid rgba(139, 92, 246, 0.22);
-}
-
-.next-item .body {
-  font-size: 0.96rem;
-  color: var(--text-dim);
-  line-height: 1.6;
-}
-
-.next-item .body strong {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  letter-spacing: -0.012em;
   color: var(--text);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+.questions li::before {
+  counter-increment: q;
+  content: counter(q, decimal-leading-zero);
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: -0.02em;
+}
+
+.questions li::after {
+  content: '';
+  position: absolute;
+  left: 70px;
+  top: 22px;
+  bottom: 22px;
+  width: 1px;
+  background: var(--line);
+  transition: background 0.25s ease;
+}
+
+.questions li:hover {
+  border-color: var(--line-yellow);
+  background: var(--card-hover);
+  transform: translateX(3px);
+}
+
+.questions li:hover::after { background: var(--line-yellow); }
+
+@media (max-width: 640px) {
+  .questions li { font-size: 1rem; padding: 20px 22px 20px 70px; }
+  .questions li::before { font-size: 1.2rem; left: 22px; }
+  .questions li::after { left: 58px; }
+}
+
+/* ─── Next steps ──────────────────────── */
+.next-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.next-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 30px 28px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.next-card:hover {
+  border-color: var(--line-yellow);
+  transform: translateY(-2px);
+}
+
+.next-card.bh::before,
+.next-card.milo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+
+.next-card.bh::before { background: var(--yellow); }
+.next-card.milo::before { background: var(--white); }
+
+.next-card .who {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.next-card.bh .who { color: var(--yellow); }
+.next-card.milo .who { color: var(--white); }
+
+.next-card .who::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+.next-card .do {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.18rem;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.next-card .do em {
+  color: var(--yellow);
+  font-style: normal;
+}
+
+.next-card .detail {
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.next-card .detail strong {
+  color: var(--white);
   font-weight: 600;
 }
 
-/* ─── Signoff ─────────────────────────── */
-.signoff {
-  margin-top: 56px;
-  padding-top: 24px;
+.then-card {
+  position: relative;
+  background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-bright) 100%);
+  color: var(--black);
+  border-radius: 16px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.then-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(0,0,0,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.then-card .arrow {
+  font-family: var(--display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.then-card .text {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  position: relative;
+}
+
+.then-card .text strong {
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .next-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Footer ──────────────────────────── */
+.footer {
+  margin-top: 88px;
+  padding-top: 32px;
   border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
   font-family: var(--mono);
   font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-faint);
+}
+
+.footer .left {
+  display: flex;
+  align-items: center;
   gap: 18px;
-  flex-wrap: wrap;
 }
 
-.signoff a {
-  color: var(--blue);
+.footer .left .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+.footer a {
+  color: var(--yellow);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
-.signoff a:hover { color: var(--purple); }
+.footer a:hover { color: var(--yellow-bright); }
 
-@media (max-width: 540px) {
-  .signoff { flex-direction: column; align-items: flex-start; gap: 8px; }
+.footer .right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+@media (max-width: 600px) {
+  .footer { flex-direction: column; align-items: flex-start; }
+}
+
+/* ─── Hero responsive ─────────────────── */
+@media (max-width: 820px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 36px; align-items: start; }
 }
 </style>
 </head>
 <body>
+
+<!-- Marquee -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Trial Recap</span>
+    <span>BeatHub × Milo</span>
+    <span>13 May 2026</span>
+    <span>£1,500 · 1 Month</span>
+    <span>Bogotá, Colombia</span>
+    <span>Trial Recap</span>
+    <span>BeatHub × Milo</span>
+    <span>13 May 2026</span>
+    <span>£1,500 · 1 Month</span>
+    <span>Bogotá, Colombia</span>
+  </div>
+</div>
 
 <div class="page">
 
@@ -511,7 +961,6 @@ h3 {
       <span class="bh">BeatHub</span>
     </div>
     <div class="meta">
-      <span><span class="dot"></span> Trial recap</span>
       <span>13 May 2026</span>
     </div>
   </div>
@@ -520,72 +969,88 @@ h3 {
   <section class="hero">
     <span class="eyebrow">For the BeatHub team</span>
     <h1 class="headline">
-      Trial <em>recap</em> and next steps.
+      Trial <span class="yellow">recap</span><br>
+      and next steps.<span class="stamp">v1</span>
     </h1>
-    <p class="lede">
-      Thank you for the time today. This note confirms what we agreed, answers the two follow-up questions Andres raised on connectors and user access, and sets out what happens next. Please share with Carlos. Anything missing, let us know.
-    </p>
+    <div class="hero-grid">
+      <p class="lede">
+        Thank you for the time today. This note confirms what we agreed, answers the two follow-up questions Andres raised on <strong>connectors</strong> and <strong>user access</strong>, and sets out what happens next. Please share with Carlos. Anything missing, let us know.
+      </p>
+      <div class="stub">
+        <div class="stub-label">Paid trial</div>
+        <div class="stub-figure">£1,500<span class="unit">/ month</span></div>
+        <div class="stub-divider"></div>
+        <div class="stub-row"><span class="k">Term</span><span class="v">1 month</span></div>
+        <div class="stub-row"><span class="k">Starts</span><span class="v">After setup</span></div>
+        <div class="stub-row"><span class="k">Hosting</span><span class="v">EU, Frankfurt</span></div>
+      </div>
+    </div>
   </section>
 
-  <!-- 1. What we agreed -->
+  <!-- 01. Agreed -->
   <section class="section">
-    <div class="section-label">01 / What we agreed</div>
-    <h2>The shape of the trial</h2>
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <div class="section-title-block">
+        <div class="section-label">What we agreed</div>
+        <h2>The shape of the trial</h2>
+      </div>
+    </div>
     <ul class="agreed">
-      <li><span><strong>1-month paid trial</strong>, £1,500.</span></li>
-      <li><span>The trial month <strong>begins after configuration is complete</strong>, not on signature.</span></li>
-      <li><span>BeatHub will <strong>assign an internal sponsor</strong> to lead testing and own the use cases.</span></li>
-      <li><span>Milo will provide <strong>connectivity and user access documentation</strong>. This document covers it.</span></li>
+      <li><span class="num">A.</span><span><strong>1-month paid trial</strong>, £1,500.</span></li>
+      <li><span class="num">B.</span><span>The trial month <strong>begins after configuration is complete</strong>, not on signature.</span></li>
+      <li><span class="num">C.</span><span>BeatHub will <strong>assign an internal sponsor</strong> to lead testing and own the use cases.</span></li>
+      <li><span class="num">D.</span><span>Milo will provide <strong>connectivity and user access documentation</strong>. This document covers it.</span></li>
     </ul>
   </section>
 
-  <!-- 2. Connectors -->
+  <!-- 02. Connectors -->
   <section class="section">
-    <div class="section-label">02 / Connectors (for Andres)</div>
-    <h2>What Milo connects to</h2>
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <div class="section-title-block">
+        <div class="section-label">Connectors · for Andres</div>
+        <h2>Your stack, plugged in</h2>
+      </div>
+    </div>
 
     <div class="connector-group">
-      <h3>Native SaaS</h3>
+      <h3>Native <span class="sub">out of the box</span></h3>
       <div class="connector-items">
         <span class="chip">HubSpot</span>
-        <span class="chip">Salesforce</span>
-        <span class="chip">Slack</span>
-        <span class="chip">Apollo</span>
-        <span class="chip">WhatsApp</span>
-        <span class="chip">Microsoft 365 (full suite)</span>
+        <span class="chip">Office 365 (full suite)</span>
       </div>
     </div>
 
     <div class="connector-group">
-      <h3>Databases &amp; warehouses</h3>
+      <h3>Data warehouses <span class="sub">direct connection</span></h3>
       <div class="connector-items">
-        <span class="chip">BigQuery</span>
-        <span class="chip">Snowflake</span>
-        <span class="chip">Redshift</span>
-        <span class="chip">Azure SQL</span>
-        <span class="chip">SQL Server</span>
-        <span class="chip">Postgres</span>
-        <span class="chip">MySQL</span>
-        <span class="chip">Google Cloud</span>
+        <span class="chip">Azure (your primary)</span>
+        <span class="chip">AWS (your secondary)</span>
       </div>
     </div>
 
     <div class="connector-group">
-      <h3>Custom (scoped during setup, around 1 day to build)</h3>
+      <h3>Custom <span class="sub">scoped during setup, around 1 day each to build</span></h3>
       <div class="connector-items">
-        <span class="chip custom">Secutix</span>
-        <span class="chip custom">Oracle Simphony</span>
         <span class="chip custom">SAP</span>
-        <span class="chip custom">Drupal</span>
+        <span class="chip custom">Secutix (ticketing)</span>
+        <span class="chip custom">Oracle Simphony</span>
+        <span class="chip custom">Drupal (CMS)</span>
       </div>
       <p class="connector-note">Full connector list available on request.</p>
     </div>
   </section>
 
-  <!-- 3. Access -->
+  <!-- 03. Access -->
   <section class="section">
-    <div class="section-label">03 / Profiles &amp; user access (for Andres)</div>
-    <h2>How sign-in and permissions work</h2>
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <div class="section-title-block">
+        <div class="section-label">Profiles &amp; user access · for Andres</div>
+        <h2>How sign-in and permissions work</h2>
+      </div>
+    </div>
     <div class="access">
       <div class="access-row">
         <div class="k">Sign-in</div>
@@ -614,34 +1079,15 @@ h3 {
     </div>
   </section>
 
-  <!-- 4. What the trial covers -->
+  <!-- 04. Questions -->
   <section class="section">
-    <div class="section-label">04 / What the trial will cover</div>
-    <h2>Four weeks, end to end</h2>
-    <div class="trial">
-      <div class="trial-row">
-        <span class="when">Week 0</span>
-        <span class="what">Connect agreed data sources. Set up the data studio with Andres.</span>
-      </div>
-      <div class="trial-row">
-        <span class="when">Week 1</span>
-        <span class="what">Configure the knowledge base and access rules.</span>
-      </div>
-      <div class="trial-row">
-        <span class="when">Weeks 2&ndash;3</span>
-        <span class="what">BeatHub team tests use cases on live data.</span>
-      </div>
-      <div class="trial-row">
-        <span class="when">Week 4</span>
-        <span class="what">Review and decide.</span>
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <div class="section-title-block">
+        <div class="section-label">Example questions Milo can answer</div>
+        <h2>For BeatHub</h2>
       </div>
     </div>
-  </section>
-
-  <!-- 5. Example questions -->
-  <section class="section">
-    <div class="section-label">05 / Example questions Milo can answer</div>
-    <h2>For BeatHub</h2>
     <ol class="questions">
       <li>Profit margin per show across artist fees, production, F&amp;B, and venue costs.</li>
       <li>Why Artist X performed differently to Artist Y at the same venue.</li>
@@ -651,29 +1097,43 @@ h3 {
     </ol>
   </section>
 
-  <!-- 6. Next steps -->
+  <!-- 05. Next steps -->
   <section class="section">
-    <div class="section-label">06 / Next steps</div>
-    <h2>Two things, then we start</h2>
-    <div class="next">
-      <div class="next-item">
-        <span class="tag bh">BeatHub</span>
-        <div class="body">Confirm the <strong>internal sponsor</strong> who will lead testing.</div>
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <div class="section-title-block">
+        <div class="section-label">Next steps</div>
+        <h2>Two things, then we start</h2>
       </div>
-      <div class="next-item">
-        <span class="tag milo">Milo</span>
-        <div class="body">Schedule a <strong>30-minute technical call</strong> between Philip (CTO) and Andres &amp; Rafael to scope the <strong>SAP, Secutix, and Simphony</strong> connectors.</div>
+    </div>
+    <div class="next-grid">
+      <div class="next-card bh">
+        <div class="who">BeatHub</div>
+        <div class="do">Confirm the <em>internal sponsor</em>.</div>
+        <div class="detail">One named person on your side to lead testing and own the use cases through the trial.</div>
       </div>
-      <div class="next-item">
-        <span class="tag bh">Then</span>
-        <div class="body">Once the sponsor is confirmed and the technical scope is agreed, the <strong>trial begins</strong>.</div>
+      <div class="next-card milo">
+        <div class="who">Milo</div>
+        <div class="do">30-minute <em>technical call</em>.</div>
+        <div class="detail">Philip (CTO) with Andres &amp; Rafael, to scope the <strong>SAP, Secutix, and Simphony</strong> connectors.</div>
       </div>
+    </div>
+    <div class="then-card">
+      <div class="arrow">→</div>
+      <div class="text">Once the <strong>sponsor is confirmed</strong> and the <strong>technical scope is agreed</strong>, the trial begins.</div>
     </div>
   </section>
 
-  <div class="signoff">
-    <span>Milo &middot; prepared 13 May 2026</span>
-    <span>Tom Pickett &middot; <a href="mailto:tom@milo.ai">tom@milo.ai</a></span>
+  <!-- Footer -->
+  <div class="footer">
+    <div class="left">
+      <span class="dot"></span>
+      <span>Milo · prepared 13 May 2026</span>
+    </div>
+    <div class="right">
+      <span>Tom Pickett</span>
+      <a href="mailto:tom@milo.ai">tom@milo.ai</a>
+    </div>
   </div>
 
 </div>
