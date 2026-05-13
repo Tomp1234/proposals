@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Webbs — A 30-day pilot for Paul and Ollie</title>
+<meta name="description" content="A 30-day Milo pilot for Webbs. Built directly on your Business Central data, sits next to Power BI, answers in Teams. Saturday at Wychbold, Monday's forecast, Tuesday's board, all without opening a spreadsheet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --moss: #5C7A4A;
+  --moss-deep: #3F5630;
+  --moss-soft: #7A9866;
+  --moss-tint: rgba(92, 122, 74, 0.08);
+  --forest: #243319;
+  --terra: #C9633A;
+  --terra-soft: #E08960;
+  --terra-deep: #A24A24;
+  --terra-tint: rgba(201, 99, 58, 0.1);
+  --amber: #E0A93A;
+  --cream: #F6F1E4;
+  --cream-deep: #EDE5D0;
+  --paper: #FFFCF5;
+  --white: #FFFFFF;
+  --ink: #1F2814;
+  --ink-soft: #2F3A22;
+  --ink-dim: #5A6549;
+  --ink-muted: #8B947C;
+  --line: rgba(36, 51, 25, 0.12);
+  --line-soft: rgba(36, 51, 25, 0.06);
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --display: 'Fraunces', 'Inter', Georgia, serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+::selection { background: var(--moss); color: var(--paper); }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.48 0 0 0 0 0.29 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 56px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.band { width: 100%; position: relative; }
+.band-cream { background: var(--cream); }
+.band-paper { background: var(--paper); }
+.band-deep  { background: var(--cream-deep); }
+.band-ink   { background: var(--forest); color: var(--paper); }
+
+/* ─── Topbar ─────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 64px;
+  opacity: 0;
+  animation: fadeIn 0.7s ease 0.1s forwards;
+}
+
+.brandmark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.brandmark .milo-logo {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+}
+
+.brandmark .milo-logo img {
+  height: 100%;
+  width: auto;
+  display: block;
+  border-radius: 3px;
+}
+
+.brandmark .x {
+  color: var(--terra);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.brandmark .webbs {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--moss-deep);
+  font-variation-settings: "SOFT" 100;
+}
+
+.topbar-meta {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.topbar-meta .live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--moss);
+  box-shadow: 0 0 0 4px var(--moss-tint);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px var(--moss-tint); }
+  50% { box-shadow: 0 0 0 8px rgba(92, 122, 74, 0.04); }
+}
+
+/* ─── Hero ───────────────────────────── */
+.hero { position: relative; padding-bottom: 32px; }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--moss-deep);
+  margin-bottom: 28px;
+  padding: 7px 14px 7px 11px;
+  background: var(--moss-tint);
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background: var(--terra);
+  border-radius: 50%;
+}
+
+h1.headline {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 5.6vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--forest);
+  font-variation-settings: "SOFT" 50;
+  max-width: 920px;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+h1.headline em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--moss);
+}
+
+h1.headline .accent {
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(110deg, var(--terra) 0%, var(--amber) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-sub {
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: var(--ink-dim);
+  max-width: 700px;
+  margin-bottom: 56px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-sub strong { color: var(--ink); font-weight: 600; }
+
+.hero-meta {
+  display: flex;
+  gap: 56px;
+  flex-wrap: wrap;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-meta-item { display: flex; flex-direction: column; gap: 6px; }
+
+.hero-meta-label {
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--moss);
+  font-weight: 700;
+}
+
+.hero-meta-value {
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+/* ─── Kickers / sections ─────────────── */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--moss-deep);
+  margin-bottom: 22px;
+}
+
+.kicker::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--terra);
+}
+
+.band-ink .kicker { color: var(--terra-soft); }
+.band-ink .kicker::before { background: var(--terra-soft); }
+
+h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2rem, 4.3vw, 3.2rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--forest);
+  font-variation-settings: "SOFT" 50;
+  margin-bottom: 22px;
+  max-width: 900px;
+}
+
+h2 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--moss);
+}
+
+h2 .accent {
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(110deg, var(--terra) 0%, var(--amber) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.band-ink h2 { color: var(--paper); }
+.band-ink h2 em { color: var(--moss-soft); }
+
+h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+  color: var(--forest);
+  font-variation-settings: "SOFT" 50;
+}
+
+h3 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--moss);
+}
+
+.band-ink h3 { color: var(--paper); }
+.band-ink h3 em { color: var(--moss-soft); }
+
+.lede {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--ink-dim);
+  max-width: 760px;
+  margin-bottom: 56px;
+}
+
+.band-ink .lede { color: rgba(255, 252, 245, 0.7); }
+
+/* ─── Vignette timeline ─────────────── */
+.vignettes {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 18px;
+}
+
+.vignette {
+  display: grid;
+  grid-template-columns: 200px 1fr 1.05fr;
+  gap: 32px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 32px 36px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(36, 51, 25, 0.02);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vignette:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 18px 50px rgba(36, 51, 25, 0.08);
+}
+
+.vignette::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--moss) 0%, var(--terra) 100%);
+}
+
+.v-time {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-self: start;
+  padding-top: 4px;
+}
+
+.v-time-day {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  font-weight: 700;
+}
+
+.v-time-stamp {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2.2rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--forest);
+  font-variation-settings: "SOFT" 100;
+}
+
+.v-time-loc {
+  font-size: 0.84rem;
+  color: var(--ink-dim);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.v-time-who {
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.v-body { align-self: start; }
+
+.v-body h3 { margin-bottom: 10px; }
+
+.v-body p {
+  font-size: 0.96rem;
+  color: var(--ink-dim);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.v-body p:last-child { margin-bottom: 0; }
+
+.v-body p strong { color: var(--ink); font-weight: 600; }
+
+/* Chat thread mock */
+.chat {
+  background: var(--forest);
+  border-radius: 12px;
+  padding: 16px 18px 18px;
+  position: relative;
+  overflow: hidden;
+  align-self: start;
+  border: 1px solid rgba(255, 252, 245, 0.08);
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 252, 245, 0.08);
+}
+
+.chat-header .ch-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, var(--moss-soft), var(--terra-soft));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--forest);
+}
+
+.chat-header .ch-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--paper);
+  letter-spacing: -0.005em;
+}
+
+.chat-header .ch-channel {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 252, 245, 0.45);
+  margin-left: auto;
+}
+
+.msg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.msg:last-child { margin-bottom: 0; }
+
+.msg-who {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 252, 245, 0.45);
+  font-weight: 600;
+}
+
+.msg-user .msg-who { color: var(--moss-soft); }
+.msg-milo .msg-who { color: var(--terra-soft); }
+
+.msg-text {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(255, 252, 245, 0.92);
+}
+
+.msg-user .msg-text {
+  background: rgba(255, 252, 245, 0.06);
+  padding: 9px 12px;
+  border-radius: 8px 8px 8px 2px;
+  border: 1px solid rgba(255, 252, 245, 0.06);
+}
+
+.msg-milo .msg-text {
+  padding: 0;
+}
+
+.msg-stats {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 14px;
+  margin-top: 6px;
+  padding: 10px 12px;
+  background: rgba(122, 152, 102, 0.1);
+  border: 1px solid rgba(122, 152, 102, 0.18);
+  border-radius: 6px;
+  font-size: 0.78rem;
+}
+
+.msg-stats-label { color: rgba(255, 252, 245, 0.65); }
+.msg-stats-val { font-family: var(--mono); font-size: 0.78rem; color: var(--paper); font-weight: 600; text-align: right; }
+.msg-stats-val.pos { color: #9EE48F; }
+.msg-stats-val.neg { color: #F08A85; }
+.msg-stats-val.flag { color: var(--terra-soft); }
+
+.msg-cite {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: rgba(255, 252, 245, 0.4);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.msg-cite::before { content: 'cite ↳ '; color: var(--moss-soft); }
+
+/* ─── Why Milo (4 axes) ──────────────── */
+.axes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.axis {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 30px 32px 28px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.axis:hover {
+  border-color: var(--moss-soft);
+  transform: translateY(-3px) !important;
+  box-shadow: 0 18px 50px rgba(36, 51, 25, 0.07);
+}
+
+.axis-num {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-muted);
+  font-weight: 600;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.axis-num::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--terra);
+}
+
+.axis h3 {
+  font-size: 1.18rem;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+}
+
+.axis-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line-soft);
+}
+
+.axis-row:last-of-type { border-bottom: none; }
+
+.axis-row-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding-top: 2px;
+}
+
+.axis-row-label.copilot { color: var(--ink-muted); }
+.axis-row-label.milo    { color: var(--moss); }
+
+.axis-row-text {
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+
+.axis-row-text strong { color: var(--ink); font-weight: 600; }
+.axis-row .milo + .axis-row-text { color: var(--ink); }
+
+.axis-foot {
+  margin-top: 18px;
+  padding: 12px 14px;
+  background: var(--moss-tint);
+  border-radius: 8px;
+  font-size: 0.84rem;
+  color: var(--moss-deep);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.axis-foot strong { color: var(--forest); font-weight: 700; }
+
+.axis-note {
+  margin-top: 36px;
+  padding: 20px 26px;
+  background: var(--paper);
+  border-left: 3px solid var(--moss);
+  border-radius: 0 10px 10px 0;
+  font-size: 0.94rem;
+  color: var(--ink-dim);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.axis-note strong { color: var(--forest); font-weight: 600; font-style: normal; }
+
+/* ─── Architecture ──────────────────── */
+.arch {
+  background: var(--forest);
+  color: var(--paper);
+  border-radius: 14px;
+  padding: 44px 40px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 18px;
+}
+
+.arch::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(201, 99, 58, 0.18), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.arch-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra-soft);
+  font-weight: 700;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.arch-cap {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: var(--paper);
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  max-width: 720px;
+  position: relative;
+  font-variation-settings: "SOFT" 80;
+}
+
+.arch-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 14px;
+  align-items: stretch;
+  position: relative;
+}
+
+.arch-col {
+  background: rgba(255, 252, 245, 0.05);
+  border: 1px solid rgba(255, 252, 245, 0.1);
+  border-radius: 10px;
+  padding: 20px 18px;
+}
+
+.arch-col-mid {
+  background: linear-gradient(135deg, rgba(92, 122, 74, 0.28), rgba(201, 99, 58, 0.2));
+  border-color: rgba(122, 152, 102, 0.4);
+}
+
+.arch-col-right { background: rgba(201, 99, 58, 0.08); border-color: rgba(201, 99, 58, 0.25); }
+
+.arch-col-title {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--moss-soft);
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.arch-col-right .arch-col-title { color: var(--terra-soft); }
+.arch-col-mid .arch-col-title { color: var(--paper); }
+
+.arch-item {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: rgba(255, 252, 245, 0.85);
+  padding: 7px 9px;
+  background: rgba(255, 252, 245, 0.04);
+  border-radius: 4px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.arch-item:last-child { margin-bottom: 0; }
+
+.arch-item.live {
+  border: 1px solid rgba(122, 152, 102, 0.5);
+  background: rgba(122, 152, 102, 0.12);
+  color: var(--moss-soft);
+  font-weight: 600;
+}
+
+.arch-item.future {
+  background: transparent;
+  border: 1px dashed rgba(255, 252, 245, 0.18);
+  color: rgba(255, 252, 245, 0.5);
+}
+
+.arch-mid-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px 14px;
+  gap: 10px;
+}
+
+.arch-mid-name {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(110deg, var(--moss-soft) 0%, var(--terra-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variation-settings: "SOFT" 80;
+}
+
+.arch-mid-sub {
+  font-size: 0.78rem;
+  color: rgba(255, 252, 245, 0.85);
+  line-height: 1.45;
+}
+
+.arch-mid-bullets {
+  list-style: none;
+  font-size: 0.72rem;
+  color: rgba(255, 252, 245, 0.7);
+  margin-top: 8px;
+  text-align: left;
+}
+
+.arch-mid-bullets li {
+  padding: 3px 0 3px 14px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.arch-mid-bullets li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  font-size: 0.55rem;
+  color: var(--terra-soft);
+}
+
+.arch-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  color: var(--terra-soft);
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.arch-foot {
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: rgba(255, 252, 245, 0.65);
+  line-height: 1.55;
+  text-align: center;
+  font-style: italic;
+  position: relative;
+}
+
+.arch-foot strong { color: var(--paper); font-weight: 600; font-style: normal; }
+
+/* ─── Outcomes block ─────────────────── */
+.outcomes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.outcome {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px 30px 26px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.outcome-text {}
+
+.outcome-text h4 {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--forest);
+  margin-bottom: 6px;
+  line-height: 1.3;
+  font-variation-settings: "SOFT" 80;
+}
+
+.outcome-text p {
+  font-size: 0.86rem;
+  color: var(--ink-dim);
+  line-height: 1.5;
+}
+
+.outcome-num {
+  text-align: right;
+}
+
+.outcome-num-big {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 2.2rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(110deg, var(--moss) 0%, var(--terra) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variation-settings: "SOFT" 50;
+  font-style: italic;
+}
+
+.outcome-num-unit {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* ─── Roles ──────────────────────────── */
+.roles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.role {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px 24px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.role::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.role.role-paul::before     { background: var(--moss); }
+.role.role-ollie::before    { background: var(--terra); }
+.role.role-manager::before  { background: var(--amber); }
+.role.role-chairman::before { background: var(--moss-deep); }
+
+.role-who {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.role-name {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: var(--forest);
+  margin-bottom: 14px;
+  line-height: 1.1;
+  font-variation-settings: "SOFT" 80;
+}
+
+.role ul {
+  list-style: none;
+  font-size: 0.86rem;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+
+.role ul li {
+  padding: 5px 0 5px 14px;
+  position: relative;
+}
+
+.role ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  color: var(--moss);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.role ul li strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Security strip ─────────────────── */
+.security {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px 36px;
+  margin-top: 18px;
+  align-items: center;
+}
+
+.security-text h3 { margin-bottom: 8px; }
+
+.security-text p {
+  font-size: 0.94rem;
+  color: var(--ink-dim);
+  line-height: 1.6;
+}
+
+.security-text p strong { color: var(--ink); font-weight: 600; }
+
+.security-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--forest);
+}
+
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--moss);
+}
+
+/* ─── Pilot ───────────────────────────── */
+.pilot {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.pilot-week {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px 24px 24px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.pilot-week::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--moss) 0%, var(--terra) 100%);
+  opacity: 0.45;
+}
+
+.pilot-week-num {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.pilot-week h4 {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: var(--forest);
+  font-variation-settings: "SOFT" 80;
+}
+
+.pilot-week p {
+  font-size: 0.86rem;
+  color: var(--ink-dim);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+
+.pilot-week p:last-child { margin-bottom: 0; }
+
+.pilot-week p strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Pricing ─────────────────────────── */
+.pricing {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 40px 44px;
+  margin-top: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, var(--moss-tint), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+}
+
+.pricing-left h3 {
+  font-size: 1.55rem;
+  margin-bottom: 14px;
+}
+
+.pricing-left p {
+  font-size: 0.96rem;
+  color: var(--ink-dim);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+
+.pricing-left p strong { color: var(--ink); font-weight: 600; }
+
+.pricing-tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.pricing-tier {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: baseline;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pricing-tier:last-child { border-bottom: none; }
+
+.pricing-tier.headline { background: var(--moss-tint); }
+
+.pricing-tier-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pricing-tier-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--forest);
+  letter-spacing: -0.005em;
+}
+
+.pricing-tier-sub {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.pricing-tier-val {
+  font-family: var(--display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  color: var(--forest);
+  font-variation-settings: "SOFT" 60;
+}
+
+.pricing-tier.headline .pricing-tier-val {
+  background: linear-gradient(110deg, var(--moss) 0%, var(--terra) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pricing-tier-val .small {
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+  margin-left: 4px;
+}
+
+/* ─── Footer / CTA ───────────────────── */
+.cta {
+  background: var(--forest);
+  color: var(--paper);
+  border-radius: 14px;
+  padding: 48px 44px;
+  margin-top: 24px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 540px;
+  height: 320px;
+  background: radial-gradient(ellipse, rgba(122, 152, 102, 0.22), transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.cta-kicker {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra-soft);
+  font-weight: 700;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.cta-line {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 22px;
+  position: relative;
+  font-variation-settings: "SOFT" 50;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-line em {
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(110deg, var(--moss-soft) 0%, var(--terra-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cta-sub {
+  font-size: 0.98rem;
+  color: rgba(255, 252, 245, 0.7);
+  max-width: 580px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+  position: relative;
+}
+
+.cta-sub strong { color: var(--paper); font-weight: 600; }
+
+.cta-button-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: linear-gradient(110deg, var(--moss) 0%, var(--moss-deep) 100%);
+  color: var(--paper);
+  border-radius: 100px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  border: 1px solid rgba(255, 252, 245, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button-secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 252, 245, 0.18);
+  color: rgba(255, 252, 245, 0.85);
+}
+
+.cta-button .arr {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+}
+
+.cta-meta {
+  margin-top: 22px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: rgba(255, 252, 245, 0.45);
+  text-transform: uppercase;
+  position: relative;
+}
+
+.cta-meta .sep { opacity: 0.4; padding: 0 8px; }
+
+/* ─── Closing ─────────────────────────── */
+.closing {
+  text-align: center;
+  padding: 56px 40px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.closing-mark {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.4rem;
+  background: linear-gradient(110deg, var(--moss) 0%, var(--terra) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variation-settings: "SOFT" 80;
+  margin-bottom: 12px;
+}
+
+.closing-line {
+  font-size: 0.86rem;
+  color: var(--ink-muted);
+}
+
+.closing-line a {
+  color: var(--moss-deep);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media print {
+  .page { padding: 32px 40px; }
+  .vignette, .axis, .outcome, .role, .pilot-week { box-shadow: none; }
+  * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@media (max-width: 980px) {
+  .page { padding: 48px 32px 64px; }
+  .vignette { grid-template-columns: 1fr; gap: 22px; }
+  .v-time { flex-direction: row; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .v-time-stamp { font-size: 1.7rem; }
+  .axes { grid-template-columns: 1fr; }
+  .outcomes { grid-template-columns: 1fr; }
+  .roles { grid-template-columns: 1fr 1fr; }
+  .pilot { grid-template-columns: 1fr 1fr; }
+  .arch-flow { grid-template-columns: 1fr; }
+  .arch-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .security { grid-template-columns: 1fr; }
+  .security-badges { justify-content: flex-start; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+  .topbar { flex-direction: column; gap: 14px; align-items: flex-start; margin-bottom: 48px; }
+  .hero-meta { gap: 32px; }
+}
+
+@media (max-width: 560px) {
+  .page { padding: 40px 20px 56px; }
+  h1.headline { font-size: 2.3rem; }
+  h2 { font-size: 1.85rem; }
+  .vignette { padding: 24px 22px; }
+  .axis, .pricing, .arch, .cta, .security { padding: 28px 22px; }
+  .roles, .pilot { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═════════ HERO ═════════ -->
+<section class="band band-cream">
+  <div class="page hero">
+
+    <div class="topbar">
+      <div class="brandmark">
+        <a href="#" class="milo-logo" aria-label="Milo">
+          <img src="https://raw.githubusercontent.com/Tomp1234/proposals/main/quay-tickets-proposal/milo-logo.jpeg" alt="Milo">
+        </a>
+        <span class="x">×</span>
+        <span class="webbs">Webbs</span>
+      </div>
+      <div class="topbar-meta">
+        <span class="live-dot"></span>
+        <span>Pilot brief · May 2026</span>
+      </div>
+    </div>
+
+    <div class="hero-eyebrow animate-target">A 30-day pilot for Paul + Ollie</div>
+
+    <h1 class="headline animate-target">
+      A Saturday at Wychbold, <em>Monday's forecast,</em> Tuesday's board.<br>
+      <span class="accent">All without opening a spreadsheet.</span>
+    </h1>
+
+    <p class="hero-sub animate-target">
+      Milo plugs straight into <strong>Business Central</strong>, sits next to <strong>Power BI</strong>, and answers in Teams. Floor managers get stock and PO answers in one message. Paul gets the forecast he stops rebuilding every quarter. The chairman gets answers in the room, not on Friday. Fabric-ready for when you move.
+    </p>
+
+  </div>
+</section>
+
+<!-- ═════════ VIGNETTES ═════════ -->
+<section class="band band-paper">
+  <div class="page">
+
+    <div class="kicker">Three moments at Webbs</div>
+    <h2>What it looks like <em>when it's running.</em></h2>
+    <p class="lede">
+      Three moments across three days. Same platform, three audiences. Each one is a real question from your call: pre-order furniture availability, Paul's forecast rebuild, the chairman's live ad-hoc. Dummy numbers, real workflow.
+    </p>
+
+    <div class="vignettes">
+
+      <!-- VIGNETTE 1 — SATURDAY -->
+      <div class="vignette animate-target">
+        <div class="v-time">
+          <div class="v-time-day">Saturday</div>
+          <div class="v-time-stamp">11:32</div>
+          <div class="v-time-loc">Wychbold, furniture floor</div>
+          <div class="v-time-who">Floor manager, phone in hand</div>
+        </div>
+        <div class="v-body">
+          <h3>The customer asks. <em>The answer comes back in four seconds.</em></h3>
+          <p>
+            A customer is mid-decision on the Cotswold rattan dining set. Today, the floor manager has ten clicks in Business Central and a call to a colleague at another site. By the time the answer lands, the customer has wandered to the cafe.
+          </p>
+          <p>
+            With Milo, it's one message in Teams. Stock on the floor, stock at sister sites, the next PO date, and whether reserving works. <strong>The sale stays in the building.</strong>
+          </p>
+        </div>
+        <div class="chat">
+          <div class="chat-header">
+            <div class="ch-icon">M</div>
+            <div class="ch-name">Milo</div>
+            <div class="ch-channel">teams · #wychbold-floor</div>
+          </div>
+          <div class="msg msg-user">
+            <div class="msg-who">Sarah · Wychbold</div>
+            <div class="msg-text">Cotswold rattan 6-seater. Got any across the group, and what's the next PO?</div>
+          </div>
+          <div class="msg msg-milo">
+            <div class="msg-who">Milo</div>
+            <div class="msg-text">Live stock and PO landing for Cotswold rattan dining 6-seater:</div>
+            <div class="msg-stats">
+              <span class="msg-stats-label">Wychbold</span>            <span class="msg-stats-val neg">0 on floor, 0 in yard</span>
+              <span class="msg-stats-label">West Hagley</span>          <span class="msg-stats-val pos">2 floor stock</span>
+              <span class="msg-stats-label">Cobham</span>                <span class="msg-stats-val neg">0, 1 reserved</span>
+              <span class="msg-stats-label">Millets Farm</span>          <span class="msg-stats-val neg">0</span>
+              <span class="msg-stats-label">Next PO · 14 units</span>    <span class="msg-stats-val flag">arr. 18 Jun</span>
+              <span class="msg-stats-label">Group-wide pre-orders</span> <span class="msg-stats-val">3 on the next PO</span>
+            </div>
+            <div class="msg-cite">BC · item_availability &nbsp;|&nbsp; BC · purch_lines · arrival_date &nbsp;|&nbsp; BC · sales_reservations</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIGNETTE 2 — MONDAY -->
+      <div class="vignette animate-target">
+        <div class="v-time">
+          <div class="v-time-day">Monday</div>
+          <div class="v-time-stamp">07:40</div>
+          <div class="v-time-loc">Paul, finance, before the team's in</div>
+          <div class="v-time-who">FY27 budget, first pass</div>
+        </div>
+        <div class="v-body">
+          <h3>Six spreadsheets, one pivot, one chat. <em>An hour, not a fortnight.</em></h3>
+          <p>
+            Paul's current forecast is a thousand-line input sheet, six source spreadsheets, copy-paste actuals every month, and a category-level structure he can't easily flex. Drop a range, add a new one, change a growth rate, you're back to the start.
+          </p>
+          <p>
+            Milo treats this as a conversation against the sales cube. Paul builds the FY27 furniture line, drops Cotswold, adds Hampton at +12% on Cotswold's history, holds the weekly seasonality, and gets a model that exports to the template the board already reads. <strong>Then he plays with it.</strong>
+          </p>
+        </div>
+        <div class="chat">
+          <div class="chat-header">
+            <div class="ch-icon">M</div>
+            <div class="ch-name">Milo</div>
+            <div class="ch-channel">milo · forecast-builder</div>
+          </div>
+          <div class="msg msg-user">
+            <div class="msg-who">Paul</div>
+            <div class="msg-text">FY27 furniture forecast. Drop Cotswold range entirely. Add Hampton at +12% on Cotswold's FY26 history. Keep weekly seasonality. Hold gross margin at the FY26 weighted average.</div>
+          </div>
+          <div class="msg msg-milo">
+            <div class="msg-who">Milo</div>
+            <div class="msg-text">Model built. Category-level weekly breakdown ready.</div>
+            <div class="msg-stats">
+              <span class="msg-stats-label">FY26 furniture actual</span>           <span class="msg-stats-val">£3.84m</span>
+              <span class="msg-stats-label">Cotswold contribution removed</span>   <span class="msg-stats-val neg">−£612k</span>
+              <span class="msg-stats-label">Hampton modelled (+12% on Cotswold)</span> <span class="msg-stats-val pos">+£685k</span>
+              <span class="msg-stats-label">FY27 furniture forecast</span>          <span class="msg-stats-val flag">£3.91m</span>
+              <span class="msg-stats-label">Weighted GM held</span>                 <span class="msg-stats-val">42.4%</span>
+              <span class="msg-stats-label">Weekly breakdown</span>                 <span class="msg-stats-val">52 rows, ready</span>
+            </div>
+            <div class="msg-cite">sales_cube · category=furniture &nbsp;|&nbsp; sales_cube · weekly_seasonality &nbsp;|&nbsp; finance_sql · gm_weighted</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIGNETTE 3 — TUESDAY -->
+      <div class="vignette animate-target">
+        <div class="v-time">
+          <div class="v-time-day">Tuesday</div>
+          <div class="v-time-stamp">14:18</div>
+          <div class="v-time-loc">Board meeting, projector on</div>
+          <div class="v-time-who">Chairman, mid-question</div>
+        </div>
+        <div class="v-body">
+          <h3>"Why is Cobham off plan?" <em>Answered in the room.</em></h3>
+          <p>
+            The chairman wants something specific, right now. Today that's a Friday email and an apology. With Milo, it's three sentences in the meeting and the answer is on the screen with the rows it came from.
+          </p>
+          <p>
+            Cobham trade vs plan, broken by category and weekday. Margin held, basket size flat, footfall up, but seeds and bulbs are 28% off plan against a wet Easter. <strong>Three things the room didn't know, found before the next agenda item.</strong>
+          </p>
+        </div>
+        <div class="chat">
+          <div class="chat-header">
+            <div class="ch-icon">M</div>
+            <div class="ch-name">Milo</div>
+            <div class="ch-channel">teams · board-room</div>
+          </div>
+          <div class="msg msg-user">
+            <div class="msg-who">Chairman</div>
+            <div class="msg-text">Why is Cobham off plan in April? Show me the breakdown.</div>
+          </div>
+          <div class="msg msg-milo">
+            <div class="msg-who">Milo</div>
+            <div class="msg-text">April Cobham · trade vs plan, by category, weekday breakout below:</div>
+            <div class="msg-stats">
+              <span class="msg-stats-label">Cobham · April trade vs plan</span>     <span class="msg-stats-val neg">−8.1%</span>
+              <span class="msg-stats-label">Seeds + bulbs (Easter-led)</span>        <span class="msg-stats-val neg">−28%</span>
+              <span class="msg-stats-label">Plants + bedding</span>                  <span class="msg-stats-val flag">−4%</span>
+              <span class="msg-stats-label">Furniture, gifts, cafe</span>            <span class="msg-stats-val pos">on or above plan</span>
+              <span class="msg-stats-label">Basket size · footfall</span>            <span class="msg-stats-val">flat · +6%</span>
+              <span class="msg-stats-label">Group GM, same window</span>             <span class="msg-stats-val pos">42.7%, +0.3pts</span>
+            </div>
+            <div class="msg-cite">sales_cube · cobham · txn_lines &nbsp;|&nbsp; inventory_cube · category=seeds_bulbs &nbsp;|&nbsp; budget_v1 · weekly</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ WHY MILO ═════════ -->
+<section class="band band-deep">
+  <div class="page">
+
+    <div class="kicker">The question you asked</div>
+    <h2>Why Milo and not Copilot. <em class="accent">Answered head-on.</em></h2>
+    <p class="lede">
+      Paul, you said this is the question that decides whether the board moves on this. Here are the four reasons, structured so any board member can read them in two minutes. Short version: Copilot is brilliant at Office documents. It is not the tool for asking your business questions of your business data.
+    </p>
+
+    <div class="axes">
+
+      <div class="axis animate-target">
+        <div class="axis-num">01 / Surface area</div>
+        <h3>Copilot reads your inbox. <em>Milo reads Business Central.</em></h3>
+        <div class="axis-row">
+          <div class="axis-row-label copilot">Copilot</div>
+          <div class="axis-row-text">Indexes Microsoft 365: Outlook, Teams chat, OneDrive, SharePoint. Some integrations into Dynamics. It does not natively answer questions of your sales cube, your inventory cube, your finance SQL.</div>
+        </div>
+        <div class="axis-row">
+          <div class="axis-row-label milo">Milo</div>
+          <div class="axis-row-text">Connects directly to Business Central, the three cubes you've already built, Power BI semantic models, and xoppers when it lands. One conversation across all of it.</div>
+        </div>
+        <div class="axis-foot">
+          <strong>For Webbs:</strong> the stock + PO question on the floor lives in Business Central, not Office 365. That's the whole point.
+        </div>
+      </div>
+
+      <div class="axis animate-target">
+        <div class="axis-num">02 / Context</div>
+        <h3>Copilot guesses your rules. <em>Milo learns them once.</em></h3>
+        <div class="axis-row">
+          <div class="axis-row-label copilot">Copilot</div>
+          <div class="axis-row-text">Has no way to know that "available" at Webbs means floor stock plus open POs net of allocations, or that the category hierarchy nests seeds under horticulture. You teach it every time.</div>
+        </div>
+        <div class="axis-row">
+          <div class="axis-row-label milo">Milo</div>
+          <div class="axis-row-text">A data studio where you encode Webbs' rules once. Trading day windows, category hierarchies, GM definitions, pre-order logic. Every question after that uses them.</div>
+        </div>
+        <div class="axis-foot">
+          <strong>For Webbs:</strong> the rules in your head that make BC reports correct are the same rules Milo needs. Encoded once, never re-taught.
+        </div>
+      </div>
+
+      <div class="axis animate-target">
+        <div class="axis-num">03 / Citations</div>
+        <h3>Copilot tells you what you want. <em>Milo shows the row.</em></h3>
+        <div class="axis-row">
+          <div class="axis-row-label copilot">Copilot</div>
+          <div class="axis-row-text">Confidently confident. As you noticed on the call, it leans into the answer it thinks you want. For board-level numbers, the first hallucination is the last time the chairman uses it.</div>
+        </div>
+        <div class="axis-row">
+          <div class="axis-row-label milo">Milo</div>
+          <div class="axis-row-text">Every answer cites the table, the filters, the rows. Paul or Ollie can audit any reply, full trace from question to data. If something looks off, you can see why.</div>
+        </div>
+        <div class="axis-foot">
+          <strong>For Webbs:</strong> trust gets built or broken in the first board meeting. Citations mean you bet the answer.
+        </div>
+      </div>
+
+      <div class="axis animate-target">
+        <div class="axis-num">04 / Permissions</div>
+        <h3>Copilot uses M365 licenses. <em>Milo enforces your business rules.</em></h3>
+        <div class="axis-row">
+          <div class="axis-row-label copilot">Copilot</div>
+          <div class="axis-row-text">Permission is whatever Office 365 says you can see. There's no concept of "store manager sees their own store" or "HR data ringfences to four named people".</div>
+        </div>
+        <div class="axis-row">
+          <div class="axis-row-label milo">Milo</div>
+          <div class="axis-row-text">Role-scoped data access. Cobham's manager sees Cobham. HR data is locked to Paul, Ollie, and two others. Every question is logged, GDPR-clean. SOC2 + ISO 27001.</div>
+        </div>
+        <div class="axis-foot">
+          <strong>For Webbs:</strong> Ollie's GDPR ringfence isn't a feature request to us. It's how the platform is built.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ OUTCOMES ═════════ -->
+<section class="band band-paper">
+  <div class="page">
+
+    <div class="kicker">What changes in 30 days</div>
+    <h2>The day-job, <em class="accent">smaller and faster.</em></h2>
+    <p class="lede">
+      Best way to read this section: against the work Paul described on the call. The monthly pack he dreads, the manual budget rebuild, the chairman's ad-hoc requests, the floor manager's stock checks. Below is what those become with Milo running.
+    </p>
+
+    <div class="outcomes">
+
+      <div class="outcome animate-target">
+        <div class="outcome-text">
+          <h4>Monthly management pack</h4>
+          <p>From a fortnight of spreadsheet stitching to a single auto-generated pack on the 1st. Paul reviews instead of builds.</p>
+        </div>
+        <div class="outcome-num">
+          <div class="outcome-num-big">~12h</div>
+          <div class="outcome-num-unit">saved / month</div>
+        </div>
+      </div>
+
+      <div class="outcome animate-target">
+        <div class="outcome-text">
+          <h4>Forecast rebuild</h4>
+          <p>"Drop a range, add a range, hold seasonality" goes from a week of pivots to a conversation. Scenarios in minutes, not days.</p>
+        </div>
+        <div class="outcome-num">
+          <div class="outcome-num-big">~5d</div>
+          <div class="outcome-num-unit">→ 1 hour</div>
+        </div>
+      </div>
+
+      <div class="outcome animate-target">
+        <div class="outcome-text">
+          <h4>Floor stock + PO checks</h4>
+          <p>Ten clicks in BC and a phone call across sites becomes one message in Teams. Manager stays with the customer.</p>
+        </div>
+        <div class="outcome-num">
+          <div class="outcome-num-big">10s</div>
+          <div class="outcome-num-unit">answer time</div>
+        </div>
+      </div>
+
+      <div class="outcome animate-target">
+        <div class="outcome-text">
+          <h4>Chairman ad-hoc</h4>
+          <p>"Can someone pull this for me by Friday" becomes "let me ask Milo". The board meeting doesn't pause.</p>
+        </div>
+        <div class="outcome-num">
+          <div class="outcome-num-big">0</div>
+          <div class="outcome-num-unit">tickets to Ollie</div>
+        </div>
+      </div>
+
+      <div class="outcome animate-target">
+        <div class="outcome-text">
+          <h4>Store manager Monday digest</h4>
+          <p>Every Monday 07:00, each site manager gets a personalised view of the weekend, vs plan, vs LY, by category. Automated.</p>
+        </div>
+        <div class="outcome-num">
+          <div class="outcome-num-big">4×</div>
+          <div class="outcome-num-unit">sites, no extra work</div>
+        </div>
+      </div>
+
+      <div class="outcome animate-target">
+        <div class="outcome-text">
+          <h4>Power BI consumption</h4>
+          <p>Power BI stops being the place people try to use as a database. Stays a dashboard. Detail goes to Milo.</p>
+        </div>
+        <div class="outcome-num">
+          <div class="outcome-num-big">→</div>
+          <div class="outcome-num-unit">right tool, right job</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ ROLES ═════════ -->
+<section class="band band-deep">
+  <div class="page">
+
+    <div class="kicker">Who gets what</div>
+    <h2>Four audiences. <em>One platform, four shapes.</em></h2>
+    <p class="lede">
+      The hardest part of any rollout is making it useful for every level. Below is how Milo lands for each Webbs audience. Same data, four surfaces, four sets of permissions, four kinds of question. None of it competes with what Power BI already does well.
+    </p>
+
+    <div class="roles">
+
+      <div class="role role-paul animate-target">
+        <div class="role-who">Finance</div>
+        <div class="role-name">Paul</div>
+        <ul>
+          <li><strong>Forecast model</strong> built as conversation</li>
+          <li><strong>Management pack</strong> auto on the 1st</li>
+          <li><strong>Ad-hoc</strong> margin and category cuts</li>
+          <li><strong>Board-ready</strong> answers with citations</li>
+        </ul>
+      </div>
+
+      <div class="role role-ollie animate-target">
+        <div class="role-who">IT</div>
+        <div class="role-name">Ollie</div>
+        <ul>
+          <li><strong>One integration</strong> to BC, sits alongside Power BI</li>
+          <li><strong>Permission model</strong> for GDPR-grade ringfences</li>
+          <li><strong>Audit log</strong> of every question, every answer</li>
+          <li><strong>Fabric-ready</strong>, migration is config not rebuild</li>
+        </ul>
+      </div>
+
+      <div class="role role-manager animate-target">
+        <div class="role-who">Store managers</div>
+        <div class="role-name">Sites</div>
+        <ul>
+          <li><strong>Stock + PO</strong> in one Teams message</li>
+          <li><strong>Monday digest</strong>, weekend vs plan</li>
+          <li><strong>Their site only</strong>, never the others</li>
+          <li><strong>No more</strong> "can someone pull this"</li>
+        </ul>
+      </div>
+
+      <div class="role role-chairman animate-target">
+        <div class="role-who">Board</div>
+        <div class="role-name">Chairman</div>
+        <ul>
+          <li><strong>Ad-hoc in the room</strong>, not Friday</li>
+          <li><strong>Group-level</strong> trade and margin live</li>
+          <li><strong>Drill-down</strong> from one question</li>
+          <li><strong>Specific</strong> requests don't break the team</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ SECURITY ═════════ -->
+<section class="band band-cream">
+  <div class="page">
+
+    <div class="kicker">For Ollie</div>
+    <h2>Built for regulated data <em>from day one.</em></h2>
+
+    <div class="security">
+      <div class="security-text">
+        <h3>The boring stuff, done.</h3>
+        <p>
+          Milo was built originally for iGaming, an industry where data security is the first conversation, not the last. EU hosted, SOC2 + ISO 27001 accredited, penetration tested. <strong>GDPR-grade permissioning</strong> means HR and payroll data can be ringfenced to a named handful of people while sales and inventory open out to the wider team. Every question is logged, every answer is cited, every permission is auditable.
+        </p>
+      </div>
+      <div class="security-badges">
+        <div class="badge">EU hosted</div>
+        <div class="badge">SOC 2 Type II</div>
+        <div class="badge">ISO 27001</div>
+        <div class="badge">Pen-tested</div>
+        <div class="badge">GDPR-grade</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ PRICING ═════════ -->
+<section class="band band-cream">
+  <div class="page">
+
+    <div class="kicker">The numbers</div>
+    <h2>On the page, <em>so Paul doesn't have to chase.</em></h2>
+    <p class="lede">
+      Transparent pricing, no per-user trickery. The proof of concept stands alone. If you don't extend, you don't extend. If you do, the monthly fee covers unlimited users across Webbs.
+    </p>
+
+    <div class="pricing">
+      <div class="pricing-grid">
+
+        <div class="pricing-left">
+          <h3>One number for the pilot. One for the rollout.</h3>
+          <p>
+            <strong>Pilot</strong> includes setup, integration, rules encoding, training, a Wychbold visit if you want one, and unlimited interactions for the four weeks.
+          </p>
+          <p>
+            <strong>Rollout</strong> is platform-priced. Unlimited users, 1,000 question interactions per month included, £250 per extra 200 if you ever go over. Most of our clients of your size don't.
+          </p>
+          <p>
+            12-month term after the pilot. We don't lock you into anything during the four weeks.
+          </p>
+        </div>
+
+        <div class="pricing-tiers">
+          <div class="pricing-tier headline">
+            <div class="pricing-tier-label">
+              <div class="pricing-tier-name">4-week proof of concept</div>
+              <div class="pricing-tier-sub">all-in, one-off</div>
+            </div>
+            <div class="pricing-tier-val">£1,500</div>
+          </div>
+          <div class="pricing-tier">
+            <div class="pricing-tier-label">
+              <div class="pricing-tier-name">Then, monthly</div>
+              <div class="pricing-tier-sub">12-month term</div>
+            </div>
+            <div class="pricing-tier-val">£1,500 <span class="small">/ mo</span></div>
+          </div>
+          <div class="pricing-tier">
+            <div class="pricing-tier-label">
+              <div class="pricing-tier-name">Included</div>
+              <div class="pricing-tier-sub">unlimited users, 1,000 interactions / mo</div>
+            </div>
+            <div class="pricing-tier-val">∞ <span class="small">users</span></div>
+          </div>
+          <div class="pricing-tier">
+            <div class="pricing-tier-label">
+              <div class="pricing-tier-name">Overage, if you go over</div>
+              <div class="pricing-tier-sub">per extra 200 interactions</div>
+            </div>
+            <div class="pricing-tier-val">£250</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ CTA ═════════ -->
+<section class="band band-cream">
+  <div class="page">
+
+    <div class="closing">
+      <div class="closing-mark">Milo</div>
+      <div class="closing-line">
+        Prepared by Tom Pickett · <a href="mailto:tom@milo.ai">tom@milo.ai</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  ['.animate-target', '.vignette', '.axis', '.outcome', '.role', '.pilot-week'].forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      let col = 0;
+      if (el.classList.contains('axis') || el.classList.contains('outcome')) col = i % 2;
+      if (el.classList.contains('role') || el.classList.contains('pilot-week')) col = i % 4;
+      el.style.transitionDelay = `${col * 0.07}s`;
+      observer.observe(el);
+    });
+  });
+
+  document.querySelectorAll('.hero .animate-target').forEach((el, i) => {
+    setTimeout(() => el.classList.add('animate-in'), 160 + (i * 120));
+  });
+
+});
+</script>
+
+</body>
+</html>
