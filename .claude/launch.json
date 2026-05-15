@@ -30,6 +30,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8795", "--directory", "milo-chaoscards-proposal"],
       "port": 8795
+    },
+    {
+      "name": "marigroup",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8800", "--directory", "milo-marigroup-proposal"],
+      "port": 8800
     }
   ]
 }

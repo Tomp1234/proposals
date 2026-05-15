@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Mari Group — Programme No.01</title>
+<meta name="description" content="A 4-week Milo proof of concept for Mari Group, set as a live-events programme. The CDP you lost, replaced by one ecosystem: TIXR, SeeTickets, Ticketmaster, Dotdigital, Meta, Google and on-site POS, one customer view, audiences pushed back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --paper: #F2EEE1;
+  --paper-2: #EAE4D2;
+  --paper-bright: #FBF9F1;
+  --ink: #15130E;
+  --ink-2: #2D2A21;
+  --ink-dim: #6A6452;
+  --ink-mute: #948D78;
+  --rule: rgba(21, 19, 14, 0.20);
+  --rule-soft: rgba(21, 19, 14, 0.10);
+  --accent: #E2381C;
+  --accent-deep: #AE2710;
+  --poster: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --serif: 'Newsreader', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+
+::selection { background: var(--accent); color: var(--paper-bright); }
+
+.band { width: 100%; position: relative; z-index: 2; }
+.band-2 { background: var(--paper-2); }
+.band-ink { background: var(--ink); color: var(--paper); }
+
+.page { max-width: 1120px; margin: 0 auto; padding: 0 56px; }
+.sec { padding: 70px 0; position: relative; }
+.sec-tight { padding: 52px 0; }
+
+/* ── Editorial primitives ───────────── */
+.rule-thick { height: 4px; background: var(--ink); }
+.rule-hair { height: 1px; background: var(--rule); }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  font-weight: 600;
+}
+
+.eyebrow .hot { color: var(--accent); }
+
+.kicker {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  font-weight: 600;
+  margin-bottom: 26px;
+}
+
+.kicker .no {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  line-height: 1;
+}
+
+h2 {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 20px;
+  max-width: 18ch;
+}
+
+h2 .red { color: var(--accent); }
+h2 .it { font-family: var(--serif); font-weight: 400; font-style: italic; text-transform: none; letter-spacing: -0.01em; }
+
+.standfirst {
+  font-family: var(--serif);
+  font-size: 1.22rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 54ch;
+  margin-bottom: 44px;
+}
+
+.standfirst strong { font-weight: 600; color: var(--ink); }
+
+/* ── Masthead ──────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 30px 0 16px;
+}
+
+.mh-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.mh-brand .milo-logo { display: inline-flex; align-items: center; height: 22px; }
+.mh-brand .milo-logo img { height: 100%; width: auto; display: block; }
+.mh-brand .x { color: var(--accent); font-weight: 800; }
+
+.mh-brand .client {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.mh-meta {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: right;
+  line-height: 1.7;
+}
+
+.mh-meta .big {
+  font-family: var(--poster);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+/* ── Hero / poster ─────────────────── */
+.hero { padding: 56px 0 64px; }
+
+.hero-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  font-weight: 600;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hero-label::before { content: ''; width: 40px; height: 2px; background: var(--accent); }
+
+h1 {
+  font-family: var(--poster);
+  font-weight: 900;
+  font-size: clamp(3.4rem, 11vw, 9rem);
+  line-height: 0.84;
+  letter-spacing: 0.004em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 38px;
+}
+
+h1 .l2 { display: block; color: var(--accent); }
+
+.hero-stand {
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.46;
+  color: var(--ink-2);
+  max-width: 58ch;
+  margin-bottom: 50px;
+}
+
+.hero-stand strong { font-weight: 600; color: var(--ink); }
+.hero-stand .u { border-bottom: 2px solid var(--accent); padding-bottom: 1px; }
+
+.billing {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 4px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+
+.bill {
+  padding: 18px 24px 18px 0;
+  border-right: 1px solid var(--rule);
+}
+
+.bill:last-child { border-right: none; padding-right: 0; }
+
+.bill-l {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.bill-v {
+  font-family: var(--poster);
+  font-weight: 600;
+  font-size: 1.16rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+
+/* ── Running order ─────────────────── */
+.ro { border-top: 4px solid var(--ink); }
+
+.act {
+  display: grid;
+  grid-template-columns: 168px 1fr 1.05fr;
+  gap: 40px;
+  padding: 38px 0;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+
+.act-when { padding-top: 4px; }
+
+.act-when .day {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.act-when .time {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 0.9;
+  color: var(--ink);
+}
+
+.act-when .stage {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.act-bill .who {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: 2.1rem;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.act-bill .role {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.act-bill .sub { font-size: 0.95rem; color: var(--ink-dim); line-height: 1.56; }
+.act-bill .sub strong { color: var(--ink); font-weight: 600; }
+.act-bill .ask {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.08rem;
+  color: var(--ink-2);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.setlist-cap {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.lead {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 0;
+}
+
+.lead .l { font-size: 0.88rem; color: var(--ink-dim); white-space: nowrap; }
+.lead .fill { flex: 1; border-bottom: 1px dotted var(--rule); transform: translateY(-3px); min-width: 12px; }
+.lead .v { font-family: var(--mono); font-size: 0.82rem; color: var(--ink); font-weight: 600; white-space: nowrap; }
+.lead .v.red { color: var(--accent); }
+.lead .v.pos::before { content: '▲ '; font-size: 0.66rem; color: var(--accent); }
+
+.cite {
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
+.cite::before { content: 'src / '; color: var(--accent); }
+
+/* ── Equation / single customer view ─ */
+.equation {
+  border-top: 4px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  padding: 44px 0;
+  align-items: center;
+}
+
+.eq-terms { display: flex; flex-direction: column; }
+
+.eq-term {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.eq-term:last-child { border-bottom: none; }
+
+.eq-op {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--accent);
+  width: 22px;
+  flex-shrink: 0;
+}
+
+.eq-name {
+  font-family: var(--poster);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--ink);
+  width: 168px;
+  flex-shrink: 0;
+}
+
+.eq-src { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dim); }
+
+.eq-result { text-align: right; }
+
+.eq-eq {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.eq-out {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 0.95;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.eq-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+.eq-tag {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 6px 10px;
+  border: 1px solid var(--ink);
+}
+
+/* ── Drop-cap feature ──────────────── */
+.feature { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; border-top: 1px solid var(--rule); padding-top: 36px; }
+
+.feature-body p {
+  font-family: var(--serif);
+  font-size: 1.16rem;
+  line-height: 1.62;
+  color: var(--ink-2);
+  margin-bottom: 16px;
+}
+
+.feature-body p:last-child { margin-bottom: 0; }
+.feature-body p strong { font-weight: 600; color: var(--ink); }
+.feature-body .q { font-style: italic; color: var(--accent); }
+
+.feature-body p:first-child::first-letter {
+  font-family: var(--poster);
+  font-weight: 900;
+  font-size: 4.4rem;
+  line-height: 0.7;
+  float: left;
+  padding: 6px 14px 0 0;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.ledger { display: flex; flex-direction: column; border-top: 2px solid var(--ink); }
+
+.led-row {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.led-row:last-child { border-bottom: none; }
+
+.led-row .ix {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--accent);
+  line-height: 1.2;
+}
+
+.led-row h4 {
+  font-family: var(--poster);
+  font-weight: 700;
+  font-size: 1.12rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.led-row p { font-size: 0.86rem; color: var(--ink-dim); line-height: 1.45; }
+
+/* ── The bill / line-up ────────────── */
+.lineup { text-align: center; border-top: 4px solid var(--ink); border-bottom: 4px solid var(--ink); padding: 50px 0 46px; }
+
+.lineup .head {
+  font-family: var(--poster);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.lineup .head .red { color: var(--accent); }
+
+.lineup .sub-acts {
+  font-family: var(--poster);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2.4vw, 1.7rem);
+  text-transform: uppercase;
+  color: var(--ink-2);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  margin-top: 14px;
+}
+
+.lineup .sub-acts .dot { color: var(--accent); padding: 0 8px; }
+.lineup .micro {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 22px;
+}
+
+.footnotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px; border-top: 1px solid var(--rule); }
+
+.fn { padding: 24px 26px 24px 0; border-right: 1px solid var(--rule); }
+.fn:last-child { border-right: none; padding-right: 0; }
+
+.fn .ast { font-family: var(--poster); font-weight: 800; font-size: 1.2rem; color: var(--accent); }
+.fn h4 { font-family: var(--poster); font-weight: 700; font-size: 1.18rem; text-transform: uppercase; color: var(--ink); margin: 6px 0 6px; }
+.fn p { font-size: 0.85rem; color: var(--ink-dim); line-height: 1.5; }
+.fn p strong { color: var(--ink); font-weight: 600; }
+
+/* ── The ticket ────────────────────── */
+.ticket-wrap { padding: 8px 0 0; }
+
+.ticket {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  background: var(--paper-bright);
+  border: 2px solid var(--ink);
+  position: relative;
+}
+
+.ticket-main { padding: 40px 44px; }
+
+.ticket-tag {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.ticket-title {
+  font-family: var(--poster);
+  font-weight: 900;
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.ticket-price {
+  font-family: var(--poster);
+  font-weight: 900;
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  line-height: 0.86;
+  color: var(--accent);
+  margin: 18px 0 8px;
+}
+
+.ticket-price .sm { font-family: var(--mono); font-weight: 600; font-size: 0.9rem; color: var(--ink-dim); letter-spacing: 0.04em; }
+
+.ticket-desc { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.55; max-width: 44ch; }
+.ticket-desc strong { color: var(--ink); font-weight: 600; }
+
+.ticket-fields {
+  display: flex;
+  gap: 30px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+
+.tf-l { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600; margin-bottom: 5px; }
+.tf-v { font-family: var(--poster); font-weight: 700; font-size: 1.05rem; text-transform: uppercase; color: var(--ink); }
+
+.barcode {
+  height: 46px;
+  margin-top: 26px;
+  background-image: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 9px, var(--ink) 9px 12px, transparent 12px 14px);
+}
+
+.barcode-no {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  color: var(--ink);
+  margin-top: 8px;
+}
+
+/* perforated stub */
+.ticket-stub {
+  padding: 40px 36px;
+  border-left: 2px dashed var(--ink);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ticket-stub::before, .ticket-stub::after {
+  content: '';
+  position: absolute;
+  left: -13px;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+
+.ticket-stub::before { top: -14px; }
+.ticket-stub::after  { bottom: -14px; }
+
+.stub-cap { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600; }
+
+.stub-row { padding: 14px 0; border-bottom: 1px solid var(--rule-soft); }
+.stub-row:last-of-type { border-bottom: none; }
+.stub-row .sr-l { font-size: 0.78rem; color: var(--ink-dim); margin-bottom: 4px; }
+.stub-row .sr-v { font-family: var(--poster); font-weight: 800; font-size: 1.5rem; text-transform: uppercase; color: var(--ink); }
+.stub-row .sr-v .x { color: var(--accent); }
+
+.stub-foot { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); }
+
+/* ── Colophon / back cover ─────────── */
+.colophon { padding: 84px 0; text-align: center; }
+
+.colophon .cl-line {
+  font-family: var(--poster);
+  font-weight: 900;
+  font-size: clamp(2rem, 5.5vw, 4.2rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: var(--paper);
+  max-width: 20ch;
+  margin: 0 auto 22px;
+}
+
+.colophon .cl-line .red { color: var(--accent); }
+
+.colophon .cl-sub {
+  font-family: var(--serif);
+  font-size: 1.16rem;
+  color: rgba(242, 238, 225, 0.66);
+  max-width: 52ch;
+  margin: 0 auto 40px;
+  line-height: 1.55;
+}
+
+.colophon .cl-sub strong { color: var(--paper); font-weight: 600; }
+
+.colophon .cl-rule { width: 60px; height: 3px; background: var(--accent); margin: 0 auto 30px; }
+
+.colophon .cl-mark {
+  font-family: var(--poster);
+  font-weight: 800;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  margin-bottom: 8px;
+}
+
+.colophon .cl-by { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(242, 238, 225, 0.5); }
+.colophon .cl-by a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+/* ── Motion ────────────────────────── */
+.reveal { opacity: 0; transform: translateY(14px); }
+.reveal.in { opacity: 1; transform: none; transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+@media print {
+  body::before { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .band-ink { background: #15130E !important; }
+  @page { size: A4; margin: 14mm; }
+  body { background: #F2EEE1; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@media (max-width: 940px) {
+  .page { padding: 0 28px; }
+  .sec { padding: 52px 0; }
+  .billing { grid-template-columns: 1fr 1fr; }
+  .bill { border-right: none; border-bottom: 1px solid var(--rule); padding-right: 24px; }
+  .act { grid-template-columns: 1fr; gap: 22px; }
+  .act-when { display: flex; align-items: baseline; gap: 18px; }
+  .act-when .time { font-size: 2rem; }
+  .act-when .stage { margin-top: 0; }
+  .equation { grid-template-columns: 1fr; gap: 28px; }
+  .eq-result { text-align: left; }
+  .eq-tags { justify-content: flex-start; }
+  .feature { grid-template-columns: 1fr; gap: 32px; }
+  .ticket { grid-template-columns: 1fr; }
+  .ticket-stub { border-left: none; border-top: 2px dashed var(--ink); }
+  .ticket-stub::before { top: -14px; left: auto; right: 50%; margin-right: -12px; }
+  .ticket-stub::after { bottom: auto; top: -14px; left: 50%; margin-left: -12px; }
+  .footnotes { grid-template-columns: 1fr; }
+  .fn { border-right: none; border-bottom: 1px solid var(--rule); padding-right: 0; }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .mh-meta { text-align: left; }
+}
+
+@media (max-width: 540px) {
+  .page { padding: 0 18px; }
+  .billing { grid-template-columns: 1fr; }
+  h1 { font-size: 3.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═════════ MASTHEAD ═════════ -->
+<div class="band">
+  <div class="page">
+    <div class="masthead">
+      <div class="mh-brand">
+        <a href="#" class="milo-logo" aria-label="Milo">
+          <img src="https://raw.githubusercontent.com/Tomp1234/proposals/main/quay-tickets-proposal/milo-logo.jpeg" alt="Milo">
+        </a>
+        <span class="x">×</span>
+        <span class="client">Mari Group</span>
+      </div>
+      <div class="mh-meta">
+        <div class="big">PROGRAMME · No. 01</div>
+        <div>Proof of concept · May 2026 · For Freya</div>
+      </div>
+    </div>
+    <div class="rule-thick"></div>
+  </div>
+</div>
+
+<!-- ═════════ HERO ═════════ -->
+<div class="band">
+  <div class="page">
+    <div class="hero">
+      <div class="hero-label">The case for Mari Group</div>
+      <h1>
+        You lost the CDP.
+        <span class="l2">Not the answers.</span>
+      </h1>
+      <p class="hero-stand">
+        Moving to Mari cost you Endeavor's central CDP. <strong>TIXR</strong> cleans and activates, then hits its ceiling at three million records. Milo is the one ecosystem: every source in, <span class="u">one customer view</span>, answers in plain language, audiences pushed back out to Meta and Dotdigital.
+      </p>
+      <div class="billing">
+        <div class="bill"><div class="bill-l">Scope</div><div class="bill-v">4-week<br>proof of concept</div></div>
+        <div class="bill"><div class="bill-l">Connects</div><div class="bill-v">~43 sources<br>two-way</div></div>
+        <div class="bill"><div class="bill-l">Cast</div><div class="bill-v">Unlimited<br>users</div></div>
+        <div class="bill"><div class="bill-l">Decision</div><div class="bill-v">Back to us<br>early next week</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ RUNNING ORDER ═════════ -->
+<div class="band band-2">
+  <div class="page">
+    <div class="sec">
+      <div class="kicker"><span class="no">01</span> Running order · what it looks like live</div>
+      <h2>Three on the bill. <span class="it">No spreadsheet in sight.</span></h2>
+      <p class="standfirst">Real asks from your call. Michelle's weekly view, the single customer view you can't build today, and a ring-fenced event test. Dummy numbers, real workflow.</p>
+
+      <div class="ro">
+
+        <!-- ACT 1 -->
+        <div class="act reveal">
+          <div class="act-when">
+            <div class="day">Monday</div>
+            <div class="time">07:00</div>
+            <div class="stage">Automation</div>
+          </div>
+          <div class="act-bill">
+            <div class="who">Michelle</div>
+            <div class="role">SVP Marketing</div>
+            <p class="ask">"The same view every week, across every event."</p>
+            <p class="sub">She wants one regular picture, not a request to your team. The RMD wants a different cut of the same data. <strong>Both self-serve. You stop being the query desk.</strong></p>
+          </div>
+          <div class="act-set">
+            <div class="setlist-cap">On the bill · all live events, wk vs prior</div>
+            <div class="lead"><span class="l">Group ticket revenue</span><span class="fill"></span><span class="v pos red">£4.21m +9%</span></div>
+            <div class="lead"><span class="l">Big Festival</span><span class="fill"></span><span class="v pos">on plan +3%</span></div>
+            <div class="lead"><span class="l">Winter Wonderland presale</span><span class="fill"></span><span class="v pos">+18% vs LY</span></div>
+            <div class="lead"><span class="l">Glide</span><span class="fill"></span><span class="v">down 6% vs plan</span></div>
+            <div class="lead"><span class="l">Blended paid CAC</span><span class="fill"></span><span class="v">£11.40</span></div>
+            <div class="lead"><span class="l">RMD regional cut</span><span class="fill"></span><span class="v">ready</span></div>
+            <div class="cite">tixr · ticket_sales | meta · spend | google · spend | rules · event_plan</div>
+          </div>
+        </div>
+
+        <!-- ACT 2 -->
+        <div class="act reveal">
+          <div class="act-when">
+            <div class="day">Anytime</div>
+            <div class="time">On ask</div>
+            <div class="stage">Single view</div>
+          </div>
+          <div class="act-bill">
+            <div class="who">Freya</div>
+            <div class="role">Data · the view you can't build today</div>
+            <p class="ask">"Ticketing, email and on-site. One person."</p>
+            <p class="sub">Boutique camping at Big Festival is run by a third party. High spenders, and marketing never sees them. Knit the streams and they appear, <strong>with what they did on site</strong>.</p>
+          </div>
+          <div class="act-set">
+            <div class="setlist-cap">On the bill · boutique-camping buyers</div>
+            <div class="lead"><span class="l">Buyers identified</span><span class="fill"></span><span class="v">2,840</span></div>
+            <div class="lead"><span class="l">Avg on-site spend</span><span class="fill"></span><span class="v pos red">£186 · 3.2x GA</span></div>
+            <div class="lead"><span class="l">Top category</span><span class="fill"></span><span class="v">premium bars</span></div>
+            <div class="lead"><span class="l">Opened last 3 campaigns</span><span class="fill"></span><span class="v pos">61%</span></div>
+            <div class="lead"><span class="l">Modelled rebook</span><span class="fill"></span><span class="v">high · 1,190</span></div>
+            <div class="lead"><span class="l">Audience</span><span class="fill"></span><span class="v">build ready</span></div>
+            <div class="cite">tixr · bookings | pos · cashless | dotdigital · engagement | identity · resolved</div>
+          </div>
+        </div>
+
+        <!-- ACT 3 -->
+        <div class="act reveal">
+          <div class="act-when">
+            <div class="day">POC</div>
+            <div class="time">Test</div>
+            <div class="stage">Ring-fenced</div>
+          </div>
+          <div class="act-bill">
+            <div class="who">Marilyn</div>
+            <div class="role">Marketing · one event only</div>
+            <p class="ask">"Big Festival only. Then push it back."</p>
+            <p class="sub">Test on one on-sale event. SeeTickets and Meta for Big Festival, walled off from Glide. Performance in, audience out, <strong>two-way to Meta and Dotdigital</strong>.</p>
+          </div>
+          <div class="act-set">
+            <div class="setlist-cap">On the bill · Big Festival, Glide excluded</div>
+            <div class="lead"><span class="l">Meta ROAS</span><span class="fill"></span><span class="v pos red">4.8x</span></div>
+            <div class="lead"><span class="l">Google ROAS</span><span class="fill"></span><span class="v">3.1x</span></div>
+            <div class="lead"><span class="l">Weakest ad set</span><span class="fill"></span><span class="v">retargeting 1.2x</span></div>
+            <div class="lead"><span class="l">Lookalike seed</span><span class="fill"></span><span class="v">on-site top 5%</span></div>
+            <div class="lead"><span class="l">Audience size</span><span class="fill"></span><span class="v">142k</span></div>
+            <div class="lead"><span class="l">Push to Meta + Dotdigital</span><span class="fill"></span><span class="v pos">ready</span></div>
+            <div class="cite">seetickets · big_festival | meta · campaigns | audience · push (two-way)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ EQUATION / SCV ═════════ -->
+<div class="band">
+  <div class="page">
+    <div class="sec">
+      <div class="kicker"><span class="no">02</span> The thing you can't do today</div>
+      <h2>Four streams in. <span class="red">One person out.</span></h2>
+      <div class="equation">
+        <div class="eq-terms">
+          <div class="eq-term"><span class="eq-op"></span><span class="eq-name">Ticketing</span><span class="eq-src">TIXR · SeeTickets · TM1</span></div>
+          <div class="eq-term"><span class="eq-op">+</span><span class="eq-name">Email</span><span class="eq-src">Dotdigital engagement</span></div>
+          <div class="eq-term"><span class="eq-op">+</span><span class="eq-name">On-site</span><span class="eq-src">Cashless POS spend</span></div>
+          <div class="eq-term"><span class="eq-op">+</span><span class="eq-name">Paid</span><span class="eq-src">Meta · Google</span></div>
+        </div>
+        <div class="eq-result">
+          <div class="eq-eq">=</div>
+          <div class="eq-out">One profile</div>
+          <div class="eq-tags">
+            <span class="eq-tag">Deduped</span>
+            <span class="eq-tag">High spender</span>
+            <span class="eq-tag">Rebook likely</span>
+            <span class="eq-tag">Push-ready</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ THE BRAINS ═════════ -->
+<div class="band band-2">
+  <div class="page">
+    <div class="sec">
+      <div class="kicker"><span class="no">03</span> The real brains</div>
+      <h2>Messy data in. <span class="it">Board-safe answers out.</span></h2>
+      <div class="feature">
+        <div class="feature-body">
+          <p>Sponsor changes the attraction name every year. SeeTickets spawns <span class="q">"1,500 variants of the giant wheel."</span> The data studio is where we knit those together, label every table, and hold your rules so a question means the same thing twice.</p>
+          <p>This is also why you trust it in a board meeting. Answers are built on <strong>your data only</strong>, not the open web. No double-checking the CEO's number on the way into the room.</p>
+        </div>
+        <div class="ledger">
+          <div class="led-row"><div class="ix">01</div><div><h4>Identity resolution</h4><p>Dedupe people across email and ticket records into one profile.</p></div></div>
+          <div class="led-row"><div class="ix">02</div><div><h4>Data lineage</h4><p>Every answer shows its source. Click through to the rows.</p></div></div>
+          <div class="led-row"><div class="ix">03</div><div><h4>Raw export</h4><p>The finance sceptic wants the CSV. Milo hands over the Excel.</p></div></div>
+          <div class="led-row"><div class="ix">04</div><div><h4>Permissions, audit</h4><p>Who sees what, who edits the studio, every interaction logged.</p></div></div>
+          <div class="led-row"><div class="ix">05</div><div><h4>Your own files</h4><p>Drop the Excel forecasts in. "How are we tracking?" answered live.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ THE BILL / LINE-UP ═════════ -->
+<div class="band">
+  <div class="page">
+    <div class="sec">
+      <div class="kicker"><span class="no">04</span> Every source, on the bill</div>
+      <div class="lineup">
+        <div class="head">TIXR <span class="red">·</span> SeeTickets <span class="red">·</span> Ticketmaster TM1</div>
+        <div class="sub-acts">
+          Dotdigital <span class="dot">·</span> Meta <span class="dot">·</span> Google Ads <span class="dot">·</span> Cashless POS<br>
+          Looker Studio <span class="dot">·</span> Third-party allocations <span class="dot">·</span> Your Excel
+        </div>
+        <div class="micro">~43 connectors total · two-way where it counts</div>
+      </div>
+      <div class="footnotes">
+        <div class="fn">
+          <span class="ast">✦</span>
+          <h4>No API? Still on.</h4>
+          <p>Ticketmaster TM1 only does a daily FTP. <strong>Supported.</strong> A day longer to wire, no more.</p>
+        </div>
+        <div class="fn">
+          <span class="ast">✦</span>
+          <h4>Two-way, not just in.</h4>
+          <p>Pull performance in, build the audience, <strong>push it back to Meta and Dotdigital</strong>. Data first, push next.</p>
+        </div>
+        <div class="fn">
+          <span class="ast">✦</span>
+          <h4>We do the wiring.</h4>
+          <p>Phil's side, not yours. We need a keys-holder like Freya. <strong>No technical lift on you.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ THE TICKET ═════════ -->
+<div class="band band-2">
+  <div class="page">
+    <div class="sec">
+      <div class="kicker"><span class="no">05</span> Admission</div>
+      <h2>One to prove it. <span class="red">One to run it.</span></h2>
+      <div class="ticket-wrap">
+        <div class="ticket">
+          <div class="ticket-main">
+            <div class="ticket-tag">Admit all · proof of concept</div>
+            <div class="ticket-title">4-week<br>proof of concept</div>
+            <div class="ticket-price">£1,500 <span class="sm">all sources · kickoff day · one-off</span></div>
+            <p class="ticket-desc">Connects every source, includes a kickoff day to pressure-test the data, gives the team four weeks on Milo. <strong>Not a tie-in.</strong> It covers our setup if you walk.</p>
+            <div class="ticket-fields">
+              <div><div class="tf-l">Users</div><div class="tf-v">Unlimited</div></div>
+              <div><div class="tf-l">Records</div><div class="tf-v">No cap</div></div>
+              <div><div class="tf-l">Interactions</div><div class="tf-v">1,000 / mo</div></div>
+              <div><div class="tf-l">Currency</div><div class="tf-v">GBP</div></div>
+            </div>
+            <div class="barcode"></div>
+            <div class="barcode-no">POC · 0517 · MARI · GROUP</div>
+          </div>
+          <div class="ticket-stub">
+            <div>
+              <div class="stub-cap">Then, the run</div>
+              <div class="stub-row">
+                <div class="sr-l">Monthly, 12-month term</div>
+                <div class="sr-v">£1,500<span class="x">/mo</span></div>
+              </div>
+              <div class="stub-row">
+                <div class="sr-l">Overage, only if way over</div>
+                <div class="sr-v">£200</div>
+              </div>
+            </div>
+            <div class="stub-foot">Admit one · all areas · walk after the 4-week run, no penalty</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ COLOPHON / BACK COVER ═════════ -->
+<div class="band band-ink">
+  <div class="page">
+    <div class="colophon">
+      <div class="cl-line">The data's been collecting dust. <span class="red">Time it earned its place.</span></div>
+      <p class="cl-sub">Send the connector list and we'll come back with exactly what we'd need, per source, to stand it up. <strong>The rest is on us.</strong></p>
+      <div class="cl-rule"></div>
+      <div class="cl-mark">Milo × Mari Group</div>
+      <div class="cl-by">Tom Pickett · <a href="mailto:tom@milo.ai">tom@milo.ai</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 3) * 0.06}s`;
+    io.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>
