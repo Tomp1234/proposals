@@ -24,6 +24,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8790", "--directory", "milo-bellcomp-proposal"],
       "port": 8790
+    },
+    {
+      "name": "chaoscards",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8795", "--directory", "milo-chaoscards-proposal"],
+      "port": 8795
     }
   ]
 }

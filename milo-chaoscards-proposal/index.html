@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Chaos Cards — Proof of concept</title>
+<meta name="description" content="A 4-week Milo proof of concept for Chaos Cards. Reads the Bridgeside backend, shipping, Intercom and Klaviyo. Three hours of CSV, or one question.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --void: #08040F;
+  --deck: #0E0720;
+  --panel: #150A2B;
+  --panel-2: #1B0E36;
+  --line: rgba(255, 255, 255, 0.10);
+  --line-soft: rgba(255, 255, 255, 0.055);
+  --magenta: #FF1F8F;
+  --magenta-soft: #FF73B8;
+  --violet: #9B30FF;
+  --violet-soft: #C49BFF;
+  --cyan: #00E5D0;
+  --cyan-soft: #6FF3E6;
+  --volt: #C8FF2E;
+  --gold: #FFD23F;
+  --paper: #FCF8FF;
+  --ink: #F1E9FB;
+  --ink-dim: rgba(241, 233, 251, 0.60);
+  --ink-mute: rgba(241, 233, 251, 0.38);
+  --foil: linear-gradient(110deg, #FF1F8F 0%, #9B30FF 44%, #00E5D0 100%);
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --display: 'Space Grotesk', 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--magenta); color: var(--paper); }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.03;
+  mix-blend-mode: screen;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -25%;
+  left: -10%;
+  width: 75vw;
+  height: 75vh;
+  background: radial-gradient(circle, rgba(155, 48, 255, 0.18), transparent 62%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 52px 52px 64px;
+  position: relative;
+  z-index: 2;
+}
+
+.band { width: 100%; position: relative; }
+.band-void { background: var(--void); }
+.band-deck { background: var(--deck); }
+
+/* ─── Topbar ─────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+  opacity: 0;
+  animation: fadeIn 0.6s ease 0.1s forwards;
+}
+
+.brandmark {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.brandmark .milo-logo { display: inline-flex; align-items: center; height: 21px; }
+.brandmark .milo-logo img { height: 100%; width: auto; display: block; border-radius: 3px; }
+.brandmark .x { color: var(--magenta); font-weight: 700; font-size: 0.9rem; }
+
+.brandmark .client {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+}
+
+.topbar-meta {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-meta .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--volt);
+  box-shadow: 0 0 10px var(--volt);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+/* ─── Rarity kicker ──────────────────── */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--cyan-soft);
+  margin-bottom: 20px;
+}
+
+.kicker .gem {
+  width: 9px; height: 9px;
+  background: var(--foil);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(255, 31, 143, 0.6);
+}
+
+.kicker .rarity { color: var(--volt); }
+
+/* ─── Headlines ──────────────────────── */
+h1.headline {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.7rem, 6.4vw, 5.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--paper);
+  max-width: 16ch;
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.9rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin-bottom: 16px;
+  max-width: 20ch;
+}
+
+h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.18rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+  color: var(--paper);
+}
+
+.accent {
+  background: var(--foil);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: foil 6s linear infinite;
+}
+
+@keyframes foil { 0% { background-position: 0% center; } 100% { background-position: 220% center; } }
+
+.lede {
+  font-size: 1.04rem;
+  line-height: 1.55;
+  color: var(--ink-dim);
+  max-width: 56ch;
+  margin-bottom: 44px;
+}
+
+.lede strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Hero ───────────────────────────── */
+.hero { padding-bottom: 20px; }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--volt);
+  margin-bottom: 26px;
+  padding: 7px 15px 7px 12px;
+  background: rgba(200, 255, 46, 0.06);
+  border: 1px solid rgba(200, 255, 46, 0.22);
+  border-radius: 100px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--magenta); border-radius: 50%; }
+
+.hero-sub {
+  font-size: 1.14rem;
+  line-height: 1.55;
+  color: var(--ink-dim);
+  max-width: 52ch;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-sub strong { color: var(--ink); font-weight: 600; }
+
+.hero-meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px 22px 16px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  border-left: 2px solid var(--magenta);
+  flex: 1;
+  min-width: 150px;
+}
+
+.hero-meta-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.hero-meta-value { font-size: 0.92rem; color: var(--paper); font-weight: 600; letter-spacing: -0.005em; }
+
+/* ─── Card base (TCG frame) ──────────── */
+.card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--line-soft);
+  border-radius: 9px;
+  pointer-events: none;
+}
+
+.card .holo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.07) 47%, rgba(0, 229, 208, 0.06) 50%, rgba(255, 31, 143, 0.05) 53%, transparent 62%);
+  transform: translateX(-110%);
+  transition: transform 0.7s ease;
+}
+
+.card:hover { transform: translateY(-4px) !important; border-color: rgba(255, 31, 143, 0.45); }
+.card:hover .holo { transform: translateX(110%); }
+
+.gem-tag {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 10px; height: 10px;
+  background: var(--foil);
+  transform: rotate(45deg);
+  border-radius: 1px;
+  opacity: 0.7;
+  z-index: 3;
+}
+
+/* ─── Signal cards ───────────────────── */
+.signals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.signal { padding: 26px 26px 24px; }
+
+.signal-quote {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.22rem;
+  line-height: 1.18;
+  color: var(--paper);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.signal-quote span { color: var(--magenta); }
+
+.signal p { font-size: 0.88rem; color: var(--ink-dim); line-height: 1.5; position: relative; z-index: 2; }
+.signal p strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Plays (vignettes) ──────────────── */
+.plays { display: flex; flex-direction: column; gap: 16px; margin-top: 14px; }
+
+.play {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 30px;
+  padding: 28px 32px;
+  align-items: center;
+}
+
+.play::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: var(--foil);
+  z-index: 3;
+}
+
+.play-head { position: relative; z-index: 2; }
+
+.play-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--volt);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.play-head h3 { margin-bottom: 8px; }
+.play-head h3 em { font-style: normal; color: var(--violet-soft); }
+.play-head p { font-size: 0.9rem; color: var(--ink-dim); line-height: 1.5; }
+.play-head p strong { color: var(--ink); font-weight: 600; }
+
+/* Chat mock */
+.chat {
+  background: var(--void);
+  border-radius: 11px;
+  padding: 15px 17px 17px;
+  border: 1px solid var(--line);
+  position: relative;
+  z-index: 2;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 11px;
+  margin-bottom: 13px;
+  border-bottom: 1px solid var(--line);
+}
+
+.chat-header .ch-icon {
+  width: 21px; height: 21px;
+  border-radius: 5px;
+  background: var(--foil);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.74rem;
+  color: var(--void);
+}
+
+.chat-header .ch-name { font-size: 0.76rem; font-weight: 600; color: var(--paper); }
+
+.chat-header .ch-channel {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+  margin-left: auto;
+}
+
+.msg { display: flex; flex-direction: column; gap: 4px; margin-bottom: 11px; }
+.msg:last-child { margin-bottom: 0; }
+
+.msg-who {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 700;
+}
+
+.msg-user .msg-who { color: var(--violet-soft); }
+.msg-milo .msg-who { color: var(--cyan-soft); }
+
+.msg-text { font-size: 0.85rem; line-height: 1.45; color: rgba(241, 233, 251, 0.92); }
+
+.msg-user .msg-text {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 9px 12px;
+  border-radius: 8px 8px 8px 2px;
+  border: 1px solid var(--line-soft);
+}
+
+.msg-stats {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 14px;
+  margin-top: 6px;
+  padding: 10px 12px;
+  background: rgba(155, 48, 255, 0.10);
+  border: 1px solid rgba(155, 48, 255, 0.24);
+  border-radius: 6px;
+  font-size: 0.76rem;
+}
+
+.msg-stats-label { color: rgba(241, 233, 251, 0.62); }
+.msg-stats-val { font-family: var(--mono); font-size: 0.76rem; color: var(--paper); font-weight: 600; text-align: right; }
+.msg-stats-val.pos  { color: #4FE6A8; }
+.msg-stats-val.neg  { color: #FF6E97; }
+.msg-stats-val.flag { color: var(--gold); }
+
+.msg-cite {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.msg-cite::before { content: 'cite ↳ '; color: var(--cyan-soft); }
+
+/* ─── Stack / architecture ───────────── */
+.arch {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 34px 34px 30px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 14px;
+}
+
+.arch::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(255, 31, 143, 0.18), transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.arch-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 12px;
+  align-items: stretch;
+  position: relative;
+}
+
+.arch-col {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px 16px;
+}
+
+.arch-col-mid { background: linear-gradient(150deg, rgba(255, 31, 143, 0.16), rgba(0, 229, 208, 0.12)); border-color: rgba(196, 155, 255, 0.4); }
+.arch-col-right { background: rgba(0, 229, 208, 0.06); border-color: rgba(0, 229, 208, 0.22); }
+
+.arch-col-title {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--magenta-soft);
+  font-weight: 700;
+  margin-bottom: 13px;
+  text-align: center;
+}
+
+.arch-col-right .arch-col-title { color: var(--cyan-soft); }
+.arch-col-mid .arch-col-title { color: var(--paper); }
+
+.arch-item {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: rgba(241, 233, 251, 0.85);
+  padding: 7px 9px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.arch-item:last-child { margin-bottom: 0; }
+.arch-item.live { border: 1px solid rgba(0, 229, 208, 0.4); background: rgba(0, 229, 208, 0.10); color: var(--cyan-soft); font-weight: 600; }
+.arch-item.future { background: transparent; border: 1px dashed rgba(241, 233, 251, 0.18); color: var(--ink-mute); }
+
+.arch-mid-content { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 14px 10px; gap: 8px; height: 100%; }
+
+.arch-mid-name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  background: var(--foil);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: foil 6s linear infinite;
+}
+
+.arch-mid-sub { font-size: 0.74rem; color: rgba(241, 233, 251, 0.82); line-height: 1.4; }
+
+.arch-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  color: var(--magenta-soft);
+  font-weight: 600;
+  opacity: 0.65;
+}
+
+.arch-foot {
+  margin-top: 22px;
+  font-size: 0.86rem;
+  color: rgba(241, 233, 251, 0.6);
+  text-align: center;
+  position: relative;
+}
+
+.arch-foot strong { color: var(--paper); font-weight: 600; }
+
+/* ─── Q&A axes ───────────────────────── */
+.axes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+
+.axis { padding: 26px 26px 24px; }
+
+.axis-num {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-mute);
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+}
+
+.axis h3 { font-size: 1.1rem; margin-bottom: 9px; position: relative; z-index: 2; }
+.axis p { font-size: 0.88rem; color: var(--ink-dim); line-height: 1.5; position: relative; z-index: 2; }
+.axis p strong { color: var(--ink); font-weight: 600; }
+
+.axis-foot {
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 0.8rem;
+  color: var(--cyan-soft);
+  font-weight: 600;
+  line-height: 1.45;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Pricing ────────────────────────── */
+.pricing {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 36px 38px;
+  margin-top: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(155, 48, 255, 0.22), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; position: relative; }
+
+.pricing-left h3 { font-size: 1.35rem; margin-bottom: 12px; }
+.pricing-left p { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.55; margin-bottom: 9px; }
+.pricing-left p strong { color: var(--ink); font-weight: 600; }
+
+.pricing-tiers { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--void); }
+
+.pricing-tier {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: baseline;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pricing-tier:last-child { border-bottom: none; }
+.pricing-tier.headline { background: rgba(255, 31, 143, 0.08); }
+
+.pricing-tier-label { display: flex; flex-direction: column; gap: 3px; }
+.pricing-tier-name { font-size: 0.88rem; font-weight: 600; color: var(--paper); }
+.pricing-tier-sub { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.05em; color: var(--ink-mute); }
+
+.pricing-tier-val {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+
+.pricing-tier.headline .pricing-tier-val {
+  background: var(--foil);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: foil 6s linear infinite;
+}
+
+.pricing-tier-val .small { font-family: var(--mono); font-weight: 600; font-size: 0.74rem; color: var(--ink-mute); letter-spacing: 0.04em; margin-left: 3px; }
+
+/* ─── Next steps ─────────────────────── */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+
+.step { padding: 22px 22px 20px; }
+
+.step-num {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--volt);
+  font-weight: 700;
+  margin-bottom: 11px;
+  position: relative;
+  z-index: 2;
+}
+
+.step h4 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  color: var(--paper);
+  position: relative;
+  z-index: 2;
+}
+
+.step p { font-size: 0.82rem; color: var(--ink-dim); line-height: 1.45; position: relative; z-index: 2; }
+.step p strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Closing ────────────────────────── */
+.closing { text-align: center; padding: 56px 40px 20px; position: relative; z-index: 2; }
+
+.closing-mark {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  background: var(--foil);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: foil 6s linear infinite;
+  margin-bottom: 10px;
+}
+
+.closing-line { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-mute); letter-spacing: 0.04em; }
+.closing-line a { color: var(--violet-soft); text-decoration: none; font-weight: 600; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media print {
+  .card { box-shadow: none; }
+  * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  @page { size: A4; margin: 0; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@media (max-width: 940px) {
+  .page { padding: 44px 28px 56px; }
+  .signals { grid-template-columns: 1fr; }
+  .play { grid-template-columns: 1fr; gap: 20px; }
+  .axes { grid-template-columns: 1fr; }
+  .arch-flow { grid-template-columns: 1fr; }
+  .arch-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 28px; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .topbar { flex-direction: column; gap: 12px; align-items: flex-start; margin-bottom: 44px; }
+}
+
+@media (max-width: 540px) {
+  .page { padding: 38px 18px 48px; }
+  h1.headline { font-size: 2.5rem; }
+  h2 { font-size: 1.7rem; }
+  .steps { grid-template-columns: 1fr; }
+  .hero-meta-item { min-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═════════ HERO ═════════ -->
+<section class="band band-void">
+  <div class="page hero">
+
+    <div class="topbar">
+      <div class="brandmark">
+        <a href="#" class="milo-logo" aria-label="Milo">
+          <img src="https://raw.githubusercontent.com/Tomp1234/proposals/main/quay-tickets-proposal/milo-logo.jpeg" alt="Milo">
+        </a>
+        <span class="x">×</span>
+        <span class="client">CHAOS CARDS</span>
+      </div>
+      <div class="topbar-meta">
+        <span class="dot"></span>
+        <span>Proof of concept · May 2026</span>
+      </div>
+    </div>
+
+    <div class="hero-eyebrow animate-target">For David · the case for the board</div>
+
+    <h1 class="headline animate-target">
+      Three hours of CSV.<br><span class="accent">Or one question.</span>
+    </h1>
+
+    <p class="hero-sub animate-target">
+      Milo reads your <strong>Bridgeside backend</strong>, shipping, <strong>Intercom</strong> and <strong>Klaviyo</strong>, then answers in chat. The connectors are our job, not your devs'.
+    </p>
+
+    <div class="hero-meta animate-target">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Scope</span>
+        <span class="hero-meta-value">4-week POC</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Connects</span>
+        <span class="hero-meta-value">4 systems, no CSVs</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Team</span>
+        <span class="hero-meta-value">~8, unlimited users</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Kick-off</span>
+        <span class="hero-meta-value">~July, your call</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ THE PROBLEM ═════════ -->
+<section class="band band-deck">
+  <div class="page">
+
+    <div class="kicker"><span class="gem"></span> <span class="rarity">Common</span> · What you said</div>
+    <h2>Doing well is <span class="accent">the problem</span></h2>
+
+    <div class="signals">
+
+      <div class="card signal animate-target">
+        <span class="gem-tag"></span><span class="holo"></span>
+        <div class="signal-quote"><span>“</span>Everything is a patchwork.<span>”</span></div>
+        <p>One place to ask. Backend, shipping, Intercom and Klaviyo, <strong>together</strong>.</p>
+      </div>
+
+      <div class="card signal animate-target">
+        <span class="gem-tag"></span><span class="holo"></span>
+        <div class="signal-quote"><span>“</span>Three hours, every time.<span>”</span></div>
+        <p>The FD's report becomes <strong>one question, cited to the row</strong>.</p>
+      </div>
+
+      <div class="card signal animate-target">
+        <span class="gem-tag"></span><span class="holo"></span>
+        <div class="signal-quote"><span>“</span>No idea what marketing's doing.<span>”</span></div>
+        <p>Klaviyo spend and revenue, <strong>next to sales</strong>. No ticket.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ IN PLAY ═════════ -->
+<section class="band band-void">
+  <div class="page">
+
+    <div class="kicker"><span class="gem"></span> <span class="rarity">Rare</span> · What it looks like</div>
+    <h2>Three questions. <span class="accent">Three answers</span></h2>
+    <p class="lede">Real questions from your call. Dummy numbers, real workflow.</p>
+
+    <div class="plays">
+
+      <!-- PLAY 1 -->
+      <div class="card play animate-target">
+        <span class="holo"></span>
+        <div class="play-head">
+          <div class="play-tag">Month-end · 08:15 · Financial Director</div>
+          <h3>The 3-hour report. <em>Back in 20 seconds.</em></h3>
+          <p>Four CSV exports, matched by hand, rebuilt monthly. Now one question, <strong>with the tables it came from</strong>.</p>
+        </div>
+        <div class="chat">
+          <div class="chat-header">
+            <div class="ch-icon">M</div>
+            <div class="ch-name">Milo</div>
+            <div class="ch-channel">slack · #finance</div>
+          </div>
+          <div class="msg msg-user">
+            <div class="msg-who">Financial Director</div>
+            <div class="msg-text">March vs Feb and vs last March: net revenue, GM after shipping, Klaviyo spend.</div>
+          </div>
+          <div class="msg msg-milo">
+            <div class="msg-who">Milo</div>
+            <div class="msg-text">March trade, three-way:</div>
+            <div class="msg-stats">
+              <span class="msg-stats-label">Net revenue</span>          <span class="msg-stats-val">£1.42m</span>
+              <span class="msg-stats-label">vs Feb</span>                <span class="msg-stats-val pos">+11.3%</span>
+              <span class="msg-stats-label">vs last March</span>         <span class="msg-stats-val pos">+24.6%</span>
+              <span class="msg-stats-label">GM after shipping</span>     <span class="msg-stats-val">38.1%</span>
+              <span class="msg-stats-label">Klaviyo spend</span>         <span class="msg-stats-val flag">£9,240</span>
+              <span class="msg-stats-label">Klaviyo revenue</span>       <span class="msg-stats-val pos">£186k</span>
+            </div>
+            <div class="msg-cite">backend · sales_orders &nbsp;|&nbsp; shipping · parcel_cost &nbsp;|&nbsp; klaviyo · revenue</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAY 2 -->
+      <div class="card play animate-target">
+        <span class="holo"></span>
+        <div class="play-head">
+          <div class="play-tag">Monday · 07:00 · Automated</div>
+          <h3>The restock, <em>before you ask.</em></h3>
+          <p>A normal week shouldn't be manual. Milo posts the list. <strong>The two-month deep review stays yours.</strong></p>
+        </div>
+        <div class="chat">
+          <div class="chat-header">
+            <div class="ch-icon">M</div>
+            <div class="ch-name">Milo</div>
+            <div class="ch-channel">automation · Mon 07:00</div>
+          </div>
+          <div class="msg msg-milo">
+            <div class="msg-who">Milo</div>
+            <div class="msg-text">Weekly replenishment, w/c 11 May. Normal week, one flag:</div>
+            <div class="msg-stats">
+              <span class="msg-stats-label">SKUs sold</span>             <span class="msg-stats-val">1,184</span>
+              <span class="msg-stats-label">Below reorder point</span>   <span class="msg-stats-val flag">37 lines</span>
+              <span class="msg-stats-label">Reorder value</span>         <span class="msg-stats-val">£28,600</span>
+              <span class="msg-stats-label">Cover, top sellers</span>    <span class="msg-stats-val pos">2.4 wks</span>
+              <span class="msg-stats-label">Anomaly · 1 sealed line</span> <span class="msg-stats-val neg">+340%</span>
+              <span class="msg-stats-label">Action</span>                <span class="msg-stats-val">approve list ↗</span>
+            </div>
+            <div class="msg-cite">backend · inventory_levels &nbsp;|&nbsp; backend · sales_velocity &nbsp;|&nbsp; rules · reorder_point</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAY 3 -->
+      <div class="card play animate-target">
+        <span class="holo"></span>
+        <div class="play-head">
+          <div class="play-tag">Anytime · No ticket to marketing</div>
+          <h3>What's marketing doing? <em>Now you see it.</em></h3>
+          <p>Klaviyo holds the campaigns and the revenue. Milo puts it <strong>next to sales</strong>, scoped to who should see it.</p>
+        </div>
+        <div class="chat">
+          <div class="chat-header">
+            <div class="ch-icon">M</div>
+            <div class="ch-name">Milo</div>
+            <div class="ch-channel">slack · #leadership</div>
+          </div>
+          <div class="msg msg-user">
+            <div class="msg-who">David</div>
+            <div class="msg-text">Klaviyo last 30 days: revenue by campaign vs the month before.</div>
+          </div>
+          <div class="msg msg-milo">
+            <div class="msg-who">Milo</div>
+            <div class="msg-text">Last 30 days vs prior 30:</div>
+            <div class="msg-stats">
+              <span class="msg-stats-label">Attributed revenue</span>   <span class="msg-stats-val pos">£214k (+18%)</span>
+              <span class="msg-stats-label">Flow · abandoned cart</span> <span class="msg-stats-val">£71k</span>
+              <span class="msg-stats-label">Campaign · new-set drop</span> <span class="msg-stats-val pos">£58k</span>
+              <span class="msg-stats-label">Campaign · clearance</span> <span class="msg-stats-val flag">£12k, thin</span>
+              <span class="msg-stats-label">Campaigns sent</span>       <span class="msg-stats-val">9</span>
+              <span class="msg-stats-label">Rev / send</span>           <span class="msg-stats-val pos">+0.21</span>
+            </div>
+            <div class="msg-cite">klaviyo · campaigns &nbsp;|&nbsp; klaviyo · flows &nbsp;|&nbsp; backend · attribution</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ THE STACK ═════════ -->
+<section class="band band-deck">
+  <div class="page">
+
+    <div class="kicker"><span class="gem"></span> <span class="rarity">Mythic</span> · Where data lives</div>
+    <h2>Four systems in. <span class="accent">One place to ask</span></h2>
+
+    <div class="arch">
+      <div class="arch-flow">
+
+        <div class="arch-col">
+          <div class="arch-col-title">Your systems</div>
+          <div class="arch-item live">Bridgeside backend</div>
+          <div class="arch-item live">Shipping / parcels</div>
+          <div class="arch-item live">Intercom</div>
+          <div class="arch-item live">Klaviyo</div>
+          <div class="arch-item future">CSV drop · interim</div>
+        </div>
+
+        <div class="arch-arrow">→</div>
+
+        <div class="arch-col arch-col-mid">
+          <div class="arch-col-title">Milo</div>
+          <div class="arch-mid-content">
+            <div class="arch-mid-name">Milo</div>
+            <div class="arch-mid-sub">Your rules in the middle.<br>Every answer cited. Role-scoped.</div>
+          </div>
+        </div>
+
+        <div class="arch-arrow">→</div>
+
+        <div class="arch-col arch-col-right">
+          <div class="arch-col-title">Where you ask</div>
+          <div class="arch-item">Chat</div>
+          <div class="arch-item">Slack</div>
+          <div class="arch-item">WhatsApp</div>
+          <div class="arch-item">Dashboards</div>
+          <div class="arch-item">Automations</div>
+        </div>
+
+      </div>
+
+      <div class="arch-foot">
+        <strong>The CSV era ends here.</strong> Connectors built and run on our side, Bridgeside coordination included.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ INTEGRATION Q&A ═════════ -->
+<section class="band band-void">
+  <div class="page">
+
+    <div class="kicker"><span class="gem"></span> <span class="rarity">Legendary</span> · The bit you asked about</div>
+    <h2>Integration. <span class="accent">Straight answer</span></h2>
+
+    <div class="axes">
+
+      <div class="card axis animate-target">
+        <span class="gem-tag"></span><span class="holo"></span>
+        <div class="axis-num">01 · Who builds it</div>
+        <h3>We do.</h3>
+        <p>Backend, shipping, Intercom, Klaviyo. We coordinate with Bridgeside directly. Your relationship with them stays yours.</p>
+        <div class="axis-foot">In the POC fee, not a separate project.</div>
+      </div>
+
+      <div class="card axis animate-target">
+        <span class="gem-tag"></span><span class="holo"></span>
+        <div class="axis-num">02 · Your dev time</div>
+        <h3>Near zero.</h3>
+        <p>You've got critical builds running and a thin window. This doesn't compete for it. The build sits with us.</p>
+        <div class="axis-foot">An intro to Bridgeside is most of it.</div>
+      </div>
+
+      <div class="card axis animate-target">
+        <span class="gem-tag"></span><span class="holo"></span>
+        <div class="axis-num">03 · Custom backend</div>
+        <h3>Normal start.</h3>
+        <p>Custom build, web interfaces pulling CSVs, no clean API. That's where most clients begin.</p>
+        <div class="axis-foot">DB or export, whatever Bridgeside gives us.</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ PRICING ═════════ -->
+<section class="band band-deck">
+  <div class="page">
+
+    <div class="kicker"><span class="gem"></span> <span class="rarity">Foil</span> · The numbers</div>
+    <h2>One to prove it. <span class="accent">One to run it</span></h2>
+
+    <div class="pricing">
+      <div class="pricing-grid">
+
+        <div class="pricing-left">
+          <h3>No lock-in during the POC.</h3>
+          <p><strong>POC</strong> covers setup, every connector incl. Bridgeside, your rules, training, full team for four weeks.</p>
+          <p><strong>After</strong>, a flat monthly on a 12-month term. Unlimited users. If it doesn't earn its place, you walk. GBP.</p>
+        </div>
+
+        <div class="pricing-tiers">
+          <div class="pricing-tier headline">
+            <div class="pricing-tier-label">
+              <div class="pricing-tier-name">4-week proof of concept</div>
+              <div class="pricing-tier-sub">all-in, one-off</div>
+            </div>
+            <div class="pricing-tier-val">£1,500</div>
+          </div>
+          <div class="pricing-tier">
+            <div class="pricing-tier-label">
+              <div class="pricing-tier-name">Then, monthly</div>
+              <div class="pricing-tier-sub">12-month term</div>
+            </div>
+            <div class="pricing-tier-val">£1,500 <span class="small">/ mo</span></div>
+          </div>
+          <div class="pricing-tier">
+            <div class="pricing-tier-label">
+              <div class="pricing-tier-name">Included</div>
+              <div class="pricing-tier-sub">unlimited users, 4 connectors</div>
+            </div>
+            <div class="pricing-tier-val">∞ <span class="small">users</span></div>
+          </div>
+          <div class="pricing-tier">
+            <div class="pricing-tier-label">
+              <div class="pricing-tier-name">Lock-in during POC</div>
+              <div class="pricing-tier-sub">walk, no penalty</div>
+            </div>
+            <div class="pricing-tier-val">None</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ NEXT ═════════ -->
+<section class="band band-void">
+  <div class="page">
+
+    <div class="kicker"><span class="gem"></span> <span class="rarity">Turn order</span> · Next</div>
+    <h2>Paced to <span class="accent">your summer</span></h2>
+
+    <div class="steps">
+
+      <div class="card step animate-target">
+        <span class="holo"></span>
+        <div class="step-num">01 · Now</div>
+        <h4>Board pack</h4>
+        <p>Walkthrough video and use-case pack, written for the <strong>decision makers</strong>.</p>
+      </div>
+
+      <div class="card step animate-target">
+        <span class="holo"></span>
+        <div class="step-num">02 · You</div>
+        <h4>Line up the room</h4>
+        <p>Take it to your boss, set the follow-up. We join that one.</p>
+      </div>
+
+      <div class="card step animate-target">
+        <span class="holo"></span>
+        <div class="step-num">03 · Hold</div>
+        <h4>Convention, rebrand, move</h4>
+        <p>Those come first. We hold, we don't chase.</p>
+      </div>
+
+      <div class="card step animate-target">
+        <span class="holo"></span>
+        <div class="step-num">04 · ~July</div>
+        <h4>POC starts</h4>
+        <p>We connect the four systems. <strong>Decide in four weeks</strong>, on real data.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ CLOSING ═════════ -->
+<section class="band band-deck">
+  <div class="page">
+    <div class="closing">
+      <div class="closing-mark">Milo × Chaos Cards</div>
+      <div class="closing-line">Tom Pickett · <a href="mailto:tom@milo.ai">tom@milo.ai</a></div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.animate-target').forEach((el, i) => {
+    const cols = el.classList.contains('step') ? 4 : 3;
+    el.style.transitionDelay = `${(i % cols) * 0.06}s`;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.hero .animate-target').forEach((el, i) => {
+    el.style.transitionDelay = '0s';
+    setTimeout(() => el.classList.add('animate-in'), 150 + (i * 110));
+  });
+});
+</script>
+
+</body>
+</html>
