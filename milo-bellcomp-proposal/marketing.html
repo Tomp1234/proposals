@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Bell &amp; Company — Meet Milo</title>
+<meta name="description" content="Meet Milo: the AI data analyst built for those who run the business. Ask your numbers in plain English, get answers in minutes not days. A short intro for Bell &amp; Company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --plum: #4A235E;
+  --plum-deep: #2E1340;
+  --plum-soft: #6A3585;
+  --plum-tint: rgba(74, 35, 94, 0.08);
+  --mint: #50E2AD;
+  --mint-soft: #7BEBC4;
+  --mint-deep: #2BB585;
+  --mint-tint: rgba(80, 226, 173, 0.14);
+  --cream: #FBF8F3;
+  --paper: #FFFFFF;
+  --ink: #1A0E26;
+  --ink-soft: #2E1F3A;
+  --ink-dim: #54465F;
+  --ink-muted: #8B7E97;
+  --line: rgba(74, 35, 94, 0.12);
+  --line-soft: rgba(74, 35, 94, 0.06);
+  --sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --display: 'Fraunces', 'Manrope', serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--mint); color: var(--plum-deep); }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.29 0 0 0 0 0.14 0 0 0 0 0.37 0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 56px 64px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Top bar ────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 64px;
+}
+
+.brandmark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.brandmark img {
+  height: 22px;
+  width: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.brandmark .x { color: var(--mint-deep); font-weight: 800; }
+
+.brandmark .bc {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--plum);
+}
+
+.meta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.meta .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 0 4px var(--mint-tint);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px var(--mint-tint); }
+  50% { box-shadow: 0 0 0 8px rgba(80, 226, 173, 0.06); }
+}
+
+/* ─── Hero ────────────────────────────── */
+.hero { margin-bottom: 60px; position: relative; }
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--plum);
+  margin-bottom: 28px;
+  padding: 7px 14px 7px 11px;
+  background: var(--plum-tint);
+  border-radius: 100px;
+  border: 1px solid var(--line);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--mint-deep);
+  border-radius: 50%;
+}
+
+h1.headline {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--plum-deep);
+  font-variation-settings: "SOFT" 50;
+  max-width: 16ch;
+  margin-bottom: 26px;
+}
+
+h1.headline em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--plum);
+  position: relative;
+  display: inline-block;
+}
+
+h1.headline em::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0.08em;
+  height: 0.18em;
+  background: var(--mint);
+  z-index: -1;
+  opacity: 0.55;
+  transform: skewX(-6deg);
+}
+
+.lede {
+  font-size: 1.15rem;
+  line-height: 1.62;
+  color: var(--ink-dim);
+  max-width: 52ch;
+}
+
+.lede strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Value grid ─────────────────────── */
+.values {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 56px;
+}
+
+.val {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px 28px 26px;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+}
+
+.val:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -22px rgba(74, 35, 94, 0.24);
+  border-color: rgba(74, 35, 94, 0.22);
+}
+
+.val-ic {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--mint-deep);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.val-ic::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+.val h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--plum-deep);
+  margin-bottom: 12px;
+}
+
+.val p { font-size: 0.95rem; line-height: 1.56; color: var(--ink-dim); }
+.val p strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Stack ──────────────────────────── */
+.stack {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 30px 32px;
+  margin-bottom: 18px;
+}
+
+.stack-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.stack-top .label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mint-deep);
+}
+
+.stack-top .note { font-size: 0.92rem; color: var(--ink-dim); }
+.stack-top .note strong { color: var(--ink); font-weight: 600; }
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.stack-col .col-l {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+}
+
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.pill {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--plum);
+  background: var(--plum-tint);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 6px 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.pill::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--mint-deep);
+  flex-shrink: 0;
+}
+
+/* ─── Tailored band ──────────────────── */
+.fit {
+  background: var(--plum-deep);
+  color: var(--cream);
+  border-radius: 22px;
+  padding: 44px 46px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.fit::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -8%;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(80, 226, 173, 0.16) 0%, transparent 62%);
+  pointer-events: none;
+}
+
+.fit-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mint);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.fit h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  max-width: 22ch;
+  position: relative;
+}
+
+.fit h2 em { font-style: italic; font-weight: 500; color: var(--mint); }
+
+.fit p {
+  font-size: 1rem;
+  line-height: 1.62;
+  color: rgba(251, 248, 243, 0.8);
+  max-width: 62ch;
+  position: relative;
+}
+
+.fit p strong { color: var(--cream); font-weight: 600; }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+  position: relative;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(251, 248, 243, 0.92);
+  padding: 7px 13px;
+  border: 1px solid rgba(251, 248, 243, 0.18);
+  border-radius: 100px;
+}
+
+/* ─── Close strip ────────────────────── */
+.close {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  background: var(--mint);
+  color: var(--plum-deep);
+  border-radius: 18px;
+  padding: 26px 34px;
+  flex-wrap: wrap;
+}
+
+.close .cta {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.close .cta em { font-style: italic; font-weight: 500; }
+
+.close .contact {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-align: right;
+  line-height: 1.7;
+}
+
+.close .contact a { color: var(--plum-deep); font-weight: 700; text-decoration: none; }
+.close .contact a:hover { text-decoration: underline; }
+
+.signoff {
+  margin-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* ─── Motion ─────────────────────────── */
+.reveal { opacity: 0; transform: translateY(14px); }
+.reveal.in { opacity: 1; transform: none; transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+/* ─── Responsive ─────────────────────── */
+@media (max-width: 860px) {
+  .page { padding: 36px 26px 48px; }
+  .values { grid-template-columns: 1fr; }
+  .stack { padding: 26px 24px; }
+  .stack-grid { grid-template-columns: 1fr; gap: 20px; }
+  .fit { padding: 32px 28px; }
+  .topbar { flex-wrap: wrap; gap: 16px; }
+  .close { flex-direction: column; align-items: flex-start; }
+  .close .contact { text-align: left; }
+}
+
+@media (max-width: 520px) {
+  h1.headline { font-size: 2.4rem; }
+}
+
+@media print {
+  body::before { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  body { background: #FBF8F3; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: A4; margin: 14mm; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="brandmark">
+      <img src="https://raw.githubusercontent.com/Tomp1234/proposals/main/quay-tickets-proposal/milo-logo.jpeg" alt="Milo">
+      <span class="x">×</span>
+      <span class="bc">Bell &amp; Company</span>
+    </div>
+    <div class="meta">
+      <span><span class="dot"></span> Welcome aboard</span>
+      <span>May 2026</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="eyebrow">Meet Milo</span>
+    <h1 class="headline">The AI data analyst for those who <em>run the business</em>.</h1>
+    <p class="lede">
+      Ask your numbers a question in plain English and get the answer back in <strong>minutes, not days</strong>. No SQL, no dashboard backlog, no waiting on a report. Just the answer, with the workings shown.
+    </p>
+  </section>
+
+  <!-- Value grid -->
+  <section class="values">
+    <div class="val reveal">
+      <div class="val-ic">01 / Just ask</div>
+      <h3>Plain English in, answers out</h3>
+      <p>Type the question the way you'd say it out loud. <strong>"Which cases are stalling?" "What did we recover last quarter?"</strong> Milo reads it, runs it, and shows you where the number came from.</p>
+    </div>
+    <div class="val reveal">
+      <div class="val-ic">02 / One place</div>
+      <h3>All your tools, joined up</h3>
+      <p>Your website, ad platforms, lead forms and inbox, connected into one view. <strong>700+ integrations</strong>, so the answer spans everything instead of living in five tabs.</p>
+    </div>
+    <div class="val reveal">
+      <div class="val-ic">03 / Speed</div>
+      <h3>Minutes, not days</h3>
+      <p>The question you'd normally queue for an analyst is answered while you're still in the meeting. <strong>Dashboards build themselves</strong> from what you ask most.</p>
+    </div>
+    <div class="val reveal">
+      <div class="val-ic">04 / Trust</div>
+      <h3>Secure by design</h3>
+      <p><strong>SOC 2, ISO 27001 and GDPR aligned.</strong> Your data stays yours, it is never used to train models, and every answer is auditable. Built for work that has to stand up to scrutiny.</p>
+    </div>
+  </section>
+
+  <!-- Your stack -->
+  <section class="stack reveal">
+    <div class="stack-top">
+      <span class="label">Your stack, plugged in</span>
+      <span class="note">Milo connects to what you already run. <strong>No rip and replace.</strong></span>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-col">
+        <div class="col-l">Website &amp; infrastructure</div>
+        <div class="pills">
+          <span class="pill">WordPress</span>
+          <span class="pill">Cloudflare</span>
+          <span class="pill">Cloudflare DNS</span>
+          <span class="pill">Bootstrap</span>
+        </div>
+      </div>
+      <div class="stack-col">
+        <div class="col-l">Marketing &amp; analytics</div>
+        <div class="pills">
+          <span class="pill">Google Analytics</span>
+          <span class="pill">Tag Manager</span>
+          <span class="pill">Google Maps</span>
+          <span class="pill">Bing Ads</span>
+          <span class="pill">LinkedIn Ads</span>
+          <span class="pill">Facebook</span>
+          <span class="pill">Trustpilot</span>
+          <span class="pill">Gravity Forms</span>
+        </div>
+      </div>
+      <div class="stack-col">
+        <div class="col-l">Email &amp; productivity</div>
+        <div class="pills">
+          <span class="pill">Outlook</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tailored band -->
+  <section class="fit reveal">
+    <div class="fit-label">— Made for how Bell &amp; Company works</div>
+    <h2>Every case, every creditor, <em>one clear picture</em>.</h2>
+    <p>
+      You work for your clients, not their creditors, and that takes a firm grip on the detail. Milo puts the whole book in front of you: which cases are moving, where the value is being saved, how each sector is trending, and what the team should look at first. <strong>The same answer, the same way, every time you ask.</strong>
+    </p>
+    <div class="chips">
+      <span class="chip">Business &amp; personal debt</span>
+      <span class="chip">Construction</span>
+      <span class="chip">Property</span>
+      <span class="chip">Hospitality</span>
+      <span class="chip">Retail</span>
+      <span class="chip">Logistics</span>
+    </div>
+  </section>
+
+  <!-- Close -->
+  <section class="close reveal">
+    <div class="cta">Start asking <em>better questions.</em></div>
+    <div class="contact">
+      Milo · milo.ai<br>
+      Tom Pickett · <a href="mailto:tom@milo.ai">tom@milo.ai</a>
+    </div>
+  </section>
+
+  <div class="signoff">
+    <span>Milo × Bell &amp; Company</span>
+    <span>Prepared May 2026</span>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.06}s`;
+    io.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>
