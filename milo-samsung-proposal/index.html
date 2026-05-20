@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo · Unpacked for Samsung</title>
+<meta name="description" content="An introduction for Samsung Consumer & Market Insights. The retailer-media question you're still solving, the patterns across data that doesn't gel, answered by a tool that runs inside Samsung's own perimeter. Unpacked.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #000000;
+  --ink: #F6F7FA;
+  --ink-2: #D4D7DE;
+  --muted: #BDC0C7;
+  --mute-2: #8A8D94;
+  --titan-hi: #E2E4E9;
+  --titan: #9A9DA4;
+  --titan-lo: #2C2E33;
+  --blue: #1B6DF0;
+  --blue-br: #3B8BFF;
+  --navy: #0A1B4D;
+  --ai-a: #3D7BFF;
+  --ai-b: #7C6BFF;
+  --ai-c: #A36BFF;
+  --ai-grad: linear-gradient(112deg, var(--ai-a) 0%, var(--ai-b) 54%, var(--ai-c) 100%);
+  --pos: #2FC68A;
+  --warn: #F0843C;
+  --gold: #E9B949;
+  --card: #0B0C0F;
+  --card-2: #121317;
+  --line: rgba(255,255,255,0.10);
+  --line-soft: rgba(255,255,255,0.052);
+  --disp: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'Space Mono', 'SF Mono', Menlo, monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black); color: var(--ink);
+  font-family: var(--body); line-height: 1.6;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+::selection { background: rgba(124,107,255,0.4); color: #fff; }
+
+.grad { background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--ai-grad); z-index: 300; transition: width 0.1s linear; }
+
+/* Titanium side rails — the device edge */
+.rail { position: fixed; top: 0; bottom: 0; width: 7px; z-index: 90; pointer-events: none; }
+.rail.l { left: 0; background: linear-gradient(90deg, var(--titan-lo), var(--titan) 38%, var(--titan-hi) 50%, var(--titan) 62%, var(--titan-lo)); }
+.rail.r { right: 0; background: linear-gradient(270deg, var(--titan-lo), var(--titan) 38%, var(--titan-hi) 50%, var(--titan) 62%, var(--titan-lo)); }
+@media (max-width: 720px){ .rail{ width: 4px; } }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 56px; }
+@media (max-width: 720px){ .wrap{ padding: 0 26px; } }
+
+/* Top rail */
+.top {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 56px; background: rgba(0,0,0,0.74);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line-soft);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.top.hide { transform: translateY(-100%); }
+.top-l { display: flex; align-items: center; gap: 16px; }
+.milo-logo { display: inline-flex; height: 22px; }
+.milo-logo img { height: 100%; width: auto; display: block; border-radius: 5px; }
+.slash { color: var(--titan); font-weight: 300; font-size: 1.1rem; }
+.sam {
+  font-family: var(--disp); font-weight: 800; font-size: 0.96rem;
+  letter-spacing: 0.34em; color: var(--ink);
+}
+.top-r { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.22em; color: var(--mute-2); text-transform: uppercase; }
+
+@media (max-width: 720px){ .top{ padding: 14px 24px; } .top-r{ display:none; } .sam{ letter-spacing: 0.22em; } }
+
+/* Hinge seam divider */
+.hinge { position: relative; height: 0; }
+.hinge::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--titan-lo) 14%, var(--titan) 50%, var(--titan-lo) 86%, transparent);
+  opacity: 0.7;
+}
+.hinge::after {
+  content: ''; position: absolute; left: 50%; top: -3px; transform: translateX(-50%);
+  width: 64px; height: 7px; border-radius: 7px;
+  background: linear-gradient(180deg, var(--titan-hi), var(--titan-lo));
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.6), 0 4px 14px rgba(0,0,0,0.7);
+}
+
+/* Section scaffold */
+.band { padding: 130px 0; position: relative; }
+/* Big section markers — Galaxy product-page style */
+.kick {
+  display: grid; grid-template-columns: auto 1fr;
+  align-items: end; gap: 28px;
+  margin-bottom: 48px; padding-bottom: 26px;
+  border-bottom: 1px solid var(--line);
+}
+.kick-n {
+  font-family: var(--disp); font-weight: 800;
+  font-size: clamp(3.4rem, 7vw, 6.2rem); letter-spacing: -0.045em; line-height: 0.82;
+  background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.kick-r { display: flex; flex-direction: column; gap: 7px; padding-bottom: 8px; }
+.kick-step { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--mute-2); }
+.kick-lbl { font-family: var(--disp); font-weight: 700; font-size: clamp(1.05rem, 1.9vw, 1.4rem); letter-spacing: -0.01em; color: var(--ink); }
+h2 {
+  font-family: var(--disp); font-weight: 800;
+  font-size: clamp(2.2rem, 5.4vw, 4rem); line-height: 1.04;
+  letter-spacing: -0.035em; color: var(--ink); max-width: 18ch;
+  margin-bottom: 24px;
+}
+h2 .g { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; }
+.lede {
+  font-size: clamp(1rem, 1.4vw, 1.16rem); line-height: 1.72;
+  color: var(--ink-2); max-width: 60ch; margin-bottom: 60px; font-weight: 400;
+}
+.lede strong { color: #fff; font-weight: 600; }
+
+/* ───── HERO / UNPACKED ───── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; padding: 150px 0 110px; }
+.keylight {
+  position: absolute; top: -30%; left: 50%; transform: translateX(-50%);
+  width: 140%; height: 130%; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 42% 52% at 50% 36%, rgba(124,107,255,0.20), transparent 62%),
+              radial-gradient(ellipse 30% 40% at 50% 30%, rgba(59,139,255,0.18), transparent 60%);
+}
+.beam {
+  position: absolute; top: 0; left: 50%; width: 1px; height: 46vh; z-index: 0;
+  background: linear-gradient(180deg, transparent, rgba(150,170,255,0.55), transparent);
+  filter: blur(0.5px);
+}
+.hero-in { position: relative; z-index: 2; }
+.teaser-eyebrow {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 40px;
+  display: flex; align-items: center; gap: 12px;
+}
+.teaser-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ai-b); box-shadow: 0 0 12px var(--ai-b); }
+.teaser-small {
+  font-family: var(--disp); font-weight: 500;
+  font-size: clamp(1.05rem, 2.1vw, 1.5rem); color: var(--ink-2);
+  letter-spacing: -0.01em; margin-bottom: 6px;
+}
+h1 {
+  font-family: var(--disp); font-weight: 800;
+  font-size: clamp(4rem, 16vw, 13rem); line-height: 0.88;
+  letter-spacing: -0.05em; text-transform: uppercase; margin-bottom: 36px;
+  color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(1.05rem, 1.7vw, 1.34rem); line-height: 1.62;
+  color: var(--ink-2); max-width: 56ch; margin-bottom: 52px; font-weight: 400;
+}
+.hero-sub strong { color: #fff; font-weight: 700; }
+.spec-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--titan-lo); max-width: 880px; }
+.ss { padding: 20px 24px 0 0; border-right: 1px solid var(--line-soft); }
+.ss:last-child { border-right: none; }
+.ss-l { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute-2); margin-bottom: 9px; }
+.ss-v { font-family: var(--disp); font-weight: 700; font-size: 1.04rem; color: var(--ink); line-height: 1.32; }
+.scroll-cue {
+  position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mute-2);
+  animation: bob 2.6s ease-in-out infinite;
+}
+@keyframes bob { 50% { transform: translate(-50%, 7px); } }
+
+@media (max-width: 720px){ .spec-strip{ grid-template-columns: 1fr 1fr; } .ss{ border-bottom: 1px solid var(--line-soft); padding-bottom: 16px; } }
+
+/* ───── REVEAL / comparison ───── */
+.rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.slab { border: 1px solid var(--line); border-radius: 20px; padding: 38px 36px; background: var(--card); position: relative; overflow: hidden; }
+.slab.milo { border-color: transparent; background:
+  linear-gradient(var(--card-2), var(--card-2)) padding-box,
+  var(--ai-grad) border-box; border: 1px solid transparent; }
+.slab.milo::before { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 90% at 100% 0%, rgba(124,107,255,0.12), transparent 60%); }
+.slab-tag { position: relative; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 9px; }
+.slab.milo .slab-tag { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; }
+.slab-tag .b { width: 6px; height: 6px; border-radius: 50%; background: var(--mute-2); }
+.slab.milo .slab-tag .b { background: var(--ai-b); box-shadow: 0 0 8px var(--ai-b); }
+.slab h3 { position: relative; font-family: var(--disp); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; margin-bottom: 24px; color: var(--ink); }
+.row3 { position: relative; display: flex; flex-direction: column; gap: 18px; }
+.r3 { }
+.r3 .r3-h { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.r3 .r3-t { font-size: 0.97rem; color: var(--ink-2); line-height: 1.5; }
+.mlist { position: relative; list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.mlist li { display: flex; gap: 14px; font-size: 0.99rem; color: var(--ink-2); line-height: 1.52; }
+.mlist li strong { color: #fff; font-weight: 700; }
+.mlist li .g { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; font-weight: 700; }
+.tick { flex-shrink: 0; width: 20px; height: 20px; border-radius: 6px; background: rgba(124,107,255,0.16); color: var(--ai-b); display: flex; align-items: center; justify-content: center; font-size: 0.74rem; margin-top: 2px; }
+.dash { flex-shrink: 0; width: 20px; height: 20px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--mute-2); display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.slab-foot { position: relative; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line-soft); font-size: 0.86rem; color: var(--muted); }
+.slab.milo .slab-foot { color: var(--ink-2); }
+
+/* ───── HANDS-ON / Galaxy device + One UI ───── */
+.stage { display: flex; justify-content: center; padding-top: 10px; }
+.device {
+  width: 100%; max-width: 920px; border-radius: 52px; padding: 11px;
+  background: linear-gradient(150deg, var(--titan-hi), var(--titan) 22%, var(--titan-lo) 50%, var(--titan) 78%, var(--titan-hi));
+  box-shadow: 0 50px 120px -36px rgba(0,0,0,0.9), 0 0 80px -50px rgba(124,107,255,0.5);
+  position: relative;
+}
+.device::after { content: ''; position: absolute; inset: 11px; border-radius: 42px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.10); pointer-events: none; }
+.screen { background: #000; border-radius: 42px; overflow: hidden; }
+.statusbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 26px 8px; font-family: var(--disp); font-weight: 700;
+  font-size: 0.82rem; color: var(--ink);
+}
+.sb-r { display: flex; align-items: center; gap: 7px; color: var(--ink); }
+.sb-r svg { display: block; }
+.appbar { display: flex; align-items: center; gap: 13px; padding: 14px 26px 16px; }
+.app-avatar { width: 30px; height: 30px; border-radius: 9px; background: var(--ai-grad); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 800; font-size: 16px; color: #fff; }
+.app-name { font-family: var(--disp); font-weight: 800; font-size: 1.18rem; letter-spacing: -0.01em; color: var(--ink); }
+.app-sub { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute-2); margin-top: 1px; }
+.app-kebab { margin-left: auto; color: var(--muted); display: flex; flex-direction: column; gap: 3px; }
+.app-kebab i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+.askfield {
+  margin: 0 22px 18px; display: flex; align-items: center; gap: 12px;
+  padding: 15px 20px; border-radius: 999px; background: #131418;
+  border: 1px solid var(--line); color: var(--muted); font-size: 0.94rem;
+}
+.askfield .sparkle { width: 18px; height: 18px; flex-shrink: 0; }
+.askfield .gradtext { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; }
+.chips { padding: 0 22px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+.chip {
+  display: flex; align-items: flex-start; gap: 12px; padding: 17px 18px;
+  background: #121317; border: 1px solid var(--line); border-radius: 18px;
+  font-size: 0.92rem; font-weight: 500; color: var(--ink-2); cursor: pointer;
+  text-align: left; line-height: 1.42; font-family: var(--body);
+  transition: background 0.22s, border-color 0.22s, transform 0.22s;
+}
+.chip:hover { background: #181A1F; border-color: rgba(124,107,255,0.5); transform: translateY(-2px); }
+.chip.active { background: rgba(124,107,255,0.13); border-color: transparent; box-shadow: 0 0 0 1.5px var(--ai-b); color: #fff; }
+.chip.lead { border-color: transparent; background:
+  linear-gradient(#121317, #121317) padding-box, var(--ai-grad) border-box; border: 1px solid transparent; }
+.chip.lead.active { background: linear-gradient(rgba(124,107,255,0.14), rgba(124,107,255,0.14)) padding-box, var(--ai-grad) border-box; }
+.chip .ar { flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.06); color: var(--muted); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; margin-top: 1px; }
+.chip.lead .ar { background: var(--ai-grad); color: #fff; }
+.ctag { display: inline-block; margin-left: 7px; font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: var(--ai-grad); border-radius: 5px; padding: 3px 7px; vertical-align: middle; }
+.canvas { height: 540px; overflow-y: auto; padding: 20px 22px 26px; display: flex; flex-direction: column; gap: 15px; scrollbar-width: thin; }
+.canvas::-webkit-scrollbar { width: 5px; }
+.canvas::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 4px; }
+.cv-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; }
+.cv-empty .ic { width: 58px; height: 58px; border-radius: 17px; background: var(--ai-grad); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 800; font-size: 26px; color: #fff; margin-bottom: 20px; box-shadow: 0 16px 40px -10px rgba(124,107,255,0.6); }
+.cv-empty .t { font-family: var(--disp); font-weight: 700; font-size: 1.34rem; color: var(--ink); margin-bottom: 8px; }
+.cv-empty .s { font-size: 0.92rem; color: var(--muted); max-width: 360px; line-height: 1.55; }
+.q-bub { align-self: flex-end; max-width: 82%; padding: 13px 18px; background: var(--blue); color: #fff; border-radius: 20px 20px 6px 20px; font-size: 0.93rem; font-weight: 500; animation: pop 0.4s cubic-bezier(0.16,1,0.3,1); }
+@keyframes pop { from { opacity: 0; transform: translateY(8px); } }
+.typing { align-self: flex-start; display: inline-flex; gap: 6px; padding: 15px 18px; background: #16181D; border-radius: 20px 20px 20px 6px; }
+.typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--ai-b); animation: td 1.3s ease-in-out infinite; }
+.typing i:nth-child(2){ animation-delay: 0.16s; } .typing i:nth-child(3){ animation-delay: 0.32s; }
+@keyframes td { 50% { opacity: 0.3; transform: translateY(-3px); } }
+.ans { align-self: flex-start; width: 100%; animation: pop 0.45s cubic-bezier(0.16,1,0.3,1); }
+.ans-head { display: flex; align-items: center; gap: 9px; margin-bottom: 11px; }
+.ans-av { width: 24px; height: 24px; border-radius: 7px; background: var(--ai-grad); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 800; font-size: 13px; color: #fff; }
+.ans-nm { font-family: var(--disp); font-weight: 700; font-size: 0.9rem; color: var(--ink); }
+.ans-tm { font-family: var(--mono); font-size: 0.62rem; color: var(--mute-2); margin-left: auto; }
+.ans-hl { font-size: 1.04rem; line-height: 1.56; color: var(--ink); margin-bottom: 15px; padding: 0 2px; }
+.ans-hl em { font-style: normal; color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; font-weight: 700; }
+.ans-hl .pos { color: var(--pos); font-weight: 700; }
+.ans-hl .gold { color: var(--gold); font-weight: 700; }
+.ans-hl .warn { color: var(--warn); font-weight: 700; }
+.uicard { background: #101116; border: 1px solid var(--line); border-radius: 20px; padding: 20px; margin-bottom: 13px; }
+.uic-t { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.uic-t .delta { color: var(--ink); font-weight: 700; }
+.uic-t .delta.pos { color: var(--pos); } .uic-t .delta.warn { color: var(--warn); }
+.vbars { display: flex; align-items: flex-end; gap: 13px; height: 142px; }
+.vbar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 9px; }
+.vb-f { width: 100%; max-width: 46px; height: 0; border-radius: 7px 7px 3px 3px; background: linear-gradient(180deg, var(--blue-br), rgba(27,109,240,0.2)); transition: height 0.9s cubic-bezier(0.22,1,0.36,1); }
+.vbar.hl .vb-f { background: var(--ai-grad); }
+.vbar.hlg .vb-f { background: linear-gradient(180deg, var(--pos), rgba(47,198,138,0.2)); }
+.vb-l { font-family: var(--mono); font-size: 0.58rem; color: var(--muted); text-align: center; }
+.hbars { display: flex; flex-direction: column; gap: 12px; }
+.hbar { display: grid; grid-template-columns: 120px 1fr 60px; align-items: center; gap: 13px; }
+.hb-n { font-size: 0.8rem; color: var(--ink-2); }
+.hb-tk { height: 9px; background: rgba(255,255,255,0.07); border-radius: 5px; overflow: hidden; }
+.hb-f { height: 100%; width: 0; border-radius: 5px; transition: width 0.9s cubic-bezier(0.22,1,0.36,1); }
+.hbar.good .hb-f { background: linear-gradient(90deg, rgba(47,198,138,0.45), var(--pos)); }
+.hbar.mid .hb-f { background: var(--ai-grad); }
+.hbar.warn .hb-f { background: linear-gradient(90deg, rgba(240,132,60,0.4), var(--warn)); }
+.hb-v { font-family: var(--mono); font-size: 0.74rem; color: var(--ink); text-align: right; font-weight: 700; }
+.why { background: rgba(124,107,255,0.07); border: 1px solid rgba(124,107,255,0.22); border-radius: 18px; padding: 16px 18px; }
+.why-l { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; margin-bottom: 8px; font-weight: 700; }
+.why-t { font-size: 0.9rem; line-height: 1.62; color: var(--ink-2); }
+.why-t strong { color: #fff; font-weight: 700; }
+.navpill { display: flex; justify-content: center; padding: 4px 0 16px; }
+.navpill i { width: 128px; height: 5px; border-radius: 5px; background: rgba(255,255,255,0.28); }
+.stage-note { text-align: center; margin-top: 22px; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; color: var(--mute-2); }
+
+/* ───── INSIDE / data reality ───── */
+.split { display: grid; grid-template-columns: 1.04fr 0.96fr; gap: 64px; align-items: start; }
+.sb p { font-size: 1.05rem; line-height: 1.78; color: var(--ink-2); margin-bottom: 19px; }
+.sb p:last-child { margin-bottom: 0; }
+.sb p strong { color: #fff; font-weight: 700; }
+.sb .q { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; font-weight: 600; }
+.ui-list { border-radius: 20px; overflow: hidden; border: 1px solid var(--line); }
+.uli { display: grid; grid-template-columns: 40px 1fr; gap: 16px; padding: 19px 22px; background: var(--card); border-bottom: 1px solid var(--line-soft); }
+.uli:last-child { border-bottom: none; }
+.uli .x { font-family: var(--disp); font-weight: 800; font-size: 1rem; color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; }
+.uli h4 { font-family: var(--disp); font-weight: 700; font-size: 1.02rem; color: var(--ink); margin-bottom: 4px; }
+.uli p { font-size: 0.87rem; color: var(--ink-2); line-height: 1.55; }
+
+/* ───── SPEC SHEET / security ───── */
+.specsheet { border-top: 1px solid var(--titan-lo); }
+.spec {
+  display: grid; grid-template-columns: 230px 1fr; gap: 40px;
+  padding: 28px 0; border-bottom: 1px solid var(--line-soft); align-items: start;
+}
+.spec .sp-k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+.spec .sp-v { font-size: 1.06rem; line-height: 1.62; color: var(--ink-2); }
+.spec .sp-v strong { color: #fff; font-weight: 700; }
+.spec .sp-v .g { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; font-weight: 700; }
+.escrow { margin-top: 40px; border-radius: 20px; padding: 28px 32px; border: 1px solid transparent;
+  background: linear-gradient(var(--card-2), var(--card-2)) padding-box, var(--ai-grad) border-box;
+  font-size: 1.04rem; line-height: 1.68; color: var(--ink-2); }
+.escrow strong { color: #fff; font-weight: 700; }
+.escrow .q { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; font-weight: 600; }
+@media (max-width: 720px){ .spec{ grid-template-columns: 1fr; gap: 8px; } }
+
+/* ───── BUILT TO FIT ───── */
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.tcard { border: 1px solid var(--line); border-radius: 20px; padding: 32px 28px; background: var(--card); }
+.tcard .ti { width: 42px; height: 42px; border-radius: 12px; background: rgba(124,107,255,0.13); color: var(--ai-b); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.tcard h3 { font-family: var(--disp); font-weight: 700; font-size: 1.16rem; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; }
+.tcard p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; }
+.tcard p strong { color: #fff; font-weight: 600; }
+
+/* ───── PROVEN ───── */
+.proof { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; }
+.pc { border: 1px solid var(--line); border-radius: 20px; padding: 32px 28px; background: var(--card); }
+.pc.lead { border-color: transparent; background: linear-gradient(var(--card-2), var(--card-2)) padding-box, var(--ai-grad) border-box; }
+.pc .stat { font-family: var(--disp); font-weight: 800; font-size: 2.7rem; line-height: 1; letter-spacing: -0.03em; margin-bottom: 6px; color: var(--ink); }
+.pc.lead .stat { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; }
+.pc .cap { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute-2); margin-bottom: 16px; }
+.pc p { font-size: 0.93rem; color: var(--ink-2); line-height: 1.62; }
+.pc p strong { color: #fff; font-weight: 700; }
+
+/* ───── MAKERS ───── */
+.mk { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.mk-facts { border-top: 1px solid var(--titan-lo); }
+.mkr { display: grid; grid-template-columns: 150px 1fr; gap: 22px; padding: 17px 0; border-bottom: 1px solid var(--line-soft); }
+.mkr .k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute-2); padding-top: 3px; }
+.mkr .v { font-size: 0.98rem; color: var(--ink-2); line-height: 1.55; }
+.mkr .v strong { color: #fff; font-weight: 700; }
+.mk-body p { font-size: 1.04rem; line-height: 1.76; color: var(--ink-2); margin-bottom: 18px; }
+.mk-body p strong { color: #fff; font-weight: 700; }
+.mk-body .q { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; font-weight: 600; }
+.badges { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 26px; }
+.bdg { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); border: 1px solid var(--line); border-radius: 7px; padding: 8px 12px; }
+
+/* ───── AVAILABILITY ───── */
+.avail { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 22px; align-items: start; }
+.poc { border-radius: 24px; padding: 42px 40px; border: 1px solid transparent;
+  background: linear-gradient(155deg, #0E0F19, #0A0A0C) padding-box, var(--ai-grad) border-box;
+  box-shadow: 0 40px 100px -40px rgba(124,107,255,0.5); }
+.poc .pt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; font-weight: 700; margin-bottom: 16px; }
+.poc h3 { font-family: var(--disp); font-weight: 800; font-size: 1.8rem; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 10px; }
+.poc .ps { font-size: 0.97rem; color: var(--ink-2); line-height: 1.62; margin-bottom: 28px; }
+.poc ol { list-style: none; display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+.poc ol li { display: flex; gap: 14px; font-size: 0.97rem; color: var(--ink-2); line-height: 1.5; }
+.poc ol li strong { color: #fff; font-weight: 700; }
+.poc ol .n { font-family: var(--disp); font-weight: 800; color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; flex-shrink: 0; }
+.poc-fig { border-top: 1px solid var(--line); padding-top: 26px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.poc-amount { font-family: var(--disp); font-weight: 800; font-size: clamp(2.4rem, 4.2vw, 3.2rem); line-height: 0.95; letter-spacing: -0.035em; color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; margin-bottom: 8px; }
+.poc-unit { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-2); }
+.poc-meta { flex: 1; min-width: 200px; font-size: 0.9rem; color: var(--ink-2); line-height: 1.55; }
+.poc-meta strong { color: #fff; font-weight: 700; }
+.cost { border: 1px solid var(--line); border-radius: 24px; padding: 36px 32px; background: var(--card); }
+.cost h3 { font-family: var(--disp); font-weight: 700; font-size: 1.22rem; color: var(--ink); margin-bottom: 8px; }
+.cost .cs { font-size: 0.89rem; color: var(--ink-2); margin-bottom: 22px; line-height: 1.55; }
+.co { padding: 17px 0; border-top: 1px solid var(--line-soft); }
+.co:first-of-type { border-top: 1px solid var(--titan-lo); }
+.co .cn { font-family: var(--disp); font-weight: 700; font-size: 0.99rem; color: var(--ink); margin-bottom: 5px; }
+.co .cn .tg { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--ai-grad); border-radius: 5px; padding: 3px 7px; margin-left: 8px; vertical-align: middle; }
+.co p { font-size: 0.86rem; color: var(--ink-2); line-height: 1.55; }
+.co p strong { color: #fff; font-weight: 700; }
+
+/* ───── CLOSE ───── */
+.close { padding: 150px 0 130px; text-align: center; position: relative; overflow: hidden; }
+.close .keylight { top: -10%; }
+.close-in { position: relative; z-index: 2; }
+.close-teaser { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+.close-h { font-family: var(--disp); font-weight: 800; font-size: clamp(2.2rem, 6vw, 4.4rem); line-height: 1.06; letter-spacing: -0.035em; color: var(--ink); max-width: 20ch; margin: 0 auto 24px; }
+.close-h .g { color: transparent; background: var(--ai-grad); -webkit-background-clip: text; background-clip: text; }
+.close-s { font-size: 1.08rem; color: var(--ink-2); max-width: 56ch; margin: 0 auto 40px; line-height: 1.66; }
+.close-s strong { color: var(--ink-2); font-weight: 600; }
+.close-cta { display: inline-flex; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 700; font-size: 1.02rem; color: #fff; background: var(--ai-grad); border-radius: 999px; padding: 16px 32px; text-decoration: none; margin-bottom: 36px; box-shadow: 0 20px 50px -18px rgba(124,107,255,0.7); }
+.close-by { font-family: var(--mono); font-size: 0.74rem; color: var(--mute-2); letter-spacing: 0.04em; }
+.close-by a { color: var(--ai-b); text-decoration: none; font-weight: 700; }
+
+footer { padding: 28px 0; border-top: 1px solid var(--line-soft); }
+.foot { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.foot-c { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; color: var(--mute-2); }
+.foot-b { display: flex; gap: 9px; }
+.foot-b span { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-2); border: 1px solid var(--line); border-radius: 6px; padding: 6px 9px; }
+
+/* Reveal — start partly visible so nothing reads as missing if observer is slow */
+.rv { opacity: 0.55; transform: translateY(10px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+.rv.in { opacity: 1; transform: none; }
+.rv1 { transition-delay: 0.08s; } .rv2 { transition-delay: 0.16s; } .rv3 { transition-delay: 0.24s; } .rv4 { transition-delay: 0.32s; }
+@media (prefers-reduced-motion: reduce){ .rv{ opacity: 1; transform: none; } .scroll-cue{ animation: none; } }
+
+@media (max-width: 900px){
+  .band { padding: 84px 0; }
+  .rev-grid, .split, .mk, .avail { grid-template-columns: 1fr; gap: 30px; }
+  .trio, .proof { grid-template-columns: 1fr; }
+  .chips { grid-template-columns: 1fr; }
+  h1 { font-size: clamp(3.4rem, 22vw, 7rem); }
+  .device { border-radius: 40px; }
+  .screen { border-radius: 32px; }
+}
+@media print {
+  .top, .progress, .rail, .scroll-cue { display: none; }
+  body { background: #fff; color: #000; }
+  .rv { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="rail l"></div>
+<div class="rail r"></div>
+
+<header class="top" id="top">
+  <div class="top-l">
+    <a href="#" class="milo-logo" aria-label="Milo"><img src="https://raw.githubusercontent.com/Tomp1234/proposals/main/quay-tickets-proposal/milo-logo.jpeg" alt="Milo"></a>
+    <span class="slash">╱</span>
+    <span class="sam">SAMSUNG</span>
+  </div>
+  <div class="top-r">Unpacked · Consumer &amp; Market Insights · Private</div>
+</header>
+
+<!-- ═════ HERO · UNPACKED ═════ -->
+<section class="hero">
+  <div class="keylight"></div>
+  <div class="beam"></div>
+  <div class="wrap hero-in">
+    <div class="teaser-eyebrow rv"><span class="dot"></span>Milo · an introduction for Loretta · Consumer &amp; Market Insights</div>
+    <div class="teaser-small rv rv1">The missing part of the puzzle, already</div>
+    <h1 class="rv rv1">Unpacked</h1>
+    <p class="hero-sub rv rv2">
+      The retailer-media question you said you're <strong>still struggling to solve</strong>. The patterns across data that doesn't gel. Answered by a tool that runs <strong>inside Samsung's own infrastructure</strong> and never sends a row anywhere.
+    </p>
+    <div class="spec-strip rv rv3">
+      <div class="ss"><div class="ss-l">Where it runs</div><div class="ss-v">Your cloud,<br>or air-gapped</div></div>
+      <div class="ss"><div class="ss-l">Data out</div><div class="ss-v">None.<br>Ever.</div></div>
+      <div class="ss"><div class="ss-l">First step</div><div class="ss-v">One question,<br>ring-fenced</div></div>
+      <div class="ss"><div class="ss-l">Back to you</div><div class="ss-v">This<br>week</div></div>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll<span>↓</span></div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ 01 · THE REVEAL ═════ -->
+<section class="band">
+  <div class="wrap">
+    <div class="kick rv"><div class="kick-n">01</div><div class="kick-r"><span class="kick-step">Section 01 / 08</span><span class="kick-lbl">The reveal</span></div></div>
+    <h2 class="rv rv1">Getting the best <span class="g">use out of AI.</span></h2>
+    <p class="lede rv rv2">
+      You named the constraints yourself: Copilot's upload is disabled, Gauss is tuned for the devices, and the policy is to put nothing into any LLM. That isn't the problem. <strong>The problem is that none of those were built to interrogate Samsung's data, and large language models choke on real datasets anyway.</strong> Milo is a different kind of system.
+    </p>
+    <div class="rev-grid">
+      <div class="slab rv rv1">
+        <div class="slab-tag"><span class="b"></span>Today · what you've got</div>
+        <h3>Three tools, three gaps.</h3>
+        <div class="row3">
+          <div class="r3"><div class="r3-h">Copilot</div><div class="r3-t">Upload disabled, plus function off. Policy says nothing goes in.</div></div>
+          <div class="r3"><div class="r3-h">Gauss · internal LLM</div><div class="r3-t">Tuned for the devices, not for analysing sell-out or brand data.</div></div>
+          <div class="r3"><div class="r3-h">Any LLM, on its own</div><div class="r3-t">Falls over on large datasets. Can't predict. No real maths.</div></div>
+        </div>
+        <div class="slab-foot">Fine for drafting an email. Not for the question that's been on your desk six months.</div>
+      </div>
+      <div class="slab milo rv rv2">
+        <div class="slab-tag"><span class="b"></span>Milo · purpose-built</div>
+        <h3>A data analyst that doesn't leave.</h3>
+        <ul class="mlist">
+          <li><span class="tick">✓</span><span>An LLM on the front so the team just <strong>asks in plain English</strong>.</span></li>
+          <li><span class="tick">✓</span><span><strong>Time-series and statistical models</strong> do the heavy lifting and the predictions, not the LLM.</span></li>
+          <li><span class="tick">✓</span><span>Writes and runs its own code to join data that <span class="g">doesn't gel</span>.</span></li>
+          <li><span class="tick">✓</span><span>The <span class="g">why</span> and the pattern, with the caveat, not just a number.</span></li>
+          <li><span class="tick">✓</span><span>Deploys <strong>inside Samsung's tenancy</strong>. Your models, your cloud, or offline.</span></li>
+        </ul>
+        <div class="slab-foot">The senior analyst's two weeks of work, in a couple of minutes, behind your own wall.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ 02 · HANDS-ON ═════ -->
+<section class="band">
+  <div class="wrap">
+    <div class="kick rv"><div class="kick-n">02</div><div class="kick-r"><span class="kick-step">Section 02 / 08</span><span class="kick-lbl">Hands-on</span></div></div>
+    <h2 class="rv rv1">Pick a question Samsung <span class="g">can't answer today.</span></h2>
+    <p class="lede rv rv2">
+      Your questions, in your words, from the call. Tap one and watch Milo answer inside its own app: the headline, the chart, and the reasoning, with the lag and the caveat, because you asked exactly how deep it goes. Start with the one you said you're still struggling to solve.
+    </p>
+
+    <div class="stage rv rv2">
+      <div class="device">
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="sb-r">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 4.2a9 9 0 0113 0M3.4 6.8a5.4 5.4 0 018.2 0" stroke-linecap="round"/><circle cx="7.5" cy="9.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+              <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.6" y="0.6" width="20" height="10.8" rx="2.6" stroke="currentColor" stroke-opacity="0.5"/><rect x="2.4" y="2.4" width="14" height="7.2" rx="1.4" fill="currentColor"/><rect x="21.4" y="3.6" width="2" height="4.8" rx="1" fill="currentColor" fill-opacity="0.5"/></svg>
+            </span>
+          </div>
+          <div class="appbar">
+            <div class="app-avatar">m</div>
+            <div>
+              <div class="app-name">Milo</div>
+              <div class="app-sub">milo.samsung.internal</div>
+            </div>
+            <div class="app-kebab"><i></i><i></i><i></i></div>
+          </div>
+          <div class="askfield">
+            <svg class="sparkle" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 4.6L18 9l-4.4 1.4L12 15l-1.6-4.6L6 9l4.4-1.4L12 3z" fill="url(#sg)"/><defs><linearGradient id="sg" x1="6" y1="3" x2="18" y2="15"><stop stop-color="#3D7BFF"/><stop offset="1" stop-color="#A36BFF"/></linearGradient></defs></svg>
+            <span>Ask Milo about Samsung's data<span class="gradtext"> …</span></span>
+          </div>
+          <div class="chips" id="chips">
+            <button class="chip lead" data-q="q1"><span class="ar">›</span><span>We spend a fortune on retailer banners. Did they actually drive sales?<span class="ctag">Where to start</span></span></button>
+            <button class="chip" data-q="q2"><span class="ar">›</span><span>Sell-in vs sell-out: where is stock stranded, and at which retailers?</span></button>
+            <button class="chip" data-q="q3"><span class="ar">›</span><span>Do brand metrics actually drive sales, and with what lag?</span></button>
+            <button class="chip" data-q="q4"><span class="ar">›</span><span>The range is too complex. Which SKUs can we cut without losing revenue?</span></button>
+            <button class="chip" data-q="q5"><span class="ar">›</span><span>Which registered customers are most likely to expand into the ecosystem?</span></button>
+            <button class="chip" data-q="q6"><span class="ar">›</span><span>Across every channel, what marketing spend works and what's wasted?</span></button>
+          </div>
+          <div class="canvas" id="canvas">
+            <div class="cv-empty" id="cvEmpty">
+              <div class="ic">m</div>
+              <div class="t">Ready when you are.</div>
+              <div class="s">Tap a question above. You'll get the answer, the chart, and the reasoning behind it, not a dashboard you still have to read.</div>
+            </div>
+          </div>
+          <div class="navpill"><i></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note">Illustrative, on dummy data. The shape of the answer is real; the numbers become yours in the POC.</div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ 03 · INSIDE ═════ -->
+<section class="band">
+  <div class="wrap">
+    <div class="kick rv"><div class="kick-n">03</div><div class="kick-r"><span class="kick-step">Section 03 / 08</span><span class="kick-lbl">Inside</span></div></div>
+    <h2 class="rv rv1">Your data might be messy, siloed, won't join up. <span class="g">Milo interacts with it.</span></h2>
+    <p class="lede rv rv2">
+      You said the warehouse exists but very little of it joins up, sell-in and sell-out don't gel, the dashboards live in Qlik Sense, and the business is siloed enough that the left hand doesn't see the right. <strong>That isn't a reason Milo won't work. It's the reason it's worth doing.</strong> If the data were clean, you wouldn't need us.
+    </p>
+    <div class="split">
+      <div class="sb rv rv1">
+        <p>We have never met a company with data clean and in one place. It does not happen. The companies worth solving for are the ones with <span class="q">ten or twenty sources that don't match at all</span>, which is exactly where the value sits, because nobody else can get into it.</p>
+        <p>So data preparation isn't a precondition we hand back to your team. <strong>It's part of what Milo does.</strong> It writes the code to reconcile sell-in against sell-out, resolves the same product and customer across systems that name them differently, and holds Samsung's own definitions so a question means the same thing twice.</p>
+        <p>And every answer is built on <strong>Samsung's data only</strong>, never the open web, with the source and the rows behind it. The number you take into a room is one you can stand behind.</p>
+      </div>
+      <div class="ui-list rv rv2">
+        <div class="uli"><div class="x">01</div><div><h4>Reconciliation</h4><p>Sell-in from factories to retailers, against sell-out from stores, in formats that never agreed before.</p></div></div>
+        <div class="uli"><div class="x">02</div><div><h4>Identity resolution</h4><p>The same SKU and the same customer, stitched across the warehouse, D2C and the registered base.</p></div></div>
+        <div class="uli"><div class="x">03</div><div><h4>Your definitions</h4><p>Samsung's rules and language onboarded, the way you'd brief a new colleague, so answers stay consistent.</p></div></div>
+        <div class="uli"><div class="x">04</div><div><h4>Lineage</h4><p>Every figure shows its source. Click through to the underlying rows. Audit-ready.</p></div></div>
+        <div class="uli"><div class="x">05</div><div><h4>External in</h4><p>Weather, market and competitive data joined to the internal picture, the bridge you said is untapped.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ 04 · ENGINEERED FOR SAMSUNG ═════ -->
+<section class="band">
+  <div class="wrap">
+    <div class="kick rv"><div class="kick-n">04</div><div class="kick-r"><span class="kick-step">Section 04 / 08</span><span class="kick-lbl">Engineered for Samsung</span></div></div>
+    <h2 class="rv rv1">It runs inside your wall. <span class="g">Nothing leaves it.</span></h2>
+    <p class="lede rv rv2">
+      You were direct: the policy is to upload nothing to any LLM, even Gauss, and a tool that holds Samsung's data and can't be removed is a non-starter. So Milo was built the other way round. Read it as a spec sheet.
+    </p>
+    <div class="specsheet rv rv1">
+      <div class="spec"><div class="sp-k">Deployment</div><div class="sp-v">Into Samsung's own <strong>AWS, GCP or Azure</strong> account, or fully <strong>on-prem and offline</strong>. It lives in your tenancy, locked up. <span class="g">No row passes back out to us.</span></div></div>
+      <div class="spec"><div class="sp-k">Model</div><div class="sp-v">Point Milo at your own connection to <strong>Azure OpenAI</strong>, or at <strong>Gauss</strong>, inside the tenancy. Many tools can only call out to OpenAI. Milo doesn't have to call anything out.</div></div>
+      <div class="spec"><div class="sp-k">Data buckets</div><div class="sp-v">Proprietary and embargo, market research, and bought-in subscription data all handled the same way, <strong>because none of it leaves</strong>.</div></div>
+      <div class="spec"><div class="sp-k">Training</div><div class="sp-v">Samsung's data answers Samsung's questions. Full stop. It <strong>never trains anything</strong>, and the contract says so.</div></div>
+      <div class="spec"><div class="sp-k">Surface</div><div class="sp-v"><strong>White-labelled</strong> as your own internal tool. Your name on it, your perimeter around it.</div></div>
+    </div>
+    <div class="escrow rv rv2">
+      The objection you raised at the end: <span class="q">“you become beholden to them.”</span> You won't be. <strong>The deployment lives in Samsung's tenancy, and a code-escrow arrangement sits behind it, so if Milo went away tomorrow the application keeps running and Samsung keeps it.</strong> That is also the honest answer to the startup question: self-hosted means there is no plug for anyone to pull.
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ 05 · BUILT TO FIT ═════ -->
+<section class="band">
+  <div class="wrap">
+    <div class="kick rv"><div class="kick-n">05</div><div class="kick-r"><span class="kick-step">Section 05 / 08</span><span class="kick-lbl">Built to fit</span></div></div>
+    <h2 class="rv rv1">The numbers engine <span class="g">inside your tool.</span></h2>
+    <p class="lede rv rv2">You've been building a piece of this for six months and you're scoping an internal team for the document side. Milo doesn't compete with that. It slots under it.</p>
+    <div class="trio">
+      <div class="tcard rv rv1">
+        <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9" stroke-linecap="round"/></svg></div>
+        <h3>Headless by design</h3>
+        <p>The heavy lifting is on the back end. Use Milo as the data-analysis engine behind your own front end, a feature inside the wider tool you're building.</p>
+      </div>
+      <div class="tcard rv rv2">
+        <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round"/></svg></div>
+        <h3>The honest boundary</h3>
+        <p>Milo is for tabular, numeric data. You can drop a deck in as context and pull numbers from it, but it isn't a PDF-search tool. The harder problem, the numbers, is the one we solve.</p>
+      </div>
+      <div class="tcard rv rv3">
+        <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17l6-6 4 4 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Outputs that recombine</h3>
+        <p>Your PDF-synthesis layer answers the qualitative side. Milo answers the quantitative side. They meet at the output: one architecture, two halves of the puzzle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ 06 · PROVEN ═════ -->
+<section class="band">
+  <div class="wrap">
+    <div class="kick rv"><div class="kick-n">06</div><div class="kick-r"><span class="kick-step">Section 06 / 08</span><span class="kick-lbl">Proven</span></div></div>
+    <h2 class="rv rv1">You asked for evidence. <span class="g">Here it is.</span></h2>
+    <p class="lede rv rv2">Not a claim about depth. A check against an independent benchmark, which is the thing you asked to see.</p>
+    <div class="proof">
+      <div class="pc lead rv rv1">
+        <div class="stat">~95%</div>
+        <div class="cap">National lottery · forecast benchmark</div>
+        <p>The Lithuanian national lottery paid a software consultancy to forecast performance, including external signals like weather. We had Milo reproduce the same analysis and compared it to the agency's own report. <strong>Within roughly 95%</strong>, with a few definitional differences, no more. A sector that is scientific and unforgiving about being wrong.</p>
+      </div>
+      <div class="pc rv rv2">
+        <div class="stat">Kellogg's</div>
+        <div class="cap">Global FMCG · pattern surfaced</div>
+        <p>Data scattered everywhere, no single clear view. Milo joined it and surfaced that stores were short on <strong>Cocoa Pops across Dubai</strong>, a pattern that was sitting there unseen. Deployed on their own environment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ 07 · THE MAKERS ═════ -->
+<section class="band">
+  <div class="wrap">
+    <div class="kick rv"><div class="kick-n">07</div><div class="kick-r"><span class="kick-step">Section 07 / 08</span><span class="kick-lbl">The makers</span></div></div>
+    <h2 class="rv rv1">Who Milo is, <span class="g">plainly.</span></h2>
+    <div class="mk">
+      <div class="mk-facts rv rv1">
+        <div class="mkr"><div class="k">Based</div><div class="v"><strong>Canary Wharf, London</strong>, with an office in San Francisco.</div></div>
+        <div class="mkr"><div class="k">Company</div><div class="v">A VC-backed startup, around <strong>two years old</strong>, scaling hard since the start of this year. New names and funding landing now.</div></div>
+        <div class="mkr"><div class="k">Customers</div><div class="v">Including <strong>Kellogg's</strong>, deployed on their own environment, plus a national lottery and multi-site operators.</div></div>
+        <div class="mkr"><div class="k">The product</div><div class="v">Milo: an LLM front end over time-series and statistical models, deployable inside your walls.</div></div>
+        <div class="mkr"><div class="k">If we vanished</div><div class="v">Code escrow plus self-hosting. <strong>Samsung keeps a running application.</strong></div></div>
+        <div class="badges">
+          <span class="bdg">ISO 27001 certified</span>
+          <span class="bdg">SOC 2 compliant</span>
+          <span class="bdg">EU hosted</span>
+          <span class="bdg">usemilo.ai</span>
+        </div>
+      </div>
+      <div class="mk-body rv rv2">
+        <p>We'll be direct, because you raised it: we are a young company, and big, risk-averse organisations are right to weigh that carefully. <strong>It's a fair concern and we don't dodge it.</strong></p>
+        <p>The honest answer is structural, not a reassurance. Because Milo runs inside Samsung's own environment with code in escrow, <span class="q">there is no portal to be locked into and no plug for anyone to pull.</span> The thing you'd worry about with a startup is the thing the deployment model already removes.</p>
+        <p>And the reason the company is two years old is the same reason it can do this at all. The capability is new. The vendors who have been around twenty years are not the ones building it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ 08 · AVAILABILITY ═════ -->
+<section class="band">
+  <div class="wrap">
+    <div class="kick rv"><div class="kick-n">08</div><div class="kick-r"><span class="kick-step">Section 08 / 08</span><span class="kick-lbl">Availability</span></div></div>
+    <h2 class="rv rv1">Small, ring-fenced, <span class="g">reversible.</span></h2>
+    <p class="lede rv rv2">You said it best: Samsung never boils the ocean, it does a small thing, gets it working, then builds out. So the first step is one question, walled off, on your environment, with a clear test of whether it worked.</p>
+    <div class="avail">
+      <div class="poc rv rv1">
+        <div class="pt">Proof of concept</div>
+        <h3>One question. Proven on your data.</h3>
+        <p class="ps">The retailer-media question, the one you're still struggling to solve, on ring-fenced data, attributed from what Samsung already owns so you never have to ask Currys.</p>
+        <ol>
+          <li><span class="n">01</span><span><strong>Scope.</strong> One question, one ring-fenced dataset, defined together so it maps to Samsung.</span></li>
+          <li><span class="n">02</span><span><strong>Stand up.</strong> Milo deployed inside your environment. Our engineering side does the wiring, no lift on you.</span></li>
+          <li><span class="n">03</span><span><strong>Prove.</strong> The answer, against a success test you set up front. It worked, or it didn't.</span></li>
+          <li><span class="n">04</span><span><strong>Expand.</strong> Lands in Insights, then a path to the BI team or wider, on your call.</span></li>
+        </ol>
+        <div class="poc-fig">
+          <div>
+            <div class="poc-amount">£2,500</div>
+            <div class="poc-unit">6-week proof of concept</div>
+          </div>
+          <div class="poc-meta">Scoped as a project for Insights, not a company-wide rollout. <strong>Walk away after, no penalty.</strong></div>
+        </div>
+      </div>
+      <div class="cost rv rv2">
+        <h3>The cost model</h3>
+        <p class="cs">You asked for the model, not a number. We'll send the full options overview. The shape:</p>
+        <div class="co"><div class="cn">Self-hosted licence <span class="tg">recommended</span></div><p>Your infrastructure, your models or Microsoft connection. Essentially a flat fee. Most predictable, nothing leaves, not beholden.</p></div>
+        <div class="co"><div class="cn">Hybrid</div><p>Your infrastructure, a mix of your models and ours. A blended structure for a middle ground.</p></div>
+        <div class="co"><div class="cn">Milo-hosted</div><p>The standard online version. Likely not the Samsung route, included so the comparison is complete.</p></div>
+        <div class="co"><div class="cn">How it scales</div><p>Sized to team usage, tied to interactions across the team using it rather than punitive per seat. So the figure tracks how Milo actually gets used. <strong>Current customer examples on request.</strong></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hinge"></div></div>
+
+<!-- ═════ CLOSE ═════ -->
+<section class="close">
+  <div class="keylight"></div>
+  <div class="wrap close-in">
+    <div class="close-teaser rv">The next step</div>
+    <div class="close-h rv rv1">The missing part of the puzzle. <span class="g">Inside your own wall.</span></div>
+    <p class="close-s rv rv1">You've been building toward this for six months. The next step is small, ring-fenced and reversible: <strong>pick the question, we come back with exactly what we'd need to stand it up, the rest is on us.</strong></p>
+    <a class="close-cta rv rv2" href="mailto:tom@milo.ai?subject=Milo%20%C3%97%20Samsung%20%E2%80%94%20the%20question%20to%20ring-fence">Pick the question →</a>
+    <div class="close-by rv rv2">Tom Pickett · <a href="mailto:tom@milo.ai">tom@milo.ai</a> · usemilo.ai · prepared for Loretta · 19 May 2026</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="top-l">
+      <a href="#" class="milo-logo" aria-label="Milo"><img src="https://raw.githubusercontent.com/Tomp1234/proposals/main/quay-tickets-proposal/milo-logo.jpeg" alt="Milo"></a>
+      <span class="slash">╱</span>
+      <span class="sam">SAMSUNG</span>
+    </div>
+    <div class="foot-c">Unpacked · Consumer &amp; Market Insights</div>
+    <div class="foot-b"><span>Self-hosted</span><span>ISO 27001</span><span>SOC 2</span><span>Code escrow</span></div>
+  </div>
+</footer>
+
+<script>
+const pr = document.getElementById('progress');
+addEventListener('scroll', () => { const h = document.documentElement; pr.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'; }, { passive:true });
+
+const topEl = document.getElementById('top');
+let last = 0;
+addEventListener('scroll', () => { const s = scrollY; if (s>last && s>220) topEl.classList.add('hide'); else topEl.classList.remove('hide'); last = s; }, { passive:true });
+
+const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold:0.12, rootMargin:'0px 0px -50px 0px' });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+const ANSWERS = {
+  q1: {
+    question: "We spend a fortune with retailers for those banners. Did they actually drive sales, and which ones?",
+    headline: `Across the last 6 retailer-media flights, <em>3 of 6</em> paid back. The Currys homepage banner returned an estimated <span class="pos">£4.10 per £1</span>. Two flights returned under <em>£0.70</em>.`,
+    chart: { type:'hbars', title:'Estimated incremental return · per £1 retailer media · last 6 flights', bars:[
+      { name:'Currys · homepage', val:'£4.10', pct:92, tone:'good' },
+      { name:'AO · category', val:'£2.30', pct:64, tone:'good' },
+      { name:'Currys · search', val:'£1.40', pct:44, tone:'mid' },
+      { name:'Amazon · DSP', val:'£0.95', pct:32, tone:'mid' },
+      { name:'John Lewis · email', val:'£0.60', pct:20, tone:'warn' },
+      { name:'Very · banner', val:'£0.45', pct:15, tone:'warn' } ] },
+    why: `No retailer pixel needed. The lift is triangulated from data Samsung already owns: <strong>sell-out by retailer against the flight calendar</strong>, with brand-search and D2C traffic as controls, and a matched no-media window as the baseline. The two weak flights overlapped a price promotion, so part of what looked like banner lift was actually the discount. <strong>Caveat:</strong> sell-out feeds from two retailers lag 6 to 9 days, so the most recent flight is provisional and will firm up. You can take the three winners back to the marketing team now.`
+  },
+  q2: {
+    question: "Sell-in versus sell-out: where is stock stranded, and at which retailers?",
+    headline: `<em>£3.4m</em> of stranded stock across 4 retailers. One accounts for <span class="gold">61%</span> of it, concentrated in two TV lines.`,
+    chart: { type:'vbars', title:'Sell-in minus sell-out · weeks of cover above target', delta:'£3.4m stranded', deltaClass:'warn', bars:[
+      { h:80, label:'Retailer A', hl:true },{ h:34, label:'Retailer B' },{ h:22, label:'Retailer C' },{ h:15, label:'Retailer D' },{ h:8, label:'Rest' } ] },
+    why: `Sell-in and sell-out never agreed on format, so this couldn't be seen before. Milo reconciled both feeds to a common SKU and week. <strong>Retailer A is carrying 9+ weeks of cover on two premium TV lines</strong> while a third is stocking out, a misallocation, not an over-order. The fix is a rebalance conversation with one account, not a production change. <strong>Caveat:</strong> Retailer C reports fortnightly, so its figure is interpolated between reads.`
+  },
+  q3: {
+    question: "Do our brand metrics actually drive sales, and if so with what lag?",
+    headline: `Consideration moves sales with a <em>6 to 8 week lag</em>. Unaided awareness, on its own, <span class="warn">does not</span>.`,
+    chart: { type:'hbars', title:'Correlation with net sales · at best-fit lag', bars:[
+      { name:'Consideration', val:'0.71 · 7w', pct:88, tone:'good' },
+      { name:'Purchase intent', val:'0.64 · 5w', pct:78, tone:'good' },
+      { name:'Perception: value', val:'0.49 · 9w', pct:58, tone:'mid' },
+      { name:'Aided awareness', val:'0.28 · 11w', pct:34, tone:'mid' },
+      { name:'Unaided awareness', val:'0.11 · n/a', pct:14, tone:'warn' } ] },
+    why: `Milo aligned the brand tracker against net sales and searched the lag that best fits, rather than assuming one. <strong>Consideration is the lead indicator that matters, and it leads by roughly seven weeks</strong>, long enough to act on. Awareness spend that doesn't convert to consideration isn't showing up in sales. <strong>Caveat:</strong> correlation at this lag is strong and stable across three years, but a clean read on causation needs one controlled burst, which the POC can design.`
+  },
+  q4: {
+    question: "The range is too complex. Which SKUs can we rationalise without losing revenue?",
+    headline: `<em>23% of SKUs</em> drive under <span class="warn">4%</span> of revenue and almost no incremental reach. Cutting the tail risks <span class="pos">~0.6%</span> of revenue, not 23%.`,
+    chart: { type:'vbars', title:'Revenue concentration · cumulative, SKUs ranked', delta:'23% of SKUs ≈ 4%', deltaClass:'warn', bars:[
+      { h:70, label:'Top 10%' },{ h:88, label:'Top 25%', hlg:true },{ h:95, label:'Top 50%' },{ h:99, label:'Top 75%' },{ h:100, label:'All' } ] },
+    why: `Milo ranked every SKU by revenue, then checked whether the tail brings <strong>incremental buyers or just shelf complexity</strong>. Most of the long tail is bought by customers who also buy a core line, so the revenue is largely recoverable, not lost. The exception is flagged: four tail SKUs are the only Samsung purchase for a distinct customer group, so they stay. <strong>Caveat:</strong> assumes current pricing and channel mix; a structural promo change would shift the line.`
+  },
+  q5: {
+    question: "Which registered customers are most likely to expand into the Samsung ecosystem?",
+    headline: `<em>41,000</em> registered owners are high-probability to add a second category in 6 months. They are <span class="pos">not</span> the ones a recency model would pick.`,
+    chart: { type:'hbars', title:'Ecosystem-expansion propensity · top signals', bars:[
+      { name:'Cross-category app use', val:'strong', pct:90, tone:'good' },
+      { name:'Registered 2+ devices', val:'strong', pct:82, tone:'good' },
+      { name:'Recent support contact', val:'positive', pct:60, tone:'mid' },
+      { name:'Warranty extension', val:'positive', pct:52, tone:'mid' },
+      { name:'Recency alone', val:'weak', pct:22, tone:'warn' } ] },
+    why: `This is the long-cycle version of the churn example, rebuilt for Samsung: a phone isn't repurchased for two years, so the question isn't churn, it's <strong>expansion into the ecosystem, where lifetime value is made</strong>. The strongest signal is cross-category app engagement, not how recently someone bought. A customer quiet on purchases but active across two device apps is a far better expansion target than a recent single-device buyer. <strong>Caveat:</strong> the registered base is thin on demographics, so this leans on behavioural signals, which here is the more predictive side anyway.`
+  },
+  q6: {
+    question: "Across every channel, what marketing spend is working and what's wasted?",
+    headline: `<em>~£2.1m</em> a year is going to two channels with no measurable contribution. Two others are <span class="pos">underfunded</span> versus their return.`,
+    chart: { type:'hbars', title:'Contribution per £ · by channel · trailing 12m', bars:[
+      { name:'Retail media · top', val:'£3.80', pct:90, tone:'good' },
+      { name:'Paid search · brand', val:'£3.10', pct:78, tone:'good' },
+      { name:'CRM · ecosystem', val:'£2.60', pct:66, tone:'good' },
+      { name:'Social · prospecting', val:'£0.90', pct:30, tone:'warn' },
+      { name:'Display · always-on', val:'£0.40', pct:14, tone:'warn' } ] },
+    why: `The same pattern as the small example you used: spend running with no return that nobody had isolated. Milo attributed contribution per channel and found <strong>always-on display and prospecting social are not paying back</strong>, while retail media and ecosystem CRM are underfunded relative to what they return. Reallocating roughly half the wasted spend covers the underfunded channels with no net budget increase. <strong>Caveat:</strong> brand and halo effects of upper-funnel display aren't captured here; a holdout in the POC would size that before any hard cut.`
+  }
+};
+
+const canvas = document.getElementById('canvas');
+const chips = document.querySelectorAll('.chip');
+
+function chart(c) {
+  if (c.type === 'vbars') return `<div class="uicard"><div class="uic-t"><span>${c.title}</span><span class="delta ${c.deltaClass||''}">${c.delta||''}</span></div><div class="vbars">${c.bars.map(b=>`<div class="vbar ${b.hl?'hl':''} ${b.hlg?'hlg':''}"><div class="vb-f" data-h="${b.h}"></div><div class="vb-l">${b.label}</div></div>`).join('')}</div></div>`;
+  if (c.type === 'hbars') return `<div class="uicard"><div class="uic-t"><span>${c.title}</span></div><div class="hbars">${c.bars.map(b=>`<div class="hbar ${b.tone||''}"><div class="hb-n">${b.name}</div><div class="hb-tk"><div class="hb-f" data-w="${b.pct}"></div></div><div class="hb-v">${b.val}</div></div>`).join('')}</div></div>`;
+  return '';
+}
+
+function answer(key) {
+  const a = ANSWERS[key]; if (!a) return;
+  const t = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+  canvas.innerHTML = `<div class="q-bub">${a.question}</div><div class="typing"><i></i><i></i><i></i></div>`;
+  canvas.scrollTop = canvas.scrollHeight;
+  setTimeout(() => {
+    const ty = canvas.querySelector('.typing'); if (ty) ty.remove();
+    canvas.insertAdjacentHTML('beforeend', `<div class="ans"><div class="ans-head"><div class="ans-av">m</div><div class="ans-nm">Milo</div><div class="ans-tm">${t}</div></div><div class="ans-hl">${a.headline}</div>${chart(a.chart)}<div class="why"><div class="why-l">Why</div><div class="why-t">${a.why}</div></div></div>`);
+    void canvas.offsetHeight;
+    setTimeout(() => {
+      canvas.querySelectorAll('.vb-f').forEach(el => el.style.height = el.getAttribute('data-h')+'%');
+      canvas.querySelectorAll('.hb-f').forEach(el => el.style.width = el.getAttribute('data-w')+'%');
+    }, 60);
+    canvas.scrollTop = canvas.scrollHeight;
+  }, 920);
+}
+
+chips.forEach(c => c.addEventListener('click', () => {
+  chips.forEach(x => x.classList.remove('active'));
+  c.classList.add('active');
+  answer(c.dataset.q);
+}));
+</script>
+
+</body>
+</html>

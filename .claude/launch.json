@@ -36,6 +36,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8800", "--directory", "milo-marigroup-proposal"],
       "port": 8800
+    },
+    {
+      "name": "samsung",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8810", "--directory", "milo-samsung-proposal"],
+      "port": 8810
     }
   ]
 }
