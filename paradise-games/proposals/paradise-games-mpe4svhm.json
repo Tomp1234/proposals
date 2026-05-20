@@ -2,7 +2,7 @@
   "id": "paradise-games-mpe4svhm",
   "slug": "paradise-games-mpe4svhm",
   "createdAt": "2026-05-20T14:02:40.618Z",
-  "updatedAt": "2026-05-20T16:05:13.815Z",
+  "updatedAt": "2026-05-20T16:25:55.969Z",
   "status": "published",
   "brand": {
     "primaryColor": "#0D1929",
@@ -83,7 +83,7 @@
       "result": "Milo replaced manual BI reporting entirely. The team went from raising tickets to getting answers on game performance and player cohorts in minutes."
     },
     "ctaText": "Book a follow-up call",
-    "ctaUrl": "https://cal.com/milo",
+    "ctaUrl": "https://meetings-eu1.hubspot.com/lrabone",
     "demoResponses": [
       {
         "type": "bar",
