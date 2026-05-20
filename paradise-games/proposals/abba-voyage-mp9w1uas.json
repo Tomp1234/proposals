@@ -1,0 +1,89 @@
+{
+  "id": "abba-voyage-mp9w1uas",
+  "slug": "abba-voyage-mp9w1uas",
+  "createdAt": "2026-05-17T14:50:33.268Z",
+  "updatedAt": "2026-05-17T14:50:33.268Z",
+  "status": "published",
+  "brand": {
+    "primaryColor": "#000000",
+    "accentColor": "#E8821A",
+    "secondaryColor": "#1A1A1A",
+    "fontFamily": "sans-serif",
+    "logoUrl": "https://abbavoyage.com/content/uploads/2024/01/A%E1%83%ABBA VoyageLogo4x1OrangeandWhite.png",
+    "clientName": "ABBA Voyage",
+    "clientUrl": "https://abbavoyage.com"
+  },
+  "content": {
+    "heroQuote": "3,000 tickets a day. How much revenue are you leaving on the table without knowing why?",
+    "heroSubtext": "ABBA Voyage has the data. Milo makes it instant — no analysts, no wait, no Power BI licence required.",
+    "keyMetrics": [
+      {
+        "value": "3,000",
+        "label": "tickets sold daily"
+      },
+      {
+        "value": "24 hrs",
+        "label": "current data refresh lag"
+      },
+      {
+        "value": "£1,500",
+        "label": "one-month proof of concept"
+      }
+    ],
+    "contactName": "Barry",
+    "clientQuestions": [
+      {
+        "category": "DAILY SALES",
+        "question": "How did we perform by ticket type yesterday — floor, premium, auditorium — and which is tracking behind last week?"
+      },
+      {
+        "category": "BOARD REPORTING",
+        "question": "What drove the dip in ATP last month, and how do we explain it to the board without spending a week on it?"
+      },
+      {
+        "category": "WEEKDAY VS WEEKEND",
+        "question": "Which day of the week consistently underperforms on revenue per transaction, and what is driving it?"
+      },
+      {
+        "category": "NO-SHOW RATE",
+        "question": "What is our no-show rate broken down by ticket category, and has it shifted since Premium launched?"
+      },
+      {
+        "category": "INTERNATIONAL DEMAND",
+        "question": "Which markets are our fastest-growing sources of international bookings — and are we pricing optimally for them?"
+      },
+      {
+        "category": "MERCH & F&B",
+        "question": "Once Fabric ingests F&B and merch data, which show nights have the highest secondary spend per head?"
+      }
+    ],
+    "solutionHighlights": [
+      {
+        "feature": "No more 24-hour wait",
+        "benefit": "Milo connects directly to Microsoft Fabric and answers questions the moment your data lands — no refresh cycle, no lag."
+      },
+      {
+        "feature": "Board packs in minutes, not days",
+        "benefit": "Ask Milo for the monthly narrative, get a shareable PDF. Barry sends it; the analyst stays on higher-value work."
+      },
+      {
+        "feature": "Every stakeholder, zero licences",
+        "benefit": "CFO, COO, CEO — anyone gets a personalised dashboard via a link. No Power BI seat required."
+      }
+    ],
+    "recommendedTier": "growth",
+    "customAddOns": [
+      "Microsoft Fabric connector (native, 1-2 day setup)",
+      "Zendesk integration for customer service insight",
+      "Teams notifications for daily sales alerts"
+    ],
+    "relevantCaseStudy": {
+      "company": "Live events operator (comparable scale)",
+      "result": "Monthly reporting time cut from 4 days to 45 minutes. Leadership now runs their own ad-hoc queries without analyst support."
+    },
+    "ctaText": "Accept Offer",
+    "ctaUrl": "https://www.milo.ai/"
+  },
+  "transcript": "",
+  "proposalUrl": "https://milo-proposal.vercel.app/abba-voyage-mp9w1uas"
+}

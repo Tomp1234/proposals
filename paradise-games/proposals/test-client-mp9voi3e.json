@@ -1,0 +1,49 @@
+{
+  "id": "test-client-mp9voi3e",
+  "slug": "test-client-mp9voi3e",
+  "createdAt": "2026-05-17T14:36:15.386Z",
+  "updatedAt": "2026-05-17T14:36:15.391Z",
+  "status": "published",
+  "brand": {
+    "primaryColor": "#000000",
+    "accentColor": "#FFFC00",
+    "secondaryColor": "#111111",
+    "fontFamily": "Inter",
+    "logoUrl": "https://example.com/logo.png",
+    "clientName": "Test Client",
+    "clientUrl": "https://example.com"
+  },
+  "content": {
+    "heroQuote": "Test proposal — is Redis working?",
+    "heroSubtext": "If you can read this at the URL below, everything is wired up.",
+    "keyMetrics": [
+      {
+        "value": "100%",
+        "label": "test pass rate"
+      }
+    ],
+    "contactName": "Anu",
+    "clientQuestions": [
+      {
+        "category": "TEST",
+        "question": "Is the Redis connection working?"
+      }
+    ],
+    "solutionHighlights": [
+      {
+        "feature": "Works",
+        "benefit": "Yes it does"
+      }
+    ],
+    "recommendedTier": "growth",
+    "customAddOns": [],
+    "relevantCaseStudy": {
+      "company": "Test Co",
+      "result": "100% uptime"
+    },
+    "ctaText": "Book a demo",
+    "ctaUrl": "https://cal.com/milo"
+  },
+  "transcript": "",
+  "proposalUrl": "https://undefined/proposals/test-client-mp9voi3e"
+}

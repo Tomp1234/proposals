@@ -1,0 +1,89 @@
+{
+  "id": "samsung-mpdy74d9",
+  "slug": "samsung-mpdy74d9",
+  "createdAt": "2026-05-20T11:56:20.944Z",
+  "updatedAt": "2026-05-20T11:56:20.946Z",
+  "status": "published",
+  "brand": {
+    "primaryColor": "#000000",
+    "secondaryColor": "#F5F5F5",
+    "accentColor": "#1428A0",
+    "fontFamily": "",
+    "logoUrl": "https://www.samsung.com/etc.clientlibs/samsung/clientlibs/consumer/global/clientlib-common/resources/images/logo-square-letter.png",
+    "clientName": "Samsung",
+    "clientUrl": "https://www.samsung.com/uk/"
+  },
+  "content": {
+    "heroQuote": "Does that Currys banner actually move the needle — or are we paying for exposure we can't measure?",
+    "heroSubtext": "Loretta, Samsung's sell-in, sell-out, brand and competitive data all live in separate systems. Milo pulls them together so your team can query across all of it. No retailer calls, no BI backlog.",
+    "keyMetrics": [
+      {
+        "value": "95%",
+        "label": "accuracy vs. specialist consulting agency"
+      },
+      {
+        "value": "2 min",
+        "label": "to run a full cross-dataset correlation"
+      },
+      {
+        "value": "20+",
+        "label": "siloed data sources unified in one query"
+      }
+    ],
+    "contactName": "Loretta",
+    "clientQuestions": [
+      {
+        "category": "RETAILER MEDIA ROI",
+        "question": "Which of our Currys and Argos banner campaigns drove measurable sell-out uplift — and which are we paying for with no return?"
+      },
+      {
+        "category": "SELL-IN VS SELL-OUT",
+        "question": "Where is the gap between what we're shipping from factories and what's clearing off retail shelves — and which SKUs are accumulating risk?"
+      },
+      {
+        "category": "RANGE OPTIMISATION",
+        "question": "Which products across our TV and appliance range are cannibalising each other — and where is our complexity costing us margin?"
+      },
+      {
+        "category": "BRAND & SPEND",
+        "question": "Do the weeks we increase media spend show movement in consideration and purchase intent — and does the pattern vary by category?"
+      },
+      {
+        "category": "ECOSYSTEM LOYALTY",
+        "question": "Which Galaxy phone buyers in our registered customer database are most likely to convert to a Samsung TV or appliance next — and what signals predict it?"
+      },
+      {
+        "category": "DATA READINESS",
+        "question": "Which ClickSense data sources are clean enough to connect today, and what does Milo need to get the rest analysis-ready?"
+      }
+    ],
+    "solutionHighlights": [
+      {
+        "feature": "Fully inside the wall",
+        "benefit": "Milo runs inside Samsung's own infrastructure. Nothing leaves, and you're not locked into our platform."
+      },
+      {
+        "feature": "Sell-in meets sell-out",
+        "benefit": "Query factory-to-retailer and retailer-to-consumer data together. See the gaps before they hit the quarterly review."
+      },
+      {
+        "feature": "From weeks to minutes",
+        "benefit": "Correlations, predictions, pattern recognition across your brand, marketing and competitive data. The analysis your team keeps putting off."
+      }
+    ],
+    "recommendedTier": "enterprise",
+    "customAddOns": [
+      "On-premise / private cloud deployment",
+      "ClickSense + data warehouse connectors",
+      "Samsung business knowledge onboarding"
+    ],
+    "relevantCaseStudy": {
+      "company": "Kellogg's (FMCG)",
+      "result": "Milo spotted low Coco Pops stock across Dubai stores and identified which SKUs drove the highest sell-through — things that previously took weeks to surface."
+    },
+    "ctaText": "Book a 30-min demo",
+    "ctaUrl": "https://cal.com/milo"
+  },
+  "transcript": "",
+  "proposalUrl": "https://milo-proposal.vercel.app/samsung-mpdy74d9"
+}
