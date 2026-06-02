@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet Milo — The AI Data Analyst for People Who Run the Business</title>
+<meta name="description" content="Milo connects to your tools and answers business questions in plain English, in minutes not days. The why, not just the what. SOC 2, ISO 27001 and GDPR aligned. Never trained on your data.">
+<meta property="og:title" content="Meet Milo — The AI Data Analyst">
+<meta property="og:description" content="Ask your numbers a question in plain English and get the answer back in minutes, with the workings shown.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #05070F;
+  --bg-soft: #0B0F1E;
+  --card: #101528;
+  --card-hi: #161C34;
+  --border: rgba(136, 146, 170, 0.12);
+  --border-hi: rgba(136, 146, 170, 0.25);
+  --blue: #4B7BFF;
+  --blue-hot: #6590FF;
+  --blue-glow: rgba(75, 123, 255, 0.35);
+  --purple: #8B5CF6;
+  --purple-glow: rgba(139, 92, 246, 0.35);
+  --cyan: #22D3EE;
+  --green: #10B981;
+  --text: #F5F7FF;
+  --text-2: #C7CDE0;
+  --muted: #7C85A3;
+  --muted-2: #545C78;
+  --display: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection { background: var(--blue); color: #fff; }
+a { color: inherit; text-decoration: none; }
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.6 0 0 0 0 0.65 0 0 0 0 0.85 0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  opacity: 0.05;
+  mix-blend-mode: screen;
+}
+
+/* Ambient glows */
+body::after {
+  content: '';
+  position: fixed;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(75, 123, 255, 0.16) 0%, transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 48px 56px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Top bar ─── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 52px;
+}
+
+.wordmark {
+  font-family: var(--display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+}
+
+.wordmark .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  margin-left: 4px;
+  margin-top: 10px;
+  box-shadow: 0 0 14px var(--blue-glow);
+}
+
+.meta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.meta .live {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.14);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.14); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.04); }
+}
+
+/* ─── Hero ─── */
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 52px;
+  align-items: center;
+  margin-bottom: 64px;
+  padding-bottom: 56px;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-hi), transparent);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 24px;
+  padding: 7px 14px 7px 12px;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.22);
+  border-radius: 100px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+h1.headline {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 4.6vw, 3.7rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  margin-bottom: 22px;
+}
+
+h1.headline .grad {
+  background: linear-gradient(120deg, var(--blue), var(--purple) 60%, var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lede {
+  font-size: 1.12rem;
+  line-height: 1.62;
+  color: var(--text-2);
+  max-width: 46ch;
+  margin-bottom: 26px;
+}
+
+.lede strong { color: var(--text); font-weight: 600; }
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.hero-meta span { display: inline-flex; align-items: center; gap: 7px; }
+.hero-meta .ck { color: var(--green); display: inline-flex; }
+
+/* ─── Hero answer card ─── */
+.demo {
+  position: relative;
+}
+
+.ans-card {
+  background: linear-gradient(180deg, var(--card-hi), var(--card));
+  border: 1px solid var(--border-hi);
+  border-radius: 18px;
+  padding: 22px 24px;
+  box-shadow: 0 30px 70px -30px rgba(0,0,0,0.8), 0 0 0 1px rgba(75,123,255,0.05);
+}
+
+.ans-q {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 14px 18px;
+}
+
+.ans-q-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  flex-shrink: 0;
+}
+
+.ans-q-text {
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.ans-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 16px;
+}
+
+.ans-avatar {
+  width: 30px; height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.ans-name { font-weight: 600; font-size: 0.92rem; }
+.ans-time {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--muted-2);
+}
+
+.ans-headline {
+  font-size: 1.04rem;
+  line-height: 1.45;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.ans-headline em {
+  font-style: normal;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.ans-chart {
+  background: rgba(5, 7, 15, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  margin-bottom: 14px;
+}
+
+.ans-chart-title {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.ans-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 70px;
+}
+
+.ans-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, rgba(75,123,255,0.55), rgba(75,123,255,0.12));
+}
+
+.ans-bar.hot {
+  background: linear-gradient(180deg, var(--cyan), rgba(34,211,238,0.25));
+  box-shadow: 0 0 16px rgba(34,211,238,0.4);
+}
+
+.ans-why {
+  display: flex;
+  gap: 10px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.ans-why-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue-hot);
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.ans-stat {
+  position: absolute;
+  right: -18px;
+  bottom: -22px;
+  padding: 14px 18px;
+  text-align: left;
+  min-width: 130px;
+}
+
+.ans-stat-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.ans-stat-val {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ans-stat-delta {
+  font-size: 0.68rem;
+  color: var(--green);
+  margin-top: 4px;
+}
+
+/* ─── Value grid ─── */
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-hot);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '';
+  width: 22px; height: 1px;
+  background: var(--blue);
+}
+
+.values {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+.val {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 26px 24px;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.val:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-hi);
+  box-shadow: 0 22px 50px -28px rgba(75,123,255,0.4);
+}
+
+.val-ic {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.val-ic::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.val h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.28rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.val p { font-size: 0.92rem; line-height: 1.56; color: var(--text-2); }
+.val p strong { color: var(--text); font-weight: 600; }
+
+/* ─── Question picker ─── */
+.picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.q-chip {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-2);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 14px;
+  transition: all 0.22s ease;
+  line-height: 1;
+}
+
+.q-chip:hover { border-color: var(--border-hi); color: var(--text); }
+
+.q-chip.active {
+  color: #fff;
+  background: linear-gradient(120deg, var(--blue), var(--purple));
+  border-color: transparent;
+  box-shadow: 0 6px 18px -6px var(--blue-glow);
+}
+
+.picker-hint {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  margin-bottom: 10px;
+}
+
+#ansHeadline, #whyText, #qText, .ans-bars, .ans-chart-title { transition: opacity 0.25s ease; }
+.demo.swapping #ansHeadline, .demo.swapping #whyText, .demo.swapping #qText,
+.demo.swapping .ans-bars, .demo.swapping .ans-chart-title { opacity: 0; }
+
+/* ─── Capabilities ribbon ─── */
+.ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  padding: 16px 22px;
+  margin: -34px 0 56px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.ribbon-lead {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 4px;
+}
+
+.ribbon-item {
+  font-size: 0.82rem;
+  color: var(--text-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ribbon-item::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+/* ─── Testimonials ─── */
+.voices { margin-bottom: 56px; }
+
+.voices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.voice {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 24px 22px;
+  position: relative;
+}
+
+.voice .mark {
+  font-family: var(--display);
+  font-size: 2.4rem;
+  line-height: 0.7;
+  color: var(--blue);
+  opacity: 0.45;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.voice p {
+  font-size: 0.98rem;
+  line-height: 1.52;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.voice .who {
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─── How it works ─── */
+.how {
+  margin-bottom: 56px;
+}
+
+.how-head { margin-bottom: 26px; }
+
+.how-head h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.how-head h2 .accent {
+  background: linear-gradient(120deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.step {
+  position: relative;
+  padding: 24px 22px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.step-n {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--bg);
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  margin-bottom: 14px;
+}
+
+.step h4 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.step p { font-size: 0.88rem; color: var(--text-2); line-height: 1.52; }
+
+/* ─── Trust band ─── */
+.trust {
+  background: linear-gradient(135deg, var(--bg-soft), var(--card));
+  border: 1px solid var(--border-hi);
+  border-radius: 22px;
+  padding: 40px 44px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 26px;
+}
+
+.trust::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -6%;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, transparent 62%);
+  pointer-events: none;
+}
+
+.trust-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.trust h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  max-width: 24ch;
+  position: relative;
+}
+
+.trust p {
+  font-size: 0.98rem;
+  line-height: 1.62;
+  color: var(--text-2);
+  max-width: 64ch;
+  position: relative;
+}
+
+.trust p strong { color: var(--text); font-weight: 600; }
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+  position: relative;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  padding: 8px 14px;
+  border: 1px solid var(--border-hi);
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(5,7,15,0.4);
+}
+
+.badge::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+
+/* ─── Close ─── */
+.close {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(120deg, var(--blue), var(--purple));
+  border-radius: 18px;
+  padding: 30px 36px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.close::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.close .cta {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  color: #fff;
+  position: relative;
+}
+
+.close .contact {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-align: right;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.92);
+  position: relative;
+}
+
+.close .contact a { color: #fff; font-weight: 700; }
+.close .contact a:hover { text-decoration: underline; }
+
+.signoff {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+/* ─── Motion ─── */
+.reveal { opacity: 0; transform: translateY(20px); }
+.reveal.in { opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .page { padding: 32px 24px 44px; }
+  .hero { grid-template-columns: 1fr; gap: 44px; }
+  .ans-stat { right: 8px; }
+  .values { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .voices-grid { grid-template-columns: 1fr; }
+  .ribbon { margin: -18px 0 44px; }
+  .trust { padding: 30px 26px; }
+  .close { flex-direction: column; align-items: flex-start; }
+  .close .contact { text-align: left; }
+  .topbar { flex-wrap: wrap; gap: 14px; }
+}
+
+@media (max-width: 520px) {
+  h1.headline { font-size: 2.1rem; }
+}
+
+@media print {
+  body::before, body::after { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  body { background: #05070F; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { margin: 12mm; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="wordmark">milo<span class="dot"></span></div>
+    <div class="meta">
+      <span><span class="live"></span> Meet Milo</span>
+      <span>usemilo.ai</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <span class="eyebrow">The AI data analyst</span>
+      <h1 class="headline">Ask your numbers anything.<br><span class="grad">Get the answer in minutes.</span></h1>
+      <p class="lede">
+        Milo connects to the tools you already run and answers business questions in plain English. No SQL, no dashboard backlog, no waiting on a report. Just the answer, <strong>with the workings shown</strong>.
+      </p>
+      <div class="hero-meta">
+        <span><span class="ck">&#10003;</span> No SQL needed</span>
+        <span><span class="ck">&#10003;</span> Live in a week</span>
+        <span><span class="ck">&#10003;</span> Connects to what you have</span>
+      </div>
+    </div>
+
+    <!-- Interactive answer demo -->
+    <div class="demo" id="demo">
+      <div class="picker-hint">Pick a question &#183; see how Milo answers</div>
+      <div class="picker" role="tablist" id="picker">
+        <button class="q-chip active" data-i="0">Why did revenue drop?</button>
+        <button class="q-chip" data-i="1">Which customers are at risk?</button>
+        <button class="q-chip" data-i="2">Best-margin product?</button>
+        <button class="q-chip" data-i="3">Are we hitting target?</button>
+      </div>
+      <div class="ans-card ans-q">
+        <span class="ans-q-label">You asked</span>
+        <span class="ans-q-text" id="qText">Why did revenue drop last month?</span>
+      </div>
+      <div class="ans-card">
+        <div class="ans-head">
+          <div class="ans-avatar">M</div>
+          <div class="ans-name">Milo</div>
+          <div class="ans-time">12 sec ago</div>
+        </div>
+        <div class="ans-headline" id="ansHeadline">Revenue <em>dropped 14%</em> versus last month, driven almost entirely by Product B churn.</div>
+        <div class="ans-chart">
+          <div class="ans-chart-title" id="chartTitle">Revenue &#183; last 6 months</div>
+          <div class="ans-bars" id="ansBars"></div>
+        </div>
+        <div class="ans-why">
+          <span class="ans-why-label">&#9656; Why</span>
+          <span id="whyText">37 Product B accounts churned in week 2, coinciding with a competitor price cut. Product A held flat.</span>
+        </div>
+      </div>
+      <div class="ans-card ans-stat">
+        <div class="ans-stat-label">Answer time</div>
+        <div class="ans-stat-val">00:12<span style="font-size:15px;color:var(--muted);font-weight:500;margin-left:3px;">s</span></div>
+        <div class="ans-stat-delta">&#8595; days faster than an analyst</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value grid -->
+  <div class="section-label">What Milo does</div>
+  <section class="values">
+    <div class="val reveal">
+      <div class="val-ic">01 / Just ask</div>
+      <h3>Plain English in, answers out</h3>
+      <p>Type the question the way you would say it out loud. <strong>"Which customers are at risk?" "What drove our margin this quarter?"</strong> Milo reads it, runs it, and shows you where the number came from.</p>
+    </div>
+    <div class="val reveal">
+      <div class="val-ic">02 / One place</div>
+      <h3>All your tools, joined up</h3>
+      <p>Your warehouse, ad platforms, CRM, finance and inbox connected into one view. <strong>700+ integrations</strong>, so the answer spans everything instead of living in five tabs.</p>
+    </div>
+    <div class="val reveal">
+      <div class="val-ic">03 / The why</div>
+      <h3>Explanations, not just charts</h3>
+      <p>Milo does not just plot the number, it tells you what moved and why. <strong>The reasoning is shown every time</strong>, so you can trust the answer and act on it in the meeting.</p>
+    </div>
+    <div class="val reveal">
+      <div class="val-ic">04 / Speed</div>
+      <h3>Minutes, not days</h3>
+      <p>The question you would normally queue for an analyst is answered while you are still talking. <strong>Dashboards build themselves</strong> from what your team asks most.</p>
+    </div>
+  </section>
+
+  <!-- Capabilities ribbon -->
+  <div class="ribbon reveal">
+    <span class="ribbon-lead">Also does</span>
+    <span class="ribbon-item">Slack, Teams &amp; WhatsApp delivery</span>
+    <span class="ribbon-item">Scheduled digests</span>
+    <span class="ribbon-item">Auto-built dashboards</span>
+    <span class="ribbon-item">Every answer shareable</span>
+  </div>
+
+  <!-- How it works -->
+  <section class="how">
+    <div class="how-head">
+      <div class="section-label">Live in a week</div>
+      <h2>Up and running in days, <span class="accent">not a quarter.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-n">1</div>
+        <h4>Connect</h4>
+        <p>Point Milo at the tools you already use. No rip and replace, no data migration, nothing new for your team to learn.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-n">2</div>
+        <h4>Ask</h4>
+        <p>Anyone on the team types a question in plain English and gets a clear answer back, with the workings shown.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-n">3</div>
+        <h4>Act</h4>
+        <p>Decisions get made on evidence instead of guesswork. Your analysts get their time back for the work that matters.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust band -->
+  <section class="trust reveal">
+    <div class="trust-label">— Why you can trust it</div>
+    <h2>Built for work that has to stand up to scrutiny.</h2>
+    <p>
+      Your data stays yours. It is <strong>never used to train models</strong>, every answer is <strong>auditable back to source</strong>, and access is governed by your own permissions. Milo is <strong>SOC 2, ISO 27001 and GDPR aligned</strong> with EU hosting, so the answer you get is one you can put in front of a board, an auditor or a regulator.
+    </p>
+    <div class="badges">
+      <span class="badge">SOC 2</span>
+      <span class="badge">ISO 27001</span>
+      <span class="badge">GDPR aligned</span>
+      <span class="badge">EU hosted</span>
+      <span class="badge">Never trains on your data</span>
+      <span class="badge">Fully auditable</span>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="voices">
+    <div class="section-label">What customers actually say</div>
+    <div class="voices-grid">
+      <div class="voice reveal">
+        <span class="mark">&ldquo;</span>
+        <p>Being able to answer questions live in management meetings, instead of waiting a week for an analyst.</p>
+        <div class="who">Operations leader</div>
+      </div>
+      <div class="voice reveal">
+        <span class="mark">&ldquo;</span>
+        <p>It's like having a data engineering team. I used to have someone proper geeky who did all this. This is like that, but better.</p>
+        <div class="who">Founder</div>
+      </div>
+      <div class="voice reveal">
+        <span class="mark">&ldquo;</span>
+        <p>Analysis that took a business analyst weeks now takes two minutes.</p>
+        <div class="who">Head of finance</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Close -->
+  <section class="close reveal">
+    <div class="cta">Start asking<br>better questions.</div>
+    <div class="contact">
+      Milo · usemilo.ai<br>
+      Tom Pickett · <a href="mailto:tom@milo.ai">tom@milo.ai</a>
+    </div>
+  </section>
+
+  <div class="signoff">
+    <span>Meet Milo</span>
+    <span>The AI data analyst</span>
+  </div>
+
+</div>
+
+<script>
+// Interactive question picker
+const QUESTIONS = [
+  {
+    q: 'Why did revenue drop last month?',
+    headline: 'Revenue <em>dropped 14%</em> versus last month, driven almost entirely by Product B churn.',
+    chart: 'Revenue · last 6 months',
+    bars: [60, 72, 78, 84, 90, 54],
+    hot: 5,
+    why: '37 Product B accounts churned in week 2, coinciding with a competitor price cut. Product A held flat.'
+  },
+  {
+    q: 'Which customers are at risk of churning?',
+    headline: '<em>5 accounts</em> worth £340K of ARR are showing strong churn signals this month.',
+    chart: 'Risk score · top accounts',
+    bars: [34, 48, 60, 72, 86, 96],
+    hot: 5,
+    why: 'Usage is down 40% in the last 30 days and NPS came back below 7. Together these accounts carry £340K of ARR.'
+  },
+  {
+    q: 'Which product has the best margin?',
+    headline: '<em>Product C</em> leads at 68% margin, well ahead of the rest of the range.',
+    chart: 'Gross margin · by product',
+    bars: [96, 70, 56, 41, 30],
+    hot: 0,
+    why: 'Shifting 10% of Product A volume to Product C would lift gross profit by around £140K a quarter.'
+  },
+  {
+    q: 'Are we on track to hit target this quarter?',
+    headline: 'You are at <em>70% of target</em> with 3 weeks left, tracking just behind plan.',
+    chart: 'Quota attainment · by rep',
+    bars: [100, 92, 72, 60, 48],
+    hot: 4,
+    why: 'Two reps are above plan but four are under 70%. Closing the gap rests on the mid-market pipeline converting.'
+  }
+];
+
+function renderQuestion(i) {
+  const d = QUESTIONS[i];
+  const demo = document.getElementById('demo');
+  demo.classList.add('swapping');
+  setTimeout(() => {
+    document.getElementById('qText').textContent = d.q;
+    document.getElementById('ansHeadline').innerHTML = d.headline;
+    document.getElementById('chartTitle').innerHTML = d.chart;
+    document.getElementById('whyText').textContent = d.why;
+    document.getElementById('ansBars').innerHTML = d.bars
+      .map((h, idx) => `<div class="ans-bar${idx === d.hot ? ' hot' : ''}" style="height:${h}%"></div>`)
+      .join('');
+    demo.classList.remove('swapping');
+  }, 200);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderQuestion(0);
+  const picker = document.getElementById('picker');
+  picker.addEventListener('click', (e) => {
+    const btn = e.target.closest('.q-chip');
+    if (!btn) return;
+    picker.querySelectorAll('.q-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    renderQuestion(Number(btn.dataset.i));
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.05}s`;
+    io.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>

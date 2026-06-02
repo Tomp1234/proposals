@@ -42,6 +42,18 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8810", "--directory", "milo-samsung-proposal"],
       "port": 8810
+    },
+    {
+      "name": "milo-intro-onepager",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8805", "--directory", "milo-intro-onepager"],
+      "port": 8805
+    },
+    {
+      "name": "milo-intro-onepager-lt",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8806", "--directory", "milo-intro-onepager-lt"],
+      "port": 8806
     }
   ]
 }
