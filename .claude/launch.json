@@ -54,6 +54,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8806", "--directory", "milo-intro-onepager-lt"],
       "port": 8806
+    },
+    {
+      "name": "hacksaw",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8815", "--directory", "milo-hacksaw-proposal"],
+      "port": 8815
     }
   ]
 }
