@@ -572,6 +572,63 @@ h1.headline .grad {
   color: var(--muted);
 }
 
+/* ─── Trusted by ─── */
+.trusted {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.trusted-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trusted-label::before,
+.trusted-label::after {
+  content: '';
+  width: 26px; height: 1px;
+  background: var(--border-hi);
+}
+
+.logo-wall {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.logo-chip {
+  flex: 0 0 auto;
+  width: 134px;
+  height: 66px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  padding: 12px 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.logo-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -18px rgba(0,0,0,0.7);
+}
+
+.logo-chip img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
 /* ─── How it works ─── */
 .how {
   margin-bottom: 56px;
@@ -787,6 +844,7 @@ h1.headline .grad {
   .steps { grid-template-columns: 1fr; }
   .voices-grid { grid-template-columns: 1fr; }
   .ribbon { margin: -18px 0 44px; }
+  .logo-chip { width: calc(33.333% - 8px); height: 60px; }
   .trust { padding: 30px 26px; }
   .close { flex-direction: column; align-items: flex-start; }
   .close .contact { text-align: left; }
@@ -867,6 +925,21 @@ h1.headline .grad {
         <div class="ans-stat-val">00:12<span style="font-size:15px;color:var(--muted);font-weight:500;margin-left:3px;">s</span></div>
         <div class="ans-stat-delta">&#8595; days faster than an analyst</div>
       </div>
+    </div>
+  </section>
+
+  <!-- Trusted by -->
+  <section class="trusted reveal">
+    <div class="trusted-label">Trusted by</div>
+    <div class="logo-wall">
+      <div class="logo-chip"><img src="assets/logos/betgames.png" alt="BetGames" loading="lazy"></div>
+      <div class="logo-chip"><img src="assets/logos/7bet.png" alt="7bet" loading="lazy"></div>
+      <div class="logo-chip"><img src="assets/logos/betonline.png" alt="BetOnline" loading="lazy"></div>
+      <div class="logo-chip"><img src="assets/logos/octoplay.png" alt="Octoplay" loading="lazy"></div>
+      <div class="logo-chip"><img src="assets/logos/orbio.png" alt="Orbio" loading="lazy"></div>
+      <div class="logo-chip"><img src="assets/logos/coolr.png" alt="Coolr" loading="lazy"></div>
+      <div class="logo-chip"><img src="assets/logos/kfc.png" alt="KFC" loading="lazy"></div>
+      <div class="logo-chip"><img src="assets/logos/kellogg.png" alt="Kellogg's" loading="lazy"></div>
     </div>
   </section>
 
