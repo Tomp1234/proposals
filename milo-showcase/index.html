@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Milo work: the AI data analyst, live</title>
+<meta name="description" content="Don't read about Milo. Watch it answer a real business question in seconds, reasoning shown. Plain English in, answers out. SOC 2, ISO 27001 and GDPR aligned.">
+<meta property="og:title" content="Watch Milo work: the AI data analyst, live">
+<meta property="og:description" content="Milo answers a real business question in front of you, workings shown. Then you try one.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/jpeg" href="assets/milo-icon.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #05070F;
+  --bg-soft: #0B0F1E;
+  --card: #101528;
+  --card-hi: #161C34;
+  --border: rgba(136, 146, 170, 0.12);
+  --border-hi: rgba(136, 146, 170, 0.25);
+  --blue: #4B7BFF;
+  --blue-hot: #6590FF;
+  --blue-glow: rgba(75, 123, 255, 0.35);
+  --purple: #8B5CF6;
+  --cyan: #22D3EE;
+  --green: #10B981;
+  --text: #F5F7FF;
+  --text-2: #C7CDE0;
+  --muted: #7C85A3;
+  --muted-2: #545C78;
+  --display: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; scroll-snap-type: y proximity; overflow-x: clip; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--blue); color: #fff; }
+a { color: inherit; text-decoration: none; }
+
+/* Grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.6 0 0 0 0 0.65 0 0 0 0 0.85 0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  opacity: 0.05;
+  mix-blend-mode: screen;
+}
+
+/* Aurora */
+.aurora {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.aurora span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+.aurora span:nth-child(1) { width: 640px; height: 480px; top: -16%; left: 8%; background: radial-gradient(circle, rgba(75,123,255,0.20), transparent 65%); }
+.aurora span:nth-child(2) { width: 540px; height: 460px; top: 4%; right: -8%; background: radial-gradient(circle, rgba(139,92,246,0.16), transparent 65%); animation-delay: -6s; }
+.aurora span:nth-child(3) { width: 480px; height: 420px; bottom: -14%; left: 32%; background: radial-gradient(circle, rgba(34,211,238,0.10), transparent 65%); animation-delay: -12s; }
+@keyframes drift {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to { transform: translate3d(40px, 28px, 0) scale(1.12); }
+}
+
+/* Progress dots */
+.dots {
+  position: fixed; right: 22px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 12px;
+  z-index: 50;
+}
+.dots a {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--muted-2);
+  opacity: 0.5;
+  transition: all 0.35s ease;
+}
+.dots a.on {
+  opacity: 1;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  box-shadow: 0 0 12px var(--blue-glow);
+  transform: scale(1.35);
+}
+
+.act {
+  min-height: 100svh;
+  scroll-snap-align: start;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+.shell { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 44px; }
+
+/* ───────────────────────── ACT 1 ───────────────────────── */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 30px;
+}
+.wordmark {
+  font-family: var(--display);
+  font-size: 1.45rem; font-weight: 700; letter-spacing: -0.04em;
+  display: inline-flex; align-items: center;
+}
+.wordmark .mark {
+  width: 27px; height: 27px;
+  border-radius: 8px;
+  margin-right: 10px;
+  box-shadow: 0 0 18px var(--blue-glow);
+}
+.wordmark .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  margin-left: 4px; margin-top: 10px;
+  box-shadow: 0 0 14px var(--blue-glow);
+}
+.meta {
+  font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted);
+  display: flex; align-items: center; gap: 16px;
+}
+.meta .live {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(16,185,129,0.14);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(16,185,129,0.14); }
+  50% { box-shadow: 0 0 0 8px rgba(16,185,129,0.04); }
+}
+
+.stage {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 56px;
+  align-items: center;
+  padding: 40px 0 56px;
+}
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 22px;
+  padding: 7px 14px 7px 12px;
+  background: rgba(34,211,238,0.08);
+  border: 1px solid rgba(34,211,238,0.22);
+  border-radius: 100px;
+}
+.eyebrow::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+h1.headline {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.3rem, 4.4vw, 3.5rem);
+  line-height: 1.05; letter-spacing: -0.035em;
+  margin-bottom: 20px;
+}
+h1.headline .grad {
+  background: linear-gradient(120deg, var(--blue), var(--purple) 60%, var(--cyan));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.lede { font-size: 1.06rem; color: var(--text-2); max-width: 30rem; margin-bottom: 26px; }
+.lede strong { color: var(--text); font-weight: 600; }
+
+/* Kicker that lands after the demo finishes */
+.kicker {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.kicker.in { opacity: 1; transform: none; }
+.kicker-line {
+  font-family: var(--display);
+  font-size: 1.18rem; font-weight: 600; letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+.kicker-line em {
+  font-style: normal; color: var(--cyan);
+  font-family: var(--mono); font-size: 1.05rem;
+}
+.picker-hint {
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.picker { display: flex; flex-wrap: wrap; gap: 8px; }
+.q-chip {
+  font-family: var(--sans); font-size: 0.84rem; font-weight: 500;
+  color: var(--text-2);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.q-chip:hover { border-color: var(--border-hi); color: var(--text); transform: translateY(-1px); }
+.q-chip.active {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(75,123,255,0.28), rgba(139,92,246,0.28));
+  border-color: rgba(101,144,255,0.55);
+  box-shadow: 0 0 18px rgba(75,123,255,0.18);
+}
+
+/* The console */
+.console {
+  background: linear-gradient(180deg, var(--card-hi), var(--card));
+  border: 1px solid var(--border-hi);
+  border-radius: 18px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.02) inset;
+  overflow: hidden;
+  position: relative;
+}
+.console::before {
+  content: '';
+  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(101,144,255,0.5), transparent);
+}
+.console-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,7,15,0.45);
+}
+.console-bar .traffic { display: flex; gap: 6px; }
+.console-bar .traffic i {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--muted-2); opacity: 0.55; display: block;
+}
+.console-bar .title {
+  font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+  flex: 1; text-align: center;
+}
+.timer {
+  font-family: var(--mono); font-size: 0.82rem; font-weight: 500;
+  color: var(--muted);
+  display: inline-flex; align-items: center; gap: 7px;
+  min-width: 86px; justify-content: flex-end;
+}
+.timer::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--muted-2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.timer.running { color: var(--cyan); }
+.timer.running::before { background: var(--cyan); box-shadow: 0 0 10px var(--cyan); animation: pulse 1.1s ease-in-out infinite; }
+.timer.done { color: var(--green); }
+.timer.done::before { background: var(--green); box-shadow: 0 0 10px rgba(16,185,129,0.7); }
+
+.console-body { padding: 22px 22px 24px; min-height: 430px; display: flex; flex-direction: column; gap: 14px; }
+
+.q-row { display: flex; justify-content: flex-end; }
+.q-bubble {
+  max-width: 86%;
+  background: linear-gradient(135deg, rgba(75,123,255,0.22), rgba(139,92,246,0.22));
+  border: 1px solid rgba(101,144,255,0.4);
+  border-radius: 14px 14px 4px 14px;
+  padding: 11px 16px;
+  font-size: 0.95rem; font-weight: 500;
+  min-height: 44px;
+}
+.caret {
+  display: inline-block; width: 2px; height: 1.05em;
+  background: var(--cyan); vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 0.85s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.steps { display: flex; flex-direction: column; gap: 7px; padding-left: 4px; }
+.step-row {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 0.76rem;
+  color: var(--muted);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
+}
+.step-row.show { opacity: 1; transform: none; }
+.step-row.done { color: var(--text-2); }
+.step-ic {
+  width: 15px; height: 15px; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.step-ic .spin {
+  width: 11px; height: 11px;
+  border: 1.5px solid rgba(101,144,255,0.3);
+  border-top-color: var(--blue-hot);
+  border-radius: 50%;
+  animation: rot 0.7s linear infinite;
+}
+@keyframes rot { to { transform: rotate(360deg); } }
+.step-ic .tick { color: var(--green); font-size: 0.78rem; display: none; }
+.step-row.done .spin { display: none; }
+.step-row.done .tick { display: inline; }
+
+.a-card {
+  background: rgba(5,7,15,0.5);
+  border: 1px solid var(--border);
+  border-radius: 14px 14px 14px 4px;
+  padding: 18px 20px;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.a-card.show { opacity: 1; transform: none; }
+.a-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.a-avatar {
+  width: 26px; height: 26px; border-radius: 8px;
+  box-shadow: 0 0 16px var(--blue-glow);
+  object-fit: cover;
+}
+.a-name { font-weight: 600; font-size: 0.9rem; }
+.a-time { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); margin-left: auto; }
+.a-headline { font-size: 1.02rem; font-weight: 500; line-height: 1.45; margin-bottom: 16px; }
+.a-headline em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--blue-hot), var(--cyan));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+.a-chart-title {
+  font-family: var(--mono); font-size: 0.66rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.a-bars {
+  display: flex; align-items: flex-end; gap: 8px;
+  height: 96px; margin-bottom: 16px;
+}
+.a-bar {
+  flex: 1;
+  height: 0%;
+  background: linear-gradient(180deg, rgba(101,144,255,0.85), rgba(75,123,255,0.25));
+  border-radius: 5px 5px 2px 2px;
+  transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.a-bar.hot {
+  background: linear-gradient(180deg, var(--cyan), rgba(34,211,238,0.25));
+  box-shadow: 0 0 18px rgba(34,211,238,0.3);
+}
+.a-why {
+  display: flex; gap: 9px;
+  font-size: 0.86rem; color: var(--text-2);
+  border-top: 1px solid var(--border);
+  padding-top: 13px;
+}
+.a-why-label {
+  font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cyan); flex: none; padding-top: 2px;
+}
+
+.scroll-cue {
+  position: absolute; bottom: 22px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  opacity: 0; transition: opacity 0.8s ease;
+}
+.scroll-cue.in { opacity: 1; }
+.scroll-cue .arr { animation: bob 1.8s ease-in-out infinite; color: var(--blue-hot); }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+/* ───────────────────────── ACT 2 ───────────────────────── */
+.act-2 { padding: 90px 0 70px; justify-content: center; }
+.section-label {
+  font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 14px;
+}
+.section-label .n { color: var(--blue-hot); }
+h2.sect {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  letter-spacing: -0.03em; line-height: 1.12;
+  margin-bottom: 40px; max-width: 36rem;
+}
+h2.sect .accent {
+  background: linear-gradient(120deg, var(--blue), var(--purple));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.duo {
+  display: grid;
+  grid-template-columns: 1fr 0.94fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 64px;
+}
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.pillar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 20px 18px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.pillar:hover { border-color: var(--border-hi); transform: translateY(-3px); }
+.pillar-ic {
+  font-family: var(--mono); font-size: 0.66rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--blue-hot); margin-bottom: 10px;
+}
+.pillar h3 { font-family: var(--display); font-size: 1.02rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 7px; }
+.pillar p { font-size: 0.84rem; color: var(--muted); line-height: 1.55; }
+.pillar p strong { color: var(--text-2); font-weight: 600; }
+
+/* Constellation */
+.orbit-wrap {
+  position: relative;
+  height: 420px;
+  display: flex; align-items: center; justify-content: center;
+}
+.orbit-core {
+  position: absolute; z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  text-align: center;
+}
+.orbit-core .core-dot {
+  width: 64px; height: 64px; border-radius: 50%;
+  box-shadow: 0 0 50px var(--blue-glow), 0 0 110px rgba(139,92,246,0.25);
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+.orbit-core .core-stat {
+  font-family: var(--display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em;
+}
+.orbit-core .core-sub {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted);
+}
+.ring {
+  position: absolute; top: 50%; left: 50%;
+  border: 1px dashed rgba(136,146,170,0.14);
+  border-radius: 50%;
+}
+.ring-1 { width: 230px; height: 230px; margin: -115px 0 0 -115px; animation: spin 36s linear infinite; }
+.ring-2 { width: 392px; height: 392px; margin: -196px 0 0 -196px; animation: spin-rev 52s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin-rev { to { transform: rotate(-360deg); } }
+.sat {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(var(--r) * -1)) rotate(calc(var(--a) * -1));
+}
+.ring-1 .sat-chip { animation: spin-rev 36s linear infinite; }
+.ring-2 .sat-chip { animation: spin 52s linear infinite; }
+.sat-chip {
+  display: inline-block;
+  font-family: var(--mono); font-size: 0.66rem; font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  background: var(--card-hi);
+  border: 1px solid var(--border-hi);
+  border-radius: 100px;
+  padding: 6px 12px;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* Logos + trust */
+.proof {
+  border-top: 1px solid var(--border);
+  padding-top: 44px;
+}
+.trusted-label {
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted); text-align: center; margin-bottom: 22px;
+}
+.logo-wall {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin-bottom: 40px;
+}
+.logo-chip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  aspect-ratio: 2.4 / 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 14px 20px;
+  transition: border-color 0.3s ease;
+}
+.logo-chip:hover { border-color: var(--border-hi); }
+.logo-chip img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(0.2); opacity: 0.92; }
+
+.trust-row {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 9px;
+  margin-bottom: 44px;
+}
+.badge {
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  border: 1px solid var(--border-hi);
+  border-radius: 100px;
+  padding: 7px 15px;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(16,185,129,0.7); }
+
+.voices-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.voice {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 22px 18px;
+  position: relative;
+}
+.voice .mark {
+  font-family: var(--display); font-size: 2.2rem; line-height: 0.5;
+  color: var(--blue-hot); opacity: 0.7;
+  display: block; margin-bottom: 12px;
+}
+.voice p { font-size: 0.88rem; color: var(--text-2); margin-bottom: 14px; }
+.voice .who {
+  font-family: var(--mono); font-size: 0.66rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Digest mock */
+.digest {
+  background: linear-gradient(180deg, var(--card-hi), var(--card));
+  border: 1px solid var(--border-hi);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+}
+.digest-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,7,15,0.45);
+  font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+.digest-ch { color: var(--text-2); }
+.digest-body { display: flex; gap: 12px; padding: 18px 20px 20px; }
+.digest-body .a-avatar { flex: none; margin-top: 2px; }
+.digest-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+.digest-app {
+  font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em;
+  color: var(--muted);
+  border: 1px solid var(--border-hi); border-radius: 4px;
+  padding: 1px 5px; vertical-align: 2px; margin-left: 4px;
+}
+.digest-msg { font-size: 0.88rem; color: var(--text-2); margin-bottom: 10px; }
+.digest-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+.digest-list li {
+  font-size: 0.85rem; color: var(--muted);
+  padding-left: 14px; position: relative; line-height: 1.5;
+}
+.digest-list li::before {
+  content: '';
+  position: absolute; left: 0; top: 9px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+}
+.digest-list strong { color: var(--text); font-weight: 600; }
+.digest-foot {
+  font-family: var(--mono); font-size: 0.64rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted-2);
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+/* Trust band */
+.trust-band {
+  border-top: 1px solid var(--border);
+  margin-top: 60px; padding-top: 48px; margin-bottom: 56px;
+  display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px;
+}
+.trust-band h3 {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  font-weight: 700; letter-spacing: -0.02em; line-height: 1.2;
+}
+.trust-band p { font-size: 0.92rem; color: var(--text-2); }
+.trust-band p strong { color: var(--text); font-weight: 600; }
+.trust-band .trust-row { justify-content: flex-start; margin: 18px 0 0; }
+
+/* ───────────────────────── ACT 3 ───────────────────────── */
+.act-3 { justify-content: center; padding: 80px 0 60px; }
+.steps3 {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin-bottom: 70px;
+}
+.s3 {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  position: relative;
+}
+.s3-n {
+  font-family: var(--mono); font-size: 0.7rem;
+  color: var(--blue-hot); letter-spacing: 0.16em;
+  margin-bottom: 10px; display: block;
+}
+.s3 h4 { font-family: var(--display); font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+.s3 p { font-size: 0.84rem; color: var(--muted); }
+
+.close-wrap { text-align: center; position: relative; padding: 30px 0 10px; }
+.close-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(680px, 96vw); height: 360px;
+  background: radial-gradient(ellipse at center, rgba(75,123,255,0.16), rgba(139,92,246,0.08) 45%, transparent 70%);
+  pointer-events: none;
+}
+.cta-line {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  letter-spacing: -0.035em; line-height: 1.05;
+  margin-bottom: 26px;
+  position: relative;
+}
+.cta-line .grad {
+  background: linear-gradient(120deg, var(--blue), var(--purple) 55%, var(--cyan));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cta-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; position: relative; }
+.btn {
+  font-family: var(--sans); font-size: 0.95rem; font-weight: 600;
+  border-radius: 100px;
+  padding: 13px 28px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: inline-flex; align-items: center; gap: 9px;
+}
+.btn-hot {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: #fff;
+  box-shadow: 0 10px 36px rgba(75,123,255,0.35);
+}
+.btn-hot:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(75,123,255,0.5); }
+.btn-ghost { border: 1px solid var(--border-hi); color: var(--text-2); }
+.btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+.contact {
+  font-family: var(--mono); font-size: 0.72rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted);
+  position: relative;
+}
+.contact a:hover { color: var(--text-2); }
+
+.signoff {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 0.66rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted-2);
+  border-top: 1px solid var(--border);
+  margin-top: 70px; padding: 20px 0 6px;
+}
+.signoff .by { display: inline-flex; align-items: center; gap: 10px; }
+.am-lockup { height: 24px; opacity: 0.5; }
+
+/* Reveals */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ───────────────────────── Responsive ───────────────────────── */
+@media (max-width: 960px) {
+  .shell { padding: 0 26px; }
+  .stage { grid-template-columns: 1fr; gap: 34px; padding: 34px 0 70px; }
+  .console-body { min-height: 0; }
+  .duo { grid-template-columns: 1fr; gap: 30px; }
+  .orbit-wrap { height: 350px; transform: scale(0.84); }
+  .voices-grid, .steps3 { grid-template-columns: 1fr; }
+  .trust-band { grid-template-columns: 1fr; gap: 20px; }
+  .logo-wall { grid-template-columns: repeat(2, 1fr); }
+  .dots { display: none; }
+  .act { min-height: 0; }
+  .act-1 { min-height: 100svh; }
+}
+@media (max-width: 520px) {
+  .pillars { grid-template-columns: 1fr; }
+  .orbit-wrap { transform: scale(0.66); height: 300px; }
+  .meta span:last-child { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<nav class="dots" aria-label="Sections">
+  <a href="#act1" data-act="act1" class="on" aria-label="Act 1"></a>
+  <a href="#act2" data-act="act2" aria-label="Act 2"></a>
+  <a href="#act3" data-act="act3" aria-label="Act 3"></a>
+  <a href="#act4" data-act="act4" aria-label="Act 4"></a>
+</nav>
+
+<!-- ════════ ACT 1 · The demo is the hero ════════ -->
+<section class="act act-1" id="act1">
+  <div class="shell">
+    <div class="topbar">
+      <div class="wordmark"><img class="mark" src="assets/milo-icon.jpeg" alt="Milo">milo<span class="dot"></span></div>
+      <div class="meta">
+        <span><span class="live"></span> Live demo</span>
+        <span>usemilo.ai</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell stage">
+    <div>
+      <span class="eyebrow">The AI data analyst</span>
+      <h1 class="headline">Don't read about it.<br><span class="grad">Watch it answer.</span></h1>
+      <p class="lede">
+        This is Milo, working on a question your team probably asked this week. Plain English in, the answer out, <strong>with the workings shown</strong>. No SQL, no ticket, no waiting.
+      </p>
+
+      <div class="kicker" id="kicker">
+        <div class="kicker-line">That took <em id="kickerTime">12 seconds</em>. The same request queued for an analyst takes days.</div>
+        <div class="picker-hint">Your turn · pick another question</div>
+        <div class="picker" role="tablist" id="picker">
+          <button class="q-chip active" data-i="0">Why did revenue drop?</button>
+          <button class="q-chip" data-i="1">Which customers are at risk?</button>
+          <button class="q-chip" data-i="2">Best-margin product?</button>
+          <button class="q-chip" data-i="3">Are we hitting target?</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="console" id="console">
+      <div class="console-bar">
+        <span class="traffic"><i></i><i></i><i></i></span>
+        <span class="title">Milo · workspace</span>
+        <span class="timer" id="timer">00:00.0</span>
+      </div>
+      <div class="console-body">
+        <div class="q-row">
+          <div class="q-bubble"><span id="qType"></span><span class="caret" id="caret"></span></div>
+        </div>
+        <div class="steps" id="steps"></div>
+        <div class="a-card" id="aCard">
+          <div class="a-head">
+            <img class="a-avatar" src="assets/milo-icon.jpeg" alt="Milo">
+            <span class="a-name">Milo</span>
+            <span class="a-time" id="aTime"></span>
+          </div>
+          <div class="a-headline" id="aHeadline"></div>
+          <div class="a-chart-title" id="aChartTitle"></div>
+          <div class="a-bars" id="aBars"></div>
+          <div class="a-why">
+            <span class="a-why-label">&#9656; Why</span>
+            <span id="aWhy"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" id="scrollCue">
+    <span>So what is Milo</span>
+    <span class="arr">&#8595;</span>
+  </div>
+</section>
+
+<!-- ════════ ACT 2 · What you just saw ════════ -->
+<section class="act act-2" id="act2">
+  <div class="shell">
+    <div class="section-label reveal"><span class="n">Act 2</span> &nbsp;/&nbsp; What you just saw</div>
+    <h2 class="sect reveal">One analyst, every tool,<br><span class="accent">zero queue.</span></h2>
+
+    <div class="duo">
+      <div class="pillars">
+        <div class="pillar reveal">
+          <div class="pillar-ic">01 / Just ask</div>
+          <h3>Plain English in, answers out</h3>
+          <p>Type the question the way you would say it out loud. Milo reads it, runs it, and <strong>shows where the number came from</strong>.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-ic">02 / One place</div>
+          <h3>All your tools, joined up</h3>
+          <p>Warehouse, CRM, ad platforms, finance and inbox in one view, so the answer <strong>spans everything</strong> instead of living in five tabs.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-ic">03 / The why</div>
+          <h3>Explanations, not just charts</h3>
+          <p>Milo tells you what moved and why. <strong>The reasoning is shown every time</strong>, so you can act on it in the meeting.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-ic">04 / Speed</div>
+          <h3>Minutes, not days</h3>
+          <p>The question you would normally queue for an analyst is answered while you are still talking. <strong>Dashboards build themselves.</strong></p>
+        </div>
+      </div>
+
+      <div class="orbit-wrap reveal" aria-label="Milo connects to 700+ tools">
+        <div class="orbit-core">
+          <img class="core-dot" src="assets/milo-icon.jpeg" alt="Milo">
+          <div class="core-stat"><span id="intCount">0</span>+</div>
+          <div class="core-sub">integrations</div>
+        </div>
+        <div class="ring ring-1">
+          <span class="sat" style="--a: 0deg; --r: 115px;"><span class="sat-chip">Snowflake</span></span>
+          <span class="sat" style="--a: 72deg; --r: 115px;"><span class="sat-chip">Salesforce</span></span>
+          <span class="sat" style="--a: 144deg; --r: 115px;"><span class="sat-chip">Stripe</span></span>
+          <span class="sat" style="--a: 216deg; --r: 115px;"><span class="sat-chip">Google Ads</span></span>
+          <span class="sat" style="--a: 288deg; --r: 115px;"><span class="sat-chip">Xero</span></span>
+        </div>
+        <div class="ring ring-2">
+          <span class="sat" style="--a: 0deg; --r: 196px;"><span class="sat-chip">BigQuery</span></span>
+          <span class="sat" style="--a: 51deg; --r: 196px;"><span class="sat-chip">HubSpot</span></span>
+          <span class="sat" style="--a: 103deg; --r: 196px;"><span class="sat-chip">Shopify</span></span>
+          <span class="sat" style="--a: 154deg; --r: 196px;"><span class="sat-chip">Meta Ads</span></span>
+          <span class="sat" style="--a: 206deg; --r: 196px;"><span class="sat-chip">Slack</span></span>
+          <span class="sat" style="--a: 257deg; --r: 196px;"><span class="sat-chip">Postgres</span></span>
+          <span class="sat" style="--a: 309deg; --r: 196px;"><span class="sat-chip">Sheets</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proof">
+      <div class="trusted-label reveal">Trusted by</div>
+      <div class="logo-wall reveal">
+        <div class="logo-chip"><img src="assets/logos/betgames.png" alt="BetGames" loading="lazy"></div>
+        <div class="logo-chip"><img src="assets/logos/7bet.png" alt="7bet" loading="lazy"></div>
+        <div class="logo-chip"><img src="assets/logos/betonline.png" alt="BetOnline" loading="lazy"></div>
+        <div class="logo-chip"><img src="assets/logos/octoplay.png" alt="Octoplay" loading="lazy"></div>
+        <div class="logo-chip"><img src="assets/logos/orbio.png" alt="Orbio" loading="lazy"></div>
+        <div class="logo-chip"><img src="assets/logos/coolr.png" alt="Coolr" loading="lazy"></div>
+        <div class="logo-chip"><img src="assets/logos/kfc.png" alt="KFC" loading="lazy"></div>
+        <div class="logo-chip"><img src="assets/logos/kellogg.png" alt="Kellogg's" loading="lazy"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ACT 3 · Beyond the answer ════════ -->
+<section class="act act-2" id="act3">
+  <div class="shell">
+    <div class="section-label reveal"><span class="n">Act 3</span> &nbsp;/&nbsp; Beyond the answer</div>
+    <h2 class="sect reveal">Milo doesn't wait<br><span class="accent">to be asked.</span></h2>
+
+    <div class="duo">
+      <div class="digest reveal">
+        <div class="digest-bar">
+          <span class="digest-ch"># leadership</span>
+          <span>Monday &middot; 08:00</span>
+        </div>
+        <div class="digest-body">
+          <img class="a-avatar" src="assets/milo-icon.jpeg" alt="Milo">
+          <div>
+            <div class="digest-name">Milo <span class="digest-app">APP</span></div>
+            <p class="digest-msg">Morning. Three things worth knowing before the week starts:</p>
+            <ul class="digest-list">
+              <li><strong>Revenue is pacing 4% ahead of plan</strong> for the month, led by returning customers.</li>
+              <li><strong>Stock cover on your top SKU drops below 3 weeks</strong> on Thursday at the current run-rate.</li>
+              <li><strong>Meta CAC fell 11%</strong> after Friday's creative refresh. Worth shifting budget while it holds.</li>
+            </ul>
+            <div class="digest-foot">Scheduled digest &middot; delivered in Slack, Teams or WhatsApp</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar reveal">
+          <div class="pillar-ic">05 / Digests</div>
+          <h3>The numbers arrive first</h3>
+          <p>Monday's trading summary lands in Slack at 08:00, ready for the meeting. <strong>No one has to remember to ask.</strong></p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-ic">06 / Alerts</div>
+          <h3>Milo watches while you work</h3>
+          <p>When a number moves outside its normal range, Milo flags it <strong>with the why attached</strong>, before it becomes a surprise.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-ic">07 / Dashboards</div>
+          <h3>Dashboards build themselves</h3>
+          <p>Milo notices what your team asks most and <strong>keeps those answers live</strong>, so the next look is instant.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-ic">08 / Sharing</div>
+          <h3>Every answer has a link</h3>
+          <p>Drop it in the deck, the doc or the thread. <strong>The number, the chart and the workings travel together.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-band">
+      <div class="reveal">
+        <div class="section-label">Why you can trust it</div>
+        <h3>Built for work that has to stand up to scrutiny.</h3>
+      </div>
+      <div class="reveal">
+        <p>Your data stays yours. It is <strong>never used to train models</strong>, every answer is <strong>auditable back to source</strong>, and access follows your own permissions, right down to row level. Milo is <strong>SOC 2, ISO 27001 and GDPR aligned</strong> with EU hosting, so the answer you get is one you can put in front of a board, an auditor or a regulator.</p>
+        <div class="trust-row">
+          <span class="badge">SOC 2</span>
+          <span class="badge">ISO 27001</span>
+          <span class="badge">GDPR aligned</span>
+          <span class="badge">EU hosted</span>
+          <span class="badge">Never trains on your data</span>
+          <span class="badge">Fully auditable</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label reveal">What customers actually say</div>
+    <div class="voices-grid">
+      <div class="voice reveal">
+        <span class="mark">&ldquo;</span>
+        <p>Being able to answer questions live in management meetings, instead of waiting a week for an analyst.</p>
+        <div class="who">Operations leader</div>
+      </div>
+      <div class="voice reveal">
+        <span class="mark">&ldquo;</span>
+        <p>It's like having a data engineering team. I used to have someone proper geeky who did all this. This is like that, but better.</p>
+        <div class="who">Founder</div>
+      </div>
+      <div class="voice reveal">
+        <span class="mark">&ldquo;</span>
+        <p>Analysis that took a business analyst weeks now takes two minutes.</p>
+        <div class="who">Head of finance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ACT 4 · Live in a week ════════ -->
+<section class="act act-3" id="act4">
+  <div class="shell">
+    <div class="section-label reveal"><span class="n">Act 4</span> &nbsp;/&nbsp; Getting started</div>
+    <h2 class="sect reveal">Live in a week. <span class="accent">Honestly.</span></h2>
+
+    <div class="steps3">
+      <div class="s3 reveal">
+        <span class="s3-n">Day 1&ndash;2</span>
+        <h4>Connect</h4>
+        <p>Point Milo at the tools you already use. No rip and replace, no data migration, nothing new to learn.</p>
+      </div>
+      <div class="s3 reveal">
+        <span class="s3-n">Day 3&ndash;5</span>
+        <h4>Ask</h4>
+        <p>Anyone on the team types a question in plain English and gets a clear answer back, workings shown.</p>
+      </div>
+      <div class="s3 reveal">
+        <span class="s3-n">Week 1 onwards</span>
+        <h4>Act</h4>
+        <p>Decisions get made on evidence instead of guesswork. Your analysts get their time back.</p>
+      </div>
+    </div>
+
+    <div class="close-wrap reveal">
+      <div class="close-glow" aria-hidden="true"></div>
+      <div class="cta-line">Start asking<br><span class="grad">better questions.</span></div>
+      <div class="cta-btns">
+        <a class="btn btn-hot" href="https://usemilo.ai" target="_blank" rel="noopener">usemilo.ai &#8594;</a>
+      </div>
+      <div class="contact">Tom Pickett &middot; <a href="mailto:tom@milo.ai">tom@milo.ai</a></div>
+    </div>
+
+    <div class="signoff">
+      <span>Meet Milo &middot; The AI data analyst</span>
+      <span class="by">built by <img class="am-lockup" src="assets/milo-mark-white.png" alt="Autonomous Minds"></span>
+    </div>
+  </div>
+</section>
+
+<script>
+const QUESTIONS = [
+  {
+    q: 'Why did revenue drop last month?',
+    steps: [
+      'Connecting &middot; warehouse + CRM + billing',
+      'Scanning 1.2M rows across 14 tables',
+      'Isolating what moved, and what didn’t'
+    ],
+    time: 12,
+    headline: 'Revenue <em>dropped 14%</em> versus last month, driven almost entirely by Product B churn.',
+    chart: 'Revenue &middot; last 6 months',
+    bars: [60, 72, 78, 84, 90, 54],
+    hot: 5,
+    why: '37 Product B accounts churned in week 2, coinciding with a competitor price cut. Product A held flat.'
+  },
+  {
+    q: 'Which customers are at risk of churning?',
+    steps: [
+      'Connecting &middot; CRM + product usage + NPS',
+      'Scoring 412 accounts on 9 churn signals',
+      'Ranking by revenue at risk'
+    ],
+    time: 9,
+    headline: '<em>5 accounts</em> worth &pound;340K of ARR are showing strong churn signals this month.',
+    chart: 'Risk score &middot; top accounts',
+    bars: [34, 48, 60, 72, 86, 96],
+    hot: 5,
+    why: 'Usage is down 40% in the last 30 days and NPS came back below 7. Together these accounts carry &pound;340K of ARR.'
+  },
+  {
+    q: 'Which product has the best margin?',
+    steps: [
+      'Connecting &middot; finance + inventory + billing',
+      'Allocating costs across the full range',
+      'Modelling the mix shift'
+    ],
+    time: 11,
+    headline: '<em>Product C</em> leads at 68% margin, well ahead of the rest of the range.',
+    chart: 'Gross margin &middot; by product',
+    bars: [96, 70, 56, 41, 30],
+    hot: 0,
+    why: 'Shifting 10% of Product A volume to Product C would lift gross profit by around &pound;140K a quarter.'
+  },
+  {
+    q: 'Are we on track to hit target this quarter?',
+    steps: [
+      'Connecting &middot; CRM pipeline + targets',
+      'Comparing run-rate to plan, by rep',
+      'Projecting the close of quarter'
+    ],
+    time: 8,
+    headline: 'You are at <em>70% of target</em> with 3 weeks left, tracking just behind plan.',
+    chart: 'Quota attainment &middot; by rep',
+    bars: [100, 92, 72, 60, 48],
+    hot: 4,
+    why: 'Two reps are above plan but four are under 70%. Closing the gap rests on the mid-market pipeline converting.'
+  }
+];
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (id) => document.getElementById(id);
+let runToken = 0;
+
+const sleep = (ms, token) => new Promise((res, rej) => {
+  setTimeout(() => (token === runToken ? res() : rej('stale')), ms);
+});
+
+function setBars(d, animate) {
+  $('aBars').innerHTML = d.bars
+    .map((h, i) => `<div class="a-bar${i === d.hot ? ' hot' : ''}" style="height:${animate ? 0 : h}%"></div>`)
+    .join('');
+  if (animate) {
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.querySelectorAll('#aBars .a-bar').forEach((b, i) => {
+        b.style.transitionDelay = `${i * 0.07}s`;
+        b.style.height = `${d.bars[i]}%`;
+      });
+    }));
+  }
+}
+
+function fillAnswer(d) {
+  $('aTime').textContent = 'just now';
+  $('aHeadline').innerHTML = d.headline;
+  $('aChartTitle').innerHTML = d.chart;
+  $('aWhy').innerHTML = d.why;
+}
+
+function showFinal(d) {
+  // Instant final state: no typing, no timer theatre
+  $('qType').textContent = d.q;
+  $('caret').style.display = 'none';
+  $('steps').innerHTML = d.steps
+    .map(s => `<div class="step-row show done"><span class="step-ic"><span class="spin"></span><span class="tick">&#10003;</span></span><span>${s}</span></div>`)
+    .join('');
+  fillAnswer(d);
+  setBars(d, false);
+  $('aCard').classList.add('show');
+  const t = $('timer');
+  t.textContent = `00:${String(d.time).padStart(2, '0')}.0`;
+  t.classList.remove('running');
+  t.classList.add('done');
+  $('kicker').classList.add('in');
+  $('kickerTime').textContent = `${d.time} seconds`;
+  $('scrollCue').classList.add('in');
+}
+
+async function runDemo(i) {
+  const d = QUESTIONS[i];
+  const token = ++runToken;
+
+  if (reduceMotion) { showFinal(d); return; }
+
+  // Reset
+  $('qType').textContent = '';
+  $('caret').style.display = 'inline-block';
+  $('steps').innerHTML = '';
+  $('aCard').classList.remove('show');
+  const timer = $('timer');
+  timer.textContent = '00:00.0';
+  timer.classList.remove('done');
+  timer.classList.remove('running');
+
+  try {
+    await sleep(450, token);
+
+    // 1. Type the question
+    for (const ch of d.q) {
+      $('qType').textContent += ch;
+      await sleep(26 + Math.sin($('qType').textContent.length) * 9, token);
+    }
+    await sleep(280, token);
+    $('caret').style.display = 'none';
+
+    // 2. Start the clock (display time accelerated so the wait stays short)
+    const thinkMs = 3450;
+    timer.classList.add('running');
+    let ticking = true;
+    const t0 = performance.now();
+    const tick = () => {
+      if (!ticking || token !== runToken) return;
+      const el = Math.min(d.time, ((performance.now() - t0) / thinkMs) * d.time);
+      timer.textContent = `00:${String(Math.floor(el)).padStart(2, '0')}.${Math.floor((el % 1) * 10)}`;
+      if (el < d.time) requestAnimationFrame(tick);
+      else { timer.classList.remove('running'); timer.classList.add('done'); }
+    };
+    requestAnimationFrame(tick);
+
+    // 3. Reasoning steps
+    const stepsEl = $('steps');
+    for (const [si, s] of d.steps.entries()) {
+      const row = document.createElement('div');
+      row.className = 'step-row';
+      row.innerHTML = `<span class="step-ic"><span class="spin"></span><span class="tick">&#10003;</span></span><span>${s}</span>`;
+      stepsEl.appendChild(row);
+      requestAnimationFrame(() => row.classList.add('show'));
+      await sleep(si === d.steps.length - 1 ? 1000 : 850, token);
+      row.classList.add('done');
+      await sleep(180, token);
+    }
+
+    // 4. The answer (force the clock to its final reading; rAF is suspended in hidden tabs)
+    ticking = false;
+    timer.textContent = `00:${String(d.time).padStart(2, '0')}.0`;
+    timer.classList.remove('running');
+    timer.classList.add('done');
+    fillAnswer(d);
+    setBars(d, true);
+    $('aCard').classList.add('show');
+    await sleep(900, token);
+
+    // 5. The kicker
+    $('kickerTime').textContent = `${d.time} seconds`;
+    $('kicker').classList.add('in');
+    $('scrollCue').classList.add('in');
+  } catch (e) {
+    if (e !== 'stale') throw e;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Auto-run the opening demo, but only once the page is actually being looked at:
+  // background tabs throttle timers and would mangle the sequence
+  if (document.visibilityState === 'visible') {
+    runDemo(0);
+  } else {
+    document.addEventListener('visibilitychange', function once() {
+      if (document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', once);
+      runDemo(0);
+    });
+  }
+
+  // Replay on chip click
+  $('picker').addEventListener('click', (e) => {
+    const btn = e.target.closest('.q-chip');
+    if (!btn) return;
+    document.querySelectorAll('.q-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    runDemo(Number(btn.dataset.i));
+  });
+
+  // Scroll reveals
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.06}s`;
+    io.observe(el);
+  });
+
+  // 700+ counter when the constellation scrolls in
+  const counter = $('intCount');
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      cio.unobserve(en.target);
+      if (reduceMotion) { counter.textContent = '700'; return; }
+      const start = performance.now();
+      const dur = 1400;
+      const step = (now) => {
+        const p = Math.min(1, (now - start) / dur);
+        counter.textContent = Math.round(700 * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.3 });
+  cio.observe(counter);
+
+  // Progress dots
+  const acts = ['act1', 'act2', 'act3', 'act4'];
+  const dio = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      document.querySelectorAll('.dots a').forEach(a =>
+        a.classList.toggle('on', a.dataset.act === en.target.id));
+    });
+  }, { threshold: 0.45 });
+  acts.forEach(id => dio.observe($(id)));
+});
+</script>
+
+</body>
+</html>

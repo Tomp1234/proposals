@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "milo-showcase",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8820", "--directory", "milo-showcase"],
+      "port": 8820
+    },
+    {
       "name": "milo-b",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8765", "--directory", "milo-one-pager-b"],
