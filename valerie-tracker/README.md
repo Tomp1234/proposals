@@ -19,17 +19,22 @@ On startup it prints the URLs, for example:
 
 ```
 Valerie's tracker is running.
-  On this machine:  http://localhost:8845
-  On the office LAN: http://192.168.1.42:8845   <- bookmark this
+  On this machine:  http://localhost
+  On the office LAN: http://toms-macbook-air.local   <- bookmark this
+  Also reachable at: http://192.168.1.42
   Data file: .../valerie-tracker/data.json
 ```
 
 ## The URL to bookmark
 
-Both Valerie and Tom bookmark the **LAN URL** printed at startup
-(`http://<office-machine-ip>:8845`). If the office machine's IP changes,
-restart the server and it prints the new one. Tip: give the machine a fixed
-IP in the router settings so the bookmark never breaks.
+Both Valerie and Tom bookmark the **`.local` URL** printed at startup
+(`http://<machine-name>.local`). It follows the machine even when the
+router hands it a new IP, so the bookmark never breaks. The plain IP URL
+also works as a fallback for devices that don't speak Bonjour/mDNS.
+
+To make the link prettier, rename the Mac (System Settings → General →
+Sharing → Local hostname) to e.g. `milo` and the tracker becomes
+`http://milo.local`.
 
 ## How it works day to day
 
@@ -72,4 +77,7 @@ Login Items, or run:
 
 ## Changing the port
 
-`PORT=9000 node server.js`
+It serves on port 80 by default (so the URL needs no port suffix).
+If something else on the machine already uses port 80:
+
+`PORT=8845 node server.js` → bookmark `http://<machine-name>.local:8845`

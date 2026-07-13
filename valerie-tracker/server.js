@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const PORT = process.env.PORT || 8845;
+const PORT = Number(process.env.PORT || process.argv[2]) || 80;
 const DATA_FILE = path.join(__dirname, 'data.json');
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
@@ -185,8 +185,12 @@ server.listen(PORT, () => {
       if (net.family === 'IPv4' && !net.internal) ips.push(net.address);
     }
   }
+  const portSuffix = PORT === 80 ? '' : ':' + PORT;
+  let name = '';
+  try { name = require('child_process').execSync('scutil --get LocalHostName 2>/dev/null').toString().trim().toLowerCase(); } catch (e) {}
   console.log(`Valerie's tracker is running.`);
-  console.log(`  On this machine:  http://localhost:${PORT}`);
-  for (const ip of ips) console.log(`  On the office LAN: http://${ip}:${PORT}   <- bookmark this`);
+  console.log(`  On this machine:  http://localhost${portSuffix}`);
+  if (name) console.log(`  On the office LAN: http://${name}.local${portSuffix}   <- bookmark this`);
+  for (const ip of ips) console.log(`  Also reachable at: http://${ip}${portSuffix}`);
   console.log(`  Data file: ${DATA_FILE}`);
 });

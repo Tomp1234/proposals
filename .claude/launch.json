@@ -76,7 +76,7 @@
     {
       "name": "valerie-tracker",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["valerie-tracker/server.js"],
+      "runtimeArgs": ["valerie-tracker/server.js", "8845"],
       "port": 8845
     },
     {
