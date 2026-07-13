@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valerie · Daily Tracker</title>
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --card: #ffffff;
+    --ink: #1e2723;
+    --muted: #6b7570;
+    --line: #e4e2da;
+    --accent: #0e6e5c;
+    --accent-soft: #e3f0ec;
+    --green-bg: #e6f4ea; --green-ink: #1e6b3a;
+    --amber-bg: #fdf3dd; --amber-ink: #8a6116;
+    --neutral-bg: #eef0ee; --neutral-ink: #4c554f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--ink);
+    font-size: 15px; line-height: 1.45;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 20px 24px 80px; }
+
+  /* Stale-day banner */
+  #staleBanner {
+    display: none; background: #33413b; color: #fff;
+    padding: 12px 24px; text-align: center;
+  }
+  #staleBanner.show { display: block; }
+  #staleBanner button {
+    margin-left: 12px; background: #fff; color: #33413b; border: 0;
+    padding: 6px 14px; border-radius: 6px; font-weight: 600; cursor: pointer;
+  }
+
+  header {
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    padding: 6px 0 16px;
+  }
+  header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  #boardDate { color: var(--muted); font-size: 15px; }
+  #syncStatus { color: var(--muted); font-size: 12.5px; margin-left: auto; }
+  #syncStatus.offline { color: #b3261e; font-weight: 600; }
+  .headBtn {
+    background: none; border: 1px solid var(--line); border-radius: 7px;
+    padding: 6px 12px; font-size: 13px; color: var(--ink); cursor: pointer;
+  }
+  .headBtn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Scorecard */
+  #scorecard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .tile {
+    border-radius: 12px; padding: 14px 18px;
+    background: var(--neutral-bg); color: var(--neutral-ink);
+  }
+  .tile .val { font-size: 34px; font-weight: 750; letter-spacing: -0.02em; line-height: 1.1; }
+  .tile .val small { font-size: 16px; font-weight: 500; opacity: 0.75; }
+  .tile .lbl { font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-top: 2px; }
+  .tile .sub { font-size: 12px; opacity: 0.8; }
+  .tile.ok { background: var(--green-bg); color: var(--green-ink); }
+  .tile.behind { background: var(--amber-bg); color: var(--amber-ink); }
+
+  /* Layout: schedule + rules */
+  .cols { display: grid; grid-template-columns: 1fr 250px; gap: 20px; align-items: start; }
+
+  /* Schedule blocks */
+  .block {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 10px; position: relative;
+    transition: border-color 0.2s;
+  }
+  .block.now { border: 2px solid var(--accent); box-shadow: 0 2px 10px rgba(14,110,92,0.10); }
+  .block.now::after {
+    content: "NOW"; position: absolute; top: -9px; right: 14px;
+    background: var(--accent); color: #fff; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.08em; padding: 2px 8px; border-radius: 20px;
+  }
+  .block.done { opacity: 0.62; }
+  .block.done .btitle { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+  .bhead { display: flex; align-items: center; gap: 11px; }
+  .btime { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; width: 84px; flex-shrink: 0; }
+  .btitle { font-weight: 650; font-size: 15.5px; flex: 1; }
+  .btag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; color: var(--accent); background: var(--accent-soft); padding: 2px 7px; border-radius: 20px; }
+  .doneWrap { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); cursor: pointer; user-select: none; }
+  .doneWrap input { width: 19px; height: 19px; accent-color: var(--accent); cursor: pointer; }
+
+  .fields { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 11px 0 0 95px; }
+  .field { display: flex; align-items: center; gap: 7px; }
+  .field label { font-size: 13.5px; color: var(--ink); }
+  .field .hint { color: var(--muted); font-size: 12px; }
+  .field input[type="number"] {
+    width: 62px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 7px;
+    font-size: 15px; font-weight: 600; text-align: center; background: #fcfcfa;
+  }
+  .field input[type="text"] {
+    width: 240px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 7px;
+    font-size: 13.5px; background: #fcfcfa;
+  }
+  .field input:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  .field input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; }
+  .field.checkfield label { cursor: pointer; }
+
+  /* EOD generator */
+  .eodBox { margin: 14px 0 2px 95px; padding-top: 12px; border-top: 1px dashed var(--line); }
+  .eodBox .qrow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .eodBox .qrow label { font-size: 13.5px; }
+  .eodBox .qrow input { flex: 1; min-width: 220px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 7px; font-size: 13.5px; background: #fcfcfa; }
+  .btn {
+    background: var(--accent); color: #fff; border: 0; border-radius: 8px;
+    padding: 8px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.ghost { background: none; color: var(--accent); border: 1px solid var(--accent); }
+  #eodOut { display: none; margin-top: 10px; }
+  #eodOut.show { display: block; }
+  #eodOut textarea {
+    width: 100%; height: 108px; padding: 10px 12px; border: 1px solid var(--line);
+    border-radius: 8px; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: #fcfcfa; resize: vertical;
+  }
+  #eodOut .btn { margin-top: 8px; }
+  #copyMsg { color: var(--green-ink); font-size: 12.5px; margin-left: 10px; }
+
+  /* Rules panel */
+  #rules {
+    background: #fbf8ef; border: 1px solid #eadfc0; border-radius: 12px;
+    padding: 14px 16px; font-size: 12.5px; position: sticky; top: 14px;
+  }
+  #rules h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #8a6116; margin-bottom: 8px; }
+  #rules li { margin: 0 0 8px 16px; color: #55503f; }
+
+  /* History */
+  #history { display: none; margin-top: 26px; }
+  #history.show { display: block; }
+  #history h2 { font-size: 16px; margin-bottom: 10px; }
+  #history table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  #history th, #history td { padding: 9px 14px; text-align: left; font-size: 13.5px; border-bottom: 1px solid var(--line); }
+  #history th { background: var(--neutral-bg); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  #history td.n { font-variant-numeric: tabular-nums; font-weight: 600; }
+  #history .empty { color: var(--muted); font-size: 13.5px; padding: 14px; }
+
+  footer { margin-top: 34px; text-align: center; }
+  #resetBtn { color: #8a4b16; border-color: #e0c9a8; }
+
+  @media (max-width: 860px) {
+    .cols { grid-template-columns: 1fr; }
+    #rules { position: static; }
+    .fields, .eodBox { margin-left: 0; }
+    #scorecard { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .tile { padding: 10px 12px; }
+    .tile .val { font-size: 26px; }
+    .btime { width: 74px; }
+  }
+  @media (max-width: 480px) {
+    .tile .sub { display: none; }
+    .tile .lbl { font-size: 10.5px; }
+    .tile .val { font-size: 22px; }
+    .tile .val small { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="staleBanner">
+  This board is from <b id="staleDate"></b>.
+  <button id="staleBtn">Archive it and start today fresh</button>
+</div>
+
+<div class="wrap">
+  <header>
+    <h1>Valerie · Daily Tracker</h1>
+    <span id="boardDate"></span>
+    <span id="syncStatus">connecting…</span>
+    <button class="headBtn" id="historyBtn">History</button>
+    <button class="headBtn" id="resetBtn">Reset for tomorrow</button>
+  </header>
+
+  <div id="scorecard">
+    <div class="tile" id="tileDials">
+      <div class="val">0 <small>/ 100+</small></div>
+      <div class="lbl">Dials</div>
+      <div class="sub"></div>
+    </div>
+    <div class="tile" id="tileConvos">
+      <div class="val">0 <small>/ 5–8</small></div>
+      <div class="lbl">Conversations</div>
+      <div class="sub"></div>
+    </div>
+    <div class="tile" id="tileMeetings">
+      <div class="val">0</div>
+      <div class="lbl">Meetings booked</div>
+      <div class="sub"></div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div id="schedule"></div>
+    <aside id="rules">
+      <h2>House rules</h2>
+      <ul>
+        <li>Call blocks are protected: dials only.</li>
+        <li>Pricing questions: hand the thread to Tom. Never quote, never ballpark.</li>
+        <li>Named proof allowed: Coolr, Two Tribes, Perlas, ULG. Nikki Beach stays anonymous.</li>
+        <li>Gaming companies: pass to Tom.</li>
+        <li>EOD note goes every day, even bad days.</li>
+      </ul>
+    </aside>
+  </div>
+
+  <section id="history">
+    <h2>History</h2>
+    <div id="historyBody"></div>
+  </section>
+</div>
+
+<script>
+'use strict';
+
+/* ---------- schedule definition ---------- */
+const NUM = 'num', CHECK = 'check', TEXT = 'text';
+
+function scheduleFor(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dow = new Date(y, m - 1, d).getDay(); // 0 Sun … 6 Sat
+  const callFields = [
+    { k: 'dials', label: 'Dials', type: NUM, hint: 'target 50+' },
+    { k: 'connects', label: 'Connects', type: NUM },
+    { k: 'conversations', label: 'Conversations', type: NUM },
+    { k: 'meetings', label: 'Meetings booked', type: NUM },
+  ];
+  const flexFields = (dow === 1 || dow === 4)
+    ? [{ k: 'postDrafted', label: 'Post drafted', type: CHECK }]
+    : [{ k: 'ramp', label: 'Ramp activity', type: TEXT, hint: 'one line' }];
+  const flexHint = (dow === 1 || dow === 4) ? 'Post day' : 'Ramp day';
+
+  return [
+    { id: 'linkedin', time: '9:00–10:00', start: 9, end: 10, title: 'LinkedIn hour', fields: [
+      { k: 'connections', label: 'Connections sent', type: NUM },
+      { k: 'dms', label: 'DMs sent', type: NUM },
+      { k: 'replies', label: 'Replies handled', type: NUM },
+      { k: 'comments', label: 'Comments made', type: NUM },
+    ]},
+    { id: 'prep', time: '10:00–11:00', start: 10, end: 11, title: 'Call prep + lists', fields: [
+      { k: 'priority', label: 'Priority names prepped', type: NUM, hint: 'target 10–15' },
+      { k: 'apollo', label: 'New Apollo prospects added', type: NUM, hint: 'target 10' },
+    ]},
+    { id: 'calls1', time: '11:00–12:00', start: 11, end: 12, title: 'Call block 1', tag: 'PROTECTED', fields: callFields },
+    { id: 'lunch', time: '12:00–1:00', start: 12, end: 13, title: 'Lunch', fields: [] },
+    { id: 'followups', time: '1:00–2:00', start: 13, end: 14, title: 'Follow-ups + HubSpot', fields: [
+      { k: 'callsLogged', label: 'Calls logged', type: CHECK },
+      { k: 'fuEmails', label: 'Follow-up emails sent', type: NUM },
+      { k: 'noShows', label: 'No-shows chased', type: CHECK },
+      { k: 'stagesMoved', label: 'Stages moved', type: CHECK },
+    ]},
+    { id: 'flex', time: '2:00–3:00', start: 14, end: 15, title: 'Flex slot', tag: flexHint, fields: flexFields },
+    { id: 'linkedin2', time: '3:00–3:30', start: 15, end: 15.5, title: 'LinkedIn second pass', fields: [
+      { k: 'replies', label: 'Replies handled', type: NUM },
+    ]},
+    { id: 'calls2', time: '3:30–4:30', start: 15.5, end: 16.5, title: 'Call block 2', tag: 'PROTECTED', fields: callFields },
+    { id: 'wrapup', time: '4:30–5:30', start: 16.5, end: 17.5, title: 'Wrap-up', eod: true, fields: [
+      { k: 'pmLogged', label: 'Afternoon calls logged', type: CHECK },
+      { k: 'eodSent', label: 'EOD note sent', type: CHECK },
+      { k: 'tmrList', label: "Tomorrow's list set", type: CHECK },
+      { k: 'events', label: 'Events flagged', type: TEXT },
+    ]},
+  ];
+}
+
+/* ---------- state ---------- */
+let state = null;          // last server payload {board, history, rev, today}
+let renderedDate = null;   // date the schedule DOM was built for
+const inputs = {};         // "block.field" -> element
+const dirty = new Set();   // keys with local edits not yet confirmed by server
+const debounces = {};
+let staleHandled = false;
+
+const $ = (s) => document.querySelector(s);
+
+function fmtDate(dateStr, short) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  return dt.toLocaleDateString('en-GB', short
+    ? { weekday: 'short', day: 'numeric', month: 'short' }
+    : { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function nowHours() {
+  const n = new Date();
+  return n.getHours() + n.getMinutes() / 60;
+}
+
+/* ---------- server io ---------- */
+async function api(path, body) {
+  const res = await fetch(path, body
+    ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+    : undefined);
+  if (!res.ok) throw new Error('server error');
+  return res.json();
+}
+
+function setSync(ok) {
+  const el = $('#syncStatus');
+  if (ok) {
+    el.textContent = 'live · ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    el.classList.remove('offline');
+  } else {
+    el.textContent = 'offline, retrying…';
+    el.classList.add('offline');
+  }
+}
+
+function keyOf(block, field) { return block + '.' + field; }
+
+function sendUpdate(block, field, value) {
+  const key = keyOf(block, field);
+  dirty.add(key);
+  api('/api/update', { block, field, value })
+    .then((s) => { dirty.delete(key); applyState(s); setSync(true); })
+    .catch(() => { dirty.delete(key); setSync(false); });
+}
+
+function sendQuote(value) {
+  dirty.add('_quote');
+  api('/api/update', { eodQuote: value })
+    .then((s) => { dirty.delete('_quote'); applyState(s); setSync(true); })
+    .catch(() => { dirty.delete('_quote'); setSync(false); });
+}
+
+function debounced(key, fn) {
+  dirty.add(key);
+  clearTimeout(debounces[key]);
+  debounces[key] = setTimeout(fn, 500);
+}
+
+/* ---------- build schedule DOM ---------- */
+function buildSchedule(dateStr) {
+  const root = $('#schedule');
+  root.innerHTML = '';
+  Object.keys(inputs).forEach((k) => delete inputs[k]);
+
+  for (const blk of scheduleFor(dateStr)) {
+    const card = document.createElement('div');
+    card.className = 'block';
+    card.id = 'blk-' + blk.id;
+
+    const head = document.createElement('div');
+    head.className = 'bhead';
+    head.innerHTML = '<span class="btime">' + blk.time + '</span>' +
+      '<span class="btitle">' + blk.title + '</span>' +
+      (blk.tag ? '<span class="btag">' + blk.tag + '</span>' : '');
+
+    const doneWrap = document.createElement('label');
+    doneWrap.className = 'doneWrap';
+    const doneCb = document.createElement('input');
+    doneCb.type = 'checkbox';
+    doneCb.addEventListener('change', () => sendUpdate(blk.id, 'done', doneCb.checked));
+    doneWrap.append(doneCb, document.createTextNode('done'));
+    head.appendChild(doneWrap);
+    inputs[keyOf(blk.id, 'done')] = doneCb;
+    card.appendChild(head);
+
+    if (blk.fields.length) {
+      const fwrap = document.createElement('div');
+      fwrap.className = 'fields';
+      for (const f of blk.fields) {
+        const cell = document.createElement('div');
+        cell.className = 'field' + (f.type === CHECK ? ' checkfield' : '');
+        const lab = document.createElement('label');
+        lab.textContent = f.label;
+        let inp;
+        if (f.type === CHECK) {
+          inp = document.createElement('input');
+          inp.type = 'checkbox';
+          inp.addEventListener('change', () => sendUpdate(blk.id, f.k, inp.checked));
+          lab.prepend(inp, document.createTextNode(' '));
+          cell.appendChild(lab);
+        } else {
+          inp = document.createElement('input');
+          if (f.type === NUM) {
+            inp.type = 'number'; inp.min = 0; inp.inputMode = 'numeric'; inp.placeholder = '0';
+          } else {
+            inp.type = 'text';
+          }
+          const key = keyOf(blk.id, f.k);
+          inp.addEventListener('input', () => debounced(key, () => {
+            const v = f.type === NUM ? (inp.value === '' ? null : Number(inp.value)) : inp.value;
+            sendUpdate(blk.id, f.k, v);
+          }));
+          inp.addEventListener('blur', () => {
+            if (debounces[key]) { clearTimeout(debounces[key]); }
+            const v = f.type === NUM ? (inp.value === '' ? null : Number(inp.value)) : inp.value;
+            sendUpdate(blk.id, f.k, v);
+          });
+          cell.append(lab, inp);
+          if (f.hint) {
+            const h = document.createElement('span');
+            h.className = 'hint'; h.textContent = f.hint;
+            cell.appendChild(h);
+          }
+        }
+        inputs[keyOf(blk.id, f.k)] = inp;
+        fwrap.appendChild(cell);
+      }
+      card.appendChild(fwrap);
+    }
+
+    if (blk.eod) card.appendChild(buildEodBox());
+    root.appendChild(card);
+  }
+  renderedDate = dateStr;
+}
+
+function buildEodBox() {
+  const box = document.createElement('div');
+  box.className = 'eodBox';
+
+  const qrow = document.createElement('div');
+  qrow.className = 'qrow';
+  const qlab = document.createElement('label');
+  qlab.textContent = 'Most interesting thing a prospect said:';
+  const qinp = document.createElement('input');
+  qinp.type = 'text';
+  qinp.placeholder = 'their words, not yours';
+  qinp.addEventListener('input', () => debounced('_quote', () => sendQuote(qinp.value)));
+  qinp.addEventListener('blur', () => { clearTimeout(debounces['_quote']); sendQuote(qinp.value); });
+  inputs['_quote'] = qinp;
+  qrow.append(qlab, qinp);
+
+  const genBtn = document.createElement('button');
+  genBtn.className = 'btn';
+  genBtn.textContent = 'Generate EOD note';
+  genBtn.addEventListener('click', generateEod);
+
+  const out = document.createElement('div');
+  out.id = 'eodOut';
+  const ta = document.createElement('textarea');
+  ta.id = 'eodText';
+  ta.readOnly = true;
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'btn ghost';
+  copyBtn.textContent = 'Copy to clipboard';
+  copyBtn.addEventListener('click', copyEod);
+  const msg = document.createElement('span');
+  msg.id = 'copyMsg';
+  out.append(ta, copyBtn, msg);
+
+  box.append(qrow, genBtn, out);
+  return box;
+}
+
+/* ---------- EOD note ---------- */
+function totals() {
+  const g = (b, f) => Number((state.board.blocks[b] || { fields: {} }).fields[f]) || 0;
+  return {
+    dials: g('calls1', 'dials') + g('calls2', 'dials'),
+    conversations: g('calls1', 'conversations') + g('calls2', 'conversations'),
+    meetings: g('calls1', 'meetings') + g('calls2', 'meetings'),
+  };
+}
+
+function generateEod() {
+  const t = totals();
+  const quote = (state.board.eodQuote || '').trim();
+  const note =
+    'EOD — ' + fmtDate(state.board.date, true) + '\n' +
+    'Calls made: ' + t.dials + '\n' +
+    'Conversations: ' + t.conversations + '\n' +
+    'Meetings booked: ' + t.meetings + '\n' +
+    'Most interesting thing a prospect said: ' + (quote ? '"' + quote + '"' : '—');
+  $('#eodText').value = note;
+  $('#eodOut').classList.add('show');
+  $('#copyMsg').textContent = '';
+}
+
+function copyEod() {
+  const ta = $('#eodText');
+  const done = () => { $('#copyMsg').textContent = 'Copied ✓'; };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(ta.value).then(done).catch(() => legacyCopy(ta, done));
+  } else {
+    legacyCopy(ta, done);
+  }
+}
+function legacyCopy(ta, done) {
+  ta.readOnly = false; ta.select(); ta.setSelectionRange(0, 99999);
+  try { document.execCommand('copy'); done(); } catch (e) {}
+  ta.readOnly = true; window.getSelection().removeAllRanges();
+}
+
+/* ---------- apply server state to DOM ---------- */
+function applyState(s) {
+  state = s;
+  if (s.board.date !== renderedDate) buildSchedule(s.board.date);
+
+  $('#boardDate').textContent = fmtDate(s.board.date);
+
+  for (const blk of scheduleFor(s.board.date)) {
+    const b = s.board.blocks[blk.id] || { done: false, fields: {} };
+    setInput(keyOf(blk.id, 'done'), b.done);
+    for (const f of blk.fields) setInput(keyOf(blk.id, f.k), b.fields[f.k]);
+    const card = $('#blk-' + blk.id);
+    if (card) card.classList.toggle('done', !!b.done);
+  }
+  setInput('_quote', s.board.eodQuote);
+
+  updateScorecard();
+  updateHighlight();
+  updateHistory();
+  updateStale();
+}
+
+function setInput(key, value) {
+  const el = inputs[key];
+  if (!el) return;
+  if (document.activeElement === el || dirty.has(key)) return; // don't clobber live edits
+  if (el.type === 'checkbox') el.checked = !!value;
+  else el.value = (value === null || value === undefined) ? '' : value;
+}
+
+/* ---------- scorecard + pace ---------- */
+const CALL_WINDOWS = [[11, 12], [15.5, 16.5]];
+
+function expectedFraction() {
+  const t = nowHours();
+  let f = 0;
+  for (const [s, e] of CALL_WINDOWS) f += Math.max(0, Math.min(1, (t - s) / (e - s)));
+  return f / CALL_WINDOWS.length; // 0..1 of the day's call capacity elapsed
+}
+
+function paceClass(actual, target) {
+  const expected = target * expectedFraction();
+  if (expected < 1) return 'ok';                 // before the call blocks: on pace by definition
+  return actual >= expected * 0.8 ? 'ok' : 'behind';
+}
+
+function updateScorecard() {
+  if (!state) return;
+  const t = totals();
+  const dialsTile = $('#tileDials'), convTile = $('#tileConvos'), meetTile = $('#tileMeetings');
+
+  dialsTile.className = 'tile ' + paceClass(t.dials, 100);
+  dialsTile.querySelector('.val').innerHTML = t.dials + ' <small>/ 100+</small>';
+  dialsTile.querySelector('.sub').textContent = paceNote(t.dials, 100);
+
+  convTile.className = 'tile ' + paceClass(t.conversations, 5);
+  convTile.querySelector('.val').innerHTML = t.conversations + ' <small>/ 5–8</small>';
+  convTile.querySelector('.sub').textContent = paceNote(t.conversations, 5);
+
+  meetTile.className = 'tile ' + (t.meetings > 0 ? 'ok' : '');
+  meetTile.querySelector('.val').textContent = t.meetings;
+  meetTile.querySelector('.sub').textContent = t.meetings > 0 ? 'Brilliant' : 'Auto-summed from call blocks';
+}
+
+function paceNote(actual, target) {
+  const f = expectedFraction();
+  if (f <= 0) return 'Call blocks start at 11:00';
+  if (f >= 1) return 'Call blocks finished';
+  const expected = Math.round(target * f);
+  return 'On-pace mark right now: ' + expected;
+}
+
+/* ---------- current block highlight ---------- */
+function updateHighlight() {
+  if (!state) return;
+  const t = nowHours();
+  const liveToday = state.board.date === state.today;
+  for (const blk of scheduleFor(state.board.date)) {
+    const card = $('#blk-' + blk.id);
+    if (card) card.classList.toggle('now', liveToday && t >= blk.start && t < blk.end);
+  }
+}
+
+/* ---------- history ---------- */
+function updateHistory() {
+  const rows = state.history || [];
+  const body = $('#historyBody');
+  if (!rows.length) {
+    body.innerHTML = '<div class="empty">Nothing archived yet. The first "Reset for tomorrow" puts today\'s numbers here.</div>';
+    return;
+  }
+  let html = '<table><tr><th>Date</th><th>Dials</th><th>Conversations</th><th>Meetings</th><th>Blocks done</th></tr>';
+  for (const r of rows) {
+    html += '<tr><td>' + fmtDate(r.date, true) + '</td>' +
+      '<td class="n">' + r.dials + '</td>' +
+      '<td class="n">' + r.conversations + '</td>' +
+      '<td class="n">' + r.meetings + '</td>' +
+      '<td class="n">' + r.blocksDone + '/' + r.blocksTotal + '</td></tr>';
+  }
+  body.innerHTML = html + '</table>';
+}
+
+/* ---------- stale day ---------- */
+function boardHasData(board) {
+  const has = (v) => v !== null && v !== undefined && v !== '' && v !== false;
+  if (has(board.eodQuote)) return true;
+  return Object.values(board.blocks).some(
+    (b) => b.done || Object.values(b.fields).some(has)
+  );
+}
+
+function updateStale() {
+  const banner = $('#staleBanner');
+  if (state.board.date === state.today) {
+    banner.classList.remove('show');
+    staleHandled = false;
+    return;
+  }
+  if (!boardHasData(state.board)) {
+    // Empty board from a previous day: roll forward silently, once.
+    if (!staleHandled) {
+      staleHandled = true;
+      api('/api/reset', {}).then(applyState).catch(() => { staleHandled = false; });
+    }
+    return;
+  }
+  $('#staleDate').textContent = fmtDate(state.board.date);
+  banner.classList.add('show');
+}
+
+/* ---------- header buttons ---------- */
+$('#staleBtn').addEventListener('click', () => {
+  api('/api/reset', {}).then((s) => { applyState(s); setSync(true); }).catch(() => setSync(false));
+});
+
+$('#resetBtn').addEventListener('click', () => {
+  if (!confirm("Archive today's numbers and clear the board for tomorrow?")) return;
+  api('/api/reset', {}).then((s) => { applyState(s); setSync(true); }).catch(() => setSync(false));
+});
+
+$('#historyBtn').addEventListener('click', () => {
+  const h = $('#history');
+  h.classList.toggle('show');
+  if (h.classList.contains('show')) h.scrollIntoView({ behavior: 'smooth' });
+});
+
+/* ---------- boot + polling ---------- */
+async function poll() {
+  try {
+    const s = await api('/api/state');
+    applyState(s);
+    setSync(true);
+  } catch (e) {
+    setSync(false);
+  }
+}
+
+poll();
+setInterval(poll, 3000);
+setInterval(updateHighlight, 30000);
+setInterval(updateScorecard, 60000);
+</script>
+</body>
+</html>

@@ -66,6 +66,24 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8815", "--directory", "milo-hacksaw-proposal"],
       "port": 8815
+    },
+    {
+      "name": "valerie",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8840", "--directory", "valerie"],
+      "port": 8840
+    },
+    {
+      "name": "valerie-tracker",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["valerie-tracker/server.js"],
+      "port": 8845
+    },
+    {
+      "name": "op-final-hoop",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8830", "--directory", "/Users/tompickett/op-final-hoop"],
+      "port": 8830
     }
   ]
 }
