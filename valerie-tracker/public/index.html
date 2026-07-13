@@ -317,14 +317,14 @@ function keyOf(block, field) { return block + '.' + field; }
 function sendUpdate(block, field, value) {
   const key = keyOf(block, field);
   dirty.add(key);
-  api('/api/update', { block, field, value })
+  api('api/update', { block, field, value })
     .then((s) => { dirty.delete(key); applyState(s); setSync(true); })
     .catch(() => { dirty.delete(key); setSync(false); });
 }
 
 function sendQuote(value) {
   dirty.add('_quote');
-  api('/api/update', { eodQuote: value })
+  api('api/update', { eodQuote: value })
     .then((s) => { dirty.delete('_quote'); applyState(s); setSync(true); })
     .catch(() => { dirty.delete('_quote'); setSync(false); });
 }
@@ -612,7 +612,7 @@ function updateStale() {
     // Empty board from a previous day: roll forward silently, once.
     if (!staleHandled) {
       staleHandled = true;
-      api('/api/reset', {}).then(applyState).catch(() => { staleHandled = false; });
+      api('api/reset', {}).then(applyState).catch(() => { staleHandled = false; });
     }
     return;
   }
@@ -622,12 +622,12 @@ function updateStale() {
 
 /* ---------- header buttons ---------- */
 $('#staleBtn').addEventListener('click', () => {
-  api('/api/reset', {}).then((s) => { applyState(s); setSync(true); }).catch(() => setSync(false));
+  api('api/reset', {}).then((s) => { applyState(s); setSync(true); }).catch(() => setSync(false));
 });
 
 $('#resetBtn').addEventListener('click', () => {
   if (!confirm("Archive today's numbers and clear the board for tomorrow?")) return;
-  api('/api/reset', {}).then((s) => { applyState(s); setSync(true); }).catch(() => setSync(false));
+  api('api/reset', {}).then((s) => { applyState(s); setSync(true); }).catch(() => setSync(false));
 });
 
 $('#historyBtn').addEventListener('click', () => {
@@ -639,7 +639,7 @@ $('#historyBtn').addEventListener('click', () => {
 /* ---------- boot + polling ---------- */
 async function poll() {
   try {
-    const s = await api('/api/state');
+    const s = await api('api/state');
     applyState(s);
     setSync(true);
   } catch (e) {
