@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf8f5">
+<title>Valerie — LinkedIn Plan</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23b42a5e'/%3E%3Ctext x='50' y='70' font-size='58' font-family='Georgia,serif' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#b42a5e;
+  --accent-soft:#fbeef3;
+  --accent-border:#f2d4e0;
+  --ink:#211c1e;
+  --muted:#6f6669;
+  --bg:#faf8f5;
+  --card:#ffffff;
+  --line:#eae4de;
+  --green:#1e7b4d;  --green-bg:#e7f5ec;
+  --amber:#9a6b00;  --amber-bg:#fcf3dc;
+  --red:#b3261e;    --red-bg:#fdecea;
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);color:var(--ink);
+  font-size:16px;line-height:1.55;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 48px}
+
+/* ---------- sticky header ---------- */
+header.top{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,248,245,.92);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:calc(10px + env(safe-area-inset-top)) 16px 10px;
+}
+header.top .h-inner{max-width:680px;margin:0 auto}
+header.top h1{
+  font-family:'Fraunces',Georgia,serif;font-weight:600;
+  font-size:20px;letter-spacing:-.01em;color:var(--ink);
+}
+header.top h1 em{color:var(--accent);font-style:normal}
+header.top .oneline{
+  font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45;
+}
+
+/* ---------- cards & general ---------- */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;margin-top:16px;
+}
+h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;letter-spacing:-.01em;margin-bottom:4px}
+h3{font-size:15px;font-weight:700;margin:18px 0 6px}
+h3:first-child{margin-top:0}
+p{margin:8px 0}
+ul,ol{margin:8px 0 8px 0;padding-left:22px}
+li{margin:6px 0}
+.muted{color:var(--muted);font-size:14px}
+.small{font-size:13px}
+strong{font-weight:650}
+mark{background:var(--accent-soft);color:var(--accent);padding:0 4px;border-radius:4px;font-weight:600}
+.pill{
+  display:inline-block;background:var(--accent-soft);color:var(--accent);
+  border:1px solid var(--accent-border);
+  font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;
+  letter-spacing:.02em;text-transform:uppercase;
+}
+.divider{border:none;border-top:1px solid var(--line);margin:16px 0}
+
+/* ---------- today ---------- */
+#today .date-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+#today .todaydate{font-size:14px;font-weight:600;color:var(--muted)}
+#today .phase-note{font-size:13px;color:var(--muted);margin:4px 0 2px}
+#today .focus{
+  background:var(--accent-soft);border:1px solid var(--accent-border);
+  border-radius:12px;padding:12px 14px;margin:12px 0;font-size:14px;
+}
+#today .focus b{color:var(--accent)}
+.progressbar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:14px 0 4px}
+.progressbar>div{height:100%;background:var(--accent);border-radius:99px;width:0;transition:width .25s ease}
+.progresslabel{font-size:12px;color:var(--muted);text-align:right}
+
+/* checklist */
+.check{list-style:none;padding:0;margin:10px 0 0}
+.check li{margin:0}
+.check label{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:13px 10px;min-height:52px;border-radius:12px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.check label:active{background:var(--accent-soft)}
+.check input{
+  appearance:none;-webkit-appearance:none;flex:0 0 auto;
+  width:26px;height:26px;margin-top:1px;border:2px solid #cfc6c9;border-radius:8px;
+  background:#fff;display:grid;place-content:center;cursor:pointer;
+}
+.check input:checked{background:var(--accent);border-color:var(--accent)}
+.check input:checked::after{
+  content:"";width:13px;height:7px;border:2.5px solid #fff;border-top:none;border-right:none;
+  transform:rotate(-45deg) translateY(-1px);
+}
+.check input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:#cbb;text-decoration-thickness:1.5px}
+.check .t{font-size:15px}
+.check .t small{display:block;color:var(--muted);font-size:12.5px;text-decoration:none}
+
+/* ---------- scoreboard ---------- */
+#scoreboard .weeknav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0 4px}
+#scoreboard .weeknav button{
+  border:1px solid var(--line);background:#fff;border-radius:10px;
+  width:44px;height:44px;font-size:18px;cursor:pointer;color:var(--ink);
+}
+#scoreboard .weeknav .wk{font-weight:700;font-size:15px;text-align:center}
+#scoreboard .weeknav .wk small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.scoregrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.scorefield{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+.scorefield label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:2px}
+.scorefield input{
+  width:100%;border:none;outline:none;font-size:22px;font-weight:700;color:var(--ink);
+  font-family:'Inter',sans-serif;background:transparent;padding:2px 0;
+}
+.scorefield .hint{font-size:11px;color:var(--muted)}
+.acceptance{
+  margin-top:12px;border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border:1px solid var(--line);background:#fff;
+}
+.acceptance .pct{font-size:30px;font-weight:700;font-family:'Fraunces',Georgia,serif}
+.acceptance .verdict{font-size:13px;font-weight:600;text-align:right}
+.acceptance.good{background:var(--green-bg);border-color:#bfe3cd}.acceptance.good .pct,.acceptance.good .verdict{color:var(--green)}
+.acceptance.warn{background:var(--amber-bg);border-color:#ecd9a3}.acceptance.warn .pct,.acceptance.warn .verdict{color:var(--amber)}
+.acceptance.bad{background:var(--red-bg);border-color:#f3c0bc}.acceptance.bad .pct,.acceptance.bad .verdict{color:var(--red)}
+.acceptance.none .pct{color:var(--muted)}
+
+/* ---------- collapsibles ---------- */
+details.section{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  margin-top:12px;overflow:hidden;
+}
+details.section summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;
+  padding:16px 18px;min-height:56px;font-weight:650;font-size:16px;
+  -webkit-tap-highlight-color:transparent;
+}
+details.section summary::-webkit-details-marker{display:none}
+details.section summary .ico{
+  flex:0 0 auto;width:34px;height:34px;border-radius:10px;background:var(--accent-soft);
+  display:grid;place-content:center;font-size:16px;
+}
+details.section summary .chev{
+  margin-left:auto;flex:0 0 auto;color:var(--muted);transition:transform .2s ease;font-size:13px;
+}
+details.section[open] summary .chev{transform:rotate(90deg)}
+details.section .body{padding:2px 18px 18px;font-size:15px}
+details.section .body>*:first-child{margin-top:0}
+
+/* templates */
+.msg{
+  background:#faf7f3;border:1px solid var(--line);border-radius:12px;
+  padding:14px;margin:10px 0;
+}
+.msg .msghead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.msg .msghead b{font-size:14px}
+.msg .when{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+.msg .txt{font-size:14.5px;white-space:pre-wrap}
+.copybtn{
+  flex:0 0 auto;border:1px solid var(--accent-border);background:var(--accent-soft);color:var(--accent);
+  font-weight:700;font-size:13px;border-radius:999px;padding:9px 16px;min-height:38px;cursor:pointer;
+  font-family:'Inter',sans-serif;-webkit-tap-highlight-color:transparent;
+}
+.copybtn.done{background:var(--green-bg);border-color:#bfe3cd;color:var(--green)}
+
+/* good/bad examples */
+.ex{border-radius:12px;padding:12px 14px;margin:8px 0;font-size:14px;border:1px solid}
+.ex.good{background:var(--green-bg);border-color:#cfe8d9}
+.ex.bad{background:var(--red-bg);border-color:#f3ccc9}
+.ex .tag{font-weight:700;font-size:12px;display:block;margin-bottom:3px}
+.ex.good .tag{color:var(--green)}
+.ex.bad .tag{color:var(--red)}
+
+/* tables */
+.tablewrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f6f2ed;font-weight:650}
+table.simple{min-width:0}
+
+/* callouts */
+.callout{
+  border-left:4px solid var(--accent);background:var(--accent-soft);
+  border-radius:0 12px 12px 0;padding:12px 14px;margin:12px 0;font-size:14px;
+}
+.rule-red{border-left:4px solid var(--red);background:var(--red-bg);border-radius:0 12px 12px 0;padding:12px 14px;margin:12px 0;font-size:14px}
+
+/* footer */
+footer{margin-top:32px;text-align:center;font-size:13px;color:var(--muted);padding-bottom:24px}
+footer a{color:var(--accent);font-weight:600;text-decoration:none}
+@media (max-width:400px){
+  .scoregrid{grid-template-columns:1fr 1fr}
+  header.top h1{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="h-inner">
+    <h1>Valerie <em>—</em> LinkedIn Plan</h1>
+    <div class="oneline"><strong>Every day:</strong> 15 min commenting → 20 min connecting → 15 min replying → 10 min list. <strong>Tue + Thu:</strong> post. <strong>Tue:</strong> 30 min with Tom. Save 1–2 posts to the swipe file daily.</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ TODAY ============ -->
+  <section class="card" id="today">
+    <div class="date-row">
+      <span class="todaydate" id="todayDate"></span>
+      <span class="pill" id="phasePill"></span>
+    </div>
+    <h2 id="todayTitle">Today</h2>
+    <p class="phase-note" id="phaseNote"></p>
+    <div class="focus" id="phaseFocus"></div>
+    <ul class="check" id="todayChecklist"></ul>
+    <div class="progressbar"><div id="progFill"></div></div>
+    <div class="progresslabel" id="progLabel"></div>
+    <p class="muted small" id="weekendNote" style="display:none">Weekend: no posting (algorithm-flagged low reach), no pressure. If you're scrolling anyway, save something good to the swipe file. The checklist comes back Monday.</p>
+  </section>
+
+  <!-- ============ SCOREBOARD ============ -->
+  <section class="card" id="scoreboard">
+    <h2>Weekly scoreboard</h2>
+    <p class="muted small">LinkedIn won't show you acceptance rate — you track it or you're blind. Fill this in during the 10-min list slot; bring it to the Tuesday review.</p>
+    <div class="weeknav">
+      <button id="wkPrev" aria-label="Previous week">‹</button>
+      <div class="wk" id="wkLabel">Week</div>
+      <button id="wkNext" aria-label="Next week">›</button>
+    </div>
+    <div class="scoregrid">
+      <div class="scorefield"><label for="f_sent">Requests sent</label><input id="f_sent" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint" id="hint_sent"></div></div>
+      <div class="scorefield"><label for="f_accepted">Accepted</label><input id="f_accepted" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint">counts as they come in</div></div>
+      <div class="scorefield"><label for="f_replies">Replies</label><input id="f_replies" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint" id="hint_replies"></div></div>
+      <div class="scorefield"><label for="f_convos">Live conversations</label><input id="f_convos" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint" id="hint_convos"></div></div>
+      <div class="scorefield" style="grid-column:1/-1"><label for="f_meetings">Meetings booked (HubSpot “First Meeting” stage)</label><input id="f_meetings" type="number" inputmode="numeric" min="0" placeholder="0"><div class="hint" id="hint_meetings"></div></div>
+    </div>
+    <div class="acceptance none" id="acceptBox">
+      <div><div style="font-size:12px;font-weight:600;color:var(--muted)">Acceptance rate</div><div class="pct" id="acceptPct">—</div></div>
+      <div class="verdict" id="acceptVerdict">Enter requests sent + accepted</div>
+    </div>
+  </section>
+
+  <!-- ============ THE GOAL ============ -->
+  <details class="section">
+    <summary><span class="ico">🎯</span>The goal<span class="chev">▶</span></summary>
+    <div class="body">
+      <p>Book first meetings with fashion brands. A "meeting" counts when it hits the HubSpot <strong>First Meeting</strong> stage (warm conversations go to <strong>Engaged</strong>). Everything in this plan works backwards from that.</p>
+      <p>LinkedIn outbound has three layers, all running from day one:</p>
+      <ol>
+        <li><strong>Engagement</strong> — commenting on prospects' posts so your name is warm before you ever message them</li>
+        <li><strong>Connections + DMs</strong> — the actual outbound</li>
+        <li><strong>Content</strong> — 2 posts/week so that when a prospect checks your profile, you look like a peer, not a cold-caller</li>
+      </ol>
+      <p class="muted small"><strong>Ramp expectation (matches team KPIs):</strong> July = learn + build. August = 2 meetings. On path to 6/mo by October.</p>
+      <p class="muted small"><strong>Time budget:</strong> 1 hour/day. <strong>Tooling:</strong> fully manual — no automation, no Sales Navigator. Free LinkedIn + Apollo + HubSpot. Profile, headline, banner, About and Featured are already done.</p>
+    </div>
+  </details>
+
+  <!-- ============ TARGETING ============ -->
+  <details class="section">
+    <summary><span class="ico">🔍</span>Targeting &amp; disqualifiers<span class="chev">▶</span></summary>
+    <div class="body">
+      <h3>Companies</h3>
+      <p>UK-based fashion/apparel brands selling multi-channel (own e-comm + wholesale and/or stores). Sweet spot signals:</p>
+      <ul>
+        <li>30–500 employees, roughly £5m–£100m revenue</li>
+        <li>Shopify/Shopify Plus or similar, plus marketplaces or retail — because multi-channel = fragmented data = Milo's problem</li>
+        <li>Signs of a data function: a data analyst on LinkedIn, mentions of Snowflake/BigQuery/Looker in job ads, or visibly drowning in spreadsheets</li>
+      </ul>
+      <h3>People (in priority order)</h3>
+      <ol>
+        <li><strong>COO / Ops Director / Head of Operations</strong> — feels the pain of Monday reporting, owns the budget</li>
+        <li><strong>Head of Ecommerce / Digital Director</strong> — owns the channel data Milo sits on, often the fastest to reply</li>
+      </ol>
+      <div class="rule-red"><strong>Disqualify immediately:</strong> single-channel tiny brands, agencies posing as brands. Gaming companies that appear → pass to Tom for Andy, never campaign into gaming.</div>
+      <h3>List building (no Sales Nav needed)</h3>
+      <p>Build the list in <strong>Apollo</strong> — filter by industry (apparel/fashion), UK, headcount 30–500, titles above — then find each person on LinkedIn via free search. Free LinkedIn search caps out if you hammer it, so <strong>Apollo is the source of truth</strong> and LinkedIn is just where you connect.</p>
+      <p>Build to <strong>200 named prospects by Fri 24 July</strong>, adding ~10/day. Log every account in HubSpot before you touch it.</p>
+    </div>
+  </details>
+
+  <!-- ============ MESSAGES ============ -->
+  <details class="section" id="messages">
+    <summary><span class="ico">💬</span>Messages — the 4-touch sequence<span class="chev">▶</span></summary>
+    <div class="body">
+      <div class="callout"><strong>Rules first:</strong> never pitch in the connection request. No links until they ask. Short — every message under 60 words. The goal is a conversation, not a demo booking on message one.</div>
+      <p><strong>Connection request: default blank.</strong> 2026 data shows no-note requests get accepted more (≈38%) than short generic notes (≈29%). Only add a note if it's truly specific to them (a post of theirs, a shared event) — those hit ~45%.</p>
+      <p class="muted small">Swap <strong>[name]</strong> and <strong>[brand]</strong> before sending. Copy buttons grab the whole message.</p>
+
+      <div class="msg">
+        <div class="msghead"><b>Touch 1 — after they accept</b><button class="copybtn" data-copy="t1">Copy</button></div>
+        <span class="when">Day 0–1</span>
+        <div class="txt" id="t1">Thanks for connecting, [name]. I talk to a lot of ops people at fashion brands — most tell me their Monday trading numbers take someone half a day to pull together across Shopify, wholesale and stores. Out of curiosity, how does that work at [brand]?</div>
+      </div>
+
+      <div class="msg">
+        <div class="msghead"><b>Touch 2 — add value, don't chase</b><button class="copybtn" data-copy="t2">Copy</button></div>
+        <span class="when">Day 4–5, if no reply</span>
+        <div class="txt" id="t2">One thing I keep hearing from multi-channel brands: the data exists, it's just spread across a dozen systems. Coolr (smart vending, thousands of consumer touchpoints) had a report that took a full day — with Milo it's under an hour. Happy to share how if useful.</div>
+      </div>
+
+      <div class="msg">
+        <div class="msghead"><b>Touch 3 — the honest one</b><button class="copybtn" data-copy="t3">Copy</button></div>
+        <span class="when">Day 10–12, if no reply</span>
+        <div class="txt" id="t3">Last one from me, [name] — I work at Milo, we let teams ask questions of their data in plain English (Slack/WhatsApp) instead of waiting on analysts. If getting answers out of your numbers is ever painful, worth 20 minutes. If not, no hard feelings.</div>
+      </div>
+
+      <div class="msg">
+        <div class="msghead"><b>Touch 4 — the breakup</b><button class="copybtn" data-copy="t4">Copy</button></div>
+        <span class="when">Day 21+</span>
+        <div class="txt" id="t4">No response needed — I'll stop here. If reporting pain ever hits the top of the pile, you know where I am. Enjoyed following [brand]'s [recent thing] btw.</div>
+      </div>
+
+      <div class="callout"><strong>If they reply at any point:</strong> answer like a human, ask about their setup, and aim for one thing — a 20-minute call. Then book it and log it.</div>
+    </div>
+  </details>
+
+  <!-- ============ CONTENT ============ -->
+  <details class="section">
+    <summary><span class="ico">✍️</span>Content — rules &amp; post structures<span class="chev">▶</span></summary>
+    <div class="body">
+      <h3>Your lane</h3>
+      <p>You don't have fashion customer stories yet, so your lane is <strong>what you're hearing and seeing: fashion/e-comm ops and data pain</strong>. Observations from calls, industry takes, questions. Borrow Milo proof from named consumer brands — <strong>Coolr</strong> (day-long report → under an hour), <strong>Two Tribes Brewery</strong> (drinks/FMCG), <strong>Perlas</strong> (weeks of analysis → 2 minutes) — without over-claiming fashion experience. When the reference videos land, each one is a post.</p>
+      <div class="rule-red"><strong>Naming rule:</strong> Coolr, Two Tribes, Perlas and ULG are fine to name. Nikki Beach and anything mid-deal stays anonymous ("a global beach club group") until Tom signs off.</div>
+      <h3>Beginner-friendly post structures (rotate)</h3>
+      <ol>
+        <li><strong>Something I heard this week:</strong> "I asked a Head of Ecommerce how they track sell-through across channels. The answer: three exports and a prayer." + 3–4 short lines on why + end with a question</li>
+        <li><strong>The observation:</strong> one specific, uncomfortable truth about fashion ops (returns data, wholesale vs DTC reporting gaps, WSSI spreadsheet hell) + question</li>
+        <li><strong>The learning-in-public post:</strong> "Three weeks into talking to fashion ops teams, here's what surprised me" — beginners get points for honesty. <strong>This was post #1.</strong></li>
+      </ol>
+      <h3>Non-negotiable rules (proven on Tom's account and algorithm-tested)</h3>
+      <ul>
+        <li>Best line goes <strong>FIRST</strong>. Hook in lines 1–2</li>
+        <li>Short sentences. Line breaks. Sound like you talking, not a blog</li>
+        <li>No corporate words: never "leverage", "transformative", "landscape", "seamless"</li>
+        <li><strong>End with an experience question</strong> ("how does your team actually do this?") — never a pitch or "follow for more"</li>
+        <li><strong>No links in the post body</strong> (~60% reach penalty) — links go in first comment</li>
+        <li>Post <strong>Tue/Wed/Thu only</strong>. <strong>Zero hashtags</strong> (no-hashtag posts now outperform by 5–10%). Under 2,500 characters</li>
+        <li><strong>Reply to every comment in the first hour</strong> — substantive replies, not "Thanks!"</li>
+        <li>Stay on <strong>ONE topic lane</strong> (fashion ops/data). The 2026 algorithm distributes by topic — consistency compounds, detours cost reach</li>
+      </ul>
+      <p class="muted small">Tom reviews the first 4 posts before publishing; after that, spot-checks.</p>
+    </div>
+  </details>
+
+  <!-- ============ GOOD COMMENTS + TRACKER ============ -->
+  <details class="section">
+    <summary><span class="ico">⏱️</span>The daily hour &amp; what a good comment looks like<span class="chev">▶</span></summary>
+    <div class="body">
+      <div class="tablewrap"><table class="simple">
+        <tr><th>Time</th><th>Activity</th></tr>
+        <tr><td>15 min</td><td>Engage: comment on 3–5 target posts</td></tr>
+        <tr><td>20 min</td><td>Send connection requests + first messages to new acceptances</td></tr>
+        <tr><td>15 min</td><td>Reply to DMs and comments (within 24h, always)</td></tr>
+        <tr><td>10 min</td><td>List hygiene: add prospects, update tracker + HubSpot</td></tr>
+      </table></div>
+      <p>Do it at the <strong>same time every day</strong> — suggested <strong>9:00–10:00, before anything else</strong>. Post-writing (Tue/Thu, ~20 min) sits outside the hour or replaces list-building those days.</p>
+      <h3>What a good comment looks like</h3>
+      <div class="ex good"><span class="tag">✅ Add something</span>"Seeing this with wholesale too — brands can tell you yesterday's DTC sales but their stockist sell-through is 3 weeks behind. Is that gap closing anywhere?"</div>
+      <div class="ex good"><span class="tag">✅ Ask a real question</span>"Curious how many teams actually reconcile returns data against this — everyone I speak to does it monthly at best."</div>
+      <div class="ex bad"><span class="tag">❌ Never</span>"Great post!", "So true 👏", "Thanks for sharing" — the algorithm flags these as low-value and humans ignore them</div>
+      <p>A good comment is one or two sentences, adds an observation from your calls or asks something you actually want answered. <strong>If you couldn't have written it without reading the post, it's good.</strong></p>
+      <h3>Your tracker (LinkedIn won't do this for you)</h3>
+      <p>Acceptance rate isn't shown anywhere in LinkedIn — you track it or you're blind. One simple sheet: <strong>date · name · company · title · request sent · accepted? · touch # · replied? · outcome</strong>. Two minutes a day in the list-hygiene slot. This is also what you bring to the Tuesday review.</p>
+      <h3>HubSpot</h3>
+      <p>Ask Anu to walk you through the flow on day one (create company + contact, and the Engaged / First Meeting stages). Until that walkthrough, everything lives in your tracker — nothing gets lost, it just gets logged twice on day two.</p>
+    </div>
+  </details>
+
+  <!-- ============ WHO TO FOLLOW ============ -->
+  <details class="section">
+    <summary><span class="ico">👥</span>Who to follow — your feed is your training<span class="chev">▶</span></summary>
+    <div class="body">
+      <p>The fastest way to learn LinkedIn is a feed full of people doing it well.</p>
+      <h3>Publications &amp; industry (follow all)</h3>
+      <ul>
+        <li><strong>Drapers</strong> — UK fashion trade bible; comment-worthy posts daily</li>
+        <li><strong>The Interline</strong> — fashion technology specifically; closest to Milo's angle</li>
+        <li><strong>Business of Fashion</strong> and <strong>Vogue Business</strong> — bigger-picture; good for post ideas</li>
+        <li><strong>Retail Week</strong> — UK multi-channel retail ops</li>
+      </ul>
+      <h3>Target-adjacent brands (follow ~20)</h3>
+      <p>UK multi-channel fashion brands in our sweet spot — the point is seeing what they post about, who works there, and what they celebrate/struggle with. Start with brands you already know and check they fit the ICP (30–500 people, DTC + wholesale/stores), e.g. <strong>ME+EM, Percival, Passenger, Rixo, Lucy &amp; Yak</strong> — then add from your Apollo list.</p>
+      <h3>How to find the individual voices (do this yourself — it's the skill)</h3>
+      <ol>
+        <li>Open a Drapers or The Interline post with 20+ comments. The people leaving smart comments ARE the list. Follow 2–3 per day</li>
+        <li>Search "Head of Ecommerce" + a brand you follow → check who posts vs who's silent. Posters are both prospects AND people to learn from</li>
+        <li>When you find someone good, check who THEY follow/engage with — one good voice unlocks ten</li>
+        <li>Target: <strong>30 followed individuals by end of July</strong> — a mix of prospects, fashion-ops commentators, and 2–3 outbound/sales practitioners whose style you'd copy</li>
+      </ol>
+      <div class="callout">Rule of thumb: if your feed shows more news than people, you've followed too many companies and not enough humans.</div>
+    </div>
+  </details>
+
+  <!-- ============ CALENDAR ============ -->
+  <details class="section">
+    <summary><span class="ico">🗓️</span>The full calendar<span class="chev">▶</span></summary>
+    <div class="body">
+      <h3>Week 1 — w/c 13 July: go live</h3>
+      <ul>
+        <li><strong>Mon 13:</strong> Set up the follow list + start the swipe file + create the tracker sheet + get the HubSpot walkthrough from Anu. Build first 30 prospects in Apollo. <strong>First 5 connection requests sent live with Tom sitting next to her</strong>, then 5 more solo. Comment on 3 posts (go to the Drapers/The Interline pages directly since the feed is still empty)</li>
+        <li><strong>Tue 14:</strong> <strong>First post goes out</strong> (intro/observation post — Tom reviews first). 10 connections. 15 min commenting. Reply to every comment on the post within the hour</li>
+        <li><strong>Wed 15:</strong> 10 connections. Comment on 3–5 target posts. First-touch DM to anyone who's accepted (send drafts to Tom before sending this week)</li>
+        <li><strong>Thu 16:</strong> <strong>Second post.</strong> 10 connections. Keep list building (+10 prospects/day)</li>
+        <li><strong>Fri 17:</strong> 10 connections, replies, list hygiene. 15-min wrap with Tom: acceptance so far, what she noticed, swipe file highlights</li>
+      </ul>
+      <h3>Weeks 2–3 — w/c 20 + 27 July: build rhythm</h3>
+      <ul>
+        <li>Connections up to <strong>15/day</strong>, prioritising people she's already commented at (warm names accept at 2–3x)</li>
+        <li>Full 4-touch DM sequence running; Tom approves her replies same-day this fortnight, then she's solo</li>
+        <li>2 posts/week (Tue + Thu), Tom reviewing until post 4</li>
+      </ul>
+      <h3>August — w/c 3 Aug onwards: full volume</h3>
+      <ul>
+        <li><strong>15–20 connections/day</strong>, sequence running on everyone who accepts</li>
+        <li>She writes and publishes without pre-review; Tom spot-checks weekly</li>
+        <li>Every reply → HubSpot. Buying signal → Engaged. Goal of every thread: a 20-minute call</li>
+        <li><strong>Target: 2 meetings booked by end of August</strong></li>
+      </ul>
+      <h3>September — refine and push</h3>
+      <ul>
+        <li>Rewrite the sequence around whatever got replies. Kill what didn't</li>
+        <li>Top-30 dream account list gets extra engagement touches before messaging</li>
+        <li>Weight of the hour shifts from list-building to live conversations</li>
+        <li>If volume (not messaging) becomes the bottleneck, that's the point to discuss adding her to Anu's tooling — not before</li>
+        <li><strong>On path to 6 meetings/mo by October</strong></li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ============ BENCHMARKS ============ -->
+  <details class="section">
+    <summary><span class="ico">📊</span>Benchmarks — what's normal<span class="chev">▶</span></summary>
+    <div class="body">
+      <h3>Weekly targets</h3>
+      <div class="tablewrap"><table>
+        <tr><th>Metric</th><th>w/c 13–27 Jul</th><th>August</th><th>September</th></tr>
+        <tr><td>Connection requests</td><td>50–75/wk</td><td>75–100/wk</td><td>75–100/wk, weighted to top-30 accounts</td></tr>
+        <tr><td>Acceptance rate</td><td>watch, don't judge yet</td><td>&gt;30% (below 25% = fix targeting/profile)</td><td>&gt;30%</td></tr>
+        <tr><td>Replies per week</td><td>2–5</td><td>5–10</td><td>10–15</td></tr>
+        <tr><td>Live conversations</td><td>1–3</td><td>3–5</td><td>8+</td></tr>
+        <tr><td><strong>Meetings booked</strong></td><td>0 is fine</td><td><strong>2 by end of August</strong></td><td><strong>on path to 6/mo by October</strong></td></tr>
+        <tr><td>Posts</td><td>2/wk</td><td>2/wk</td><td>2/wk</td></tr>
+      </table></div>
+      <h3>So you don't panic — 2026 benchmarks</h3>
+      <ul>
+        <li>Connection acceptance: <strong>30–45%</strong> is normal. Below 25% = something's broken, fix targeting or profile</li>
+        <li>DM reply rates in SaaS/tech average only <strong>~5%</strong>; good multi-touch sequences hit <strong>10–25%</strong></li>
+        <li>Most requests get ignored. <strong>That's the game, not failure.</strong></li>
+      </ul>
+      <div class="callout">The strongest single tactic in the data: <strong>comment on someone's post before DMing them</strong> — reply rates after a comment exchange run 40–60%.</div>
+    </div>
+  </details>
+
+  <!-- ============ COACHING ============ -->
+  <details class="section">
+    <summary><span class="ico">🤝</span>Coaching schedule<span class="chev">▶</span></summary>
+    <div class="body">
+      <p>Valerie doesn't run this alone until the training wheels come off:</p>
+      <ul>
+        <li><strong>Day one (Mon 13 Jul):</strong> her first 5 connection sends happen <strong>live with Tom sitting next to her</strong> — do it together once, then she flies</li>
+        <li><strong>w/c 13 + 20 Jul:</strong> every DM she sends is from the templates — no freelancing yet. Any reply she gets, she drafts a response and Tom approves before it goes out (same-day turnaround so threads don't go cold)</li>
+        <li><strong>First 4 posts:</strong> Tom reviews before publishing</li>
+        <li><strong>End of July:</strong> review together — which template got replies, what her acceptance rate says about targeting. Then she starts adapting messages herself, Tom spot-checks weekly</li>
+      </ul>
+      <div class="callout"><strong>Weekly 30-min review with Tom (Tuesdays):</strong> what got replies, what died, look at one prospect thread together, adjust <strong>one</strong> thing — never five.</div>
+    </div>
+  </details>
+
+  <!-- ============ SWIPE FILE ============ -->
+  <details class="section">
+    <summary><span class="ico">📒</span>Swipe file &amp; learning loop<span class="chev">▶</span></summary>
+    <div class="body">
+      <p>Nobody can show you a perfect example thread — you build your own reference library:</p>
+      <ul>
+        <li><strong>Swipe file:</strong> a running doc. Every day, save 1–2 posts that made you stop scrolling. One line each: <em>why did it work?</em> (the hook? a number? a story?) By August you'll have 30+ examples — that's your textbook, and it's better than any course because it's calibrated to your feed and your buyers</li>
+        <li><strong>Also save the bad ones:</strong> DMs <em>you</em> receive from salespeople (you'll get plenty). Note what made you ignore them. Never do those things</li>
+        <li><strong>Experiment log:</strong> from August, change ONE thing per week (a different touch-1 question, a different prospect seniority, posting time) and write down what happened. One variable at a time or you learn nothing</li>
+        <li><strong>Weekly self-review (before the Tuesday with Tom):</strong> 3 questions — what got replies this week? what would I not send again? what's one thing I'll try next week? Bring the answers, not just the numbers</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ============ GUARDRAILS ============ -->
+  <details class="section">
+    <summary><span class="ico">🚧</span>Guardrails<span class="chev">▶</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>LinkedIn limits:</strong> stay under ~25 connection requests/day and ~100/wk. New-ish accounts get throttled harder — start at 10/day and earn the volume. Withdraw pending requests older than 3 weeks (a big pending pile throttles you)</li>
+        <li><strong>Pricing questions</strong> in a thread → keep it simple and hand to Tom if it goes deep; the DM's job is the meeting, not the negotiation</li>
+        <li><strong>Gaming leads</strong> → Tom → Andy. Don't work them</li>
+        <li>Don't argue in comments, don't post on weekends, don't buy engagement pods (algorithm-flagged)</li>
+        <li>If a thread goes <strong>technical</strong> (warehouse, security), pull in Tom rather than winging it — <strong>"customer data never leaves your warehouse"</strong> and <strong>EU hosting</strong> are the anchor lines</li>
+      </ul>
+      <h3>What good looks like at day 90 (mid-October)</h3>
+      <p>200+ targeted connections in fashion, a profile that reads like an industry peer, a message sequence with known reply rates, and a repeatable 6-meetings-a-month path. At that point we write the fashion case study from her first closed deal — and her content lane gets its own proof.</p>
+    </div>
+  </details>
+
+  <footer>
+    Last updated 13 July 2026 ·
+    <a href="https://github.com/Tomp1234/proposals/blob/main/Valerie-LinkedIn-Plan.md">source markdown</a><br>
+    Owner: Valerie · Coach: Tom (Tuesdays)
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var DAY = 86400000;
+  function d(y,m,day){ return new Date(y, m-1, day); }
+  function iso(dt){
+    return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+  }
+  function fmt(dt){
+    return dt.toLocaleDateString("en-GB",{weekday:"long", day:"numeric", month:"long"});
+  }
+  function fmtShort(dt){
+    return dt.toLocaleDateString("en-GB",{day:"numeric", month:"short"});
+  }
+  var now = new Date();
+  var today = d(now.getFullYear(), now.getMonth()+1, now.getDate());
+  var dow = today.getDay(); // 0 Sun ... 6 Sat
+  var isWeekend = (dow===0 || dow===6);
+
+  /* ---------------- phases ---------------- */
+  var PHASES = [
+    {id:"pre",   name:"Pre-launch", start:null,            end:d(2026,7,13),
+     focus:"Plan goes live Monday 13 July. Profile, headline, banner, About and Featured are done — nothing to do yet but read the sections below."},
+    {id:"week1", name:"Week 1 · Go live", start:d(2026,7,13), end:d(2026,7,20),
+     focus:"Go-live week. 10 connections/day, first two posts (Tom reviews first), every DM from the templates, drafts to Tom before sending. Build toward 200 prospects by Fri 24 Jul (~10/day)."},
+    {id:"rhythm", name:"Weeks 2–3 · Build rhythm", start:d(2026,7,20), end:d(2026,8,3),
+     focus:"Connections up to 15/day, prioritising people you've already commented at (warm names accept at 2–3x). Full 4-touch sequence running; Tom approves replies same-day this fortnight. Posts Tue + Thu, Tom reviewing until post 4."},
+    {id:"august", name:"August · Full volume", start:d(2026,8,3), end:d(2026,9,1),
+     focus:"15–20 connections/day, sequence running on everyone who accepts. You publish without pre-review; Tom spot-checks weekly. Every reply → HubSpot; buying signal → Engaged. Goal of every thread: a 20-minute call. Target: 2 meetings by end of August."},
+    {id:"september", name:"September · Refine & push", start:d(2026,9,1), end:d(2026,10,12),
+     focus:"Rewrite the sequence around whatever got replies, kill what didn't. Top-30 dream accounts get extra engagement touches before messaging. Weight shifts from list-building to live conversations. On path to 6 meetings/mo by October."},
+    {id:"beyond", name:"Day 90+ · Keep going", start:d(2026,10,12), end:null,
+     focus:"Day 90 passed (mid-October): 200+ targeted connections, a peer-level profile, a sequence with known reply rates, and a repeatable 6-meetings-a-month path. Time to write the fashion case study from the first closed deal."}
+  ];
+  var phase = PHASES[PHASES.length-1];
+  for (var i=0;i<PHASES.length;i++){
+    var p = PHASES[i];
+    if ((p.start===null || today>=p.start) && (p.end===null || today<p.end)){ phase=p; break; }
+  }
+  var next = null;
+  for (var j=0;j<PHASES.length;j++){
+    if (PHASES[j].start && PHASES[j].start>today){ next=PHASES[j]; break; }
+  }
+
+  document.getElementById("todayDate").textContent = fmt(today);
+  document.getElementById("phasePill").textContent = phase.name;
+  document.getElementById("phaseFocus").innerHTML = "<b>This phase:</b> " + phase.focus;
+  var note = "";
+  if (next){
+    var days = Math.round((next.start - today)/DAY);
+    note = "Next phase — " + next.name + " — starts " + fmtShort(next.start) +
+           " (" + (days===1 ? "tomorrow" : "in " + days + " days") + ").";
+  } else {
+    note = "Final phase of the 90-day plan.";
+  }
+  document.getElementById("phaseNote").textContent = note;
+
+  /* ---------------- today's checklist ---------------- */
+  function base(connectLabel){
+    return [
+      {id:"engage",  t:"Engage — 15 min", s:"Comment on 3–5 target posts (add something or ask a real question — never “Great post!”)"},
+      {id:"connect", t:"Connect — 20 min", s:connectLabel},
+      {id:"reply",   t:"Reply — 15 min", s:"Answer every DM and comment (within 24h, always)"},
+      {id:"list",    t:"List hygiene — 10 min", s:"Add ~10 prospects in Apollo, update tracker + HubSpot"},
+      {id:"swipe",   t:"Swipe file", s:"Save 1–2 posts that made you stop scrolling. One line: why did it work?"}
+    ];
+  }
+  var tasks = [];
+  if (phase.id==="pre"){
+    tasks = [{id:"read", t:"Read the plan", s:"Open each section below so nothing on Monday is a surprise"}];
+  } else if (isWeekend && phase.id!=="pre"){
+    tasks = [];
+  } else if (phase.id==="week1"){
+    var w1 = {
+      "2026-07-13":[
+        {id:"follow",  t:"Set up the follow list", s:"Drapers, The Interline, BoF, Vogue Business, Retail Week + ~20 brands (see Who to follow)"},
+        {id:"swipe0",  t:"Start the swipe file", s:"A running doc — save 1–2 posts a day with one line on why they worked"},
+        {id:"tracker", t:"Create the tracker sheet", s:"date · name · company · title · sent · accepted? · touch # · replied? · outcome"},
+        {id:"hubspot", t:"HubSpot walkthrough with Anu", s:"Create company + contact; Engaged / First Meeting stages"},
+        {id:"apollo",  t:"Build first 30 prospects in Apollo", s:"Apparel/fashion, UK, 30–500 headcount, COO/Ops + Head of Ecommerce"},
+        {id:"connect", t:"First 10 connection requests", s:"First 5 live with Tom sitting next to you, then 5 solo. Blank requests by default"},
+        {id:"engage",  t:"Comment on 3 posts", s:"Go to the Drapers / The Interline pages directly — your feed is still empty"}
+      ],
+      "2026-07-14":[
+        {id:"post",    t:"First post goes out 🎉", s:"Intro / learning-in-public post — Tom reviews before publishing"},
+        {id:"connect", t:"10 connection requests", s:"Blank by default; note only if truly specific to them"},
+        {id:"engage",  t:"Engage — 15 min commenting", s:"3–5 target posts"},
+        {id:"replies", t:"Reply to every comment on your post", s:"Within the hour — substantive replies, not “Thanks!”"},
+        {id:"tom",     t:"30-min review with Tom", s:"Tuesday slot — bring the tracker"},
+        {id:"swipe",   t:"Swipe file", s:"Save 1–2 good posts"}
+      ],
+      "2026-07-15":[
+        {id:"connect", t:"10 connection requests", s:""},
+        {id:"engage",  t:"Comment on 3–5 target posts", s:""},
+        {id:"dm",      t:"First-touch DM to anyone who accepted", s:"Use Touch 1 template — send drafts to Tom before sending this week"},
+        {id:"list",    t:"List building +10 prospects", s:"Update tracker + HubSpot"},
+        {id:"swipe",   t:"Swipe file", s:"Save 1–2 good posts"}
+      ],
+      "2026-07-16":[
+        {id:"post",    t:"Second post", s:"Tom reviews first. Reply to every comment in the first hour"},
+        {id:"connect", t:"10 connection requests", s:""},
+        {id:"engage",  t:"Comment on 3–5 target posts", s:""},
+        {id:"list",    t:"List building +10 prospects", s:"On track for 200 by Fri 24 Jul"},
+        {id:"swipe",   t:"Swipe file", s:"Save 1–2 good posts"}
+      ],
+      "2026-07-17":[
+        {id:"connect", t:"10 connection requests", s:""},
+        {id:"reply",   t:"Replies — DMs and comments", s:"Within 24h, always"},
+        {id:"list",    t:"List hygiene", s:"Tracker + HubSpot up to date"},
+        {id:"wrap",    t:"15-min wrap with Tom", s:"Acceptance so far, what you noticed, swipe file highlights"},
+        {id:"swipe",   t:"Swipe file", s:"Save 1–2 good posts"}
+      ]
+    };
+    tasks = w1[iso(today)] || base("10 connection requests + first messages to new acceptances");
+  } else {
+    var connectLabel =
+      phase.id==="rhythm" ? "15 connection requests — prioritise people you've already commented at + Touch 1 to new acceptances" :
+      phase.id==="august" ? "15–20 connection requests + sequence touches to everyone who accepts" :
+      "15–20 connection requests, weighted to top-30 dream accounts + sequence touches";
+    tasks = base(connectLabel);
+    if (dow===2 || dow===4){ // Tue or Thu
+      var postNote = phase.id==="rhythm" ? "Tom reviews until post 4. " : "";
+      tasks.splice(0,0,{id:"post", t:"Post day — write + publish (~20 min)", s:postNote+"Hook first, no links in body, zero hashtags, end with an experience question. Reply to every comment in the first hour"});
+    }
+    if (dow===2){ // Tuesday
+      tasks.push({id:"tom", t:"30-min review with Tom", s:"What got replies, what died, one prospect thread together, adjust ONE thing"});
+      tasks.push({id:"selfreview", t:"Self-review before the call", s:"What got replies? What would I not send again? What's one thing I'll try next week?"});
+    }
+    if (phase.id==="september"){
+      tasks.push({id:"top30", t:"Top-30 extra touch", s:"One extra engagement touch on a dream account before messaging them"});
+    }
+  }
+
+  var listEl = document.getElementById("todayChecklist");
+  var progFill = document.getElementById("progFill");
+  var progLabel = document.getElementById("progLabel");
+  var storeKey = "vlp:d:" + iso(today);
+
+  if (tasks.length===0){
+    document.getElementById("weekendNote").style.display = "block";
+    progFill.parentElement.style.display = "none";
+    progLabel.style.display = "none";
+  } else {
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(storeKey)||"{}"); } catch(e){ state={}; }
+    tasks.forEach(function(task){
+      var li = document.createElement("li");
+      var label = document.createElement("label");
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!state[task.id];
+      cb.addEventListener("change", function(){
+        state[task.id] = cb.checked;
+        try { localStorage.setItem(storeKey, JSON.stringify(state)); } catch(e){}
+        paint();
+      });
+      var span = document.createElement("span");
+      span.className = "t";
+      span.textContent = task.t;
+      if (task.s){
+        var small = document.createElement("small");
+        small.textContent = task.s;
+        span.appendChild(small);
+      }
+      label.appendChild(cb); label.appendChild(span);
+      li.appendChild(label); listEl.appendChild(li);
+    });
+    function paint(){
+      var done = tasks.filter(function(t){ return state[t.id]; }).length;
+      var pct = Math.round(done/tasks.length*100);
+      progFill.style.width = pct+"%";
+      progLabel.textContent = done===tasks.length ? "Done — hour banked ✔" : done+" of "+tasks.length+" done";
+    }
+    paint();
+  }
+
+  // prune old daily keys (resets each morning by keying on date; this just tidies storage)
+  try {
+    var cutoff = new Date(today.getTime() - 14*DAY);
+    for (var k=localStorage.length-1;k>=0;k--){
+      var key = localStorage.key(k);
+      if (key && key.indexOf("vlp:d:")===0){
+        var kd = key.slice(6);
+        if (kd < iso(cutoff)) localStorage.removeItem(key);
+      }
+    }
+  } catch(e){}
+
+  /* ---------------- scoreboard ---------------- */
+  function monday(dt){
+    var m = new Date(dt.getTime());
+    var wd = (m.getDay()+6)%7; // Mon=0
+    m.setDate(m.getDate()-wd);
+    return m;
+  }
+  var viewWeek = monday(today);
+  var fields = ["sent","accepted","replies","convos","meetings"];
+  var inputs = {};
+  fields.forEach(function(f){ inputs[f] = document.getElementById("f_"+f); });
+
+  function weekPhase(mon){
+    for (var i=PHASES.length-1;i>=0;i--){
+      var p=PHASES[i];
+      if (p.start && mon>=p.start) return p;
+    }
+    return PHASES[0];
+  }
+  function targetsFor(mon){
+    var p = weekPhase(mon);
+    if (p.id==="august") return {sent:"target 75–100/wk", replies:"target 5–10/wk", convos:"target 3–5", meetings:"2 by end of Aug"};
+    if (p.id==="september"||p.id==="beyond") return {sent:"target 75–100/wk", replies:"target 10–15/wk", convos:"target 8+", meetings:"path to 6/mo"};
+    return {sent:"target 50–75/wk", replies:"target 2–5/wk", convos:"target 1–3", meetings:"0 is fine in July"};
+  }
+
+  function loadWeek(){
+    var key = "vlp:w:" + iso(viewWeek);
+    var data = {};
+    try { data = JSON.parse(localStorage.getItem(key)||"{}"); } catch(e){ data={}; }
+    fields.forEach(function(f){ inputs[f].value = (data[f]!=null && data[f]!=="") ? data[f] : ""; });
+    var isThis = iso(viewWeek)===iso(monday(today));
+    document.getElementById("wkLabel").innerHTML =
+      "w/c " + fmtShort(viewWeek) + (isThis ? " <small>(this week)</small>" : " <small>" + weekPhase(viewWeek).name + "</small>");
+    var t = targetsFor(viewWeek);
+    document.getElementById("hint_sent").textContent = t.sent;
+    document.getElementById("hint_replies").textContent = t.replies;
+    document.getElementById("hint_convos").textContent = t.convos;
+    document.getElementById("hint_meetings").textContent = t.meetings;
+    paintAcceptance();
+  }
+  function saveWeek(){
+    var key = "vlp:w:" + iso(viewWeek);
+    var data = {};
+    fields.forEach(function(f){ data[f] = inputs[f].value; });
+    try { localStorage.setItem(key, JSON.stringify(data)); } catch(e){}
+    paintAcceptance();
+  }
+  function paintAcceptance(){
+    var box = document.getElementById("acceptBox");
+    var pctEl = document.getElementById("acceptPct");
+    var verdict = document.getElementById("acceptVerdict");
+    var sent = parseFloat(inputs.sent.value);
+    var acc = parseFloat(inputs.accepted.value);
+    box.className = "acceptance none";
+    if (!(sent>0) || isNaN(acc)){
+      pctEl.textContent = "—";
+      verdict.textContent = "Enter requests sent + accepted";
+      return;
+    }
+    var pct = acc/sent*100;
+    pctEl.textContent = (Math.round(pct*10)/10) + "%";
+    var wp = weekPhase(viewWeek);
+    if (wp.id==="week1" || wp.id==="rhythm" || wp.id==="pre"){
+      if (pct>=30){ box.className="acceptance good"; verdict.textContent="Strong — normal is 30–45%"; }
+      else if (pct>=25){ box.className="acceptance warn"; verdict.textContent="OK for now — watch, don't judge yet"; }
+      else { box.className="acceptance warn"; verdict.textContent="Low, but July is watch-don't-judge. Flag it Tuesday"; }
+    } else {
+      if (pct>=30){ box.className="acceptance good"; verdict.textContent="Good — 30–45% is the healthy range"; }
+      else if (pct>=25){ box.className="acceptance warn"; verdict.textContent="Borderline — tighten targeting"; }
+      else { box.className="acceptance bad"; verdict.textContent="Below 25% = something's broken. Fix targeting or profile with Tom"; }
+    }
+  }
+  fields.forEach(function(f){ inputs[f].addEventListener("input", saveWeek); });
+  document.getElementById("wkPrev").addEventListener("click", function(){
+    viewWeek = new Date(viewWeek.getTime()-7*DAY); loadWeek();
+  });
+  document.getElementById("wkNext").addEventListener("click", function(){
+    viewWeek = new Date(viewWeek.getTime()+7*DAY); loadWeek();
+  });
+  loadWeek();
+
+  /* ---------------- copy buttons ---------------- */
+  document.querySelectorAll(".copybtn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var el = document.getElementById(btn.getAttribute("data-copy"));
+      var text = el.textContent;
+      function ok(){
+        var old = btn.textContent;
+        btn.textContent = "Copied ✓"; btn.classList.add("done");
+        setTimeout(function(){ btn.textContent = old; btn.classList.remove("done"); }, 1600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(ok, function(){ fallback(); });
+      } else { fallback(); }
+      function fallback(){
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.style.position="fixed"; ta.style.opacity="0";
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try { document.execCommand("copy"); ok(); } catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
