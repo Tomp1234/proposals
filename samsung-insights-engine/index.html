@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Samsung Insights Engine · Delivered</title>
+<meta name="description" content="A delivery plan for the Samsung Insights Engine. The brief's 12-month roadmap, live inside Samsung's private cloud, four weeks from signature.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root{
+  --blue:#1428A0;
+  --blue-deep:#0E1D78;
+  --blue-ui:#1B6EF3;
+  --blue-wash:#EEF1FB;
+  --blue-wash-2:#E3E9FA;
+  --ink:#0A0E1E;
+  --ink-2:#232838;
+  --sub:#4A5064;
+  --faint:#8A90A2;
+  --line:#E3E5EC;
+  --line-2:#D4D7E0;
+  --bg:#FFFFFF;
+  --bg-alt:#F6F7FA;
+  --pos:#0E8A5F;
+  --pos-wash:#E5F4EE;
+  --amber:#B26B00;
+  --amber-wash:#FBF1DF;
+  --dark:#070A14;
+  --dark-2:#0D1120;
+  --dark-line:rgba(255,255,255,0.10);
+  --dark-line-soft:rgba(255,255,255,0.06);
+  --dark-ink:#EEF0F6;
+  --dark-sub:#9BA1B4;
+  --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono','SF Mono',Menlo,monospace;
+}
+
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--body); line-height:1.65;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  font-size:16.5px;
+}
+::selection{ background:rgba(20,40,160,0.16); }
+
+.progress{ position:fixed; top:0; left:0; height:3px; width:0; background:var(--blue); z-index:400; }
+
+.wrap{ max-width:1120px; margin:0 auto; padding:0 56px; }
+@media (max-width:760px){ .wrap{ padding:0 22px; } }
+
+/* ── Top bar ─────────────────────────── */
+.top{
+  position:fixed; top:0; left:0; right:0; z-index:300;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:15px 40px; background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.top.hide{ transform:translateY(-100%); }
+.top-l{ display:flex; align-items:baseline; gap:14px; }
+.sam-mark{ font-weight:900; font-size:1.02rem; letter-spacing:.30em; color:var(--ink); }
+.top-sep{ color:var(--line-2); font-weight:300; }
+.top-name{ font-weight:600; font-size:.86rem; color:var(--blue); letter-spacing:.02em; }
+.top-nav{ display:flex; gap:26px; }
+.top-nav a{ font-size:.78rem; font-weight:600; color:var(--sub); text-decoration:none; letter-spacing:.04em; }
+.top-nav a:hover{ color:var(--blue); }
+.top-r{ font-family:var(--mono); font-size:.6rem; letter-spacing:.18em; color:var(--faint); text-transform:uppercase; }
+@media (max-width:960px){ .top-nav{ display:none; } }
+@media (max-width:760px){ .top{ padding:13px 20px; } .top-r{ display:none; } .sam-mark{ letter-spacing:.22em; font-size:.94rem; } }
+
+/* ── Hero ─────────────────────────── */
+.hero{ padding:190px 0 40px; position:relative; }
+.hero::before{
+  content:''; position:absolute; inset:0 0 auto 0; height:560px; z-index:-1;
+  background:
+    radial-gradient(900px 420px at 82% -10%, rgba(20,40,160,0.07), transparent 65%),
+    linear-gradient(180deg, #FAFBFE 0%, #FFFFFF 100%);
+}
+.eyebrow{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--blue); display:block; margin-bottom:28px;
+}
+h1{
+  font-size:clamp(2.6rem, 5.6vw, 4.4rem); line-height:1.04; font-weight:900;
+  letter-spacing:-0.028em; max-width:15ch;
+}
+h1 .accent{ color:var(--blue); }
+.hero .lede{
+  margin-top:34px; max-width:62ch; font-size:1.22rem; line-height:1.72; color:var(--ink-2);
+}
+.hero .lede strong{ font-weight:700; color:var(--ink); }
+.hero .lede .release{ color:var(--blue); font-weight:800; }
+
+.stats{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:14px;
+  overflow:hidden; margin:58px 0 0;
+}
+.stat{ background:#fff; padding:26px 26px 24px; }
+.stat b{ display:block; font-size:2rem; font-weight:900; letter-spacing:-0.02em; color:var(--blue); line-height:1.1; }
+.stat span{ display:block; margin-top:7px; font-size:.8rem; color:var(--sub); font-weight:500; line-height:1.45; }
+@media (max-width:860px){ .stats{ grid-template-columns:repeat(2,1fr); } }
+
+/* ── Demo console ─────────────────────────── */
+.demo{ padding:54px 0 30px; }
+.demo-intro{ max-width:66ch; font-size:1.05rem; color:var(--ink-2); margin-bottom:26px; }
+.picker{ display:flex; gap:9px; flex-wrap:wrap; }
+.q-chip{
+  font-family:var(--body); font-size:.82rem; font-weight:600; color:var(--ink-2);
+  background:#fff; border:1px solid var(--line-2); border-radius:100px;
+  padding:9px 17px; cursor:pointer; transition:all .18s ease;
+}
+.q-chip:hover{ border-color:var(--blue); color:var(--blue); }
+.q-chip.active{ background:var(--blue); border-color:var(--blue); color:#fff; }
+.q-chip.fence{ border-style:dashed; }
+.picker-hint{ font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin:12px 0 22px; }
+
+.console{
+  border:1px solid var(--line-2); border-radius:16px; overflow:hidden;
+  box-shadow:0 30px 70px -30px rgba(10,14,30,0.25), 0 8px 24px -12px rgba(10,14,30,0.12);
+  background:#fff;
+}
+.browser-bar{
+  display:flex; align-items:center; gap:14px; padding:11px 16px;
+  background:#F1F2F6; border-bottom:1px solid var(--line);
+}
+.traffic{ display:flex; gap:6px; }
+.traffic i{ width:11px; height:11px; border-radius:50%; background:#D6D8E0; display:block; }
+.traffic i:nth-child(1){ background:#F26D64; } .traffic i:nth-child(2){ background:#F2B84B; } .traffic i:nth-child(3){ background:#5FC26D; }
+.urlbar{
+  flex:1; max-width:430px; margin:0 auto; display:flex; align-items:center; gap:8px; justify-content:center;
+  background:#fff; border:1px solid var(--line); border-radius:8px; padding:5px 14px;
+  font-family:var(--mono); font-size:.72rem; color:var(--ink-2);
+}
+.urlbar .lock{ color:var(--pos); font-size:.72rem; }
+.urlbar b{ font-weight:600; color:var(--ink); }
+@media (max-width:600px){
+  .traffic{ display:none; }
+  .browser-bar{ gap:8px; }
+  .urlbar{ min-width:0; overflow:hidden; font-size:.62rem; padding:4px 10px; white-space:nowrap; }
+  .timer{ flex-shrink:0; }
+}
+.app-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 26px; border-bottom:1px solid var(--line); background:#fff;
+}
+.app-brand{ display:flex; align-items:baseline; gap:10px; }
+.app-brand .s{ font-weight:900; font-size:.8rem; letter-spacing:.26em; color:var(--ink); }
+.app-brand .n{ font-size:.8rem; font-weight:600; color:var(--blue); }
+.app-user{ display:flex; align-items:center; gap:9px; font-size:.7rem; color:var(--faint); font-weight:500; }
+.app-user .avatar{
+  width:26px; height:26px; border-radius:50%; background:var(--blue); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:700;
+}
+.console-body{ padding:28px; background:linear-gradient(180deg,#FAFBFD, #fff); min-height:430px; }
+@media (max-width:760px){ .console-body{ padding:18px 14px; } .app-bar{ padding:12px 16px; } }
+
+.q-row{ display:flex; justify-content:flex-end; margin-bottom:20px; }
+.q-bubble{
+  background:var(--blue); color:#fff; font-size:.92rem; font-weight:500;
+  padding:12px 18px; border-radius:16px 16px 4px 16px; max-width:80%;
+  min-height:44px; line-height:1.5;
+}
+.caret{ display:inline-block; width:8px; height:15px; background:rgba(255,255,255,0.85); vertical-align:-2px; animation:blink 0.85s step-end infinite; }
+@keyframes blink{ 50%{ opacity:0; } }
+
+.steps{ margin-bottom:18px; }
+.step-row{
+  display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:.72rem;
+  color:var(--sub); padding:4px 0; opacity:0; transform:translateY(4px); transition:all .3s ease;
+}
+.step-row.show{ opacity:1; transform:none; }
+.step-ic{ position:relative; width:15px; height:15px; flex:0 0 15px; }
+.step-ic .spin{
+  position:absolute; inset:0; border:1.5px solid var(--line-2); border-top-color:var(--blue);
+  border-radius:50%; animation:spin 0.8s linear infinite;
+}
+.step-ic .tick{ position:absolute; inset:0; color:var(--pos); font-size:.78rem; line-height:15px; text-align:center; opacity:0; }
+.step-row.done .spin{ display:none; }
+.step-row.done .tick{ opacity:1; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.a-card{
+  background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 24px;
+  opacity:0; transform:translateY(10px); transition:all .5s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 10px 30px -18px rgba(10,14,30,0.18);
+}
+.a-card.show{ opacity:1; transform:none; }
+.a-card.declined{ border-color:var(--line-2); background:#FBFBFD; }
+.a-head{ display:flex; align-items:center; gap:9px; margin-bottom:13px; }
+.a-avatar{
+  width:24px; height:24px; border-radius:7px; background:var(--blue); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:.6rem; font-weight:800; letter-spacing:.04em;
+}
+.a-name{ font-size:.76rem; font-weight:700; }
+.a-conf{
+  margin-left:auto; font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
+  padding:3px 10px; border-radius:100px; font-weight:600;
+}
+.a-conf.high{ background:var(--pos-wash); color:var(--pos); }
+.a-conf.med{ background:var(--amber-wash); color:var(--amber); }
+.a-conf.fence{ background:var(--blue-wash); color:var(--blue); }
+.a-headline{ font-size:1.06rem; font-weight:700; letter-spacing:-0.01em; line-height:1.45; margin-bottom:12px; }
+.a-chart-title{ font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); margin:14px 0 8px; }
+.a-bars{ display:none; align-items:flex-end; gap:7px; height:110px; padding:4px 2px 0; }
+.a-bar{ flex:1; background:var(--blue-wash-2); border-radius:4px 4px 0 0; height:0; transition:height .7s cubic-bezier(.22,1,.36,1); position:relative; }
+.a-bar.hot{ background:var(--blue); }
+.a-bar-labels{ display:none; gap:7px; margin-top:6px; }
+.a-bar-labels span{ flex:1; text-align:center; font-family:var(--mono); font-size:.55rem; color:var(--faint); }
+.a-items{ list-style:none; }
+.a-items li{
+  font-size:.9rem; color:var(--ink-2); padding:9px 0; border-bottom:1px solid var(--bg-alt);
+  line-height:1.55;
+}
+.a-items li:last-child{ border-bottom:none; }
+.a-items li b{ color:var(--ink); font-weight:700; }
+.src{
+  display:inline-flex; align-items:center; gap:5px; font-family:var(--mono); font-size:.6rem;
+  color:var(--blue); background:var(--blue-wash); border-radius:5px; padding:2px 8px;
+  margin:0 2px; white-space:nowrap; cursor:pointer; border:1px solid transparent; transition:border-color .15s;
+  vertical-align:1px;
+}
+.src:hover{ border-color:var(--blue); }
+.src::before{ content:'⇱'; font-size:.62rem; }
+.a-why{
+  margin-top:15px; padding-top:13px; border-top:1px solid var(--bg-alt);
+  font-size:.8rem; color:var(--sub); line-height:1.6;
+}
+.a-why-label{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); margin-right:8px; }
+.kicker{ margin-top:18px; opacity:0; transform:translateY(6px); transition:all .5s ease .1s; }
+.kicker.in{ opacity:1; transform:none; }
+.kicker-line{ font-size:.9rem; color:var(--sub); }
+.kicker-line em{ font-style:normal; font-weight:800; color:var(--blue); }
+.timer{ margin-left:auto; font-family:var(--mono); font-size:.68rem; color:var(--faint); }
+.timer.running{ color:var(--blue); }
+.timer.done{ color:var(--pos); }
+.demo-footnote{ font-size:.76rem; color:var(--faint); margin-top:16px; max-width:74ch; line-height:1.6; }
+
+/* ── Sections ─────────────────────────── */
+.sect-pad{ padding:96px 0; }
+.sect-alt{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.sect-label{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:18px;
+}
+h2.sect{
+  font-size:clamp(1.75rem, 3.2vw, 2.5rem); font-weight:900; letter-spacing:-0.024em;
+  line-height:1.12; max-width:24ch; margin-bottom:26px;
+}
+.sect-lede{ font-size:1.08rem; color:var(--ink-2); max-width:68ch; line-height:1.75; }
+.sect-lede strong{ font-weight:700; color:var(--ink); }
+.prose{ max-width:68ch; }
+.prose p{ font-size:1.02rem; color:var(--ink-2); line-height:1.78; margin-top:20px; }
+.prose p strong{ font-weight:700; color:var(--ink); }
+.prose p .b-blue{ color:var(--blue); font-weight:700; }
+
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+.reveal.in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+
+/* Exec summary */
+.exec{
+  border:1px solid var(--line-2); border-left:4px solid var(--blue); border-radius:14px;
+  background:#fff; padding:46px 52px; margin-top:38px;
+  box-shadow:0 20px 50px -30px rgba(10,14,30,0.15);
+}
+.exec-tag{
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:26px;
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);
+}
+.exec p{ font-size:1rem; color:var(--ink-2); line-height:1.8; margin-top:18px; }
+.exec p:first-of-type{ margin-top:0; }
+.exec p strong{ color:var(--ink); font-weight:700; }
+.exec .currency{ color:var(--blue); font-weight:700; }
+@media (max-width:760px){ .exec{ padding:30px 24px; } }
+
+/* Monday scenarios */
+.scenes{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:44px; }
+.scene{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:30px 28px; }
+.scene .who{ font-family:var(--mono); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--blue); margin-bottom:14px; }
+.scene h3{ font-size:1.06rem; font-weight:800; letter-spacing:-0.01em; margin-bottom:12px; line-height:1.35; }
+.scene p{ font-size:.9rem; color:var(--sub); line-height:1.7; }
+.scene p b{ color:var(--ink); font-weight:700; }
+@media (max-width:860px){ .scenes{ grid-template-columns:1fr; } }
+
+/* Roadmap table */
+.road{ margin-top:44px; border:1px solid var(--line-2); border-radius:14px; overflow:hidden; background:#fff; }
+.road-row{ display:grid; grid-template-columns:150px 230px 1fr; border-top:1px solid var(--line); }
+.road-row:first-child{ border-top:none; }
+.road-row.head{ background:var(--ink); color:#fff; }
+.road-row.head > div{ font-family:var(--mono); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; padding:14px 24px; color:rgba(255,255,255,0.85); }
+.road-row > div{ padding:24px; }
+.rr-when{ font-weight:900; font-size:1.02rem; letter-spacing:-0.01em; color:var(--blue); background:var(--blue-wash); border-right:1px solid var(--line); display:flex; align-items:flex-start; }
+.rr-phase{ border-right:1px solid var(--line); }
+.rr-phase b{ display:block; font-weight:800; font-size:.92rem; }
+.rr-phase span{ font-size:.78rem; color:var(--faint); }
+.rr-what{ font-size:.9rem; color:var(--ink-2); line-height:1.68; }
+.rr-what strong{ font-weight:700; color:var(--ink); }
+.road-note{ margin-top:22px; font-size:.94rem; color:var(--sub); max-width:70ch; line-height:1.7; }
+.road-note strong{ color:var(--ink); font-weight:700; }
+@media (max-width:860px){ .road-row{ grid-template-columns:1fr; } .rr-when, .rr-phase{ border-right:none; border-bottom:1px solid var(--line); } .road-row.head{ display:none; } }
+
+/* Capability table */
+.cap-table{ margin-top:44px; border:1px solid var(--line-2); border-radius:14px; overflow:hidden; background:#fff; }
+.cap-scroll{ overflow-x:auto; }
+table.cap{ width:100%; border-collapse:collapse; min-width:680px; }
+table.cap th{
+  text-align:left; font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(255,255,255,0.85); background:var(--ink); padding:13px 20px; font-weight:600;
+}
+table.cap td{ padding:14px 20px; border-top:1px solid var(--line); font-size:.86rem; color:var(--ink-2); line-height:1.55; vertical-align:top; }
+table.cap td:first-child{ font-weight:600; color:var(--ink); width:46%; }
+table.cap td:last-child{ white-space:nowrap; }
+.pill{
+  display:inline-block; font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; text-transform:uppercase;
+  font-weight:600; padding:4px 11px; border-radius:100px;
+}
+.pill.live{ background:var(--pos-wash); color:var(--pos); }
+.pill.sched{ background:var(--blue-wash); color:var(--blue); }
+.pill.win{ background:var(--bg-alt); color:var(--sub); border:1px solid var(--line); }
+
+/* Moat */
+.moat{
+  margin-top:52px; background:var(--blue); color:#fff; border-radius:16px; padding:48px 54px;
+  position:relative; overflow:hidden;
+}
+.moat::after{
+  content:''; position:absolute; right:-80px; top:-80px; width:340px; height:340px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
+}
+.moat .m-label{ font-family:var(--mono); font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px; }
+.moat p{ font-size:1.22rem; line-height:1.62; font-weight:500; max-width:60ch; position:relative; z-index:1; }
+.moat p strong{ font-weight:800; }
+@media (max-width:760px){ .moat{ padding:32px 26px; } .moat p{ font-size:1.06rem; } }
+
+/* Impact */
+.currencies{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:44px; }
+.cur{ background:#fff; border:1px solid var(--line); border-top:4px solid var(--blue); border-radius:14px; padding:30px 28px; }
+.cur .c-label{ font-family:var(--mono); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); margin-bottom:14px; }
+.cur h3{ font-size:1.1rem; font-weight:800; margin-bottom:12px; letter-spacing:-0.01em; }
+.cur p{ font-size:.9rem; color:var(--sub); line-height:1.7; }
+.cur p b{ color:var(--ink); font-weight:700; }
+@media (max-width:860px){ .currencies{ grid-template-columns:1fr; } }
+
+.worked{
+  margin-top:30px; background:#fff; border:1px solid var(--line-2); border-radius:14px; padding:38px 42px;
+}
+.worked .w-tag{ font-family:var(--mono); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); margin-bottom:14px; }
+.worked h3{ font-size:1.3rem; font-weight:900; letter-spacing:-0.015em; margin-bottom:14px; }
+.worked p{ font-size:.97rem; color:var(--ink-2); line-height:1.75; margin-top:14px; }
+.worked p strong{ font-weight:700; color:var(--ink); }
+@media (max-width:760px){ .worked{ padding:26px 22px; } }
+
+.kpi-panel{ margin-top:30px; background:var(--bg-alt); border:1px solid var(--line); border-radius:14px; padding:34px 40px; }
+.kpi-panel .k-tag{ font-family:var(--mono); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--sub); margin-bottom:8px; }
+.kpi-panel h3{ font-size:1.1rem; font-weight:800; margin-bottom:18px; }
+.kpi-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 40px; }
+.kpi-grid div{
+  font-size:.88rem; color:var(--ink-2); padding:9px 0 9px 24px; border-bottom:1px solid var(--line);
+  position:relative; line-height:1.5;
+}
+.kpi-grid div::before{ content:'✓'; position:absolute; left:0; color:var(--pos); font-weight:700; }
+.kpi-note{ margin-top:18px; font-size:.84rem; color:var(--sub); line-height:1.65; }
+@media (max-width:760px){ .kpi-grid{ grid-template-columns:1fr; } .kpi-panel{ padding:24px 20px; } }
+
+/* Security */
+.fence{ display:grid; grid-template-columns:1.2fr .8fr; gap:26px; margin-top:44px; align-items:stretch; }
+.fence-in{ background:#fff; border:1.5px solid var(--blue); border-radius:14px; padding:34px 36px; position:relative; }
+.fence-in .f-tag{ position:absolute; top:-11px; left:26px; background:var(--blue); color:#fff; font-family:var(--mono); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; padding:4px 12px; border-radius:100px; }
+.fence-out{ background:var(--bg-alt); border:1.5px dashed var(--line-2); border-radius:14px; padding:34px 36px; position:relative; }
+.fence-out .f-tag{ position:absolute; top:-11px; left:26px; background:var(--ink); color:#fff; font-family:var(--mono); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; padding:4px 12px; border-radius:100px; }
+.fence h3{ font-size:1.02rem; font-weight:800; margin-bottom:14px; margin-top:6px; }
+.fence ul{ list-style:none; }
+.fence li{ font-size:.88rem; color:var(--ink-2); padding:7px 0 7px 24px; position:relative; line-height:1.55; }
+.fence-in li::before{ content:'●'; position:absolute; left:2px; color:var(--blue); font-size:.6rem; top:12px; }
+.fence-out li::before{ content:'✕'; position:absolute; left:0; color:var(--faint); font-weight:700; }
+.fence-out li b{ color:var(--ink); }
+@media (max-width:860px){ .fence{ grid-template-columns:1fr; } }
+
+/* Evidence */
+.evi{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:44px; }
+.evi-card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:34px 34px; }
+.evi-card .e-tag{ font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--blue); margin-bottom:14px; }
+.evi-card h3{ font-size:1.14rem; font-weight:800; letter-spacing:-0.01em; margin-bottom:12px; line-height:1.4; }
+.evi-card p{ font-size:.9rem; color:var(--sub); line-height:1.72; }
+.evi-card p b{ color:var(--ink); font-weight:700; }
+.evi-breadth{ grid-column:1 / -1; background:var(--bg-alt); border:1px solid var(--line); border-radius:14px; padding:22px 34px; font-size:.92rem; color:var(--ink-2); }
+.evi-breadth b{ font-weight:700; color:var(--ink); }
+@media (max-width:860px){ .evi{ grid-template-columns:1fr; } }
+
+/* Pricing */
+.tiers{ display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:44px; }
+.tier{ background:#fff; border:1px solid var(--line-2); border-radius:16px; padding:40px 40px; position:relative; }
+.tier.complete{ border:2px solid var(--blue); box-shadow:0 24px 60px -32px rgba(20,40,160,0.35); }
+.tier .t-name{ font-family:var(--mono); font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; color:var(--sub); margin-bottom:16px; }
+.tier.complete .t-name{ color:var(--blue); }
+.tier .t-price{ font-size:2.5rem; font-weight:900; letter-spacing:-0.03em; line-height:1; }
+.tier .t-price small{ font-size:.9rem; font-weight:600; color:var(--faint); letter-spacing:0; }
+.tier .t-desc{ margin-top:16px; font-size:.9rem; color:var(--sub); line-height:1.65; padding-bottom:22px; border-bottom:1px solid var(--line); }
+.tier ul{ list-style:none; margin-top:20px; }
+.tier li{ font-size:.87rem; color:var(--ink-2); padding:7px 0 7px 26px; position:relative; line-height:1.55; }
+.tier li::before{ content:'✓'; position:absolute; left:2px; color:var(--blue); font-weight:700; }
+.tier li b{ font-weight:700; color:var(--ink); }
+.pricing-notes{ margin-top:30px; max-width:70ch; }
+.pricing-notes p{ font-size:.94rem; color:var(--sub); line-height:1.72; margin-top:14px; }
+.pricing-notes p strong{ color:var(--ink); font-weight:700; }
+@media (max-width:860px){ .tiers{ grid-template-columns:1fr; } .tier{ padding:30px 26px; } }
+
+/* Pilot */
+.pilot-box{ margin-top:40px; background:#fff; border:1px solid var(--line-2); border-radius:14px; overflow:hidden; }
+.pilot-head{ background:var(--ink); color:#fff; padding:20px 36px; display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+.pilot-head b{ font-size:1.02rem; font-weight:800; letter-spacing:-0.01em; }
+.pilot-head span{ font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,0.7); }
+.pilot-body{ padding:32px 36px; }
+.pilot-body p{ font-size:.97rem; color:var(--ink-2); line-height:1.75; margin-top:14px; }
+.pilot-body p:first-child{ margin-top:0; }
+.pilot-body p strong{ font-weight:700; color:var(--ink); }
+.pilot-quote{
+  margin:20px 0; padding:18px 24px; background:var(--blue-wash); border-left:3px solid var(--blue);
+  border-radius:0 10px 10px 0; font-size:.95rem; color:var(--ink); line-height:1.7;
+}
+.pilot-quote .q-attr{ display:block; margin-top:8px; font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--sub); }
+@media (max-width:760px){ .pilot-body{ padding:24px 20px; } .pilot-head{ padding:16px 20px; } }
+
+/* Needs */
+.needs{ margin-top:40px; display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+.need{ background:#fff; padding:26px 30px; }
+.need b{ display:block; font-size:.95rem; font-weight:800; margin-bottom:7px; letter-spacing:-0.005em; }
+.need span{ font-size:.85rem; color:var(--sub); line-height:1.6; display:block; }
+.needs-note{ margin-top:22px; font-size:.95rem; color:var(--ink-2); max-width:70ch; }
+.needs-note strong{ font-weight:700; }
+@media (max-width:760px){ .needs{ grid-template-columns:1fr; } }
+
+/* Risks */
+.risk-table{ margin-top:40px; border:1px solid var(--line-2); border-radius:14px; overflow:hidden; background:#fff; }
+table.risks{ width:100%; border-collapse:collapse; }
+table.risks th{
+  text-align:left; font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(255,255,255,0.85); background:var(--ink); padding:13px 24px; font-weight:600; width:42%;
+}
+table.risks td{ padding:18px 24px; border-top:1px solid var(--line); font-size:.87rem; color:var(--ink-2); line-height:1.62; vertical-align:top; }
+table.risks td:first-child{ font-weight:600; color:var(--ink); }
+table.risks td b{ font-weight:700; color:var(--ink); }
+@media (max-width:700px){ table.risks, table.risks tbody, table.risks tr, table.risks td{ display:block; width:100%; } table.risks thead{ display:none; } table.risks td:first-child{ border-top:2px solid var(--line-2); padding-bottom:4px; } table.risks td:last-child{ padding-top:0; border-top:none; } }
+
+/* Close */
+.close-sect{ padding:110px 0 120px; }
+.close-sect .prose p{ font-size:1.14rem; line-height:1.8; }
+.close-sig{ margin-top:44px; display:flex; align-items:center; gap:16px; }
+.close-sig img{ width:38px; height:38px; border-radius:10px; }
+.close-sig .s-line b{ display:block; font-size:.95rem; font-weight:800; }
+.close-sig .s-line span{ font-size:.8rem; color:var(--faint); }
+
+/* Appendix (dark) */
+.appendix{ background:var(--dark); color:var(--dark-ink); padding:100px 0 80px; }
+.appendix .sect-label{ color:#7C9BFF; }
+.appendix h2.sect{ color:#fff; }
+.appendix .sect-lede{ color:var(--dark-sub); }
+.app-block{ margin-top:64px; border-top:1px solid var(--dark-line); padding-top:44px; }
+.app-block .a-num{ font-family:var(--mono); font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:#7C9BFF; margin-bottom:12px; }
+.app-block h3{ font-size:1.3rem; font-weight:800; letter-spacing:-0.015em; color:#fff; margin-bottom:16px; }
+.app-block p{ font-size:.95rem; color:var(--dark-sub); line-height:1.75; max-width:74ch; margin-top:13px; }
+.app-block p strong{ color:var(--dark-ink); font-weight:700; }
+.app-block ul.plain{ list-style:none; margin-top:14px; max-width:74ch; }
+.app-block ul.plain li{ font-size:.9rem; color:var(--dark-sub); line-height:1.7; padding:6px 0 6px 22px; position:relative; }
+.app-block ul.plain li::before{ content:'—'; position:absolute; left:0; color:#7C9BFF; }
+.app-block ul.plain li b{ color:var(--dark-ink); font-weight:700; }
+
+/* Architecture diagram */
+.arch{ margin-top:28px; border:1.5px dashed rgba(124,155,255,0.5); border-radius:16px; padding:30px; position:relative; max-width:860px; }
+.arch .perimeter-tag{
+  position:absolute; top:-11px; left:22px; background:var(--dark); color:#7C9BFF; padding:0 12px;
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; text-transform:uppercase;
+}
+.arch-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+.arch-row:first-child{ margin-top:0; }
+.arch-cell{
+  background:var(--dark-2); border:1px solid var(--dark-line); border-radius:10px; padding:16px 18px;
+}
+.arch-cell b{ display:block; font-size:.8rem; font-weight:700; color:var(--dark-ink); margin-bottom:5px; }
+.arch-cell span{ font-size:.72rem; color:var(--dark-sub); line-height:1.55; display:block; }
+.arch-cell.hero-cell{ border-color:rgba(124,155,255,0.55); background:rgba(124,155,255,0.08); }
+.arch-flow{ text-align:center; color:#5A648A; font-size:.9rem; padding:2px 0; }
+.arch-out{
+  margin-top:16px; font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; color:#7C9BFF;
+  text-align:center; text-transform:uppercase;
+}
+@media (max-width:760px){ .arch-row{ grid-template-columns:1fr; } }
+
+/* Checklist */
+.check-table{ margin-top:28px; border:1px solid var(--dark-line); border-radius:14px; overflow:hidden; }
+table.checklist{ width:100%; border-collapse:collapse; }
+table.checklist th{
+  text-align:left; font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase;
+  color:#7C9BFF; background:var(--dark-2); padding:12px 20px; font-weight:600;
+}
+table.checklist td{ padding:11px 20px; border-top:1px solid var(--dark-line-soft); font-size:.82rem; color:var(--dark-sub); line-height:1.5; vertical-align:top; }
+table.checklist td:first-child{ color:var(--dark-ink); font-weight:600; width:8%; font-family:var(--mono); font-size:.76rem; }
+table.checklist td:nth-child(2){ width:48%; }
+table.checklist td:last-child .tick{ color:#4ADE9C; margin-right:8px; font-weight:700; }
+@media (max-width:700px){ table.checklist td:nth-child(2){ width:auto; } }
+
+/* Footer */
+footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:38px 0 46px; }
+.foot{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px; }
+.foot-l{ display:flex; align-items:center; gap:12px; }
+.foot-l img{ width:30px; height:30px; border-radius:8px; }
+.foot-l .f-line b{ display:block; font-size:.85rem; font-weight:700; color:var(--dark-ink); }
+.foot-l .f-line span{ font-size:.72rem; color:var(--dark-sub); }
+.foot-r{ font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:#5A648A; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ── Top bar ── -->
+<div class="top" id="top">
+  <div class="top-l">
+    <span class="sam-mark">SAMSUNG</span>
+    <span class="top-sep">|</span>
+    <span class="top-name">Insights Engine</span>
+  </div>
+  <nav class="top-nav">
+    <a href="#summary">Summary</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#capability">Capability</a>
+    <a href="#impact">Impact</a>
+    <a href="#commercials">Commercials</a>
+    <a href="#appendix">Technical appendix</a>
+  </nav>
+  <div class="top-r">Prepared by Milo · Confidential</div>
+</div>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">A response to the Insights Engine brief · Samsung Electronics UK</span>
+    <h1>The Samsung Insights Engine. <span class="accent">Delivered.</span></h1>
+    <p class="lede">
+      The vision is defined. The brief is written. The phases, the use cases and the success criteria already exist, because you built them. The only cost left is every month spent waiting for the tool itself. This document removes the wait: <span class="release">the Samsung Insights Engine, live inside Samsung's private cloud, four weeks from signature.</span>
+    </p>
+
+    <div class="stats">
+      <div class="stat reveal"><b>4 weeks</b><span>from signature to a working tool inside Samsung's private cloud</span></div>
+      <div class="stat reveal"><b>1 quarter</b><span>to deliver the brief's 12-month roadmap, Phases 1 to 3</span></div>
+      <div class="stat reveal"><b>Zero</b><span>data leaving Samsung. No third parties, no egress, ever</span></div>
+      <div class="stat reveal"><b>£10&ndash;15k</b><span>per month, all in. A licence, not a development project</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Demo / mock-up ── -->
+<section class="demo" id="demo">
+  <div class="wrap">
+    <p class="demo-intro"><strong>This is not a description of a platform. It is your tool.</strong> The questions below are taken from your brief. Pick one and watch the Insights Engine answer it.</p>
+    <div class="picker" role="tablist" id="picker">
+      <button class="q-chip active" data-i="0">Top 3 washing machine features?</button>
+      <button class="q-chip" data-i="1">Which touchpoints matter for TV shoppers?</button>
+      <button class="q-chip" data-i="2">Create a deck: how people shop for a new TV</button>
+      <button class="q-chip" data-i="3">Did the Currys banner actually work?</button>
+      <button class="q-chip" data-i="4">Summarize competitor customer profiles</button>
+      <button class="q-chip fence" data-i="5">Try asking about product IP</button>
+    </div>
+    <p class="picker-hint">Pick a question · watch it get answered</p>
+
+    <div class="console" id="console">
+      <div class="browser-bar">
+        <span class="traffic"><i></i><i></i><i></i></span>
+        <span class="urlbar"><span class="lock">&#128274;</span> https://<b>insights.samsung.com</b></span>
+        <span class="timer" id="timer">00:00.0</span>
+      </div>
+      <div class="app-bar">
+        <div class="app-brand"><span class="s">SAMSUNG</span><span class="n">Insights Engine</span></div>
+        <div class="app-user"><span>Insight team workspace · SSO</span><span class="avatar">L</span></div>
+      </div>
+      <div class="console-body">
+        <div class="q-row">
+          <div class="q-bubble"><span id="qType"></span><span class="caret" id="caret"></span></div>
+        </div>
+        <div class="steps" id="steps"></div>
+        <div class="a-card" id="aCard">
+          <div class="a-head">
+            <span class="a-avatar">IE</span>
+            <span class="a-name">Insights Engine</span>
+            <span class="a-conf" id="aConf"></span>
+          </div>
+          <div class="a-headline" id="aHeadline"></div>
+          <div class="a-chart-title" id="aChartTitle"></div>
+          <div class="a-bars" id="aBars"></div>
+          <div class="a-bar-labels" id="aBarLabels"></div>
+          <ul class="a-items" id="aItems"></ul>
+          <div class="a-why">
+            <span class="a-why-label">Grounding</span>
+            <span id="aWhy"></span>
+          </div>
+        </div>
+        <div class="kicker" id="kicker">
+          <div class="kicker-line"><span id="kickerLead">That took</span> <em id="kickerTime">34 seconds</em>. <span id="kickerManual"></span></div>
+        </div>
+      </div>
+    </div>
+    <p class="demo-footnote">Illustrative demonstration built on typical consumer electronics category data, not Samsung's. Once deployed, every answer is generated exclusively from the Insights Bank and the data sources Samsung connects, with citations back to the source document and page. Where no source exists, the Engine says so.</p>
+  </div>
+</section>
+
+<!-- ── 01 Executive summary ── -->
+<section class="sect-pad" id="summary">
+  <div class="wrap">
+    <div class="sect-label reveal">01 · Executive summary</div>
+    <h2 class="sect reveal">One page, written to be forwarded.</h2>
+    <p class="sect-lede reveal">This summary assumes no context. It can go to anyone in the building, at any level, exactly as it stands.</p>
+
+    <div class="exec reveal">
+      <div class="exec-tag"><span>Samsung Insights Engine · Delivery proposal</span><span>One page · Standalone</span></div>
+      <p><strong>The opportunity.</strong> Samsung's Commercial and Marketing teams hold more data and insight than almost any competitor: a thousand research decks, sell-in and sell-out by retailer, brand trackers, media spend, CRM and device usage data. Very little of it is joined up. Getting an answer out of it takes days of manual work by the Insight team, many requests are repeated, and most marketing briefs go to agencies without insight in them. The Insights Engine brief, written inside Samsung, defines the solution: one trusted, source-grounded tool that any marketer can ask in plain English, with every answer cited back to an approved Samsung source.</p>
+      <p><strong>The proposal.</strong> We deliver that tool. The Samsung Insights Engine runs entirely inside Samsung's private cloud, carries Samsung's name, and is live for users four weeks after signature. It is powered by Milo, a proven insight and analytics engine already deployed in white-label form inside global businesses including Kellanova. There is no development project to fund and no build risk to carry: the brief's 12-month roadmap is delivered in one quarter, and the analytical capability the brief places in Phase 3 is native to the product on day one.</p>
+      <p><strong>The impact, in three currencies.</strong> <span class="currency">Money saved:</span> fewer repeated research purchases, less agency rework, and no internal build programme to resource. <span class="currency">Time saved:</span> insight requests answered in seconds rather than days, and the Insight team freed from servicing requests to work on opportunities and threats. <span class="currency">Growth:</span> joined-up data the business has never been able to analyse together, surfacing patterns across sell-out, brand and media spend that change where the next pound is invested.</p>
+      <p><strong>The commercial structure.</strong> An annual licence at £10,000 to £15,000 per month depending on tier, hosted by Samsung on Samsung's infrastructure. The first three months operate as the pilot and are judged against the brief's own MVP success criteria. Samsung's data never leaves Samsung, no third-party services are involved, and Samsung retains the deployed application. There is no lower-risk route to this capability, and no faster one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 02 Monday morning ── -->
+<section class="sect-pad sect-alt" id="monday">
+  <div class="wrap">
+    <div class="sect-label reveal">02 · The experience</div>
+    <h2 class="sect reveal">What Monday morning looks like.</h2>
+    <p class="sect-lede reveal">Three people, one tool, the same working week transformed. This is the brief's "example user experience", made concrete.</p>
+
+    <div class="scenes">
+      <div class="scene reveal">
+        <div class="who">A marketing manager</div>
+        <h3>Writes a brief that lands first time.</h3>
+        <p>She is briefing a campaign for a new washing machine range. As she types the product name and audience into the brief, the Engine reads the keywords and drops in the relevant insight: purchase drivers, audience profile, the competitor context, each line cited. The agency gets a brief with the rationale already inside it. <b>Fewer revision rounds, stronger creative, and she never filed a request or waited for one.</b></p>
+      </div>
+      <div class="scene reveal">
+        <div class="who">An insight analyst</div>
+        <h3>Stops servicing. Starts investigating.</h3>
+        <p>The requests that used to fill his week now answer themselves, and the answers persist, so they are not asked twice. He spends Monday on the question the leadership team actually cares about: what is driving the competitor's share gain, and where is the best counter. <b>The Engine does the retrieval and the number-crunching. He does the thinking.</b></p>
+      </div>
+      <div class="scene reveal">
+        <div class="who">A senior leader</div>
+        <h3>Walks into the trading review armed.</h3>
+        <p>Before the meeting she asks the Engine for a one-page summary of category performance: share movement, sell-out trend, brand tracker shifts, each figure cited to its source. What she used to commission a week in advance she now has in the time it takes to read it. <b>Decisions move at the speed of the question, not the queue.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03 Roadmap ── -->
+<section class="sect-pad" id="roadmap">
+  <div class="wrap">
+    <div class="sect-label reveal">03 · Delivery</div>
+    <h2 class="sect reveal">The brief's 12-month roadmap. One quarter.</h2>
+    <p class="sect-lede reveal">Your brief invites an alternative phasing, so here is ours. We keep your four phases exactly as you defined them. We compress the calendar, because the Engine already exists: this is a deployment, not a build.</p>
+
+    <div class="road reveal">
+      <div class="road-row head"><div>Timeline</div><div>Your phasing</div><div>What is live</div></div>
+      <div class="road-row">
+        <div class="rr-when">Weeks 1&ndash;4</div>
+        <div class="rr-phase"><b>Phase 1</b><span>Document intelligence</span></div>
+        <div class="rr-what">Deployed white-label in Samsung's private cloud. SSO connected, existing permissions inherited. The Insights Bank ingested, with automatic ingestion of new files as they are uploaded to SMC. Cited conversational Q&amp;A, curated deck and Word summary outputs, click-back to source, confidence indicators, user feedback facility. <strong>And Phase 3's analytical core is live on day one, because it is the native product, not a later ambition.</strong></div>
+      </div>
+      <div class="road-row">
+        <div class="rr-when">Weeks 5&ndash;8</div>
+        <div class="rr-phase"><b>Phase 2</b><span>Structured data</span></div>
+        <div class="rr-what">Qlik Sense data connected: shares, market values, brand scores, social metrics, sell-in and sell-out. ACE Briefing Portal, Teams and SharePoint integrated via API. Keyword-triggered insight flowing into marketing activity briefs.</div>
+      </div>
+      <div class="road-row">
+        <div class="rr-when">Month 3</div>
+        <div class="rr-phase"><b>Phase 3</b><span>Analytical intelligence</span></div>
+        <div class="rr-what">The full analytical suite tuned and validated on Samsung's own data and decks: shares, growth, averages across time windows, significance testing, correlation, regression, and written trend commentary. <strong>The pilot is judged here, against the brief's own MVP success criteria.</strong></div>
+      </div>
+      <div class="road-row">
+        <div class="rr-when">Month 4+</div>
+        <div class="rr-phase"><b>Phase 4</b><span>Predictive and future</span></div>
+        <div class="rr-what">Predictive modelling, proactive alerts and auto-generated KPIs rolling out. Voice querying and the audio and avatar presentation layer delivered within your Phase 4 window.</div>
+      </div>
+    </div>
+
+    <p class="road-note reveal">For calibration: a ground-up internal build of Phase 1 alone is typically a <strong>nine to twelve month engineering project</strong> before the first user question is answered. The difference is not effort or talent. It is that the engine underneath this tool already exists, is already deployed inside global businesses, and is already doing this work.</p>
+  </div>
+</section>
+
+<!-- ── 04 Capability ── -->
+<section class="sect-pad sect-alt" id="capability">
+  <div class="wrap">
+    <div class="sect-label reveal">04 · Capability coverage</div>
+    <h2 class="sect reveal">Everything the brief asks for. Dated.</h2>
+    <p class="sect-lede reveal">Every requirement in the brief, answered against the compressed roadmap. Nothing here is aspiration: each line carries the window in which Samsung users will be using it.</p>
+
+    <div class="cap-table reveal">
+      <div class="cap-scroll">
+        <table class="cap">
+          <thead><tr><th>From your brief</th><th>How it is delivered</th><th>When</th></tr></thead>
+          <tbody>
+            <tr><td>Search, synthesise and summarise the Insights Bank (up to 1,000 mixed files), answering only from given sources, saying "I don't know" where no source exists</td><td>Core retrieval capability, grounded and abstaining by design</td><td><span class="pill live">Weeks 1&ndash;4</span></td></tr>
+            <tr><td>Automatic ingestion of new files as they are uploaded to SMC</td><td>Auto-refresh on file update, a pattern already proven in our Kellanova deployment</td><td><span class="pill live">Weeks 1&ndash;4</span></td></tr>
+            <tr><td>Citations with document titles, page numbers, click-back to source, confidence indicators</td><td>Every answer, every format, no exceptions</td><td><span class="pill live">Weeks 1&ndash;4</span></td></tr>
+            <tr><td>Charts that exist only as flat images inside decks</td><td>Vision-model extraction reads the data out of chart images; validated on Samsung's real decks during the pilot</td><td><span class="pill live">Weeks 1&ndash;4</span></td></tr>
+            <tr><td>User feedback facility on answer quality</td><td>Built in, feeding the tuning loop during the pilot</td><td><span class="pill live">Weeks 1&ndash;4</span></td></tr>
+            <tr><td>Short conversational answers to plain-English questions</td><td>The core product</td><td><span class="pill live">Day 1</span></td></tr>
+            <tr><td>Curated Word summaries and PowerPoint deck outputs</td><td>Generated with citations on every slide</td><td><span class="pill live">Weeks 1&ndash;4</span></td></tr>
+            <tr><td>Dashboards, replacing or augmenting Qlik views</td><td>Native. The Engine builds dashboards and small applications on your data, not just answers</td><td><span class="pill live">Day 1</span></td></tr>
+            <tr><td>Qlik Sense data integration</td><td>Shares, values, brand scores, social metrics, sell-in and sell-out connected</td><td><span class="pill sched">Weeks 5&ndash;8</span></td></tr>
+            <tr><td>ACE Briefing Portal, Teams and SharePoint integrations</td><td>API-based, using the platforms' standard interfaces</td><td><span class="pill sched">Weeks 5&ndash;8</span></td></tr>
+            <tr><td>Keyword-triggered insight inserted into marketing activity briefs</td><td>Brief keywords trigger retrieval, synthesis and insertion, with optional supporting slides</td><td><span class="pill sched">Weeks 5&ndash;8</span></td></tr>
+            <tr><td>Working with other AI agents</td><td>Agent interoperability over MCP, the emerging open standard</td><td><span class="pill win">Your Phase 2 window</span></td></tr>
+            <tr><td>Phase 3 analysis: market share, growth, averages across time windows, significance testing, correlation, regression, written trend commentary</td><td><b>Native, day one, zero additional development.</b> This is the Engine's bread and butter, and the reason it exists</td><td><span class="pill live">Day 1</span></td></tr>
+            <tr><td>Auto-generated KPIs triggered by keywords in the marketing brief</td><td>Layered onto the brief-support pipeline once it is live</td><td><span class="pill sched">Month 3</span></td></tr>
+            <tr><td>Predictive modelling: shifts in attitudes, market dynamics, competitive behaviour</td><td>Dedicated time-series and statistical models, not LLM guesswork; validated against a paid agency report at 95% agreement (see Evidence)</td><td><span class="pill sched">Months 3&ndash;4</span></td></tr>
+            <tr><td>Proactive alerts within automated reports</td><td>Threshold and anomaly alerts on the measures you nominate</td><td><span class="pill sched">Month 4+</span></td></tr>
+            <tr><td>Voice querying</td><td>Committed roadmap</td><td><span class="pill win">Your Phase 4 window</span></td></tr>
+            <tr><td>Podcast and audio outputs, avatar-presented decks</td><td>Committed roadmap</td><td><span class="pill win">Your Phase 4 window</span></td></tr>
+            <tr><td>Embedding into a broader architecture</td><td>The Engine also runs headless, powering other front-ends over API (detail in the appendix)</td><td><span class="pill live">Day 1</span></td></tr>
+            <tr><td>Samsung-selected AI models, including Samsung's own</td><td>Model-agnostic deployment; internally hosted models, including Gauss, are supported</td><td><span class="pill live">Weeks 1&ndash;4</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="moat reveal">
+      <div class="m-label">The distinction that matters</div>
+      <p>Anyone can let you talk to your files. That is a commodity now, and it is the whole of what most vendors will offer you. Almost no one can make an engine genuinely <strong>analyse</strong> your data: correlations, significance, regression, prediction, grounded and cited and explained in plain English. Your brief's Phases 3 and 4 are where the value compounds, and they are where we <strong>start</strong>, not where we hope to arrive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 05 Impact ── -->
+<section class="sect-pad" id="impact">
+  <div class="wrap">
+    <div class="sect-label reveal">05 · Impact</div>
+    <h2 class="sect reveal">Measured in Samsung's three currencies.</h2>
+    <p class="sect-lede reveal">The brief estimates a 20% efficiency uplift and a 50% effectiveness uplift in selected use cases, using industry benchmarks. We adopt those assumptions rather than inventing better ones, we label them as assumptions, and we commit to replacing them with measured results during the pilot.</p>
+
+    <div class="currencies">
+      <div class="cur reveal">
+        <div class="c-label">Money saved</div>
+        <h3>Waste stops compounding.</h3>
+        <p>Repeated insight requests disappear because answers persist and are shared. Duplicated research and duplicated analysis stop being bought twice. Briefs that carry insight from day one mean <b>fewer agency revision rounds</b>, and every revision round avoided is production budget recovered. And there is no internal build programme to fund: the engineering is already done.</p>
+      </div>
+      <div class="cur reveal">
+        <div class="c-label">Time saved</div>
+        <h3>Days become seconds.</h3>
+        <p>A request that takes the Insight team days of deck-mining is answered, cited, in under a minute. Applying the brief's own 20% efficiency assumption across the Insight team's request load frees <b>hundreds of team hours a year</b> for higher-impact work, and marketing decisions stop queuing behind the answers they depend on.</p>
+      </div>
+      <div class="cur reveal">
+        <div class="c-label">Growth</div>
+        <h3>The currency vendors never bring.</h3>
+        <p>Joined-up data is not a convenience, it is a competitive weapon. When sell-out, brand metrics and media spend can finally be analysed together, patterns surface that no single dashboard can show, and they change <b>where the next pound of spend goes</b>. Growth over maintenance. That is the point of the whole exercise, and it is the part only an analytical engine can deliver.</p>
+      </div>
+    </div>
+
+    <div class="worked reveal">
+      <div class="w-tag">A worked example · Growth</div>
+      <h3>"Did that banner on Currys actually work?"</h3>
+      <p>Every retail team asks it. Almost none can answer it, because the media spend sits in one system, the sell-out sits in another, and no analyst has the week it takes to join them for a single banner. So retailer media is renewed on relationship and instinct, year after year.</p>
+      <p>The Engine joins them. It compares sell-out in banner weeks against matched non-banner periods, controls for seasonality and promotions, tests whether the difference is statistically significant, and states its confidence and its limitations in plain English. You saw it do this in the demonstration above.</p>
+      <p><strong>One answer like that, once a quarter, redirects more media spend than this licence costs in a year.</strong> That is what "anything that delivers growth more than the maintenance" looks like in practice.</p>
+    </div>
+
+    <div class="kpi-panel reveal">
+      <div class="k-tag">Measured in the pilot</div>
+      <h3>Your KPIs, adopted as our commitments.</h3>
+      <div class="kpi-grid">
+        <div>Average time to answer common insight requests</div>
+        <div>Number of repeated insight requests reduced</div>
+        <div>Number of users using the tool monthly</div>
+        <div>Percentage of marketing briefs containing sourced insight</div>
+        <div>Reduction in agency rework or creative revision rounds</div>
+        <div>Insight Team hours freed per month</div>
+        <div>Stakeholder satisfaction score</div>
+        <div>Answer quality rating</div>
+        <div>Percentage of answers with valid citations</div>
+        <div>Number of reused historical insight assets</div>
+        <div>Reduction in duplicated research or duplicated analysis</div>
+      </div>
+      <p class="kpi-note">This list is taken from the brief without amendment. We baseline each measure in week two, report monthly, and the pilot is judged on the movement. No vendor-invented metrics, no goalpost-moving.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 06 Security ── -->
+<section class="sect-pad sect-alt" id="security">
+  <div class="wrap">
+    <div class="sect-label reveal">06 · Security and sovereignty</div>
+    <h2 class="sect reveal">Your walls. Your data. Your tool.</h2>
+    <p class="sect-lede reveal">The plain-English version. The precise version, for the technical reviewers, is in the appendix. Both say the same thing.</p>
+
+    <div class="prose reveal">
+      <p>The Samsung Insights Engine is deployed entirely inside Samsung's private cloud, under Samsung's name. It answers exclusively from sources Samsung provides. It never scrapes the web, never calls a third-party service, and never sends a byte of Samsung data outside Samsung's environment. Not to us, not to anyone. Users sign in with their existing Samsung credentials, and the Engine inherits the confidentiality levels, data ownership rules and role restrictions Samsung already enforces.</p>
+      <p>We hold SOC 2 and ISO 27001 aligned practices, and the appendix covers them. But the honest punchline is this: <strong>certifications matter far less when the tool never leaves your walls.</strong> The strongest security control in this proposal is the architecture itself.</p>
+    </div>
+
+    <div class="fence">
+      <div class="fence-in reveal">
+        <span class="f-tag">Inside the Engine's scope</span>
+        <h3>Connected, permissioned, cited</h3>
+        <ul>
+          <li>The Insights Bank: research decks, category reports, trackers</li>
+          <li>Qlik Sense dashboard data: shares, values, brand and social metrics, sell-in and sell-out</li>
+          <li>Marketing and media data: campaign spend, paid, social, PR, influencer</li>
+          <li>Approved internal sources: financials, CRM segments, NPS, web and app analytics</li>
+          <li>External sources Samsung licenses: syndicated tracking, forecasting, benchmarking</li>
+        </ul>
+      </div>
+      <div class="fence-out reveal">
+        <span class="f-tag">Permanently outside</span>
+        <h3>Fenced by design, not by policy</h3>
+        <ul>
+          <li><b>Technical and product IP.</b> Never connected, never indexed, never answerable.</li>
+          <li><b>Personnel and people data.</b> Same fence, same architecture.</li>
+          <li>The public web. The Engine does not browse or scrape.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 07 Evidence ── -->
+<section class="sect-pad" id="evidence">
+  <div class="wrap">
+    <div class="sect-label reveal">07 · Evidence</div>
+    <h2 class="sect reveal">Proven where it counts.</h2>
+    <p class="sect-lede reveal">Two deployments carry the weight of this proposal's two boldest claims: white-label deployment inside a global enterprise, and analysis that stands up against paid professional work.</p>
+
+    <div class="evi">
+      <div class="evi-card reveal">
+        <div class="e-tag">White-label · Global FMCG</div>
+        <h3>Kellanova (Kellogg's): the deployment pattern Samsung is asking for, already running.</h3>
+        <p>Milo runs as a <b>fully white-labelled application</b> inside Kellanova's own cloud environment, on Databricks and Azure. Their data never leaves their environment. The knowledge base <b>refreshes automatically as files update</b>, exactly the SMC auto-ingest pattern in your brief. Role-based access controls who sees what. And it was delivered to a demanding, technology-sceptical user group inside one of the world's largest food businesses. What Samsung is asking for is not our first attempt at it.</p>
+      </div>
+      <div class="evi-card reveal">
+        <div class="e-tag">Analytical validation · Regulated gaming</div>
+        <h3>A European national lottery operator put our analysis against their agency's. It matched.</h3>
+        <p>Their incumbent analytics agency produced a paid predictive report. Milo was given the same underlying data and reproduced the findings with <b>roughly 95% agreement, in minutes</b>. That is the standard behind every Phase 3 and Phase 4 claim in this document: the analysis is done by dedicated statistical and time-series models, and it holds up against professional human work, at a fraction of the time and cost.</p>
+      </div>
+      <div class="evi-breadth reveal"><b>Breadth:</b> more than ten deployments across regulated gaming, hospitality, retail and FMCG, each running against live commercial data in production.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 08 Pricing ── -->
+<section class="sect-pad sect-alt" id="commercials">
+  <div class="wrap">
+    <div class="sect-label reveal">08 · Commercials</div>
+    <h2 class="sect reveal">A licence, not a development project.</h2>
+    <p class="sect-lede reveal">Annual renewable licence, twelve-month initial term, billed monthly. Samsung hosts the application and retains the deployment: the structure itself is the answer to being beholden to a vendor. Two tiers.</p>
+
+    <div class="tiers">
+      <div class="tier reveal">
+        <div class="t-name">Insights Engine · Core</div>
+        <div class="t-price">£10,000<small> / month</small></div>
+        <p class="t-desc">The brief's Phases 1 to 3, delivered in one quarter, for the Insight team and the HEA and Corporate Marketing teams.</p>
+        <ul>
+          <li><b>Self-hosted, white-label licence</b> inside Samsung's private cloud</li>
+          <li>Full document intelligence: Insights Bank, SMC auto-ingest, cited Q&amp;A, deck and summary outputs</li>
+          <li><b>Full analytical suite</b>: shares, growth, significance, correlation, regression, trend commentary</li>
+          <li>Dashboards on your data, built and maintained in the product</li>
+          <li>Qlik Sense, ACE Briefing Portal, Teams and SharePoint integrations</li>
+          <li>Keyword-triggered insight into marketing briefs</li>
+          <li>Support, updates and provisioning assistance included</li>
+        </ul>
+      </div>
+      <div class="tier complete reveal">
+        <div class="t-name">Insights Engine · Complete</div>
+        <div class="t-price">£15,000<small> / month</small></div>
+        <p class="t-desc">Everything in Core, plus the brief's Phase 4 as it releases, and room for the Engine to grow across the business.</p>
+        <ul>
+          <li><b>Everything in Core</b></li>
+          <li><b>Phase 4 capabilities as released</b>: predictive modelling, proactive alerts, auto-generated KPIs</li>
+          <li>Voice querying, podcast and audio outputs, avatar-presented decks per the Phase 4 window</li>
+          <li>Agent interoperability (MCP) for working with other AI agents</li>
+          <li><b>Expanded user population</b> across additional divisions and teams</li>
+          <li>Priority influence on the product roadmap</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pricing-notes reveal">
+      <p><strong>Cost by phase, answered directly:</strong> there is no per-phase build fee, because there is no build. Phases 1 to 3 are covered by the Core licence; Phase 4 by Complete. The only cost outside the licence is Samsung's own cloud infrastructure spend, which is modest and estimated in the appendix.</p>
+      <p><strong>Ongoing support model:</strong> included in the licence. Updates, support and provisioning assistance for the life of the agreement, with a named contact, not a ticket queue.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 09 Pilot ── -->
+<section class="sect-pad" id="pilot">
+  <div class="wrap">
+    <div class="sect-label reveal">09 · The pilot</div>
+    <h2 class="sect reveal">Months one to three, judged by your own test.</h2>
+
+    <div class="pilot-box reveal">
+      <div class="pilot-head"><b>The pilot is the first quarter of the contract, at the Core rate.</b><span>Success-gated · Not a free POC</span></div>
+      <div class="pilot-body">
+        <p>We do not propose a free proof of concept, and the reason is worth saying plainly: free pilots are slow, under-resourced and unaccountable, and you have already lost months. This pilot is the real deployment, fully staffed, moving at full speed from day one, with a defined test and a clean exit.</p>
+        <div class="pilot-quote">"The Phase 1 MVP should be judged successful if it demonstrates faster access to trusted insight, high-quality cited answers, clear user adoption, and measurable reduction in repeated manual insight requests."<span class="q-attr">The success test, taken verbatim from your brief</span></div>
+        <p>We baseline your KPI list in week two, report against it monthly, and at the end of month three the Engine is judged against that test. <strong>If it fails its own test, Samsung walks away</strong> and keeps everything learned. If it passes, you are not starting a project: you are already live, already adopted, and already into Phase 4.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 10 Needs ── -->
+<section class="sect-pad sect-alt" id="needs">
+  <div class="wrap">
+    <div class="sect-label reveal">10 · What we need from Samsung</div>
+    <h2 class="sect reveal">A short list, deliberately.</h2>
+    <p class="sect-lede reveal">The brief asks for resource requirements across the BI, Marketing Ops and IT teams. This is the complete list. No Samsung engineers build anything.</p>
+
+    <div class="needs">
+      <div class="need reveal"><b>A named contact in BI, Marketing Ops and IT</b><span>A few hours per week during month one, tapering after. They review, approve and point; they do not build.</span></div>
+      <div class="need reveal"><b>SMC access credentials</b><span>Read access to the Insights Bank so ingestion and auto-refresh can begin in week one.</span></div>
+      <div class="need reveal"><b>Private cloud environment provisioning</b><span>Days, not months. We supply the full specification on day one and assist with the provisioning itself.</span></div>
+      <div class="need reveal"><b>SSO application registration</b><span>Standard identity-provider setup so users sign in with existing Samsung credentials and permissions.</span></div>
+      <div class="need reveal"><b>A security review slot in week one</b><span>We bring complete documentation and answer everything in the room. The architecture makes this a short conversation.</span></div>
+      <div class="need reveal"><b>Qlik Sense read access, by week five</b><span>Needed for Phase 2 only. Nothing in weeks one to four depends on it.</span></div>
+    </div>
+    <p class="needs-note reveal">That is the entire ask. <strong>The four-week clock runs from signature</strong>, and the day-level plan for weeks one and two is in the appendix.</p>
+  </div>
+</section>
+
+<!-- ── 11 Risks ── -->
+<section class="sect-pad" id="risks">
+  <div class="wrap">
+    <div class="sect-label reveal">11 · Risks and dependencies</div>
+    <h2 class="sect reveal">Named honestly, each with its answer.</h2>
+
+    <div class="risk-table reveal">
+      <table class="risks">
+        <thead><tr><th>Risk or dependency</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>Environment provisioning slips and delays the four-week timeline</td><td>The infrastructure specification is delivered on day one, the Engine runs on any Samsung-approved cloud, and we assist with provisioning directly. This is the single dependency that can move the go-live date, which is why it is first on the list and first in the plan.</td></tr>
+          <tr><td>Chart-image extraction quality varies across Samsung's deck styles</td><td>Vision extraction is validated on Samsung's real decks in weeks one to four. Low-confidence extractions are flagged rather than presented as fact, and the user feedback facility routes problem decks into the tuning loop.</td></tr>
+          <tr><td>Adoption stalls after novelty fades</td><td>Adoption is a pilot KPI, taken from your brief, and reported monthly. Onboarding is run per team, the brief-support integration puts the Engine inside existing workflow rather than beside it, and usage data tells us where to intervene early.</td></tr>
+          <tr><td>Permission mapping is more complex than expected</td><td>The Engine inherits Samsung's existing SSO roles and confidentiality levels rather than inventing a parallel scheme. The two fenced data categories are excluded architecturally, which removes the hardest cases from scope entirely.</td></tr>
+          <tr><td>Qlik Sense or platform API access arrives late</td><td>Phase 2 integrations are sequenced for weeks five to eight precisely so that weeks one to four have no external dependencies. A named IT contact and read access by week five keeps Phase 2 on time.</td></tr>
+          <tr><td><b>Vendor continuity: what if the supplier disappears?</b></td><td><b>Samsung retains the deployed application, running in Samsung's own cloud.</b> If we vanished tomorrow, the Engine would still be running where it is, with Samsung's data still inside Samsung's walls. The licence buys updates, support and the roadmap, not our permission for the tool to keep working. We answer this unprompted because it is the right question to ask of any young company.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── 12 Close ── -->
+<section class="close-sect" id="close">
+  <div class="wrap">
+    <div class="sect-label reveal">12 · The decision</div>
+    <h2 class="sect reveal">You said you would like this yesterday.</h2>
+    <div class="prose reveal">
+      <p>If Samsung ultimately decides this tool must be built internally, then this document is still useful to you: it is the blueprint of what good looks like, and we would rather have written it than not. But the brief was written because the need is now, and an internal Phase 1 alone is the better part of a year before the first question gets answered. This proposal is the only route that gets you close to yesterday. The Engine exists, the deployment pattern is proven, and the four weeks can start whenever you say so.</p>
+    </div>
+    <div class="close-sig reveal">
+      <img src="assets/milo-icon.jpeg" alt="Milo">
+      <div class="s-line"><b>The Milo team</b><span>Prepared for Samsung Electronics UK · The Insights Engine brief</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Appendix ── -->
+<section class="appendix" id="appendix">
+  <div class="wrap">
+    <div class="sect-label reveal">Technical appendix</div>
+    <h2 class="sect reveal">For the technical reviewers.</h2>
+    <p class="sect-lede reveal">The body of this document is written for its business readers. This appendix is written for the people who will interrogate it: precise, complete, and free of marketing. Section references A1 to A10 are used in the coverage checklist at the end.</p>
+
+    <div class="app-block reveal">
+      <div class="a-num">A1 · Architecture</div>
+      <h3>Everything inside Samsung's perimeter. Nothing outside it.</h3>
+      <p>The application is deployed in its entirety within Samsung's private cloud. AWS, GCP and Azure are all routine targets, and Samsung's own cloud platform is supported. There is no connection to Milo's servers, no telemetry, no third-party services in the serving path, and no data egress of any kind. The deployment is containerised and delivered with infrastructure-as-code, so Samsung's team can inspect, reproduce and audit the entire footprint.</p>
+      <div class="arch">
+        <span class="perimeter-tag">Samsung private cloud perimeter · No egress</span>
+        <div class="arch-row">
+          <div class="arch-cell"><b>SMC / Insights Bank</b><span>Research decks, reports · auto-ingest on upload</span></div>
+          <div class="arch-cell"><b>Structured sources</b><span>Qlik Sense data, warehouse, internal APIs</span></div>
+          <div class="arch-cell"><b>External licensed data</b><span>Syndicated tracking, forecasts, benchmarks</span></div>
+        </div>
+        <div class="arch-flow">&darr;</div>
+        <div class="arch-row">
+          <div class="arch-cell"><b>Ingestion &amp; extraction</b><span>Document parsing, vision extraction of chart images, structured connectors</span></div>
+          <div class="arch-cell"><b>Index &amp; store</b><span>Vector and structured indices, permission-tagged at ingestion</span></div>
+          <div class="arch-cell"><b>Analysis engines</b><span>Dedicated statistical and time-series models, not the LLM</span></div>
+        </div>
+        <div class="arch-flow">&darr;</div>
+        <div class="arch-row">
+          <div class="arch-cell"><b>Grounded generation</b><span>Samsung-selected LLMs, incl. internally hosted (Gauss)</span></div>
+          <div class="arch-cell hero-cell"><b>Samsung Insights Engine</b><span>Q&amp;A, decks, summaries, dashboards, brief insertion · SSO &amp; RBAC</span></div>
+          <div class="arch-cell"><b>Integration surface</b><span>ACE Briefing Portal, Teams, SharePoint, headless API</span></div>
+        </div>
+        <div class="arch-out">No arrow crosses this boundary. That is the security model.</div>
+      </div>
+      <p>The Engine also operates headless: the same retrieval, analysis and generation services are exposed over an internal API, so the Engine can power other front-ends or sit inside a broader Samsung architecture if one emerges later.</p>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A2 · AI models</div>
+      <h3>Model-agnostic by design. The LLM is not the analyst.</h3>
+      <p>The deployment supports Samsung-selected language models, including internally hosted models such as Gauss, and commercial models deployed within Samsung's own cloud tenancy. Model choice is a configuration decision Samsung controls, and it can change over the life of the deployment without rework.</p>
+      <p>The critical design decision is what the LLM is <strong>not</strong> asked to do. Language models are poor arithmetic and statistics engines, and we do not use them as one. All quantitative work, including shares, growth rates, windowed averages, significance tests, correlation, regression and time-series forecasting, is executed by dedicated statistical and modelling components. The LLM's role is language: understanding the question, orchestrating retrieval and analysis, and writing the grounded commentary on results it did not itself compute. This is the direct answer to the reasonable objection that LLMs cannot do real data analysis. They cannot, and in this architecture they are never asked to.</p>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A3 · Security and permissions model</div>
+      <h3>Inherited, not reinvented.</h3>
+      <ul class="plain">
+        <li><b>Identity:</b> SSO against Samsung's identity provider. No separate credentials, no shadow user store.</li>
+        <li><b>Authorisation:</b> role-based access control mapped to Samsung's existing confidentiality levels, data ownership and user role restrictions, as the brief requires. Row-level security applies to structured data, so two users asking the same question see only what each is entitled to see.</li>
+        <li><b>Permission-tagged retrieval:</b> access rules are attached to content at ingestion and enforced at query time, before generation. An answer cannot cite a source its reader is not permitted to open.</li>
+        <li><b>Fenced categories:</b> technical and product IP, and personnel and people data, are excluded architecturally. No connector to those systems exists in the deployment, no such content is indexed, and no configuration change inside the application can widen the fence.</li>
+        <li><b>Audit:</b> queries, sources consulted and outputs are logged within Samsung's environment for review.</li>
+        <li><b>Practice:</b> our engineering and operations follow SOC 2 and ISO 27001 aligned controls, and we operate for clients in regulated industries, including licensed gaming. Under full self-hosting, however, the certifications are largely moot: Samsung's existing cloud controls govern the running system, and no Milo personnel can reach Samsung data.</li>
+      </ul>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A4 · RAG, grounding, citations and hallucination</div>
+      <h3>Provenance by design, not by promise.</h3>
+      <p>Unstructured content follows an ingestion, enrichment, vectorisation and retrieval pipeline; structured data is queried directly. At answer time the Engine retrieves candidate sources under the user's permissions, and generation is constrained to retrieved material. Every answer carries its citations: document title, page number where relevant, and click-back to the source. Confidence indicators are computed from source agreement, source recency and retrieval strength, and are shown with the answer rather than hidden in a log.</p>
+      <p>Where sources are missing, the Engine says "I don't know" instead of improvising. Where sources are incomplete, outdated or contradictory, it says that too, identifies the gap, and states what additional evidence or human review is required, exactly as the brief specifies. Hallucination is addressed structurally rather than rhetorically: unsupported generation is excluded by the grounding constraint, quantitative claims come from the analysis engines rather than the language model, and the citation requirement makes every claim checkable by its reader. The user feedback facility closes the loop, routing weak answers into tuning.</p>
+      <p>This appendix intentionally describes the pipeline at architecture level rather than component level. We are happy to go deeper under NDA in a technical session.</p>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A5 · Data ingestion: structured and unstructured</div>
+      <h3>Built for exactly the estate the brief describes.</h3>
+      <ul class="plain">
+        <li><b>Unstructured:</b> PowerPoint, PDF, Word and Excel, at the Insights Bank's scale of up to 1,000 mixed files and well beyond. Slide structure, tables and embedded objects are parsed; charts that exist only as flat images are read by vision-model extraction, which recovers the underlying series and labels so the data inside them becomes citable and analysable. Extraction quality is validated on Samsung's real decks during weeks one to four, and low-confidence extractions are flagged, not asserted.</li>
+        <li><b>Automatic ingestion:</b> the Engine watches the SMC location and ingests new and updated files as they arrive, with no manual step. This auto-refresh pattern is already running in our Kellanova deployment.</li>
+        <li><b>Structured:</b> warehouse tables, Qlik Sense data, and internal APIs connect through standard connectors. The Qlik scope in the brief (market shares, market values, brand awareness, consideration and purchase intent, social metrics, sell-in and sell-out) is read directly, and Phase 3 adds automated ingestion of further internal and external datasets.</li>
+      </ul>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A6 · Integrations</div>
+      <h3>Named, because the brief names them.</h3>
+      <p>Samsung Marketing Cloud (SMC) for the Insights Bank and auto-ingest. Qlik Sense for structured marketing data. ACE Briefing Portal for keyword-triggered insight insertion into activity briefs. Microsoft Teams and SharePoint for delivery of answers and summaries where users already work. Beyond the named list, the headless API covers anything else in the estate that can speak HTTP, which in practice is everything.</p>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A7 · Continuity and ongoing support</div>
+      <h3>The startup-mortality answer, in writing.</h3>
+      <p>Samsung retains the deployed application in Samsung's own environment. If Milo ceased to exist, the Engine would continue to run exactly where it runs today, on Samsung's infrastructure, with Samsung's data. The licence covers what a living vendor provides: updates, new capability as the roadmap releases, support with a named contact, and provisioning and tuning assistance. Escrow arrangements for build artefacts can be agreed in contracting if Samsung wishes. We raise this section unprompted because vendor continuity is the correct question to ask of any company our age, and we would rather answer it than have it asked behind our backs.</p>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A8 · Implementation plan and Samsung resources</div>
+      <h3>Four weeks, with the first two at day level.</h3>
+      <ul class="plain">
+        <li><b>Days 1&ndash;2:</b> kick-off; infrastructure specification handed over; environment provisioning begins with our assistance; SSO application registration requested; security review scheduled.</li>
+        <li><b>Days 3&ndash;5:</b> application deployed into the provisioned environment; SSO connected; smoke tests pass; security review held with full documentation.</li>
+        <li><b>Days 6&ndash;8:</b> SMC connected with read credentials; initial ingestion of the Insights Bank; vision extraction pass over chart-image decks; permission mapping applied and verified.</li>
+        <li><b>Days 9&ndash;10:</b> first cited answers validated side-by-side with the Insight team; feedback facility switched on; tuning loop begins.</li>
+        <li><b>Weeks 3&ndash;4:</b> user onboarding by team; answer quality tuning against real questions; go-live to the pilot user population; KPI baseline captured in week two, reported from week four.</li>
+        <li><b>Weeks 5&ndash;12:</b> Phase 2 integrations (Qlik, ACE Briefing Portal, Teams, SharePoint), brief-support pipeline, analytical validation, pilot judgement at the end of month three.</li>
+        <li><b>Samsung resource:</b> as listed in the body: named contacts in BI, Marketing Ops and IT for a few hours per week in month one; SMC and Qlik read credentials; provisioning and SSO actions above. No Samsung development effort at any point.</li>
+      </ul>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A9 · Infrastructure cost estimate</div>
+      <h3>Samsung's own cloud spend, and modest.</h3>
+      <p>Because the Engine runs in Samsung's cloud accounts, infrastructure is billed by Samsung's provider at Samsung's negotiated rates, not by us. At Phase 1 and 2 scale (the pilot user population and an Insights Bank of up to 1,000 files) the expected footprint is a small number of application and database instances plus model serving, typically in the region of £1,500 to £3,000 per month depending on the cloud, the model choice and whether an internally hosted model is used. We provide the precise sizing sheet with the day-one infrastructure specification, and we tune the footprint down as usage patterns settle.</p>
+    </div>
+
+    <div class="app-block reveal">
+      <div class="a-num">A10 · Coverage of the brief's required response items</div>
+      <h3>All seventeen, mechanically checkable.</h3>
+      <p>The brief lists seventeen items a response must include. The table below maps each to where it is answered, so evaluation can be a tick exercise.</p>
+      <div class="check-table">
+        <table class="checklist">
+          <thead><tr><th>#</th><th>Required item, from the brief</th><th>Where it is answered</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Recommended technical architecture</td><td><span class="tick">✓</span>Appendix A1, A2</td></tr>
+            <tr><td>2</td><td>Recommended MVP scope in Phase 1, and phasing and roadmap if different</td><td><span class="tick">✓</span>Section 03 (the compressed roadmap), Section 09 (pilot scope), A8</td></tr>
+            <tr><td>3</td><td>Data ingestion approach</td><td><span class="tick">✓</span>Appendix A5</td></tr>
+            <tr><td>4</td><td>Approach to unstructured and structured data</td><td><span class="tick">✓</span>Appendix A5; capability table, Section 04</td></tr>
+            <tr><td>5</td><td>Security and permissions model</td><td><span class="tick">✓</span>Section 06 (plain English), Appendix A3 (precise)</td></tr>
+            <tr><td>6</td><td>AI model / RAG approach</td><td><span class="tick">✓</span>Appendix A2, A4</td></tr>
+            <tr><td>7</td><td>Approach to citations and confidence scoring</td><td><span class="tick">✓</span>Appendix A4; demonstrated live in the interactive example</td></tr>
+            <tr><td>8</td><td>Approach to hallucination reduction</td><td><span class="tick">✓</span>Appendix A4</td></tr>
+            <tr><td>9</td><td>Example user experience</td><td><span class="tick">✓</span>The interactive demonstration; Section 02 (Monday morning)</td></tr>
+            <tr><td>10</td><td>Any integration requirements</td><td><span class="tick">✓</span>Appendix A6; Section 10</td></tr>
+            <tr><td>11</td><td>Implementation timeline</td><td><span class="tick">✓</span>Section 03; Appendix A8 (day level, weeks one and two)</td></tr>
+            <tr><td>12</td><td>Cost estimate by phase</td><td><span class="tick">✓</span>Section 08 (phases mapped to tiers), Appendix A9 (infrastructure)</td></tr>
+            <tr><td>13</td><td>Resource requirements from Samsung (BI, Marketing Ops, IT)</td><td><span class="tick">✓</span>Section 10; Appendix A8</td></tr>
+            <tr><td>14</td><td>Risks and dependencies</td><td><span class="tick">✓</span>Section 11</td></tr>
+            <tr><td>15</td><td>Pilot proposal</td><td><span class="tick">✓</span>Section 09</td></tr>
+            <tr><td>16</td><td>Examples of relevant previous work</td><td><span class="tick">✓</span>Section 07</td></tr>
+            <tr><td>17</td><td>Ongoing support model required</td><td><span class="tick">✓</span>Section 08 (included in licence), Appendix A7</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="foot-l">
+      <img src="assets/milo-icon.jpeg" alt="Milo">
+      <div class="f-line"><b>Powered by Milo</b><span>White-labelled for Samsung Electronics UK</span></div>
+    </div>
+    <div class="foot-r">Confidential · Prepared in response to the Insights Engine brief</div>
+  </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let runToken = 0;
+
+const QUESTIONS = [
+  {
+    q: "What are the top 3 washing machine features that drive the purchase decision?",
+    time: 31,
+    conf: ['high','Confidence · High'],
+    steps: [
+      "Searching the Insights Bank · 1,000 files",
+      "Reading 14 relevant decks, including chart images",
+      "Cross-checking sources and recency",
+      "Writing a cited answer"
+    ],
+    headline: "Capacity, running cost and quietness lead the decision, in that order.",
+    items: [
+      "<b>1. Drum capacity (9kg+).</b> First-ranked driver among family buyers in three of four recent studies. <span class='src'>Laundry Category Drivers UK 2025 · p.14</span>",
+      "<b>2. Energy efficiency.</b> Moved from fourth to second since 2023 as running costs entered the decision. <span class='src'>Home Appliance Purchase Journey · p.22</span>",
+      "<b>3. Quiet operation.</b> Decisive in open-plan homes, strongest among 25 to 39 year olds. <span class='src'>Living Trends Deep Dive 2024 · p.31</span>"
+    ],
+    why: "Three sources agree on the top three. One older study (2022) ranks price second; it is flagged as pre-dating the energy price rises and weighted accordingly.",
+    manual: "The manual version is a request in the Insight team queue."
+  },
+  {
+    q: "Which touchpoints matter most for shoppers buying a new TV?",
+    time: 28,
+    conf: ['high','Confidence · High'],
+    steps: [
+      "Searching the Insights Bank · 1,000 files",
+      "Reading 9 shopper journey sources",
+      "Extracting data from flat chart images",
+      "Writing a cited answer"
+    ],
+    headline: "In-store demo, retailer websites and video reviews carry the decision.",
+    items: [
+      "<b>1. The in-store demo.</b> Screen quality judged in person remains the single biggest conversion moment. <span class='src'>TV Shopper Journey 2025 · p.9</span>",
+      "<b>2. Retailer websites and their reviews.</b> The comparison shortlist is built online before any store visit. <span class='src'>Omnichannel Path to Purchase · p.17</span>",
+      "<b>3. YouTube and expert video reviews.</b> Highest influence among under-35s and premium buyers. <span class='src'>Media Influence Tracker Q1 · p.26</span>"
+    ],
+    why: "The chart on p.9 of the Shopper Journey deck exists only as a flat image. Its values were read by vision extraction, so the numbers inside it are citable and usable in analysis.",
+    manual: "The manual version is an afternoon of deck-mining."
+  },
+  {
+    q: "Create a deck showing how people shop for a new TV.",
+    time: 74,
+    conf: ['high','Confidence · High'],
+    steps: [
+      "Searching the Insights Bank · 1,000 files",
+      "Selecting 9 sources across journey, media and audience",
+      "Structuring the narrative",
+      "Building 12 slides with citations on every chart"
+    ],
+    headline: "Deck assembled: How People Shop For A New TV. Twelve slides, nine sources, every chart cited.",
+    items: [
+      "<b>Slides 1&ndash;3.</b> Journey overview, purchase triggers, research window. <span class='src'>TV Shopper Journey 2025</span>",
+      "<b>Slides 4&ndash;7.</b> Online research, retailer comparison, the in-store moment. <span class='src'>Omnichannel Path to Purchase</span>",
+      "<b>Slides 8&ndash;10.</b> Decision drivers and trade-offs by audience segment. <span class='src'>Audience Deep Dive 2024</span>",
+      "<b>Slides 11&ndash;12.</b> Implications for range, retail and media. Marked as synthesis, not source."
+    ],
+    why: "Downloadable as PowerPoint. Each slide footnotes its source deck and page. The two implication slides are labelled as the Engine's synthesis so interpretation is never dressed as evidence.",
+    manual: "The manual version is two days in the Insight team queue."
+  },
+  {
+    q: "Did our retailer media spend on Currys deliver incremental sell-out last quarter?",
+    time: 42,
+    conf: ['med','Confidence · Medium'],
+    steps: [
+      "Joining media spend log with weekly sell-out by retailer",
+      "Matching banner weeks against control periods",
+      "Controlling for seasonality and promotions",
+      "Running significance test · writing commentary"
+    ],
+    headline: "Banner weeks show +9% incremental sell-out, significant at the 95% level.",
+    chart: "Weekly sell-out, indexed · banner weeks in blue",
+    bars: [58, 62, 60, 88, 92, 85, 90, 64],
+    hot: [3,4,5,6],
+    barLabels: ["W1","W2","W3","W4","W5","W6","W7","W8"],
+    items: [
+      "Sell-out during the four banner weeks indexed <b>109</b> against matched non-banner weeks. <span class='src'>Sell-out by retailer, weekly</span> <span class='src'>Retail media spend log Q1</span>",
+      "The uplift concentrates in mid-range SKUs; premium models show no measurable movement.",
+      "The effect decays within one week of the banner ending, suggesting presence, not persuasion."
+    ],
+    why: "This is correlation with controls, not proof of causation. The model accounts for seasonality and promotional overlap and states what it cannot rule out: a concurrent competitor stock-out. Confidence is medium and says so.",
+    manual: "Today that analysis does not exist, because the two datasets have never met."
+  },
+  {
+    q: "Summarize competitor customer profiles for the home appliances category.",
+    time: 33,
+    conf: ['high','Confidence · High'],
+    steps: [
+      "Searching the Insights Bank · 1,000 files",
+      "Reading 11 profile and tracker sources",
+      "Synthesising a one-page summary",
+      "Writing citations"
+    ],
+    headline: "One-page summary drafted: competitor customer profiles, home appliances.",
+    items: [
+      "<b>LG.</b> Skews 35 to 54, design and ecosystem led, strongest in premium built-in. <span class='src'>Competitor Buyer Profiles 2025 · p.8</span>",
+      "<b>Bosch.</b> Older, reliability-driven buyers with the category's highest repeat purchase loyalty. <span class='src'>Competitor Buyer Profiles 2025 · p.12</span>",
+      "<b>Hisense.</b> Younger, value-first entrants; the fastest-growing profile since 2023. <span class='src'>Category Entrants Tracker · p.5</span>"
+    ],
+    why: "Available as a Word summary or a short deck. Profile data is drawn from two trackers that agree; a third, older source conflicts on the value segment and is cited as a caveat.",
+    manual: "The manual version is a morning of copy-paste."
+  },
+  {
+    q: "What chipset will next year's flagship phone use?",
+    time: 2,
+    conf: ['fence','Outside scope'],
+    steps: [
+      "Checking scope and permissions",
+      "Request declined · fenced category"
+    ],
+    headline: "This request sits behind the fence.",
+    declined: true,
+    items: [
+      "Technical and product IP is <b>outside the Insights Engine's scope by design</b>. No such sources are indexed, no connection to those systems exists, and this answer cannot be generated.",
+      "The same fence covers personnel and people data.",
+      "This is architecture, not policy. There is no configuration inside the application that can widen it."
+    ],
+    why: "The Engine answers only from the sources Samsung connects. Where a category is fenced, the honest answer is the refusal you just watched.",
+    manual: "The fence is structural, and it never needs a reminder.",
+    kickerLead: "Declined in"
+  }
+];
+
+function setBars(d, animate){
+  const barsEl = $('aBars'), labelsEl = $('aBarLabels'), itemsEl = $('aItems');
+  if (d.bars){
+    barsEl.style.display = 'flex';
+    labelsEl.style.display = 'flex';
+    barsEl.innerHTML = d.bars.map((h,i) =>
+      `<div class="a-bar${d.hot.includes(i) ? ' hot' : ''}" style="height:${animate ? 0 : h}%"></div>`).join('');
+    labelsEl.innerHTML = d.barLabels.map(l => `<span>${l}</span>`).join('');
+    if (animate){
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.querySelectorAll('#aBars .a-bar').forEach((b,i) => {
+          b.style.transitionDelay = `${i*0.06}s`;
+          b.style.height = `${d.bars[i]}%`;
+        });
+      }));
+    }
+  } else {
+    barsEl.style.display = 'none'; barsEl.innerHTML = '';
+    labelsEl.style.display = 'none'; labelsEl.innerHTML = '';
+  }
+  itemsEl.innerHTML = d.items.map(s => `<li>${s}</li>`).join('');
+}
+
+function fillAnswer(d){
+  $('aHeadline').innerHTML = d.headline;
+  $('aChartTitle').innerHTML = d.chart || '';
+  $('aChartTitle').style.display = d.chart ? 'block' : 'none';
+  $('aWhy').innerHTML = d.why;
+  const conf = $('aConf');
+  conf.className = 'a-conf ' + d.conf[0];
+  conf.textContent = d.conf[1];
+  $('aCard').classList.toggle('declined', !!d.declined);
+}
+
+function showFinal(d){
+  $('qType').textContent = d.q;
+  $('caret').style.display = 'none';
+  $('steps').innerHTML = d.steps.map(s =>
+    `<div class="step-row show done"><span class="step-ic"><span class="spin"></span><span class="tick">&#10003;</span></span><span>${s}</span></div>`).join('');
+  fillAnswer(d);
+  setBars(d, false);
+  $('aCard').classList.add('show');
+  const t = $('timer');
+  t.textContent = `00:${String(d.time).padStart(2,'0')}.0`;
+  t.classList.remove('running'); t.classList.add('done');
+  $('kickerLead').textContent = d.kickerLead || 'That took';
+  $('kickerTime').textContent = `${d.time} seconds`;
+  $('kickerManual').textContent = d.manual;
+  $('kicker').classList.add('in');
+}
+
+const sleep = (ms, token) => new Promise((res, rej) =>
+  setTimeout(() => token === runToken ? res() : rej('stale'), ms));
+
+async function runDemo(i){
+  const d = QUESTIONS[i];
+  const token = ++runToken;
+  if (reduceMotion){ showFinal(d); return; }
+
+  $('qType').textContent = '';
+  $('caret').style.display = 'inline-block';
+  $('steps').innerHTML = '';
+  $('aCard').classList.remove('show');
+  $('kicker').classList.remove('in');
+  const timer = $('timer');
+  timer.textContent = '00:00.0';
+  timer.classList.remove('done','running');
+
+  try {
+    await sleep(420, token);
+    for (const ch of d.q){
+      $('qType').textContent += ch;
+      await sleep(15 + Math.sin($('qType').textContent.length) * 5, token);
+    }
+    await sleep(260, token);
+    $('caret').style.display = 'none';
+
+    const thinkMs = d.declined ? 1400 : 3300;
+    timer.classList.add('running');
+    let ticking = true;
+    const t0 = performance.now();
+    const tick = () => {
+      if (!ticking || token !== runToken) return;
+      const el = Math.min(d.time, ((performance.now() - t0) / thinkMs) * d.time);
+      timer.textContent = `00:${String(Math.floor(el)).padStart(2,'0')}.${Math.floor((el % 1) * 10)}`;
+      if (el < d.time) requestAnimationFrame(tick);
+      else { timer.classList.remove('running'); timer.classList.add('done'); }
+    };
+    requestAnimationFrame(tick);
+
+    const stepsEl = $('steps');
+    for (const [si, s] of d.steps.entries()){
+      const row = document.createElement('div');
+      row.className = 'step-row';
+      row.innerHTML = `<span class="step-ic"><span class="spin"></span><span class="tick">&#10003;</span></span><span>${s}</span>`;
+      stepsEl.appendChild(row);
+      requestAnimationFrame(() => row.classList.add('show'));
+      await sleep(d.declined ? 550 : (si === d.steps.length - 1 ? 950 : 800), token);
+      row.classList.add('done');
+      await sleep(170, token);
+    }
+
+    ticking = false;
+    timer.textContent = `00:${String(d.time).padStart(2,'0')}.0`;
+    timer.classList.remove('running'); timer.classList.add('done');
+    fillAnswer(d);
+    setBars(d, true);
+    $('aCard').classList.add('show');
+    await sleep(850, token);
+
+    $('kickerLead').textContent = d.kickerLead || 'That took';
+    $('kickerTime').textContent = `${d.time} seconds`;
+    $('kickerManual').textContent = d.manual;
+    $('kicker').classList.add('in');
+  } catch(e){ if (e !== 'stale') throw e; }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.visibilityState === 'visible'){
+    runDemo(0);
+  } else {
+    document.addEventListener('visibilitychange', function once(){
+      if (document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', once);
+      runDemo(0);
+    });
+  }
+
+  $('picker').addEventListener('click', (e) => {
+    const btn = e.target.closest('.q-chip');
+    if (!btn) return;
+    document.querySelectorAll('.q-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    runDemo(Number(btn.dataset.i));
+    $('console').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  });
+
+  // scroll progress + top bar hide
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    $('progress').style.width = pct + '%';
+    const y = h.scrollTop;
+    $('top').classList.toggle('hide', y > 600 && y > lastY);
+    lastY = y;
+  }, { passive:true });
+
+  // reveals
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el,i) => {
+    el.style.transitionDelay = `${(i % 3) * 0.06}s`;
+    io.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>
