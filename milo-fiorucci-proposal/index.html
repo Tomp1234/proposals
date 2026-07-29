@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Fiorucci</title>
+<meta name="description" content="Numbers that talk back. A one month proposal for Farhan Khan and Fiorucci.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --white: #FFFFFF;
+  --paper: #FBFAF7;
+  --ink: #131313;
+  --ink-dim: #55524d;
+  --ink-muted: #8f8b84;
+  --line: #E7E3DB;
+  --line-strong: #131313;
+  --red: #E4032E;
+  --red-deep: #B80020;
+  --red-tint: rgba(228,3,46,0.07);
+  --coal: #141414;
+  --coal-line: rgba(255,255,255,0.14);
+  --milk: rgba(255,255,255,0.94);
+  --milk-dim: rgba(255,255,255,0.64);
+  --milk-faint: rgba(255,255,255,0.38);
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.shell { max-width: 1020px; margin: 0 auto; padding: 0 40px; }
+
+::selection { background: var(--red); color: var(--white); }
+
+/* ── Topbar ──────────────────────────────── */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 26px 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+.milo-mark { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.02rem; letter-spacing: 0.02em; }
+.milo-mark img { height: 26px; width: 26px; border-radius: 6px; display: block; }
+.milo-mark .x { font-weight: 400; color: var(--ink-muted); margin: 0 4px; }
+.f-mark { font-family: var(--serif); font-size: 1.55rem; letter-spacing: 0.08em; }
+.f-mark .dot { color: var(--red); }
+
+/* ── Hero ────────────────────────────────── */
+.hero { padding: 88px 0 30px; }
+.eyebrow {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid rgba(228,3,46,0.35);
+  padding: 8px 14px; border-radius: 999px;
+  margin-bottom: 36px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 9.5vw, 7rem);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  max-width: 900px;
+}
+.hero h1 em { font-style: italic; color: var(--red); }
+.hero .lede {
+  max-width: 640px;
+  margin-top: 30px;
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: var(--ink-dim);
+}
+.hero .lede strong { color: var(--ink); font-weight: 700; }
+
+/* ── Demo ────────────────────────────────── */
+.demo { padding: 44px 0 96px; }
+.rail-label {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 10px 0 18px;
+}
+.rail-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+.picker { display: flex; gap: 10px; flex-wrap: wrap; }
+.q-chip {
+  font-family: var(--sans);
+  font-size: 0.82rem; font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 11px 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+.q-chip:hover { transform: translateY(-2px); border-color: var(--ink); box-shadow: 0 6px 18px rgba(19,19,19,0.08); }
+.q-chip.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(228,3,46,0.28);
+}
+.picker-hint {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--ink-muted);
+  margin-top: 16px;
+}
+
+/* Console */
+.console {
+  margin-top: 34px;
+  background: var(--coal);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 34px 90px rgba(19,19,19,0.28);
+  color: var(--milk);
+}
+.console-bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--coal-line);
+  background: rgba(255,255,255,0.03);
+}
+.traffic { display: flex; gap: 6px; }
+.traffic i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); }
+.console-bar .title { font-size: 0.78rem; font-weight: 600; color: var(--milk-dim); letter-spacing: 0.06em; }
+.timer {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--milk-faint);
+  letter-spacing: 0.08em;
+}
+.timer.running, .timer.done { color: var(--red); filter: brightness(1.5); }
+.console-body { padding: 26px 26px 30px; min-height: 460px; }
+.q-row { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+.q-bubble {
+  background: var(--red);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.93rem;
+  line-height: 1.45;
+  padding: 12px 18px;
+  border-radius: 16px 16px 4px 16px;
+  max-width: 86%;
+  min-height: 44px;
+}
+.caret { display: inline-block; width: 2px; height: 1em; background: var(--white); vertical-align: text-bottom; animation: blink 0.85s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.steps { display: flex; flex-direction: column; gap: 9px; margin-bottom: 20px; }
+.step-row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.84rem; color: var(--milk-dim);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.step-row.show { opacity: 1; transform: none; }
+.step-ic { position: relative; width: 16px; height: 16px; flex: none; }
+.step-ic .spin {
+  position: absolute; inset: 0;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: rot 0.8s linear infinite;
+}
+.step-ic .tick { position: absolute; inset: 0; display: none; color: #ff5b77; font-size: 0.8rem; line-height: 16px; text-align: center; }
+.step-row.done .spin { display: none; }
+.step-row.done .tick { display: block; }
+@keyframes rot { to { transform: rotate(360deg); } }
+
+.a-card {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(228,3,46,0.45);
+  border-radius: 12px;
+  padding: 22px 24px;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.a-card.show { opacity: 1; transform: none; }
+.a-head { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+.a-avatar { width: 22px; height: 22px; border-radius: 6px; }
+.a-name { font-size: 0.8rem; font-weight: 700; }
+.a-time { font-size: 0.72rem; color: var(--milk-faint); }
+.a-headline { font-size: 1.16rem; font-weight: 700; line-height: 1.5; color: var(--milk); }
+.a-headline em { font-style: normal; color: #ff5b77; }
+.a-chart-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--milk-faint); margin: 20px 0 12px; }
+.a-bars { display: flex; align-items: flex-end; gap: 10px; height: 110px; }
+.a-bar {
+  flex: 1;
+  background: rgba(255,255,255,0.22);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.a-bar.hot { background: var(--red); }
+.a-items { list-style: none; margin-top: 6px; }
+.a-items li {
+  font-size: 0.9rem; color: var(--milk-dim); line-height: 1.6;
+  padding: 9px 0 9px 22px;
+  position: relative;
+  border-bottom: 1px dashed var(--coal-line);
+}
+.a-items li:last-child { border-bottom: none; }
+.a-items li::before { content: '\25B8'; position: absolute; left: 2px; color: #ff5b77; }
+.a-items li strong { color: var(--milk); }
+.a-why {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--coal-line);
+  font-size: 0.88rem;
+  color: var(--milk-dim);
+  line-height: 1.6;
+}
+.a-why-label { color: #ff5b77; font-weight: 700; margin-right: 8px; }
+.kicker { margin-top: 22px; opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.kicker.in { opacity: 1; transform: none; }
+.kicker-line { font-size: 0.95rem; color: var(--milk-dim); }
+.kicker-line em { font-style: normal; color: #ff5b77; font-weight: 700; }
+.demo-footnote { margin-top: 14px; font-size: 0.74rem; color: var(--ink-muted); }
+
+/* ── Section scaffolding ─────────────────── */
+.sect-pad { padding: 92px 0; }
+.sect-alt { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sect-label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 18px;
+}
+h2.sect {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 5.4vw, 3.7rem);
+  line-height: 1.06;
+  letter-spacing: -0.005em;
+  max-width: 780px;
+}
+h2.sect em { font-style: italic; color: var(--red); }
+.sect-lede { max-width: 660px; margin-top: 20px; font-size: 1.04rem; color: var(--ink-dim); line-height: 1.7; }
+.sect-lede strong { color: var(--ink); }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ── Power BI comparison ─────────────────── */
+.routes { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 50px; }
+.route {
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 30px 30px 26px;
+}
+.route.milo { border: 2px solid var(--red); box-shadow: 0 18px 50px rgba(228,3,46,0.10); }
+.route .r-tag { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-muted); }
+.route.milo .r-tag { color: var(--red); }
+.route h3 { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; margin: 8px 0 18px; }
+.route ul { list-style: none; }
+.route li {
+  font-size: 0.91rem; color: var(--ink-dim); line-height: 1.55;
+  padding: 9px 0 9px 24px;
+  position: relative;
+  border-bottom: 1px dashed var(--line);
+}
+.route li:last-child { border-bottom: none; }
+.route li::before { content: '\25B8'; position: absolute; left: 2px; color: var(--ink-muted); }
+.route.milo li::before { color: var(--red); }
+.route li strong { color: var(--ink); }
+.route .r-time {
+  margin-top: 18px;
+  font-family: var(--serif); font-style: italic; font-size: 1.15rem;
+  color: var(--ink-muted);
+}
+.route.milo .r-time { color: var(--red); }
+.routes-note { margin-top: 26px; font-size: 0.98rem; color: var(--ink-dim); max-width: 700px; line-height: 1.7; }
+.routes-note strong { color: var(--ink); }
+
+.connect-strip { margin-top: 44px; }
+.connect-strip .t { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 16px; }
+.badges { display: flex; flex-wrap: wrap; gap: 10px; }
+.badge {
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--ink);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+.badge.more { background: var(--red); border-color: var(--red); color: var(--white); font-weight: 700; }
+
+/* ── Proof (Built Different) ─────────────── */
+.proof-card { margin-top: 50px; border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; background: var(--white); }
+.proof-head {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  padding: 20px 28px;
+  border-bottom: 2px solid var(--ink);
+  background: var(--paper);
+}
+.proof-head .name { font-family: var(--serif); font-size: 1.5rem; }
+.proof-head .kind { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--red); }
+.proof-rows { display: grid; grid-template-columns: 1fr 1fr; }
+.proof-row {
+  display: flex; align-items: baseline; gap: 18px;
+  padding: 24px 28px;
+  border-bottom: 1px dashed var(--line);
+}
+.proof-row:nth-child(odd) { border-right: 1px dashed var(--line); }
+.proof-row:nth-last-child(-n+2) { border-bottom: none; }
+.proof-row .num { font-family: var(--serif); font-size: clamp(1.9rem, 4vw, 2.6rem); color: var(--red); min-width: 116px; line-height: 1.05; }
+.proof-row .desc { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.6; }
+.proof-row .desc strong { color: var(--ink); }
+.proof-foot { padding: 18px 28px; border-top: 2px solid var(--ink); font-size: 0.92rem; color: var(--ink-dim); background: var(--red-tint); }
+.proof-foot strong { color: var(--ink); }
+
+/* ── Objections ──────────────────────────── */
+.doubts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+.doubt { border-top: 2px solid var(--ink); padding-top: 18px; }
+.doubt .q { font-family: var(--serif); font-style: italic; font-size: 1.35rem; line-height: 1.25; margin-bottom: 12px; }
+.doubt p { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.65; }
+.doubt p strong { color: var(--ink); }
+
+/* ── Offer ───────────────────────────────── */
+.price-board {
+  display: flex; align-items: center; gap: 44px;
+  margin-top: 50px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  padding: 40px 44px;
+  flex-wrap: wrap;
+}
+.price-big { line-height: 1; }
+.price-big .amount { font-family: var(--serif); font-size: clamp(3.6rem, 7vw, 5.4rem); }
+.price-big .per { display: block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: var(--red); margin-top: 12px; }
+.price-copy { flex: 1; min-width: 280px; font-size: 1rem; color: var(--ink-dim); line-height: 1.7; }
+.price-copy strong { color: var(--ink); }
+.trial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; }
+.trial-cell {
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 24px 24px 22px;
+}
+.trial-cell .n { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--red); }
+.trial-cell h3 { font-size: 0.98rem; font-weight: 800; margin: 8px 0 6px; }
+.trial-cell p { font-size: 0.86rem; color: var(--ink-dim); line-height: 1.6; }
+
+/* ── Footer ──────────────────────────────── */
+.footer { background: var(--coal); color: var(--milk); padding: 76px 0 64px; text-align: center; margin-top: 92px; }
+.footer-line { font-family: var(--serif); font-size: 1.6rem; line-height: 1.4; color: var(--milk); }
+.footer-line em { font-style: italic; color: #ff5b77; }
+.footer-meta {
+  margin-top: 48px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--milk-faint);
+}
+.footer-meta .sep { margin: 0 10px; opacity: 0.5; }
+.footer-contact { margin-top: 14px; font-size: 0.88rem; }
+.footer-contact a { color: var(--milk-dim); text-decoration: none; border-bottom: 1px solid var(--coal-line); }
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 860px) {
+  .routes { grid-template-columns: 1fr; }
+  .doubts { grid-template-columns: 1fr; gap: 30px; }
+  .trial-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .shell { padding: 0 22px; }
+  .hero { padding-top: 64px; }
+  .proof-rows { grid-template-columns: 1fr; }
+  .proof-row:nth-child(odd) { border-right: none; }
+  .proof-row { gap: 14px; }
+  .proof-row .num { min-width: 84px; font-size: 1.7rem; }
+  .proof-row:nth-last-child(-n+2) { border-bottom: 1px dashed var(--line); }
+  .proof-row:last-child { border-bottom: none; }
+  .console-body { padding: 18px 16px 22px; }
+  .price-board { padding: 30px 26px; gap: 26px; }
+  .sect-pad { padding: 68px 0; }
+  .footer { margin-top: 68px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ HERO ════════ -->
+<header class="shell">
+  <div class="topbar">
+    <div class="milo-mark"><img src="assets/milo-icon.jpeg" alt="Milo">milo <span class="x">×</span></div>
+    <div class="f-mark">FIORUCCI<span class="dot">.</span></div>
+  </div>
+</header>
+
+<section class="shell hero">
+  <span class="eyebrow">For Farhan Khan · Fiorucci</span>
+  <h1>Numbers that <em>talk back.</em></h1>
+  <p class="lede">
+    Milo plugs into NetSuite and Shopify and answers questions in plain English: the month-end balance sheet check, the year-on-year, the stock that should go on sale. <strong>Dashboards included. No data lake required.</strong> Below is exactly what that looks like, using the questions from our call.
+  </p>
+</section>
+
+<!-- ════════ DEMO ════════ -->
+<section class="shell demo">
+  <div class="rail-label">Try it · five real questions</div>
+  <div class="picker" role="tablist" id="picker">
+    <button class="q-chip active" data-i="0">Review the month-end balance sheet</button>
+    <button class="q-chip" data-i="1">Profit last July vs this July?</button>
+    <button class="q-chip" data-i="2">Where does the month land?</button>
+    <button class="q-chip" data-i="3">What stock should go on sale?</button>
+    <button class="q-chip" data-i="4">Why is the AR balance too high?</button>
+  </div>
+  <p class="picker-hint">pick a question, watch it get answered</p>
+
+  <div class="console" id="console">
+    <div class="console-bar">
+      <span class="traffic"><i></i><i></i><i></i></span>
+      <span class="title">Milo · Fiorucci workspace</span>
+      <span class="timer" id="timer">00:00.0</span>
+    </div>
+    <div class="console-body">
+      <div class="q-row">
+        <div class="q-bubble"><span id="qType"></span><span class="caret" id="caret"></span></div>
+      </div>
+      <div class="steps" id="steps"></div>
+      <div class="a-card" id="aCard">
+        <div class="a-head">
+          <img class="a-avatar" src="assets/milo-icon.jpeg" alt="Milo">
+          <span class="a-name">Milo</span>
+          <span class="a-time" id="aTime"></span>
+        </div>
+        <div class="a-headline" id="aHeadline"></div>
+        <div class="a-chart-title" id="aChartTitle"></div>
+        <div class="a-bars" id="aBars"></div>
+        <ul class="a-items" id="aItems"></ul>
+        <div class="a-why">
+          <span class="a-why-label">&#9656; Why</span>
+          <span id="aWhy"></span>
+        </div>
+      </div>
+      <div class="kicker" id="kicker">
+        <div class="kicker-line">That took <em id="kickerTime">28 seconds</em>. <span id="kickerManual">The manual version is waiting for the accountant.</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="demo-footnote">Illustrative demo built on typical fashion e-commerce data, not Fiorucci's numbers. Once connected, every answer comes from your live NetSuite and Shopify data.</p>
+</section>
+
+<!-- ════════ POWER BI ════════ -->
+<section class="sect-pad sect-alt">
+  <div class="shell">
+    <div class="sect-label reveal">The Power BI question</div>
+    <h2 class="sect reveal">Keep the plan. <em>Skip the project.</em></h2>
+    <p class="sect-lede reveal">
+      Power BI plus a data lake, then AI later, is a sensible roadmap. The catch is that the licence is the cheap part: the cost sits in the lake build, the data modelling, and the report queue that follows. <strong>Milo delivers that whole layer as a product</strong>, and the "AI later" phase is already in the box.
+    </p>
+
+    <div class="routes">
+      <div class="route reveal">
+        <span class="r-tag">Route one</span>
+        <h3>Data lake + Power BI</h3>
+        <ul>
+          <li>Choose a partner, scope the build, stand up the lake</li>
+          <li>Model NetSuite and Shopify into it, maintain the pipelines</li>
+          <li>Build each report, then <strong>every new question is a new request</strong></li>
+          <li>Phase two: add AI on top, likely Q4</li>
+        </ul>
+        <div class="r-time">Months, five figures, then a queue.</div>
+      </div>
+      <div class="route milo reveal">
+        <span class="r-tag">Route two</span>
+        <h3>Milo</h3>
+        <ul>
+          <li>NetSuite and Shopify connected <strong>in week one</strong>, nothing changes in your systems</li>
+          <li>Dashboards built for you in days, live and always current</li>
+          <li>Every new question is <strong>just asked</strong>, like you saw above</li>
+          <li>The predictive stage is included from day one, not a later phase</li>
+        </ul>
+        <div class="r-time">Working inside a week, one monthly fee.</div>
+      </div>
+    </div>
+
+    <p class="routes-note reveal">
+      And this doesn't burn the roadmap: <strong>if you still build a data lake later, Milo sits on top of it happily.</strong> You'd just be building it with a year of knowing exactly which questions matter.
+    </p>
+
+    <div class="connect-strip reveal">
+      <div class="t">Connects to what you already run</div>
+      <div class="badges">
+        <span class="badge">NetSuite</span>
+        <span class="badge">Shopify</span>
+        <span class="badge">Klaviyo</span>
+        <span class="badge">Meta Ads</span>
+        <span class="badge">Google Ads</span>
+        <span class="badge">Google Analytics</span>
+        <span class="badge">Excel &amp; Sheets</span>
+        <span class="badge more">+ 700 more</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PROOF ════════ -->
+<section class="sect-pad">
+  <div class="shell">
+    <div class="sect-label reveal">Proof, not promises</div>
+    <h2 class="sect reveal">A fashion brand your shape is <em>already on Milo.</em></h2>
+    <p class="sect-lede reveal">Built Different is a UK menswear e-commerce brand: lean team, no data department, founders who want a straight answer at 7am. Here's their first month.</p>
+
+    <div class="proof-card reveal">
+      <div class="proof-head">
+        <span class="name">Built Different</span>
+        <span class="kind">Menswear e-commerce · UK</span>
+      </div>
+      <div class="proof-rows">
+        <div class="proof-row"><span class="num">Week 1</span><span class="desc"><strong>Store, accounting, email and ads all connected.</strong> Shopify, Xero, Klaviyo, Google Ads, analytics and their returns platform, joined up in days.</span></div>
+        <div class="proof-row"><span class="num">7am</span><span class="desc"><strong>A daily trading email</strong> with revenue, profit and returns, replacing the morning ritual of checking five tabs.</span></div>
+        <div class="proof-row"><span class="num">Live</span><span class="desc"><strong>A profitability dashboard the founders check daily,</strong> replacing a month-end pack that had been overstating profit by 3x.</span></div>
+        <div class="proof-row"><span class="num">6 figs</span><span class="desc"><strong>Of ad invoices found missing from their ledger</strong> in month one. Exactly the kind of "the balance doesn't look right" question Milo is built for.</span></div>
+      </div>
+      <div class="proof-foot"><strong>No analysts, no consultants, no data team.</strong> A small e-commerce business asking questions of its own numbers, which is the point.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ OBJECTIONS ════════ -->
+<section class="sect-pad sect-alt">
+  <div class="shell">
+    <div class="sect-label reveal">Said out loud</div>
+    <h2 class="sect reveal">The fair questions, <em>answered straight.</em></h2>
+
+    <div class="doubts">
+      <div class="doubt reveal">
+        <div class="q">"Aren't we too small for this?"</div>
+        <p>The opposite. Big companies solve this with a data team. <strong>Milo is what you run instead of one.</strong> It works best in exactly your shape: lean team, good systems, nobody whose job is reporting.</p>
+      </div>
+      <div class="doubt reveal">
+        <div class="q">"We're not ready for ongoing analysis support."</div>
+        <p>Good, because there isn't any. <strong>No retainer, no consultants, no services contract.</strong> Milo is a product your team asks questions of. If nobody is using it, you stop paying for it.</p>
+      </div>
+      <div class="doubt reveal">
+        <div class="q">"It's still early for us."</div>
+        <p>That's what the month is for. Fixed price, your real data, the five questions above answered properly. <strong>It runs alongside the warehouse move</strong> with nothing needed from your team beyond logins and an hour's kickoff.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ OFFER ════════ -->
+<section class="sect-pad">
+  <div class="shell">
+    <div class="sect-label reveal">The offer</div>
+    <h2 class="sect reveal">One month. Everything on. <em>Then you decide.</em></h2>
+
+    <div class="price-board reveal">
+      <div class="price-big">
+        <span class="amount">&pound;1,500</span>
+        <span class="per">One month · full access</span>
+      </div>
+      <p class="price-copy">
+        Not a demo, not a sandbox. <strong>The full product connected to Fiorucci's real NetSuite and Shopify data, for the whole team, unlimited users.</strong> At the end of the month we look at what got used and decide together. If it hasn't earned its keep, we part friends and you've lost a month, not a project budget.
+      </p>
+    </div>
+
+    <div class="trial-grid">
+      <div class="trial-cell reveal"><div class="n">01</div><h3>Connected in week one</h3><p>NetSuite and Shopify first, then email and ads if you want them. No migration, nothing changes in your systems.</p></div>
+      <div class="trial-cell reveal"><div class="n">02</div><h3>Your five questions, for real</h3><p>The balance sheet check, the year-on-year, the run rate, the sale list and the AR reconciliation, answered on your live numbers.</p></div>
+      <div class="trial-cell reveal"><div class="n">03</div><h3>Dashboards built with you</h3><p>Everything Power BI would give you, built for you in the first week and kept live automatically after that.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="footer">
+  <div class="shell">
+    <p class="footer-line reveal">Happy to walk this through before Friday.<br><em>Twenty minutes is plenty.</em></p>
+    <div class="footer-meta">
+      Prepared 29 July 2026
+      <span class="sep">·</span>
+      For Farhan Khan
+      <span class="sep">·</span>
+      Fiorucci
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:tom.pickett90@gmail.com">tom.pickett90@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "Review the balance sheet as at month-end and highlight any concerns you'd raise",
+    steps: [
+      'Reading the month-end trial balance from NetSuite',
+      'Checking movements against last month and last year',
+      'Writing up what an accountant would flag'
+    ],
+    time: 28,
+    manual: 'The manual version is waiting for the accountant.',
+    headline: 'Broadly healthy, but I\'d raise <em>three things</em> before you close the month.',
+    items: [
+      '<strong>Stock is &pound;412k, up 22% on June,</strong> while sales grew 3%. Worth checking the warehouse move hasn\'t double-counted goods in transit.',
+      '<strong>&pound;64k of receivables is over 60 days,</strong> concentrated in two wholesale accounts.',
+      '<strong>The VAT control account is &pound;4.1k off the Q2 return.</strong> Probably timing, but worth a look before filing.'
+    ],
+    why: 'This is the check most businesses only get when the accountant runs it. Milo reads the live ledger, so you can run it any morning you like.'
+  },
+  {
+    q: 'How much profit did I make last July vs this July to date?',
+    steps: [
+      'Pulling P&amp;L lines from NetSuite, both Julys',
+      'Matching this July to the same trading days last year',
+      'Comparing revenue, margin and costs'
+    ],
+    time: 9,
+    manual: 'The manual version is an afternoon in spreadsheets.',
+    headline: '<em>&pound;38.4k net profit</em> this July to the 29th, vs &pound;31.9k by the same date last year. Up 20%.',
+    chart: 'Cumulative net profit &middot; this July vs same day last year',
+    bars: [34, 40, 47, 55, 62, 71, 83, 100],
+    hot: 7,
+    why: 'Margin is up 3 points on last July, mostly from lower discounting since the Shopify move. The full year-on-year pack takes seconds, any month, any range.'
+  },
+  {
+    q: 'If sales track the same for the rest of the month, where does that leave us?',
+    steps: [
+      'Reading live Shopify orders, month to date',
+      'Projecting the remaining days from run rate and seasonality',
+      'Landing the month against last year'
+    ],
+    time: 8,
+    manual: 'The manual version is a guess.',
+    headline: 'On the current run rate, July closes at <em>&pound;248k revenue</em>, about 7% ahead of last July, with margin holding.',
+    chart: 'Revenue by week &middot; actual + projected close',
+    bars: [58, 66, 61, 72, 100],
+    hot: 4,
+    why: 'The projection updates itself from live orders. Milo can email it to you at 7am daily, so you always know where the month is landing, not where it was.'
+  },
+  {
+    q: 'Are there any products heavily stocked with low sell-through that I should put on sale?',
+    steps: [
+      'Joining NetSuite stock levels with Shopify sales velocity',
+      'Ranking styles by sell-through over 90 days',
+      'Costing what the slow movers are tying up'
+    ],
+    time: 12,
+    manual: 'The manual version is a stock report nobody has time to run.',
+    headline: 'Yes. <em>9 styles hold &pound;46k of stock</em> at under 15% sell-through in the last 90 days.',
+    chart: 'Sell-through, last 90 days &middot; slowest styles',
+    bars: [18, 24, 30, 38, 47, 58, 71, 86, 100],
+    hot: 0,
+    why: 'Between them they tie up a third of your slow stock value. A targeted sale before the warehouse move means less to pick, move and store.'
+  },
+  {
+    q: "Analyse accounts receivable in H1. Invoices and payments should match off but the balance is too high. Can you spot why?",
+    steps: [
+      'Pulling every H1 invoice and payment from NetSuite',
+      'Matching payments to invoices line by line',
+      'Isolating the entries that don\'t reconcile'
+    ],
+    time: 41,
+    manual: 'The manual version is a day of reconciliation work.',
+    headline: 'Found it. <em>&pound;24.6k of the balance is matching errors,</em> not money owed.',
+    items: [
+      '<strong>Three wholesale invoices (&pound;18.4k) were paid in January</strong> but never matched to their payments in NetSuite.',
+      '<strong>One &pound;6.2k payment was allocated to the wrong customer</strong> account in March.',
+      '<strong>Correct both and H1 receivables reconcile to within &pound;180.</strong>'
+    ],
+    why: 'Milo shows its working on every line, so your accountant can verify the fix rather than redo the search.'
+  }
+];
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (id) => document.getElementById(id);
+let runToken = 0;
+
+const sleep = (ms, token) => new Promise((res, rej) => {
+  setTimeout(() => (token === runToken ? res() : rej('stale')), ms);
+});
+
+function setBars(d, animate) {
+  const barsEl = $('aBars');
+  const itemsEl = $('aItems');
+  if (d.bars) {
+    barsEl.style.display = 'flex';
+    itemsEl.style.display = 'none';
+    itemsEl.innerHTML = '';
+    barsEl.innerHTML = d.bars
+      .map((h, i) => `<div class="a-bar${i === d.hot ? ' hot' : ''}" style="height:${animate ? 0 : h}%"></div>`)
+      .join('');
+    if (animate) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.querySelectorAll('#aBars .a-bar').forEach((b, i) => {
+          b.style.transitionDelay = `${i * 0.07}s`;
+          b.style.height = `${d.bars[i]}%`;
+        });
+      }));
+    }
+  } else {
+    barsEl.style.display = 'none';
+    barsEl.innerHTML = '';
+    itemsEl.style.display = 'block';
+    itemsEl.innerHTML = d.items.map(s => `<li>${s}</li>`).join('');
+  }
+}
+
+function fillAnswer(d) {
+  $('aTime').textContent = 'just now';
+  $('aHeadline').innerHTML = d.headline;
+  $('aChartTitle').innerHTML = d.chart || '';
+  $('aChartTitle').style.display = d.chart ? 'block' : 'none';
+  $('aWhy').innerHTML = d.why;
+}
+
+function showFinal(d) {
+  $('qType').textContent = d.q;
+  $('caret').style.display = 'none';
+  $('steps').innerHTML = d.steps
+    .map(s => `<div class="step-row show done"><span class="step-ic"><span class="spin"></span><span class="tick">&#10003;</span></span><span>${s}</span></div>`)
+    .join('');
+  fillAnswer(d);
+  setBars(d, false);
+  $('aCard').classList.add('show');
+  const t = $('timer');
+  t.textContent = `00:${String(d.time).padStart(2, '0')}.0`;
+  t.classList.remove('running');
+  t.classList.add('done');
+  $('kicker').classList.add('in');
+  $('kickerTime').textContent = `${d.time} seconds`;
+  $('kickerManual').textContent = d.manual;
+}
+
+async function runDemo(i) {
+  const d = QUESTIONS[i];
+  const token = ++runToken;
+
+  if (reduceMotion) { showFinal(d); return; }
+
+  $('qType').textContent = '';
+  $('caret').style.display = 'inline-block';
+  $('steps').innerHTML = '';
+  $('aCard').classList.remove('show');
+  $('kicker').classList.remove('in');
+  const timer = $('timer');
+  timer.textContent = '00:00.0';
+  timer.classList.remove('done');
+  timer.classList.remove('running');
+
+  try {
+    await sleep(450, token);
+
+    for (const ch of d.q) {
+      $('qType').textContent += ch;
+      await sleep(16 + Math.sin($('qType').textContent.length) * 6, token);
+    }
+    await sleep(280, token);
+    $('caret').style.display = 'none';
+
+    const thinkMs = 3400;
+    timer.classList.add('running');
+    let ticking = true;
+    const t0 = performance.now();
+    const tick = () => {
+      if (!ticking || token !== runToken) return;
+      const el = Math.min(d.time, ((performance.now() - t0) / thinkMs) * d.time);
+      timer.textContent = `00:${String(Math.floor(el)).padStart(2, '0')}.${Math.floor((el % 1) * 10)}`;
+      if (el < d.time) requestAnimationFrame(tick);
+      else { timer.classList.remove('running'); timer.classList.add('done'); }
+    };
+    requestAnimationFrame(tick);
+
+    const stepsEl = $('steps');
+    for (const [si, s] of d.steps.entries()) {
+      const row = document.createElement('div');
+      row.className = 'step-row';
+      row.innerHTML = `<span class="step-ic"><span class="spin"></span><span class="tick">&#10003;</span></span><span>${s}</span>`;
+      stepsEl.appendChild(row);
+      requestAnimationFrame(() => row.classList.add('show'));
+      await sleep(si === d.steps.length - 1 ? 1000 : 850, token);
+      row.classList.add('done');
+      await sleep(180, token);
+    }
+
+    ticking = false;
+    timer.textContent = `00:${String(d.time).padStart(2, '0')}.0`;
+    timer.classList.remove('running');
+    timer.classList.add('done');
+    fillAnswer(d);
+    setBars(d, true);
+    $('aCard').classList.add('show');
+    await sleep(900, token);
+
+    $('kickerTime').textContent = `${d.time} seconds`;
+    $('kickerManual').textContent = d.manual;
+    $('kicker').classList.add('in');
+  } catch (e) {
+    if (e !== 'stale') throw e;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.visibilityState === 'visible') {
+    runDemo(0);
+  } else {
+    document.addEventListener('visibilitychange', function once() {
+      if (document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', once);
+      runDemo(0);
+    });
+  }
+
+  $('picker').addEventListener('click', (e) => {
+    const btn = e.target.closest('.q-chip');
+    if (!btn) return;
+    document.querySelectorAll('.q-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    runDemo(Number(btn.dataset.i));
+    $('console').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 3) * 0.07}s`;
+    io.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>
