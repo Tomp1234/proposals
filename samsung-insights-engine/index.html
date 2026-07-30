@@ -110,15 +110,26 @@ h1 .accent{ color:var(--blue); }
 /* ── Demo console ─────────────────────────── */
 .demo{ padding:54px 0 30px; }
 .demo-intro{ max-width:66ch; font-size:1.05rem; color:var(--ink-2); margin-bottom:26px; }
-.picker{ display:flex; gap:9px; flex-wrap:wrap; }
+.picker{ display:flex; gap:10px; flex-wrap:wrap; }
 .q-chip{
-  font-family:var(--body); font-size:.82rem; font-weight:600; color:var(--ink-2);
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--body); font-size:.84rem; line-height:1.3; font-weight:600; color:var(--ink-2);
   background:#fff; border:1px solid var(--line-2); border-radius:100px;
-  padding:9px 17px; cursor:pointer; transition:all .18s ease;
+  padding:10px 19px; cursor:pointer; transition:all .18s ease;
+  box-shadow:0 1px 2px rgba(10,14,30,0.06), 0 3px 8px rgba(10,14,30,0.05);
 }
-.q-chip:hover{ border-color:var(--blue); color:var(--blue); }
-.q-chip.active{ background:var(--blue); border-color:var(--blue); color:#fff; }
-.q-chip.fence{ border-style:dashed; }
+.q-chip::before{
+  content:'▸'; font-size:.72rem; color:var(--blue); transition:color .18s ease;
+}
+.q-chip:hover{
+  border-color:var(--blue); color:var(--blue);
+  transform:translateY(-1px); box-shadow:0 5px 14px rgba(20,40,160,0.16);
+}
+.q-chip:active{ transform:translateY(0); box-shadow:0 1px 3px rgba(20,40,160,0.15); }
+.q-chip.active{ background:var(--blue); border-color:var(--blue); color:#fff; box-shadow:0 6px 16px rgba(20,40,160,0.30); }
+.q-chip.active::before{ color:#fff; }
+.q-chip.q-ip{ border-style:dashed; }
+.q-chip.q-ip::before{ content:'⚠'; font-size:.78rem; }
 .picker-hint{ font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin:12px 0 22px; }
 
 .console{
@@ -241,6 +252,43 @@ h1 .accent{ color:var(--blue); }
 .timer.running{ color:var(--blue); }
 .timer.done{ color:var(--pos); }
 .demo-footnote{ font-size:.76rem; color:var(--faint); margin-top:16px; max-width:74ch; line-height:1.6; }
+
+/* Proof strip */
+.proof-strip{
+  margin-top:34px; display:flex; gap:34px; align-items:flex-start;
+  background:var(--blue-wash); border:1px solid var(--blue-wash-2); border-left:4px solid var(--blue);
+  border-radius:14px; padding:30px 36px;
+}
+.proof-strip .p-label{
+  flex:0 0 auto; font-family:var(--mono); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--blue); padding-top:5px; white-space:nowrap;
+}
+.proof-strip h3{ font-size:1.12rem; font-weight:800; letter-spacing:-0.01em; margin-bottom:10px; }
+.proof-strip p{ font-size:.93rem; color:var(--ink-2); line-height:1.7; max-width:78ch; }
+@media (max-width:760px){ .proof-strip{ flex-direction:column; gap:12px; padding:22px 20px; } }
+
+/* PDF button */
+.pdf-btn{
+  display:inline-flex; align-items:center; gap:6px; margin-top:20px;
+  font-size:.84rem; font-weight:700; color:var(--blue); text-decoration:none;
+  border:1px solid var(--line-2); border-radius:100px; padding:10px 20px; background:#fff;
+  box-shadow:0 1px 2px rgba(10,14,30,0.06), 0 3px 8px rgba(10,14,30,0.05);
+  transition:all .18s ease;
+}
+.pdf-btn:hover{ border-color:var(--blue); transform:translateY(-1px); box-shadow:0 5px 14px rgba(20,40,160,0.16); }
+
+/* Team */
+.team{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:44px; }
+.tm{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 26px; }
+.tm .tm-avatar{
+  display:flex; align-items:center; justify-content:center; width:44px; height:44px;
+  border-radius:50%; background:var(--blue); color:#fff; font-weight:800; font-size:1.05rem;
+  margin-bottom:14px;
+}
+.tm b{ display:block; font-size:1rem; font-weight:800; margin-bottom:6px; }
+.tm .tm-role{ font-size:.85rem; color:var(--sub); line-height:1.6; display:block; }
+.team-note{ margin-top:18px; font-size:.9rem; color:var(--sub); max-width:66ch; }
+@media (max-width:760px){ .team{ grid-template-columns:1fr; } }
 
 /* ── Sections ─────────────────────────── */
 .sect-pad{ padding:96px 0; }
@@ -544,7 +592,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
     <span class="eyebrow">A response to the Insights Engine brief · Samsung Electronics UK</span>
     <h1>The Samsung Insights Engine. <span class="accent">Delivered.</span></h1>
     <p class="lede">
-      The vision is defined. The brief is written. The phases, the use cases and the success criteria already exist, because you built them. The only cost left is every month spent waiting for the tool itself. This document removes the wait: <span class="release">the Samsung Insights Engine, live inside Samsung's private cloud, four weeks from signature.</span>
+      The vision is defined and the brief is written. The phases, the use cases and the success criteria already exist, because you built them, and the only cost left is every month spent waiting for the tool itself. This document removes the wait: <span class="release">the Samsung Insights Engine, live inside Samsung's private cloud, four weeks from signature.</span>
     </p>
 
     <div class="stats">
@@ -559,14 +607,14 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
 <!-- ── Demo / mock-up ── -->
 <section class="demo" id="demo">
   <div class="wrap">
-    <p class="demo-intro"><strong>This is not a description of a platform. It is your tool.</strong> The questions below are taken from your brief. Pick one and watch the Insights Engine answer it.</p>
+    <p class="demo-intro"><strong>This is not a description of a platform, it is your tool.</strong> The questions below are taken from your brief, so pick one and watch the Insights Engine answer it.</p>
     <div class="picker" role="tablist" id="picker">
       <button class="q-chip active" data-i="0">Top 3 washing machine features?</button>
       <button class="q-chip" data-i="1">Which touchpoints matter for TV shoppers?</button>
       <button class="q-chip" data-i="2">Create a deck: how people shop for a new TV</button>
       <button class="q-chip" data-i="3">Did the Currys banner actually work?</button>
       <button class="q-chip" data-i="4">Summarize competitor customer profiles</button>
-      <button class="q-chip fence" data-i="5">Try asking about product IP</button>
+      <button class="q-chip q-ip" data-i="5">Try asking about product IP</button>
     </div>
     <p class="picker-hint">Pick a question · watch it get answered</p>
 
@@ -607,6 +655,14 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
       </div>
     </div>
     <p class="demo-footnote">Illustrative demonstration built on typical consumer electronics category data, not Samsung's. Once deployed, every answer is generated exclusively from the Insights Bank and the data sources Samsung connects, with citations back to the source document and page. Where no source exists, the Engine says so.</p>
+
+    <div class="proof-strip reveal">
+      <div class="p-label">Before you even sign</div>
+      <div class="p-body">
+        <h3>Don't take the demonstration's word for it.</h3>
+        <p>The demonstration above runs on illustrative data, and we would rather you judged the Engine on your own. Hand us three real decks from the Insights Bank under NDA, including the ones where the charts are flat images, and within a week you will watch your own questions answered on your own content, cited and clicked back to source. It costs Samsung nothing but the NDA, and it turns this document's boldest claims into something you have already seen working.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -615,15 +671,16 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
   <div class="wrap">
     <div class="sect-label reveal">01 · Executive summary</div>
     <h2 class="sect reveal">One page, written to be forwarded.</h2>
-    <p class="sect-lede reveal">This summary assumes no context. It can go to anyone in the building, at any level, exactly as it stands.</p>
+    <p class="sect-lede reveal">This summary assumes no context, and it can go to anyone in the building, at any level, exactly as it stands.</p>
 
     <div class="exec reveal">
       <div class="exec-tag"><span>Samsung Insights Engine · Delivery proposal</span><span>One page · Standalone</span></div>
-      <p><strong>The opportunity.</strong> Samsung's Commercial and Marketing teams hold more data and insight than almost any competitor: a thousand research decks, sell-in and sell-out by retailer, brand trackers, media spend, CRM and device usage data. Very little of it is joined up. Getting an answer out of it takes days of manual work by the Insight team, many requests are repeated, and most marketing briefs go to agencies without insight in them. The Insights Engine brief, written inside Samsung, defines the solution: one trusted, source-grounded tool that any marketer can ask in plain English, with every answer cited back to an approved Samsung source.</p>
+      <p><strong>The opportunity.</strong> Samsung's Commercial and Marketing teams hold more data and insight than almost any competitor: a thousand research decks, sell-in and sell-out by retailer, brand trackers, media spend, CRM and device usage data. Very little of it is joined up, so getting an answer out of it takes days of manual work by the Insight team, many requests are repeated, and most marketing briefs go to agencies without insight in them. The Insights Engine brief, written inside Samsung, defines the solution: one trusted, source-grounded tool that any marketer can ask in plain English, with every answer cited back to an approved Samsung source.</p>
       <p><strong>The proposal.</strong> We deliver that tool. The Samsung Insights Engine runs entirely inside Samsung's private cloud, carries Samsung's name, and is live for users four weeks after signature. It is powered by Milo, a proven insight and analytics engine already deployed in white-label form inside global businesses including Kellanova. There is no development project to fund and no build risk to carry: the brief's 12-month roadmap is delivered in one quarter, and the analytical capability the brief places in Phase 3 is native to the product on day one.</p>
       <p><strong>The impact, in three currencies.</strong> <span class="currency">Money saved:</span> fewer repeated research purchases, less agency rework, and no internal build programme to resource. <span class="currency">Time saved:</span> insight requests answered in seconds rather than days, and the Insight team freed from servicing requests to work on opportunities and threats. <span class="currency">Growth:</span> joined-up data the business has never been able to analyse together, surfacing patterns across sell-out, brand and media spend that change where the next pound is invested.</p>
       <p><strong>The commercial structure.</strong> An annual licence at £10,000 to £15,000 per month depending on tier, hosted by Samsung on Samsung's infrastructure. The first three months operate as the pilot and are judged against the brief's own MVP success criteria. Samsung's data never leaves Samsung, no third-party services are involved, and Samsung retains the deployed application. There is no lower-risk route to this capability, and no faster one.</p>
     </div>
+    <a class="pdf-btn reveal" href="samsung-insights-engine-summary.pdf" download>&#8595;&nbsp; Download this summary as a one-page PDF</a>
   </div>
 </section>
 
@@ -638,17 +695,17 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
       <div class="scene reveal">
         <div class="who">A marketing manager</div>
         <h3>Writes a brief that lands first time.</h3>
-        <p>She is briefing a campaign for a new washing machine range. As she types the product name and audience into the brief, the Engine reads the keywords and drops in the relevant insight: purchase drivers, audience profile, the competitor context, each line cited. The agency gets a brief with the rationale already inside it. <b>Fewer revision rounds, stronger creative, and she never filed a request or waited for one.</b></p>
+        <p>As she types a product name and audience into a campaign brief, the Engine reads the keywords and drops in the relevant insight: purchase drivers, audience profile, competitor context, each line cited. The agency gets the rationale built in. <b>Fewer revision rounds, stronger creative, and she never filed a request.</b></p>
       </div>
       <div class="scene reveal">
         <div class="who">An insight analyst</div>
         <h3>Stops servicing. Starts investigating.</h3>
-        <p>The requests that used to fill his week now answer themselves, and the answers persist, so they are not asked twice. He spends Monday on the question the leadership team actually cares about: what is driving the competitor's share gain, and where is the best counter. <b>The Engine does the retrieval and the number-crunching. He does the thinking.</b></p>
+        <p>The requests that used to fill his week now answer themselves, and the answers persist, so they are not asked twice. His Monday goes on the question leadership actually cares about: what is driving the competitor's share gain, and where is the best counter. <b>The Engine does the number-crunching, and he does the thinking.</b></p>
       </div>
       <div class="scene reveal">
         <div class="who">A senior leader</div>
         <h3>Walks into the trading review armed.</h3>
-        <p>Before the meeting she asks the Engine for a one-page summary of category performance: share movement, sell-out trend, brand tracker shifts, each figure cited to its source. What she used to commission a week in advance she now has in the time it takes to read it. <b>Decisions move at the speed of the question, not the queue.</b></p>
+        <p>Before the meeting she asks for a one-page summary of category performance: share movement, sell-out trend, tracker shifts, each figure cited. What she used to commission a week ahead she now has in the time it takes to read it. <b>Decisions move at the speed of the question, not the queue.</b></p>
       </div>
     </div>
   </div>
@@ -659,7 +716,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
   <div class="wrap">
     <div class="sect-label reveal">03 · Delivery</div>
     <h2 class="sect reveal">The brief's 12-month roadmap. One quarter.</h2>
-    <p class="sect-lede reveal">Your brief invites an alternative phasing, so here is ours. We keep your four phases exactly as you defined them. We compress the calendar, because the Engine already exists: this is a deployment, not a build.</p>
+    <p class="sect-lede reveal">Your brief invites an alternative phasing, so here is ours. We keep your four phases exactly as you defined them and compress the calendar, because the Engine already exists: this is a deployment, not a build.</p>
 
     <div class="road reveal">
       <div class="road-row head"><div>Timeline</div><div>Your phasing</div><div>What is live</div></div>
@@ -685,7 +742,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
       </div>
     </div>
 
-    <p class="road-note reveal">For calibration: a ground-up internal build of Phase 1 alone is typically a <strong>nine to twelve month engineering project</strong> before the first user question is answered. The difference is not effort or talent. It is that the engine underneath this tool already exists, is already deployed inside global businesses, and is already doing this work.</p>
+    <p class="road-note reveal">The compression is not effort or optimism: <strong>the engine underneath this tool already exists</strong>, is already deployed inside global businesses, and is already doing this work.</p>
   </div>
 </section>
 
@@ -738,23 +795,23 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
   <div class="wrap">
     <div class="sect-label reveal">05 · Impact</div>
     <h2 class="sect reveal">Measured in Samsung's three currencies.</h2>
-    <p class="sect-lede reveal">The brief estimates a 20% efficiency uplift and a 50% effectiveness uplift in selected use cases, using industry benchmarks. We adopt those assumptions rather than inventing better ones, we label them as assumptions, and we commit to replacing them with measured results during the pilot.</p>
+    <p class="sect-lede reveal">The brief estimates a 20% efficiency uplift and a 50% effectiveness uplift in selected use cases, using industry benchmarks. We adopt those assumptions rather than inventing better ones, and we commit to replacing them with measured results during the pilot.</p>
 
     <div class="currencies">
       <div class="cur reveal">
         <div class="c-label">Money saved</div>
         <h3>Waste stops compounding.</h3>
-        <p>Repeated insight requests disappear because answers persist and are shared. Duplicated research and duplicated analysis stop being bought twice. Briefs that carry insight from day one mean <b>fewer agency revision rounds</b>, and every revision round avoided is production budget recovered. And there is no internal build programme to fund: the engineering is already done.</p>
+        <p>Repeated requests disappear because answers persist, and duplicated research stops being bought twice. Briefs that carry insight from day one mean <b>fewer agency revision rounds</b>, and every round avoided is production budget recovered. There is also no build programme to fund, because the engineering is already done.</p>
       </div>
       <div class="cur reveal">
         <div class="c-label">Time saved</div>
         <h3>Days become seconds.</h3>
-        <p>A request that takes the Insight team days of deck-mining is answered, cited, in under a minute. Applying the brief's own 20% efficiency assumption across the Insight team's request load frees <b>hundreds of team hours a year</b> for higher-impact work, and marketing decisions stop queuing behind the answers they depend on.</p>
+        <p>A request that takes days of deck-mining is answered, cited, in under a minute. The brief's own 20% efficiency assumption frees <b>hundreds of Insight team hours a year</b> for higher-impact work, and marketing decisions stop queuing behind the answers they depend on.</p>
       </div>
       <div class="cur reveal">
         <div class="c-label">Growth</div>
         <h3>The currency vendors never bring.</h3>
-        <p>Joined-up data is not a convenience, it is a competitive weapon. When sell-out, brand metrics and media spend can finally be analysed together, patterns surface that no single dashboard can show, and they change <b>where the next pound of spend goes</b>. Growth over maintenance. That is the point of the whole exercise, and it is the part only an analytical engine can deliver.</p>
+        <p>Joined-up data is a competitive weapon: when sell-out, brand metrics and media spend are analysed together, patterns surface that no dashboard can show, and they change <b>where the next pound goes</b>. That is growth over maintenance, and it is the part only an analytical engine can deliver.</p>
       </div>
     </div>
 
@@ -795,7 +852,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
     <p class="sect-lede reveal">The plain-English version. The precise version, for the technical reviewers, is in the appendix. Both say the same thing.</p>
 
     <div class="prose reveal">
-      <p>The Samsung Insights Engine is deployed entirely inside Samsung's private cloud, under Samsung's name. It answers exclusively from sources Samsung provides. It never scrapes the web, never calls a third-party service, and never sends a byte of Samsung data outside Samsung's environment. Not to us, not to anyone. Users sign in with their existing Samsung credentials, and the Engine inherits the confidentiality levels, data ownership rules and role restrictions Samsung already enforces.</p>
+      <p>The Samsung Insights Engine is deployed entirely inside Samsung's private cloud, under Samsung's name, and it answers exclusively from sources Samsung provides. It never scrapes the web, never calls a third-party service, and never sends a byte of Samsung data outside Samsung's environment: not to us, not to anyone. Users sign in with their existing Samsung credentials, and the Engine inherits the confidentiality levels, data ownership rules and role restrictions Samsung already enforces.</p>
       <p>We hold SOC 2 and ISO 27001 aligned practices, and the appendix covers them. But the honest punchline is this: <strong>certifications matter far less when the tool never leaves your walls.</strong> The strongest security control in this proposal is the architecture itself.</p>
     </div>
 
@@ -835,14 +892,14 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
       <div class="evi-card reveal">
         <div class="e-tag">White-label · Global FMCG</div>
         <h3>Kellanova (Kellogg's): the deployment pattern Samsung is asking for, already running.</h3>
-        <p>Milo runs as a <b>fully white-labelled application</b> inside Kellanova's own cloud environment, on Databricks and Azure. Their data never leaves their environment. The knowledge base <b>refreshes automatically as files update</b>, exactly the SMC auto-ingest pattern in your brief. Role-based access controls who sees what. And it was delivered to a demanding, technology-sceptical user group inside one of the world's largest food businesses. What Samsung is asking for is not our first attempt at it.</p>
+        <p>Milo runs as a <b>fully white-labelled application</b> inside Kellanova's own cloud environment, on Databricks and Azure, and their data never leaves it. The knowledge base <b>refreshes automatically as files update</b>, which is exactly the SMC auto-ingest pattern in your brief, and role-based access controls who sees what. It was delivered to a demanding, technology-sceptical user group, so what Samsung is asking for is not our first attempt at it.</p>
       </div>
       <div class="evi-card reveal">
         <div class="e-tag">Analytical validation · Regulated gaming</div>
         <h3>A European national lottery operator put our analysis against their agency's. It matched.</h3>
         <p>Their incumbent analytics agency produced a paid predictive report. Milo was given the same underlying data and reproduced the findings with <b>roughly 95% agreement, in minutes</b>. That is the standard behind every Phase 3 and Phase 4 claim in this document: the analysis is done by dedicated statistical and time-series models, and it holds up against professional human work, at a fraction of the time and cost.</p>
       </div>
-      <div class="evi-breadth reveal"><b>Breadth:</b> more than ten deployments across regulated gaming, hospitality, retail and FMCG, each running against live commercial data in production.</div>
+      <div class="evi-breadth reveal"><b>Breadth:</b> more than ten deployments across regulated gaming, hospitality, retail and FMCG, each running against live commercial data in production. We will gladly arrange reference calls with existing customers as part of your evaluation.</div>
     </div>
   </div>
 </section>
@@ -900,7 +957,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
     <div class="pilot-box reveal">
       <div class="pilot-head"><b>The pilot is the first quarter of the contract, at the Core rate.</b><span>Success-gated · Not a free POC</span></div>
       <div class="pilot-body">
-        <p>We do not propose a free proof of concept, and the reason is worth saying plainly: free pilots are slow, under-resourced and unaccountable, and you have already lost months. This pilot is the real deployment, fully staffed, moving at full speed from day one, with a defined test and a clean exit.</p>
+        <p>We do not propose a free proof of concept: free pilots are slow, under-resourced and unaccountable, and you have already lost months. This pilot is the real deployment, fully staffed from day one, with a defined test and a clean exit.</p>
         <div class="pilot-quote">"The Phase 1 MVP should be judged successful if it demonstrates faster access to trusted insight, high-quality cited answers, clear user adoption, and measurable reduction in repeated manual insight requests."<span class="q-attr">The success test, taken verbatim from your brief</span></div>
         <p>We baseline your KPI list in week two, report against it monthly, and at the end of month three the Engine is judged against that test. <strong>If it fails its own test, Samsung walks away</strong> and keeps everything learned. If it passes, you are not starting a project: you are already live, already adopted, and already into Phase 4.</p>
       </div>
@@ -923,7 +980,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
       <div class="need reveal"><b>A security review slot in week one</b><span>We bring complete documentation and answer everything in the room. The architecture makes this a short conversation.</span></div>
       <div class="need reveal"><b>Qlik Sense read access, by week five</b><span>Needed for Phase 2 only. Nothing in weeks one to four depends on it.</span></div>
     </div>
-    <p class="needs-note reveal">That is the entire ask. <strong>The four-week clock runs from signature</strong>, and the day-level plan for weeks one and two is in the appendix.</p>
+    <p class="needs-note reveal">That is the entire ask: <strong>the four-week clock runs from signature</strong>, and the day-level plan for weeks one and two is in the appendix.</p>
   </div>
 </section>
 
@@ -957,6 +1014,25 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
     <div class="prose reveal">
       <p>If Samsung ultimately decides this tool must be built internally, then this document is still useful to you: it is the blueprint of what good looks like, and we would rather have written it than not. But the brief was written because the need is now, and an internal Phase 1 alone is the better part of a year before the first question gets answered. This proposal is the only route that gets you close to yesterday. The Engine exists, the deployment pattern is proven, and the four weeks can start whenever you say so.</p>
     </div>
+    <div class="team reveal">
+      <div class="tm">
+        <span class="tm-avatar">A</span>
+        <b>Andreas</b>
+        <span class="tm-role">Chief Executive. Accountable for every commitment in this document, and on the calls, not above them.</span>
+      </div>
+      <div class="tm">
+        <span class="tm-avatar">P</span>
+        <b>Philipp</b>
+        <span class="tm-role">Delivery. Owns the four-week plan and the deployment inside Samsung's cloud.</span>
+      </div>
+      <div class="tm">
+        <span class="tm-avatar">T</span>
+        <b>Tom</b>
+        <span class="tm-role">Commercial lead. Your first call for anything, from contracting to scope.</span>
+      </div>
+    </div>
+    <p class="team-note reveal">Not an account team that hands you off after signature. These are the three people on the calls, from the first provisioning session to go-live and beyond.</p>
+
     <div class="close-sig reveal">
       <img src="assets/milo-icon.jpeg" alt="Milo">
       <div class="s-line"><b>The Milo team</b><span>Prepared for Samsung Electronics UK · The Insights Engine brief</span></div>
@@ -1046,7 +1122,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
     <div class="app-block reveal">
       <div class="a-num">A7 · Continuity and ongoing support</div>
       <h3>The startup-mortality answer, in writing.</h3>
-      <p>Samsung retains the deployed application in Samsung's own environment. If Milo ceased to exist, the Engine would continue to run exactly where it runs today, on Samsung's infrastructure, with Samsung's data. The licence covers what a living vendor provides: updates, new capability as the roadmap releases, support with a named contact, and provisioning and tuning assistance. Escrow arrangements for build artefacts can be agreed in contracting if Samsung wishes. We raise this section unprompted because vendor continuity is the correct question to ask of any company our age, and we would rather answer it than have it asked behind our backs.</p>
+      <p>Samsung retains the deployed application in Samsung's own environment. If Milo ceased to exist, the Engine would continue to run exactly where it runs today, on Samsung's infrastructure, with Samsung's data. The licence covers what a living vendor provides: updates, new capability as the roadmap releases, support with a named contact, and provisioning and tuning assistance. Escrow arrangements for build artefacts can be agreed in contracting if Samsung wishes.</p>
     </div>
 
     <div class="app-block reveal">
