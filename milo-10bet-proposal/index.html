@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × 10bet</title>
+<meta name="description" content="A short proposal for 10bet. A closed-loop data intelligence layer over the reporting you already trust, delivering answers to your executives wherever they are.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --charcoal: #4E454A;
+  --charcoal-deep: #373034;
+  --charcoal-ink: #2B2528;
+  --green: #5CFD86;
+  --green-soft: #8DFEAC;
+  --green-ink: #14994A;
+  --green-dim: #0E7A3A;
+  --grey-bg: #F4F3F4;
+  --white: #FFFFFF;
+  --ink: #2B2528;
+  --ink-dim: #5E565B;
+  --ink-muted: #8E868B;
+  --line: #E5E2E4;
+  --gradient: linear-gradient(110deg, #4E454A 0%, #14994A 100%);
+  --gradient-green: linear-gradient(110deg, #5CFD86 0%, #B6FECB 100%);
+  --sans: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 44px 56px;
+  position: relative;
+}
+
+.band { width: 100%; position: relative; }
+.band-white { background: var(--white); color: var(--ink); }
+.band-alt { background: var(--grey-bg); color: var(--ink); }
+.band-dark { background: var(--charcoal-deep); color: var(--white); }
+
+/* ── Top bar ─────────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 0.1s forwards;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.topbar-left .sep { opacity: 0.35; font-size: 1rem; }
+
+.milo-logo { display: inline-flex; align-items: center; height: 22px; }
+.milo-logo img { height: 100%; width: auto; display: block; border-radius: 3px; }
+
+.client-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 28px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--green);
+  color: var(--charcoal-ink);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  font-size: 0.82rem;
+}
+
+.topbar-right {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  font-weight: 500;
+}
+
+/* ── Hero ─────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 34vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-aurora {
+  position: absolute;
+  top: 50%;
+  right: -200px;
+  width: 720px;
+  height: 720px;
+  transform: translateY(-50%);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(92, 253, 134, 0.16) 0%, transparent 52%),
+    radial-gradient(circle at 50% 50%, rgba(20, 153, 74, 0.28) 0%, transparent 70%);
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+  animation: auroraDrift 20s ease-in-out infinite;
+}
+
+@keyframes auroraDrift {
+  0%, 100% { transform: translateY(-50%) translateX(0) scale(1); }
+  50% { transform: translateY(-48%) translateX(-30px) scale(1.06); }
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 22px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--green);
+}
+
+h1 {
+  font-weight: 900;
+  font-size: clamp(2.2rem, 5.2vw, 3.7rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(12px);
+  max-width: 880px;
+}
+
+h1 .em {
+  font-weight: 300;
+  font-style: italic;
+  color: var(--green);
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 660px;
+  line-height: 1.55;
+  font-weight: 400;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.hero-sub strong { color: var(--white); font-weight: 700; }
+.hero-sub .hl { color: var(--green); font-weight: 700; }
+
+/* ── Sections ────────────────────────────── */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--green-dim);
+  margin-bottom: 14px;
+}
+
+.kicker::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--green);
+}
+
+.band-dark .kicker { color: var(--green); }
+
+h2 {
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  margin-bottom: 14px;
+  max-width: 860px;
+}
+
+h2 .em {
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--green-dim);
+}
+
+.band-dark h2 .em { color: var(--green); }
+
+h3 {
+  font-weight: 800;
+  font-size: 1.16rem;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  margin-bottom: 10px;
+}
+
+.lede {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink-dim);
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.band-dark .lede { color: rgba(255, 255, 255, 0.68); }
+
+p strong, li strong { font-weight: 700; color: var(--ink); }
+.band-dark p strong, .band-dark li strong { color: var(--white); }
+
+/* ── Morning brief strip ─────────────────── */
+.brief-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.brief-step {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  padding: 20px 22px;
+  position: relative;
+}
+
+.brief-time {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.brief-step h3 { font-size: 1.05rem; margin-bottom: 8px; }
+
+.brief-step p {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+}
+
+/* ── Two-up grid ─────────────────────────── */
+.duo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.duo-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.band-dark .duo-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.09);
+}
+
+.duo-card h3 { font-size: 1.08rem; margin-bottom: 12px; }
+
+.duo-card ul, .duo-card p {
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+  line-height: 1.6;
+}
+
+.band-dark .duo-card ul, .band-dark .duo-card p {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.duo-card ul { list-style: none; }
+
+.duo-card li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+}
+
+.duo-card li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.58em;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green-ink);
+}
+
+.band-dark .duo-card li::before { background: var(--green); }
+
+.route-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-dim);
+  background: rgba(92, 253, 134, 0.16);
+  border-radius: 999px;
+  padding: 3px 12px;
+  margin-bottom: 12px;
+}
+
+/* ── Counts / doesn't count ──────────────── */
+.count-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.count-card {
+  border-radius: 12px;
+  padding: 24px 26px;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.count-card.yes { border-top: 3px solid var(--green-ink); }
+.count-card.no { border-top: 3px solid var(--ink-muted); }
+
+.count-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.count-card.yes .count-label { color: var(--green-dim); }
+.count-card.no .count-label { color: var(--ink-muted); }
+
+.count-card ul { list-style: none; }
+
+.count-card li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 9px;
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+
+.count-card.yes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--green-ink);
+  font-weight: 800;
+}
+
+.count-card.no li::before {
+  content: '✕';
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--ink-muted);
+  font-weight: 700;
+}
+
+/* ── Commercials ─────────────────────────── */
+.comm {
+  background: var(--charcoal-deep);
+  color: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 60px rgba(43, 37, 40, 0.22);
+}
+
+.comm-top {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+
+.comm-headline {
+  padding: 30px 32px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.comm-headline::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(92, 253, 134, 0.22) 0%, transparent 70%);
+  filter: blur(40px);
+}
+
+.comm-price {
+  font-size: 3.2rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--green);
+  margin-bottom: 10px;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.comm-price-unit {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.comm-price-sub {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 26px;
+  position: relative;
+}
+
+.comm-includes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.comm-includes li {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.84);
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.comm-includes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--green);
+  font-weight: 800;
+  font-size: 0.86rem;
+}
+
+.comm-terms {
+  padding: 30px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.comm-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.comm-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.comm-row-label {
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 800;
+}
+
+.comm-row-value {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.5;
+}
+
+.comm-row-value strong { color: var(--white); font-weight: 700; }
+
+.comm-bottom {
+  padding: 16px 32px;
+  background: rgba(0, 0, 0, 0.28);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
+}
+
+.comm-bottom strong { color: var(--green); }
+
+/* ── Pilot deliverables ──────────────────── */
+.pilot {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.pilot-cell {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 22px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.pilot-num {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--green-ink);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  min-width: 28px;
+}
+
+.pilot-cell h3 { font-size: 1.02rem; margin-bottom: 6px; }
+
+.pilot-cell p {
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+
+/* ── Animations ──────────────────────────── */
+@keyframes fadeIn { to { opacity: 1; } }
+
+.animate-target { transition: opacity 0.7s ease, transform 0.7s ease; }
+.animate-target.animate-in { opacity: 1 !important; transform: translateY(0) !important; }
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 820px) {
+  .page { padding: 64px 28px; }
+  .duo-grid, .pilot, .comm-top, .count-grid, .brief-strip { grid-template-columns: 1fr; }
+  .comm-headline { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+}
+
+/* ── Print ───────────────────────────────── */
+@media print {
+  .hero-aurora, .hero-grid { display: none; }
+  .band-dark { background: white !important; color: var(--ink) !important; }
+  .band-dark h2, .band-dark .lede, .band-dark p, .band-dark li { color: var(--ink) !important; }
+  .band-dark h2 .em { color: var(--green-dim) !important; }
+  .band-dark .kicker { color: var(--green-dim) !important; }
+  .brief-step, .band-dark .duo-card { background: white !important; border-color: var(--line) !important; }
+  .brief-step p, .band-dark .duo-card ul { color: var(--ink-dim) !important; }
+  .comm, .comm-headline, .comm-terms, .comm-bottom { background: white !important; color: var(--ink) !important; }
+  .page { padding: 36px 32px; }
+  section { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="band band-dark">
+  <div class="page">
+    <div class="hero-aurora"></div>
+    <div class="hero-grid"></div>
+
+    <div class="topbar hero-content">
+      <div class="topbar-left">
+        <a href="#" class="milo-logo" aria-label="Milo">
+          <img src="https://raw.githubusercontent.com/Tomp1234/proposals/main/quay-tickets-proposal/milo-logo.jpeg" alt="Milo">
+        </a>
+        <span class="sep">×</span>
+        <span class="client-mark" aria-label="10bet">10BET</span>
+      </div>
+      <div class="topbar-right">31 July 2026</div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-content">
+        <div class="eyebrow animate-target">A short proposal · Proof of concept</div>
+        <h1 class="animate-target">
+          The numbers, <span class="em">before the meeting starts.</span>
+        </h1>
+        <p class="hero-sub animate-target">
+          Milo sits on top of the reporting you already trust and answers questions where your executives actually are: <strong>Slack, Telegram, WhatsApp.</strong> The morning brief arrives on its own. Every follow-up gets answered on the spot. <span class="hl">And nothing leaves your loop.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE USE CASE -->
+<section class="band band-dark" style="border-top: 1px solid rgba(255,255,255,0.07);">
+  <div class="page">
+    <div class="kicker">The use case</div>
+    <h2>Built for the walk <span class="em">to the office.</span></h2>
+    <p class="lede">
+      Nobody at the top should have to dig through dashboards to know how the business is doing. The picture arrives on its own, and every "why" behind it is one question away.
+    </p>
+
+    <div class="brief-strip">
+      <div class="brief-step">
+        <div class="brief-time">08:00</div>
+        <h3>The brief lands</h3>
+        <p>A summary arrives on Slack or Telegram: the key numbers per brand and how they moved against last week. No logging in anywhere.</p>
+      </div>
+      <div class="brief-step">
+        <div class="brief-time">08:04</div>
+        <h3>The follow-ups</h3>
+        <p>"Why are we down on brand X?" Milo answers in the same chat, pulled live from your data, sources shown.</p>
+      </div>
+      <div class="brief-step">
+        <div class="brief-time">08:15</div>
+        <h3>The right questions</h3>
+        <p>By the time the meeting starts, they already know what moved and why, and can put the right question to the right person.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section class="band band-white">
+  <div class="page">
+    <div class="kicker">Security · The closed loop</div>
+    <h2>Your data stays yours. <span class="em">Full stop.</span></h2>
+    <p class="lede">
+      This is where most AI tools fall down, and why regulated gaming and lottery operators across Europe run on Milo. The whole system is a closed loop: no third parties, no training on your data, no copy of your warehouse.
+    </p>
+
+    <div class="duo-grid">
+      <div class="duo-card">
+        <h3>No storage, no training</h3>
+        <ul>
+          <li><strong>Read-only</strong> connection. Milo never trains on your data.</li>
+          <li>Nothing is stored. Dashboards use short-lived caching for speed, nothing permanent.</li>
+          <li>The one exception is chat history, kept so users have their threads. Delete a thread and it is gone.</li>
+        </ul>
+      </div>
+      <div class="duo-card">
+        <h3>No third parties</h3>
+        <ul>
+          <li>Nothing goes to OpenAI or any external AI service.</li>
+          <li>All models run <strong>inside Milo's own AWS environment</strong> under a zero data retention agreement.</li>
+          <li>Even logging and monitoring are in-house. Your data never touches a third-party system.</li>
+        </ul>
+      </div>
+      <div class="duo-card">
+        <h3>Private by default</h3>
+        <ul>
+          <li>Threads are <strong>never shared</strong> between users.</li>
+          <li>Memory is per-user and visible to that user.</li>
+          <li>Shared knowledge is <strong>opt-in only</strong>: Milo asks before anything goes into the company knowledge base, and access to it is role-controlled.</li>
+        </ul>
+      </div>
+      <div class="duo-card">
+        <h3>Access control, down to the row</h3>
+        <ul>
+          <li>Role-based access control: build any role, attach any mix of permissions.</li>
+          <li><strong>Row-level security per brand and team</strong>, so people only see what they are entitled to.</li>
+          <li>Single sign-on as standard. Microsoft Entra enterprise controls on request.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA CONNECTIVITY -->
+<section class="band band-alt">
+  <div class="page">
+    <div class="kicker">Your data · Your choice</div>
+    <h2>Keep Qlik. <span class="em">Or go straight to source.</span></h2>
+    <p class="lede">
+      You have done real work in Qlik and none of it needs throwing away. There are two routes in, and we settle on the right one with your head of data in the first week.
+    </p>
+
+    <div class="duo-grid">
+      <div class="duo-card">
+        <div class="route-tag">Route A</div>
+        <h3>Connect to Qlik</h3>
+        <p>Milo connects to Qlik's data layer through its API. The model you have built stays the single source, your existing brand and row-level access work carries straight over, and you control exactly what Milo can see.</p>
+      </div>
+      <div class="duo-card">
+        <div class="route-tag">Route B</div>
+        <h3>Connect to the warehouse</h3>
+        <p>Milo connects straight to your source databases and we bring your business rules into Milo's context layer. Richer, live access to the underlying data, with brand and team permissions set up once and enforced everywhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIONS -->
+<section class="band band-white">
+  <div class="page">
+    <div class="kicker">Usage · No surprises</div>
+    <h2>What counts, <span class="em">what doesn't.</span></h2>
+    <p class="lede">
+      One number drives the cost: interactions. An interaction is Milo doing fresh data analysis with AI. Everything else is free. No seat licences, no hidden extras.
+    </p>
+
+    <div class="count-grid">
+      <div class="count-card yes">
+        <div class="count-label">Counts</div>
+        <ul>
+          <li>Asking Milo a question that pulls or analyses data.</li>
+          <li>Building something new with AI, such as designing a report or dashboard with prompts.</li>
+          <li>An automation that specifically calls on AI when it runs.</li>
+        </ul>
+      </div>
+      <div class="count-card no">
+        <div class="count-label">Doesn't count</div>
+        <ul>
+          <li>Follow-up questions on data Milo has already pulled.</li>
+          <li>Opening, viewing, or refreshing dashboards, however many times.</li>
+          <li>Scheduled sends of a report already built, like the daily exec brief.</li>
+          <li>Users, dashboards, and queries: unlimited.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMERCIALS -->
+<section class="band band-alt">
+  <div class="page">
+    <div class="kicker">Commercials</div>
+    <h2>One month. One number. <span class="em">Then you decide.</span></h2>
+    <p class="lede">
+      The proof of concept is a real deployment, not a sandbox. Same hosting, same security model as the steady state, and we work alongside you until your executives are using it daily.
+    </p>
+
+    <div class="comm">
+      <div class="comm-top">
+        <div class="comm-headline">
+          <div class="comm-price">£2,000<span class="comm-price-unit">one-month proof of concept</span></div>
+          <div class="comm-price-sub">Everything included</div>
+          <ul class="comm-includes">
+            <li>Executive and analyst users onboarded</li>
+            <li>Data connected: Qlik or warehouse, your call</li>
+            <li>Morning exec brief live on Slack or Telegram</li>
+            <li>Brand-level access and roles configured</li>
+            <li>Direct access to our founders and engineers throughout</li>
+            <li>Flexible on interactions while we set up together</li>
+          </ul>
+        </div>
+        <div class="comm-terms">
+          <div class="comm-row">
+            <div class="comm-row-label">Who it's for</div>
+            <div class="comm-row-value">A focused first group: <strong>the executive team plus a couple of analysts.</strong> If it lands, rolling out wider is a settings change, not a project.</div>
+          </div>
+          <div class="comm-row">
+            <div class="comm-row-label">After the month</div>
+            <div class="comm-row-value">Ongoing pricing is agreed at the end of the pilot, <strong>based on your real usage</strong>: one monthly bundle of interactions, everything else unlimited, no other costs.</div>
+          </div>
+        </div>
+      </div>
+      <div class="comm-bottom">
+        No commitment beyond the month. If it doesn't earn its place, <strong>you walk.</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE MONTH -->
+<section class="band band-white">
+  <div class="page">
+    <div class="kicker">The proof of concept · What gets delivered</div>
+    <h2>By the end of the month, <span class="em">you're using it, not evaluating it.</span></h2>
+
+    <div class="pilot">
+      <div class="pilot-cell">
+        <div class="pilot-num">01</div>
+        <div><h3>Week one: connected</h3><p>Our CTO and your head of data pick the route, Qlik or warehouse, and we hook up the data. Read-only, closed loop.</p></div>
+      </div>
+      <div class="pilot-cell">
+        <div class="pilot-num">02</div>
+        <div><h3>Roles and brand access</h3><p>Permissions mapped to your structure, row-level security per brand, SSO switched on.</p></div>
+      </div>
+      <div class="pilot-cell">
+        <div class="pilot-num">03</div>
+        <div><h3>The exec brief, live</h3><p>The morning summary running to Slack or Telegram, tuned until it is exactly what your executives want to see.</p></div>
+      </div>
+      <div class="pilot-cell">
+        <div class="pilot-num">04</div>
+        <div><h3>Build together, then decide</h3><p>A joint channel with our team all month: you say "I want this", we build it with you. At the end we look at real usage and agree terms, or you walk away.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
+
+  ['.animate-target', '.duo-card', '.pilot-cell', '.brief-step', '.count-card'].forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      const col = el.classList.contains('pilot-cell') ? (i % 2) : 0;
+      el.style.transitionDelay = `${col * 0.08}s`;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.classList.add('animate-target');
+      observer.observe(el);
+    });
+  });
+
+  document.querySelectorAll('.hero .animate-target').forEach((el, i) => {
+    setTimeout(() => el.classList.add('animate-in'), 180 + (i * 140));
+  });
+});
+</script>
+
+</body>
+</html>
