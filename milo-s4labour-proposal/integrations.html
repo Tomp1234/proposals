@@ -77,6 +77,7 @@ body {
 .searchbar .ic { color: var(--ink-muted); font-size: 1rem; }
 .searchbar input {
   flex: 1;
+  min-width: 0;
   font-family: var(--sans);
   font-size: 0.95rem;
   border: none; outline: none; background: transparent;
@@ -145,6 +146,8 @@ body {
 @media (max-width: 640px) {
   .shell { padding-left: 22px; padding-right: 22px; }
   .head { padding-top: 44px; }
+  .searchbar { padding-left: 16px; }
+  .count-pill { font-size: 0.66rem; padding: 8px 11px; }
 }
 </style>
 </head>
