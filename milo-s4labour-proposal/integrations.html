@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo · Integrations</title>
+<meta name="description" content="Milo's integrations list, prepared for the S4labour management team.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --white: #FFFFFF;
+  --paper: #F7FAFB;
+  --ink: #10272B;
+  --ink-dim: #486065;
+  --ink-muted: #7E959A;
+  --line: #DFEAEC;
+  --teal: #0399AB;
+  --teal-deep: #027483;
+  --teal-tint: rgba(3,153,171,0.07);
+  --bright: #03DAC5;
+  --navy: #0C2A30;
+  --sans: 'Poppins', Helvetica, Arial, sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell { max-width: 1000px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+
+::selection { background: var(--teal); color: var(--white); }
+
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 26px; padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.milo-mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; }
+.milo-mark img { height: 26px; width: 26px; border-radius: 6px; display: block; }
+.milo-mark .x { font-weight: 400; color: var(--ink-muted); margin: 0 4px; }
+.s4-mark { font-weight: 800; font-size: 1.2rem; color: var(--ink); }
+.s4-mark .four { color: var(--teal); }
+
+.head { padding-top: 64px; padding-bottom: 20px; }
+.head .eyebrow {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--teal-deep);
+  border: 1px solid rgba(3,153,171,0.35);
+  padding: 8px 14px; border-radius: 999px;
+  margin-bottom: 28px;
+}
+.head h1 { font-weight: 700; font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; letter-spacing: -0.02em; }
+.head h1 .hl { color: var(--teal); }
+.head p { max-width: 680px; margin-top: 18px; font-size: 1.02rem; color: var(--ink-dim); line-height: 1.75; }
+.head p strong { color: var(--ink); font-weight: 600; }
+
+.searchbar {
+  margin-top: 34px;
+  display: flex; align-items: center; gap: 12px;
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 8px 6px 22px;
+  max-width: 520px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.searchbar:focus-within { border-color: var(--teal); box-shadow: 0 8px 24px rgba(3,153,171,0.14); }
+.searchbar .ic { color: var(--ink-muted); font-size: 1rem; }
+.searchbar input {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  border: none; outline: none; background: transparent;
+  color: var(--ink);
+  padding: 10px 0;
+}
+.searchbar input::placeholder { color: var(--ink-muted); }
+.count-pill {
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--teal-deep);
+  background: var(--teal-tint);
+  border-radius: 999px;
+  padding: 9px 16px;
+  white-space: nowrap;
+}
+
+.groups { padding-top: 30px; padding-bottom: 40px; }
+.group { margin-top: 38px; }
+.group .g-t {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 14px;
+}
+.group .g-t::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.group .g-t .g-note { font-weight: 600; letter-spacing: 0.04em; text-transform: none; color: var(--teal-deep); }
+.badges { display: flex; flex-wrap: wrap; gap: 9px; }
+.badge {
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--ink);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+.badge.live { border-color: rgba(3,153,171,0.5); background: var(--teal-tint); color: var(--teal-deep); }
+.badge.dim { opacity: 0.18; }
+.group.empty { display: none; }
+
+.legend { display: flex; gap: 18px; margin-top: 26px; font-size: 0.78rem; color: var(--ink-dim); flex-wrap: wrap; }
+.legend .key { display: inline-flex; align-items: center; gap: 8px; }
+.legend .swatch { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid var(--line); background: var(--white); }
+.legend .swatch.live { border-color: rgba(3,153,171,0.5); background: var(--teal-tint); }
+
+.foot-note {
+  margin-top: 46px;
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 26px 28px;
+  max-width: 760px;
+}
+.foot-note p { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.7; }
+.foot-note p strong { color: var(--ink); font-weight: 600; }
+.foot-note p + p { margin-top: 10px; }
+
+.footer { border-top: 1px solid var(--line); margin-top: 70px; padding-top: 34px; padding-bottom: 44px; }
+.footer .meta { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); }
+.footer .meta .sep { margin: 0 10px; opacity: 0.5; }
+.footer a { color: var(--teal-deep); text-decoration: none; }
+.back {
+  display: inline-block; margin-top: 12px;
+  font-size: 0.85rem; font-weight: 600; color: var(--teal-deep); text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .shell { padding-left: 22px; padding-right: 22px; }
+  .head { padding-top: 44px; }
+}
+</style>
+</head>
+<body>
+
+<header class="shell">
+  <div class="topbar">
+    <div class="milo-mark"><img src="assets/milo-icon.jpeg" alt="Milo">milo <span class="x">×</span></div>
+    <div class="s4-mark">S<span class="four">4</span>labour</div>
+  </div>
+</header>
+
+<section class="shell head">
+  <span class="eyebrow">Integrations · Prepared for the S4labour management team</span>
+  <h1>Connects to <span class="hl">what you already run.</span></h1>
+  <p>
+    A working list of Milo's connectors, with <strong>the ones already in S4labour's stack highlighted.</strong> Everything here is a live connector, not a roadmap item. Read-only by default, nothing migrates, and one flat charging model across all of them: interactions, not per-seat, not per-connector.
+  </p>
+
+  <div class="searchbar">
+    <span class="ic">&#8981;</span>
+    <input type="text" id="search" placeholder="Search a tool, e.g. Salesforce, Xero, Square..." autocomplete="off">
+    <span class="count-pill" id="countPill"></span>
+  </div>
+
+  <div class="legend">
+    <span class="key"><span class="swatch live"></span>In S4labour's stack today</span>
+    <span class="key"><span class="swatch"></span>Also available</span>
+  </div>
+</section>
+
+<section class="shell groups" id="groups">
+  <div class="group" data-group="Support & customer success">
+    <div class="g-t">Support &amp; customer success <span class="g-note" hidden></span></div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="CRM & sales">
+    <div class="g-t">CRM &amp; sales</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="Finance & accounting">
+    <div class="g-t">Finance &amp; accounting</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="Email, calendar & docs">
+    <div class="g-t">Email, calendar &amp; docs</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="Marketing">
+    <div class="g-t">Marketing</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="Web & product analytics">
+    <div class="g-t">Web &amp; product analytics</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="Databases & warehouses">
+    <div class="g-t">Databases &amp; warehouses</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="BI & dashboards">
+    <div class="g-t">BI &amp; dashboards</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="Comms & project tools">
+    <div class="g-t">Comms &amp; project tools</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="HR & payroll">
+    <div class="g-t">HR &amp; payroll</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="Hospitality & EPOS">
+    <div class="g-t">Hospitality &amp; EPOS &nbsp;·&nbsp; for the passthrough piece</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="E-commerce & payments">
+    <div class="g-t">E-commerce &amp; payments</div>
+    <div class="badges"></div>
+  </div>
+  <div class="group" data-group="Files & storage">
+    <div class="g-t">Files &amp; storage</div>
+    <div class="badges"></div>
+  </div>
+
+  <div class="foot-note">
+    <p><strong>This is a representative list, not the whole library.</strong> Milo has 700+ live connectors and the list grows weekly. Anything with an API, a database or an export can usually be connected in days, not weeks.</p>
+    <p>If a tool matters to you and it isn't here, ask. <strong>That includes the systems your operators run:</strong> EPOS, payroll, accounting and delivery platforms are exactly what the passthrough conversation is about.</p>
+  </div>
+</section>
+
+<footer class="shell footer">
+  <div class="meta">
+    Milo · Integrations
+    <span class="sep">·</span>
+    Prepared for S4labour · August 2026
+    <span class="sep">·</span>
+    <a href="mailto:tom.pickett90@gmail.com">tom.pickett90@gmail.com</a>
+  </div>
+  <a class="back" href="index.html">&larr; Back to the proposal</a>
+</footer>
+
+<script>
+const GROUPS = {
+  'Support & customer success': {
+    live: ['Zendesk'],
+    rest: ['Intercom', 'Freshdesk', 'Help Scout', 'Front', 'LiveChat', 'Kustomer', 'Gorgias', 'Gainsight', 'ChurnZero', 'Vitally', 'Planhat']
+  },
+  'CRM & sales': {
+    live: ['Salesforce'],
+    rest: ['HubSpot', 'Pipedrive', 'Dynamics 365', 'Zoho CRM', 'Close', 'Copper', 'Outreach', 'Salesloft', 'Apollo', 'Gong', 'Chorus']
+  },
+  'Finance & accounting': {
+    live: [],
+    rest: ['Xero', 'QuickBooks', 'Sage', 'NetSuite', 'Stripe', 'GoCardless', 'Chargebee', 'Recurly', 'Braintree', 'PayPal', 'Wise']
+  },
+  'Email, calendar & docs': {
+    live: ['Outlook & Exchange', 'Gmail', 'Microsoft 365', 'Google Workspace', 'Calendly'],
+    rest: ['Google Meet', 'Zoom', 'Cal.com', 'DocuSign']
+  },
+  'Marketing': {
+    live: ['Force24', 'Mailgun', 'LinkedIn Ads'],
+    rest: ['Mailchimp', 'Klaviyo', 'SendGrid', 'Marketo', 'Braze', 'Customer.io', 'Google Ads', 'Meta Ads', 'TikTok Ads', 'Microsoft Ads']
+  },
+  'Web & product analytics': {
+    live: ['Google Analytics 4', 'Google Search Console', 'Google Tag Manager', 'Cloudflare', 'WordPress'],
+    rest: ['Mixpanel', 'Amplitude', 'Segment', 'Hotjar', 'Webflow']
+  },
+  'Databases & warehouses': {
+    live: ['MySQL', 'Amazon RDS'],
+    rest: ['PostgreSQL', 'SQL Server', 'MongoDB', 'Snowflake', 'BigQuery', 'Redshift', 'Databricks', 'Azure SQL', 'Amazon S3', 'Airtable', 'Supabase']
+  },
+  'BI & dashboards': {
+    live: [],
+    rest: ['Power BI', 'Tableau', 'Looker', 'Metabase', 'Qlik', 'Google Data Studio']
+  },
+  'Comms & project tools': {
+    live: [],
+    rest: ['Slack', 'Microsoft Teams', 'Notion', 'Confluence', 'Jira', 'Asana', 'Monday.com', 'Trello', 'ClickUp', 'Linear']
+  },
+  'HR & payroll': {
+    live: [],
+    rest: ['Workday', 'BambooHR', 'Personio', 'HiBob', 'Deel', 'Gusto', 'ADP']
+  },
+  'Hospitality & EPOS': {
+    live: [],
+    rest: ['Square', 'Lightspeed', 'Toast', 'Zonal', 'Deliverect', 'Uber Eats', 'Just Eat', 'Deliveroo', 'OpenTable', 'SevenRooms']
+  },
+  'E-commerce & payments': {
+    live: [],
+    rest: ['Shopify', 'WooCommerce', 'Magento', 'Amazon Seller Central', 'Squarespace']
+  },
+  'Files & storage': {
+    live: [],
+    rest: ['Excel', 'Google Sheets', 'CSV & SFTP', 'Google Drive', 'OneDrive', 'SharePoint', 'Dropbox', 'Box']
+  }
+};
+
+const groupsEl = document.getElementById('groups');
+let total = 0;
+
+document.querySelectorAll('.group').forEach(g => {
+  const name = g.dataset.group;
+  const data = GROUPS[name];
+  if (!data) return;
+  const wrap = g.querySelector('.badges');
+  data.live.forEach(n => {
+    const b = document.createElement('span');
+    b.className = 'badge live';
+    b.textContent = n;
+    wrap.appendChild(b);
+    total++;
+  });
+  data.rest.forEach(n => {
+    const b = document.createElement('span');
+    b.className = 'badge';
+    b.textContent = n;
+    wrap.appendChild(b);
+    total++;
+  });
+});
+
+const pill = document.getElementById('countPill');
+const setCount = (shown) => {
+  pill.textContent = shown === total ? `${total} shown · 700+ total` : `${shown} match${shown === 1 ? '' : 'es'}`;
+};
+setCount(total);
+
+document.getElementById('search').addEventListener('input', (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  let shown = 0;
+  document.querySelectorAll('.group').forEach(g => {
+    let groupShown = 0;
+    g.querySelectorAll('.badge').forEach(b => {
+      const hit = !q || b.textContent.toLowerCase().includes(q);
+      b.classList.toggle('dim', !hit);
+      if (hit) { groupShown++; shown++; }
+    });
+    g.classList.toggle('empty', q && groupShown === 0);
+  });
+  setCount(shown);
+});
+</script>
+
+</body>
+</html>
