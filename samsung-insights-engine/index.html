@@ -277,6 +277,50 @@ h1 .accent{ color:var(--blue); }
 }
 .pdf-btn:hover{ border-color:var(--blue); transform:translateY(-1px); box-shadow:0 5px 14px rgba(20,40,160,0.16); }
 
+/* Outputs, prompts, flow, use cases, sources */
+.sub-head{ font-size:1.35rem; font-weight:900; letter-spacing:-0.015em; margin:64px 0 8px; }
+.sub-lede{ font-size:.97rem; color:var(--sub); max-width:68ch; margin-bottom:26px; line-height:1.7; }
+.prompt-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 40px; }
+.prompt-grid div{
+  font-size:.88rem; color:var(--ink-2); padding:9px 0 9px 24px; border-bottom:1px solid var(--line);
+  position:relative; line-height:1.5; font-style:italic;
+}
+.prompt-grid div::before{ content:'\203A'; position:absolute; left:4px; color:var(--blue); font-weight:700; font-style:normal; }
+@media (max-width:760px){ .prompt-grid{ grid-template-columns:1fr; } }
+.flow{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:34px; }
+.flow-cell{ background:#fff; border:1px solid var(--line); border-top:4px solid var(--blue); border-radius:12px; padding:22px 20px; }
+.flow-cell .f-num{ font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; }
+.flow-cell b{ display:block; font-size:.95rem; font-weight:800; margin-bottom:8px; }
+.flow-cell span{ font-size:.82rem; color:var(--sub); line-height:1.6; display:block; }
+@media (max-width:860px){ .flow{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .flow{ grid-template-columns:1fr; } }
+.src-strip{
+  margin-top:30px; background:var(--blue-wash); border:1px solid var(--blue-wash-2); border-left:4px solid var(--blue);
+  border-radius:14px; padding:26px 32px; font-size:.94rem; color:var(--ink-2); line-height:1.72; max-width:none;
+}
+.src-strip b{ color:var(--ink); font-weight:700; }
+.uc{ background:#fff; border:1px solid var(--line-2); border-radius:14px; overflow:hidden; margin-top:26px; }
+.uc-head{ background:var(--ink); color:#fff; padding:14px 28px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; }
+.uc-head b{ font-size:.98rem; font-weight:800; }
+.uc-head span{ font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,0.7); }
+.uc-body{ display:grid; grid-template-columns:repeat(4,1fr); }
+.uc-cell{ padding:20px 24px; border-left:1px solid var(--line); }
+.uc-cell:first-child{ border-left:none; }
+.uc-cell .u-tag{ font-family:var(--mono); font-size:.58rem; letter-spacing:.16em; text-transform:uppercase; color:var(--blue); margin-bottom:8px; }
+.uc-cell p{ font-size:.85rem; color:var(--ink-2); line-height:1.6; }
+.uc-cell p em{ font-style:italic; }
+@media (max-width:860px){ .uc-body{ grid-template-columns:1fr 1fr; } .uc-cell{ border-top:1px solid var(--line); } }
+@media (max-width:560px){ .uc-body{ grid-template-columns:1fr; } }
+.steps-list{ margin-top:38px; counter-reset:step; max-width:72ch; }
+.step-item{ display:flex; gap:18px; padding:20px 0; border-top:1px solid var(--line); }
+.step-item:first-child{ border-top:none; }
+.step-num{
+  flex:0 0 34px; height:34px; border-radius:50%; background:var(--blue); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.9rem;
+}
+.step-item b{ display:block; font-size:1rem; font-weight:800; margin-bottom:5px; }
+.step-item p{ font-size:.9rem; color:var(--sub); line-height:1.65; }
+
 /* Team */
 .team{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:44px; }
 .tm{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 26px; }
@@ -670,17 +714,15 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
 <section class="sect-pad" id="summary">
   <div class="wrap">
     <div class="sect-label reveal">01 · Executive summary</div>
-    <h2 class="sect reveal">One page, written to be forwarded.</h2>
-    <p class="sect-lede reveal">This summary assumes no context, and it can go to anyone in the building, at any level, exactly as it stands.</p>
+    <h2 class="sect reveal">Executive summary.</h2>
 
     <div class="exec reveal">
-      <div class="exec-tag"><span>Samsung Insights Engine · Delivery proposal</span><span>One page · Standalone</span></div>
+      <div class="exec-tag"><span>Samsung Insights Engine · Delivery proposal</span><span>Executive summary</span></div>
       <p><strong>The opportunity.</strong> Samsung's Commercial and Marketing teams hold more data and insight than almost any competitor: a thousand research decks, sell-in and sell-out by retailer, brand trackers, media spend, CRM and device usage data. Very little of it is joined up, so getting an answer out of it takes days of manual work by the Insight team, many requests are repeated, and most marketing briefs go to agencies without insight in them. The Insights Engine brief, written inside Samsung, defines the solution: one trusted, source-grounded tool that any marketer can ask in plain English, with every answer cited back to an approved Samsung source.</p>
       <p><strong>The proposal.</strong> We deliver that tool. The Samsung Insights Engine runs entirely inside Samsung's private cloud, carries Samsung's name, and is live for users four weeks after signature. It is powered by Milo, a proven insight and analytics engine already deployed in white-label form inside global businesses including Kellanova. There is no development project to fund and no build risk to carry: the brief's 12-month roadmap is delivered in one quarter, and the analytical capability the brief places in Phase 3 is native to the product on day one.</p>
       <p><strong>The impact, in three currencies.</strong> <span class="currency">Money saved:</span> fewer repeated research purchases, less agency rework, and no internal build programme to resource. <span class="currency">Time saved:</span> insight requests answered in seconds rather than days, and the Insight team freed from servicing requests to work on opportunities and threats. <span class="currency">Growth:</span> joined-up data the business has never been able to analyse together, surfacing patterns across sell-out, brand and media spend that change where the next pound is invested.</p>
       <p><strong>The commercial structure.</strong> A licence of £10,000 to £15,000 per month depending on tier over a two-year initial term, with a one-off £10,000 deployment fee, hosted by Samsung on Samsung's infrastructure. The first three months operate as the pilot and are judged against the brief's own MVP success criteria. Samsung's data never leaves Samsung, no third-party services are involved, and Samsung retains the deployed application, with software assurance and source-code escrow offered in contract. There is no lower-risk route to this capability, and no faster one.</p>
     </div>
-    <a class="pdf-btn reveal" href="samsung-insights-engine-summary.pdf" download>&#8595;&nbsp; Download this summary as a one-page PDF</a>
   </div>
 </section>
 
@@ -706,6 +748,32 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
         <div class="who">A senior leader</div>
         <h3>Walks into the trading review armed.</h3>
         <p>Before the meeting she asks for a one-page summary of category performance: share movement, sell-out trend, tracker shifts, each figure cited. What she used to commission a week ahead she now has in the time it takes to read it. <b>Decisions move at the speed of the question, not the queue.</b></p>
+      </div>
+    </div>
+
+    <h3 class="sub-head reveal">What the Engine actually gives you</h3>
+    <p class="sub-lede reveal">Every answer arrives in the format the question deserves, and everything below is generated from Samsung's own connected data, cited back to source.</p>
+    <div class="needs">
+      <div class="need reveal"><b>Plain-English answers</b><span>Short, cited responses to conversational questions, with confidence shown and click-back to the source deck and page.</span></div>
+      <div class="need reveal"><b>Dashboards and live views</b><span>Built on your data inside the Engine, replacing or augmenting Qlik views, always current, no report queue.</span></div>
+      <div class="need reveal"><b>Decks and written summaries</b><span>Curated PowerPoint decks and Word summaries with a citation on every slide, ready to download, share and forward.</span></div>
+      <div class="need reveal"><b>Cross-dataset analysis</b><span>Correlations, significance tests, trends and regressions across sources that have never been joined before, written up as plain-English commentary.</span></div>
+      <div class="need reveal"><b>Recommendations and flags</b><span>Proactive alerts on the measures you nominate, and auto-generated KPIs inside marketing briefs, arriving through Phases 3 and 4.</span></div>
+      <div class="need reveal"><b>Insight inside your briefs</b><span>Keyword-triggered insight inserted directly into ACE activity briefs, so every brief reaches the agency with its rationale built in.</span></div>
+    </div>
+
+    <div class="kpi-panel reveal">
+      <div class="k-tag">Day one, in your teams' own words</div>
+      <h3>Questions Samsung teams could ask straight away.</h3>
+      <div class="prompt-grid">
+        <div>What are the top 3 washing machine features that drive the purchase decision?</div>
+        <div>Which touchpoints matter most for shoppers buying a new TV?</div>
+        <div>Create a deck showing how people shop for a new TV.</div>
+        <div>Did our retailer media spend on Currys deliver incremental sell-out last quarter?</div>
+        <div>Summarise competitor customer profiles for the home appliances category.</div>
+        <div>How has consideration moved against our two biggest competitors this year?</div>
+        <div>Which campaigns moved brand awareness last quarter, and at what cost per point?</div>
+        <div>Build me a dashboard of sell-out against media spend by retailer.</div>
       </div>
     </div>
   </div>
@@ -783,6 +851,10 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
       </div>
     </div>
 
+    <div class="src-strip reveal">
+      <b>Where the data comes from is not a constraint.</b> The Engine ingests from internal and external sources over API, file drop or cloud share: SMC and Qlik Sense from the brief, and equally Sprinklr, Nielsen, Bloomberg, Meta, footfall and local-market providers, or any platform Samsung licenses, wherever Samsung can grant access. The Engine is agnostic to where data comes from. What matters is what the data represents, and once it is connected it joins every analysis like it had always been there.
+    </div>
+
     <div class="moat reveal">
       <div class="m-label">The distinction that matters</div>
       <p>Anyone can let you talk to your files. That is a commodity now, and it is the whole of what most vendors will offer you. Almost no one can make an engine genuinely <strong>analyse</strong> your data: correlations, significance, regression, prediction, grounded and cited and explained in plain English. Your brief's Phases 3 and 4 are where the value compounds, and they are where we <strong>start</strong>, not where we hope to arrive.</p>
@@ -815,6 +887,32 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
       </div>
     </div>
 
+    <h3 class="sub-head reveal">How joined-up analysis works</h3>
+    <p class="sub-lede reveal">Not a slogan, a pipeline. Here is exactly what goes in, what the Engine does with it, what comes out, and what changes because of it.</p>
+    <div class="flow">
+      <div class="flow-cell reveal">
+        <div class="f-num">1 · Inputs combined</div>
+        <b>Data that has never met</b>
+        <span>Sell-in and sell-out by retailer, media and retail spend, brand tracker scores, social metrics, campaign logs, category reports from the Insights Bank, plus external feeds Samsung connects.</span>
+      </div>
+      <div class="flow-cell reveal">
+        <div class="f-num">2 · Analysis performed</div>
+        <b>Statistical, not conversational</b>
+        <span>The Engine joins the sources, controls for seasonality and promotions, then runs the real work: correlation, significance testing, regression, time-series trends. Dedicated models compute; the AI explains.</span>
+      </div>
+      <div class="flow-cell reveal">
+        <div class="f-num">3 · Outputs received</div>
+        <b>An answer, not a data dump</b>
+        <span>A cited plain-English answer with its confidence stated, a chart or dashboard where one helps, and a written commentary or deck slide ready to circulate.</span>
+      </div>
+      <div class="flow-cell reveal">
+        <div class="f-num">4 · Decision enabled</div>
+        <b>Budget moves</b>
+        <span>Retail media renewed or renegotiated on evidence, campaign spend reweighted to what moved the metric, pricing and promotion responses made regionally, in days not quarters.</span>
+      </div>
+    </div>
+    <p class="road-note reveal" style="margin-top:26px">Where this sits: <strong>deeper than dashboards, faster and lighter than a full econometric or MMM study.</strong> It runs continuously rather than as a commissioned project, it answers most joined-up questions in minutes, and if Samsung later commissions full marketing-mix modelling, the Engine's joined datasets are exactly what that work needs as its input.</p>
+
     <div class="worked reveal">
       <div class="w-tag">A worked example · Growth</div>
       <h3>"Did that banner on Currys actually work?"</h3>
@@ -844,10 +942,49 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
   </div>
 </section>
 
-<!-- ── 06 Security ── -->
+<!-- ── 06 Use cases ── -->
+<section class="sect-pad" id="usecases">
+  <div class="wrap">
+    <div class="sect-label reveal">06 · Use cases by team</div>
+    <h2 class="sect reveal">What each team asks, and what they get.</h2>
+    <p class="sect-lede reveal">Grounded in the teams the brief names first: Corporate Marketing and the HEA marketing teams, with Mobile able to follow under the expanded population of the Complete tier. Each row is the same shape: data in, question asked, output received, decision enabled.</p>
+
+    <div class="uc reveal">
+      <div class="uc-head"><b>Corporate Marketing</b><span>Brand, campaigns, media</span></div>
+      <div class="uc-body">
+        <div class="uc-cell"><div class="u-tag">Data in</div><p>Brand tracker (awareness, consideration, purchase intent), campaign spend logs, social metrics, sell-out trend.</p></div>
+        <div class="uc-cell"><div class="u-tag">Question</div><p><em>Which campaigns moved consideration last quarter, and at what cost per point?</em></p></div>
+        <div class="uc-cell"><div class="u-tag">Output</div><p>A cited answer ranking campaigns by movement and efficiency, with a chart and a deck slide ready for the quarterly review.</p></div>
+        <div class="uc-cell"><div class="u-tag">Decision</div><p>Next quarter's media plan reweighted towards what demonstrably moved the metric.</p></div>
+      </div>
+    </div>
+
+    <div class="uc reveal">
+      <div class="uc-head"><b>HEA marketing teams</b><span>Retail, category, trade</span></div>
+      <div class="uc-body">
+        <div class="uc-cell"><div class="u-tag">Data in</div><p>Sell-in and sell-out by retailer, retail media spend, category reports from the Insights Bank, pricing and promotion data.</p></div>
+        <div class="uc-cell"><div class="u-tag">Question</div><p><em>Did our retailer media spend on Currys deliver incremental sell-out last quarter?</em></p></div>
+        <div class="uc-cell"><div class="u-tag">Output</div><p>An uplift analysis against matched control periods, significance tested, with written commentary on what it can and cannot conclude.</p></div>
+        <div class="uc-cell"><div class="u-tag">Decision</div><p>Retailer media renewed, renegotiated or redirected on evidence rather than relationship.</p></div>
+      </div>
+    </div>
+
+    <div class="uc reveal">
+      <div class="uc-head"><b>Mobile, when ready</b><span>Expansion under Complete</span></div>
+      <div class="uc-body">
+        <div class="uc-cell"><div class="u-tag">Data in</div><p>Launch trackers, market share data, competitor benchmarking reports, pricing feeds, footfall or local-market data where licensed.</p></div>
+        <div class="uc-cell"><div class="u-tag">Question</div><p><em>How did the competitor's launch pricing shift our premium segment share, and where?</em></p></div>
+        <div class="uc-cell"><div class="u-tag">Output</div><p>A regional trend commentary with the share movement quantified, plus a live dashboard tracking the weeks that follow.</p></div>
+        <div class="uc-cell"><div class="u-tag">Decision</div><p>A regional promotion and pricing response, made while the launch window is still open.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 07 Security ── -->
 <section class="sect-pad sect-alt" id="security">
   <div class="wrap">
-    <div class="sect-label reveal">06 · Security and sovereignty</div>
+    <div class="sect-label reveal">07 · Security and sovereignty</div>
     <h2 class="sect reveal">Your walls. Your data. Your tool.</h2>
     <p class="sect-lede reveal">The plain-English version. The precise version, for the technical reviewers, is in the appendix. Both say the same thing.</p>
 
@@ -884,7 +1021,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
 <!-- ── 07 Evidence ── -->
 <section class="sect-pad" id="evidence">
   <div class="wrap">
-    <div class="sect-label reveal">07 · Evidence</div>
+    <div class="sect-label reveal">08 · Evidence</div>
     <h2 class="sect reveal">Proven where it counts.</h2>
     <p class="sect-lede reveal">Two deployments carry the weight of this proposal's two boldest claims: white-label deployment inside a global enterprise, and analysis that stands up against paid professional work.</p>
 
@@ -907,7 +1044,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
 <!-- ── 08 Pricing ── -->
 <section class="sect-pad sect-alt" id="commercials">
   <div class="wrap">
-    <div class="sect-label reveal">08 · Commercials</div>
+    <div class="sect-label reveal">09 · Commercials</div>
     <h2 class="sect reveal">A licence, not a development project.</h2>
     <p class="sect-lede reveal">Licensed over a two-year initial term, billed monthly, with a one-off deployment fee of £10,000 covering the four-week installation. Samsung hosts the application and retains the deployment: the structure itself is the answer to being beholden to a vendor. Two tiers.</p>
 
@@ -953,7 +1090,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
 <!-- ── 09 Pilot ── -->
 <section class="sect-pad" id="pilot">
   <div class="wrap">
-    <div class="sect-label reveal">09 · The pilot</div>
+    <div class="sect-label reveal">10 · The pilot</div>
     <h2 class="sect reveal">Months one to three, judged by your own test.</h2>
 
     <div class="pilot-box reveal">
@@ -970,7 +1107,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
 <!-- ── 10 Needs ── -->
 <section class="sect-pad sect-alt" id="needs">
   <div class="wrap">
-    <div class="sect-label reveal">10 · What we need from Samsung</div>
+    <div class="sect-label reveal">11 · What we need from Samsung</div>
     <h2 class="sect reveal">A short list, deliberately.</h2>
     <p class="sect-lede reveal">The brief asks for resource requirements across the BI, Marketing Ops and IT teams. This is the complete list. No Samsung engineers build anything.</p>
 
@@ -989,7 +1126,7 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
 <!-- ── 11 Risks ── -->
 <section class="sect-pad" id="risks">
   <div class="wrap">
-    <div class="sect-label reveal">11 · Risks and dependencies</div>
+    <div class="sect-label reveal">12 · Risks and dependencies</div>
     <h2 class="sect reveal">Named honestly, each with its answer.</h2>
 
     <div class="risk-table reveal">
@@ -1008,12 +1145,44 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
   </div>
 </section>
 
-<!-- ── 12 Close ── -->
+<!-- ── 13 Future fit ── -->
+<section class="sect-pad sect-alt" id="futurefit">
+  <div class="wrap">
+    <div class="sect-label reveal">13 · Future fit</div>
+    <h2 class="sect reveal">Use it now. Nothing clashes later.</h2>
+    <p class="sect-lede reveal">Global HQ will have its own AI ambitions, and nothing in this proposal gets in their way. The structure is designed so that adopting the Engine today costs Samsung UK no options tomorrow.</p>
+    <div class="prose reveal">
+      <p>This is a subscription to a working product, not a capital build, so there is nothing to strand. The application runs white-labelled in Samsung's own cloud, on Samsung's own infrastructure spend, and Samsung retains the deployment. If a global platform arrives in two years, the Engine coexists with it, plugs into it through the headless API as the analytical layer underneath, or hands over cleanly at the end of the term with Samsung keeping everything it learned and every dataset it joined. There is no future in which today's decision becomes tomorrow's legacy problem.</p>
+      <p>On the practical side of working with us: onboarding runs through the standard enterprise route, with MSA, data processing agreement, security questionnaires and procurement review all familiar ground. We have been through vendor onboarding with global enterprises before, including Kellanova, and the appendix carries everything a review team needs to start.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 14 Next steps ── -->
 <section class="close-sect" id="close">
   <div class="wrap">
-    <div class="sect-label reveal">12 · The decision</div>
-    <h2 class="sect reveal">You said you would like this yesterday.</h2>
-    <div class="prose reveal">
+    <div class="sect-label reveal">14 · Next steps</div>
+    <h2 class="sect reveal">Three steps, and the first is a conversation.</h2>
+
+    <div class="steps-list">
+      <div class="step-item reveal">
+        <div class="step-num">1</div>
+        <div><b>A walkthrough call</b>
+        <p>We take your team through this proposal and answer everything openly. Andreas, our chief executive, joins that call.</p></div>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">2</div>
+        <div><b>A technical validation session</b>
+        <p>For your IT, development and data people: an architecture walkthrough, a security and data-handling review, a live demonstration of multi-source analysis, and open Q&amp;A with the founders. Pair it with the three-deck validation offer from earlier in this document and your technical reviewers judge the Engine on Samsung's own content, before any contract.</p></div>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">3</div>
+        <div><b>Signature starts the four weeks</b>
+        <p>The pilot is the first quarter of the contract, judged against the brief's own MVP success criteria, and the Engine is live for users four weeks from signing.</p></div>
+      </div>
+    </div>
+
+    <div class="prose reveal" style="margin-top:44px">
       <p>If Samsung ultimately decides this tool must be built internally, then this document is still useful to you: it is the blueprint of what good looks like, and we would rather have written it than not. But the brief was written because the need is now, and an internal Phase 1 alone is the better part of a year before the first question gets answered. This proposal is the only route that gets you close to yesterday. The Engine exists, the deployment pattern is proven, and the four weeks can start whenever you say so.</p>
     </div>
     <div class="team reveal">
@@ -1112,13 +1281,14 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
         <li><b>Unstructured:</b> PowerPoint, PDF, Word and Excel, at the Insights Bank's scale of up to 1,000 mixed files and well beyond. Slide structure, tables and embedded objects are parsed; charts that exist only as flat images are read by vision-model extraction, which recovers the underlying series and labels so the data inside them becomes citable and analysable. Extraction quality is validated on Samsung's real decks during weeks one to four, and low-confidence extractions are flagged, not asserted.</li>
         <li><b>Automatic ingestion:</b> the Engine watches the SMC location and ingests new and updated files as they arrive, with no manual step. This auto-refresh pattern is already running in our Kellanova deployment.</li>
         <li><b>Structured:</b> warehouse tables, Qlik Sense data, and internal APIs connect through standard connectors. The Qlik scope in the brief (market shares, market values, brand awareness, consideration and purchase intent, social metrics, sell-in and sell-out) is read directly, and Phase 3 adds automated ingestion of further internal and external datasets.</li>
+        <li><b>External platforms:</b> sources Samsung licenses connect the same way, over API, scheduled file transfer or cloud share: Sprinklr, Nielsen, Bloomberg, Meta, footfall and local-market providers among them. The Engine is agnostic to the source system; the connector is configuration, and the only requirement is that Samsung can grant access.</li>
       </ul>
     </div>
 
     <div class="app-block reveal">
       <div class="a-num">A6 · Integrations</div>
       <h3>Named, because the brief names them.</h3>
-      <p>Samsung Marketing Cloud (SMC) for the Insights Bank and auto-ingest. Qlik Sense for structured marketing data. ACE Briefing Portal for keyword-triggered insight insertion into activity briefs. Microsoft Teams and SharePoint for delivery of answers and summaries where users already work. Beyond the named list, the headless API covers anything else in the estate that can speak HTTP, which in practice is everything.</p>
+      <p>Samsung Marketing Cloud (SMC) for the Insights Bank and auto-ingest. Qlik Sense for structured marketing data. ACE Briefing Portal for keyword-triggered insight insertion into activity briefs. Microsoft Teams and SharePoint for delivery of answers and summaries where users already work. External data platforms Samsung licenses, such as Sprinklr, Nielsen, Bloomberg, Meta and footfall providers, connect over the same API and file mechanisms. Beyond the named list, the headless API covers anything else in the estate that can speak HTTP, which in practice is everything.</p>
     </div>
 
     <div class="app-block reveal">
@@ -1157,22 +1327,22 @@ footer{ background:var(--dark); border-top:1px solid var(--dark-line); padding:3
           <thead><tr><th>#</th><th>Required item, from the brief</th><th>Where it is answered</th></tr></thead>
           <tbody>
             <tr><td>1</td><td>Recommended technical architecture</td><td><span class="tick">✓</span>Appendix A1, A2</td></tr>
-            <tr><td>2</td><td>Recommended MVP scope in Phase 1, and phasing and roadmap if different</td><td><span class="tick">✓</span>Section 03 (the compressed roadmap), Section 09 (pilot scope), A8</td></tr>
+            <tr><td>2</td><td>Recommended MVP scope in Phase 1, and phasing and roadmap if different</td><td><span class="tick">✓</span>Section 03 (the compressed roadmap), Section 10 (pilot scope), A8</td></tr>
             <tr><td>3</td><td>Data ingestion approach</td><td><span class="tick">✓</span>Appendix A5</td></tr>
             <tr><td>4</td><td>Approach to unstructured and structured data</td><td><span class="tick">✓</span>Appendix A5; capability table, Section 04</td></tr>
-            <tr><td>5</td><td>Security and permissions model</td><td><span class="tick">✓</span>Section 06 (plain English), Appendix A3 (precise)</td></tr>
+            <tr><td>5</td><td>Security and permissions model</td><td><span class="tick">✓</span>Section 07 (plain English), Appendix A3 (precise)</td></tr>
             <tr><td>6</td><td>AI model / RAG approach</td><td><span class="tick">✓</span>Appendix A2, A4</td></tr>
             <tr><td>7</td><td>Approach to citations and confidence scoring</td><td><span class="tick">✓</span>Appendix A4; demonstrated live in the interactive example</td></tr>
             <tr><td>8</td><td>Approach to hallucination reduction</td><td><span class="tick">✓</span>Appendix A4</td></tr>
             <tr><td>9</td><td>Example user experience</td><td><span class="tick">✓</span>The interactive demonstration; Section 02 (Monday morning)</td></tr>
-            <tr><td>10</td><td>Any integration requirements</td><td><span class="tick">✓</span>Appendix A6; Section 10</td></tr>
+            <tr><td>10</td><td>Any integration requirements</td><td><span class="tick">✓</span>Appendix A6; Section 11</td></tr>
             <tr><td>11</td><td>Implementation timeline</td><td><span class="tick">✓</span>Section 03; Appendix A8 (day level, weeks one and two)</td></tr>
-            <tr><td>12</td><td>Cost estimate by phase</td><td><span class="tick">✓</span>Section 08 (phases mapped to tiers), Appendix A9 (infrastructure)</td></tr>
-            <tr><td>13</td><td>Resource requirements from Samsung (BI, Marketing Ops, IT)</td><td><span class="tick">✓</span>Section 10; Appendix A8</td></tr>
-            <tr><td>14</td><td>Risks and dependencies</td><td><span class="tick">✓</span>Section 11</td></tr>
-            <tr><td>15</td><td>Pilot proposal</td><td><span class="tick">✓</span>Section 09</td></tr>
-            <tr><td>16</td><td>Examples of relevant previous work</td><td><span class="tick">✓</span>Section 07</td></tr>
-            <tr><td>17</td><td>Ongoing support model required</td><td><span class="tick">✓</span>Section 08 (included in licence), Appendix A7</td></tr>
+            <tr><td>12</td><td>Cost estimate by phase</td><td><span class="tick">✓</span>Section 09 (phases mapped to tiers), Appendix A9 (infrastructure)</td></tr>
+            <tr><td>13</td><td>Resource requirements from Samsung (BI, Marketing Ops, IT)</td><td><span class="tick">✓</span>Section 11; Appendix A8</td></tr>
+            <tr><td>14</td><td>Risks and dependencies</td><td><span class="tick">✓</span>Section 12</td></tr>
+            <tr><td>15</td><td>Pilot proposal</td><td><span class="tick">✓</span>Section 10</td></tr>
+            <tr><td>16</td><td>Examples of relevant previous work</td><td><span class="tick">✓</span>Section 08</td></tr>
+            <tr><td>17</td><td>Ongoing support model required</td><td><span class="tick">✓</span>Section 09 (included in licence), Appendix A7</td></tr>
           </tbody>
         </table>
       </div>
