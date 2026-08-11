@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Emmiera Group</title>
+<meta name="description" content="35 client packs. 80 hours a month. Done by breakfast. A short proposal for the Emmiera Group.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --white: #FFFFFF;
+  --paper: #F5F8FC;
+  --ink: #1B2A52;
+  --ink-dim: #4A5878;
+  --ink-muted: #7C88A6;
+  --line: #DFE6F2;
+  --blue: #2E76BC;
+  --indigo: #234093;
+  --accent: #1863DC;
+  --green: #57BD84;
+  --green-deep: #3FA76D;
+  --amber: #E8A213;
+  --red: #E05252;
+  --milk: rgba(255,255,255,0.95);
+  --milk-dim: rgba(255,255,255,0.68);
+  --milk-faint: rgba(255,255,255,0.4);
+  --sans: 'Quicksand', 'Trebuchet MS', sans-serif;
+  --mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.shell { max-width: 960px; margin: 0 auto; padding-left: 36px; padding-right: 36px; }
+
+::selection { background: var(--indigo); color: var(--white); }
+
+strong { font-weight: 700; }
+
+/* ═══ Hero band — Emmiera gradient ═══ */
+.band {
+  background: linear-gradient(172deg, var(--blue) 0%, var(--indigo) 100%);
+  color: var(--white);
+  border-radius: 0 0 28px 28px;
+}
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 26px; padding-bottom: 8px;
+}
+.milo-mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; color: var(--white); }
+.milo-mark img { height: 28px; width: 28px; border-radius: 7px; display: block; }
+.milo-mark .x { font-weight: 400; color: var(--milk-faint); margin: 0 6px; }
+.emmiera-logo { height: 54px; display: block; }
+
+.hero { padding-top: 58px; padding-bottom: 64px; }
+.eyebrow {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--milk);
+  border: 1px solid var(--milk-faint);
+  padding: 8px 16px; border-radius: 999px;
+  margin-bottom: 30px;
+}
+.hero h1 {
+  font-weight: 700;
+  font-size: clamp(2.3rem, 6.4vw, 3.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 780px;
+}
+.hero h1 .hl { color: #8FE0B2; }
+.hero .strap {
+  margin-top: 20px;
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  font-weight: 500;
+  color: var(--milk-dim);
+  max-width: 640px;
+}
+.hero .strap strong { color: var(--milk); }
+
+/* ═══ Sections ═══ */
+section { padding-top: 58px; }
+.sec-title {
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3.6vw, 2.05rem);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--indigo);
+  max-width: 700px;
+}
+.sec-sub { margin-top: 10px; color: var(--ink-dim); max-width: 640px; font-size: 1.02rem; }
+
+/* ═══ Hook cards ═══ */
+.hooks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
+.hook {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px 22px;
+  display: flex; flex-direction: column; gap: 14px;
+  box-shadow: 0 6px 24px rgba(35,64,147,0.05);
+}
+.hook .num {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--blue);
+}
+.hook h3 { font-weight: 700; font-size: 1.14rem; letter-spacing: -0.01em; color: var(--indigo); line-height: 1.3; }
+.hook .flip { display: flex; flex-direction: column; gap: 10px; margin-top: 2px; }
+.hook .today, .hook .after {
+  border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; line-height: 1.55;
+}
+.hook .today { background: var(--paper); color: var(--ink-dim); border: 1px solid var(--line); }
+.hook .after { background: rgba(87,189,132,0.1); border: 1px solid rgba(87,189,132,0.35); color: var(--ink); }
+.hook .tag {
+  display: block; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.hook .today .tag { color: var(--ink-muted); }
+.hook .after .tag { color: var(--green-deep); }
+
+/* ═══ Console demo ═══ */
+.demo-tabs { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.d-tab {
+  font-family: var(--sans);
+  font-weight: 700; font-size: 0.88rem;
+  color: var(--ink-dim);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.d-tab:hover { border-color: var(--blue); color: var(--blue); }
+.d-tab.active { background: var(--indigo); border-color: var(--indigo); color: var(--white); }
+
+.console {
+  margin-top: 18px;
+  background: linear-gradient(160deg, #1E3466 0%, #17264D 100%);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(23,38,77,0.28);
+}
+.console-bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.dots { display: flex; gap: 6px; }
+.dots span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+.c-title { font-family: var(--mono); font-size: 0.74rem; color: var(--milk-dim); }
+.console-body { padding: 20px 22px 24px; }
+
+.demo-pane { display: none; }
+.demo-pane.visible { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.auto-card {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(87,189,132,0.6); animation: pulse 2s infinite; flex-shrink: 0; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(87,189,132,0); } 100% { box-shadow: 0 0 0 0 rgba(87,189,132,0); } }
+.a-name { font-weight: 700; font-size: 0.86rem; color: var(--milk); }
+.a-sched { font-family: var(--mono); font-size: 0.7rem; color: var(--milk-faint); }
+
+.report-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.report-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.report-head h5 { font-size: 0.92rem; font-weight: 700; color: var(--milk); }
+.report-head .meta { font-family: var(--mono); font-size: 0.66rem; color: var(--milk-faint); }
+.table-scroll { overflow-x: auto; }
+table.rpt { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+table.rpt th {
+  text-align: left; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--milk-faint); padding: 4px 10px 6px 0; border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+table.rpt td { padding: 7px 10px 7px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: var(--milk-dim); }
+table.rpt td.num { font-family: var(--mono); font-size: 0.76rem; color: var(--milk); }
+table.rpt td.dim { color: var(--milk-faint); font-size: 0.74rem; }
+.rag { font-family: var(--mono); font-size: 0.62rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+.rag.g { background: rgba(87,189,132,0.16); color: #8FE0B2; }
+.rag.a { background: rgba(232,162,19,0.16); color: #F2C464; }
+.rag.r { background: rgba(224,82,82,0.16); color: #F09B9B; }
+
+.milo-note {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: rgba(87,189,132,0.09);
+  border: 1px solid rgba(87,189,132,0.28);
+  border-radius: 12px;
+  padding: 13px 15px;
+}
+.milo-note img { width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0; }
+.milo-note p { font-size: 0.85rem; color: var(--milk); line-height: 1.55; }
+.milo-note p strong { color: #8FE0B2; }
+
+/* ═══ Plumbing ═══ */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+.step {
+  background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 22px;
+}
+.step .s-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--indigo); color: var(--white);
+  font-weight: 700; font-size: 0.86rem;
+  margin-bottom: 12px;
+}
+.step h4 { font-weight: 700; font-size: 1.02rem; color: var(--indigo); margin-bottom: 6px; }
+.step p { font-size: 0.9rem; color: var(--ink-dim); }
+
+/* ═══ Trial ═══ */
+.trial {
+  margin-top: 58px;
+  background: linear-gradient(172deg, var(--blue) 0%, var(--indigo) 100%);
+  border-radius: 24px;
+  padding: 46px 44px;
+  color: var(--white);
+  display: grid; grid-template-columns: 1.25fr 1fr; gap: 36px; align-items: center;
+}
+.trial h2 { font-weight: 700; font-size: clamp(1.5rem, 3.4vw, 2rem); letter-spacing: -0.015em; line-height: 1.22; }
+.trial h2 .hl { color: #8FE0B2; }
+.trial .t-body { margin-top: 14px; color: var(--milk-dim); font-size: 0.98rem; max-width: 480px; }
+.trial .t-body strong { color: var(--milk); }
+.price-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 18px;
+  padding: 28px;
+  text-align: center;
+}
+.price-card .p-amount { font-weight: 700; font-size: 2.9rem; letter-spacing: -0.03em; line-height: 1; }
+.price-card .p-per { color: var(--milk-dim); font-size: 0.9rem; margin-top: 6px; }
+.price-card ul { list-style: none; margin: 18px 0 22px; text-align: left; }
+.price-card li { font-size: 0.88rem; color: var(--milk-dim); padding: 6px 0 6px 26px; position: relative; }
+.price-card li::before { content: '✓'; position: absolute; left: 2px; color: #8FE0B2; font-weight: 700; }
+.t-budget { margin-top: 20px; }
+.t-budget-label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; color: var(--milk-dim); margin-bottom: 10px; }
+.t-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  font-size: 0.8rem; font-weight: 600; color: var(--milk);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+.cta {
+  display: inline-block;
+  background: var(--green);
+  color: var(--white);
+  font-weight: 700; font-size: 1rem;
+  padding: 14px 34px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.cta:hover { background: var(--green-deep); transform: translateY(-1px); }
+
+/* ═══ Footer ═══ */
+footer {
+  margin-top: 56px; padding: 26px 0 40px;
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  font-size: 0.82rem; color: var(--ink-muted);
+}
+footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.f-mark { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink-dim); }
+.f-mark img { height: 20px; width: 20px; border-radius: 5px; }
+
+/* ═══ Responsive ═══ */
+@media (max-width: 860px) {
+  .hooks, .steps { grid-template-columns: 1fr; }
+  .trial { grid-template-columns: 1fr; padding: 36px 28px; }
+}
+@media (max-width: 560px) {
+  .shell { padding-left: 22px; padding-right: 22px; }
+  .emmiera-logo { height: 40px; }
+}
+
+/* ═══ Print ═══ */
+@media print {
+  body { background: var(--white); font-size: 15px; zoom: 0.8; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; animation: none !important; }
+  .band, .trial { border-radius: 12px; }
+  section { padding-top: 22px; }
+  .hero { padding-top: 20px; padding-bottom: 26px; }
+  .hooks, .steps { grid-template-columns: repeat(3, 1fr) !important; gap: 12px; }
+  .hook { padding: 16px; }
+  .step { padding: 16px; }
+  .demo-tabs { display: none; }
+  #demo { break-before: page; }
+  .demo-pane { display: block !important; opacity: 1 !important; break-inside: avoid; margin-bottom: 14px; }
+  .console { box-shadow: none; break-inside: auto; }
+  .console-bar { break-after: avoid; }
+  .hook, .step, .report-card, .milo-note { break-inside: avoid; }
+  #fit { break-inside: avoid; }
+  .trial { grid-template-columns: 1.25fr 1fr !important; margin-top: 26px; padding: 24px 28px; break-inside: avoid; }
+  .price-card { padding: 20px; }
+  .price-card ul { margin-bottom: 0; }
+  a.cta { display: none; }
+  footer { margin-top: 18px; padding: 14px 0 0; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="band">
+  <div class="shell">
+    <div class="topbar">
+      <div class="milo-mark"><img src="assets/milo-icon.jpeg" alt="Milo">Milo<span class="x">×</span></div>
+      <img class="emmiera-logo" src="assets/emmiera-logo-white.png" alt="Emmiera Group">
+    </div>
+    <div class="hero">
+      <span class="eyebrow">A short proposal · August 2026</span>
+      <h1>35 packs. 80 hours a month. <span class="hl">Done by breakfast.</span></h1>
+      <p class="strap">The reporting job that has sat on the list for six years, running by itself inside a month. With the weekly client check and the marketing sums thrown in.</p>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+
+<!-- ═══════════ HOOKS ═══════════ -->
+<section id="hooks">
+  <h2 class="sec-title">Three jobs, straight from our call.</h2>
+  <div class="hooks">
+
+    <div class="hook">
+      <span class="num">01 · The packs</span>
+      <h3>Every client pack, built from the live data</h3>
+      <div class="flip">
+        <div class="today"><span class="tag">Today</span>Raw data out of the system, pivot tables, Beautiful.ai. About 80 hours to build 35 packs, every month.</div>
+        <div class="after"><span class="tag">With Milo</span>Each pack generated from the live feed, in your format, ready to talk through. Always current, never rebuilt.</div>
+      </div>
+    </div>
+
+    <div class="hook">
+      <span class="num">02 · The weekly check</span>
+      <h3>The client drop-off that gets missed</h3>
+      <div class="flip">
+        <div class="today"><span class="tag">Today</span>Someone eyeballs call volumes across nearly 300 clients every week, and sometimes a quiet one slips through.</div>
+        <div class="after"><span class="tag">With Milo</span>The 40 clients that are 90% of the business, watched daily. A drop-off gets flagged the day it starts, along with the likely reason.</div>
+      </div>
+    </div>
+
+    <div class="hook">
+      <span class="num">03 · The marketing money</span>
+      <h3>Does the ad spend actually create jobs?</h3>
+      <div class="flip">
+        <div class="today"><span class="tag">Today</span>PPC reports from the agency, lead data loaded into ChatGPT by hand, and a judgement call on where to cut.</div>
+        <div class="after"><span class="tag">With Milo</span>Ad spend joined to booked jobs, by channel and region. Which spend creates work, and which just creates clicks.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ DEMO ═══════════ -->
+<section id="demo">
+  <h2 class="sec-title">What that looks like on a Friday morning.</h2>
+  <p class="sec-sub">Illustrative data. Click through, this is how each one runs.</p>
+
+  <div class="demo-tabs">
+    <button class="d-tab active" data-pane="pack">Client MBR pack</button>
+    <button class="d-tab" data-pane="watch">Client watch</button>
+    <button class="d-tab" data-pane="ads">Marketing check</button>
+  </div>
+
+  <div class="console">
+    <div class="console-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="c-title" id="console-title">Milo · Client MBR pack · national retailer</div>
+    </div>
+    <div class="console-body">
+
+      <!-- Pack pane -->
+      <div class="demo-pane visible" id="pane-pack">
+        <div class="auto-card">
+          <span class="pulse"></span>
+          <span class="a-name">Automation · Monthly client packs</span>
+          <span class="a-sched">1st of the month · 35 packs · each in the client's own format</span>
+        </div>
+        <div class="report-card">
+          <div class="report-head"><h5>Action summary · national retailer</h5><span class="meta">compiled 06:12 · source: live system feed</span></div>
+          <div class="table-scroll">
+          <table class="rpt">
+            <tr><th>Headline</th><th>This month</th><th>Last month</th><th>Trend</th></tr>
+            <tr><td>Jobs added</td><td class="num">2,140</td><td class="num">2,065</td><td><span class="rag g">+3.6%</span></td></tr>
+            <tr><td>Jobs visited</td><td class="num">1,982</td><td class="num">1,921</td><td><span class="rag g">+3.2%</span></td></tr>
+            <tr><td>First-time fix rate</td><td class="num">87.2%</td><td class="num">85.1%</td><td><span class="rag g">+2.1 pts</span></td></tr>
+            <tr><td>Avg days to visit</td><td class="num">4.1</td><td class="num">4.6</td><td><span class="rag g">faster</span></td></tr>
+          </table>
+          </div>
+        </div>
+        <div class="milo-note">
+          <img src="assets/milo-icon.jpeg" alt="Milo">
+          <p><strong>Milo:</strong> Pack 12 of 35 built. Fix rate is up 2.1 points, driven by fewer parts waits in the North West. I have put it on the headline slide, it is the first thing they will ask about.</p>
+        </div>
+      </div>
+
+      <!-- Watch pane -->
+      <div class="demo-pane" id="pane-watch">
+        <div class="auto-card">
+          <span class="pulse"></span>
+          <span class="a-name">Automation · Client watch</span>
+          <span class="a-sched">Daily scan · summary to your inbox Friday 10:00</span>
+        </div>
+        <div class="report-card">
+          <div class="report-head"><h5>Flags this week · 3 of 42 tracked accounts</h5><span class="meta">volume vs 12-week pattern</span></div>
+          <div class="table-scroll">
+          <table class="rpt">
+            <tr><th>Account</th><th>Signal</th><th>vs pattern</th><th>Status</th></tr>
+            <tr><td>Retailer F</td><td class="dim">call volume falling 3 weeks running</td><td class="num">−34%</td><td><span class="rag r">CALL</span></td></tr>
+            <tr><td>Restaurant group K</td><td class="dim">no bookings in 14 days, usually weekly</td><td class="num">−100%</td><td><span class="rag a">CHECK</span></td></tr>
+            <tr><td>Manufacturer T</td><td class="dim">volumes climbing, lead time slipping</td><td class="num">+22%</td><td><span class="rag a">CAPACITY</span></td></tr>
+          </table>
+          </div>
+        </div>
+        <div class="milo-note">
+          <img src="assets/milo-icon.jpeg" alt="Milo">
+          <p><strong>Milo:</strong> Retailer F is the one to ring before the weekend. The drop is in upholstery call-outs only, cabinet volume is normal, so it looks like a process change at their end rather than lost business. Worth a conversation either way.</p>
+        </div>
+      </div>
+
+      <!-- Ads pane -->
+      <div class="demo-pane" id="pane-ads">
+        <div class="auto-card">
+          <span class="pulse"></span>
+          <span class="a-name">Automation · Marketing check</span>
+          <span class="a-sched">Monthly · Google Ads + GA + lead data joined to booked jobs</span>
+        </div>
+        <div class="report-card">
+          <div class="report-head"><h5>Spend to booked jobs · private &amp; commercial</h5><span class="meta">last 30 days</span></div>
+          <div class="table-scroll">
+          <table class="rpt">
+            <tr><th>Channel</th><th>Spend</th><th>Leads</th><th>Booked jobs</th><th>Cost / job</th></tr>
+            <tr><td>PPC · private</td><td class="num">£4,200</td><td class="num">312</td><td class="num">208</td><td class="num">£20.19</td></tr>
+            <tr><td>PPC · commercial</td><td class="num">£1,800</td><td class="num">41</td><td class="num">9</td><td class="num">£200.00</td></tr>
+            <tr><td>Organic</td><td class="num">£0</td><td class="num">198</td><td class="num">122</td><td class="num">£0</td></tr>
+          </table>
+          </div>
+        </div>
+        <div class="milo-note">
+          <img src="assets/milo-icon.jpeg" alt="Milo">
+          <p><strong>Milo:</strong> Your PPC cut has not dented private bookings, that reduction looks safe. Commercial is the gap: 41 leads became 9 jobs. The drop-off happens after the quote is sent, not at the enquiry, which is fixable and worth more than any extra ad spend.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PLUMBING ═══════════ -->
+<section id="fit">
+  <h2 class="sec-title">Your system stays yours. Milo plugs in beside it.</h2>
+  <div class="steps">
+    <div class="step">
+      <span class="s-num">1</span>
+      <h4>API from your system</h4>
+      <p>Exactly as you asked on the call: your team pushes the data over API, every field you already store. No re-keying, no uploads.</p>
+    </div>
+    <div class="step">
+      <span class="s-num">2</span>
+      <h4>Runs alongside your dashboard</h4>
+      <p>Your IT team keeps the system and the live ops screen. Milo sits on top. Run both for the first week and compare.</p>
+    </div>
+    <div class="step">
+      <span class="s-num">3</span>
+      <h4>A couple of days to set up</h4>
+      <p>We are on the calls with your team while it connects. The month does not start until Milo is live, so setup time is on us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRIAL ═══════════ -->
+<div class="trial" id="trial">
+  <div>
+    <h2>One month. £1,500. <span class="hl">If you don't find it back, walk away.</span></h2>
+    <p class="t-body">Your words: a £1,500 punt. Ours: the 80 hours of pack time alone pays it back several times over, and that is before Milo flags a single client drop-off or a pound of wasted spend. <strong>If the month does not pay for itself, don't continue.</strong> No contract, no tie-in.</p>
+    <div class="t-budget">
+      <span class="t-budget-label">And it is not new budget. You named the lines it comes from:</span>
+      <div class="t-chips">
+        <span class="chip">80 hours of pack building</span>
+        <span class="chip">the Beautiful.ai subscription</span>
+        <span class="chip">a slice of the PPC line</span>
+      </div>
+    </div>
+  </div>
+  <div class="price-card">
+    <div class="p-amount">£1,500</div>
+    <div class="p-per">one month, all in</div>
+    <ul>
+      <li>Connected to your system by API</li>
+      <li>The 35 packs rebuilt in Milo</li>
+      <li>Client watch and marketing check live</li>
+      <li>Everyone in the business can ask Milo anything</li>
+    </ul>
+    <a class="cta" href="mailto:tom@milo.ai?subject=Emmiera%20%C3%97%20Milo%20trial">Start the month</a>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="f-mark"><img src="assets/milo-icon.jpeg" alt="Milo">Milo · Autonomous Minds</div>
+  <div class="f-right">Questions? <a href="mailto:tom@milo.ai">Tom Pickett</a> · Prepared August 2026 · Illustrative data throughout</div>
+</footer>
+
+</div>
+
+<script>
+const tabs = document.querySelectorAll('.d-tab');
+const panes = document.querySelectorAll('.demo-pane');
+const titles = {
+  pack: 'Milo · Client MBR pack · national retailer',
+  watch: 'Milo · Client watch · weekly summary',
+  ads: 'Milo · Marketing check · spend to jobs'
+};
+tabs.forEach(t => t.addEventListener('click', () => {
+  tabs.forEach(x => x.classList.remove('active'));
+  panes.forEach(p => p.classList.remove('visible'));
+  t.classList.add('active');
+  document.getElementById('pane-' + t.dataset.pane).classList.add('visible');
+  document.getElementById('console-title').textContent = titles[t.dataset.pane];
+}));
+</script>
+
+</body>
+</html>
