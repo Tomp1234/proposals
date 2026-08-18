@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × moneycorp</title>
+<meta name="description" content="Trust is our true currency. So we'll start there. A proposal for moneycorp Revenue Operations.">
+<link rel="icon" href="assets/milo-icon.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bone: #FBFAF8;
+  --paper: #FFFFFF;
+  --ink: #141414;
+  --ink-2: #3A3532;
+  --muted: #6E6862;
+  --faint: #9C948C;
+  --line: #E6E1DB;
+  --line-soft: #F0ECE7;
+  --crimson: #8B0315;
+  --red: #CD001C;
+  --green: #0F6B4F;
+  --green-soft: #E8F2EE;
+  --milk: rgba(255,255,255,0.94);
+  --milk-2: rgba(255,255,255,0.66);
+  --milk-3: rgba(255,255,255,0.4);
+  --sans: 'Albert Sans', -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.shell { max-width: 1020px; margin: 0 auto; padding: 0 40px; }
+::selection { background: var(--crimson); color: #fff; }
+strong { font-weight: 700; }
+em { font-style: italic; }
+
+/* ─── Topbar ─── */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0 18px;
+  border-bottom: 1px solid var(--line);
+}
+.milo-mark { display: flex; align-items: center; gap: 11px; font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
+.milo-mark img { height: 27px; width: 27px; border-radius: 7px; display: block; }
+.milo-mark .x { color: var(--faint); font-weight: 400; margin: 0 2px; }
+.mc-logo { height: 26px; display: block; }
+
+/* ─── Hero ─── */
+.hero { padding: 76px 0 8px; position: relative; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--crimson);
+  display: block; margin-bottom: 26px;
+}
+.hero h1 {
+  font-weight: 800;
+  font-size: clamp(2.5rem, 7vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  max-width: 900px;
+}
+.hero h1 .sub { display: block; color: var(--muted); font-weight: 500; margin-top: 6px; }
+.rateline { display: block; width: 100%; max-width: 460px; height: auto; margin: 30px 0 4px; overflow: visible; }
+.rateline path {
+  fill: none; stroke: var(--crimson); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 900; stroke-dashoffset: 900;
+  animation: draw 2.2s cubic-bezier(.6,.05,.2,1) 0.25s forwards;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.hero .strap {
+  margin-top: 22px;
+  font-size: clamp(1.08rem, 2.1vw, 1.32rem);
+  color: var(--ink-2);
+  max-width: 640px;
+}
+.hero .strap strong { color: var(--ink); font-weight: 600; }
+
+.badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 32px; }
+.badge {
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+  border: 1px solid var(--line); background: var(--paper);
+  border-radius: 4px; padding: 8px 14px; color: var(--ink-2);
+}
+.badge b { color: var(--crimson); font-weight: 600; }
+
+/* ─── Contents ─── */
+.contents {
+  margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 30px;
+}
+.contents a {
+  display: flex; gap: 12px; align-items: baseline;
+  padding: 9px 0; border-bottom: 1px solid var(--line-soft);
+  text-decoration: none; color: var(--ink-2); font-size: 0.9rem; font-weight: 500;
+  transition: color 0.16s ease;
+}
+.contents a:hover { color: var(--crimson); }
+.contents a span { font-family: var(--mono); font-size: 0.72rem; color: var(--faint); }
+
+/* ─── Sections ─── */
+section { padding-top: 78px; }
+.sec-num {
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+  color: var(--crimson); display: block; margin-bottom: 14px;
+}
+h2 {
+  font-weight: 800;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  line-height: 1.12; letter-spacing: -0.028em;
+  max-width: 780px;
+}
+.lede { margin-top: 14px; color: var(--muted); font-size: 1.04rem; max-width: 660px; }
+.lede strong { color: var(--ink-2); }
+h3 { font-weight: 700; font-size: 1.12rem; letter-spacing: -0.015em; line-height: 1.3; }
+
+/* ─── Objection list ─── */
+.objs { margin-top: 36px; border-top: 1px solid var(--line); }
+.obj {
+  display: grid; grid-template-columns: 34px 1fr; gap: 0 20px;
+  padding: 24px 0; border-bottom: 1px solid var(--line);
+}
+.obj .oi { font-family: var(--mono); font-size: 0.78rem; font-weight: 600; color: var(--crimson); padding-top: 3px; }
+.obj h3 { margin-bottom: 9px; }
+.obj p { color: var(--ink-2); font-size: 0.99rem; }
+.obj p + p { margin-top: 9px; }
+.obj .src {
+  display: inline-block; margin-top: 12px;
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  color: var(--muted); background: var(--line-soft);
+  padding: 5px 10px; border-radius: 3px;
+}
+.obj .src a { color: var(--crimson); text-decoration: none; font-weight: 500; }
+.obj .src a:hover { text-decoration: underline; }
+.straight {
+  background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--ink);
+  border-radius: 0 8px 8px 0; padding: 18px 22px; margin-top: 10px;
+}
+.straight .lbl { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); display: block; margin-bottom: 8px; }
+
+/* ─── Deploy options ─── */
+.deploys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
+.deploy {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+  padding: 26px 24px 24px; display: flex; flex-direction: column;
+}
+.deploy .dtag {
+  font-family: var(--mono); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--crimson); margin-bottom: 12px;
+}
+.deploy h3 { margin-bottom: 10px; }
+.deploy > p { color: var(--muted); font-size: 0.93rem; }
+.deploy ul { list-style: none; margin-top: 16px; padding-top: 15px; border-top: 1px solid var(--line-soft); }
+.deploy li { font-size: 0.88rem; color: var(--ink-2); padding: 5px 0 5px 18px; position: relative; line-height: 1.5; }
+.deploy li::before { content: ''; position: absolute; left: 0; top: 12px; width: 7px; height: 1px; background: var(--crimson); }
+.deploy .foot { margin-top: auto; padding-top: 16px; font-family: var(--mono); font-size: 0.7rem; color: var(--faint); letter-spacing: 0.04em; }
+.topo { display: block; width: 100%; height: auto; margin-bottom: 16px; }
+
+/* ─── Control grid ─── */
+.ctrl-wrap { margin-top: 34px; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 8px 28px 26px; }
+.ctrls { columns: 3; column-gap: 34px; }
+.ctrl { break-inside: avoid; padding: 16px 0 0; }
+.ctrl h4 { font-size: 0.83rem; font-weight: 700; padding-bottom: 5px; border-bottom: 1px solid var(--line); margin-bottom: 7px; }
+.ctrl li { list-style: none; font-size: 0.79rem; color: var(--muted); line-height: 1.48; padding-left: 13px; position: relative; }
+.ctrl li::before { content: '·'; position: absolute; left: 3px; color: var(--crimson); }
+.ctrl-note { margin-top: 22px; font-size: 0.9rem; color: var(--muted); }
+.ctrl-note a { color: var(--crimson); font-weight: 600; text-decoration: none; }
+.ctrl-note a:hover { text-decoration: underline; }
+
+/* ─── Console demo ─── */
+.picker { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 32px; }
+.pk {
+  font-family: var(--sans); font-size: 0.87rem; font-weight: 600;
+  color: var(--ink-2); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 10px 18px; cursor: pointer; text-align: left;
+  transition: all 0.16s ease;
+}
+.pk:hover { border-color: var(--crimson); color: var(--crimson); }
+.pk.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+.console { margin-top: 18px; background: var(--ink); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 56px rgba(20,20,20,0.2); }
+.c-bar { display: flex; align-items: center; gap: 12px; padding: 13px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.c-bar .dots { display: flex; gap: 6px; }
+.c-bar .dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.16); display: block; }
+.c-bar .ttl { font-family: var(--mono); font-size: 0.72rem; color: var(--milk-2); }
+.c-bar .rt { margin-left: auto; font-family: var(--mono); font-size: 0.68rem; color: var(--milk-3); }
+.c-body { padding: 24px 26px 26px; }
+
+.pane { display: none; }
+.pane.on { display: block; animation: rise 0.32s ease; }
+@keyframes rise { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+
+.ask { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 20px; }
+.ask .who { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; color: var(--milk-3); padding-top: 5px; flex-shrink: 0; width: 42px; }
+.ask p { color: var(--milk); font-size: 1.02rem; font-weight: 500; line-height: 1.45; }
+
+.ans-head { font-size: clamp(1.15rem, 2.6vw, 1.5rem); font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.24; margin-bottom: 16px; }
+.ans-head b { color: #FF6B7D; font-weight: 700; }
+
+.viz { background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.1); border-radius: 9px; padding: 18px 20px; margin-bottom: 16px; }
+.viz .vt { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--milk-3); margin-bottom: 14px; }
+.bars { display: flex; flex-direction: column; gap: 11px; }
+.bar { display: grid; grid-template-columns: 148px 1fr 86px; gap: 12px; align-items: center; }
+.bar .bl { display: block; font-size: 0.8rem; color: var(--milk-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar .bt { display: block; height: 15px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; position: relative; }
+.bar .bf { display: block; height: 100%; background: var(--red); border-radius: 3px; width: 0; animation: grow 0.9s cubic-bezier(.3,.9,.4,1) forwards; }
+.bar .bf.g { background: #2FA37C; }
+.bar .bf.d { background: rgba(255,255,255,0.22); }
+@keyframes grow { to { width: var(--w); } }
+.bar .bv { display: block; font-family: var(--mono); font-size: 0.76rem; color: #fff; text-align: right; }
+
+table.t { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+table.t th {
+  text-align: left; font-family: var(--mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--milk-3); padding: 0 12px 8px 0; border-bottom: 1px solid rgba(255,255,255,0.13);
+}
+table.t td { padding: 9px 12px 9px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: var(--milk-2); }
+table.t td.n { font-family: var(--mono); font-size: 0.79rem; color: #fff; white-space: nowrap; }
+table.t th:last-child, table.t td:last-child { text-align: right; padding-right: 0; }
+.pill { display: inline-block; white-space: nowrap; font-family: var(--mono); font-size: 0.62rem; font-weight: 500; padding: 3px 8px; border-radius: 3px; }
+.pill.r { background: rgba(205,0,28,0.18); color: #FF8494; }
+.pill.a { background: rgba(230,170,20,0.16); color: #F0C666; }
+.pill.g { background: rgba(47,163,124,0.18); color: #6FD3B0; }
+
+.tabsim { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabsim span {
+  font-family: var(--mono); font-size: 0.66rem; padding: 6px 11px; border-radius: 4px;
+  background: rgba(255,255,255,0.06); color: var(--milk-2); border: 1px solid rgba(255,255,255,0.08);
+}
+.tabsim span.cur { background: var(--red); color: #fff; border-color: var(--red); }
+.tabsim span.lock { color: var(--milk-3); }
+
+.why { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; margin-bottom: 16px; }
+.why .wt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--milk-3); margin-bottom: 10px; }
+.why li { list-style: none; font-size: 0.89rem; color: var(--milk-2); line-height: 1.55; padding: 4px 0 4px 17px; position: relative; }
+.why li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 1px; background: var(--red); }
+.why li b { color: var(--milk); font-weight: 600; }
+.srcs { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 13px; }
+.srcs i {
+  font-family: var(--mono); font-style: normal; font-size: 0.62rem; letter-spacing: 0.04em;
+  color: var(--milk-2); background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+  padding: 4px 9px; border-radius: 3px;
+}
+
+.act {
+  background: rgba(47,163,124,0.09); border: 1px solid rgba(47,163,124,0.32);
+  border-radius: 9px; padding: 16px 18px;
+  display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+}
+.act img { width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0; }
+.act p { flex: 1; min-width: 220px; font-size: 0.91rem; color: var(--milk); line-height: 1.5; }
+.act p b { color: #6FD3B0; }
+.act .btns { display: flex; gap: 8px; }
+.act .btns span { font-family: var(--sans); font-size: 0.79rem; font-weight: 600; padding: 7px 15px; border-radius: 5px; }
+.act .btns .y { background: #2FA37C; color: #fff; }
+.act .btns .n { background: rgba(255,255,255,0.08); color: var(--milk-2); }
+
+.demo-note {
+  margin-top: 14px; display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+  padding: 14px 18px; font-size: 0.88rem; color: var(--muted);
+}
+.demo-note b {
+  font-family: var(--mono); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--crimson); flex-shrink: 0;
+}
+.demo-note span { flex: 1; min-width: 260px; }
+
+/* ─── Before / after ─── */
+.flips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 34px; }
+.flip { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 24px; }
+.flip .ft { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--crimson); margin-bottom: 12px; }
+.flip h3 { margin-bottom: 14px; }
+.flip .now, .flip .then { border-radius: 7px; padding: 13px 15px; font-size: 0.89rem; line-height: 1.55; }
+.flip .now { background: var(--bone); border: 1px solid var(--line); color: var(--muted); margin-bottom: 9px; }
+.flip .then { background: var(--green-soft); border: 1px solid rgba(15,107,79,0.22); color: var(--ink-2); }
+.flip .tag { display: block; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 5px; }
+.flip .now .tag { color: var(--faint); }
+.flip .then .tag { color: var(--green); }
+
+/* ─── Pricing ─── */
+.price {
+  margin-top: 44px; background: var(--ink); color: #fff;
+  border-radius: 14px; padding: 48px 46px;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 44px; align-items: center;
+}
+.price h2 { color: #fff; font-size: clamp(1.6rem, 3.6vw, 2.2rem); }
+.price h2 .q { color: #FF6B7D; }
+.price .pbody { margin-top: 16px; color: var(--milk-2); font-size: 1rem; max-width: 460px; }
+.price .pbody strong { color: var(--milk); font-weight: 600; }
+.pcard { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; padding: 30px 28px; }
+.pcard .amt { font-weight: 800; font-size: 3rem; letter-spacing: -0.04em; line-height: 1; }
+.pcard .per { color: var(--milk-2); font-size: 0.88rem; margin-top: 7px; }
+.pcard ul { list-style: none; margin: 20px 0 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.14); }
+.pcard li { font-size: 0.87rem; color: var(--milk-2); padding: 6px 0 6px 22px; position: relative; line-height: 1.5; }
+.pcard li::before { content: '✓'; position: absolute; left: 0; color: #6FD3B0; font-weight: 700; font-size: 0.85rem; }
+.pcard .after { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.14); font-size: 0.88rem; color: var(--milk); }
+
+/* ─── Top band ─── */
+.tband {
+  margin-top: 42px; padding: 26px 0 6px;
+  border-top: 2px solid var(--ink);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+}
+.tband .bk {
+  font-family: var(--mono); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--crimson); display: block; margin-bottom: 9px;
+}
+.tband p { font-size: 0.96rem; color: var(--ink-2); line-height: 1.55; }
+.tband p strong { font-weight: 700; color: var(--ink); }
+
+/* ─── Footer ─── */
+footer {
+  margin-top: 68px; padding: 30px 0 46px; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+  font-size: 0.82rem; color: var(--faint);
+}
+footer .fm { display: flex; align-items: center; gap: 9px; }
+footer .fm img { height: 18px; width: auto; display: block; opacity: 0.75; filter: invert(1); }
+footer a { color: var(--crimson); font-weight: 600; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .contents { grid-template-columns: repeat(2, 1fr); }
+  .deploys, .flips, .tband { grid-template-columns: 1fr; }
+  .ctrls { columns: 2; }
+  .price { grid-template-columns: 1fr; padding: 36px 28px; }
+}
+@media (max-width: 620px) {
+  body { font-size: 16px; }
+  .shell { padding: 0 22px; }
+  .contents { grid-template-columns: 1fr; }
+  .ctrls { columns: 1; }
+  .bar { grid-template-columns: 100px 1fr 66px; gap: 8px; }
+  .obj { grid-template-columns: 1fr; gap: 6px; }
+  .c-body { padding: 20px 18px 22px; }
+  .price { padding: 30px 22px; }
+  .mc-logo { height: 21px; }
+}
+
+/* ─── Print ─── */
+@media print {
+  body { background: #fff; font-size: 13.5px; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; animation: none !important; }
+  .rateline path { stroke-dashoffset: 0 !important; }
+  .bar .bf { width: var(--w) !important; }
+  section { padding-top: 26px; }
+  .hero { padding-top: 18px; }
+  .contents, .picker { display: none; }
+  .pane { display: block !important; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .ask, .viz, .why, .act, .ans-head { break-inside: avoid; }
+  .ans-head { break-after: avoid; }
+  #controls { break-before: page; }
+  .obj, .deploy, .flip, .ctrl, .price, .straight { break-inside: avoid; }
+  h2, .sec-num { break-after: avoid; }
+  h2, h3, .ans-head { break-inside: avoid; }
+  .console { break-inside: auto; }
+  .deploys, .flips, .tband { grid-template-columns: repeat(3, 1fr) !important; gap: 12px; }
+  .demo-note { break-inside: avoid; }
+  .price { grid-template-columns: 1.2fr 1fr !important; padding: 28px; }
+  footer { margin-top: 22px; padding-bottom: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <div class="topbar">
+    <div class="milo-mark"><img src="assets/milo-icon.jpeg" alt="">Milo <span class="x">×</span></div>
+    <img class="mc-logo" src="assets/moneycorp-logo.png" alt="moneycorp">
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <span class="eyebrow">Revenue Operations · August 2026</span>
+    <h1>Trust is our true currency.<span class="sub">So we'll start there.</span></h1>
+    <svg class="rateline" viewBox="0 0 460 96" aria-hidden="true">
+      <path d="M6,84 C10,84 12,58 22,56 C34,54 30,80 42,78 C56,76 54,34 70,32 C88,30 84,72 100,70 C116,68 114,26 132,24 C152,22 148,66 166,64 C184,62 186,30 204,30 C224,30 224,62 244,62 C266,62 268,20 292,20 C318,20 320,58 346,58 C374,58 380,26 410,24 C432,23 444,38 454,52"/>
+    </svg>
+    <p class="strap">Milo joined to Dynamics 365, Tableau, Google Ads and the deal archive back to 1995. Hosted wherever your IT team wants it.</p>
+    <div class="badges">
+      <span class="badge"><b>ISO 27001</b> compliant</span>
+      <span class="badge"><b>SOC 2 Type I</b> compliant, Type II in progress</span>
+      <span class="badge"><b>Self-hosted</b> option, your tenant or on-prem</span>
+      <span class="badge">Never trains on your data</span>
+    </div>
+
+    <div class="tband">
+      <div>
+        <span class="bk">What this is</span>
+        <p>One place to ask questions of Dynamics 365, Tableau, Google Ads and 31 years of deal data, in English, with the query and the sources attached to every answer.</p>
+      </div>
+      <div>
+        <span class="bk">How it gets reviewed</span>
+        <p><strong>Your IT team signs off how it is deployed before anything connects.</strong> Our CTO will talk them through it and answer directly.</p>
+      </div>
+      <div>
+        <span class="bk">What's below</span>
+        <p>Sections 01 to 03 are for whoever reviews this on your side. Section 04 is what it does on a normal Tuesday.</p>
+      </div>
+    </div>
+
+    <nav class="contents">
+      <a href="#security"><span>01</span> Security</a>
+      <a href="#deploy"><span>02</span> Three ways to deploy</a>
+      <a href="#controls"><span>03</span> The controls, listed</a>
+      <a href="#demo"><span>04</span> Ask Milo something</a>
+      <a href="#team"><span>05</span> What changes for a lean team</a>
+      <a href="#price"><span>06</span> One month, £3,000</a>
+    </nav>
+  </div>
+
+  <!-- ═══ 01 SECURITY ═══ -->
+  <section id="security">
+    <span class="sec-num">01 / SECURITY</span>
+    <h2>The security questions, answered up front.</h2>
+    <p class="lede">Six questions that come up every time we work with a regulated business. Everything below is checkable at <strong>trust.milo.ai</strong>.</p>
+
+    <div class="objs">
+
+      <div class="obj">
+        <div class="oi">Q1</div>
+        <div>
+          <h3>Does it train on our data?</h3>
+          <p>No. Not by us, and not by the model providers. It is written into the contract rather than sitting on a policy page we can revise later. Your data answers the question in front of it and does nothing else.</p>
+          <span class="src">Data Handling Policy · Data Retention and Disposal Policy</span>
+        </div>
+      </div>
+
+      <div class="obj">
+        <div class="oi">Q2</div>
+        <div>
+          <h3>Can you ring fence it?</h3>
+          <p>Permissions sit under every question and are enforced at the data layer, so Milo cannot read rows the person is not entitled to. A private client analyst asking about corporate margin gets nothing back.</p>
+          <p>Every question, answer and dashboard opened is logged with the user, the timestamp and the query that ran. Your team can export it.</p>
+          <span class="src">Data classification and access control · Least-privilege access · Centralized log collection</span>
+        </div>
+      </div>
+
+      <div class="obj">
+        <div class="oi">Q3</div>
+        <div>
+          <h3>What certifications do you hold?</h3>
+          <p>ISO 27001 compliant. SOC 2 Type I compliant, Type II in progress. Independent penetration testing, static application security testing, vulnerability scanning and an internal audit programme.</p>
+          <p>Twenty-seven documents sit behind a request button, including the SOC 2 report, the ISO certificate and the Statement of Applicability. They request, we release. No sales call in between.</p>
+          <span class="src">Send them to <a href="https://trust.milo.ai/" target="_blank" rel="noopener">trust.milo.ai</a></span>
+        </div>
+      </div>
+
+      <div class="obj">
+        <div class="oi">Q4</div>
+        <div>
+          <h3>Who else touches the data?</h3>
+          <p>Five subprocessors, all named publicly: Amazon Web Services for infrastructure, Cloudflare for edge security, ClickHouse for the warehouse, Fivetran for ingestion, Clerk for identity. On the self-hosted options that list gets much shorter, because the components run inside your account.</p>
+          <span class="src">Third-party management · Vendor management program</span>
+        </div>
+      </div>
+
+      <div class="obj">
+        <div class="oi">Q5</div>
+        <div>
+          <h3>Does the language model do the maths?</h3>
+          <p>No. Milo writes a query, the query runs against your warehouse, and the number comes back from your data. The model writes the query and explains the result in English.</p>
+          <p>Every answer shows the query that ran and the sources it hit, so your commercial analyst can check a figure by reading the SQL.</p>
+          <span class="src">Secure development procedures · Source code change approval</span>
+        </div>
+      </div>
+
+      <div class="obj">
+        <div class="oi">Q6</div>
+        <div>
+          <h3>Do you have financial services clients?</h3>
+          <div class="straight">
+            <span class="lbl">Straight answer</span>
+            <p>Not in FX. You would be our first, and your team would find that out in ten minutes anyway.</p>
+          </div>
+          <p style="margin-top:14px">What we do have is a client base that gets audited hard. <strong>loto.lt</strong>, the Lithuanian national lottery, where the regulator sets the data handling bar. <strong>Betgames</strong> and <strong>Octoplay</strong>, licensed gaming suppliers operating across multiple jurisdictions, each with its own auditor. An insurance client. Gaming is where Milo was built, and where the security work came from.</p>
+          <p>Those controls were written for regulators who audit gambling and player data. Your team should test how much of it carries across to FCA obligations. Our CTO will go through it with them line by line.</p>
+          <span class="src">Betgames and loto.lt listed at trust.milo.ai</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 02 DEPLOY ═══ -->
+  <section id="deploy">
+    <span class="sec-num">02 / DEPLOYMENT</span>
+    <h2>Three ways to deploy. Your IT team picks.</h2>
+    <p class="lede">We can host it, or you can. All three are real options, and we would rather show you the lot than push the one that sounds most reassuring.</p>
+
+    <div class="deploys">
+
+      <div class="deploy">
+        <svg class="topo" viewBox="0 0 240 74" aria-hidden="true">
+          <rect x="1" y="1" width="104" height="72" rx="7" fill="#FFF" stroke="#E6E1DB"/>
+          <rect x="135" y="1" width="104" height="72" rx="7" fill="#FBFAF8" stroke="#E6E1DB" stroke-dasharray="4 3"/>
+          <text x="53" y="26" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#9C948C">moneycorp</text>
+          <text x="53" y="46" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#6E6862">D365 · Tableau</text>
+          <text x="53" y="58" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#6E6862">Google · SQL</text>
+          <text x="187" y="32" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#9C948C">Milo cloud</text>
+          <rect x="163" y="40" width="48" height="16" rx="4" fill="#8B0315"/>
+          <text x="187" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="#FFF">EU / UK</text>
+          <path d="M105,37 L135,37" stroke="#8B0315" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <circle cx="120" cy="37" r="3" fill="#8B0315"/>
+        </svg>
+        <div class="dtag">Option A</div>
+        <h3>Milo cloud</h3>
+        <p>Our AWS environment, EU or UK region. The fastest route, and what every control on the trust centre was written for.</p>
+        <ul>
+          <li>Nothing for your IT team to run or patch</li>
+          <li>Read-only connections, no write-back to D365</li>
+          <li>Live inside a week</li>
+        </ul>
+        <div class="foot">Standard commercial terms</div>
+      </div>
+
+      <div class="deploy">
+        <svg class="topo" viewBox="0 0 240 74" aria-hidden="true">
+          <rect x="1" y="1" width="238" height="72" rx="7" fill="#FFF" stroke="#8B0315"/>
+          <text x="120" y="16" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#8B0315">moneycorp AWS account</text>
+          <rect x="14" y="26" width="86" height="34" rx="5" fill="#FBFAF8" stroke="#E6E1DB"/>
+          <text x="57" y="40" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="#6E6862">D365 · Tableau</text>
+          <text x="57" y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="#6E6862">Google · SQL</text>
+          <rect x="140" y="26" width="86" height="34" rx="5" fill="#8B0315"/>
+          <text x="183" y="40" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="#FFF">Milo</text>
+          <text x="183" y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="rgba(255,255,255,0.7)">your VPC</text>
+          <path d="M100,43 L140,43" stroke="#8B0315" stroke-width="1.5"/>
+        </svg>
+        <div class="dtag">Option B</div>
+        <h3>Your own tenant</h3>
+        <p>Milo deployed into moneycorp's AWS account, inside your VPC. Your data stays inside your own boundary.</p>
+        <ul>
+          <li>Your keys, your network rules, your CloudTrail</li>
+          <li>Your perimeter controls apply unchanged</li>
+          <li>Two to three weeks with your cloud team</li>
+        </ul>
+        <div class="foot">Most common choice for regulated clients</div>
+      </div>
+
+      <div class="deploy">
+        <svg class="topo" viewBox="0 0 240 74" aria-hidden="true">
+          <rect x="1" y="1" width="238" height="72" rx="7" fill="#FFF" stroke="#141414" stroke-width="1.5"/>
+          <text x="120" y="16" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#141414">moneycorp infrastructure</text>
+          <rect x="14" y="26" width="66" height="34" rx="5" fill="#FBFAF8" stroke="#E6E1DB"/>
+          <text x="47" y="46" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="#6E6862">your data</text>
+          <rect x="88" y="26" width="66" height="34" rx="5" fill="#8B0315"/>
+          <text x="121" y="46" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="#FFF">Milo</text>
+          <rect x="162" y="26" width="64" height="34" rx="5" fill="#141414"/>
+          <text x="194" y="46" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="#FFF">model</text>
+          <path d="M80,43 L88,43 M154,43 L162,43" stroke="#8B0315" stroke-width="1.5"/>
+        </svg>
+        <div class="dtag">Option C</div>
+        <h3>On-premise, air-gapped</h3>
+        <p>Everything on your own servers, model included. Nothing touches the public internet at any point.</p>
+        <ul>
+          <li>No third-party model provider in the chain</li>
+          <li>Subprocessor list drops to nothing</li>
+          <li>Needs GPU capacity from your side</li>
+        </ul>
+        <div class="foot">Scoped with our CTO first</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 03 CONTROLS ═══ -->
+  <section id="controls">
+    <span class="sec-num">03 / THE CONTROL SET</span>
+    <h2>The controls, listed.</h2>
+    <p class="lede">Your team will want the list rather than a paragraph about taking security seriously. This is what is published and independently assessed.</p>
+
+    <div class="ctrl-wrap">
+      <div class="ctrls">
+        <div class="ctrl"><h4>Cryptographic protections</h4><ul><li>Encryption in transit</li><li>Encryption at rest</li><li>Production key management</li></ul></div>
+        <div class="ctrl"><h4>Identification and authentication</h4><ul><li>Multi-factor authentication</li><li>Access control procedures</li><li>Least-privilege production access</li></ul></div>
+        <div class="ctrl"><h4>Data classification and handling</h4><ul><li>Data classification and access control</li><li>Customer data deletion</li><li>Retention and deletion policy</li></ul></div>
+        <div class="ctrl"><h4>Secure engineering</h4><ul><li>Environment and tenant segmentation</li><li>Secure development procedures</li><li>Static application security testing</li></ul></div>
+        <div class="ctrl"><h4>Network security</h4><ul><li>Network firewall</li><li>Web application firewall</li><li>Firewall rule management</li></ul></div>
+        <div class="ctrl"><h4>Threat management</h4><ul><li>Vulnerability scanning and remediation</li><li>Patch management</li><li>Intrusion detection</li></ul></div>
+        <div class="ctrl"><h4>Third-party management</h4><ul><li>Penetration testing</li><li>Vendor management program</li><li>Contractual security commitments</li></ul></div>
+        <div class="ctrl"><h4>Incident response</h4><ul><li>Incident response procedures</li><li>Security incident logging</li><li>Regulatory authority communication</li></ul></div>
+        <div class="ctrl"><h4>Continuous monitoring</h4><ul><li>Centralized log collection</li><li>Baseline configuration management</li><li>Time synchronization</li></ul></div>
+        <div class="ctrl"><h4>Business continuity and DR</h4><ul><li>Database backups</li><li>Multi-availability zone deployment</li><li>BC and DR plan</li></ul></div>
+        <div class="ctrl"><h4>Risk management</h4><ul><li>Annual risk assessment</li><li>Documented risk process</li><li>Cybersecurity insurance</li></ul></div>
+        <div class="ctrl"><h4>Human resources security</h4><ul><li>Employee and contractor background checks</li><li>Termination access revocation</li><li>Security awareness training</li></ul></div>
+        <div class="ctrl"><h4>Endpoint and device</h4><ul><li>Anti-malware protection</li><li>Mobile device management</li><li>Removable media controls</li></ul></div>
+        <div class="ctrl"><h4>Governance and assurance</h4><ul><li>Internal audit programme</li><li>CISO policy</li><li>Board and steering committee briefing</li></ul></div>
+      </div>
+      <p class="ctrl-note">Around ninety controls in total. Point your team at <a href="https://trust.milo.ai/" target="_blank" rel="noopener">trust.milo.ai</a> and they can pull the full set, plus the SOC 2 report, the ISO certificate, the Statement of Applicability and the ISMS manual, without going through us.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 04 DEMO ═══ -->
+  <section id="demo">
+    <span class="sec-num">04 / WHAT IT DOES</span>
+    <h2>Pick a question you'd ask on a Tuesday.</h2>
+    <p class="lede">The kind of question that currently means a week of exports and pivot tables. Pick one.</p>
+
+    <div class="picker">
+      <button class="pk on" data-p="p1">Which Google campaigns produced funded accounts, not leads?</button>
+      <button class="pk" data-p="p2">There are deals in here from 1995. Tell me what I don't know.</button>
+      <button class="pk" data-p="p3">Hugo wants the growth picture Monday. Build it.</button>
+      <button class="pk" data-p="p4">Which corporate clients have gone quiet?</button>
+    </div>
+
+    <div class="console">
+      <div class="c-bar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="ttl">milo · moneycorp workspace</span>
+        <span class="rt" id="rt">answered in 9s</span>
+      </div>
+      <div class="c-body">
+
+        <!-- P1 -->
+        <div class="pane on" id="p1">
+          <div class="ask"><span class="who">YOU</span><p>Which Google Ads campaigns produced funded corporate accounts last quarter? Not leads. Funded, trading accounts.</p></div>
+          <div class="ans-head">Six campaigns produced funded accounts. <b>Two of them took 71% of the spend and produced 9% of the volume.</b></div>
+          <div class="viz">
+            <div class="vt">Q2 spend against traded volume from funded accounts</div>
+            <div class="bars">
+              <div class="bar"><span class="bl">Brand · exact</span><span class="bt"><span class="bf g" style="--w:86%"></span></span><span class="bv">£4.1m</span></div>
+              <div class="bar"><span class="bl">FX risk mgmt · corp</span><span class="bt"><span class="bf g" style="--w:61%"></span></span><span class="bv">£2.9m</span></div>
+              <div class="bar"><span class="bl">Intl payments · generic</span><span class="bt"><span class="bf" style="--w:14%"></span></span><span class="bv">£0.6m</span></div>
+              <div class="bar"><span class="bl">Currency transfer · broad</span><span class="bt"><span class="bf" style="--w:7%"></span></span><span class="bv">£0.3m</span></div>
+              <div class="bar"><span class="bl">Competitor conquest</span><span class="bt"><span class="bf d" style="--w:3%"></span></span><span class="bv">£0.1m</span></div>
+            </div>
+          </div>
+          <div class="why">
+            <div class="wt">Why, and how I got there</div>
+            <ul>
+              <li>I joined <b>Google Ads GCLID</b> to the D365 lead record, followed it through to account creation, then out to the <b>first settled trade</b> on the trading platform. That join has never existed for you.</li>
+              <li>The two broad-match campaigns produce the most leads by a distance. They also take the longest to fund, at <b>94 days median</b> against 31 for brand exact.</li>
+              <li>Attribution here is first non-brand touch. Say the word and I will rerun it on last touch so you can see how far the answer moves.</li>
+            </ul>
+            <div class="srcs"><i>Google Ads</i><i>Dynamics 365 · Leads</i><i>Dynamics 365 · Accounts</i><i>Trading platform · Deals</i></div>
+          </div>
+          <div class="act">
+            <img src="assets/milo-icon.jpeg" alt="">
+            <p>Move the broad-match budget into the two campaigns that fund and, on last quarter's rates, that is <b>roughly £1.9m more traded volume for the same spend</b>. Want me to draft the Q3 reallocation as a one-pager for Hugo?</p>
+            <div class="btns"><span class="y">Draft it</span><span class="n">Not yet</span></div>
+          </div>
+        </div>
+
+        <!-- P2 -->
+        <div class="pane" id="p2">
+          <div class="ask"><span class="who">YOU</span><p>Our deal data goes back to 1995 and there is far too much of it to look at. Find me something in there I don't already know.</p></div>
+          <div class="ans-head">The second trade matters more than the first. <b>Corporate accounts that trade again within 34 days go on to do 4.1× the lifetime volume.</b> Only 22% get there.</div>
+          <div class="viz">
+            <div class="vt">Lifetime traded volume by gap between first and second trade</div>
+            <div class="bars">
+              <div class="bar"><span class="bl">Within 34 days</span><span class="bt"><span class="bf g" style="--w:92%"></span></span><span class="bv">4.1×</span></div>
+              <div class="bar"><span class="bl">35 to 90 days</span><span class="bt"><span class="bf g" style="--w:44%"></span></span><span class="bv">2.0×</span></div>
+              <div class="bar"><span class="bl">91 to 180 days</span><span class="bt"><span class="bf" style="--w:24%"></span></span><span class="bv">1.1×</span></div>
+              <div class="bar"><span class="bl">Over 180 days</span><span class="bt"><span class="bf d" style="--w:16%"></span></span><span class="bv">0.7×</span></div>
+              <div class="bar"><span class="bl">Never traded again</span><span class="bt"><span class="bf d" style="--w:5%"></span></span><span class="bv">0.2×</span></div>
+            </div>
+          </div>
+          <div class="why">
+            <div class="wt">Why, and how I got there</div>
+            <ul>
+              <li>I cohorted <b>every corporate account since 1995</b> by the gap between first and second settled trade, then measured lifetime volume. 31 years of history, 11 seconds.</li>
+              <li>It holds when I control for first-trade size, so this is not just big first trades predicting big clients. It also holds either side of 2008 and 2020.</li>
+              <li>One caveat: pre-2011 records come from the old Dynamics instance and <b>4% are missing a first-trade date</b>. I left them out rather than guess.</li>
+            </ul>
+            <div class="srcs"><i>Trading platform · Deals 1995 to date</i><i>Dynamics 365 · Accounts</i><i>Legacy CRM export</i></div>
+          </div>
+          <div class="act">
+            <img src="assets/milo-icon.jpeg" alt="">
+            <p>There are <b>340 corporate accounts sitting inside that 34-day window right now</b> who have not traded a second time. Want the list split by account owner, and an alert the moment a new account hits day 20?</p>
+            <div class="btns"><span class="y">Both, please</span><span class="n">Just the list</span></div>
+          </div>
+        </div>
+
+        <!-- P3 -->
+        <div class="pane" id="p3">
+          <div class="ask"><span class="who">YOU</span><p>Hugo wants the whole growth picture on Monday morning and I have not got a week. Build it.</p></div>
+          <div class="ans-head">Built. <b>Six tabs, one link, refreshing at 06:00 every morning.</b> Ring fenced so each team sees only their own.</div>
+          <div class="viz">
+            <div class="vt">Growth workspace · live</div>
+            <div class="tabsim">
+              <span class="cur">Overview</span>
+              <span>Corporate</span>
+              <span>Private clients</span>
+              <span>Marketing</span>
+              <span>Institutions</span>
+              <span class="lock">Ops · restricted</span>
+            </div>
+            <div class="bars">
+              <div class="bar"><span class="bl">Traded volume · MTD</span><span class="bt"><span class="bf g" style="--w:78%"></span></span><span class="bv">+11.4%</span></div>
+              <div class="bar"><span class="bl">New funded accounts</span><span class="bt"><span class="bf g" style="--w:64%"></span></span><span class="bv">+7.2%</span></div>
+              <div class="bar"><span class="bl">Revenue per account</span><span class="bt"><span class="bf" style="--w:31%"></span></span><span class="bv">−2.8%</span></div>
+              <div class="bar"><span class="bl">Activities logged · D365</span><span class="bt"><span class="bf g" style="--w:88%"></span></span><span class="bv">+24.1%</span></div>
+            </div>
+          </div>
+          <div class="why">
+            <div class="wt">What I would flag to him before he asks</div>
+            <ul>
+              <li>Volume is up but <b>revenue per account is down 2.8%</b>. The growth is coming from more accounts rather than better ones. He will spot it, so it is on the overview tab already.</li>
+              <li>The private clients tab is <b>visible only to the private client team and to Hugo</b>. Corporate cannot see it, and it will not show up in their search.</li>
+              <li>It lands in his inbox and in Teams at 06:00. If he opens it at 09:00 he gets the 09:00 numbers, not an overnight snapshot.</li>
+            </ul>
+            <div class="srcs"><i>Dynamics 365</i><i>Trading platform</i><i>Google Ads</i><i>Tableau extracts</i></div>
+          </div>
+          <div class="act">
+            <img src="assets/milo-icon.jpeg" alt="">
+            <p>Your commercial analyst usually builds this. <b>They did not touch this one.</b> Want me to take the four most-requested inbound report types off their queue the same way?</p>
+            <div class="btns"><span class="y">Show me which four</span><span class="n">Later</span></div>
+          </div>
+        </div>
+
+        <!-- P4 -->
+        <div class="pane" id="p4">
+          <div class="ask"><span class="who">YOU</span><p>Which corporate clients have gone quiet on us, and how much is it worth?</p></div>
+          <div class="ans-head">84 accounts, <b>£6.2m of annualised volume</b>, no settled trade in 60 days. Eleven were in your top 100 last year.</div>
+          <div class="viz">
+            <div class="vt">Highest value dormant accounts</div>
+            <div style="overflow-x:auto">
+            <table class="t">
+              <thead><tr><th>Account</th><th>Owner</th><th>Last trade</th><th>Annualised</th><th>Signal</th></tr></thead>
+              <tbody>
+                <tr><td>Corporate account #4471</td><td class="n">R. Okafor</td><td class="n">78 days</td><td class="n">£840k</td><td><span class="pill r">Browsing, no contact</span></td></tr>
+                <tr><td>Corporate account #2019</td><td class="n">S. Whitfield</td><td class="n">71 days</td><td class="n">£615k</td><td><span class="pill a">Rate query, no reply</span></td></tr>
+                <tr><td>Corporate account #8802</td><td class="n">R. Okafor</td><td class="n">66 days</td><td class="n">£520k</td><td><span class="pill r">4 opens, no reply</span></td></tr>
+                <tr><td>Corporate account #1174</td><td class="n">M. Delacroix</td><td class="n">92 days</td><td class="n">£487k</td><td><span class="pill r">Competitor searches</span></td></tr>
+                <tr><td>Corporate account #6630</td><td class="n">S. Whitfield</td><td class="n">63 days</td><td class="n">£410k</td><td><span class="pill a">Seasonal, fine</span></td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+          <div class="why">
+            <div class="wt">Why, and how I got there</div>
+            <ul>
+              <li>Dormancy is measured against <b>each account's own trading rhythm</b>, not a flat 60 days. A weekly trader gone three weeks quiet matters more than a quarterly trader at day 60.</li>
+              <li>The signal column comes from Google Ads brand and competitor terms, website sessions and D365 activity. <b>Account #1174 has been searching competitor terms</b> for three weeks.</li>
+              <li>Twenty-two of the 84 have <b>no logged contact attempt at all</b> since going quiet.</li>
+            </ul>
+            <div class="srcs"><i>Trading platform · Deals</i><i>Dynamics 365 · Activities</i><i>Google Ads</i><i>Website sessions</i></div>
+          </div>
+          <div class="act">
+            <img src="assets/milo-icon.jpeg" alt="">
+            <p>I can push those 22 to their owners in D365 as tasks this afternoon, with the reason and the last trade attached. <b>Nothing sends without a human approving it.</b></p>
+            <div class="btns"><span class="y">Queue them for review</span><span class="n">Send me the list first</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="demo-note"><b>Illustrative figures</b><span>Every number on this screen is sample data shaped like yours, not moneycorp's. Please don't quote them internally. During the month we run these same questions against your actual D365, trading platform and Google accounts.</span></p>
+  </section>
+
+  <!-- ═══ 05 TEAM ═══ -->
+  <section id="team">
+    <span class="sec-num">05 / THE TEAM</span>
+    <h2>What changes when the business can ask, and still only sees what it should.</h2>
+    <p class="lede">One commercial analyst absorbing the inbound, and a chief commercial officer with an appetite. Another dashboard does not clear that queue.</p>
+
+    <div class="flips">
+      <div class="flip">
+        <div class="ft">The request queue</div>
+        <h3>Questions stop landing on your desk</h3>
+        <div class="now"><span class="tag">Today</span>A question arrives, your analyst builds a report, it gets used once, and it joins the pile in Tableau nobody knows the provenance of.</div>
+        <div class="then"><span class="tag">With Milo</span>They ask Milo in English and get the answer with the query and sources attached. Your analyst builds the things that need building.</div>
+      </div>
+      <div class="flip">
+        <div class="ft">Ring fencing</div>
+        <h3>Self-serve without opening the doors</h3>
+        <div class="now"><span class="tag">Today</span>Wider access means wider exposure, so access stays narrow and the bottleneck stays where it is.</div>
+        <div class="then"><span class="tag">With Milo</span>Permissions are enforced at the data layer. Private client stays with private clients, salary data stays with the people who own it, and every question is logged.</div>
+      </div>
+      <div class="flip">
+        <div class="ft">Hugo</div>
+        <h3>He gets fed without you in the middle</h3>
+        <div class="now"><span class="tag">Today</span>Every idea he has becomes a piece of work for a lean team, and the good ideas queue behind the urgent ones.</div>
+        <div class="then"><span class="tag">With Milo</span>He asks it himself at 06:00 and gets the answer, the reasoning and a next step. You see what he asked, so you know where he is looking.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 06 PRICE ═══ -->
+  <section id="price">
+    <span class="sec-num">06 / COMMERCIALS</span>
+    <div class="price">
+      <div>
+        <h2>One month. <span class="q">£3,000.</span> Then you decide.</h2>
+        <p class="pbody">We connect Dynamics 365, the trading platform, Google Ads, Tableau and whatever else matters. We build the dashboards and apps with you rather than handing over an empty product. We train the team, or you just ask Milo. <strong>If it has not earned its place after a month, you walk away and owe nothing further.</strong></p>
+        <p class="pbody" style="margin-top:14px">Nothing connects to a moneycorp system until your IT team has signed off how it is deployed. If they say no, this stops here and we part on good terms.</p>
+      </div>
+      <div class="pcard">
+        <div class="amt">£3,000</div>
+        <div class="per">Proof of concept, one month, everything included</div>
+        <ul>
+          <li>All connections built and tested</li>
+          <li>Dashboards and apps built with your team</li>
+          <li>Roles and permissions configured to your model</li>
+          <li>Training session, or don't bother and just ask it</li>
+          <li>Unlimited users across the business</li>
+        </ul>
+        <div class="after">No licence to sign and no notice period. If you stop at the end of the month, nothing rolls on.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="fm"><img src="assets/milo-mark-white.png" alt="Autonomous Minds"></div>
+    <div>Prepared for moneycorp Revenue Operations · August 2026 · <a href="https://trust.milo.ai/" target="_blank" rel="noopener">trust.milo.ai</a></div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var btns = document.querySelectorAll('.pk');
+  var rt = document.getElementById('rt');
+  var times = { p1: 9, p2: 11, p3: 14, p4: 8 };
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var id = b.dataset.p;
+      document.querySelectorAll('.pk').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      document.querySelectorAll('.pane').forEach(function (p) { p.classList.remove('on'); });
+      var pane = document.getElementById(id);
+      pane.classList.add('on');
+      pane.querySelectorAll('.bf').forEach(function (f) {
+        f.style.animation = 'none'; void f.offsetWidth; f.style.animation = '';
+      });
+      var t = 0, target = times[id] || 9;
+      rt.textContent = 'thinking…';
+      var iv = setInterval(function () {
+        t++; rt.textContent = 'answered in ' + t + 's';
+        if (t >= target) clearInterval(iv);
+      }, 55);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

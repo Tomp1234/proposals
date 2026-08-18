@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "moneycorp",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8850", "--directory", "milo-moneycorp-proposal"],
+      "port": 8850
+    },
+    {
       "name": "milo-showcase",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8820", "--directory", "milo-showcase"],
