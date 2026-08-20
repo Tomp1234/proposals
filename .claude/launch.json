@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "ngp",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8855", "--directory", "milo-ngp-proposal"],
+      "port": 8855
+    },
+    {
       "name": "moneycorp",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8850", "--directory", "milo-moneycorp-proposal"],
