@@ -250,6 +250,14 @@ a{ color:inherit; }
   .trust, .close{ padding:28px 22px 30px; }
 }
 @media (max-width:560px){
+  .ask{ padding:16px 18px; gap:12px; }
+  .ask .lab{ flex:1 0 100%; }
+  .ask input{ flex:1 1 100%; font-size:1.1rem; }
+  .ask button{ flex:1 1 100%; padding:12px; }
+  .sugg{ padding:14px 18px; }
+  .out-l{ padding:24px 18px 26px; }
+  .out-r{ padding:24px 18px; }
+  .act button{ white-space:normal; text-align:left; }
   .lockup{ gap:9px; }
   .lockup .m{ font-size:1.1rem; }
   .lockup .c{ font-size:0.95rem; }
@@ -595,6 +603,14 @@ function typeInto(text, cb){
 
 document.addEventListener('DOMContentLoaded', function(){
   paint(ANSWERS[0], false);
+  var narrow = window.matchMedia('(max-width:560px)');
+  var setPlaceholder = function(){
+    els.ask.placeholder = narrow.matches
+      ? 'Where do we land this month?'
+      : 'If sales carry on like this, where do we land this month?';
+  };
+  setPlaceholder();
+  if (narrow.addEventListener) narrow.addEventListener('change', setPlaceholder);
 
   els.send.addEventListener('click', function(){ answer(els.ask.value || els.ask.placeholder); });
   els.ask.addEventListener('keydown', function(e){ if (e.key === 'Enter') answer(els.ask.value || els.ask.placeholder); });
