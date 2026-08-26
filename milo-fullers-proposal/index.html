@@ -250,8 +250,8 @@ input.rr{position:absolute;opacity:0;pointer-events:none}
 .trust span{font-size:.9rem;font-weight:600;color:rgba(255,255,255,.72)}
 
 /* ── pricing ────────────────────────────────────── */
-.pgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:0;margin-top:clamp(38px,4.5vw,54px);border:1px solid var(--line)}
-.plan{background:var(--ink);color:var(--paper);padding:36px 34px;position:relative;overflow:hidden}
+.pgrid{margin-top:clamp(38px,4.5vw,54px);max-width:640px}
+.plan{background:var(--ink);color:var(--paper);padding:38px 36px;position:relative;overflow:hidden}
 .plan>*{position:relative;z-index:2}
 .rec{display:inline-block;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;background:var(--red);color:#fff;font-weight:700;margin-bottom:20px}
 .amt{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:900;letter-spacing:-.04em;line-height:1;color:#fff}
@@ -260,16 +260,11 @@ input.rr{position:absolute;opacity:0;pointer-events:none}
 .plan li{display:grid;grid-template-columns:9px 1fr;gap:13px;align-items:start;font-size:.89rem;line-height:1.52;color:var(--on-dark)}
 .plan li i{color:var(--red-lt);font-style:normal;line-height:1.5;font-size:.7rem;padding-top:3px}
 .plan li b{color:#fff;font-weight:600}
-.side{padding:36px 34px;background:var(--paper)}
-.side .h{font-family:'Fraunces',serif;font-size:1.42rem;font-weight:700;letter-spacing:-.022em;margin-bottom:15px}
-.side p{font-size:.93rem;color:var(--muted);margin-bottom:13px}
-.side b{color:var(--ink);font-weight:600}
-
 footer{background:var(--ink);color:var(--on-dark-dim);text-align:center;padding:30px;font-size:.8rem}
 footer a{color:#fff;text-decoration:none}
 
 @media(max-width:940px){
-  .hero-grid,.band,.scene,.out,.pgrid,.permnote,.figs{grid-template-columns:1fr}
+  .hero-grid,.band,.scene,.out,.permnote,.figs{grid-template-columns:1fr}
   .band>div,.fig{border-right:0;border-bottom:1px solid var(--hair);padding-right:0;padding-bottom:22px}
   .cust,.roi{grid-template-columns:1fr}
   .amt{font-size:3rem}
@@ -657,12 +652,6 @@ footer a{color:#fff;text-decoration:none}
           <li><i>&#9632;</i><span><b>The clock starts at the first training session</b>, not at signature, so procurement time is not part of your month</span></li>
           <li><i>&#9632;</i><span><b>Walk away at the end</b> with nothing owed and nothing to unpick</span></li>
         </ul>
-      </div>
-      <div class="side">
-        <div class="h serif">Before any of that</div>
-        <p>Half an hour with Bronwen and her team. We will go straight at the Power BI questions: what her team stops having to build, what happens to the change queue, where the data sits, and the integration list against your actual stack.</p>
-        <p>We will line up a call with <b>Urban Leisure Group or ETM</b> at the same time, so the operator view comes from an operator rather than from us.</p>
-        <p>There is no rush on our side. This proposal lives on a URL that can be forwarded to whoever needs to see it, and it stays current.</p>
       </div>
     </div>
   </div>
