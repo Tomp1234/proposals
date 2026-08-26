@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Fuller's</title>
+<meta name="description" content="One layer across Zonal, Fourth, Collins and finance. Ask it anything, in seconds, with nothing built first. Prepared for Fuller's, Smith &amp; Turner.">
+<link rel="icon" href="data:image/jpeg;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700;6..96,800;6..96,900&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --ink:#0C0B09;
+  --ink-2:#161411;
+  --ink-3:#211E19;
+  --paper:#FCFAF5;
+  --cream:#F2ECDF;
+  --cream-2:#E7DFCC;
+  --gold:#C0912F;
+  --gold-lt:#EFD494;
+  --gold-dp:#8A6318;
+  --red:#B4372B;
+  --green:#1C3B32;
+  --muted:rgba(12,11,9,.60);
+  --dim:rgba(12,11,9,.40);
+  --line:rgba(12,11,9,.13);
+  --on-dark:rgba(252,250,245,.68);
+  --on-dark-dim:rgba(252,250,245,.42);
+  --dark-line:rgba(239,212,148,.18);
+}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter Tight',system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.58;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16.5px}
+section{position:relative;overflow:hidden}
+.wrap{max-width:1120px;margin:0 auto;padding:0 26px;position:relative;z-index:5}
+
+/* ── textures: etched glass, gilding, grain ─────── */
+.tex{position:absolute;inset:0;pointer-events:none}
+.grain{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.05;mix-blend-mode:multiply}
+.grain-d{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.07;mix-blend-mode:overlay}
+.etch{background-image:repeating-linear-gradient(58deg,rgba(192,145,47,.055) 0 1px,transparent 1px 9px)}
+.etch-d{background-image:repeating-linear-gradient(58deg,rgba(239,212,148,.05) 0 1px,transparent 1px 9px)}
+.vig{background:radial-gradient(120% 90% at 50% 0%,transparent 42%,rgba(12,11,9,.55) 100%)}
+
+/* gilded text */
+.gild{
+  background:linear-gradient(174deg,#F7E6BC 0%,#EFD494 16%,#C0912F 46%,#8A6318 56%,#D9AE55 74%,#F5E2B4 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.14)) drop-shadow(0 2px 3px rgba(0,0,0,.5));
+}
+.serif{font-family:'Bodoni Moda',Georgia,serif;font-optical-sizing:auto}
+
+/* gold rules */
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold) 12%,var(--gold-lt) 50%,var(--gold) 88%,transparent);opacity:.55}
+.rule-d{height:1px;background:linear-gradient(90deg,transparent,rgba(239,212,148,.5) 15%,rgba(239,212,148,.85) 50%,rgba(239,212,148,.5) 85%,transparent)}
+
+/* ── top bar ────────────────────────────────────── */
+.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:24px 0 0}
+.brandmk{display:flex;align-items:center;gap:10px;justify-self:start}
+.brandmk img{width:26px;height:26px;border-radius:7px;display:block}
+.brandmk b{font-weight:700;font-size:1.12rem;letter-spacing:-.035em;color:var(--cream)}
+.bar .who{font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-dark-dim);text-align:center}
+.bar .cli{justify-self:end;font-family:'Bodoni Moda',serif;font-weight:700;font-size:1rem;letter-spacing:.26em}
+
+/* ── hero ───────────────────────────────────────── */
+.hero{background:var(--ink);color:var(--cream);padding-bottom:0}
+.mirror{margin:38px 0 0;border:1px solid rgba(239,212,148,.30);border-radius:4px;padding:5px;position:relative}
+.mirror-in{border:1px solid rgba(239,212,148,.16);border-radius:2px;padding:clamp(30px,5vw,60px) clamp(22px,4vw,54px) clamp(34px,5vw,56px)}
+.crn{position:absolute;width:15px;height:15px;border:1px solid rgba(239,212,148,.5)}
+.crn.tl{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.crn.tr{top:-1px;right:-1px;border-left:0;border-bottom:0}
+.crn.bl{bottom:-1px;left:-1px;border-right:0;border-top:0}
+.crn.br{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+.eyebrow{font-size:.64rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-lt);opacity:.8;font-weight:600;margin-bottom:22px}
+h1{font-family:'Bodoni Moda',Georgia,serif;font-size:clamp(3.4rem,11.5vw,8.2rem);line-height:.86;letter-spacing:-.03em;font-weight:800}
+h1 .apos{letter-spacing:-.01em}
+.h1sub{display:block;font-family:'Inter Tight',sans-serif;font-weight:300;font-size:clamp(.9rem,2.2vw,1.15rem);letter-spacing:.24em;text-transform:uppercase;color:var(--on-dark-dim);margin-bottom:20px}
+
+.hero-q{margin-top:40px;font-family:'Bodoni Moda',serif;font-size:clamp(1.5rem,4vw,2.85rem);line-height:1.14;letter-spacing:-.02em;font-weight:400;max-width:22ch;color:var(--paper)}
+.hero-q span{display:inline-block;opacity:0;animation:wordIn .8s cubic-bezier(.2,.7,.3,1) forwards}
+.hero-q .hl{font-weight:700;font-style:italic}
+@keyframes wordIn{from{opacity:0;transform:translateY(20px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
+.hero-note{margin-top:28px;max-width:60ch;color:var(--on-dark);font-size:1.02rem}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:32px}
+.chip{font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;padding:7px 13px;border-radius:2px;border:1px solid rgba(239,212,148,.24);color:var(--gold-lt);font-weight:600}
+.chip.on{background:rgba(239,212,148,.11);border-color:rgba(239,212,148,.5)}
+
+/* summary band */
+.band{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(239,212,148,.16);border-top:1px solid rgba(239,212,148,.16);margin-top:54px}
+.band>div{background:var(--ink);padding:30px 30px 34px}
+.band .k{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:13px}
+.band p{font-size:.9rem;color:var(--on-dark);line-height:1.62}
+.band b{color:var(--paper);font-weight:600}
+
+/* ── ticker ─────────────────────────────────────── */
+.ticker{background:var(--ink-2);padding:13px 0;overflow:hidden;border-top:1px solid rgba(239,212,148,.16);border-bottom:1px solid rgba(239,212,148,.16)}
+.tk{display:flex;width:max-content;animation:ticker 46s linear infinite}
+.tk span{padding:0 22px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,236,223,.32);white-space:nowrap;font-weight:500}
+.tk span.on{color:var(--gold-lt);font-weight:600}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── section furniture ──────────────────────────── */
+.sec{padding:clamp(74px,9vw,116px) 0}
+.kicker{font-size:.63rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dp);font-weight:700;margin-bottom:20px}
+.kicker.d{color:var(--gold-lt)}
+h2{font-family:'Bodoni Moda',Georgia,serif;font-size:clamp(2rem,5.2vw,3.65rem);line-height:1.03;letter-spacing:-.025em;font-weight:700;margin-bottom:18px;max-width:21ch}
+h2 .it{font-style:italic;font-weight:400}
+h2 .ac{color:var(--gold-dp)}
+.dark h2,.ink h2{color:var(--paper)}
+.dark h2 .ac,.ink h2 .ac{color:var(--gold-lt)}
+.lede{color:var(--muted);max-width:64ch;font-size:1.02rem}
+.dark .lede,.ink .lede{color:var(--on-dark)}
+.dark,.ink{background:var(--ink);color:var(--cream)}
+.paper2{background:var(--cream)}
+
+/* ── pain cards ─────────────────────────────────── */
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px;margin-top:46px}
+.pcard{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:26px 24px 24px;position:relative;transition:transform .3s,box-shadow .3s,border-color .3s}
+.pcard::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold-dp),var(--gold-lt));opacity:.75}
+.pcard:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(12,11,9,.10);border-color:rgba(192,145,47,.4)}
+.pcard .lbl{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--gold-dp);display:block;margin-bottom:14px}
+.pcard h3{font-family:'Bodoni Moda',serif;font-size:1.16rem;font-weight:700;letter-spacing:-.015em;margin-bottom:10px;line-height:1.2}
+.pcard p{font-size:.9rem;color:var(--muted)}
+.fix{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:.84rem;font-weight:600;color:var(--gold-dp);display:flex;gap:8px}
+
+/* ── scene: the change request ──────────────────── */
+.scene{margin-top:52px;display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+.scn{border:1px solid var(--line);border-radius:3px;padding:28px 26px;background:var(--paper)}
+.scn h4{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:20px}
+.tl{list-style:none}
+.tl li{display:grid;grid-template-columns:98px 1fr;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:.9rem;color:var(--muted)}
+.tl li:last-child{border-bottom:0}
+.tl .tm{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--dim);padding-top:3px;letter-spacing:-.02em}
+.tl li.late{color:var(--red);font-weight:600}
+.tl li.late .tm{color:var(--red)}
+.now{background:var(--ink);color:var(--cream);border-color:var(--ink);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.now h4{color:var(--gold-lt);opacity:.85}
+.now>*{position:relative;z-index:2}
+.bigclk{font-family:'JetBrains Mono',monospace;font-size:clamp(2.6rem,7vw,4rem);font-weight:500;letter-spacing:-.05em;line-height:1;margin:4px 0 12px}
+.now .cap{font-size:.88rem;color:var(--on-dark);flex:1}
+.now .split{margin-top:22px;padding-top:18px;border-top:1px solid var(--dark-line);font-size:.9rem;color:var(--on-dark)}
+.now .split b{color:var(--gold-lt);font-weight:700}
+
+/* ── console ────────────────────────────────────── */
+.console{margin-top:46px;background:var(--ink);border:1px solid rgba(239,212,148,.22);border-radius:4px;overflow:hidden;box-shadow:0 44px 90px rgba(12,11,9,.30)}
+.cbar{display:flex;align-items:center;gap:9px;padding:15px 22px;border-bottom:1px solid var(--dark-line);position:relative;z-index:2}
+.cbar img{width:20px;height:20px;border-radius:5px}
+.cbar .t{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-dim)}
+.live{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-lt);font-weight:700}
+.live i{width:5px;height:5px;border-radius:50%;background:var(--gold-lt);animation:pulse 1.9s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
+.ask{display:flex;align-items:center;gap:12px;padding:20px 22px;border-bottom:1px solid var(--dark-line);flex-wrap:wrap}
+.ask .lab{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;flex-shrink:0}
+.ask input{flex:1;min-width:200px;background:transparent;border:0;outline:0;color:var(--paper);font-family:'Inter Tight',sans-serif;font-size:1rem;letter-spacing:-.01em}
+.ask input::placeholder{color:rgba(252,250,245,.28)}
+.ask button{background:var(--gold);color:var(--ink);border:0;border-radius:2px;padding:9px 20px;font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.ask button:hover{background:var(--gold-lt)}
+.sugg{display:flex;align-items:center;gap:8px;padding:16px 22px;flex-wrap:wrap;border-bottom:1px solid var(--dark-line)}
+.sugg .lab{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-dark-dim);font-weight:600;margin-right:2px}
+.qchip{background:transparent;border:1px solid rgba(239,212,148,.26);color:rgba(252,250,245,.72);border-radius:2px;padding:8px 14px;font-family:'Inter Tight',sans-serif;font-size:.82rem;cursor:pointer;transition:.2s}
+.qchip:hover,.qchip.act{background:rgba(239,212,148,.12);border-color:var(--gold);color:var(--paper)}
+.out{display:grid;grid-template-columns:1.22fr .78fr;min-height:290px}
+.out-l{padding:26px 22px 28px;border-right:1px solid var(--dark-line)}
+.out-r{padding:26px 22px 28px;display:flex;flex-direction:column}
+.who{display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.who img{width:24px;height:24px;border-radius:6px}
+.who .n{font-weight:700;font-size:.9rem;color:var(--paper)}
+.who .t{font-size:.68rem;color:var(--on-dark-dim);margin-left:auto;font-family:'JetBrains Mono',monospace}
+.status{display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--gold-lt);font-family:'JetBrains Mono',monospace;margin-bottom:14px}
+.status .dot{width:5px;height:5px;border-radius:50%;background:var(--gold-lt);animation:pulse 1s infinite}
+.headline{font-family:'Bodoni Moda',serif;font-size:1.22rem;line-height:1.32;letter-spacing:-.01em;color:var(--paper);font-weight:600;min-height:1.3em}
+.why{margin-top:16px;font-size:.9rem;color:var(--on-dark);line-height:1.6}
+.why span{display:block;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:7px}
+.act{margin-top:20px;opacity:0;transition:opacity .4s}
+.act.show{opacity:1}
+.act button{background:transparent;border:1px solid var(--gold);color:var(--gold-lt);border-radius:2px;padding:10px 17px;font-family:'Inter Tight',sans-serif;font-size:.82rem;cursor:pointer;transition:.2s;text-align:left}
+.act button:hover{background:var(--gold);color:var(--ink)}
+.chart-t{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-dark-dim);font-weight:700;margin-bottom:20px}
+.bars{flex:1}
+.brow{display:grid;grid-template-columns:1fr;gap:5px;margin-bottom:13px}
+.brow .bl{display:flex;justify-content:space-between;font-size:.8rem;color:rgba(252,250,245,.8)}
+.brow .bv{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--gold-lt)}
+.btrack{height:5px;background:rgba(252,250,245,.09);border-radius:99px;overflow:hidden}
+.bfill{height:100%;background:linear-gradient(90deg,var(--gold-dp),var(--gold-lt));border-radius:99px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.bfill.neg{background:linear-gradient(90deg,#7A2419,var(--red))}
+.srcs{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+.src{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 9px;border-radius:2px;background:rgba(239,212,148,.1);color:var(--gold-lt);font-weight:700}
+.timer{margin-top:20px;padding-top:16px;border-top:1px solid var(--dark-line);display:flex;justify-content:space-between;align-items:baseline}
+.timer .k{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-dark-dim);font-weight:700}
+.timer .v{font-family:'JetBrains Mono',monospace;font-size:1.15rem;color:var(--gold-lt)}
+
+/* disclaimer */
+.disc{margin-top:22px;border:1px solid rgba(180,55,43,.42);border-left:3px solid var(--red);border-radius:2px;padding:15px 18px;font-size:.85rem;color:var(--muted);background:rgba(180,55,43,.045)}
+.disc b{color:var(--ink);font-weight:700}
+.ink .disc,.dark .disc{color:var(--on-dark);background:rgba(180,55,43,.11);border-color:rgba(180,55,43,.5)}
+.ink .disc b,.dark .disc b{color:var(--paper)}
+
+/* ── permissions ────────────────────────────────── */
+.perm{margin-top:46px}
+.roles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+input.rr{position:absolute;opacity:0;pointer-events:none}
+.roles label{font-size:.82rem;font-weight:600;padding:11px 18px;border-radius:2px;border:1px solid rgba(239,212,148,.26);color:rgba(252,250,245,.7);cursor:pointer;transition:.2s;user-select:none}
+.roles label:hover{color:var(--paper);border-color:rgba(239,212,148,.55)}
+#r0:checked~.perm .roles label[for=r0],#r1:checked~.perm .roles label[for=r1],#r2:checked~.perm .roles label[for=r2],#r3:checked~.perm .roles label[for=r3],#r4:checked~.perm .roles label[for=r4]{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:10px}
+.tile{border:1px solid var(--dark-line);border-radius:3px;padding:17px 16px;transition:.35s;position:relative;min-height:96px}
+.tile .tn{font-size:.9rem;font-weight:600;color:var(--paper);margin-bottom:6px}
+.tile .ts{font-size:.74rem;color:var(--on-dark-dim);font-family:'JetBrains Mono',monospace}
+.tile .tv{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--gold-lt);margin-top:8px;transition:.3s}
+.tile.off{border-color:rgba(252,250,245,.07);background:rgba(252,250,245,.015)}
+.tile.off .tn{color:rgba(252,250,245,.30)}
+.tile.off .tv{filter:blur(7px);opacity:.35;user-select:none}
+.tile.off .ts{color:rgba(180,55,43,.85)}
+.tile.own .ts{color:var(--gold)}
+.permnote{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.permnote div{border-left:1px solid var(--dark-line);padding-left:20px}
+.permnote .k{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:9px}
+.permnote p{font-size:.9rem;color:var(--on-dark)}
+
+/* ── integrations ───────────────────────────────── */
+.intg{margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.ig{background:var(--paper);padding:24px 22px}
+.ig .h{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dp);font-weight:700;margin-bottom:14px}
+.ig .p{display:flex;flex-wrap:wrap;gap:6px}
+.ig .p span{font-size:.78rem;padding:5px 10px;border:1px solid var(--line);border-radius:2px;color:var(--muted)}
+.ig .p span.key{border-color:var(--gold);color:var(--ink);font-weight:600;background:rgba(192,145,47,.09)}
+.igfoot{margin-top:20px;font-size:.92rem;color:var(--muted);max-width:70ch}
+.igfoot b{color:var(--ink);font-weight:600}
+
+/* ── compare ────────────────────────────────────── */
+.cmp{margin-top:44px;border:1px solid var(--line);border-radius:3px;overflow-x:auto;background:var(--paper)}
+table.ct{width:100%;border-collapse:collapse;min-width:820px}
+table.ct th,table.ct td{padding:17px 20px;text-align:left;border-bottom:1px solid var(--line);font-size:.88rem;vertical-align:top}
+table.ct thead th{background:var(--cream);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:700}
+table.ct thead th.m{color:var(--gold-dp);background:rgba(192,145,47,.12)}
+table.ct td{color:var(--muted)}
+table.ct td.f{color:var(--ink);font-weight:600;width:23%}
+table.ct td.m{background:rgba(192,145,47,.055);color:var(--ink)}
+table.ct tr:last-child td{border-bottom:0}
+.yes{color:var(--gold-dp);font-weight:800}
+.no{color:var(--red);font-weight:700}
+.fair{margin-top:26px;border-left:2px solid var(--gold);padding:2px 0 2px 20px;max-width:70ch;font-size:.94rem;color:var(--muted)}
+.fair b{color:var(--ink);font-weight:600}
+
+/* ── customers ──────────────────────────────────── */
+.cust{display:grid;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));gap:14px;margin-top:46px}
+.ccard{border:1px solid var(--dark-line);border-radius:3px;padding:26px 24px;background:rgba(252,250,245,.022);display:flex;flex-direction:column;transition:.3s}
+.ccard:hover{border-color:var(--gold);transform:translateY(-3px)}
+.ccard .nm{font-family:'Bodoni Moda',serif;font-size:1.42rem;font-weight:700;letter-spacing:-.02em;color:var(--paper)}
+.ccard .sub{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt);margin:7px 0 16px;font-weight:700}
+.ccard p{font-size:.89rem;color:var(--on-dark);flex:1}
+.stats{display:flex;gap:20px;margin-top:20px;padding-top:18px;border-top:1px solid var(--dark-line)}
+.stat .v{font-family:'Bodoni Moda',serif;font-size:1.38rem;font-weight:700;color:var(--gold-lt);line-height:1}
+.stat .l{font-size:.66rem;color:var(--on-dark-dim);margin-top:5px}
+.roi{margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--dark-line);border:1px solid var(--dark-line);border-radius:3px;overflow:hidden}
+.roi>div{background:var(--ink);padding:24px 22px}
+.roi .h{font-family:'Bodoni Moda',serif;font-size:1.02rem;color:var(--paper);font-weight:700;margin-bottom:9px}
+.roi p{font-size:.86rem;color:var(--on-dark)}
+.roiline{margin-top:26px;font-size:.95rem;color:var(--on-dark);max-width:72ch;border-left:2px solid var(--gold);padding-left:20px}
+.roiline b{color:var(--paper);font-weight:600}
+.trust{margin-top:44px;display:flex;flex-wrap:wrap;gap:12px 30px;align-items:center}
+.trust .t-l{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--on-dark-dim);width:100%;font-weight:700}
+.trust span{font-size:.92rem;font-weight:600;color:rgba(252,250,245,.72)}
+
+/* ── pricing ────────────────────────────────────── */
+.pgrid{display:grid;grid-template-columns:1.02fr .98fr;gap:16px;margin-top:46px}
+.plan{background:var(--ink);color:var(--cream);border-radius:4px;padding:36px 32px;position:relative;overflow:hidden;border:1px solid rgba(239,212,148,.3)}
+.plan>*{position:relative;z-index:2}
+.rec{display:inline-block;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--gold);color:var(--gold-lt);font-weight:700;margin-bottom:22px;border-radius:2px}
+.amt{font-family:'Bodoni Moda',serif;font-size:3.5rem;font-weight:800;letter-spacing:-.03em;line-height:1}
+.amt small{font-family:'Inter Tight',sans-serif;font-size:.9rem;font-weight:400;letter-spacing:.02em;color:var(--on-dark-dim);margin-left:8px}
+.plan ul{list-style:none;margin-top:28px;display:grid;gap:14px}
+.plan li{display:grid;grid-template-columns:14px 1fr;gap:12px;align-items:start;font-size:.9rem;line-height:1.52;color:var(--on-dark)}
+.plan li i{color:var(--gold);font-style:normal;line-height:1.5}
+.plan li b{color:var(--paper);font-weight:600}
+.side{border:1px solid var(--line);border-radius:4px;padding:36px 32px;background:var(--cream)}
+.side .h{font-family:'Bodoni Moda',serif;font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:16px}
+.side p{font-size:.94rem;color:var(--muted);margin-bottom:14px}
+.side b{color:var(--ink);font-weight:600}
+.side .cta{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.btn{display:inline-block;padding:14px 28px;border-radius:2px;font-weight:700;text-decoration:none;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--gold-lt);transition:.2s}
+.btn:hover{background:var(--gold);color:var(--ink)}
+
+footer{background:var(--ink);color:var(--on-dark-dim);text-align:center;padding:34px 26px;font-size:.82rem;border-top:1px solid var(--dark-line)}
+footer a{color:var(--gold-lt);text-decoration:none}
+
+@media(max-width:900px){
+  .band{grid-template-columns:1fr}
+  .scene,.out,.pgrid,.permnote{grid-template-columns:1fr}
+  .out-l{border-right:0;border-bottom:1px solid var(--dark-line)}
+  .bar{grid-template-columns:1fr auto;gap:10px}
+  .bar .who{display:none}
+}
+@media print{
+  body{font-size:11.5pt}
+  .sec{padding:34px 0;break-inside:avoid}
+  .ticker,.act,.ask button{display:none}
+  .console,.plan,.dark,.ink,.hero,.now,.roi>div,.band>div{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tile.off .tv{filter:none}
+  h2{break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="tex etch-d"></div>
+  <div class="tex grain-d"></div>
+  <div class="tex vig"></div>
+
+  <div class="wrap">
+    <div class="bar">
+      <div class="brandmk"><img src="data:image/jpeg;base64,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" alt=""><b>Milo</b></div>
+      <div class="who">Prepared for Harriet, Head of Operations &middot; Fuller's, Smith &amp; Turner</div>
+      <div class="cli gild serif">FULLER'S</div>
+    </div>
+
+    <div class="mirror">
+      <span class="crn tl"></span><span class="crn tr"></span><span class="crn bl"></span><span class="crn br"></span>
+      <div class="mirror-in">
+        <div class="eyebrow">Milo &middot; August 2026</div>
+        <h1 class="gild serif"><span class="h1sub">A working layer over</span>Fuller<span class="apos">'</span>s</h1>
+
+        <div class="hero-q">
+          <span style="animation-delay:.2s">The</span>
+          <span style="animation-delay:.28s">data</span>
+          <span style="animation-delay:.36s">is</span>
+          <span style="animation-delay:.44s">all</span>
+          <span style="animation-delay:.52s">there.</span>
+          <span style="animation-delay:.72s" class="hl">Getting</span>
+          <span style="animation-delay:.8s" class="hl">an</span>
+          <span style="animation-delay:.88s" class="hl">answer</span>
+          <span style="animation-delay:.96s" class="hl">out</span>
+          <span style="animation-delay:1.04s" class="hl">of</span>
+          <span style="animation-delay:1.12s" class="hl">it</span>
+          <span style="animation-delay:1.2s" class="hl">takes</span>
+          <span style="animation-delay:1.28s" class="hl">days.</span>
+        </div>
+
+        <p class="hero-note">Zonal, Fourth, Collins and finance each hold a piece of the picture. Power BI shows the piece somebody built a report for. Milo reads all of them at once and answers in the words you would use to ask, in seconds, with nothing built first.</p>
+
+        <div class="chips">
+          <span class="chip on">Zonal</span>
+          <span class="chip on">Fourth</span>
+          <span class="chip on">Collins</span>
+          <span class="chip">Finance &amp; payroll</span>
+          <span class="chip">Guest sentiment</span>
+          <span class="chip">Marketing &amp; ads</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div>
+        <div class="k">What this is</div>
+        <p>A question layer that sits on top of the systems Fuller's already runs. It replaces the <b>reports</b>, not the systems. Nothing gets migrated and nothing gets switched off.</p>
+      </div>
+      <div>
+        <div class="k">What we are asking for</div>
+        <p>One month, five to ten people, <b>£2,000</b>. Connected and useful in week one, run in parallel with Power BI so the numbers can be checked. Walk away at the end with nothing owed.</p>
+      </div>
+      <div>
+        <div class="k">What is below</div>
+        <p>The four things eating the week, a demo you can type into, how access is controlled, the full integration list, and a straight comparison with <b>Power BI, Copilot and Tenzo</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="tk">
+    <span class="on">Zonal</span><span>Tills &amp; trading</span><span class="on">Fourth</span><span>Labour, stock &amp; purchasing</span><span class="on">Collins</span><span>Bookings &amp; enquiries</span><span class="on">Finance</span><span>P&amp;L, payroll, invoices</span><span class="on">Sentiment</span><span>Guest reviews</span><span>1,500 connectors</span><span>Answers in seconds</span><span>Unlimited users</span><span>ISO 27001 &amp; SOC 2</span><span>Nothing sent to Microsoft or OpenAI</span>
+    <span class="on">Zonal</span><span>Tills &amp; trading</span><span class="on">Fourth</span><span>Labour, stock &amp; purchasing</span><span class="on">Collins</span><span>Bookings &amp; enquiries</span><span class="on">Finance</span><span>P&amp;L, payroll, invoices</span><span class="on">Sentiment</span><span>Guest reviews</span><span>1,500 connectors</span><span>Answers in seconds</span><span>Unlimited users</span><span>ISO 27001 &amp; SOC 2</span><span>Nothing sent to Microsoft or OpenAI</span>
+  </div>
+</div>
+
+<!-- ═══════════ THE WEEK ═══════════ -->
+<section class="sec">
+  <div class="tex grain"></div>
+  <div class="wrap">
+    <div class="kicker">Where the week goes</div>
+    <h2>Four problems, <span class="it">one shape.</span></h2>
+    <p class="lede">Across 380 pubs and hotels there is no shortage of reporting. It sits in different departments, in different formats, in systems that were never asked to talk to each other, and every attempt to join them costs somebody a week.</p>
+
+    <div class="g4">
+      <div class="pcard">
+        <span class="lbl">Power BI</span>
+        <h3>It grows until it has to be cut back</h3>
+        <p>Reports get added, the model gets heavier, and at some point it has to be condensed again. That cycle is a permanent job for a team who would rather be building something new.</p>
+        <div class="fix"><span>&rarr;</span> No model to maintain. Milo reads the sources.</div>
+      </div>
+      <div class="pcard">
+        <span class="lbl">Change requests</span>
+        <h3>Every change is a few days away</h3>
+        <p>A question in a trading meeting becomes a request, the request joins a queue behind month end, and by the time the report is right the decision has already been taken. The reports are good. The wait is what stops them being used.</p>
+        <div class="fix"><span>&rarr;</span> Asked in the room. No build step, no queue.</div>
+      </div>
+      <div class="pcard">
+        <span class="lbl">The weekly pack</span>
+        <h3>Five departments, five formats</h3>
+        <p>Each head of department pulls their own numbers, builds their own graphs and drops them into their own deck. Finance splits a weekly deck across five or six people, a page each. Nothing reconciles, because nothing is joined.</p>
+        <div class="fix"><span>&rarr;</span> One live pack that updates itself.</div>
+      </div>
+      <div class="pcard">
+        <span class="lbl">The blind spots</span>
+        <h3>Sentiment and Collins sit outside</h3>
+        <p>Guest sentiment lives in its own tool with its own AI. Collins is somewhere else again. Copilot reads one sales report and summarises that single level. None of them can put covers, labour, spend and what guests said into the same answer.</p>
+        <div class="fix"><span>&rarr;</span> All of it, in one answer, with sources.</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="scn">
+        <h4>A question about the £6 slush &middot; today</h4>
+        <ul class="tl">
+          <li><span class="tm">Tue 15:04</span><span>It comes up in the trading meeting. Did it work, and should we run it again?</span></li>
+          <li><span class="tm">Tue 15:40</span><span>It becomes a request, because no report covers a promotion that started ten days ago.</span></li>
+          <li><span class="tm">Wed</span><span>It gets scoped against everything else in the queue.</span></li>
+          <li><span class="tm">Thu</span><span>Sales pull cleanly from Zonal. The promotion dates and the site list live in a spreadsheet somewhere else.</span></li>
+          <li class="late"><span class="tm">Mon 11:20</span><span>The answer lands. The promotion finished two weekends ago.</span></li>
+        </ul>
+      </div>
+      <div class="scn now">
+        <div class="tex etch-d"></div>
+        <h4>The same question &middot; on Milo</h4>
+        <div class="bigclk gild serif">00:09</div>
+        <div class="cap">Asked out loud at 15:04, against Zonal, Fourth and the marketing calendar at once, with nothing built in advance and nobody exporting anything.</div>
+        <div class="split">Five days and three exports become <b>nine seconds</b>, and no one filed a ticket.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONSOLE ═══════════ -->
+<section class="sec ink">
+  <div class="tex etch-d"></div>
+  <div class="tex grain-d"></div>
+  <div class="wrap">
+    <div class="kicker d">Try it</div>
+    <h2>Ask Fuller's <span class="it">a question.</span></h2>
+    <p class="lede">Type anything into the bar, or use one of the four below. The figures are invented. The behaviour, the sources on every number and the suggested next action are not.</p>
+
+    <div class="console">
+      <div class="cbar">
+        <img src="data:image/jpeg;base64,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" alt="">
+        <span class="t">Milo &middot; Fuller's managed estate</span>
+        <span class="live"><i></i>Live</span>
+      </div>
+
+      <div class="ask">
+        <span class="lab">Ask Milo</span>
+        <input id="ask" type="text" autocomplete="off" spellcheck="false" placeholder="Which sites are rostered above what they are forecast to take this weekend?">
+        <button id="send">Ask</button>
+      </div>
+
+      <div class="sugg">
+        <span class="lab">Or try</span>
+        <button class="qchip act" data-i="0">How was last week?</button>
+        <button class="qchip" data-i="1">Where is labour running ahead of the book?</button>
+        <button class="qchip" data-i="2">Run the margarita leaderboard</button>
+        <button class="qchip" data-i="3">Did the £6 slush pay for itself?</button>
+      </div>
+
+      <div class="out">
+        <div class="out-l">
+          <div class="who">
+            <img src="data:image/jpeg;base64,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" alt="">
+            <span class="n">Milo</span>
+            <span class="t">just now</span>
+          </div>
+          <div id="statusWrap" class="status" style="display:none"><span class="dot"></span><span id="statusText">Reading Zonal</span></div>
+          <div class="headline" id="headline"></div>
+          <div class="why"><span>Why</span><em id="whyText" style="font-style:normal"></em></div>
+          <div class="act" id="act"><button id="actDo"></button></div>
+        </div>
+        <div class="out-r">
+          <div class="chart-t" id="chartTitle"></div>
+          <div class="bars" id="bars"></div>
+          <div class="srcs" id="srcs"></div>
+          <div class="timer">
+            <span class="k">Answer time</span>
+            <span class="v" id="clock">00:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="disc"><b>Every number on this page is illustrative.</b> The pubs are real Fuller's sites and the systems are the ones you named, but nothing here has been calculated from Fuller's data. In month one these same questions run against your own.</div>
+  </div>
+</section>
+
+<!-- ═══════════ PERMISSIONS ═══════════ -->
+<section class="sec dark">
+  <div class="tex grain-d"></div>
+  <div class="wrap">
+    <div class="kicker d">Access</div>
+    <h2>Not everyone should be able to <span class="ac">ask everything.</span></h2>
+    <p class="lede">Permissions are set per role before anyone logs in, and they bind to the question rather than to a dashboard. If a role cannot see payroll, Milo will not answer a payroll question for that person, and will not quietly use payroll to answer a different one. Pick a role.</p>
+
+    <input class="rr" type="radio" name="role" id="r0" checked>
+    <input class="rr" type="radio" name="role" id="r1">
+    <input class="rr" type="radio" name="role" id="r2">
+    <input class="rr" type="radio" name="role" id="r3">
+    <input class="rr" type="radio" name="role" id="r4">
+
+    <div class="perm">
+      <div class="roles">
+        <label for="r0">Head of Operations</label>
+        <label for="r1">Divisional lead</label>
+        <label for="r2">General manager</label>
+        <label for="r3">Finance</label>
+        <label for="r4">Marketing</label>
+      </div>
+      <div class="tiles" id="tiles"></div>
+
+      <div class="permnote">
+        <div>
+          <div class="k">Where it runs</div>
+          <p>Fuller's data stays in Fuller's environment. Milo never trains on it, and nothing is passed to Microsoft or OpenAI to be answered. That is the difference between this and a team pasting trading numbers into a public chat window.</p>
+        </div>
+        <div>
+          <div class="k">Where the numbers come from</div>
+          <p>Arithmetic is never done by the language model. Calculations run against your data and every figure carries the source it came from, so a number that reaches a board pack can be traced back in one click. ISO 27001, SOC 2, independently pen-tested.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INTEGRATIONS + COMPARE ═══════════ -->
+<section class="sec paper2">
+  <div class="tex grain"></div>
+  <div class="tex etch"></div>
+  <div class="wrap">
+    <div class="kicker">For the IT team</div>
+    <h2>It is not only the <span class="it">hospitality stack.</span></h2>
+    <p class="lede">Zonal, Fourth and Collins matter most and all three are already built. The reason to look past a hospitality-only tool is the other half of this list: finance, payroll, property, marketing and whatever gets bought next year.</p>
+
+    <div class="intg">
+      <div class="ig">
+        <div class="h">EPOS &amp; trading</div>
+        <div class="p"><span class="key">Zonal</span><span>Tevalis</span><span>Toast</span><span>Lightspeed</span><span>Oracle Simphony</span><span>Square</span><span>Vita Mojo</span></div>
+      </div>
+      <div class="ig">
+        <div class="h">Labour, stock &amp; purchasing</div>
+        <div class="p"><span class="key">Fourth</span><span>S4labour</span><span>Harri</span><span>Planday</span><span>Deputy</span><span>Marketman</span><span>Procure Wizard</span></div>
+      </div>
+      <div class="ig">
+        <div class="h">Bookings &amp; guests</div>
+        <div class="p"><span class="key">Collins / DesignMyNight</span><span>OpenTable</span><span>SevenRooms</span><span>ResDiary</span><span>Google Business</span><span>Reputation</span><span>Trustpilot</span></div>
+      </div>
+      <div class="ig">
+        <div class="h">Finance &amp; ERP</div>
+        <div class="p"><span class="key">Dynamics 365</span><span>NetSuite</span><span>Sage</span><span>Xero</span><span>SAP</span><span>Coupa</span><span>Concur</span></div>
+      </div>
+      <div class="ig">
+        <div class="h">People &amp; payroll</div>
+        <div class="p"><span>Workday</span><span>ADP</span><span>SAP SuccessFactors</span><span>BambooHR</span><span>Personio</span><span>Access People</span></div>
+      </div>
+      <div class="ig">
+        <div class="h">Marketing, ads &amp; CRM</div>
+        <div class="p"><span>Meta Ads</span><span>Google Ads</span><span>GA4</span><span>Klaviyo</span><span>Braze</span><span>HubSpot</span><span>Salesforce</span></div>
+      </div>
+      <div class="ig">
+        <div class="h">Files, warehouses &amp; the rest</div>
+        <div class="p"><span class="key">SharePoint &amp; Excel</span><span>Google Sheets</span><span>SQL Server</span><span>Snowflake</span><span>Databricks</span><span>S3</span><span>Any REST API</span></div>
+      </div>
+    </div>
+    <p class="igfoot">About <b>1,500 connectors</b> are live today. Anything not on the list gets built by us, usually inside a day, and it does not go on a roadmap. The spreadsheets matter as much as the systems: a promotion calendar in SharePoint is a data source like any other, which is how a question about a two-week slush promotion gets answered at all.</p>
+
+    <div class="rule" style="margin:64px 0 56px"></div>
+
+    <div class="kicker">The alternative</div>
+    <h2>How it <span class="it">compares.</span></h2>
+    <p class="lede">You already own Power BI and Copilot, and Tenzo is on the shortlist. Here is the honest difference for a 380-site estate that also needs finance, people and marketing in the same answer.</p>
+
+    <div class="cmp">
+      <table class="ct">
+        <thead>
+          <tr><th>Capability</th><th>Power BI + Copilot</th><th>Tenzo</th><th class="m">Milo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="f">Reads Zonal, Fourth and Collins</td>
+            <td>Yes, once a model has been built and is maintained for each</td>
+            <td><span class="yes">&#10003;</span> Yes. Hospitality systems are what they do</td>
+            <td class="m"><span class="yes">&#10003;</span> Yes, connected and live</td>
+          </tr>
+          <tr>
+            <td class="f">Reads finance, payroll, property and ad spend too</td>
+            <td>Yes, with more build and more model</td>
+            <td>Limited. The platform is built around restaurant operations</td>
+            <td class="m"><span class="yes">&#10003;</span> Same layer, same answer, no second tool</td>
+          </tr>
+          <tr>
+            <td class="f">A question nobody built a report for</td>
+            <td><span class="no">&#10007;</span> A request, then a wait</td>
+            <td>Within its own metric set</td>
+            <td class="m"><span class="yes">&#10003;</span> Ask it. Seconds, in the meeting</td>
+          </tr>
+          <tr>
+            <td class="f">Who builds a new dashboard</td>
+            <td>The BI team, from a spec</td>
+            <td>Drag and drop, inside their data model</td>
+            <td class="m"><span class="yes">&#10003;</span> Whoever wants it, by asking for it</td>
+          </tr>
+          <tr>
+            <td class="f">Connectors available off the shelf</td>
+            <td>Anything, with engineering behind it</td>
+            <td>Around 90, hospitality weighted</td>
+            <td class="m"><span class="yes">&#10003;</span> Around 1,500, plus anything built on request</td>
+          </tr>
+          <tr>
+            <td class="f">Permissions on the question, not just the report</td>
+            <td>Per report and workspace, with admin effort</td>
+            <td>Per site and role</td>
+            <td class="m"><span class="yes">&#10003;</span> Per role, day one, applied to the answer</td>
+          </tr>
+          <tr>
+            <td class="f">Tells you when something moves</td>
+            <td><span class="no">&#10007;</span> You go and look</td>
+            <td><span class="yes">&#10003;</span> Alerts on operational targets</td>
+            <td class="m"><span class="yes">&#10003;</span> Scheduled packs and triggered alerts, by email, Teams or WhatsApp</td>
+          </tr>
+          <tr>
+            <td class="f">Cost shape at 380 sites</td>
+            <td>Per seat, plus the cost of the build</td>
+            <td>Priced per location, as we understand it</td>
+            <td class="m"><span class="yes">&#10003;</span> Flat monthly. Unlimited users, no per-site charge</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fair"><b>To be fair to Tenzo:</b> it is a good product and a reasonable shortlist entry. It was built for restaurant operations and it does that well. The two things to test it on are the half of your data that is not hospitality, and the pricing shape, because per location reads very differently at 380 sites than at 20. Ask them both questions directly rather than taking our word for it.</p>
+  </div>
+</section>
+
+<!-- ═══════════ PROOF ═══════════ -->
+<section class="sec dark">
+  <div class="tex grain-d"></div>
+  <div class="wrap">
+    <div class="kicker d">Comparable businesses</div>
+    <h2>Operators running the same shape of problem.</h2>
+    <p class="lede">Multi-site hospitality groups with several systems, a small BI team and a weekly reporting job somebody dreads. Happy to put you on a call with any of them.</p>
+
+    <div class="cust">
+      <div class="ccard">
+        <div class="nm">Urban Leisure Group</div>
+        <div class="sub">Multi-venue pubs &amp; bars &middot; London</div>
+        <p>Five systems, including Toast, Harri, Marketman and Design My Night. Every Monday somebody logged into all five and rebuilt the numbers by hand. All five were connected in under two weeks with no data engineer and no warehouse project. Labour is now the main use: they see which sites will be short-staffed next week before the rota locks, rather than after the shift.</p>
+        <div class="stats">
+          <div class="stat"><div class="v">6 wks</div><div class="l">To full value</div></div>
+          <div class="stat"><div class="v">1 &rarr; 6</div><div class="l">Users in two months</div></div>
+          <div class="stat"><div class="v">10&times;</div><div class="l">Usage growth</div></div>
+        </div>
+      </div>
+      <div class="ccard">
+        <div class="nm">ETM Group</div>
+        <div class="sub">16 pubs, bars &amp; sporting venues &middot; London</div>
+        <p>Zonal on the tills, Collins for events and OpenTable for bookings, joined every Monday by a fifteen-year-old spreadsheet that one person kept alive. The closest match to Fuller's stack. Live dashboards per venue plus a group view, and the Monday rebuild stopped being a job rather than being reassigned.</p>
+        <div class="stats">
+          <div class="stat"><div class="v">3</div><div class="l">Systems joined</div></div>
+          <div class="stat"><div class="v">Zonal</div><div class="l">Same EPOS as you</div></div>
+          <div class="stat"><div class="v">Collins</div><div class="l">Same booking system</div></div>
+        </div>
+      </div>
+      <div class="ccard">
+        <div class="nm">Two Tribes</div>
+        <div class="sub">Brewery, taproom &amp; wholesale &middot; London</div>
+        <p>Four businesses inside one company across seven systems that had never spoken to each other. Seven weeks later twelve people across sales, finance, production, QA and HR were building their own dashboards, and nobody ran a rollout programme to make it happen. The finance use is the relevant one here: late payment and order-pattern alerts that nobody has to go looking for.</p>
+        <div class="stats">
+          <div class="stat"><div class="v">7 wks</div><div class="l">All departments live</div></div>
+          <div class="stat"><div class="v">20</div><div class="l">Dashboards built</div></div>
+          <div class="stat"><div class="v">1 &rarr; 12</div><div class="l">Users in six weeks</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roi">
+      <div><div class="h">The weekly pack</div><p>Five departments each pulling, formatting and presenting the same week in a different shape. Built once, updated by itself, sent on a schedule.</p></div>
+      <div><div class="h">The change queue</div><p>Anything that is a question rather than a system change stops being a ticket. The BI team keeps the platform work and loses the report requests.</p></div>
+      <div><div class="h">The finance deck</div><p>Five or six people, a page each, every week. The pages assemble themselves and the finance partner reviews rather than builds.</p></div>
+      <div><div class="h">The promotion nobody planned for</div><p>A leaderboard for this week's incentive, or a read on a two-week promotion, without a new dashboard and without a wait.</p></div>
+    </div>
+
+    <p class="roiline">On return, we do not yet know your hours, so month one measures them. We log every question asked, what it replaced and how long that used to take, and you get that number before you decide anything. <b>The figure that usually matters more is the other one:</b> a divisional lead seeing a site slip in week one instead of at month end.</p>
+
+    <div class="trust">
+      <span class="t-l">And beyond hospitality</span>
+      <span>Kellogg's</span><span>Mars</span><span>Candy Kittens</span><span>National Lottery</span><span>ISO 27001</span><span>SOC 2</span><span>Independently pen-tested</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ OFFER ═══════════ -->
+<section class="sec">
+  <div class="tex grain"></div>
+  <div class="wrap">
+    <div class="kicker">The month</div>
+    <h2>One month. Five to ten people. <span class="it">Then you decide.</span></h2>
+    <p class="lede">A proof of concept, not a commitment, and deliberately not a whole-business rollout. Pick a group that spans operations, finance and IT, and let them try to break it against Power BI.</p>
+
+    <div class="pgrid">
+      <div class="plan">
+        <div class="tex etch-d"></div>
+        <span class="rec">Proof of concept &middot; month one</span>
+        <div class="amt gild serif">£2,000<small> for the month</small></div>
+        <ul>
+          <li><i>&#9670;</i><span><b>Zonal, Fourth, Collins, finance and sentiment connected</b> and syncing, plus whichever spreadsheets hold the rest</span></li>
+          <li><i>&#9670;</i><span><b>An account manager building alongside your team</b>, not a login and a manual. They sit in on the first dashboards</span></li>
+          <li><i>&#9670;</i><span><b>Run in parallel with Power BI</b> against twelve months of history, so every number can be checked before anyone trusts it</span></li>
+          <li><i>&#9670;</i><span><b>Roles and permissions agreed before anyone logs in</b>, including what finance data never leaves finance</span></li>
+          <li><i>&#9670;</i><span><b>Unlimited users and unlimited questions.</b> Refreshes and repeat queries cost nothing extra, and there is no per-site charge</span></li>
+          <li><i>&#9670;</i><span><b>The clock starts at the first training session</b>, not at signature, so procurement time is not part of your month</span></li>
+          <li><i>&#9670;</i><span><b>Walk away at the end</b> with nothing owed and nothing to unpick</span></li>
+        </ul>
+      </div>
+      <div class="side">
+        <div class="h">Before any of that</div>
+        <p>Half an hour with Bronwen and her team. We will go straight at the Power BI questions: what her team stops having to build, what happens to the change queue, where the data sits, and the integration list against your actual stack.</p>
+        <p>We will line up a call with <b>Urban Leisure Group or ETM</b> at the same time, so the operator view comes from an operator rather than from us.</p>
+        <p>There is no rush on our side. This proposal lives on a URL that can be forwarded to whoever needs to see it, and it stays current.</p>
+        <div class="cta">
+          <a class="btn" href="mailto:tom@milo.ai?subject=Fuller%27s%20%C3%97%20Milo%20%E2%80%94%20session%20with%20the%20IT%20team">Book the session</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>Prepared by Tom Pickett &middot; <a href="mailto:tom@milo.ai">tom@milo.ai</a> &middot; Milo is an Autonomous Minds product</footer>
+
+<script>
+(function(){
+/* ── console data ─────────────────────────────── */
+var A = [
+  {
+    q:"How was last week?",
+    status:["Reading Zonal","Joining Fourth rotas","Checking Collins covers","Comparing to last year"],
+    headline:"Managed sales were £14.2m, 4.1% ahead of last year, and labour was the only line that moved against you.",
+    why:"Covers were flat across the estate. The growth is all spend per head, up £1.40, and it is concentrated in the wet-led West London sites. Labour ran 30 basis points over forecast at 42 sites, because Friday rotas were built to a demand curve that did not turn up.",
+    act:"Send this as the Monday pack to the four divisional leads",
+    chartTitle:"Sales vs last year, by region",
+    bars:[["West London",6.2,"+6.2%"],["Thames Valley",4.4,"+4.4%"],["South &amp; West",2.1,"+2.1%"],["City &amp; East",-0.8,"&minus;0.8%"],["Midlands",1.4,"+1.4%"]],
+    srcs:["Zonal","Fourth","Collins","Finance"]
+  },
+  {
+    q:"Where is labour running ahead of the book?",
+    status:["Reading Fourth rotas","Reading Collins bookings","Forecasting the weekend","Ranking variance"],
+    headline:"Eleven managed sites are rostered above what they are forecast to take this weekend. About 210 hours, or £3,400.",
+    why:"Fourth has those rotas built off a four-week average. Collins shows Saturday bookings at those eleven down 18% on the same point last month, and three of them have a fixture clash that pulls the early evening. The rota has not caught up with the book.",
+    act:"Send each GM their own variance before rotas lock on Thursday",
+    chartTitle:"Hours rostered above forecast",
+    bars:[["The Mad Hatter",34,"34 hrs"],["The Head of the River",29,"29 hrs"],["The Bell &amp; Crown",26,"26 hrs"],["The Blue Anchor",21,"21 hrs"],["The Sanctuary House",17,"17 hrs"]],
+    srcs:["Fourth","Collins","Zonal"]
+  },
+  {
+    q:"Run the margarita leaderboard",
+    status:["Reading Zonal item sales","Normalising by covers","Checking the incentive start date","Ranking sites"],
+    headline:"Week three. The Parcel Yard is top on volume, but The Counting House is top on the thing the incentive is actually paying for.",
+    why:"The Parcel Yard sells more because it serves more people. On margaritas per hundred covers, which is what the incentive was designed to move, The Counting House is 41% ahead of second place and was fourteenth the week before it started. That is a bar team changing behaviour rather than a site with more footfall.",
+    act:"Post this to the GM group every Monday at 9am, automatically",
+    chartTitle:"Margaritas per 100 covers",
+    bars:[["The Counting House",18.4,"18.4"],["The Old Bank of England",13.1,"13.1"],["The Parcel Yard",12.6,"12.6"],["The Churchill Arms",11.9,"11.9"],["The Dove",9.2,"9.2"]],
+    srcs:["Zonal","Fourth","Marketing calendar"]
+  },
+  {
+    q:"Did the £6 slush pay for itself?",
+    status:["Reading Zonal wet sales","Finding the promotion site list","Building a control group","Checking margin"],
+    headline:"It added £84,200 in wet sales across 46 sites over two weekends, and it did not cannibalise draught.",
+    why:"Slush ran at 4.1% of wet sales where it was on. Draught volume at those sites held within 1% of the sites that did not run it, so this is incremental spend rather than switched spend. Margin is nine points below draught, so the contribution is £31,400 and not £84,200. Still worth repeating.",
+    act:"Model the same offer at the 63 terraced sites with no slush machine",
+    chartTitle:"Wet sales uplift by region",
+    bars:[["West London",28400,"£28.4k"],["Thames Valley",21900,"£21.9k"],["South &amp; West",16800,"£16.8k"],["City &amp; East",11300,"£11.3k"],["Midlands",5800,"£5.8k"]],
+    srcs:["Zonal","SharePoint promo calendar","Fourth"]
+  }
+];
+
+var elH=document.getElementById('headline'),elW=document.getElementById('whyText'),
+    elCT=document.getElementById('chartTitle'),elB=document.getElementById('bars'),
+    elS=document.getElementById('srcs'),elClock=document.getElementById('clock'),
+    elAct=document.getElementById('act'),elActDo=document.getElementById('actDo'),
+    elSW=document.getElementById('statusWrap'),elST=document.getElementById('statusText'),
+    elAsk=document.getElementById('ask');
+var timers=[],running=false;
+
+function clearAll(){timers.forEach(clearTimeout);timers.forEach(clearInterval);timers=[]}
+function T(fn,ms){var t=setTimeout(fn,ms);timers.push(t);return t}
+
+function drawBars(bars){
+  var max=0;bars.forEach(function(b){max=Math.max(max,Math.abs(b[1]))});
+  elB.innerHTML='';
+  bars.forEach(function(b,i){
+    var neg=b[1]<0;
+    var row=document.createElement('div');row.className='brow';
+    row.innerHTML='<div class="bl"><span>'+b[0]+'</span><span class="bv">'+b[2]+'</span></div>'+
+                  '<div class="btrack"><div class="bfill'+(neg?' neg':'')+'"></div></div>';
+    elB.appendChild(row);
+    var fill=row.querySelector('.bfill');
+    T(function(){fill.style.width=(Math.abs(b[1])/max*100)+'%'},80*i+60);
+  });
+}
+
+function typeIn(el,text,speed,done){
+  el.innerHTML='';var i=0;
+  var iv=setInterval(function(){
+    i+=2;el.innerHTML=text.slice(0,i);
+    if(i>=text.length){clearInterval(iv);if(done)done()}
+  },speed);
+  timers.push(iv);
+}
+
+function run(idx){
+  if(running)return;running=true;
+  clearAll();
+  var d=A[idx];
+  elH.innerHTML='';elW.innerHTML='';elB.innerHTML='';elS.innerHTML='';
+  elCT.textContent='';elAct.classList.remove('show');elClock.textContent='00:00';
+  elSW.style.display='flex';
+
+  var t0=Date.now();
+  var tick=setInterval(function(){
+    var s=(Date.now()-t0)/1000;
+    elClock.textContent='00:'+(s<10?'0':'')+s.toFixed(1);
+  },80);
+  timers.push(tick);
+
+  d.status.forEach(function(s,i){T(function(){elST.textContent=s},i*420)});
+
+  T(function(){
+    clearInterval(tick);
+    var s=(Date.now()-t0)/1000;
+    elClock.textContent='00:'+(s<10?'0':'')+s.toFixed(1);
+    elSW.style.display='none';
+    typeIn(elH,d.headline,16,function(){
+      typeIn(elW,d.why,7,function(){
+        elActDo.innerHTML='&#9654;&nbsp; '+d.act;
+        elAct.classList.add('show');
+        running=false;
+      });
+    });
+    elCT.innerHTML=d.chartTitle;
+    drawBars(d.bars);
+    elS.innerHTML=d.srcs.map(function(x){return '<span class="src">'+x+'</span>'}).join('');
+  }, d.status.length*420+140);
+}
+
+document.querySelectorAll('.qchip').forEach(function(c){
+  c.addEventListener('click',function(){
+    document.querySelectorAll('.qchip').forEach(function(x){x.classList.remove('act')});
+    c.classList.add('act');
+    elAsk.value=c.textContent;
+    run(parseInt(c.dataset.i,10));
+  });
+});
+function freeAsk(){
+  var v=elAsk.value.toLowerCase();
+  var i=0;
+  if(/labour|roster|rota|staff|understaff|overstaff|hours|forecast/.test(v))i=1;
+  else if(/leaderboard|margarita|incentive|competition|rank/.test(v))i=2;
+  else if(/slush|promo|promotion|campaign|pay for itself|offer/.test(v))i=3;
+  document.querySelectorAll('.qchip').forEach(function(x,n){x.classList.toggle('act',n===i)});
+  run(i);
+}
+document.getElementById('send').addEventListener('click',freeAsk);
+elAsk.addEventListener('keydown',function(e){if(e.key==='Enter')freeAsk()});
+
+/* autoplay first answer when scrolled into view */
+var played=false;
+var obs=new IntersectionObserver(function(en){
+  en.forEach(function(e){
+    if(e.isIntersecting&&!played){played=true;elAsk.value=A[0].q;run(0)}
+  });
+},{threshold:.25});
+obs.observe(document.querySelector('.console'));
+
+/* ── permissions matrix ───────────────────────── */
+var TILES=[
+  {n:"Sales &amp; trading",     v:"£14.2m"},
+  {n:"Covers &amp; bookings",   v:"312,480"},
+  {n:"Labour hours",            v:"186,300"},
+  {n:"Individual pay",          v:"£31,420"},
+  {n:"Site P&amp;L",            v:"£4.1m"},
+  {n:"Group P&amp;L",           v:"£28.6m"},
+  {n:"Guest sentiment",         v:"4.31"},
+  {n:"Marketing spend",         v:"£412k"},
+  {n:"Stock &amp; GP",          v:"73.4%"},
+  {n:"Tenanted estate",         v:"175 inns"}
+];
+/* 2 = full, 1 = own scope only, 0 = blocked */
+var ROLES=[
+  {label:"Head of Operations", p:[2,2,2,0,2,2,2,2,2,0]},
+  {label:"Divisional lead",    p:[1,1,1,0,1,0,1,0,1,0]},
+  {label:"General manager",    p:[1,1,1,0,1,0,1,0,1,0]},
+  {label:"Finance",            p:[2,2,2,2,2,2,0,2,2,2]},
+  {label:"Marketing",          p:[2,2,0,0,0,0,2,2,0,0]}
+];
+var SCOPE=["","Own division only","Own site only","",""];
+var elT=document.getElementById('tiles');
+function renderRole(ri){
+  var r=ROLES[ri];
+  elT.innerHTML=TILES.map(function(t,i){
+    var lvl=r.p[i];
+    var cls=lvl===0?'tile off':(lvl===1?'tile own':'tile');
+    var sub=lvl===0?'Not permitted':(lvl===1?(SCOPE[ri]||'Scoped'):'Full estate');
+    return '<div class="'+cls+'"><div class="tn">'+t.n+'</div><div class="ts">'+sub+'</div><div class="tv">'+t.v+'</div></div>';
+  }).join('');
+}
+for(var i=0;i<5;i++){(function(n){
+  document.getElementById('r'+n).addEventListener('change',function(){renderRole(n)});
+})(i)}
+renderRole(0);
+})();
+</script>
+
+</body>
+</html>
