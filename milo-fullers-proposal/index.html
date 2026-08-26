@@ -54,6 +54,14 @@ section{position:relative;overflow:hidden}
 }
 .serif{font-family:'Bodoni Moda',Georgia,serif;font-optical-sizing:auto}
 
+/* ── Fuller's crest ─────────────────────────────── */
+.crest{display:block}
+.crest-bar{width:22px;height:27px;flex-shrink:0}
+.crest-orn{width:38px;height:46px;margin-bottom:22px;opacity:.95}
+.kicker{position:relative}
+.kicker::after{content:"";display:block;width:26px;height:2px;background:var(--red);margin-top:9px;opacity:.85}
+.kicker.d::after{background:var(--red);opacity:1}
+
 /* gold rules */
 .rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold) 12%,var(--gold-lt) 50%,var(--gold) 88%,transparent);opacity:.55}
 .rule-d{height:1px;background:linear-gradient(90deg,transparent,rgba(239,212,148,.5) 15%,rgba(239,212,148,.85) 50%,rgba(239,212,148,.5) 85%,transparent)}
@@ -248,7 +256,7 @@ table.ct tr:last-child td{border-bottom:0}
 .fair b{color:var(--ink);font-weight:600}
 
 /* ── customers ──────────────────────────────────── */
-.cust{display:grid;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));gap:14px;margin-top:46px}
+.cust{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:46px}
 .ccard{border:1px solid var(--dark-line);border-radius:3px;padding:26px 24px;background:rgba(252,250,245,.022);display:flex;flex-direction:column;transition:.3s}
 .ccard:hover{border-color:var(--gold);transform:translateY(-3px)}
 .ccard .nm{font-family:'Bodoni Moda',serif;font-size:1.42rem;font-weight:700;letter-spacing:-.02em;color:var(--paper)}
@@ -271,7 +279,7 @@ table.ct tr:last-child td{border-bottom:0}
 .pgrid{display:grid;grid-template-columns:1.02fr .98fr;gap:16px;margin-top:46px}
 .plan{background:var(--ink);color:var(--cream);border-radius:4px;padding:36px 32px;position:relative;overflow:hidden;border:1px solid rgba(239,212,148,.3)}
 .plan>*{position:relative;z-index:2}
-.rec{display:inline-block;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--gold);color:var(--gold-lt);font-weight:700;margin-bottom:22px;border-radius:2px}
+.rec{display:inline-block;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--red);background:rgba(180,55,43,.18);color:#E9887A;font-weight:700;margin-bottom:22px;border-radius:2px}
 .amt{font-family:'Bodoni Moda',serif;font-size:3.5rem;font-weight:800;letter-spacing:-.03em;line-height:1}
 .amt small{font-family:'Inter Tight',sans-serif;font-size:.9rem;font-weight:400;letter-spacing:.02em;color:var(--on-dark-dim);margin-left:8px}
 .plan ul{list-style:none;margin-top:28px;display:grid;gap:14px}
@@ -290,7 +298,7 @@ footer{background:var(--ink);color:var(--on-dark-dim);text-align:center;padding:
 footer a{color:var(--gold-lt);text-decoration:none}
 
 @media(max-width:900px){
-  .band{grid-template-columns:1fr}
+  .band,.cust{grid-template-columns:1fr}
   .scene,.out,.pgrid,.permnote{grid-template-columns:1fr}
   .out-l{border-right:0;border-bottom:1px solid var(--dark-line)}
   .bar{grid-template-columns:1fr auto;gap:10px}
@@ -318,7 +326,11 @@ footer a{color:var(--gold-lt);text-decoration:none}
     <div class="bar">
       <div class="brandmk"><img src="data:image/jpeg;base64,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" alt=""><b>Milo</b></div>
       <div class="who">Prepared for Harriet, Head of Operations &middot; Fuller's, Smith &amp; Turner</div>
-      <div class="cli gild serif">FULLER'S</div>
+      <div class="cli" style="display:flex;align-items:center;gap:11px"><svg class="crest crest-bar" viewBox="0 0 64 78" fill="none" aria-hidden="true">
+<path d="M32 2 L60 10 V40 C60 56 47 68 32 76 C17 68 4 56 4 40 V10 Z" fill="#B4372B" fill-opacity=".18" stroke="#C0912F" stroke-width="1.7"/>
+<path d="M32 6.6 L56 12.6 V39.4 C56 53.4 44.6 64 32 71.2 C19.4 64 8 53.4 8 39.4 V12.6 Z" stroke="#C0912F" stroke-width=".7" stroke-opacity=".5"/>
+<text x="32.5" y="52" text-anchor="middle" font-family="Bodoni Moda,Georgia,serif" font-weight="700" font-size="38" fill="#EFD494">F</text>
+</svg><span class="gild serif">FULLER'S</span></div>
     </div>
 
     <div class="mirror">
@@ -375,8 +387,8 @@ footer a{color:var(--gold-lt);text-decoration:none}
 
 <div class="ticker">
   <div class="tk">
-    <span class="on">Zonal</span><span>Tills &amp; trading</span><span class="on">Fourth</span><span>Labour, stock &amp; purchasing</span><span class="on">Collins</span><span>Bookings &amp; enquiries</span><span class="on">Finance</span><span>P&amp;L, payroll, invoices</span><span class="on">Sentiment</span><span>Guest reviews</span><span>1,500 connectors</span><span>Answers in seconds</span><span>Unlimited users</span><span>ISO 27001 &amp; SOC 2</span><span>Nothing sent to Microsoft or OpenAI</span>
-    <span class="on">Zonal</span><span>Tills &amp; trading</span><span class="on">Fourth</span><span>Labour, stock &amp; purchasing</span><span class="on">Collins</span><span>Bookings &amp; enquiries</span><span class="on">Finance</span><span>P&amp;L, payroll, invoices</span><span class="on">Sentiment</span><span>Guest reviews</span><span>1,500 connectors</span><span>Answers in seconds</span><span>Unlimited users</span><span>ISO 27001 &amp; SOC 2</span><span>Nothing sent to Microsoft or OpenAI</span>
+    <span class="on">Zonal</span><span>Tills &amp; trading</span><span class="on">Fourth</span><span>Labour, stock &amp; purchasing</span><span class="on">Collins</span><span>Bookings &amp; enquiries</span><span class="on">Finance</span><span>P&amp;L, payroll, invoices</span><span class="on">Sentiment</span><span>Guest reviews</span><span>700+ connectors</span><span>Answers in seconds</span><span>Unlimited users</span><span>ISO 27001 &amp; SOC 2 Type 1</span><span>Nothing sent to Microsoft or OpenAI</span>
+    <span class="on">Zonal</span><span>Tills &amp; trading</span><span class="on">Fourth</span><span>Labour, stock &amp; purchasing</span><span class="on">Collins</span><span>Bookings &amp; enquiries</span><span class="on">Finance</span><span>P&amp;L, payroll, invoices</span><span class="on">Sentiment</span><span>Guest reviews</span><span>700+ connectors</span><span>Answers in seconds</span><span>Unlimited users</span><span>ISO 27001 &amp; SOC 2 Type 1</span><span>Nothing sent to Microsoft or OpenAI</span>
   </div>
 </div>
 
@@ -501,7 +513,7 @@ footer a{color:var(--gold-lt);text-decoration:none}
   <div class="wrap">
     <div class="kicker d">Access</div>
     <h2>Not everyone should be able to <span class="ac">ask everything.</span></h2>
-    <p class="lede">Permissions are set per role before anyone logs in, and they bind to the question rather than to a dashboard. If a role cannot see payroll, Milo will not answer a payroll question for that person, and will not quietly use payroll to answer a different one. Pick a role.</p>
+    <p class="lede">Permissions bind to the question, not to a dashboard. If a role cannot see pay, Milo will not answer a pay question for that person and will not quietly use pay to answer a different one. Pick a role.</p>
 
     <input class="rr" type="radio" name="role" id="r0" checked>
     <input class="rr" type="radio" name="role" id="r1">
@@ -522,11 +534,11 @@ footer a{color:var(--gold-lt);text-decoration:none}
       <div class="permnote">
         <div>
           <div class="k">Where it runs</div>
-          <p>Fuller's data stays in Fuller's environment. Milo never trains on it, and nothing is passed to Microsoft or OpenAI to be answered. That is the difference between this and a team pasting trading numbers into a public chat window.</p>
+          <p>Fuller's data stays in Fuller's environment, is never trained on, and is never passed to Microsoft or OpenAI to be answered.</p>
         </div>
         <div>
           <div class="k">Where the numbers come from</div>
-          <p>Arithmetic is never done by the language model. Calculations run against your data and every figure carries the source it came from, so a number that reaches a board pack can be traced back in one click. ISO 27001, SOC 2, independently pen-tested.</p>
+          <p>Arithmetic is never done by the language model, so every figure carries its source and traces back in one click. ISO 27001, SOC 2 Type 1, and 92 controls in a trust centre your team can read without asking us.</p>
         </div>
       </div>
     </div>
@@ -544,35 +556,23 @@ footer a{color:var(--gold-lt);text-decoration:none}
 
     <div class="intg">
       <div class="ig">
-        <div class="h">EPOS &amp; trading</div>
-        <div class="p"><span class="key">Zonal</span><span>Tevalis</span><span>Toast</span><span>Lightspeed</span><span>Oracle Simphony</span><span>Square</span><span>Vita Mojo</span></div>
-      </div>
-      <div class="ig">
-        <div class="h">Labour, stock &amp; purchasing</div>
-        <div class="p"><span class="key">Fourth</span><span>S4labour</span><span>Harri</span><span>Planday</span><span>Deputy</span><span>Marketman</span><span>Procure Wizard</span></div>
+        <div class="h">EPOS, labour &amp; stock</div>
+        <div class="p"><span class="key">Zonal</span><span class="key">Fourth</span><span>Tevalis</span><span>Toast</span><span>S4labour</span><span>Harri</span><span>Planday</span><span>Marketman</span></div>
       </div>
       <div class="ig">
         <div class="h">Bookings &amp; guests</div>
-        <div class="p"><span class="key">Collins / DesignMyNight</span><span>OpenTable</span><span>SevenRooms</span><span>ResDiary</span><span>Google Business</span><span>Reputation</span><span>Trustpilot</span></div>
+        <div class="p"><span class="key">Collins / DesignMyNight</span><span>OpenTable</span><span>SevenRooms</span><span>ResDiary</span><span>Google Business</span><span>Reputation</span></div>
       </div>
       <div class="ig">
-        <div class="h">Finance &amp; ERP</div>
-        <div class="p"><span class="key">Dynamics 365</span><span>NetSuite</span><span>Sage</span><span>Xero</span><span>SAP</span><span>Coupa</span><span>Concur</span></div>
+        <div class="h">Finance, people &amp; marketing</div>
+        <div class="p"><span class="key">Dynamics 365</span><span>Sage</span><span>Xero</span><span>NetSuite</span><span>Workday</span><span>ADP</span><span>Meta Ads</span><span>Google Ads</span><span>GA4</span></div>
       </div>
       <div class="ig">
-        <div class="h">People &amp; payroll</div>
-        <div class="p"><span>Workday</span><span>ADP</span><span>SAP SuccessFactors</span><span>BambooHR</span><span>Personio</span><span>Access People</span></div>
-      </div>
-      <div class="ig">
-        <div class="h">Marketing, ads &amp; CRM</div>
-        <div class="p"><span>Meta Ads</span><span>Google Ads</span><span>GA4</span><span>Klaviyo</span><span>Braze</span><span>HubSpot</span><span>Salesforce</span></div>
-      </div>
-      <div class="ig">
-        <div class="h">Files, warehouses &amp; the rest</div>
-        <div class="p"><span class="key">SharePoint &amp; Excel</span><span>Google Sheets</span><span>SQL Server</span><span>Snowflake</span><span>Databricks</span><span>S3</span><span>Any REST API</span></div>
+        <div class="h">Databases, warehouses &amp; files</div>
+        <div class="p"><span class="key">SQL Server</span><span class="key">Microsoft Fabric</span><span>Postgres</span><span>Snowflake</span><span>BigQuery</span><span>ClickHouse</span><span>SharePoint &amp; Excel</span><span>Any REST API</span></div>
       </div>
     </div>
-    <p class="igfoot">About <b>1,500 connectors</b> are live today. Anything not on the list gets built by us, usually inside a day, and it does not go on a roadmap. The spreadsheets matter as much as the systems: a promotion calendar in SharePoint is a data source like any other, which is how a question about a two-week slush promotion gets answered at all.</p>
+    <p class="igfoot">Around <b>700 connectors</b> are live today, and anything missing gets built by us rather than added to a roadmap. The fourth box is the one worth Bronwen's attention: authenticated, connect-and-go access to databases and warehouses, not an export you have to build a pipeline around.</p>
 
     <div class="rule" style="margin:64px 0 56px"></div>
 
@@ -593,10 +593,28 @@ footer a{color:var(--gold-lt);text-decoration:none}
             <td class="m"><span class="yes">&#10003;</span> Yes, connected and live</td>
           </tr>
           <tr>
-            <td class="f">Reads finance, payroll, property and ad spend too</td>
+            <td class="f">Reads finance and accounting</td>
             <td>Yes, with more build and more model</td>
-            <td>Limited. The platform is built around restaurant operations</td>
-            <td class="m"><span class="yes">&#10003;</span> Same layer, same answer, no second tool</td>
+            <td><span class="no">&#10007;</span> Not a reconciliation tool, by their own FAQ. The P&amp;L view is rolled up from operations data</td>
+            <td class="m"><span class="yes">&#10003;</span> Connects to the accounting platform directly</td>
+          </tr>
+          <tr>
+            <td class="f">Reads databases and warehouses</td>
+            <td><span class="yes">&#10003;</span> Natively</td>
+            <td><span class="no">&#10007;</span> None. API and SFTP export only, and the pipeline is yours to build</td>
+            <td class="m"><span class="yes">&#10003;</span> SQL Server, Microsoft Fabric, Postgres, Snowflake, BigQuery, ClickHouse</td>
+          </tr>
+          <tr>
+            <td class="f">Connectors off the shelf</td>
+            <td>Anything, with engineering behind it</td>
+            <td>Around 90, hospitality weighted</td>
+            <td class="m"><span class="yes">&#10003;</span> Around 700, plus anything built on request</td>
+          </tr>
+          <tr>
+            <td class="f">Shape of the product</td>
+            <td>Report first. The AI sits on top of a report</td>
+            <td>Dashboard and reporting first. The AI layer arrived on top in 2026</td>
+            <td class="m"><span class="yes">&#10003;</span> Conversational from the ground up. No dashboard layer required first</td>
           </tr>
           <tr>
             <td class="f">A question nobody built a report for</td>
@@ -605,40 +623,28 @@ footer a{color:var(--gold-lt);text-decoration:none}
             <td class="m"><span class="yes">&#10003;</span> Ask it. Seconds, in the meeting</td>
           </tr>
           <tr>
-            <td class="f">Who builds a new dashboard</td>
-            <td>The BI team, from a spec</td>
-            <td>Drag and drop, inside their data model</td>
-            <td class="m"><span class="yes">&#10003;</span> Whoever wants it, by asking for it</td>
+            <td class="f">Demand forecasting</td>
+            <td>Not natively</td>
+            <td><span class="yes">&#10003;</span> Purpose built and mature, using weather, events and history</td>
+            <td class="m">Not something we claim. Milo reads the forecast you already have</td>
           </tr>
           <tr>
-            <td class="f">Connectors available off the shelf</td>
-            <td>Anything, with engineering behind it</td>
-            <td>Around 90, hospitality weighted</td>
-            <td class="m"><span class="yes">&#10003;</span> Around 1,500, plus anything built on request</td>
+            <td class="f">Security posture</td>
+            <td>Your Microsoft tenant</td>
+            <td>Cyber Essentials. No SOC 2, no ISO 27001, no trust portal</td>
+            <td class="m"><span class="yes">&#10003;</span> SOC 2 Type 1, ISO 27001, 92 controls in a public trust centre</td>
           </tr>
           <tr>
-            <td class="f">Permissions on the question, not just the report</td>
-            <td>Per report and workspace, with admin effort</td>
-            <td>Per site and role</td>
-            <td class="m"><span class="yes">&#10003;</span> Per role, day one, applied to the answer</td>
-          </tr>
-          <tr>
-            <td class="f">Tells you when something moves</td>
-            <td><span class="no">&#10007;</span> You go and look</td>
-            <td><span class="yes">&#10003;</span> Alerts on operational targets</td>
-            <td class="m"><span class="yes">&#10003;</span> Scheduled packs and triggered alerts, by email, Teams or WhatsApp</td>
-          </tr>
-          <tr>
-            <td class="f">Cost shape at 380 sites</td>
+            <td class="f">Cost shape across the estate</td>
             <td>Per seat, plus the cost of the build</td>
-            <td>Priced per location, as we understand it</td>
+            <td>Published per site. Base from &pound;55 to &pound;75 a month, averaging &pound;150 to &pound;200 a site</td>
             <td class="m"><span class="yes">&#10003;</span> Flat monthly. Unlimited users, no per-site charge</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="fair"><b>To be fair to Tenzo:</b> it is a good product and a reasonable shortlist entry. It was built for restaurant operations and it does that well. The two things to test it on are the half of your data that is not hospitality, and the pricing shape, because per location reads very differently at 380 sites than at 20. Ask them both questions directly rather than taking our word for it.</p>
+    <p class="fair"><b>Two things in Tenzo's favour, said plainly.</b> Their demand forecasting is purpose built and genuinely good, and we do not compete with it. And for a pure hospitality operation their coverage of the operational stack is strong. The two questions worth putting to them are what happens to the half of your data that is not hospitality, and what the bill looks like, because their published rate card averages &pound;150 to &pound;200 per site per month. Across 209 managed businesses that is a very different order of number to a flat fee, and they would no doubt discount at that volume, but per site and flat scale in opposite directions. Everything in this table comes from both companies' own published material, so check it rather than taking our word for it.</p>
   </div>
 </section>
 
@@ -646,9 +652,14 @@ footer a{color:var(--gold-lt);text-decoration:none}
 <section class="sec dark">
   <div class="tex grain-d"></div>
   <div class="wrap">
+    <svg class="crest crest-orn" viewBox="0 0 64 78" fill="none" aria-hidden="true">
+<path d="M32 2 L60 10 V40 C60 56 47 68 32 76 C17 68 4 56 4 40 V10 Z" fill="#B4372B" fill-opacity=".18" stroke="#C0912F" stroke-width="1.7"/>
+<path d="M32 6.6 L56 12.6 V39.4 C56 53.4 44.6 64 32 71.2 C19.4 64 8 53.4 8 39.4 V12.6 Z" stroke="#C0912F" stroke-width=".7" stroke-opacity=".5"/>
+<text x="32.5" y="52" text-anchor="middle" font-family="Bodoni Moda,Georgia,serif" font-weight="700" font-size="38" fill="#EFD494">F</text>
+</svg>
     <div class="kicker d">Comparable businesses</div>
     <h2>Operators running the same shape of problem.</h2>
-    <p class="lede">Multi-site hospitality groups with several systems, a small BI team and a weekly reporting job somebody dreads. Happy to put you on a call with any of them.</p>
+    <p class="lede">Hospitality groups running the same shape of problem: several systems, a small BI team and a weekly reporting job somebody dreads. Happy to put you on a call with any of them.</p>
 
     <div class="cust">
       <div class="ccard">
@@ -669,6 +680,16 @@ footer a{color:var(--gold-lt);text-decoration:none}
           <div class="stat"><div class="v">3</div><div class="l">Systems joined</div></div>
           <div class="stat"><div class="v">Zonal</div><div class="l">Same EPOS as you</div></div>
           <div class="stat"><div class="v">Collins</div><div class="l">Same booking system</div></div>
+        </div>
+      </div>
+      <div class="ccard">
+        <div class="nm">Nikki Beach</div>
+        <div class="sub">Global beach clubs, hotels &amp; resorts</div>
+        <p>The largest hospitality group on Milo, running across territories from the south of France to Miami, where events, guest spend and venue performance land in one picture instead of a different system per country. They read Design My Night the way you read Collins: who is booked, who tends to cancel, and what a returning VIP orders before they sit down. The closest thing we have to a multi-region estate with a group view over the top.</p>
+        <div class="stats">
+          <div class="stat"><div class="v">Global</div><div class="l">Multi-territory estate</div></div>
+          <div class="stat"><div class="v">DMN</div><div class="l">Same booking data as you</div></div>
+          <div class="stat"><div class="v">One view</div><div class="l">Group over venues</div></div>
         </div>
       </div>
       <div class="ccard">
@@ -694,7 +715,7 @@ footer a{color:var(--gold-lt);text-decoration:none}
 
     <div class="trust">
       <span class="t-l">And beyond hospitality</span>
-      <span>Kellogg's</span><span>Mars</span><span>Candy Kittens</span><span>National Lottery</span><span>ISO 27001</span><span>SOC 2</span><span>Independently pen-tested</span>
+      <span>Kellogg's</span><span>Mars</span><span>Candy Kittens</span><span>National Lottery</span><span>ISO 27001</span><span>SOC 2 Type 1</span><span>92 published controls</span>
     </div>
   </div>
 </section>
@@ -703,6 +724,11 @@ footer a{color:var(--gold-lt);text-decoration:none}
 <section class="sec">
   <div class="tex grain"></div>
   <div class="wrap">
+    <svg class="crest crest-orn" viewBox="0 0 64 78" fill="none" aria-hidden="true">
+<path d="M32 2 L60 10 V40 C60 56 47 68 32 76 C17 68 4 56 4 40 V10 Z" fill="#B4372B" fill-opacity=".18" stroke="#C0912F" stroke-width="1.7"/>
+<path d="M32 6.6 L56 12.6 V39.4 C56 53.4 44.6 64 32 71.2 C19.4 64 8 53.4 8 39.4 V12.6 Z" stroke="#C0912F" stroke-width=".7" stroke-opacity=".5"/>
+<text x="32.5" y="52" text-anchor="middle" font-family="Bodoni Moda,Georgia,serif" font-weight="700" font-size="38" fill="#EFD494">F</text>
+</svg>
     <div class="kicker">The month</div>
     <h2>One month. Five to ten people. <span class="it">Then you decide.</span></h2>
     <p class="lede">A proof of concept, not a commitment, and deliberately not a whole-business rollout. Pick a group that spans operations, finance and IT, and let them try to break it against Power BI.</p>
@@ -890,19 +916,17 @@ var TILES=[
   {n:"Site P&amp;L",            v:"£4.1m"},
   {n:"Group P&amp;L",           v:"£28.6m"},
   {n:"Guest sentiment",         v:"4.31"},
-  {n:"Marketing spend",         v:"£412k"},
-  {n:"Stock &amp; GP",          v:"73.4%"},
-  {n:"Tenanted estate",         v:"175 inns"}
+  {n:"Marketing spend",         v:"£412k"}
 ];
 /* 2 = full, 1 = own scope only, 0 = blocked */
 var ROLES=[
-  {label:"Head of Operations", p:[2,2,2,0,2,2,2,2,2,0]},
-  {label:"Divisional lead",    p:[1,1,1,0,1,0,1,0,1,0]},
-  {label:"General manager",    p:[1,1,1,0,1,0,1,0,1,0]},
-  {label:"Finance",            p:[2,2,2,2,2,2,0,2,2,2]},
-  {label:"Marketing",          p:[2,2,0,0,0,0,2,2,0,0]}
+  {label:"Head of Operations", p:[2,2,2,0,2,2,2,2]},
+  {label:"Divisional lead",    p:[1,1,1,0,1,0,1,0]},
+  {label:"General manager",    p:[1,1,1,0,1,0,1,0]},
+  {label:"Finance",            p:[2,2,2,2,2,2,1,2]},
+  {label:"Marketing",          p:[2,2,0,0,0,0,2,2]}
 ];
-var SCOPE=["","Own division only","Own site only","",""];
+var SCOPE=["","Own division only","Own site only","Aggregate only",""];
 var elT=document.getElementById('tiles');
 function renderRole(ri){
   var r=ROLES[ri];
