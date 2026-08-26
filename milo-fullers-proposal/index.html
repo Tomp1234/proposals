@@ -218,6 +218,18 @@ input.rr{position:absolute;opacity:0;pointer-events:none}
 .fig .h{font-size:.93rem;font-weight:700;margin-bottom:8px;letter-spacing:-.012em}
 .fig p{font-size:.89rem;color:var(--muted)}
 
+/* ── vs Tenzo ───────────────────────────────────── */
+.vs{margin-top:clamp(40px,4.5vw,58px)}
+.vs-l{font-size:.61rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:16px}
+.vst{display:grid;grid-template-columns:1.05fr 1fr 1fr;border-top:2px solid var(--ink)}
+.vsr{display:contents}
+.vsr>div{padding:15px 18px 15px 0;border-bottom:1px solid var(--hair);font-size:.88rem;color:var(--muted)}
+.vsr>div:nth-child(3){background:rgba(207,10,43,.045);padding-left:18px;color:var(--ink);font-weight:500}
+.vsr.hd>div{padding-top:13px;padding-bottom:11px;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--dim);border-bottom:1px solid var(--line)}
+.vsr.hd>div:nth-child(3){color:var(--red)}
+.vsr .f{color:var(--ink);font-weight:600}
+.vs-note{margin-top:14px;font-size:.78rem;color:var(--dim)}
+
 /* ── customers ──────────────────────────────────── */
 .cust{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:clamp(38px,4.5vw,54px);background:var(--dark-line);border:1px solid var(--dark-line)}
 .ccard{padding:30px 28px;background:var(--ink);display:flex;flex-direction:column;transition:background .3s}
@@ -243,7 +255,7 @@ input.rr{position:absolute;opacity:0;pointer-events:none}
 .plan>*{position:relative;z-index:2}
 .rec{display:inline-block;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;background:var(--red);color:#fff;font-weight:700;margin-bottom:20px}
 .amt{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:900;letter-spacing:-.04em;line-height:1;color:#fff}
-.amt small{font-family:'Inter Tight',sans-serif;font-size:.86rem;font-weight:400;color:var(--on-dark-dim);margin-left:12px;letter-spacing:.02em}
+.amt small{font-family:'Inter Tight',sans-serif;font-size:.86rem;font-weight:400;color:var(--on-dark-dim);margin-left:12px;letter-spacing:.02em;white-space:nowrap;display:inline-block}
 .plan ul{list-style:none;margin-top:26px;display:grid;gap:13px}
 .plan li{display:grid;grid-template-columns:9px 1fr;gap:13px;align-items:start;font-size:.89rem;line-height:1.52;color:var(--on-dark)}
 .plan li i{color:var(--red-lt);font-style:normal;line-height:1.5;font-size:.7rem;padding-top:3px}
@@ -260,6 +272,16 @@ footer a{color:#fff;text-decoration:none}
   .hero-grid,.band,.scene,.out,.pgrid,.permnote,.figs{grid-template-columns:1fr}
   .band>div,.fig{border-right:0;border-bottom:1px solid var(--hair);padding-right:0;padding-bottom:22px}
   .cust,.roi{grid-template-columns:1fr}
+  .amt{font-size:3rem}
+  .amt small{display:block;margin-left:0;margin-top:6px}
+  .vst{grid-template-columns:1fr}
+  .vsr>div{padding:10px 0;border-bottom:0}
+  .vsr>div:first-child{padding-top:18px;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+  .vsr>div:nth-child(2)::before{content:"Tenzo: ";font-weight:700;color:var(--dim)}
+  .vsr>div:nth-child(3){padding-left:0}
+  .vsr>div:nth-child(3)::before{content:"Milo: ";font-weight:700;color:var(--red)}
+  .vsr>div:last-child{border-bottom:1px solid var(--hair);padding-bottom:16px}
+  .vsr.hd{display:none}
   .tiles{grid-template-columns:repeat(2,1fr)}
   .row{grid-template-columns:34px 1fr;gap:7px 14px;padding:22px 0}
   .row .ttl,.row p,.row .fx{grid-column:2}
@@ -527,6 +549,20 @@ footer a{color:#fff;text-decoration:none}
         <div class="h">Not only the hospitality stack</div>
         <p>Finance, payroll, property, marketing and ad spend land in the same answer as covers and labour, rather than in a second tool.</p>
       </div>
+    </div>
+
+    <div class="vs">
+      <div class="vs-l">Against Tenzo</div>
+      <div class="vst">
+        <div class="vsr hd"><div>&nbsp;</div><div>Tenzo</div><div>Milo</div></div>
+        <div class="vsr"><div class="f">Connections</div><div>Around 90, hospitality only</div><div>15,000+, any category</div></div>
+        <div class="vsr"><div class="f">Databases &amp; warehouse</div><div>None. API and SFTP export, pipeline built by you</div><div>Connect and authenticate</div></div>
+        <div class="vsr"><div class="f">Finance systems</div><div>Not a reconciliation tool, by their own FAQ. P&amp;L rolled up from operations data</div><div>Straight into the ledger</div></div>
+        <div class="vsr"><div class="f">Built around</div><div>Dashboards. The AI layer arrived on top in 2026</div><div>Questions, from the start</div></div>
+        <div class="vsr"><div class="f">Security</div><div>Cyber Essentials. No SOC 2, no ISO 27001</div><div>SOC 2 Type 1, ISO 27001, 92 published controls</div></div>
+        <div class="vsr"><div class="f">Pricing</div><div>Per site. Published at £150 to £200 a site each month</div><div>Flat. Unlimited users, no per-site charge</div></div>
+      </div>
+      <p class="vs-note">Taken from both companies' own published material, August 2026.</p>
     </div>
   </div>
 </section>
