@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "pret",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8860", "--directory", "milo-pret-proposal"],
+      "port": 8860
+    },
+    {
       "name": "ngp",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8855", "--directory", "milo-ngp-proposal"],
