@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Milo × Good Systems Proposal</title>
+<meta name="description" content="An interactive overview and proof-of-concept proposal prepared for Good Systems by Milo."/>
+<link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ── Good Systems brand typeface ───────────────────────────────────────────── */
+@font-face{font-family:'Roobert';src:url('https://cdn.prod.website-files.com/6978a92a56d24460cdf7442e/6981ab2cc9684cccabdd64f7_Roobert-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Roobert';src:url('https://cdn.prod.website-files.com/6978a92a56d24460cdf7442e/6981ab7275497676ffc29121_Roobert-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Roobert';src:url('https://cdn.prod.website-files.com/6978a92a56d24460cdf7442e/6981ab8dd368dc7251e944cb_Roobert-SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Goodnotes Hand';src:url('https://cdn.prod.website-files.com/6978a92a56d24460cdf7442e/69d616298e2a84bc75fcfaaa_68c2223775ff08ababd0a518_Goodnoteshand.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* Good Systems / Goodnotes tokens, lifted from the live brand CSS */
+  --paper:#FAFAFA; --paper-warm:#F6F5EE; --card:#FFFFFF;
+  --ink:#111213; --ink-75:#4D4D4E; --ink-50:#888889; --ink-25:#BEBEBE;
+  --rule:#E6E5E4; --rule-soft:#EFEEED;
+  --cyan:#00B3DC; --cyan-dark:#06A9CF; --cyan-light:#57D2EE; --teal:#45BFDB;
+  --sky:#CDE5FF; --navy:#252A4D; --canary:#FFE55F; --grass:#DEF089; --floss:#FAE6F2;
+  /* Milo */
+  --milo-a:#4E9BF8; --milo-b:#8340DD;
+  --maxw:1080px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'Roobert','Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;
+  font-feature-settings:'ss01' 1,'cv01' 1;
+}
+::selection{background:var(--canary);color:var(--ink)}
+a{color:inherit}
+
+/* ── Motion ────────────────────────────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes drawLine{from{width:0}to{width:100%}}
+@keyframes hlSwipe{from{background-size:0% 38%}to{background-size:100% 38%}}
+@keyframes barGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes msgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes typeDot{0%,80%,100%{transform:translateY(0);opacity:.3}40%{transform:translateY(-4px);opacity:1}}
+@keyframes penDraw{to{stroke-dashoffset:0}}
+@keyframes softPulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:0 -44px}}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.on{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+
+/* ── Type scale ────────────────────────────────────────────────────────────── */
+h1,h2,h3,h4{font-weight:500;letter-spacing:-.03em;line-height:1.04}
+h1{font-size:clamp(2.6rem,6.4vw,5.1rem)}
+h2{font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.06}
+h3{font-size:clamp(1.25rem,2.2vw,1.6rem);line-height:1.15;letter-spacing:-.025em}
+h4{font-size:1.02rem;font-weight:600;letter-spacing:-.015em;line-height:1.3}
+p{font-size:1rem;color:var(--ink-75);line-height:1.68}
+.lead{font-size:clamp(1.06rem,1.7vw,1.3rem);color:var(--ink-75);line-height:1.6;letter-spacing:-.012em}
+.hand{font-family:'Goodnotes Hand','Roobert',cursive;letter-spacing:0;line-height:1.4}
+
+.eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-50)}
+.eyebrow .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--cyan);margin-right:9px;vertical-align:middle;animation:softPulse 2.6s ease-in-out infinite}
+
+/* highlighter swipe, the Goodnotes gesture */
+.hl{background-image:linear-gradient(var(--canary),var(--canary));background-repeat:no-repeat;background-position:0 88%;background-size:100% 38%;padding:0 .06em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hl-cy{background-image:linear-gradient(var(--cyan-light),var(--cyan-light))}
+.hl-sky{background-image:linear-gradient(var(--sky),var(--sky))}
+.on .hl-anim{animation:hlSwipe .8s .3s var(--ease) both}
+
+/* ── Layout ────────────────────────────────────────────────────────────────── */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+section{position:relative}
+.sec{padding:104px 0}
+.sec-tight{padding:72px 0}
+.sec-head{max-width:720px;margin-bottom:52px}
+.sec-head h2{margin:14px 0 18px}
+.rule{height:1px;background:var(--rule);border:0}
+.ruled{background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 43px,var(--rule-soft) 43px,var(--rule-soft) 44px)}
+.dotgrid{background-image:radial-gradient(var(--rule) 1px,transparent 1px);background-size:22px 22px}
+
+/* ── Nav ───────────────────────────────────────────────────────────────────── */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--cyan),var(--milo-b));z-index:100;transition:width .1s linear}
+nav{position:fixed;top:0;left:0;right:0;z-index:90;background:rgba(250,250,250,.82);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+nav.stuck{border-bottom-color:var(--rule)}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:15px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.lockup{display:flex;align-items:center;gap:13px;flex-shrink:0}
+.milo-mark{font-family:'Baloo 2','Roobert',sans-serif;font-size:1.6rem;font-weight:800;line-height:1;letter-spacing:-.02em;background:linear-gradient(96deg,var(--milo-a),var(--milo-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lock-x{color:var(--ink-25);font-size:.85rem;font-weight:400}
+.gs-mark{height:15px;width:auto;opacity:.9}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{font-size:.83rem;font-weight:500;color:var(--ink-75);text-decoration:none;transition:color .2s;position:relative;padding:2px 0}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-2px;height:1.5px;width:0;background:var(--ink);transition:width .25s var(--ease)}
+.nav-links a:hover{color:var(--ink)}.nav-links a:hover::after{width:100%}
+.nav-cta{font-size:.83rem;font-weight:500;background:var(--ink);color:var(--paper)!important;padding:9px 17px;border-radius:999px;text-decoration:none;transition:transform .2s var(--ease),background .2s;white-space:nowrap}
+.nav-cta:hover{transform:translateY(-1px);background:#000}
+.nav-cta::after{display:none!important}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ── Hero ──────────────────────────────────────────────────────────────────── */
+#hero{padding:172px 0 88px;position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(var(--rule) 1px,transparent 1px);background-size:24px 24px;-webkit-mask-image:radial-gradient(ellipse 70% 62% at 50% 34%,#000 0%,transparent 78%);mask-image:radial-gradient(ellipse 70% 62% at 50% 34%,#000 0%,transparent 78%);opacity:.75;pointer-events:none}
+#hero .wrap{position:relative;z-index:2}
+.hero-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:30px;animation:fadeUp .7s var(--ease) both}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.73rem;font-weight:500;color:var(--ink-75);background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:6px 14px}
+.chip.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip.cy{background:rgba(0,179,220,.09);border-color:rgba(0,179,220,.32);color:var(--cyan-dark)}
+h1 .ln{display:block;overflow:hidden}
+h1 .ln>span{display:block;animation:fadeUp .95s var(--ease) both}
+h1 .ln:nth-child(1)>span{animation-delay:.1s}
+h1 .ln:nth-child(2)>span{animation-delay:.22s}
+.hero-sub{max-width:582px;margin:30px 0 0;animation:fadeUp .8s .42s var(--ease) both}
+.hero-note{margin-top:38px;display:flex;align-items:flex-start;gap:15px;max-width:560px;animation:fadeUp .8s .54s var(--ease) both}
+.hero-note .arrow{flex-shrink:0;margin-top:2px}
+.hero-note .hand{font-size:1.16rem;color:var(--ink-75)}
+.hero-badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:44px;animation:fadeUp .8s .64s var(--ease) both}
+
+/* ── Stat band ─────────────────────────────────────────────────────────────── */
+.statband{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--card)}
+.stats{max-width:var(--maxw);margin:0 auto;padding:0 32px;display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:34px 26px 34px 0;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:0}
+.stat:nth-child(n+2){padding-left:26px}
+.s-num{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:500;letter-spacing:-.035em;line-height:1;margin-bottom:9px}
+.s-lab{font-size:.79rem;color:var(--ink-50);line-height:1.45}
+@media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--rule)}.stat:nth-child(odd){padding-left:0}.stat:nth-child(even){padding-left:26px}}
+
+/* ── Video ─────────────────────────────────────────────────────────────────── */
+#video{padding:76px 0 0}
+.vid-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:22px}
+.vid-head h3{font-size:1.5rem;font-weight:500;letter-spacing:-.03em;margin-bottom:7px}
+.vid-head p{font-size:.9rem;color:var(--ink-50);max-width:470px}
+.vid-meta{font-size:.75rem;color:var(--ink-25);letter-spacing:.06em;white-space:nowrap;flex-shrink:0}
+.vid-frame{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:var(--ink);border:1px solid var(--rule);box-shadow:0 2px 4px rgba(17,18,19,.04),0 26px 70px rgba(17,18,19,.11)}
+.vid-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+
+/* ── Tools carousel ────────────────────────────────────────────────────────── */
+#tools{padding:76px 0 0;overflow:hidden}
+.tools-head{max-width:640px;margin-bottom:26px}
+.tools-head h3{font-size:1.5rem;font-weight:500;letter-spacing:-.03em;margin-bottom:8px}
+.tools-head p{font-size:.9rem;color:var(--ink-50)}
+.marquee{position:relative;overflow:hidden;padding:5px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.mq-track{display:flex;gap:10px;width:max-content;animation:mqScroll var(--dur,52s) linear infinite}
+.mq-track.rev{animation-direction:reverse}
+.marquee:hover .mq-track{animation-play-state:paused}
+@keyframes mqScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tool{display:inline-flex;align-items:center;gap:9px;flex-shrink:0;background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:9px 17px;font-size:.85rem;font-weight:500;color:var(--ink-75);white-space:nowrap;transition:border-color .2s,color .2s}
+.tool:hover{border-color:var(--ink-25);color:var(--ink)}
+.tool i{width:7px;height:7px;border-radius:2px;flex-shrink:0;font-style:normal}
+.tools-foot{margin-top:24px;display:flex;align-items:flex-start;gap:11px;background:var(--paper-warm);border:1px solid var(--rule);border-radius:14px;padding:15px 17px}
+.tools-foot p{font-size:.85rem;color:var(--ink-75);line-height:1.6;margin:0}
+.tools-foot p b{color:var(--ink);font-weight:600}
+@media(prefers-reduced-motion:reduce){.mq-track{animation:none}.marquee{-webkit-mask-image:none;mask-image:none}.mq-track{flex-wrap:wrap;width:auto}}
+
+/* ── Stack grid ────────────────────────────────────────────────────────────── */
+.stackgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;align-items:start}
+@media(max-width:900px){.stackgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.stackgrid{grid-template-columns:1fr}}
+.cat{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:20px 19px;transition:border-color .25s,transform .25s var(--ease)}
+.cat:hover{border-color:var(--ink-25);transform:translateY(-2px)}
+.cat h5{font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-50);margin-bottom:13px}
+.cat-tools{display:flex;flex-wrap:wrap;gap:6px}
+.tchip{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:5px 9px;font-size:.79rem;font-weight:500;color:var(--ink-75);line-height:1.3}
+.tchip i{width:6px;height:6px;border-radius:2px;flex-shrink:0;font-style:normal;background:var(--cyan)}
+.tchip.hot{border-color:rgba(0,179,220,.42);background:rgba(0,179,220,.06);color:var(--ink)}
+.tchip.hot i{background:var(--cyan)}
+.tchip.soon{border-style:dashed;color:var(--ink-50)}
+.tchip.soon i{background:transparent;border:1px solid var(--ink-25)}
+.tag{font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:5px;margin-left:2px;white-space:nowrap}
+.tag.n{background:var(--cyan);color:#04202A}
+.tag.b{background:var(--canary);color:#4A3B00}
+.tag.s{background:var(--rule);color:var(--ink-50)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:26px;padding-bottom:2px}
+.lg{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;color:var(--ink-50)}
+.lg i{width:7px;height:7px;border-radius:2px;flex-shrink:0;font-style:normal;background:var(--cyan)}
+.lg.b i{background:transparent;border:1px dashed var(--ink-25)}
+
+/* ── Q&A ───────────────────────────────────────────────────────────────────── */
+.qa{display:flex;flex-direction:column;gap:16px}
+.qitem{background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:28px 30px;position:relative}
+.qitem.key{border-color:rgba(0,179,220,.4);background:linear-gradient(180deg,rgba(0,179,220,.045),transparent 60%)}
+.qflag{display:inline-block;font-size:.63rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan-dark);background:rgba(0,179,220,.1);border:1px solid rgba(0,179,220,.28);border-radius:999px;padding:3px 10px;margin-bottom:13px}
+.qq2{display:flex;gap:13px;align-items:flex-start;margin-bottom:15px}
+.qmark{flex-shrink:0;width:23px;height:23px;border-radius:7px;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:600;margin-top:1px}
+.qq2 p{font-size:1rem;font-weight:500;color:var(--ink);line-height:1.5;letter-spacing:-.012em}
+.qa2{display:flex;gap:13px;align-items:flex-start}
+.qa2 .qmark{background:linear-gradient(135deg,var(--milo-a),var(--milo-b));font-family:'Baloo 2',sans-serif;font-weight:800}
+.qa2 p{font-size:.92rem;color:var(--ink-75);line-height:1.68}
+.qa2 p+p{margin-top:11px}
+.qa2 p b{color:var(--ink);font-weight:600}
+@media(max-width:640px){.qitem{padding:24px 22px}}
+
+/* ── Note / letter ─────────────────────────────────────────────────────────── */
+.letter{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:46px 48px;position:relative;box-shadow:0 1px 2px rgba(17,18,19,.03),0 12px 34px rgba(17,18,19,.035)}
+.letter::before{content:'';position:absolute;left:0;top:26px;bottom:26px;width:3px;background:var(--canary);border-radius:0 3px 3px 0}
+.letter p{font-size:1.03rem;color:var(--ink-75);margin-bottom:17px}
+.letter p:last-of-type{margin-bottom:0}
+.letter strong{color:var(--ink);font-weight:600}
+.sig{display:flex;align-items:center;gap:14px;margin-top:32px;padding-top:26px;border-top:1px solid var(--rule)}
+.sig-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--milo-a),var(--milo-b));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:.9rem;flex-shrink:0}
+.sig-n{font-size:.92rem;font-weight:600}
+.sig-r{font-size:.79rem;color:var(--ink-50)}
+@media(max-width:640px){.letter{padding:34px 26px}}
+
+/* ── Pull quote ────────────────────────────────────────────────────────────── */
+.pull{padding:96px 0;text-align:center;position:relative}
+.pull q{quotes:none}
+.pull .big{font-size:clamp(1.75rem,3.9vw,2.85rem);font-weight:500;letter-spacing:-.035em;line-height:1.16;max-width:980px;margin:0 auto;display:block}
+.pull .attrib{margin-top:26px;font-size:.79rem;color:var(--ink-50);letter-spacing:.03em}
+.pull .attrib b{color:var(--ink-75);font-weight:600}
+
+/* ── Cards ─────────────────────────────────────────────────────────────────── */
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:28px 26px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 38px rgba(17,18,19,.07);border-color:var(--ink-25)}
+.card h4{margin-bottom:9px}
+.card p{font-size:.89rem;line-height:1.6}
+.c-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:17px;background:var(--paper-warm);border:1px solid var(--rule)}
+.c-num{font-family:'Roobert';font-size:.72rem;font-weight:600;letter-spacing:.13em;color:var(--cyan-dark);margin-bottom:13px}
+
+/* pillar cards */
+.pillar{background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:0;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.pillar:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(17,18,19,.08)}
+.pillar-top{padding:26px 24px 20px;border-bottom:1px dashed var(--rule)}
+.pillar-top .gs-side{font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-25);margin-bottom:11px}
+.pillar-top h4{font-size:1.12rem;font-weight:500;letter-spacing:-.025em;margin-bottom:8px}
+.pillar-top p{font-size:.85rem;color:var(--ink-50);line-height:1.55}
+.pillar-bot{padding:22px 24px 26px;background:var(--paper-warm);flex:1}
+.pillar-bot .milo-side{font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(96deg,var(--milo-a),var(--milo-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:11px}
+.pillar-bot p{font-size:.89rem;color:var(--ink-75);line-height:1.6}
+
+/* ── Ask Milo demo ─────────────────────────────────────────────────────────── */
+#demo{background:var(--ink);color:var(--paper);padding:104px 0}
+#demo::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+#demo .wrap{position:relative;z-index:2}
+#demo h2,#demo h3,#demo h4{color:var(--paper)}
+#demo p{color:rgba(250,250,250,.6)}
+#demo .eyebrow{color:rgba(250,250,250,.45)}
+.demo-shell{background:#191A1C;border:1px solid rgba(255,255,255,.11);border-radius:20px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.45)}
+.demo-bar{display:flex;align-items:center;gap:8px;padding:13px 17px;border-bottom:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025)}
+.demo-bar .cdot{width:9px;height:9px;border-radius:50%}
+.demo-bar .title{font-size:.76rem;font-weight:500;color:rgba(250,250,250,.55);margin-left:8px}
+.demo-bar .live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan-light)}
+.demo-bar .live i{width:6px;height:6px;border-radius:50%;background:var(--cyan-light);animation:softPulse 1.8s ease-in-out infinite;font-style:normal}
+.demo-tabs{display:flex;gap:7px;padding:15px 17px;border-bottom:1px solid rgba(255,255,255,.09);overflow-x:auto;scrollbar-width:none}
+.demo-tabs::-webkit-scrollbar{display:none}
+.dtab{flex-shrink:0;font-family:inherit;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(250,250,250,.5);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .22s var(--ease);white-space:nowrap}
+.dtab:hover{color:rgba(250,250,250,.85);border-color:rgba(255,255,255,.22)}
+.dtab.act{background:var(--cyan);border-color:var(--cyan);color:#06181D}
+.demo-body{padding:26px 24px 24px;min-height:430px}
+.msg{display:flex;gap:12px;margin-bottom:20px;animation:msgIn .45s var(--ease) both}
+.av{width:29px;height:29px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600}
+.av.u{background:rgba(255,255,255,.1);color:rgba(250,250,250,.75);border:1px solid rgba(255,255,255,.12)}
+.av.m{background:linear-gradient(135deg,var(--milo-a),var(--milo-b));color:#fff;font-family:'Baloo 2',sans-serif;font-weight:800}
+.bub{flex:1;min-width:0}
+.bub .who{font-size:.67rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:rgba(250,250,250,.35);margin-bottom:7px}
+.bub .q{font-size:1rem;color:var(--paper);font-weight:500;line-height:1.5;letter-spacing:-.012em}
+.bub .a{font-size:.93rem;color:rgba(250,250,250,.78);line-height:1.68}
+.bub .a b{color:var(--paper);font-weight:600}
+.bub .a .up{color:var(--grass);font-weight:600}
+.bub .a .dn{color:#FF9E8A;font-weight:600}
+.typing{display:inline-flex;gap:4px;padding:6px 0}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--cyan-light);animation:typeDot 1.3s infinite;font-style:normal}
+.typing i:nth-child(2){animation-delay:.16s}.typing i:nth-child(3){animation-delay:.32s}
+.chart{margin-top:18px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:19px 18px}
+.chart-t{font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,250,250,.4);margin-bottom:16px}
+.row{display:grid;grid-template-columns:112px 1fr 74px;align-items:center;gap:13px;margin-bottom:11px}
+.row:last-child{margin-bottom:0}
+.row .rl{font-size:.78rem;color:rgba(250,250,250,.68);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track{height:7px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden}
+.fill{height:100%;border-radius:99px;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--cyan-dark),var(--cyan-light))}
+.fill.neg{background:linear-gradient(90deg,#C4553F,#FF9E8A)}
+.fill.go{animation:barGrow .85s var(--ease) forwards}
+.row .rv{font-size:.78rem;font-weight:600;text-align:right;white-space:nowrap}
+.rv.pos{color:var(--grass)}.rv.neg{color:#FF9E8A}
+.insight{margin-top:16px;display:flex;gap:11px;align-items:flex-start;background:rgba(0,179,220,.09);border:1px solid rgba(0,179,220,.24);border-radius:12px;padding:14px 15px}
+.insight .ib{font-size:.85rem;color:rgba(250,250,250,.82);line-height:1.6}
+.insight .ib b{color:var(--cyan-light);font-weight:600}
+.demo-foot{border-top:1px solid rgba(255,255,255,.09);padding:15px 20px;display:flex;align-items:center;gap:12px}
+.fake-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:11px 18px;font-size:.85rem;color:rgba(250,250,250,.32)}
+.send{width:37px;height:37px;border-radius:50%;background:linear-gradient(135deg,var(--milo-a),var(--milo-b));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mocknote{margin-top:16px;font-size:.72rem;color:rgba(250,250,250,.32);text-align:center;line-height:1.5}
+@media(max-width:640px){.row{grid-template-columns:88px 1fr 60px;gap:9px}.demo-body{padding:20px 16px}}
+
+/* ── Department tabs ───────────────────────────────────────────────────────── */
+.dept-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.dtb{font-family:inherit;font-size:.82rem;font-weight:500;color:var(--ink-75);background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:9px 17px;cursor:pointer;transition:all .22s var(--ease)}
+.dtb:hover{border-color:var(--ink-25);transform:translateY(-1px)}
+.dtb.act{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.dept-panel{display:none;animation:fadeUp .45s var(--ease) both}
+.dept-panel.act{display:block}
+.dept-card{background:var(--card);border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+.dept-hd{padding:30px 32px 26px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.dept-hd h3{margin-bottom:8px}
+.dept-hd p{font-size:.93rem;max-width:520px}
+.dept-who{flex-shrink:0;text-align:right}
+.dept-who .lbl{font-size:.66rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-25);margin-bottom:6px}
+.dept-who .nm{font-size:.88rem;font-weight:600}
+.dept-who .lc{font-size:.78rem;color:var(--ink-50)}
+.dept-rows{padding:8px 0}
+.qrow{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--rule-soft)}
+.qrow:last-child{border-bottom:0}
+.qrow>div{padding:20px 32px}
+.qrow .qq{border-right:1px solid var(--rule-soft);position:relative}
+.qrow .qq::before{content:'"';position:absolute;left:16px;top:16px;font-size:1.5rem;color:var(--ink-25);line-height:1}
+.qrow .qq p{font-size:.93rem;color:var(--ink);font-weight:500;line-height:1.5}
+.qrow .qlab{font-size:.64rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-25);margin-bottom:9px}
+.qrow .qa p{font-size:.89rem;color:var(--ink-75);line-height:1.62}
+@media(max-width:760px){.qrow{grid-template-columns:1fr}.qrow .qq{border-right:0;border-bottom:1px solid var(--rule-soft)}.qrow>div{padding:18px 22px}.dept-hd{padding:24px 22px}.dept-who{text-align:left}}
+
+/* ── Build vs buy calculator ───────────────────────────────────────────────── */
+.calc{background:var(--card);border:1px solid var(--rule);border-radius:22px;overflow:hidden;box-shadow:0 14px 44px rgba(17,18,19,.05)}
+.calc-grid{display:grid;grid-template-columns:1fr 1.05fr}
+@media(max-width:860px){.calc-grid{grid-template-columns:1fr}}
+.calc-in{padding:34px 34px 38px;border-right:1px solid var(--rule)}
+@media(max-width:860px){.calc-in{border-right:0;border-bottom:1px solid var(--rule)}}
+.calc-in .eyebrow{margin-bottom:22px}
+.fld{margin-bottom:26px}
+.fld:last-child{margin-bottom:0}
+.fld-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px;gap:12px}
+.fld-lab{font-size:.85rem;font-weight:500;color:var(--ink)}
+.fld-val{font-size:.95rem;font-weight:600;font-variant-numeric:tabular-nums;color:var(--cyan-dark);white-space:nowrap}
+.fld-hint{font-size:.75rem;color:var(--ink-50);margin-top:8px;line-height:1.45}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:99px;background:var(--rule);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:19px;height:19px;border-radius:50%;background:var(--ink);border:3px solid var(--card);box-shadow:0 1px 5px rgba(17,18,19,.28);cursor:pointer;transition:transform .18s var(--ease)}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.13)}
+input[type=range]::-moz-range-thumb{width:19px;height:19px;border-radius:50%;background:var(--ink);border:3px solid var(--card);box-shadow:0 1px 5px rgba(17,18,19,.28);cursor:pointer}
+.calc-out{padding:34px 34px 38px;background:var(--paper-warm)}
+.co-row{display:flex;justify-content:space-between;align-items:flex-end;padding:15px 0;border-bottom:1px solid var(--rule)}
+.co-row:first-of-type{padding-top:0}
+.co-lab{font-size:.87rem;color:var(--ink-75);line-height:1.4}
+.co-lab small{display:block;font-size:.72rem;color:var(--ink-50);margin-top:3px}
+.co-val{font-size:1.28rem;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.025em;white-space:nowrap;text-align:right}
+.co-val.big{font-size:1.9rem}
+.co-val.pos{color:#1E8A4C}
+.co-final{margin-top:22px;background:var(--ink);color:var(--paper);border-radius:15px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.co-final .cf-l{font-size:.82rem;color:rgba(250,250,250,.62);line-height:1.4}
+.co-final .cf-l b{display:block;color:var(--paper);font-size:1rem;font-weight:600;margin-bottom:3px}
+.co-final .cf-v{font-size:2.05rem;font-weight:600;letter-spacing:-.035em;font-variant-numeric:tabular-nums;background:linear-gradient(96deg,var(--cyan-light),#A8E9F7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.calc-note{font-size:.75rem;color:var(--ink-50);margin-top:16px;line-height:1.55}
+
+/* ── Comparison table ──────────────────────────────────────────────────────── */
+.cmp{background:var(--card);border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+.cmp-r{display:grid;grid-template-columns:1.25fr 1fr 1fr;border-bottom:1px solid var(--rule)}
+.cmp-r:last-child{border-bottom:0}
+.cmp-r>div{padding:17px 22px;font-size:.88rem;line-height:1.5}
+.cmp-r.hd>div{padding:16px 22px;font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-50);background:var(--paper-warm)}
+.cmp-r.hd .c-milo{color:var(--milo-b)}
+.cmp-r>div:nth-child(1){font-weight:500;color:var(--ink);border-right:1px solid var(--rule-soft)}
+.cmp-r>div:nth-child(2){color:var(--ink-50);border-right:1px solid var(--rule-soft)}
+.cmp-r>div:nth-child(3){color:var(--ink-75);background:rgba(0,179,220,.035)}
+.cmp-r>div:nth-child(3) b{color:var(--ink);font-weight:600}
+@media(max-width:760px){.cmp-r,.cmp-r.hd{grid-template-columns:1fr}.cmp-r>div{border-right:0!important;border-bottom:1px solid var(--rule-soft)}.cmp-r>div:last-child{border-bottom:0}.cmp-r.hd{display:none}.cmp-r>div:nth-child(2)::before{content:'In-house build: ';font-weight:600;color:var(--ink-25)}.cmp-r>div:nth-child(3)::before{content:'With Milo: ';font-weight:600;color:var(--milo-b)}}
+
+/* ── Timeline ──────────────────────────────────────────────────────────────── */
+.tl{position:relative;padding-left:0}
+.tl-item{display:grid;grid-template-columns:112px 1fr;gap:26px;padding:26px 0;border-bottom:1px solid var(--rule)}
+.tl-item:last-child{border-bottom:0}
+.tl-wk{font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan-dark);padding-top:3px}
+.tl-body h4{margin-bottom:8px}
+.tl-body p{font-size:.9rem;line-height:1.62}
+.tl-body ul{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.tl-body li{position:relative;padding-left:20px;font-size:.87rem;color:var(--ink-75);line-height:1.55}
+.tl-body li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--cyan);opacity:.55}
+@media(max-width:640px){.tl-item{grid-template-columns:1fr;gap:10px}}
+
+
+
+/* ── Price card ────────────────────────────────────────────────────────────── */
+.price{background:var(--ink);color:var(--paper);border-radius:24px;padding:44px 46px;position:relative;overflow:hidden}
+.price::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px;pointer-events:none}
+.price>*{position:relative;z-index:2}
+.price-top{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.13)}
+.price h3{color:var(--paper);margin-bottom:11px}
+.price-top p{color:rgba(250,250,250,.62);font-size:.95rem;max-width:430px}
+.price-tag{text-align:right;flex-shrink:0}
+.price-tag .amt{font-size:3rem;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--paper)}
+.price-tag .per{font-size:.83rem;color:rgba(250,250,250,.5);margin-top:8px}
+.price-list{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:16px 34px;margin-top:30px}
+@media(max-width:640px){.price-list{grid-template-columns:1fr}.price{padding:32px 26px}.price-tag{text-align:left}}
+.price-list li{display:flex;gap:11px;align-items:flex-start;font-size:.91rem;color:rgba(250,250,250,.78);line-height:1.55}
+.price-list li svg{flex-shrink:0;margin-top:3px}
+.price-list li b{color:var(--paper);font-weight:600}
+.stage{display:inline-flex;align-items:center;gap:8px;font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:13px}
+.stage.s1{color:rgba(250,250,250,.42)}
+.stage.s2{color:var(--cyan-dark)}
+.stage i{width:5px;height:5px;border-radius:50%;background:currentColor;font-style:normal;flex-shrink:0}
+.then{display:flex;align-items:center;gap:16px;margin:20px 0;padding:0 6px}
+.then span{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-25);flex-shrink:0}
+.then em{flex:1;height:1px;background:var(--rule);font-style:normal}
+.plan2{background:var(--card);border:1px solid var(--rule);border-radius:24px;padding:44px 46px;position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(17,18,19,.03),0 14px 40px rgba(17,18,19,.045)}
+.plan2::after{content:'';position:absolute;left:0;top:34px;bottom:34px;width:3px;background:linear-gradient(180deg,var(--cyan),var(--cyan-light));border-radius:0 3px 3px 0}
+.plan2 h3{color:var(--ink);margin-bottom:11px}
+.plan2 .price-top{border-bottom-color:var(--rule)}
+.plan2 .price-top p{color:var(--ink-75)}
+.plan2 .price-tag .amt{color:var(--ink)}
+.plan2 .price-tag .per{color:var(--ink-50)}
+.plan2 .price-list li{color:var(--ink-75)}
+.plan2 .price-list li b{color:var(--ink)}
+.plan-foot{margin-top:28px;padding-top:20px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.plan-foot p{font-size:.83rem;color:var(--ink-50);line-height:1.5;margin:0}
+.plan-foot .yr{font-size:.83rem;color:var(--ink-75);white-space:nowrap}
+.plan-foot .yr b{color:var(--ink);font-weight:600}
+@media(max-width:640px){.plan2{padding:32px 26px}}
+
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+footer{border-top:1px solid var(--rule);padding:46px 0 56px;background:var(--card)}
+.foot{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap}
+.foot-l .milo-mark{font-size:1.4rem;margin-bottom:11px;display:inline-block}
+.foot-l p{font-size:.82rem;color:var(--ink-50);max-width:340px;line-height:1.55}
+.foot-r{text-align:right;font-size:.82rem;color:var(--ink-50);line-height:1.75}
+.foot-r a{color:var(--ink-75);text-decoration:none;border-bottom:1px solid var(--rule);transition:border-color .2s}
+.foot-r a:hover{border-color:var(--ink)}
+@media(max-width:640px){.foot-r{text-align:left}}
+.fineprint{margin-top:34px;padding-top:22px;border-top:1px solid var(--rule-soft);font-size:.73rem;color:var(--ink-25);line-height:1.6}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <div class="lockup">
+      <span class="milo-mark">Milo</span>
+      <span class="lock-x">&times;</span>
+      <img class="gs-mark" src="https://cdn.prod.website-files.com/6a6a23376193097ce01d7700/6a74b927b098f9b68a441e73_good-systems-logo-hz.svg" alt="Good Systems"/>
+    </div>
+    <div class="nav-links">
+      <a href="#tools">Your stack</a>
+      <a href="#demo">Live demo</a>
+      <a href="#pillars">Where it fits</a>
+      <a href="#buildbuy">Build vs buy</a>
+      <a href="#questions">Q&amp;A</a>
+      <a href="#poc">The pilot</a>
+      <a class="nav-cta" href="mailto:liam@milo.ai?subject=Milo%20x%20Good%20Systems%20%E2%80%94%20booking%20the%20call">Book the call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-meta">
+      <span class="eyebrow"><span class="dot"></span>Prepared for Good Systems &middot; September 2026</span>
+    </div>
+    <h1>
+      <span class="ln"><span>Turn good data</span></span>
+      <span class="ln"><span>into good work.</span></span>
+    </h1>
+    <p class="lead hero-sub">You already built a philosophy around judgment and sold it to millions of people. This is that same philosophy, pointed inward, at how Good Systems reads itself.</p>
+
+    <div class="hero-note">
+      <svg class="arrow" width="20" height="26" viewBox="0 0 20 26" fill="none"><path d="M3 1C3 1 15 6 16 14c.6 5-3 8-6 8-2.5 0-4-1.7-4-4 0-2 1.4-3.5 3.4-3.5 3 0 5 2.6 5 6 0 1.4-.3 2.6-.8 3.6" stroke="#00B3DC" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="60" stroke-dashoffset="60" style="animation:penDraw 1.4s .9s ease forwards"/></svg>
+      <p class="hand">Camilla: built in Roobert, on your palette.<br/>If the kerning's off, that's on me, not you.</p>
+    </div>
+
+    <div class="hero-badges">
+      <span class="chip solid">4-week proof of concept</span>
+      <span class="chip">&pound;1,500 / month</span>
+      <span class="chip">Unlimited users &amp; data</span>
+      <span class="chip cy">Walk away at the end, no obligation</span>
+    </div>
+  </div>
+</section>
+
+<div class="statband">
+  <div class="stats">
+    <div class="stat reveal"><div class="s-num">5</div><div class="s-lab">locations: Hong Kong, Shanghai, Singapore, London and Barcelona</div></div>
+    <div class="stat reveal d1"><div class="s-num">3</div><div class="s-lab">audience lines running separately: B2B, education, consumer</div></div>
+    <div class="stat reveal d2"><div class="s-num">15 yrs</div><div class="s-lab">of product history, and a new master brand sitting above it</div></div>
+    <div class="stat reveal d3"><div class="s-num">4 wks</div><div class="s-lab">from first connection to answers in front of the leadership off-site</div></div>
+  </div>
+</div>
+
+<!-- ══ VIDEO ══ -->
+<section id="video">
+  <div class="wrap">
+    <div class="vid-head reveal">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:11px">Ninety seconds</span>
+        <h3>What Milo actually is.</h3>
+        <p>The short version, in case anyone at the off-site hasn't seen it. No setup, no slides.</p>
+      </div>
+      <div class="vid-meta">1:29</div>
+    </div>
+    <div class="vid-frame reveal d1">
+      <iframe src="https://player.vimeo.com/video/1196983997?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Milo overview"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TOOLS ══ -->
+<section id="tools">
+  <div class="wrap">
+    <div class="tools-head reveal" style="max-width:700px">
+      <span class="eyebrow" style="display:block;margin-bottom:11px">Your stack</span>
+      <h3>Forty tools. Thirty-six connect natively.</h3>
+      <p>You sent the list across departments, so this is your actual stack rather than a sample. Thirty-six of the forty are native connectors today, Snowflake included. The remaining four we put in place during the pilot, free, so all forty are connected by the end of it.</p>
+    </div>
+  </div>
+  <div class="marquee reveal d1" style="--dur:56s"><div class="mq-track" id="mq1"></div></div>
+  <div class="marquee reveal d1" style="--dur:68s;margin-top:10px"><div class="mq-track rev" id="mq2"></div></div>
+  <div class="wrap">
+    <div class="legend reveal d1">
+      <span class="lg"><i></i>Native connector today (36)</span>
+      <span class="lg b"><i></i>In place during the pilot, free (4)</span>
+    </div>
+    <div class="stackgrid reveal d2" id="stackgrid"></div>
+    <div class="tools-foot reveal d2" style="margin-top:22px">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px"><circle cx="8" cy="8" r="6.4" stroke="#00B3DC" stroke-width="1.4"/><path d="M8 5.2v.1M8 7.4v3.4" stroke="#00B3DC" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <p><b>Snowflake is native</b>, so your warehouse is connected on day one rather than at the end of a project. The four remaining are <b>Brandwatch, Microsoft Store, Statsig and Profound</b>, and those we put in place during the pilot at no cost, usually in one to two days each. We would rather write a connector than ask anyone to import a CSV.
+    </div>
+  </div>
+</section>
+
+<!-- ══ LETTER ══ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="letter reveal">
+      <p><strong>Camilla,</strong> thank you for the time today. Two things stuck with me.</p>
+      <p>The first: the reaction to the demo wasn't curiosity about what Milo is. It was recognition. You had already proposed building something like it in-house. <strong>That's a good sign and a warning at the same time.</strong> It means the need is real and already budgeted for in someone's head. It also means you have a genuine choice to make, and it deserves a straight comparison rather than a pitch.</p>
+      <p>The second: Good Systems has spent fifteen years arguing that the scarce thing isn't output, it's judgment. <em>&ldquo;Anyone can make more. The rare skill is knowing what's useful.&rdquo;</em> That is, almost word for word, the case for what we do, except applied to your own numbers.</p>
+      <p>So this page does three things: it shows you what Milo actually answers, it maps that onto the four pillars you already organise around, and it gives you an honest build-versus-buy comparison you can take into the off-site. <strong>Including the part where building it yourself is the right answer.</strong></p>
+      <div class="sig">
+        <div class="sig-av">LR</div>
+        <div>
+          <div class="sig-n">Liam Rabone</div>
+          <div class="sig-r">Milo &middot; liam@milo.ai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THESIS ══ -->
+<section id="thesis" class="pull ruled">
+  <div class="wrap">
+    <span class="eyebrow reveal">The argument, in your own words</span>
+    <q class="big reveal d1" style="margin-top:24px">Anyone can make more <span class="hl hl-anim">dashboards</span>.<br/>The rare skill is knowing which one to look at.</q>
+    <div class="attrib reveal d2">Adapted, with apologies, from <b>goodsystems.com</b></div>
+  </div>
+</section>
+
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="grid g3">
+      <div class="card reveal">
+        <div class="c-num">01</div>
+        <h4>The tool adapts to you</h4>
+        <p>Your own line. Milo has no fixed report set to learn. People ask in plain English, in whichever language and whatever shape the question arrives in, and the answer comes back in seconds.</p>
+      </div>
+      <div class="card reveal d1">
+        <div class="c-num">02</div>
+        <h4>Less process, more freedom</h4>
+        <p>Today a question about TikTok spend becomes a ticket, a queue, and a two-day wait. Milo removes the queue without removing the analyst. It removes the part of their job nobody enjoys.</p>
+      </div>
+      <div class="card reveal d2">
+        <div class="c-num">03</div>
+        <h4>Built for five locations</h4>
+        <p>Hong Kong, Shanghai, Singapore, London and Barcelona. Nobody should wait for London to wake up to find out how Tuesday went. Milo answers at 6am in Singapore as readily as 9am in Barcelona.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHAT WE SHOWED YOU ══ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What you saw in the demo</span>
+      <h2>Three platforms, one question, eight seconds.</h2>
+      <p class="lead">We pulled ad campaign data across Facebook, TikTok and LinkedIn into a single view and asked one question: where is the money actually working? That demo ran on a sample dataset, not your accounts, so treat the findings below as the <em>shape</em> of the answer rather than a claim about your spend. Week one of the pilot is where these same questions get asked of your real numbers.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card reveal">
+        <div class="c-ico"><svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M10 18a8 8 0 100-16 8 8 0 000 16z" stroke="#111213" stroke-width="1.4"/><path d="M6.5 10.5l2.2 2.2 4.8-5.4" stroke="#00B3DC" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>TikTok read as the conversion engine</h4>
+        <p>Not an awareness channel but a conversion channel. That is the opposite of how most teams budget TikTok, and it is the kind of finding that only surfaces when three platforms sit in the same view. Whether it holds on your accounts is exactly what week one answers.</p>
+      </div>
+      <div class="card reveal d1">
+        <div class="c-ico"><svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M3 15.5V9M8 15.5V4.5M13 15.5v-4M18 15.5V7" stroke="#111213" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h4>Facebook banked the most direct revenue</h4>
+        <p>Still the workhorse for last-click revenue. Knowing which channel converts <em>and</em> which one banks it is what lets a team split budget deliberately rather than by habit.</p>
+      </div>
+      <div class="card reveal d2">
+        <div class="c-ico"><svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M10 2v16M6 6l4-4 4 4" stroke="#111213" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 12.5l-2 2-2-2" stroke="#C4553F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>LinkedIn was the most expensive click</h4>
+        <p>Which is fine if it is buying B2B pipeline. It is not fine if it is buying consumer installs. Milo tells you which, per campaign, without anyone building a report.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LIVE DEMO ══ -->
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:640px">
+      <span class="eyebrow"><span class="dot"></span>Interactive &middot; click a category</span>
+      <h2>Ask it something.</h2>
+      <p class="lead" style="color:rgba(250,250,250,.62)">This is the interface. No dashboard to build, no report to request, no analyst in the loop. Pick a question a real person at Good Systems would ask on a Monday morning.</p>
+    </div>
+
+    <div class="demo-shell reveal d1">
+      <div class="demo-bar">
+        <span class="cdot" style="background:#FF5F57"></span>
+        <span class="cdot" style="background:#FEBC2E"></span>
+        <span class="cdot" style="background:#28C840"></span>
+        <span class="title">Milo &middot; Good Systems workspace</span>
+        <span class="live"><i></i>Connected</span>
+      </div>
+      <div class="demo-tabs" id="dtabs"></div>
+      <div class="demo-body" id="dbody"></div>
+      <div class="demo-foot">
+        <div class="fake-input" id="dinput">Ask Milo anything about Good Systems&hellip;</div>
+        <div class="send"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 8h11M9 4l4 4-4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+    <p class="mocknote">Figures shown are illustrative: the same sample dataset behind the demo, not your live numbers.<br/>In the pilot, every one of these answers comes from your own connected accounts.</p>
+  </div>
+</section>
+
+<!-- ══ FOUR PILLARS ══ -->
+<section id="pillars" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Mapped to your framework</span>
+      <h2>Your four pillars, turned on your own data.</h2>
+      <p class="lead">Good Systems organises its products around better ideas, judgment, alignment and outcomes. That cycle describes what a company should do with its own numbers just as well as what a user does with their notes.</p>
+    </div>
+    <div class="grid g4">
+      <div class="pillar reveal">
+        <div class="pillar-top">
+          <div class="gs-side">Good Systems</div>
+          <h4>Better ideas</h4>
+          <p>Capture thoughts in any and every form, from handwriting to voice notes and beyond.</p>
+        </div>
+        <div class="pillar-bot">
+          <div class="milo-side">With Milo</div>
+          <p>Capture questions in any form. Ad platforms, event data, spreadsheets, your warehouse. Anyone types a question the way they'd say it out loud, and gets an answer, not a ticket.</p>
+        </div>
+      </div>
+      <div class="pillar reveal d1">
+        <div class="pillar-top">
+          <div class="gs-side">Good Systems</div>
+          <h4>Better judgment</h4>
+          <p>Add context and discern what's valuable, guided by the nuance of users' unique tastes.</p>
+        </div>
+        <div class="pillar-bot">
+          <div class="milo-side">With Milo</div>
+          <p>The whole point. Milo doesn't hand back a bigger table. It says which number moved, why it probably moved, and what it would do next. You keep the judgment; it clears the runway to it.</p>
+        </div>
+      </div>
+      <div class="pillar reveal d2">
+        <div class="pillar-top">
+          <div class="gs-side">Good Systems</div>
+          <h4>Better alignment</h4>
+          <p>Collaborate and share work securely, attributing ideas across teams and timelines.</p>
+        </div>
+        <div class="pillar-bot">
+          <div class="milo-side">With Milo</div>
+          <p>B2B, education and consumer stop keeping private versions of the truth. One workspace, five locations, shared dashboards, and the Barcelona answer is the same as the Hong Kong answer.</p>
+        </div>
+      </div>
+      <div class="pillar reveal d3">
+        <div class="pillar-top">
+          <div class="gs-side">Good Systems</div>
+          <h4>Better outcomes</h4>
+          <p>Create valuable work, which informs future ideas and projects, and begins the cycle again.</p>
+        </div>
+        <div class="pillar-bot">
+          <div class="milo-side">With Milo</div>
+          <p>Any question worth asking twice becomes a saved dashboard or a scheduled report. The insight doesn't evaporate when the person who found it goes on holiday.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DEPARTMENTS ══ -->
+<section id="depts" class="sec-tight">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Role by role</span>
+      <h2>Who actually opens it, and what they ask.</h2>
+      <p class="lead">Milo earns its place one person at a time. These are the five people at Good Systems most likely to use it in week one, and the questions they are already asking someone else.</p>
+    </div>
+    <div class="dept-tabs reveal d1" id="depttabs"></div>
+    <div id="deptpanels"></div>
+  </div>
+</section>
+
+<!-- ══ QUESTIONS ══ -->
+<section id="questions" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">From your team</span>
+      <h2>The four questions you sent back.</h2>
+      <p class="lead">Answered here rather than on the call, so the people who raised them can read the answers without waiting for a meeting to be scheduled across five offices.</p>
+    </div>
+    <div class="qa">
+      <div class="qitem key reveal">
+        <span class="qflag">You said this one matters</span>
+        <div class="qq2"><div class="qmark">Q</div><p>Does Milo respect Snowflake's role-based access controls, or does it query as a single service account?</p></div>
+        <div class="qa2"><div class="qmark">M</div><div><p>Both are possible, but <b>role-based access control is the default</b>. Milo is built so people only see the data they are permitted to see, row-level security included.</p><p>That means last week's company-wide RBAC rollout carries straight through rather than being flattened into one service account. If you ever decide you want a single service account instead, that is a configuration choice rather than a rebuild.</p></div></div>
+      </div>
+      <div class="qitem reveal">
+        
+        <div class="qq2"><div class="qmark">Q</div><p>Is there a native Brandwatch connector, or is it CSV import?</p></div>
+        <div class="qa2"><div class="qmark">M</div><div><p>A connector, never a CSV import. <b>You will have a working Brandwatch connector in place by the end of the pilot</b>, so social listening, sentiment and influencer discovery sit in the same workspace as paid spend, across global and local-language markets.</p><p>We do not rely on CSV import for anything. Where a connector is not already in place we write one, usually in one to two days, and it is included in the proof of concept rather than quoted separately. The same applies to <b>Microsoft Store, Statsig and Profound</b>, the other three on your list.</p></div></div>
+      </div>
+      <div class="qitem reveal">
+        
+        <div class="qq2"><div class="qmark">Q</div><p>Where would unstructured data live? We run events globally, and have no system of record for them at all.</p></div>
+        <div class="qa2"><div class="qmark">M</div><div><p>Milo ingests unstructured data directly, pushed in through Google Drive, email and other routes, so the events programme gets a system of record it does not currently have.</p><p>This is the one item on your list where Milo is not replacing a tool but <b>filling a gap</b>, which also makes it the easiest thing to judge during the pilot. There is no incumbent to compare it against, so cafe takeovers, campus tours and press events either become answerable alongside paid spend or they do not.</p></div></div>
+      </div>
+      <div class="qitem reveal">
+        
+        <div class="qq2"><div class="qmark">Q</div><p>How does Milo sit alongside Tableau and Hex rather than duplicating them? Our Insights team will ask.</p></div>
+        <div class="qa2"><div class="qmark">M</div><div><p>Honestly, there is overlap, and it would be strange to pretend otherwise. The difference is that Milo brings its own data platform: it combines sources that are currently isolated, then makes the result answerable in plain English by anyone.</p><p>Nothing has to be switched off. <b>Run all three in parallel through the pilot</b> and let the Insights team judge it on use rather than on a pitch. Our experience is that teams stop reaching for Tableau and Hex over time, but that should be their conclusion after four weeks, not a migration you commit to up front.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BUILD VS BUY ══ -->
+<section id="buildbuy" class="sec dotgrid" style="background-color:#fff;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">For the leadership off-site</span>
+      <h2>Cost, time saved, or build it yourselves.</h2>
+      <p class="lead">You said this was the framing that would matter in the room. So here it is as a model you can argue with rather than a number you have to trust. Move the sliders to your own assumptions. If in-house wins, it wins.</p>
+    </div>
+
+    <div class="calc reveal d1">
+      <div class="calc-grid">
+        <div class="calc-in">
+          <div class="eyebrow">Your assumptions</div>
+
+          <div class="fld">
+            <div class="fld-top"><span class="fld-lab">People on the in-house build</span><span class="fld-val" id="v-head">2</span></div>
+            <input type="range" id="s-head" min="1" max="6" step="1" value="2"/>
+            <div class="fld-hint">Data engineer plus analyst is the usual minimum for a multi-source pipeline.</div>
+          </div>
+
+          <div class="fld">
+            <div class="fld-top"><span class="fld-lab">Fully-loaded cost per person</span><span class="fld-val" id="v-sal">&pound;85,000</span></div>
+            <input type="range" id="s-sal" min="40000" max="140000" step="5000" value="85000"/>
+            <div class="fld-hint">Salary, employer costs, equipment, management overhead.</div>
+          </div>
+
+          <div class="fld">
+            <div class="fld-top"><span class="fld-lab">Months to a working v1</span><span class="fld-val" id="v-mo">8</span></div>
+            <input type="range" id="s-mo" min="2" max="18" step="1" value="8"/>
+            <div class="fld-hint">Connectors, schema, permissions, a query layer, and a front end people will actually open.</div>
+          </div>
+
+          <div class="fld">
+            <div class="fld-top"><span class="fld-lab">Hours a week pulling reports today</span><span class="fld-val" id="v-hrs">20</span></div>
+            <input type="range" id="s-hrs" min="4" max="60" step="2" value="20"/>
+            <div class="fld-hint">Across marketing, growth and the analytics team, the weekly data sync included.</div>
+          </div>
+
+          <div class="fld">
+            <div class="fld-top"><span class="fld-lab">Blended cost of that hour</span><span class="fld-val" id="v-rate">&pound;45</span></div>
+            <input type="range" id="s-rate" min="20" max="100" step="5" value="45"/>
+          </div>
+        </div>
+
+        <div class="calc-out">
+          <div class="eyebrow" style="margin-bottom:20px">Year one</div>
+          <div class="co-row">
+            <div class="co-lab">Build the team's time<small>Headcount across the build window</small></div>
+            <div class="co-val" id="o-build">&pound;113,300</div>
+          </div>
+          <div class="co-row">
+            <div class="co-lab">Keeping it alive<small>APIs change; someone owns that forever</small></div>
+            <div class="co-val" id="o-maint">&pound;25,500</div>
+          </div>
+          <div class="co-row">
+            <div class="co-lab">Manual reporting while you wait<small>The cost that doesn't stop during the build</small></div>
+            <div class="co-val" id="o-manual">&pound;31,200</div>
+          </div>
+          <div class="co-row">
+            <div class="co-lab" style="font-weight:600;color:var(--ink)">In-house, year one</div>
+            <div class="co-val big" id="o-total">&pound;170,000</div>
+          </div>
+          <div class="co-row">
+            <div class="co-lab" style="font-weight:600;color:var(--ink)">Milo, year one<small>&pound;1,500 a month, unlimited users and data</small></div>
+            <div class="co-val big" style="color:var(--milo-b)">&pound;18,000</div>
+          </div>
+          <div class="co-final">
+            <div class="cf-l"><b id="f-label">Year-one difference</b><span id="f-sub">Plus roughly 7 months of answers you'd otherwise be waiting for.</span></div>
+            <div class="cf-v" id="f-val">&pound;152,000</div>
+          </div>
+          <p class="calc-note">The honest version: if your assumption is one person, two months and a low salary, in-house wins and you should build it. The model above will tell you that when it's true.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:22px" class="reveal d2">
+      <div class="cmp">
+        <div class="cmp-r hd"><div>&nbsp;</div><div>Build it in-house</div><div class="c-milo">Run the Milo pilot</div></div>
+        <div class="cmp-r"><div>Time to the first useful answer</div><div>6 to 12 months, assuming nothing gets deprioritised</div><div><b>Week one of four.</b> Connections in days, answers immediately after</div></div>
+        <div class="cmp-r"><div>What happens when Meta changes its API</div><div>Your engineer stops what they're doing and fixes it</div><div><b>Our problem.</b> We build and maintain every connector from scratch</div></div>
+        <div class="cmp-r"><div>Adding a new source: events, Samsung, the warehouse</div><div>Another sprint, another queue, another prioritisation call</div><div><b>Included.</b> New sources are how the product grows</div></div>
+        <div class="cmp-r"><div>Who can get an answer without help</div><div>Whoever writes SQL</div><div><b>Anyone who can type a question.</b> Five offices, three teams, one workspace</div></div>
+        <div class="cmp-r"><div>What your analytics team ends up doing</div><div>Maintaining a pipeline and servicing report requests</div><div><b>The work they were hired for.</b> They set it up faster than we could alone</div></div>
+        <div class="cmp-r"><div>If it turns out not to be worth it</div><div>You've spent the year and the headcount</div><div><b>You stop after four weeks.</b> Nothing to unwind</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ POC ══ -->
+<section id="poc" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The proposal</span>
+      <h2>Four weeks. Then you decide.</h2>
+      <p class="lead">Two stages, one rate. The pilot proves it on your own data with nothing to unwind if it doesn't land. The agreement that follows is the same &pound;1,500 a month, with no renegotiation, no step-up and no setup fee waiting on the other side.</p>
+    </div>
+    <div class="price reveal d1">
+      <div class="price-top">
+        <div>
+          <span class="stage s1"><i></i>Stage one &middot; Weeks 1 to 4</span>
+          <h3>Proof of concept</h3>
+          <p>Your accounts, your data, your questions, running properly, not a sandbox. Long enough to survive a real month-end and a real leadership meeting.</p>
+        </div>
+        <div class="price-tag">
+          <div class="amt">&pound;1,500</div>
+          <div class="per">per month &middot; 4 weeks billed</div>
+        </div>
+      </div>
+      <ul class="price-list">
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#57D2EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Unlimited users.</b> Every office, every team. We don't price by seat. It would defeat the point.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#57D2EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Unlimited data and questions.</b> Interactions aren't metered during the pilot. Nobody has to ration curiosity while deciding.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#57D2EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>We build the connectors.</b> From scratch, by us, including anything not on our list yet.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#57D2EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Persistent dashboards.</b> The saved views and scheduled reports you singled out on the call.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#57D2EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>White-label available.</b> You almost certainly don't need it. It's there if the brand team wants it.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#57D2EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Walk away at week four.</b> No notice, no clawback, no conversation. Most pilots convert, which is exactly why we can offer that.</span></li>
+      </ul>
+    </div>
+
+    <div class="then reveal d2"><em></em><span>Then, if it works</span><em></em></div>
+
+    <div class="plan2 reveal d2">
+      <div class="price-top">
+        <div>
+          <span class="stage s2"><i></i>Stage two &middot; Month 2 onwards</span>
+          <h3>12-month agreement</h3>
+          <p>Same product, same rate, with the ongoing support that turns a working pilot into something five offices actually depend on.</p>
+        </div>
+        <div class="price-tag">
+          <div class="amt">&pound;1,500</div>
+          <div class="per">per month &middot; 12 months, paid monthly</div>
+        </div>
+      </div>
+      <ul class="price-list">
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#00B3DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Unlimited users and data.</b> Every office, every team, and no cap on how much data you connect. We still don't price by seat.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#00B3DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Up to 500 interactions a month.</b> Roughly 25 questions a day across a working month, shared across everyone who uses it.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#00B3DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>We keep the connectors working.</b> When Meta or TikTok changes an API, that stays our problem for the whole term rather than becoming your engineer's sprint.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#00B3DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>New sources as they land.</b> Your warehouse when it ships, the Samsung channel if the partnership restarts, whatever the event programme ends up running on.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#00B3DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Dashboards and automations that move with you.</b> As the questions change, the saved views and scheduled reports change with them, without a request going into a queue.</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#00B3DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Onboarding and support for the full term.</b> New joiners across all five offices get set up without it becoming a project, and we stay involved for the twelve months rather than handing over at go-live.</span></li>
+      </ul>
+      <div class="plan-foot">
+        <p>The four-week pilot is billed separately and runs uncapped. The twelve months begin after it, with no setup fee and no rate change.</p>
+        <div class="yr"><b>&pound;18,000</b> across the year</div>
+      </div>
+    </div>
+
+    <div style="margin-top:52px" class="reveal d2">
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-wk">Week 1</div>
+          <div class="tl-body">
+            <h4>Connect</h4>
+            <p>Your stack is already mapped, so week one is connection rather than discovery. Snowflake and the paid channels go in first, because that is where the pressure is.</p>
+            <ul><li>Snowflake connected natively, with your RBAC respected</li><li>Apple Search Ads, Google, Meta and LinkedIn live</li><li>Your Insights team in the room from day one, not handed a finished thing</li></ul>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-wk">Week 2</div>
+          <div class="tl-body">
+            <h4>Widen</h4>
+            <p>Events data alongside paid, covering the cafe takeovers and the US programme, so spend can finally be compared across channels that have never shared a table.</p>
+            <ul><li>Brandwatch, Microsoft Store, Statsig and Profound connectors in place, free</li><li>Event data ingested, giving the programme its first system of record</li><li>Persistent dashboards built by the people who'll use them</li></ul>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-wk">Week 3</div>
+          <div class="tl-body">
+            <h4>Automate</h4>
+            <p>Turn the questions people keep repeating into scheduled reports. The weekly data sync stops being a meeting where numbers get read aloud.</p>
+            <ul><li>Monday-morning summaries landing before the working day, in each time zone</li><li>Threshold alerts: cost per acquisition drifting, a campaign stalling</li><li>Nothing to remember to run</li></ul>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-wk">Week 4</div>
+          <div class="tl-body">
+            <h4>Make the case</h4>
+            <p>We package what the four weeks actually produced, including hours returned, decisions changed and questions answered, into something that stands up in a budget conversation.</p>
+            <ul><li>A usage and value readout you can put in the FY2027 proposal</li><li>Evidence for whatever you decide to build next, rather than assumptions</li><li>Continue, extend, or walk. Your call, no pressure applied</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-l">
+        <div class="milo-mark">Milo</div>
+        <p>The analyst layer for companies that already have the data and not the time. We build every integration from scratch, so you don't.</p>
+      </div>
+      <div class="foot-r">
+        Prepared for <strong style="color:var(--ink-75)">Camilla Cornwell</strong>, Good Systems<br/>
+        Liam Rabone &middot; <a href="mailto:liam@milo.ai">liam@milo.ai</a><br/>
+        September 2026
+      </div>
+    </div>
+    <p class="fineprint">Prepared by Milo for Good Systems. Good Systems, Goodnotes and Goodmeet are trademarks of Good Systems and are used here to identify the recipient of this proposal. Brand assets and typefaces are referenced from goodsystems.com and goodnotes.com so this document reads in your house style. Figures in the interactive demo are illustrative and do not represent Good Systems data. Calculator outputs depend entirely on the assumptions you set.</p>
+  </div>
+</footer>
+
+<script>
+/* ═══ TOOLS MARQUEE ═══ */
+const STACK=[
+ ['Data infrastructure',[['Snowflake','n'],['dbt',''],['Tableau',''],['Hex','']]],
+ ['Paid acquisition',[['Apple Search Ads','h'],['Google Ads',''],['Meta Ads',''],['LinkedIn Ads',''],['Reddit Ads',''],['TikTok Ads',''],['Pinterest Ads',''],['Snapchat Ads','']]],
+ ['Attribution and app stores',[['AppsFlyer',''],['App Store Connect',''],['Google Play Console',''],['Microsoft Store','b']]],
+ ['CRM and lifecycle',[['Braze',''],['HubSpot',''],['Mandrill',''],['Mailchimp','']]],
+ ['Product and experimentation',[['Amplitude',''],['Statsig','b']]],
+ ['Revenue',[['RevenueCat',''],['Stripe','']]],
+ ['Web, SEO and AEO',[['Google Analytics',''],['Google Search Console',''],['Ahrefs',''],['Profound','b'],['Webflow','']]],
+ ['Social and brand',[['Brandwatch','b']]],
+ ['Market and competitor intelligence',[['Sensor Tower',''],['AppFigures','']]],
+ ['Voice of customer',[['Sprig',''],['UserVoice',''],['Zendesk',''],['Typeform','']]],
+ ['Workflow',[['Notion',''],['Slack',''],['Jira',''],['Zapier','']]]
+];
+const TAGS={n:['n','Native'],b:['b','In the pilot'],h:['s','Your largest channel']};
+// category grid
+(function(){
+  const g=document.getElementById('stackgrid');if(!g)return;
+  g.innerHTML=STACK.map(([cat,tools])=>{
+    const chips=tools.map(([name,k])=>{
+      const cls=k==='b'?' soon':(k==='n'?' hot':'');
+      const tag=k&&TAGS[k]?'<span class="tag '+TAGS[k][0]+'">'+TAGS[k][1]+'</span>':'';
+      return '<span class="tchip'+cls+'"><i></i>'+name+tag+'</span>';
+    }).join('');
+    return '<div class="cat"><h5>'+cat+'</h5><div class="cat-tools">'+chips+'</div></div>';
+  }).join('');
+})();
+// marquee rows, built from the same real stack
+(function(){
+  const flat=STACK.flatMap(([,t])=>t.map(x=>x[0]));
+  const half=Math.ceil(flat.length/2);
+  const mk=(el,items)=>{const h=items.map(n=>'<span class="tool"><i style="background:#00B3DC"></i>'+n+'</span>').join('');el.innerHTML=h+h;};
+  const a=document.getElementById('mq1'),b=document.getElementById('mq2');
+  if(a)mk(a,flat.slice(0,half));
+  if(b)mk(b,flat.slice(half));
+})();
+
+/* ═══ DEMO ═══ */
+const DEMO=[
+{k:'Paid channels',q:'Across Facebook, TikTok and LinkedIn, where should next month’s budget actually go?',
+ a:'TikTok is your conversion engine, not your awareness channel. It converts at <span class="up">2.9×</span> the rate of LinkedIn for roughly a third of the cost per acquisition. Facebook still banks the most <b>direct</b> revenue, so it holds its budget. LinkedIn is your most expensive click by a distance. Defensible for B2B pipeline, hard to justify for consumer installs, and right now <span class="dn">just under half</span> of its spend is pointed at consumer.',
+ c:{t:'Return on ad spend, last 30 days',rows:[{l:'TikTok',p:94,v:'3.4×',pos:1},{l:'Facebook',p:83,v:'3.0×',pos:1},{l:'Blended avg',p:64,v:'2.3×',pos:1},{l:'LinkedIn',p:33,v:'1.2×',pos:0}]},
+ i:'Moving <b>15% of LinkedIn consumer spend to TikTok</b> would, on current rates, add roughly 340 conversions a month at no extra budget. Want me to keep watching that split and flag it weekly?'},
+
+{k:'Events',q:'Did the US cafe takeovers pay for themselves, and which city is worth repeating?',
+ a:'Four takeovers, <b>1,880 signups</b>, blended cost per signup of <b>£11.40</b>, cheaper than your paid social average of £14.90, which is not what event spend usually does. Austin was the standout and it wasn’t close. Chicago underperformed badly; footfall was fine, but conversion at the table was less than half of Austin’s, which points at the on-site flow rather than the audience.',
+ c:{t:'Cost per signup by city (lower is better)',rows:[{l:'Austin',p:88,v:'£6.80',pos:1},{l:'Brooklyn',p:66,v:'£9.60',pos:1},{l:'Los Angeles',p:52,v:'£12.90',pos:1},{l:'Chicago',p:22,v:'£23.40',pos:0}]},
+ i:'Austin beat every paid channel you run. If the next twelve months of US events repeat the Austin format, that is the single highest-leverage change in this dataset.'},
+
+{k:'B2B · Education · Consumer',q:'Compare B2B, education and consumer this quarter. Who’s growing and who’s stalling?',
+ a:'Education is carrying the quarter at <span class="up">+31%</span>, and the shape of it is seasonal. The back-to-school window did what it always does, only harder this year. B2B is small but compounding fastest off its base. Consumer is <span class="dn">flat to slightly down</span>, and the flatness is concentrated in markets where you’ve historically had no paid presence, which is a distribution problem rather than a product one.',
+ c:{t:'Quarter-on-quarter growth by segment',rows:[{l:'Education',p:91,v:'+31%',pos:1},{l:'B2B',p:72,v:'+24%',pos:1},{l:'Consumer',p:28,v:'−2%',pos:0}]},
+ i:'The three teams are looking at three different numbers today. This is the first quarter they could look at the same one, and consumer’s flatness only reads as a distribution problem when you can see it beside the other two.'},
+
+{k:'Regions',q:'We’re strongest in APAC but pushing Europe and the US. Is the paid spend working there yet?',
+ a:'APAC remains your cheapest acquisition by a wide margin, with fifteen years of word of mouth doing work that paid budget cannot buy. Europe is <b>improving month on month</b> and is now within touching distance of blended average. The US is expensive, but the trend line is right and the event programme lands squarely in the market that needs it most.',
+ c:{t:'Cost per install by region (lower is better)',rows:[{l:'APAC',p:92,v:'£2.10',pos:1},{l:'Europe',p:61,v:'£5.40',pos:1},{l:'North America',p:38,v:'£8.90',pos:0}]},
+ i:'US cost per install has fallen <b>18% in six weeks</b>. On that trajectory it reaches your blended average around the turn of the year, worth saying out loud at the off-site before anyone proposes cutting it.'},
+
+{k:'Automate it',q:'Send the marketing leads a summary of all of this every Monday at 8am, in their own time zone.',
+ a:'Done. Scheduled and live. Every recipient gets it at <b>08:00 local</b>, so nobody reads Friday’s numbers on Tuesday. I’ll include the channel split, event performance and segment growth, and I’ll flag anything that moves more than 15% week on week rather than making you look for it.',
+ c:{t:'Scheduled for Monday 08:00 local',list:['Head of Marketing · Barcelona, 08:00 CET','Head of Growth · 08:00 local','Min, COO · Hong Kong, 08:00 HKT','Brand & Design · London, 08:00 BST']},
+ i:'That is the weekly data sync, minus the meeting. Any question you ask twice can become a scheduled report or a saved dashboard, with no request, no ticket and no analyst in the loop.'}
+];
+
+const dtabs=document.getElementById('dtabs'),dbody=document.getElementById('dbody'),dinput=document.getElementById('dinput');
+let dTimers=[];
+function renderDemo(n){
+  dTimers.forEach(clearTimeout);dTimers=[];
+  [...dtabs.children].forEach((b,i)=>b.classList.toggle('act',i===n));
+  const d=DEMO[n];
+  dinput.textContent='Ask Milo anything about Good Systems…';
+  dbody.innerHTML='<div class="msg"><div class="av u">GS</div><div class="bub"><div class="who">Good Systems</div><div class="q">'+d.q+'</div></div></div>'
+    +'<div class="msg" style="animation-delay:.2s"><div class="av m">M</div><div class="bub"><div class="who">Milo</div><div id="ans"><div class="typing"><i></i><i></i><i></i></div></div></div></div>';
+  dTimers.push(setTimeout(()=>{
+    const ans=document.getElementById('ans');if(!ans)return;
+    let html='<div class="a">'+d.a+'</div><div class="chart"><div class="chart-t">'+d.c.t+'</div>';
+    if(d.c.rows){d.c.rows.forEach(r=>{html+='<div class="row"><div class="rl">'+r.l+'</div><div class="track"><div class="fill'+(r.pos?'':' neg')+'" style="width:'+r.p+'%"></div></div><div class="rv '+(r.pos?'pos':'neg')+'">'+r.v+'</div></div>';});}
+    else{d.c.list.forEach(x=>{html+='<div class="row" style="grid-template-columns:20px 1fr;margin-bottom:9px"><div><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 4.8" stroke="#57D2EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rl" style="white-space:normal">'+x+'</div></div>';});}
+    html+='</div><div class="insight"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:3px"><path d="M8 1.5v1M8 13.5v1M14.5 8h-1M2.5 8h-1M12.6 3.4l-.7.7M4.1 11.9l-.7.7M12.6 12.6l-.7-.7M4.1 4.1l-.7-.7" stroke="#57D2EE" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="8" r="3" stroke="#57D2EE" stroke-width="1.3"/></svg><div class="ib">'+d.i+'</div></div>';
+    ans.innerHTML=html;
+    dTimers.push(setTimeout(()=>{dbody.querySelectorAll('.fill').forEach((f,i)=>{f.style.animationDelay=(i*.09)+'s';f.classList.add('go');});},60));
+  },1150));
+}
+DEMO.forEach((d,i)=>{const b=document.createElement('button');b.className='dtab';b.textContent=d.k;b.onclick=()=>renderDemo(i);dtabs.appendChild(b);});
+renderDemo(0);
+
+/* ═══ DEPARTMENTS ═══ */
+const DEPTS=[
+{n:'Marketing',who:'Head of Marketing',loc:'Barcelona',
+ d:'Mid-way through a heavy paid push, with a weekly data sync cadence that has only just started. The questions are already being asked. They’re just being answered slowly.',
+ rows:[
+ ['Which creative is actually driving installs on TikTok this week, not just views?','Ranked by install rate rather than impressions, with the drop-off point in each video flagged, so the next shoot is briefed on evidence rather than instinct.'],
+ ['What did we spend per acquisition across all three platforms last month, by segment?','One table, three platforms, split by B2B, education and consumer. The comparison that currently takes a day to assemble by hand.'],
+ ['Is the weekly sync telling us anything the numbers didn’t already say?','The summary arrives at 08:00 Monday before the meeting, so the meeting becomes a decision rather than a readout.']]},
+
+{n:'Growth',who:'Head of Growth',loc:'Regional',
+ d:'Working well ahead of London, which today means waiting on other people’s office hours to get a number that already exists.',
+ rows:[
+ ['Where is our cheapest acquisition right now, and is that changing?','Cost per install by region and channel with the six-week trend, so a rising cost gets caught while it’s still cheap to fix.'],
+ ['Which markets are converting without any paid support at all?','Organic strength by market: the fifteen years of word of mouth, made visible, so paid budget goes where it’s actually needed.'],
+ ['Did the Samsung channel move anything measurable?','Install and retention performance isolated to that channel, ready for the moment the partnership restarts.']]},
+
+{n:'Operations',who:'Min, COO',loc:'Hong Kong',
+ d:'Needs one picture across five locations and three audience lines, in time for an off-site where next year’s projections are on the agenda.',
+ rows:[
+ ['Give me one view of company performance across every market and segment.','A single dashboard that doesn’t require anyone to reconcile three spreadsheets first, and reads the same in Hong Kong as it does in Barcelona.'],
+ ['What are we spending per acquired user, all-in, across paid and events?','Blended acquisition cost including the event programme: the number that belongs in a projection and currently doesn’t exist.'],
+ ['Where are the three teams disagreeing about the same number?','Milo flags where definitions diverge between B2B, education and consumer, which is usually the real cause of a disagreement.']]},
+
+{n:'Brand & Design',who:'Camilla Cornwell',loc:'London',
+ d:'Judged on whether the work lands, and usually given metrics designed for someone else. Brand questions are legitimate data questions; they just rarely get a data answer.',
+ rows:[
+ ['Did the rebrand change how people respond to the paid work?','Engagement and conversion before and after the brand system landed, held against the same audiences. The closest thing to a clean read you’ll get.'],
+ ['Which creative direction performs across markets rather than just in one?','Performance by creative concept, split by region, so a direction isn’t killed because it underperformed in a single market.'],
+ ['What is brand actually contributing to acquisition cost?','Organic and branded-search movement set against paid cost per install, which is where brand’s commercial argument usually lives and rarely gets made.']]},
+
+{n:'Analytics',who:'Your existing team',loc:'Across offices',
+ d:'The reason this goes faster, not the reason it doesn’t. They already know where the data lives and what it means. Milo takes the request queue off them.',
+ rows:[
+ ['Can we stop being the bottleneck for routine questions?','Yes, and that is most of the point. Self-serve answers for everyone else means the analytics team is left with the work that actually needs an analyst.'],
+ ['Will this fight with the warehouse we’re building?','No. Milo sits above sources rather than replacing them. When the warehouse lands, it becomes one more connection, and a much better one.'],
+ ['Who maintains the connectors when a platform changes its API?','We do. Every integration is built and maintained by us from scratch, including sources that aren’t on our list yet.']]}
+];
+const dt=document.getElementById('depttabs'),dp=document.getElementById('deptpanels');
+DEPTS.forEach((d,i)=>{
+  const b=document.createElement('button');b.className='dtb'+(i===0?' act':'');b.textContent=d.n;
+  b.onclick=()=>{[...dt.children].forEach((x,j)=>x.classList.toggle('act',j===i));[...dp.children].forEach((x,j)=>x.classList.toggle('act',j===i));};
+  dt.appendChild(b);
+  const p=document.createElement('div');p.className='dept-panel'+(i===0?' act':'');
+  p.innerHTML='<div class="dept-card"><div class="dept-hd"><div><h3>'+d.n+'</h3><p>'+d.d+'</p></div><div class="dept-who"><div class="lbl">Who this is for</div><div class="nm">'+d.who+'</div><div class="lc">'+d.loc+'</div></div></div><div class="dept-rows">'
+   +d.rows.map(r=>'<div class="qrow"><div class="qq"><div class="qlab">They ask</div><p>'+r[0]+'</p></div><div class="qa"><div class="qlab">Milo returns</div><p>'+r[1]+'</p></div></div>').join('')
+   +'</div></div>';
+  dp.appendChild(p);
+});
+
+/* ═══ CALCULATOR ═══ */
+const S={head:'s-head',sal:'s-sal',mo:'s-mo',hrs:'s-hrs',rate:'s-rate'};
+const gbp=n=>'£'+Math.round(n).toLocaleString('en-GB');
+function calc(){
+  const head=+document.getElementById('s-head').value,sal=+document.getElementById('s-sal').value,
+        mo=+document.getElementById('s-mo').value,hrs=+document.getElementById('s-hrs').value,rate=+document.getElementById('s-rate').value;
+  document.getElementById('v-head').textContent=head+(head===1?' person':' people');
+  document.getElementById('v-sal').textContent=gbp(sal);
+  document.getElementById('v-mo').textContent=mo+(mo===1?' month':' months');
+  document.getElementById('v-hrs').textContent=hrs+' hrs/wk';
+  document.getElementById('v-rate').textContent=gbp(rate)+'/hr';
+
+  const build=head*sal*(mo/12);
+  const maint=sal*0.3;
+  const manual=hrs*52*(mo/12)*rate;
+  const total=build+maint+manual;
+  const milo=1500*12;
+  const diff=total-milo;
+
+  document.getElementById('o-build').textContent=gbp(build);
+  document.getElementById('o-maint').textContent=gbp(maint);
+  document.getElementById('o-manual').textContent=gbp(manual);
+  document.getElementById('o-total').textContent=gbp(total);
+
+  const fl=document.getElementById('f-label'),fs=document.getElementById('f-sub'),fv=document.getElementById('f-val');
+  const wait=Math.max(0,mo-1);
+  if(diff>0){
+    fl.textContent='Year-one difference';
+    fs.textContent='Plus roughly '+wait+' month'+(wait===1?'':'s')+' of answers you would otherwise be waiting for.';
+    fv.textContent=gbp(diff);
+    fv.style.webkitTextFillColor='';fv.style.background='linear-gradient(96deg,var(--cyan-light),#A8E9F7)';fv.style.webkitBackgroundClip='text';fv.style.backgroundClip='text';
+  }else{
+    fl.textContent='On these assumptions, build it';
+    fs.textContent='In-house comes out cheaper over year one. That is a real answer and you should take it.';
+    fv.textContent=gbp(Math.abs(diff))+' cheaper';
+    fv.style.background='none';fv.style.webkitTextFillColor='#FFE55F';
+  }
+}
+Object.values(S).forEach(id=>document.getElementById(id).addEventListener('input',calc));
+calc();
+
+/* ═══ SCROLL ═══ */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const nav=document.getElementById('nav'),prog=document.getElementById('progress');
+addEventListener('scroll',()=>{
+  const y=scrollY,h=document.body.scrollHeight-innerHeight;
+  prog.style.width=(h>0?(y/h)*100:0)+'%';
+  nav.classList.toggle('stuck',y>24);
+},{passive:true});
+</script>
+</body>
+</html>
