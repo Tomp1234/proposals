@@ -130,6 +130,9 @@ section { padding-top: 58px; }
 .hook .today .tag { color: var(--ink-muted); }
 .hook .after .tag { color: var(--green-deep); }
 
+.hooks-note { margin-top: 16px; font-size: 0.92rem; color: var(--ink-dim); max-width: 700px; }
+.hooks-note strong { color: var(--indigo); }
+
 /* ═══ Console demo ═══ */
 .demo-tabs { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
 .d-tab {
@@ -255,6 +258,11 @@ table.rpt td.dim { color: var(--milk-faint); font-size: 0.74rem; }
 .price-card ul { list-style: none; margin: 18px 0 22px; text-align: left; }
 .price-card li { font-size: 0.88rem; color: var(--milk-dim); padding: 6px 0 6px 26px; position: relative; }
 .price-card li::before { content: '✓'; position: absolute; left: 2px; color: #8FE0B2; font-weight: 700; }
+.price-card .p-after {
+  margin: 0 0 20px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.18);
+  text-align: left; font-size: 0.82rem; color: var(--milk-dim); line-height: 1.5;
+}
+.price-card .p-after strong { color: var(--milk); }
 .t-budget { margin-top: 20px; }
 .t-budget-label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; color: var(--milk-dim); margin-bottom: 10px; }
 .t-chips { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -315,9 +323,23 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
   .console-bar { break-after: avoid; }
   .hook, .step, .report-card, .milo-note { break-inside: avoid; }
   #fit { break-inside: avoid; }
-  .trial { grid-template-columns: 1.25fr 1fr !important; margin-top: 26px; padding: 24px 28px; break-inside: avoid; }
-  .price-card { padding: 20px; }
-  .price-card ul { margin-bottom: 0; }
+  #fit { padding-top: 16px; }
+  .steps { margin-top: 16px; }
+  .step { padding: 12px 14px; }
+  .step p { font-size: 0.84rem; }
+  .trial { grid-template-columns: 1.25fr 1fr !important; margin-top: 18px; padding: 18px 22px; gap: 22px; break-inside: avoid; }
+  .trial h2 { font-size: 1.35rem; }
+  .trial .t-body { font-size: 0.86rem; margin-top: 8px; }
+  .t-budget { margin-top: 10px; }
+  .chip { font-size: 0.72rem; padding: 4px 10px; }
+  .price-card { padding: 14px 16px; }
+  .price-card .p-amount { font-size: 2.1rem; }
+  .price-card ul { margin: 10px 0 8px; }
+  .price-card li { font-size: 0.8rem; padding: 3px 0 3px 22px; }
+  .price-card .p-after { font-size: 0.74rem; padding-top: 8px; }
+  .price-card ul { margin-bottom: 12px; }
+  .price-card .p-after { margin-bottom: 0; }
+  .hooks-note { break-inside: avoid; }
   a.cta { display: none; }
   footer { margin-top: 18px; padding: 14px 0 0; break-inside: avoid; }
 }
@@ -333,9 +355,9 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
       <img class="emmiera-logo" src="assets/emmiera-logo-white.png" alt="Emmiera Group">
     </div>
     <div class="hero">
-      <span class="eyebrow">A short proposal · August 2026</span>
+      <span class="eyebrow">A short proposal · updated September 2026</span>
       <h1>35 packs. 80 hours a month. <span class="hl">Done by breakfast.</span></h1>
-      <p class="strap">The reporting job that has sat on the list for six years, running by itself inside a month. With the weekly client check and the marketing sums thrown in.</p>
+      <p class="strap">The packs by breakfast. Then the diary: where the lead time is over seven days, and which tech move fixes it.</p>
     </div>
   </div>
 </div>
@@ -344,7 +366,7 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
 
 <!-- ═══════════ HOOKS ═══════════ -->
 <section id="hooks">
-  <h2 class="sec-title">Three jobs, straight from our call.</h2>
+  <h2 class="sec-title">Three jobs, in the order we would do them.</h2>
   <div class="hooks">
 
     <div class="hook">
@@ -357,35 +379,36 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
     </div>
 
     <div class="hook">
-      <span class="num">02 · The weekly check</span>
-      <h3>The client drop-off that gets missed</h3>
+      <span class="num">02 · The diary</span>
+      <h3>Where the lead time is over seven days, and what fixes it</h3>
       <div class="flip">
-        <div class="today"><span class="tag">Today</span>Someone eyeballs call volumes across nearly 300 clients every week, and sometimes a quiet one slips through.</div>
-        <div class="after"><span class="tag">With Milo</span>The 40 clients that are 90% of the business, watched daily. A drop-off gets flagged the day it starts, along with the likely reason.</div>
+        <div class="today"><span class="tag">Today</span>Around 5,000 jobs a week, booked against the diary by hand. When an area fills up the next slot can be three weeks out, and moving a tech is a judgement call.</div>
+        <div class="after"><span class="tag">With Milo</span>Every morning: which areas are over the seven-day target, how many jobs are waiting, and which tech has spare days nearby. Ops confirm the move.</div>
       </div>
     </div>
 
     <div class="hook">
-      <span class="num">03 · The marketing money</span>
-      <h3>Does the ad spend actually create jobs?</h3>
+      <span class="num">03 · The claims system</span>
+      <h3>The KPI pack on claims, before anyone has to build it</h3>
       <div class="flip">
-        <div class="today"><span class="tag">Today</span>PPC reports from the agency, lead data loaded into ChatGPT by hand, and a judgement call on where to cut.</div>
-        <div class="after"><span class="tag">With Milo</span>Ad spend joined to booked jobs, by channel and region. Which spend creates work, and which just creates clicks.</div>
+        <div class="today"><span class="tag">Today</span>A claims system is going in now. Its reporting will be one more pack built from an export and a pivot table.</div>
+        <div class="after"><span class="tag">With Milo</span>Claims by client, product and outcome, on the same dashboard as the packs, from the day it goes live.</div>
       </div>
     </div>
 
   </div>
+  <p class="hooks-note"><strong>The weekly client check and the marketing sums from the first version still run.</strong> They come with the connection.</p>
 </section>
 
 <!-- ═══════════ DEMO ═══════════ -->
 <section id="demo">
   <h2 class="sec-title">What that looks like on a Friday morning.</h2>
-  <p class="sec-sub">Illustrative data. Click through, this is how each one runs.</p>
+  <p class="sec-sub">Illustrative data, shaped like yours. Click through. During the two months these run on your real feed.</p>
 
   <div class="demo-tabs">
     <button class="d-tab active" data-pane="pack">Client MBR pack</button>
+    <button class="d-tab" data-pane="diary">Diary and lead time</button>
     <button class="d-tab" data-pane="watch">Client watch</button>
-    <button class="d-tab" data-pane="ads">Marketing check</button>
   </div>
 
   <div class="console">
@@ -420,6 +443,31 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
         </div>
       </div>
 
+      <!-- Diary pane -->
+      <div class="demo-pane" id="pane-diary">
+        <div class="auto-card">
+          <span class="pulse"></span>
+          <span class="a-name">Automation · Capacity watch</span>
+          <span class="a-sched">Every morning 06:30 · diary + unappointed jobs · by postcode area</span>
+        </div>
+        <div class="report-card">
+          <div class="report-head"><h5>Areas over the seven-day target · this morning</h5><span class="meta">lead time = next open slot, working days</span></div>
+          <div class="table-scroll">
+          <table class="rpt">
+            <tr><th>Area</th><th>Waiting</th><th>Lead time</th><th>Spare capacity nearby</th><th>Status</th></tr>
+            <tr><td>CT · Canterbury</td><td class="num">8</td><td class="num">22 days</td><td class="dim">ME, two open days Thu and Fri</td><td><span class="rag r">MOVE</span></td></tr>
+            <tr><td>BB4 · Rossendale</td><td class="num">11</td><td class="num">9.3 days</td><td class="dim">BB1, three open days next week</td><td><span class="rag r">MOVE</span></td></tr>
+            <tr><td>ME · Medway</td><td class="num">6</td><td class="num">7.5 days</td><td class="dim">none within 30 minutes</td><td><span class="rag a">WATCH</span></td></tr>
+            <tr><td>B12 · Birmingham</td><td class="num">3</td><td class="num">1 day</td><td class="dim">not needed</td><td><span class="rag g">OK</span></td></tr>
+          </table>
+          </div>
+        </div>
+        <div class="milo-note">
+          <img src="assets/milo-icon.jpeg" alt="Milo">
+          <p><strong>Milo:</strong> Two moves fix most of it. The BB1 tech has three open days next week and BB4 is twenty minutes away, which clears nine of the eleven. In Kent, the two open days in ME cover six of the eight waiting in CT and bring it back under seven days. Both are queued for ops to confirm. Nothing changes in the diary until they do.</p>
+        </div>
+      </div>
+
       <!-- Watch pane -->
       <div class="demo-pane" id="pane-watch">
         <div class="auto-card">
@@ -444,30 +492,6 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
         </div>
       </div>
 
-      <!-- Ads pane -->
-      <div class="demo-pane" id="pane-ads">
-        <div class="auto-card">
-          <span class="pulse"></span>
-          <span class="a-name">Automation · Marketing check</span>
-          <span class="a-sched">Monthly · Google Ads + GA + lead data joined to booked jobs</span>
-        </div>
-        <div class="report-card">
-          <div class="report-head"><h5>Spend to booked jobs · private &amp; commercial</h5><span class="meta">last 30 days</span></div>
-          <div class="table-scroll">
-          <table class="rpt">
-            <tr><th>Channel</th><th>Spend</th><th>Leads</th><th>Booked jobs</th><th>Cost / job</th></tr>
-            <tr><td>PPC · private</td><td class="num">£4,200</td><td class="num">312</td><td class="num">208</td><td class="num">£20.19</td></tr>
-            <tr><td>PPC · commercial</td><td class="num">£1,800</td><td class="num">41</td><td class="num">9</td><td class="num">£200.00</td></tr>
-            <tr><td>Organic</td><td class="num">£0</td><td class="num">198</td><td class="num">122</td><td class="num">£0</td></tr>
-          </table>
-          </div>
-        </div>
-        <div class="milo-note">
-          <img src="assets/milo-icon.jpeg" alt="Milo">
-          <p><strong>Milo:</strong> Your PPC cut has not dented private bookings, that reduction looks safe. Commercial is the gap: 41 leads became 9 jobs. The drop-off happens after the quote is sent, not at the enquiry, which is fixable and worth more than any extra ad spend.</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -478,18 +502,18 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
   <div class="steps">
     <div class="step">
       <span class="s-num">1</span>
-      <h4>API from your system</h4>
-      <p>Exactly as you asked on the call: your team pushes the data over API, every field you already store. No re-keying, no uploads.</p>
+      <h4>Our engineers connect to it, under NDA</h4>
+      <p>Read access to the system that holds the jobs, the diary and the tech reports. Our engineers look at the back end first and say exactly what they need. Nothing writes back.</p>
     </div>
     <div class="step">
       <span class="s-num">2</span>
-      <h4>Runs alongside your dashboard</h4>
-      <p>Your IT team keeps the system and the live ops screen. Milo sits on top. Run both for the first week and compare.</p>
+      <h4>Packs first, diary second</h4>
+      <p>Month one, the 35 packs from the raw data you export today. Month two, the diary: lead time by postcode and the tech moves. Claims when that system goes live.</p>
     </div>
     <div class="step">
       <span class="s-num">3</span>
-      <h4>A couple of days to set up</h4>
-      <p>We are on the calls with your team while it connects. The month does not start until Milo is live, so setup time is on us.</p>
+      <h4>It reads the diary. It does not run it.</h4>
+      <p>A scheduling tool and a field-service platform have both been tried here and stalled. Milo does not reschedule anyone. It shows ops where capacity is short and which move fixes it. A person confirms it.</p>
     </div>
   </div>
 </section>
@@ -497,8 +521,8 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
 <!-- ═══════════ TRIAL ═══════════ -->
 <div class="trial" id="trial">
   <div>
-    <h2>One month. £1,500. <span class="hl">If you don't find it back, walk away.</span></h2>
-    <p class="t-body">Your words: a £1,500 punt. Ours: the 80 hours of pack time alone pays it back several times over, and that is before Milo flags a single client drop-off or a pound of wasted spend. <strong>If the month does not pay for itself, don't continue.</strong> No contract, no tie-in.</p>
+    <h2>Two months. £1,500 a month. <span class="hl">£1,500 back if you don't carry on.</span></h2>
+    <p class="t-body">Your words: a £1,500 punt. Two months is long enough to connect your system properly and get the packs and the diary running, and long enough for you to know. <strong>Stop at the end of month two and we refund £1,500.</strong> It goes in the contract. Sign in September, our engineers start the same week, and the two months run from 1 October.</p>
     <div class="t-budget">
       <span class="t-budget-label">And it is not new budget. You named the lines it comes from:</span>
       <div class="t-chips">
@@ -510,21 +534,22 @@ footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
   </div>
   <div class="price-card">
     <div class="p-amount">£1,500</div>
-    <div class="p-per">one month, all in</div>
+    <div class="p-per">a month · two months from 1 October · everything included</div>
     <ul>
-      <li>Connected to your system by API</li>
-      <li>The 35 packs rebuilt in Milo</li>
-      <li>Client watch and marketing check live</li>
-      <li>Everyone in the business can ask Milo anything</li>
+      <li>Our engineers connected to your system, under NDA</li>
+      <li>The 35 packs rebuilt in Milo in month one</li>
+      <li>The diary and lead time by postcode in month two</li>
+      <li>Client watch running, and anyone can ask Milo anything</li>
     </ul>
-    <a class="cta" href="mailto:tom@milo.ai?subject=Emmiera%20%C3%97%20Milo%20trial">Start the month</a>
+    <p class="p-after"><strong>After that, it follows how much you use.</strong> Around £1,200 a month for the packs alone, around £2,000 with the diary and claims running through it. Confirmed once our engineers have seen the system.</p>
+    <a class="cta" href="mailto:tom@milo.ai?subject=Emmiera%20%C3%97%20Milo%20trial">Start in October</a>
   </div>
 </div>
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
   <div class="f-mark"><img src="assets/milo-icon.jpeg" alt="Milo">Milo · Autonomous Minds</div>
-  <div class="f-right">Questions? <a href="mailto:tom@milo.ai">Tom Pickett</a> · Prepared August 2026 · Illustrative data throughout</div>
+  <div class="f-right">Questions? <a href="mailto:tom@milo.ai">Tom Pickett</a> · Prepared August 2026, updated September 2026 · Illustrative data throughout</div>
 </footer>
 
 </div>
@@ -534,8 +559,8 @@ const tabs = document.querySelectorAll('.d-tab');
 const panes = document.querySelectorAll('.demo-pane');
 const titles = {
   pack: 'Milo · Client MBR pack · national retailer',
-  watch: 'Milo · Client watch · weekly summary',
-  ads: 'Milo · Marketing check · spend to jobs'
+  diary: 'Milo · Diary and lead time · this morning',
+  watch: 'Milo · Client watch · weekly summary'
 };
 tabs.forEach(t => t.addEventListener('click', () => {
   tabs.forEach(x => x.classList.remove('active'));

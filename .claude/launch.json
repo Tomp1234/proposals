@@ -2,105 +2,216 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "emmiera",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8870",
+        "--directory",
+        "milo-emmiera-proposal"
+      ],
+      "port": 8870
+    },
+    {
       "name": "pret",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8860", "--directory", "milo-pret-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8860",
+        "--directory",
+        "milo-pret-proposal"
+      ],
       "port": 8860
     },
     {
       "name": "ngp",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8855", "--directory", "milo-ngp-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8855",
+        "--directory",
+        "milo-ngp-proposal"
+      ],
       "port": 8855
     },
     {
       "name": "moneycorp",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8850", "--directory", "milo-moneycorp-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8850",
+        "--directory",
+        "milo-moneycorp-proposal"
+      ],
       "port": 8850
     },
     {
       "name": "milo-showcase",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8820", "--directory", "milo-showcase"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8820",
+        "--directory",
+        "milo-showcase"
+      ],
       "port": 8820
     },
     {
       "name": "milo-b",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "milo-one-pager-b"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8765",
+        "--directory",
+        "milo-one-pager-b"
+      ],
       "port": 8765
     },
     {
       "name": "iberica",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8770", "--directory", "milo-iberica-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8770",
+        "--directory",
+        "milo-iberica-proposal"
+      ],
       "port": 8770
     },
     {
       "name": "cost-stack",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8780", "--directory", "milo-cost-stack"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8780",
+        "--directory",
+        "milo-cost-stack"
+      ],
       "port": 8780
     },
     {
       "name": "bellcomp",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8790", "--directory", "milo-bellcomp-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8790",
+        "--directory",
+        "milo-bellcomp-proposal"
+      ],
       "port": 8790
     },
     {
       "name": "chaoscards",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8795", "--directory", "milo-chaoscards-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8795",
+        "--directory",
+        "milo-chaoscards-proposal"
+      ],
       "port": 8795
     },
     {
       "name": "marigroup",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8800", "--directory", "milo-marigroup-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8800",
+        "--directory",
+        "milo-marigroup-proposal"
+      ],
       "port": 8800
     },
     {
       "name": "samsung",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8810", "--directory", "milo-samsung-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8810",
+        "--directory",
+        "milo-samsung-proposal"
+      ],
       "port": 8810
     },
     {
       "name": "milo-intro-onepager",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8805", "--directory", "milo-intro-onepager"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8805",
+        "--directory",
+        "milo-intro-onepager"
+      ],
       "port": 8805
     },
     {
       "name": "milo-intro-onepager-lt",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8806", "--directory", "milo-intro-onepager-lt"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8806",
+        "--directory",
+        "milo-intro-onepager-lt"
+      ],
       "port": 8806
     },
     {
       "name": "hacksaw",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8815", "--directory", "milo-hacksaw-proposal"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8815",
+        "--directory",
+        "milo-hacksaw-proposal"
+      ],
       "port": 8815
     },
     {
       "name": "valerie",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8840", "--directory", "valerie"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8840",
+        "--directory",
+        "valerie"
+      ],
       "port": 8840
     },
     {
       "name": "valerie-tracker",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["valerie-tracker/server.js", "8845"],
+      "runtimeArgs": [
+        "valerie-tracker/server.js",
+        "8845"
+      ],
       "port": 8845
     },
     {
       "name": "op-final-hoop",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8830", "--directory", "/Users/tompickett/op-final-hoop"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8830",
+        "--directory",
+        "/Users/tompickett/op-final-hoop"
+      ],
       "port": 8830
     }
   ]
