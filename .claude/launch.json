@@ -2,6 +2,18 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "milo-deck",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8880",
+        "--directory",
+        "milo-deck"
+      ],
+      "port": 8880
+    },
+    {
       "name": "ramble",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
