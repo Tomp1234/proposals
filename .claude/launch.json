@@ -2,6 +2,18 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "bingoal",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8885",
+        "--directory",
+        "milo-bingoal-proposal"
+      ],
+      "port": 8885
+    },
+    {
       "name": "milo-deck",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
