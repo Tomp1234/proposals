@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo × Londis &amp; SPAR — Overview</title>
+<meta name="description" content="One live data layer across Londis and SPAR estates. Every client sees their own stores. Anyone can ask a question in plain English.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --ink:#0E1A13;
+  --leaf:#1E9E5A;
+  --deep:#0B5C36;
+  --lime:#6FD38C;
+  --sage:#BCE2CB;
+  --cream:#EAF4EC;
+  --cream-lt:#F4FAF5;
+  --paper:#FCFEFC;
+  --accent-rgb:30,158,90;
+  --muted:rgba(14,26,19,.62);
+  --dim:rgba(14,26,19,.42);
+  --line:rgba(14,26,19,.12);
+}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Archivo',system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+section{position:relative;overflow:hidden}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px;position:relative;z-index:30}
+
+.tex{position:absolute;inset:0;pointer-events:none}
+.noise{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.05;mix-blend-mode:multiply}
+.grid{background-image:linear-gradient(rgba(var(--accent-rgb),.055) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--accent-rgb),.055) 1px,transparent 1px);background-size:80px 80px}
+.grid-dark{background-image:linear-gradient(rgba(111,211,140,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(111,211,140,.07) 1px,transparent 1px);background-size:80px 80px}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),.5) 40%,rgba(var(--accent-rgb),1) 50%,rgba(var(--accent-rgb),.5) 60%,transparent);animation:scan 9s linear infinite}
+@keyframes scan{0%{top:-1px;opacity:0}4%{opacity:1}96%{opacity:.7}100%{top:100%;opacity:0}}
+
+/* ── top bar ────────────────────────────────────── */
+.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:26px 0 0;gap:16px}
+.mlock{display:flex;align-items:center;gap:9px;justify-self:start}
+.mmark{width:40px;height:32px;flex-shrink:0}
+.mlock .wm{font-weight:800;font-size:1.32rem;letter-spacing:-.045em;color:#1B1F3B}
+.bar .who{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:center}
+.bar .cli{justify-self:end;display:flex;align-items:center;gap:9px}
+.cjmark{width:32px;height:32px;flex-shrink:0}
+.bar .cli .wm{font-weight:800;font-size:.96rem;letter-spacing:-.01em;color:var(--ink)}
+
+.hero{background:var(--cream);padding-bottom:74px}
+h1{font-size:clamp(2.7rem,8.4vw,6rem);line-height:.92;letter-spacing:-.055em;font-weight:800;margin-top:60px}
+h1 .thin{font-weight:300;letter-spacing:-.04em;display:block;font-size:.42em;line-height:1;margin-bottom:14px;color:var(--muted)}
+h1 .fl{color:var(--leaf)}
+.hero-note{margin-top:32px;max-width:60ch;color:var(--muted);font-size:1.06rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:34px}
+.chip{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid rgba(var(--accent-rgb),.3);color:var(--deep);background:rgba(255,255,255,.6);font-weight:500}
+.chip.solid{background:var(--leaf);color:#fff;border-color:var(--leaf)}
+
+/* ── stat strip ─────────────────────────────────── */
+.strip{background:var(--ink);padding:0}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border-left:1px solid rgba(234,244,236,.12)}
+.scell{padding:40px 26px;border-right:1px solid rgba(234,244,236,.12)}
+.scell .v{font-size:2.5rem;font-weight:800;letter-spacing:-.055em;line-height:1;color:var(--lime)}
+.scell .l{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(234,244,236,.5);margin-top:12px;font-weight:500}
+
+.sec{padding:100px 0}
+.kicker{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--leaf);font-weight:600;margin-bottom:22px}
+.kicker.on-dark{color:var(--lime)}
+h2{font-size:clamp(2rem,5.2vw,3.5rem);line-height:1.02;letter-spacing:-.05em;font-weight:800;margin-bottom:20px;max-width:22ch}
+h2 .lt{font-weight:300;color:var(--muted)}
+h2 .ac{color:var(--leaf)}
+.lede{color:var(--muted);max-width:64ch;font-size:1.04rem}
+.dark{background:var(--ink);color:var(--cream)}
+.dark h2{color:var(--cream)}
+.dark h2 .lt{color:rgba(234,244,236,.5)}
+.dark h2 .ac{color:var(--lime)}
+.dark .lede{color:rgba(234,244,236,.66)}
+
+/* ── three-up explainer ─────────────────────────── */
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:52px}
+.tc{border:1px solid var(--line);border-radius:22px;padding:30px 28px;background:var(--paper)}
+.tc .n{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--leaf);margin-bottom:16px}
+.tc h3{font-size:1.24rem;font-weight:800;letter-spacing:-.04em;margin-bottom:12px;line-height:1.15}
+.tc p{font-size:.93rem;color:var(--muted)}
+.tc .ex{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font-size:.88rem;color:var(--deep);font-weight:500;font-style:italic}
+
+/* ── two column: today / with milo ──────────────── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:52px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.sp{background:var(--paper);padding:30px 28px}
+.sp.b{background:var(--cream-lt)}
+.sp .h{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:20px}
+.sp.a .h{color:var(--dim)}
+.sp.b .h{color:var(--leaf)}
+.sp ul{list-style:none;display:grid;gap:15px}
+.sp li{display:grid;grid-template-columns:15px 1fr;gap:12px;font-size:.94rem;line-height:1.45;color:var(--muted)}
+.sp.a li::before{content:"×";color:#B4442C;font-weight:800}
+.sp.b li::before{content:"→";color:var(--leaf);font-weight:800}
+.sp.b li{color:var(--ink)}
+
+/* ── question cards ─────────────────────────────── */
+.deps{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:52px}
+.dep{border:1px solid rgba(234,244,236,.16);border-radius:20px;padding:28px;background:rgba(234,244,236,.035);transition:border-color .3s,transform .3s}
+.dep:hover{border-color:var(--leaf);transform:translateY(-4px)}
+.dep .d{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);font-weight:700;margin-bottom:16px}
+.dep .q{font-size:1.02rem;font-weight:600;letter-spacing:-.025em;color:var(--cream);line-height:1.35;margin-bottom:16px}
+.dep .a{font-size:.9rem;color:rgba(234,244,236,.62);padding-top:16px;border-top:1px solid rgba(234,244,236,.13)}
+.dep .a b{color:var(--lime);font-weight:600}
+
+/* ── access band ────────────────────────────────── */
+.access{background:linear-gradient(135deg,var(--deep) 0%,var(--leaf) 62%,#54C482 100%);color:#fff;padding:84px 0}
+.access .tex{opacity:.4}
+.access .kicker{color:rgba(255,255,255,.78)}
+.access h2{color:#fff;max-width:19ch}
+.access .lede{color:rgba(255,255,255,.82);max-width:56ch}
+.cf-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.cf-pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:11px 20px;font-size:.88rem;font-weight:600}
+
+/* ── grounded stack rows ────────────────────────── */
+.rows{margin-top:52px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--line);display:grid;gap:1px}
+.row{background:var(--paper);display:grid;grid-template-columns:270px 1fr;gap:26px;padding:24px 28px;align-items:start}
+.row:nth-child(even){background:var(--cream-lt)}
+.row .t{font-weight:700;font-size:.97rem;letter-spacing:-.02em;color:var(--ink)}
+.row .t span{display:block;font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:var(--leaf);font-weight:700;margin-bottom:7px}
+.row .d{font-size:.93rem;color:var(--muted);line-height:1.5}
+.row .d b{color:var(--ink);font-weight:600}
+
+.callouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;margin-top:16px}
+.co{border:1px solid rgba(var(--accent-rgb),.32);border-radius:22px;padding:28px;background:rgba(var(--accent-rgb),.06)}
+.co .h{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--leaf);margin-bottom:14px}
+.co h3{font-size:1.18rem;font-weight:800;letter-spacing:-.04em;margin-bottom:11px;line-height:1.2}
+.co p{font-size:.93rem;color:var(--muted)}
+@media(max-width:720px){.row{grid-template-columns:1fr;gap:10px}}
+
+/* ── pilot timeline ─────────────────────────────── */
+.weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;margin-top:52px}
+.wk{border:1px solid var(--line);border-radius:18px;padding:26px 24px;background:var(--paper);position:relative}
+.wk .n{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--leaf);margin-bottom:14px}
+.wk h3{font-size:1.06rem;font-weight:700;letter-spacing:-.03em;margin-bottom:10px}
+.wk p{font-size:.89rem;color:var(--muted)}
+
+/* ── commercials ────────────────────────────────── */
+.price{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:52px}
+.pc{border:1px solid var(--line);border-radius:22px;padding:32px;background:var(--paper)}
+.pc.lead{background:var(--deep);border-color:var(--deep);color:var(--cream)}
+.pc .h{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--dim);margin-bottom:16px}
+.pc.lead .h{color:var(--sage)}
+.pc .v{font-size:2.5rem;font-weight:800;letter-spacing:-.055em;line-height:1}
+.pc.lead .v{color:#fff}
+.pc .v small{font-size:.85rem;font-weight:400;letter-spacing:-.01em;color:var(--muted);display:block;margin-top:8px}
+.pc.lead .v small{color:rgba(234,244,236,.62)}
+.pc p{font-size:.92rem;color:var(--muted);margin-top:18px}
+.pc.lead p{color:rgba(234,244,236,.74)}
+.note{margin-top:30px;font-size:.88rem;color:var(--dim);max-width:70ch}
+
+/* ── cta ────────────────────────────────────────── */
+.cta{background:var(--ink);padding:110px 0 90px;text-align:center}
+.cta h2{margin:0 auto 20px;max-width:18ch;color:#fff}
+.cta p{color:rgba(234,244,236,.6);max-width:54ch;margin:0 auto 38px}
+.acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.btn{display:inline-block;padding:15px 30px;border-radius:999px;font-weight:600;text-decoration:none;font-size:.92rem;transition:transform .2s,background .2s}
+.btn-p{background:var(--leaf);color:#fff;box-shadow:0 10px 30px rgba(30,158,90,.3)}
+.btn-p:hover{transform:translateY(-2px)}
+.btn-s{border:1px solid rgba(234,244,236,.4);color:var(--cream)}
+.btn-s:hover{background:var(--cream);color:var(--ink)}
+.lock{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:32px}
+.lock .wm{font-weight:800;font-size:1.15rem;letter-spacing:-.02em;color:var(--cream)}
+.lock .x{color:rgba(234,244,236,.35);font-weight:300;font-size:1.1rem}
+footer{background:var(--ink);border-top:1px solid rgba(234,244,236,.12);padding:34px 0;text-align:center;color:rgba(234,244,236,.4);font-size:.78rem;letter-spacing:.06em}
+footer a{color:var(--lime);text-decoration:none}
+
+@media(max-width:860px){
+  .split{grid-template-columns:1fr}
+  .bar{grid-template-columns:1fr auto}
+  .bar .who{display:none}
+  .sec{padding:70px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- Milo mark, reused -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="mg" gradientUnits="userSpaceOnUse" x1="5" y1="34" x2="46" y2="3">
+      <stop offset="0%" stop-color="#5B8DEF"/><stop offset="100%" stop-color="#B57BF3"/>
+    </linearGradient>
+    <g id="milomark">
+      <path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#mg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="7" cy="31" r="4" fill="url(#mg)"/><circle cx="19" cy="19" r="4" fill="url(#mg)"/>
+      <circle cx="31" cy="26" r="4" fill="url(#mg)"/><circle cx="43" cy="12" r="4" fill="url(#mg)"/>
+      <path transform="translate(22,8) scale(2.7)" fill="url(#mg)" d="M0,-1 C0.15,-0.35 0.35,-0.15 1,0 C0.35,0.15 0.15,0.35 0,1 C-0.15,0.35 -0.35,0.15 -1,0 C-0.35,-0.15 -0.15,-0.35 0,-1 Z"/>
+      <path transform="translate(36,5) scale(4)" fill="url(#mg)" d="M0,-1 C0.15,-0.35 0.35,-0.15 1,0 C0.35,0.15 0.15,0.35 0,1 C-0.15,0.35 -0.35,0.15 -1,0 C-0.35,-0.15 -0.15,-0.35 0,-1 Z"/>
+    </g>
+    <g id="cjmark">
+      <rect x="1" y="1" width="58" height="58" rx="16" fill="#0B5C36"/>
+      <path d="M15 24 L30 14 L45 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="18" y="26" width="24" height="20" rx="2" fill="#fff"/>
+      <rect x="26.5" y="34" width="7" height="12" fill="#0B5C36"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="tex noise"></div>
+  <div class="tex grid"></div>
+  <div class="scan"></div>
+  <div class="glow" style="width:500px;height:500px;background:rgba(30,158,90,.18);top:-170px;right:-130px"></div>
+
+  <div class="wrap">
+    <div class="bar">
+      <div class="mlock">
+        <svg class="mmark" viewBox="0 0 50 40" aria-label="Milo"><use href="#milomark"/></svg>
+        <span class="wm">Milo</span>
+      </div>
+      <div class="who">Overview · Prepared for Sarah C Johnson @ Carroll Johnson Ltd</div>
+      <div class="cli">
+        <svg class="cjmark" viewBox="0 0 60 60" aria-label="Londis and SPAR estates"><use href="#cjmark"/></svg>
+        <span class="wm">LONDIS &amp; SPAR</span>
+      </div>
+    </div>
+
+    <h1><span class="thin">The short version</span>Two fascias.<br>One <span class="fl">question box.</span></h1>
+
+    <p class="hero-note">Every store you represent runs its own EPOS, its own back office and its own symbol group portal, and none of it was built to be read together. Milo joins it into one live layer and lets people ask it questions in plain English. Our engineers build every connection. Each of your clients logs in and sees only their own stores.</p>
+
+    <div class="chips">
+      <span class="chip solid">Londis</span>
+      <span class="chip solid">SPAR</span>
+      <span class="chip">EPOS &amp; back office</span>
+      <span class="chip">Symbol group portals</span>
+      <span class="chip">Delivery &amp; q-commerce</span>
+      <span class="chip">Concessions &amp; accounts</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STAT STRIP ═══ -->
+<section class="strip">
+  <div class="sgrid">
+    <div class="scell"><div class="v">2</div><div class="l">Symbol groups, one view</div></div>
+    <div class="scell"><div class="v">700+</div><div class="l">Integrations we maintain</div></div>
+    <div class="scell"><div class="v">4 wks</div><div class="l">Credentials to live answers</div></div>
+  </div>
+</section>
+
+<!-- ═══ WHAT MILO IS ═══ -->
+<section class="sec" style="background:var(--paper)">
+  <div class="tex noise"></div>
+  <div class="wrap">
+    <div class="kicker">Start here</div>
+    <h2>Three things, <span class="lt">and that is most of it.</span></h2>
+    <p class="lede">Milo is not another dashboard product that somebody has to build and maintain. It is a layer that sits over the systems your retailers already run, and a box you type a question into.</p>
+
+    <div class="three">
+      <div class="tc">
+        <div class="n">01 · Ask</div>
+        <h3>Plain English in, answer out</h3>
+        <p>Typed the way you would say it to a colleague. The answer comes back in seconds with the underlying rows attached, so it can be checked rather than trusted.</p>
+        <div class="ex">"How did food to go trade across my SPAR sites last week against the same week last year?"</div>
+      </div>
+      <div class="tc">
+        <div class="n">02 · Pin</div>
+        <h3>Dashboards built by anyone</h3>
+        <p>Any answer can be pinned and it becomes a live dashboard that refreshes itself. A store owner can build their own trading view without an analyst, a developer or a ticket.</p>
+        <div class="ex">This is the part that tends to surprise people. No data team required.</div>
+      </div>
+      <div class="tc">
+        <div class="n">03 · Automate</div>
+        <h3>A question, then a routine</h3>
+        <p>Once a question is worth asking every week, schedule it. The Monday trading report writes and sends itself, and alerts fire when a number moves past a threshold you set.</p>
+        <div class="ex">Delivered into email, WhatsApp, Slack or Teams.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TODAY vs WITH MILO ═══ -->
+<section class="sec" style="background:var(--cream-lt)">
+  <div class="tex noise"></div>
+  <div class="wrap">
+    <div class="kicker">The shift</div>
+    <h2>From <span class="lt">exports and pivots</span> to <span class="ac">a question and an answer.</span></h2>
+
+    <div class="split">
+      <div class="sp a">
+        <div class="h">How it usually works</div>
+        <ul>
+          <li>Each EPOS reports on its own store and nothing beyond it</li>
+          <li>Londis and SPAR classify products differently, so like for like is a manual job</li>
+          <li>Symbol group reporting arrives lagged, in a fixed shape you cannot question</li>
+          <li>Promotion funding and rebates get reconciled in a spreadsheet, if at all</li>
+          <li>Concession income sits apart from retail sales and rarely meets it</li>
+          <li>By the time a report is built, the trading week has already moved on</li>
+        </ul>
+      </div>
+      <div class="sp b">
+        <div class="h">With Milo</div>
+        <ul>
+          <li>One layer across every fascia, every store, every week</li>
+          <li>Category hierarchies mapped once, so the two estates compare properly</li>
+          <li>Ask in plain English, get an answer in seconds with sources attached</li>
+          <li>Supplier funding checked against what actually sold, automatically</li>
+          <li>Retail, concessions, delivery and costs in the same view</li>
+          <li>Answers are live, and the recurring ones send themselves</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUESTIONS ═══ -->
+<section class="sec dark">
+  <div class="tex noise"></div>
+  <div class="tex grid-dark"></div>
+  <div class="wrap">
+    <div class="kicker on-dark">The walkthrough</div>
+    <h2>Five questions <span class="ac">from five different people.</span></h2>
+    <p class="lede">Each of these is a question somebody in a convenience estate asks and then waits days for. These are illustrations, not results. Week one of a pilot is where they get asked of real store data.</p>
+
+    <div class="deps">
+      <div class="dep">
+        <div class="d">Store owner</div>
+        <div class="q">"Which lines lost me margin this month, and was it price or promotion?"</div>
+        <div class="a">Splits margin movement into cost price changes and discount given away, line by line. Shows <b>where a promotion sold volume that was never going to pay for itself</b>.</div>
+      </div>
+      <div class="dep">
+        <div class="d">Food to go</div>
+        <div class="q">"What is waste running at on fresh and food to go by day, and which day am I over-producing?"</div>
+        <div class="a">Waste against sales by daypart and day of week, per site. Usually names <b>one or two specific days</b> carrying most of the loss rather than a general problem.</div>
+      </div>
+      <div class="dep">
+        <div class="d">Availability</div>
+        <div class="q">"Which of my top 200 lines went out of stock last week, and what did it cost in sales?"</div>
+        <div class="a">Gap on shelf inferred from till data and ordering, priced at normal rate of sale. Turns availability from a feeling into <b>a number with a value on it</b>.</div>
+      </div>
+      <div class="dep">
+        <div class="d">Finance</div>
+        <div class="q">"Weekly gross margin by store, with concession income shown separately."</div>
+        <div class="a">Retail margin and concession income side by side rather than blended. Makes it obvious <b>which stores are actually trading well</b> and which are being carried by footfall services.</div>
+      </div>
+      <div class="dep">
+        <div class="d">Across the portfolio</div>
+        <div class="q">"Rank every store I represent on like for like growth, split by fascia."</div>
+        <div class="a">One league table across both symbol groups, normalised so the comparison holds. The view <b>nobody can produce today</b> without a week of manual work.</div>
+      </div>
+      <div class="dep" style="border-color:var(--leaf);background:rgba(30,158,90,.08)">
+        <div class="d">And everywhere</div>
+        <div class="q">Ask from WhatsApp, Slack, Teams or email. Pin any answer as a live dashboard. Schedule it to send itself.</div>
+        <div class="a">Role based access throughout, so a store manager, an owner and you each see <b>a different slice of the same layer</b>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACCESS ═══ -->
+<section class="access">
+  <div class="tex noise"></div>
+  <div class="tex grid-dark"></div>
+  <div class="wrap">
+    <div class="kicker">Why this fits your model</div>
+    <h2>Each client sees their own stores. You see all of them.</h2>
+    <p class="lede">Access control is native, not a workaround. It is the same mechanism we use for franchise groups, where head office needs the whole estate and each franchisee must only ever see their own sites. Which means Milo does not have to be something you run on your clients' behalf. It can be something you put in front of them.</p>
+    <div class="cf-row">
+      <span class="cf-pill">Owner sees their estate</span>
+      <span class="cf-pill">Manager sees one store</span>
+      <span class="cf-pill">You see the portfolio</span>
+      <span class="cf-pill">No client sees another</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STACK / LIVE EXAMPLE ═══ -->
+<section class="sec" style="background:var(--paper)">
+  <div class="tex noise"></div>
+  <div class="wrap">
+    <div class="kicker">Right now</div>
+    <h2>A comparable estate, <span class="lt">and what we do with it.</span></h2>
+    <p class="lede">We are mid conversation with a convenience franchise on a symbol group much like the ones you represent. Their stack is below, and it will probably look familiar. Nothing here is unusual, which is rather the point.</p>
+
+    <div class="rows">
+      <div class="row">
+        <div class="t"><span>Trading</span>Back office and legacy EPOS, over EDI</div>
+        <div class="d">Sales at line and till level, joined to the EDI delivery and invoice messages. Answers <b>what was ordered, what arrived, what sold and what you were charged</b> as one question rather than four.</div>
+      </div>
+      <div class="row">
+        <div class="t"><span>Payments</span>Worldpay</div>
+        <div class="d">Card settlement reconciled against till takings by day and by checkout. Shortfalls, refunds and voids <b>surface on their own</b> rather than being found weeks later, if at all.</div>
+      </div>
+      <div class="row">
+        <div class="t"><span>Finance</span>Xero</div>
+        <div class="d">Real cost sitting against real sales, so gross margin by store and by category becomes <b>a question anyone can ask</b> instead of a month end exercise.</div>
+      </div>
+      <div class="row">
+        <div class="t"><span>Invoices</span>Outlook intake, extracted by Briefcase</div>
+        <div class="d">They have already solved getting invoices out of email and into Xero, and we do not replace that. Milo reads what comes out and answers what it means <b>across every store at once</b>, so a supplier price rise gets spotted when it happens rather than when the margin drops.</div>
+      </div>
+      <div class="row">
+        <div class="t"><span>The habit</span>ChatGPT, used casually</div>
+        <div class="d">This is the useful part. The team is already comfortable typing a question into a box. The limit is that it cannot see a single one of their numbers. <b>Milo is the same way of asking, with the estate's actual data behind it</b>, permissioned per user and with sources attached to every answer.</div>
+      </div>
+    </div>
+
+    <div class="callouts">
+      <div class="co">
+        <div class="h">One store, eight checkouts</div>
+        <h3>Till level is where the value hides</h3>
+        <p>Transactions per hour per checkout against the rota, voids and no sales by operator, and the queue pattern that shows which hour is genuinely understaffed. No new hardware and no new process. It is already sitting in the data.</p>
+      </div>
+      <div class="co">
+        <div class="h">Your retailers</div>
+        <h3>Different combinations, same job</h3>
+        <p>Symbol group portals, delivery and q-commerce apps, PayPoint, Post Office, lottery, ATM, coffee, fuel, rotas and loyalty. Plug and play sources connect in minutes, databases and custom APIs take our engineers one to three days. Either way it is our work, not your clients'.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PILOT ═══ -->
+<section class="sec" style="background:var(--cream-lt)">
+  <div class="tex noise"></div>
+  <div class="wrap">
+    <div class="kicker">How a pilot runs</div>
+    <h2>One month, <span class="lt">one or two stores, real data.</span></h2>
+    <p class="lede">We would start with a small, representative slice rather than the whole portfolio. One Londis site and one SPAR site is usually enough to prove the point, because the hard part is making two different structures agree.</p>
+
+    <div class="weeks">
+      <div class="wk"><div class="n">Week 1</div><h3>Connect</h3><p>Credentials in, sources connected. Our engineers do the building. Sandbox or read only access first if that is easier to approve.</p></div>
+      <div class="wk"><div class="n">Week 2</div><h3>Join and map</h3><p>Category hierarchies aligned across fascias, concession income brought alongside retail. This is where like for like becomes possible.</p></div>
+      <div class="wk"><div class="n">Week 3</div><h3>Real users, real questions</h3><p>You and a store owner ask it whatever you want. Dashboards get pinned. Scheduled reports get switched on.</p></div>
+      <div class="wk"><div class="n">Week 4</div><h3>Go or no go</h3><p>An honest review of what it answered well and what it did not. Nothing to unwind if the answer is no.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMMERCIALS ═══ -->
+<section class="sec" style="background:var(--paper)">
+  <div class="tex noise"></div>
+  <div class="wrap">
+    <div class="kicker">Commercials</div>
+    <h2>No setup fee. <span class="lt">No implementation charge.</span></h2>
+
+    <div class="price">
+      <div class="pc lead">
+        <div class="h">Proof of concept</div>
+        <div class="v">£1,000<small>One off, four weeks</small></div>
+        <p>Every connection built by our engineers, unlimited usage and full support. Deducted from the first year if you carry on.</p>
+      </div>
+      <div class="pc">
+        <div class="h">If you continue</div>
+        <div class="v">£1,500<small>Per month, from</small></div>
+        <p>Six or twelve month terms. Connections, support and any new integrations you need along the way are included.</p>
+      </div>
+      <div class="pc">
+        <div class="h">Per client tier</div>
+        <div class="v">TBC<small>Priced after the pilot</small></div>
+        <p>If you want to offer this on to your retailers, we price it once the pilot shows what a store owner actually uses. It should be a revenue line for you, not a cost.</p>
+      </div>
+    </div>
+
+    <p class="note">Figures are indicative until we know how many stores and how many users are in scope. Security: SOC 2, ISO 27001 and independently pen tested. NDA before we connect anything, if you would prefer it that way.</p>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta">
+  <div class="tex noise"></div>
+  <div class="tex grid-dark"></div>
+  <div class="wrap">
+    <div class="lock">
+      <svg class="mmark" style="width:44px;height:35px" viewBox="0 0 50 40" aria-hidden="true"><use href="#milomark"/></svg>
+      <span class="wm" style="color:#fff">Milo</span>
+      <span class="x">×</span>
+      <svg class="cjmark" style="width:35px;height:35px" viewBox="0 0 60 60" aria-hidden="true"><use href="#cjmark"/></svg>
+      <span class="wm">LONDIS &amp; SPAR</span>
+    </div>
+    <h2>Bring three questions. We will answer them live.</h2>
+    <p>Thirty minutes is enough to get a proper feel for it. Pick the questions your retailers ask you most often and we will put them straight into the box.</p>
+    <div class="acts">
+      <a class="btn btn-p" href="mailto:liam@milo.ai?subject=Carroll%20Johnson%20%C3%97%20Milo%20%E2%80%94%2030%20minutes">Book 30 minutes</a>
+      <a class="btn btn-s" href="mailto:liam@milo.ai?subject=Carroll%20Johnson%20%C3%97%20Milo%20%E2%80%94%20NDA">Send the NDA first</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Prepared for Sarah C Johnson, Carroll Johnson Ltd, by <a href="mailto:liam@milo.ai">Liam Rabone</a> · Milo
+</footer>
+
+</body>
+</html>
