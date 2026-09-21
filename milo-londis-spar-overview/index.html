@@ -86,6 +86,12 @@ h2 .ac{color:var(--leaf)}
 .tc p{font-size:.93rem;color:var(--muted)}
 .tc .ex{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font-size:.88rem;color:var(--deep);font-weight:500;font-style:italic}
 
+/* ── video ──────────────────────────────────────── */
+.vid{max-width:840px;margin:48px auto 0;border-radius:22px;overflow:hidden;border:1px solid rgba(234,244,236,.18);background:#000;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+.vid .frame{position:relative;aspect-ratio:16/9}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-note{text-align:center;margin-top:20px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(234,244,236,.45);font-weight:500}
+
 /* ── two column: today / with milo ──────────────── */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:52px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
 .sp{background:var(--paper);padding:30px 28px}
@@ -277,6 +283,26 @@ footer a{color:var(--lime);text-decoration:none}
   </div>
 </section>
 
+<!-- ═══ VIDEO ═══ -->
+<section class="sec dark" style="padding:90px 0">
+  <div class="tex noise"></div>
+  <div class="tex grid-dark"></div>
+  <div class="wrap">
+    <div class="kicker on-dark">See it</div>
+    <h2 style="max-width:26ch">Ninety seconds <span class="ac">is enough.</span></h2>
+    <p class="lede">Rather than describe the question box any further, here it is working.</p>
+
+    <div class="vid">
+      <div class="frame">
+        <iframe src="https://player.vimeo.com/video/1196983997?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1"
+                allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+                loading="lazy" title="Milo overview"></iframe>
+      </div>
+    </div>
+    <div class="vid-note">Milo product overview · 1 min 29 sec</div>
+  </div>
+</section>
+
 <!-- ═══ TODAY vs WITH MILO ═══ -->
 <section class="sec" style="background:var(--cream-lt)">
   <div class="tex noise"></div>
@@ -362,7 +388,7 @@ footer a{color:var(--lime);text-decoration:none}
   <div class="wrap">
     <div class="kicker">Why this fits your model</div>
     <h2>Each client sees their own stores. You see all of them.</h2>
-    <p class="lede">Access control is native, not a workaround. It is the same mechanism we use for franchise groups, where head office needs the whole estate and each franchisee must only ever see their own sites. Which means Milo does not have to be something you run on your clients' behalf. It can be something you put in front of them.</p>
+    <p class="lede">Access control is native, not a workaround. It is the same mechanism we use for franchise groups, where head office needs the whole estate and each franchisee must only ever see their own sites. Which means Milo does not have to be something you run on your clients' behalf. It can be something you put in front of them, and a revenue line for you rather than a cost.</p>
     <div class="cf-row">
       <span class="cf-pill">Owner sees their estate</span>
       <span class="cf-pill">Manager sees one store</span>
@@ -432,35 +458,8 @@ footer a{color:var(--lime);text-decoration:none}
       <div class="wk"><div class="n">Week 3</div><h3>Real users, real questions</h3><p>You and a store owner ask it whatever you want. Dashboards get pinned. Scheduled reports get switched on.</p></div>
       <div class="wk"><div class="n">Week 4</div><h3>Go or no go</h3><p>An honest review of what it answered well and what it did not. Nothing to unwind if the answer is no.</p></div>
     </div>
-  </div>
-</section>
 
-<!-- ═══ COMMERCIALS ═══ -->
-<section class="sec" style="background:var(--paper)">
-  <div class="tex noise"></div>
-  <div class="wrap">
-    <div class="kicker">Commercials</div>
-    <h2>No setup fee. <span class="lt">No implementation charge.</span></h2>
-
-    <div class="price">
-      <div class="pc lead">
-        <div class="h">Proof of concept</div>
-        <div class="v">£1,000<small>One off, four weeks</small></div>
-        <p>Every connection built by our engineers, unlimited usage and full support. Deducted from the first year if you carry on.</p>
-      </div>
-      <div class="pc">
-        <div class="h">If you continue</div>
-        <div class="v">£1,500<small>Per month, from</small></div>
-        <p>Six or twelve month terms. Connections, support and any new integrations you need along the way are included.</p>
-      </div>
-      <div class="pc">
-        <div class="h">Per client tier</div>
-        <div class="v">TBC<small>Priced after the pilot</small></div>
-        <p>If you want to offer this on to your retailers, we price it once the pilot shows what a store owner actually uses. It should be a revenue line for you, not a cost.</p>
-      </div>
-    </div>
-
-    <p class="note">Figures are indicative until we know how many stores and how many users are in scope. Security: SOC 2, ISO 27001 and independently pen tested. NDA before we connect anything, if you would prefer it that way.</p>
+    <p class="note">There is no setup fee and no implementation charge. Security: SOC 2, ISO 27001 and independently pen tested, with an NDA before we connect anything if you would prefer it that way.</p>
   </div>
 </section>
 
