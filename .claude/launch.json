@@ -2,6 +2,18 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "heckfield",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8890",
+        "--directory",
+        "milo-heckfield-proposal"
+      ],
+      "port": 8890
+    },
+    {
       "name": "bingoal",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
