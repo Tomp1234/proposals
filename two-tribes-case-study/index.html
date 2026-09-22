@@ -291,6 +291,60 @@ h2{
   font-size:1.7rem;font-weight:700;letter-spacing:-.035em;
   font-variant-numeric:tabular-nums;line-height:1.1;
 }
+
+/* ── CFO quote band ─────────────────────────────────────── */
+.wifeband{background:var(--tint);border-top:1px solid var(--line)}
+.wife{margin:0}
+.wife-q{display:block;color:var(--blue);margin-bottom:18px}
+.wife blockquote{
+  margin:0;max-width:12ch;font-weight:600;font-size:clamp(1.9rem,4.8vw,3.2rem);
+  line-height:1.06;letter-spacing:-.032em;color:var(--ink);text-wrap:balance;
+}
+.wife blockquote .hl{background:var(--highlight);padding:0 .08em;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.wife figcaption{margin-top:26px;max-width:46ch}
+.wife cite{
+  display:block;font-style:normal;font-size:.82rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--grey-2);
+}
+.wife figcaption span{display:block;margin-top:10px;font-size:1rem;color:var(--grey);line-height:1.5}
+
+/* ── Explainer video ────────────────────────────────────── */
+.vidwrap{margin:34px auto 30px;max-width:760px}
+.vid-frame{
+  position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;
+  background:var(--ink);border:1px solid var(--line);
+  box-shadow:0 2px 4px rgba(0,0,0,.04),0 24px 60px rgba(18,109,251,.14);
+}
+.vid-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-poster{
+  position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;
+  background:#0B0D12;cursor:pointer;display:block;text-align:left;
+  font-family:var(--sans);overflow:hidden;
+}
+.vp-glow{position:absolute;right:-14%;top:-34%;width:64%;height:168%;pointer-events:none;
+  background:radial-gradient(circle at 50% 50%,rgba(131,64,221,.5),rgba(18,109,251,.24) 46%,transparent 70%)}
+.vp-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.13) 1px,transparent 1px);background-size:24px 24px;
+  -webkit-mask-image:radial-gradient(ellipse 74% 72% at 26% 50%,#000 0%,transparent 76%);
+  mask-image:radial-gradient(ellipse 74% 72% at 26% 50%,#000 0%,transparent 76%)}
+.vp-inner{position:absolute;left:clamp(20px,5%,40px);top:50%;transform:translateY(-50%);max-width:62%;z-index:2}
+.vp-mark{display:block;font-size:clamp(1.15rem,2.5vw,1.5rem);font-weight:700;letter-spacing:-.03em;margin-bottom:12px;
+  background:linear-gradient(96deg,#4E9BF8,#8340DD);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.vp-title{display:block;color:#fff;font-weight:600;font-size:clamp(1.1rem,2.6vw,1.75rem);line-height:1.1;letter-spacing:-.03em}
+.vp-sub{display:block;margin-top:12px;font-size:clamp(.78rem,1.1vw,.92rem);color:rgba(255,255,255,.62);line-height:1.45;max-width:32ch}
+.vp-play{position:absolute;right:clamp(20px,7%,52px);top:50%;transform:translateY(-50%);
+  width:clamp(54px,8vw,74px);height:clamp(54px,8vw,74px);border-radius:100px;background:var(--blue);
+  display:flex;align-items:center;justify-content:center;z-index:2;
+  box-shadow:0 8px 24px rgba(18,109,251,.4);transition:transform .2s ease,background .2s ease}
+.vid-poster:hover .vp-play{transform:translateY(-50%) scale(1.07);background:var(--blue-deep)}
+.vp-play svg{margin-left:4px}
+.vp-dur{position:absolute;right:clamp(18px,5%,34px);bottom:clamp(14px,5%,24px);z-index:2;
+  font-size:.74rem;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.55)}
+.vid-cap{margin-top:14px;font-size:.86rem;color:var(--grey-2)}
+@media(max-width:560px){
+  .vp-inner{max-width:100%;right:clamp(20px,5%,40px);top:auto;bottom:40px;transform:none}
+  .vp-play{position:static;transform:none;margin:0 0 0 clamp(20px,5%,40px)}
+  .vid-poster:hover .vp-play{transform:scale(1.05)}
+}
 </style>
 
 <header class="nav">
@@ -469,6 +523,19 @@ h2{
   </div>
 </section>
 
+<section class="wifeband">
+  <div class="wrap">
+    <figure class="wife">
+      <svg class="wife-q" width="42" height="32" viewBox="0 0 42 32" fill="currentColor" aria-hidden="true"><path d="M0 32V18.6C0 8.6 5.2 2.4 15.6 0l2 4.6C11.4 6.6 8.4 10 8.4 14.8h7.2V32H0Zm24 0V18.6C24 8.6 29.2 2.4 39.6 0l2 4.6C35.4 6.6 32.4 10 32.4 14.8h7.2V32H24Z"/></svg>
+      <blockquote>Milo is my <span class="hl">work wife</span>.</blockquote>
+      <figcaption>
+        <cite>CFO, Two Tribes Brewing</cite>
+        <span>The board pack that used to take days of manual assembly now assembles itself.</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
 <section class="grey">
   <div class="wrap">
     <p class="eyebrow">The results</p>
@@ -509,6 +576,21 @@ h2{
     <p class="eyebrow">Your stack</p>
     <h2>Seven systems is not too many. It's just too many to open by hand.</h2>
     <p class="lede">Milo connects what a drinks business already runs — brewing, till, accounting, CRM, HR — and answers across all of them. No warehouse build, no data team, no change to how the company works.</p>
+    <div class="vidwrap">
+      <div class="vid-frame" id="ttvidframe">
+        <button class="vid-poster" id="ttvidposter" type="button" aria-label="Play the Milo overview video, one minute twenty-nine">
+          <span class="vp-grid"></span>
+          <span class="vp-glow"></span>
+          <span class="vp-inner">
+            <span class="vp-mark">Milo</span>
+            <span class="vp-title">The whole thing, in ninety seconds</span>
+            <span class="vp-sub">What it connects to, and what it does.</span>
+          </span>
+          <span class="vp-play"><svg width="22" height="26" viewBox="0 0 26 30" fill="none" aria-hidden="true"><path d="M25 15L0.25 29.29V0.71L25 15Z" fill="#fff"/></svg></span>
+          <span class="vp-dur">1:29</span>
+        </button>
+      </div>
+    </div>
     <div class="hero-actions">
       <a class="btn lg" href="https://www.milo.ai">Try Milo</a>
     </div>
@@ -521,3 +603,13 @@ h2{
     <a href="https://www.milo.ai">milo.ai</a>
   </div>
 </footer>
+
+<script>
+(function(){
+  var p=document.getElementById('ttvidposter'),f=document.getElementById('ttvidframe');
+  if(!p||!f)return;
+  p.addEventListener('click',function(){
+    f.innerHTML='<iframe src="https://player.vimeo.com/video/1196983997?autoplay=1&title=0&byline=0&portrait=0&dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Milo overview"></iframe>';
+  });
+})();
+</script>
