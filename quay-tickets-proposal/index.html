@@ -1,1271 +1,996 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Milo x Quay Tickets — Proposal</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Milo × QuayTickets</title>
+<meta name="description" content="A proof-of-concept proposal prepared for Lowry and QuayTickets by Milo."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=DM+Sans:opsz,wght@9..40,100..1000&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --qt-navy: #0D1B2E;
-  --qt-accent: #7A9BB5;
-  --qt-dark: #06101C;
-  --milo-blue: #4B7BFF;
-  --milo-purple: #8B5CF6;
-  --milo-navy: #0B0F1E;
-  --bg: #080D18;
-  --bg-card: #0E1326;
-  --bg-card-hover: #141A33;
-  --text: #E8EAF0;
-  --text-dim: #8B90A0;
-  --text-muted: #555A6E;
-  --accent: #7A9BB5;
-  --accent-glow: rgba(122, 155, 181, 0.12);
-  --accent-border: rgba(122, 155, 181, 0.22);
-  --font: 'Open Sans', 'Inter', -apple-system, sans-serif;
-  --font-display: 'Inter', 'Open Sans', -apple-system, sans-serif;
-}
-
-html { font-size: 16px; scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-}
-
-.page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 48px 40px 64px;
-}
-
-@media (max-width: 640px) {
-  .page { padding: 28px 20px 48px; }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes scanLine {
-  0% { top: 0; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-@keyframes tearAway {
-  0% { transform: translateX(0) rotate(0deg); opacity: 1; }
-  40% { transform: translateX(8px) rotate(1.5deg); }
-  100% { transform: translateX(120px) rotate(6deg); opacity: 0; }
-}
-
-@keyframes perfDash {
-  to { stroke-dashoffset: -20; }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* HEADER */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 12px;
-  padding: 20px 0;
-  opacity: 0;
-  animation: fadeUp 0.8s ease 0.1s forwards;
-}
-
-.header-logo {
-  height: 48px;
-  object-fit: contain;
-}
-
-.header-logo-svg {
-  height: 48px;
-  width: auto;
-  border-radius: 6px;
-}
-
-.header-divider {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(180deg, transparent, var(--accent-border), transparent);
-}
-
-.header-sub {
-  text-align: center;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
-  margin-bottom: 56px;
-  opacity: 0;
-  animation: fadeIn 0.8s ease 0.4s forwards;
-}
-
-/* HERO */
-.hero {
-  position: relative;
-  padding: 64px 48px;
-  margin-bottom: 64px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #0a1424 0%, #0d1c32 50%, #091320 100%);
-  border: 1px solid var(--accent-border);
-  overflow: hidden;
-  opacity: 0;
-  animation: fadeUp 0.9s ease 0.3s forwards;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(122, 155, 181, 0.07) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero-quote {
-  font-family: var(--font-display);
-  font-size: clamp(1.35rem, 3vw, 1.8rem);
-  font-weight: 300;
-  line-height: 1.5;
-  color: var(--text);
-  font-style: italic;
-  margin-bottom: 24px;
-  position: relative;
-}
-
-.hero-quote::before {
-  content: '\201C';
-  font-size: 4rem;
-  color: var(--accent);
-  position: absolute;
-  top: -20px;
-  left: -8px;
-  opacity: 0.4;
-  font-style: normal;
-}
-
-.hero-frame {
-  font-size: 1.05rem;
-  color: var(--qt-accent);
-  font-weight: 600;
-}
-
-@media (max-width: 640px) {
-  .hero { padding: 40px 24px; }
-}
-
-/* SECTIONS */
-.section {
-  margin-bottom: 64px;
-}
-
-.section-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--qt-accent);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent-border), transparent);
-}
-
-h2 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.5rem, 3.5vw, 2rem);
-  line-height: 1.25;
-  color: var(--text);
-  margin-bottom: 20px;
-}
-
-h2 .em { color: var(--qt-accent); }
-
-h3 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-
-p, li {
-  font-size: 0.95rem;
-  color: var(--text-dim);
-  line-height: 1.75;
-  margin-bottom: 12px;
-}
-
-/* PROBLEM CARDS */
-.problem-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.problem-item {
-  padding: 20px 24px;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-left: 3px solid var(--qt-accent);
-  border-radius: 10px;
-  transition: border-color 0.3s, background 0.3s;
-}
-
-.problem-item:hover {
-  border-left-color: var(--milo-purple);
-  background: var(--bg-card-hover);
-}
-
-.problem-item strong {
-  color: var(--text);
-  font-weight: 600;
-}
-
-/* MILO EXPLAIN */
-.milo-explain {
-  padding: 32px;
-  background: linear-gradient(135deg, rgba(75, 123, 255, 0.06), rgba(139, 92, 246, 0.04));
-  border: 1px solid rgba(75, 123, 255, 0.12);
-  border-radius: 14px;
-  margin-top: 16px;
-}
-
-.milo-explain p {
-  color: var(--text);
-  font-size: 1rem;
-}
-
-/* USE CASE CARDS */
-.use-cases {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.use-case {
-  padding: 28px;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 12px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s, border-color 0.3s;
-}
-
-.use-case:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-border);
-}
-
-.use-case-number {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  font-family: var(--font-display);
-  font-size: 3rem;
-  font-weight: 900;
-  color: rgba(122, 155, 181, 0.07);
-  line-height: 1;
-}
-
-.use-case h3 {
-  color: var(--qt-accent);
-  margin-bottom: 10px;
-}
-
-/* PERSONA GRID */
-.persona-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-  .persona-grid { grid-template-columns: 1fr; }
-}
-
-.persona-card {
-  padding: 24px;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 12px;
-  text-align: center;
-  transition: border-color 0.3s, transform 0.3s;
-}
-
-.persona-card:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-2px);
-}
-
-.persona-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--qt-accent), var(--qt-navy));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 14px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #fff;
-  font-family: var(--font-display);
-}
-
-.persona-name {
-  font-weight: 700;
-  color: var(--text);
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-}
-
-.persona-role {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.persona-use {
-  font-size: 0.85rem;
-  color: var(--text-dim);
-  margin: 0;
-}
-
-/* SECURITY GRID */
-.security-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-  .security-grid { grid-template-columns: 1fr; }
-}
-
-.security-item {
-  padding: 18px 20px;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 10px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.security-icon {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: var(--accent-glow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-}
-
-.security-item p {
-  margin: 0;
-  font-size: 0.88rem;
-}
-
-.security-item strong {
-  color: var(--text);
-  display: block;
-  font-size: 0.9rem;
-  margin-bottom: 2px;
-}
-
-/* SOCIAL PROOF */
-.proof-cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-  .proof-cards { grid-template-columns: 1fr; }
-}
-
-.proof-card {
-  padding: 24px;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 12px;
-}
-
-.proof-card h3 {
-  font-size: 1rem;
-  color: var(--qt-accent);
-  margin-bottom: 6px;
-}
-
-.proof-card .proof-tag {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #34D399;
-  background: rgba(52, 211, 153, 0.1);
-  padding: 3px 10px;
-  border-radius: 20px;
-  margin-bottom: 12px;
-}
-
-/* TIMELINE CALLOUT */
-.timeline-callout {
-  margin-top: 24px;
-  padding: 24px 28px;
-  background: linear-gradient(135deg, rgba(122, 155, 181, 0.06), rgba(75, 123, 255, 0.04));
-  border: 1px solid var(--accent-border);
-  border-radius: 12px;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.timeline-icon {
-  flex-shrink: 0;
-  font-size: 1.4rem;
-  margin-top: 2px;
-}
-
-.timeline-callout p {
-  margin: 0;
-  color: var(--text);
-  font-size: 0.92rem;
-  line-height: 1.65;
-}
-
-.timeline-callout p span {
-  color: var(--qt-accent);
-  font-weight: 600;
-}
-
-/* TICKET STUB */
-.ticket-wrapper {
-  perspective: 1200px;
-  margin: 40px auto;
-  max-width: 600px;
-}
-
-.ticket {
-  position: relative;
-  background: linear-gradient(145deg, #f8f6f0, #ede9df);
-  border-radius: 14px;
-  overflow: visible;
-  color: #1a1a1a;
-  display: flex;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
-  cursor: pointer;
-  user-select: none;
-}
-
-.ticket::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 14px;
-  background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(122, 155, 181, 0.06) 30%,
-    rgba(139, 92, 246, 0.05) 40%,
-    rgba(75, 123, 255, 0.06) 50%,
-    transparent 60%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 4s linear infinite;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.ticket-main {
-  flex: 1;
-  padding: 28px 24px;
-  position: relative;
-}
-
-.ticket-event-label {
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #888;
-  margin-bottom: 8px;
-}
-
-.ticket-event-name {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.25rem;
-  color: #1a1a1a;
-  margin-bottom: 16px;
-  line-height: 1.3;
-}
-
-.ticket-event-name span {
-  color: var(--qt-navy);
-}
-
-.ticket-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.ticket-detail-label {
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 2px;
-}
-
-.ticket-detail-value {
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: #333;
-}
-
-.ticket-barcode {
-  margin-top: 18px;
-  height: 40px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    #1a1a1a 0px, #1a1a1a 2px,
-    transparent 2px, transparent 4px,
-    #1a1a1a 4px, #1a1a1a 5px,
-    transparent 5px, transparent 8px,
-    #1a1a1a 8px, #1a1a1a 11px,
-    transparent 11px, transparent 13px,
-    #1a1a1a 13px, #1a1a1a 14px,
-    transparent 14px, transparent 17px,
-    #1a1a1a 17px, #1a1a1a 20px,
-    transparent 20px, transparent 22px
-  );
-  opacity: 0.7;
-}
-
-.ticket-barcode .scan-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: rgba(255, 50, 50, 0.6);
-  box-shadow: 0 0 12px rgba(255, 50, 50, 0.4);
-  top: 0;
-  opacity: 0;
-}
-
-.ticket-barcode.scanning .scan-line {
-  animation: scanLine 2s ease-in-out infinite;
-}
-
-.ticket-number {
-  text-align: center;
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  color: #aaa;
-  margin-top: 6px;
-}
-
-.ticket-perf {
-  width: 2px;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.ticket-perf svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 100%;
-}
-
-.ticket-perf svg line {
-  stroke: #c0b8a8;
-  stroke-width: 2;
-  stroke-dasharray: 6 6;
-  stroke-dashoffset: 0;
-}
-
-.ticket.active .ticket-perf svg line {
-  animation: perfDash 1s linear infinite;
-}
-
-.ticket-stub {
-  width: 180px;
-  padding: 24px 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease;
-  transform-origin: left center;
-}
-
-.ticket.torn .ticket-stub {
-  animation: tearAway 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-.ticket-stub-label {
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 8px;
-}
-
-.ticket-stub-text {
-  font-weight: 700;
-  font-size: 0.82rem;
-  color: #333;
-  line-height: 1.5;
-}
-
-.ticket-reveal {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 180px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 18px;
-  background: linear-gradient(135deg, var(--qt-accent), var(--qt-navy));
-  border-radius: 0 14px 14px 0;
-  opacity: 0;
-  transition: opacity 0.5s ease 0.3s;
-}
-
-.ticket.torn .ticket-reveal {
-  opacity: 1;
-}
-
-.ticket-reveal p {
-  color: #fff;
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.ticket-hint {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 14px;
-  transition: opacity 0.3s;
-}
-
-.ticket.torn ~ .ticket-hint {
-  opacity: 0;
-}
-
-@media (max-width: 500px) {
-  .ticket-stub { width: 120px; padding: 16px 12px; }
-  .ticket-reveal { width: 120px; padding: 12px; }
-  .ticket-main { padding: 20px 16px; }
-  .ticket-details { grid-template-columns: 1fr; }
-}
-
-/* 3D FLIP CARD */
-.flip-card-container {
-  perspective: 1000px;
-  max-width: 480px;
-  margin: 40px auto 0;
-}
-
-.flip-card {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.flip-card.flipped {
-  transform: rotateY(180deg);
-}
-
-.flip-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 28px;
-  text-align: center;
-}
-
-.flip-front {
-  background: linear-gradient(135deg, var(--qt-accent), var(--qt-navy));
-  border: 1px solid rgba(122, 155, 181, 0.3);
-  box-shadow: 0 8px 32px rgba(122, 155, 181, 0.15);
-}
-
-.flip-front h3 {
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 800;
-  margin-bottom: 8px;
-}
-
-.flip-front .flip-price {
-  color: rgba(255,255,255,0.7);
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.flip-front .flip-hint {
-  margin-top: 14px;
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.4);
-}
-
-.flip-back {
-  background: var(--bg-card);
-  border: 1px solid var(--accent-border);
-  transform: rotateY(180deg);
-}
-
-.flip-back p {
-  color: var(--text);
-  font-size: 0.9rem;
-  line-height: 1.65;
-  margin-bottom: 16px;
-}
-
-.flip-back .cta-btn {
-  display: inline-block;
-  padding: 12px 28px;
-  background: linear-gradient(135deg, var(--qt-accent), var(--qt-navy));
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.9rem;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.flip-back .cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(122, 155, 181, 0.3);
-}
-
-/* POC STEPS */
-.poc-steps {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  margin-top: 20px;
-}
-
-.poc-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 18px 20px;
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 10px;
-}
-
-.poc-step-num {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--accent-glow);
-  border: 1px solid var(--accent-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.82rem;
-  color: var(--qt-accent);
-}
-
-.poc-step p {
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.poc-step strong {
-  color: var(--text);
-}
-
-/* FOOTER */
-.footer-cta {
-  text-align: center;
-  padding: 48px 28px;
-  margin-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.04);
-}
-
-.footer-cta blockquote {
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 2.5vw, 1.3rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--text);
-  max-width: 600px;
-  margin: 0 auto 24px;
-  line-height: 1.6;
-}
-
-.footer-meta {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-/* UTILITY */
-.mt-sm { margin-top: 12px; }
-.highlight { color: var(--qt-accent); font-weight: 600; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* Lowry: the section-block palette lifted from thelowry.com */
+  --purple:#5F23B4; --plum:#2D1D4D; --navy:#182553; --blue:#0541E6;
+  --crimson:#A01E2F; --magenta:#DC0044; --orange:#C54216; --forest:#1E5818;
+  --slate:#2A3C40; --stone:#6B787B; --yellow:#FFDB00; --lime:#FAFF7D;
+  /* QuayTickets: black, white, and the space between */
+  --ink:#000; --paper:#fff; --off:#F4F2EC; --grey:#6E7787; --line:#E2DED4;
+  /* Milo */
+  --milo-a:#4E9BF8; --milo-b:#8340DD;
+  --maxw:1120px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;
+}
+::selection{background:var(--yellow);color:var(--ink)}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+/* ── Motion ─────────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes barGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes msgIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes typeDot{0%,80%,100%{transform:translateY(0);opacity:.3}40%{transform:translateY(-4px);opacity:1}}
+@keyframes softPulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.on{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+
+/* ── Type: Archivo compressed stands in for Lowry's ABC Gravity ── */
+h1,h2,h3,.disp{
+  font-family:'Archivo','DM Sans',sans-serif;
+  font-variation-settings:'wdth' 78,'wght' 800;
+  letter-spacing:-.018em;line-height:.95;text-transform:uppercase;
+}
+h1{font-size:clamp(3.1rem,9.2vw,7.4rem)}
+h2{font-size:clamp(2.3rem,6.2vw,4.6rem)}
+h3{font-size:clamp(1.3rem,2.6vw,1.85rem);line-height:1.02}
+h4{font-family:'DM Sans',sans-serif;font-size:1.04rem;font-weight:700;letter-spacing:-.012em;line-height:1.3;text-transform:none}
+p{font-size:1.02rem;line-height:1.66;color:inherit}
+.lead{font-size:clamp(1.08rem,1.75vw,1.32rem);line-height:1.52;letter-spacing:-.012em}
+b,strong{font-weight:700}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.7rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.eyebrow .dot{width:6px;height:6px;background:currentColor;animation:softPulse 2.6s ease-in-out infinite}
+
+/* ── Layout ─────────────────────────────────────────────── */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+section{position:relative}
+.sec{padding:112px 0}
+.sec-tight{padding:76px 0}
+.sec-head{max-width:760px;margin-bottom:54px}
+.sec-head h2{margin:16px 0 20px}
+@media(max-width:640px){.wrap{padding:0 20px}.sec{padding:76px 0}.sec-tight{padding:56px 0}}
+
+/* colour blocks, the Lowry page rhythm */
+.block{color:#fff}
+.block p,.block .lead{color:rgba(255,255,255,.82)}
+.b-purple{background:var(--purple)} .b-plum{background:var(--plum)}
+.b-navy{background:var(--navy)} .b-blue{background:var(--blue)}
+.b-crimson{background:var(--crimson)} .b-magenta{background:var(--magenta)}
+.b-orange{background:var(--orange)} .b-forest{background:var(--forest)}
+.b-slate{background:var(--slate)} .b-ink{background:var(--ink)}
+.b-off{background:var(--off)}
+.b-yellow{background:var(--yellow);color:var(--ink)}
+.b-yellow p{color:var(--ink)}
+
+/* ── Nav ────────────────────────────────────────────────── */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--yellow);z-index:100;transition:width .1s linear}
+nav{position:fixed;top:0;left:0;right:0;z-index:90;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:2px solid transparent;transition:border-color .3s,background .3s}
+nav.stuck{border-bottom-color:var(--ink)}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:13px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.lockup{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.milo-mark{font-family:'Baloo 2',sans-serif;font-size:1.55rem;font-weight:800;line-height:1;letter-spacing:-.02em;background:linear-gradient(96deg,var(--milo-a),var(--milo-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lock-x{color:#B9B4A9;font-size:.82rem}
+.qt-mark{height:15px;width:auto}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-size:.8rem;font-weight:600;text-decoration:none;position:relative;padding:2px 0;letter-spacing:.01em}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--ink);transition:width .25s var(--ease)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{font-size:.8rem;font-weight:700;background:var(--ink);color:#fff!important;padding:10px 18px;text-decoration:none;transition:background .2s,transform .2s var(--ease);white-space:nowrap}
+.nav-cta:hover{background:var(--purple);transform:translateY(-1px)}
+.nav-cta::after{display:none!important}
+@media(max-width:920px){.nav-links{display:none}}
+
+/* ── Hero ───────────────────────────────────────────────── */
+#hero{background:var(--ink);color:#fff;padding:150px 0 0;overflow:hidden}
+.hero-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:34px;animation:fadeUp .7s var(--ease) both}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:600;padding:7px 14px;border:1.5px solid rgba(255,255,255,.28);color:rgba(255,255,255,.88)}
+.chip.live{background:var(--yellow);border-color:var(--yellow);color:var(--ink);font-weight:700}
+.chip.live i{width:6px;height:6px;background:var(--ink);border-radius:50%;animation:softPulse 2s ease-in-out infinite}
+h1 .ln{display:block;overflow:hidden}
+h1 .ln>span{display:block;animation:fadeUp .95s var(--ease) both}
+h1 .ln:nth-child(1)>span{animation-delay:.08s}
+h1 .ln:nth-child(2)>span{animation-delay:.18s}
+h1 .ln:nth-child(3)>span{animation-delay:.28s}
+h1 em{font-style:normal;color:var(--yellow)}
+.hero-sub{max-width:620px;margin:32px 0 0;color:rgba(255,255,255,.76);animation:fadeUp .8s .42s var(--ease) both}
+.hero-for{margin-top:38px;padding-top:26px;border-top:1px solid rgba(255,255,255,.18);display:flex;gap:40px;flex-wrap:wrap;animation:fadeUp .8s .52s var(--ease) both}
+.hf-k{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:6px}
+.hf-v{font-size:.95rem;font-weight:600}
+.hero-logos{margin-top:56px;padding:26px 0;border-top:1px solid rgba(255,255,255,.18);display:flex;align-items:center;gap:34px;flex-wrap:wrap;animation:fadeUp .8s .6s var(--ease) both}
+.hero-logos .qt{height:26px;filter:invert(1)}
+.hero-logos .lw{height:34px;color:#fff;fill:currentColor}
+.hero-logos .sep{width:1px;height:30px;background:rgba(255,255,255,.22)}
+.hero-logos .cap{font-size:.74rem;color:rgba(255,255,255,.5);max-width:230px;line-height:1.4}
+
+/* ticker strip */
+.ticker{background:var(--yellow);color:var(--ink);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;padding:11px 0}
+.ticker-track{display:flex;width:max-content;animation:ticker 38s linear infinite}
+.ticker span{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 82,'wght' 700;text-transform:uppercase;font-size:.84rem;letter-spacing:.04em;padding:0 22px;white-space:nowrap}
+.ticker span::after{content:'◆';margin-left:22px;font-size:.6rem;vertical-align:middle;opacity:.55}
+
+/* ── Stat band ──────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid var(--ink)}
+.stat{padding:34px 26px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.s-num{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 75,'wght' 800;font-size:clamp(2.2rem,4.4vw,3.2rem);line-height:.92;letter-spacing:-.02em}
+.s-lab{font-size:.78rem;color:var(--grey);margin-top:9px;line-height:1.4;font-weight:500}
+@media(max-width:760px){.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}}
+
+/* ── Pull quote ─────────────────────────────────────────── */
+.pull{padding:104px 0}
+.pull q{display:block;font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 80,'wght' 700;font-size:clamp(1.7rem,4.1vw,3rem);line-height:1.06;letter-spacing:-.015em;quotes:none}
+.pull q::before,.pull q::after{content:''}
+.attrib{margin-top:30px;font-size:.84rem;color:rgba(255,255,255,.62);max-width:560px;line-height:1.5}
+
+/* ── Then / Now ─────────────────────────────────────────── */
+.tn{display:grid;grid-template-columns:1fr 1fr;border:3px solid var(--ink)}
+.tn-col{padding:40px 34px}
+.tn-col:first-child{border-right:3px solid var(--ink);background:var(--off)}
+.tn-col.now{background:var(--yellow)}
+.tn-k{font-size:.7rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;margin-bottom:18px}
+.tn-col h3{margin-bottom:16px}
+.tn-list{list-style:none;margin-top:20px}
+.tn-list li{font-size:.95rem;padding:11px 0 11px 26px;position:relative;border-top:1px solid rgba(0,0,0,.14)}
+.tn-list li::before{content:'';position:absolute;left:0;top:19px;width:11px;height:2px;background:var(--ink)}
+.tn-col:first-child .tn-list li{opacity:.55}
+.tn-col:first-child .tn-list li::before{background:var(--grey)}
+@media(max-width:760px){.tn{grid-template-columns:1fr}.tn-col:first-child{border-right:0;border-bottom:3px solid var(--ink)}}
+
+/* ── Cards ──────────────────────────────────────────────── */
+.grid{display:grid;gap:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2,.g4{grid-template-columns:1fr}}
+
+.prob{border-top:3px solid currentColor}
+.prob .pc{padding:30px 28px 34px;border-right:1px solid rgba(255,255,255,.22)}
+.prob .pc:last-child{border-right:0}
+.pc-n{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 75,'wght' 800;font-size:2.1rem;line-height:1;opacity:.4;margin-bottom:16px}
+.pc h4{margin-bottom:9px}
+.pc p{font-size:.92rem;line-height:1.55}
+@media(max-width:900px){.prob .pc{border-bottom:1px solid rgba(255,255,255,.22)}.prob .pc:nth-child(2n){border-right:0}}
+
+/* ── Explainer video ───────────────────────────────────── */
+.vidblock{margin:0 0 54px}
+.vid-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:14px;border-bottom:3px solid var(--ink)}
+.vid-head h3{font-size:clamp(1.15rem,2.2vw,1.5rem)}
+.vid-head .vh-l{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.vid-meta{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);white-space:nowrap;flex-shrink:0}
+.vid-frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--ink);border:3px solid var(--ink);box-shadow:12px 12px 0 var(--yellow)}
+.vid-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* designed click-to-play poster: the Vimeo auto-thumbnail is pure black */
+.vid-poster{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;cursor:pointer;background:var(--ink);display:block;text-align:left;font-family:inherit;overflow:hidden}
+.vp-bg{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1px,transparent 1px);background-size:26px 26px;-webkit-mask-image:radial-gradient(ellipse 72% 70% at 28% 50%,#000 0%,transparent 76%);mask-image:radial-gradient(ellipse 72% 70% at 28% 50%,#000 0%,transparent 76%)}
+.vp-glow{position:absolute;right:-12%;top:-30%;width:62%;height:160%;background:radial-gradient(circle at 50% 50%,rgba(131,64,221,.5),rgba(78,155,248,.18) 45%,transparent 68%);pointer-events:none}
+.vp-inner{position:absolute;left:clamp(22px,4.4%,54px);top:50%;transform:translateY(-50%);max-width:60%;z-index:2}
+.vp-mark{display:block;font-family:'Baloo 2',sans-serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;line-height:1;letter-spacing:-.02em;background:linear-gradient(96deg,var(--milo-a),var(--milo-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px}
+.vp-title{display:block;font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 78,'wght' 800;text-transform:uppercase;color:#fff;font-size:clamp(1.15rem,3vw,2.3rem);line-height:.98;letter-spacing:-.015em}
+.vp-sub{display:block;margin-top:14px;font-size:clamp(.78rem,1.1vw,.92rem);color:rgba(255,255,255,.6);font-weight:500;max-width:34ch;line-height:1.45}
+.vp-play{position:absolute;right:clamp(24px,7%,86px);top:50%;transform:translateY(-50%);width:clamp(58px,8vw,88px);height:clamp(58px,8vw,88px);background:var(--yellow);display:flex;align-items:center;justify-content:center;z-index:2;transition:transform .28s var(--ease)}
+.vid-poster:hover .vp-play{transform:translateY(-50%) scale(1.08)}
+.vp-play svg{margin-left:5px}
+.vp-dur{position:absolute;right:clamp(22px,4.4%,54px);bottom:clamp(18px,3.4%,30px);font-size:.7rem;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.55);z-index:2}
+@media(max-width:560px){.vp-inner{max-width:100%;right:clamp(22px,4.4%,54px)}.vp-play{position:static;transform:none;margin-top:20px}.vid-poster:hover .vp-play{transform:scale(1.06)}.vp-inner{top:auto;bottom:46px;transform:none}}
+@media(max-width:640px){.vid-frame{box-shadow:7px 7px 0 var(--yellow)}}
+
+/* ── Use cases ──────────────────────────────────────────── */
+.uc{border-top:3px solid var(--ink)}
+.uc-row{display:grid;grid-template-columns:78px 1fr 1fr;gap:0;border-bottom:1px solid var(--line);transition:background .25s}
+.uc-row:hover{background:var(--off)}
+.uc-n{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 75,'wght' 800;font-size:1.5rem;padding:30px 0 30px 4px;color:#fff;position:relative}
+.uc-n span{position:relative;z-index:2;padding-left:14px}
+.uc-n::before{content:'';position:absolute;inset:0 18px 0 0;background:var(--c,var(--ink))}
+.uc-t{padding:30px 34px 30px 16px}
+.uc-t h3{margin-bottom:8px;font-size:clamp(1.15rem,2.1vw,1.5rem)}
+.uc-t .who{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--c,var(--ink))}
+.uc-d{padding:30px 10px 30px 0;font-size:.95rem;color:#3A3F4A}
+.uc-d .ask{display:block;font-weight:600;color:var(--ink);margin-bottom:8px}
+@media(max-width:760px){.uc-row{grid-template-columns:56px 1fr}.uc-d{grid-column:2;padding:0 0 30px}.uc-t{padding-bottom:12px}}
+
+/* ── Demo ───────────────────────────────────────────────── */
+.demo-shell{background:#0B0B0C;border:3px solid var(--ink);box-shadow:16px 16px 0 rgba(255,255,255,.14)}
+.demo-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#141416;border-bottom:1px solid #26262A}
+.cdot{width:10px;height:10px;border-radius:50%}
+.demo-bar .title{font-size:.76rem;color:#8A8A93;margin-left:12px;font-weight:500}
+.demo-bar .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:.7rem;color:#8ADFA0;font-weight:600}
+.demo-bar .live i{width:6px;height:6px;border-radius:50%;background:#3ECF6B;animation:softPulse 2s ease-in-out infinite}
+.demo-tabs{display:flex;gap:0;overflow-x:auto;border-bottom:1px solid #26262A;scrollbar-width:none}
+.demo-tabs::-webkit-scrollbar{display:none}
+.dtab{flex:0 0 auto;padding:14px 20px;font-size:.79rem;font-weight:600;color:#8A8A93;background:none;border:0;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;font-family:inherit;transition:color .2s,border-color .2s}
+.dtab:hover{color:#E8E8EC}
+.dtab.on{color:#fff;border-bottom-color:var(--yellow)}
+.demo-body{padding:26px 26px 6px;min-height:392px}
+.msg{max-width:88%;margin-bottom:18px;animation:msgIn .45s var(--ease) both}
+.msg.u{margin-left:auto;background:#1E1E22;color:#fff;padding:13px 17px;font-size:.93rem;font-weight:500;border:1px solid #2C2C32}
+.msg.m{color:#C8C8D0;font-size:.93rem;line-height:1.62}
+.msg.m b{color:#fff;font-weight:600}
+.msg.m .up{color:#5BE08A;font-weight:600}
+.msg.m .dn{color:#FF7B8A;font-weight:600}
+.mhead{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.mhead .mm{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:800;background:linear-gradient(96deg,var(--milo-a),var(--milo-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.mhead .t{font-size:.68rem;color:#5E5E67}
+.chart{margin:20px 0 6px;padding:18px;background:#141416;border:1px solid #26262A}
+.chart-t{font-size:.72rem;color:#8A8A93;margin-bottom:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.crow{display:grid;grid-template-columns:132px 1fr 66px;align-items:center;gap:12px;margin-bottom:10px}
+.crow:last-child{margin-bottom:0}
+.c-l{font-size:.8rem;color:#C8C8D0}
+.c-bar{height:20px;background:#1E1E22;overflow:hidden}
+.c-bar i{display:block;height:100%;transform-origin:left;animation:barGrow .85s var(--ease) both}
+.c-v{font-size:.82rem;font-weight:700;color:#fff;text-align:right}
+@media(max-width:600px){.crow{grid-template-columns:92px 1fr 54px}.c-l{font-size:.72rem}}
+.insight{margin-top:18px;padding:16px 18px;background:rgba(255,219,0,.1);border-left:3px solid var(--yellow);font-size:.9rem;color:#E4E4EA;line-height:1.55}
+.insight b{color:var(--yellow);font-weight:600}
+.typing{display:flex;gap:5px;padding:8px 0}
+.typing i{width:7px;height:7px;border-radius:50%;background:#5E5E67;animation:typeDot 1.3s infinite}
+.typing i:nth-child(2){animation-delay:.16s}.typing i:nth-child(3){animation-delay:.32s}
+.demo-foot{display:flex;align-items:center;gap:12px;padding:15px 20px;border-top:1px solid #26262A;background:#141416}
+.fake-input{flex:1;font-size:.87rem;color:#5E5E67}
+.send{width:34px;height:34px;background:linear-gradient(135deg,var(--milo-a),var(--milo-b));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mocknote{margin-top:22px;font-size:.78rem;line-height:1.55;color:rgba(255,255,255,.5);max-width:620px}
+
+/* ── People ─────────────────────────────────────────────── */
+.ppl{border-top:3px solid rgba(255,255,255,.4)}
+.pp{padding:30px 26px 34px;border-right:1px solid rgba(255,255,255,.22);transition:background .25s}
+.pp:last-child{border-right:0}
+.pp:hover{background:rgba(255,255,255,.07)}
+.pp-av{width:46px;height:46px;background:#fff;color:var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 80,'wght' 800;font-size:1.25rem;margin-bottom:18px}
+.pp h4{font-size:1.15rem;margin-bottom:3px}
+.pp .role{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:700;margin-bottom:14px;line-height:1.35}
+.pp p{font-size:.9rem;line-height:1.55}
+@media(max-width:900px){.pp{border-bottom:1px solid rgba(255,255,255,.22)}.pp:nth-child(2n){border-right:0}}
+
+/* ── Security ───────────────────────────────────────────── */
+.secgrid{display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid var(--ink);border-left:1px solid var(--line)}
+.sc{padding:26px 24px 30px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sc-i{width:34px;height:34px;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.sc h4{margin-bottom:7px;font-size:.98rem}
+.sc p{font-size:.88rem;color:#3A3F4A;line-height:1.5}
+@media(max-width:820px){.secgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.secgrid{grid-template-columns:1fr}}
+
+.vs{display:grid;grid-template-columns:1fr 1fr;border:3px solid var(--ink);margin-top:44px}
+.vs-col{padding:32px 30px}
+.vs-col:first-child{border-right:3px solid var(--ink)}
+.vs-col.milo{background:var(--ink);color:#fff}
+.vs-col.milo p{color:rgba(255,255,255,.8)}
+.vs-k{font-size:.7rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;margin-bottom:16px;opacity:.6}
+.vs-l{list-style:none;margin-top:16px}
+.vs-l li{font-size:.92rem;padding:10px 0 10px 28px;position:relative;border-top:1px solid rgba(0,0,0,.12)}
+.vs-col.milo .vs-l li{border-top-color:rgba(255,255,255,.16)}
+.vs-l li::before{content:'✕';position:absolute;left:0;top:10px;font-weight:700;color:var(--crimson)}
+.vs-col.milo .vs-l li::before{content:'✓';color:#5BE08A}
+@media(max-width:700px){.vs{grid-template-columns:1fr}.vs-col:first-child{border-right:0;border-bottom:3px solid var(--ink)}}
+
+/* ── Proof ──────────────────────────────────────────────── */
+.proof{display:grid;grid-template-columns:1fr 1fr;border-top:3px solid rgba(255,255,255,.4)}
+.pr{padding:30px 30px 34px;border-right:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.22)}
+.pr:nth-child(2n){border-right:0}
+.pr:nth-last-child(-n+2){border-bottom:0}
+.pr-tag{display:inline-flex;align-items:center;gap:7px;font-size:.68rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;background:var(--yellow);color:var(--ink);padding:5px 11px;margin-bottom:16px}
+.pr-tag.ghost{background:none;color:var(--yellow);border:1.5px solid rgba(255,219,0,.55)}
+.pr h4{font-size:1.2rem;margin-bottom:10px}
+.pr p{font-size:.93rem}
+.pr p+p{margin-top:10px}
+@media(max-width:700px){.proof{grid-template-columns:1fr}.pr{border-right:0;border-bottom:1px solid rgba(255,255,255,.22)}.pr:nth-last-child(-n+2){border-bottom:1px solid rgba(255,255,255,.22)}.pr:last-child{border-bottom:0}}
+
+/* ── Tixly APIs ─────────────────────────────────────────── */
+.api{display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid var(--ink);border-left:1px solid var(--line);margin-bottom:46px}
+.ac{padding:26px 24px 30px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+.ac-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.ac h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 82,'wght' 700;text-transform:uppercase;font-size:1.02rem;letter-spacing:-.005em}
+.ac-auth{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);border:1px solid var(--line);padding:4px 8px;white-space:nowrap}
+.ac-use{font-size:.7rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--purple);margin-bottom:12px}
+.ac ul{list-style:none}
+.ac li{font-size:.88rem;line-height:1.5;color:#3A3F4A;padding:7px 0 7px 16px;position:relative;border-top:1px solid var(--line)}
+.ac li:first-child{border-top:0;padding-top:0}
+.ac li::before{content:'';position:absolute;left:0;top:15px;width:7px;height:1.5px;background:var(--ink)}
+.ac li:first-child::before{top:8px}
+.ac.lead-api{background:var(--ink);color:#fff}
+.ac.lead-api li{color:rgba(255,255,255,.8);border-top-color:rgba(255,255,255,.18)}
+.ac.lead-api li::before{background:var(--yellow)}
+.ac.lead-api .ac-auth{color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.3)}
+.ac.lead-api .ac-use{color:var(--yellow)}
+.api-src{font-size:.76rem;color:var(--grey);margin:-30px 0 46px;line-height:1.5}
+@media(max-width:860px){.api{grid-template-columns:1fr}}
+
+/* ── Pilot ──────────────────────────────────────────────── */
+.steps{border-top:3px solid rgba(255,255,255,.4);margin-bottom:52px}
+.step{display:grid;grid-template-columns:62px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.22)}
+.step-n{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 75,'wght' 800;font-size:1.9rem;line-height:1;opacity:.45}
+.step h4{margin-bottom:6px;font-size:1.06rem}
+.step p{font-size:.93rem}
+
+.pricing{display:grid;grid-template-columns:1fr 1fr;border:3px solid #fff}
+.pri{padding:34px 32px}
+.pri:first-child{border-right:3px solid #fff;background:#fff;color:var(--ink)}
+.pri:first-child p{color:#3A3F4A}
+.pri-k{font-size:.7rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;margin-bottom:14px;opacity:.65}
+.amt{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 75,'wght' 800;font-size:clamp(2.8rem,7vw,4.4rem);line-height:.9;letter-spacing:-.025em}
+.per{font-size:.86rem;font-weight:600;margin-top:10px;opacity:.7}
+.pri ul{list-style:none;margin-top:20px;padding-top:18px;border-top:1px solid rgba(0,0,0,.14)}
+.pri:last-child ul{border-top-color:rgba(255,255,255,.22)}
+.pri li{font-size:.9rem;padding:7px 0 7px 22px;position:relative}
+.pri li::before{content:'→';position:absolute;left:0;font-weight:700}
+@media(max-width:700px){.pricing{grid-template-columns:1fr}.pri:first-child{border-right:0;border-bottom:3px solid #fff}}
+
+.note{margin-top:34px;padding:20px 24px;border:2px dashed rgba(255,255,255,.34);font-size:.89rem;line-height:1.56}
+.note b{color:var(--yellow)}
+
+/* ── Footer ─────────────────────────────────────────────── */
+footer{background:var(--ink);color:#fff;padding:52px 0 44px;border-top:3px solid var(--yellow)}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap}
+.foot-l{display:flex;align-items:center;gap:14px}
+.foot-r{font-size:.79rem;color:rgba(255,255,255,.5);text-align:right;line-height:1.6}
+.foot .qt{height:17px;filter:invert(1);opacity:.75}
+.foot .lw{height:22px;color:rgba(255,255,255,.75);fill:currentColor}
 </style>
 </head>
 <body>
+<div id="progress"></div>
 
-<div class="page">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="lowry" viewBox="0 0 1140 658" fill="currentColor"><path d="M0,5.359L86.957,5.359L86.957,570.256L154.074,570.256L154.074,651.858L0,651.858L0,5.359Z"/> <path d="M916.416,272.934C923.019,258.663 926.327,239.8 926.327,216.353L926.327,106.803C926.327,83.665 922.871,64.648 915.959,49.777C909.053,34.907 898.24,23.783 883.519,16.412C868.798,9.041 849.583,5.359 825.861,5.359L724.486,5.359L724.486,651.858L811.444,651.858L811.444,350.692C818.336,350.692 823.753,351.53 827.654,353.181C831.561,354.832 834.257,357.469 835.765,361.074C837.261,364.679 838.022,369.483 838.022,375.487L838.022,651.851L925.418,651.851L925.418,379.092C925.418,363.77 923.245,351.446 918.892,342.134C914.54,332.822 906.57,325.529 895.016,320.273C887.987,317.075 879.089,314.412 868.34,312.271C875.182,310.278 881.443,307.763 887.123,304.719C900.045,297.806 909.807,287.211 916.416,272.927L916.416,272.934ZM833.064,265.943C828.86,272.263 822.553,275.41 814.152,275.41L811.45,275.41L811.45,80.196L813.694,80.196C822.708,80.196 829.24,82.53 833.302,87.186C837.351,91.855 839.383,99.29 839.383,109.505L839.383,238.44C839.383,250.467 837.274,259.63 833.07,265.943L833.064,265.943Z"/> <path d="M593.703,5.359L614.427,491.357L614.871,491.357L624.782,5.359L705.433,5.359L674.347,651.858L566.222,651.858L550.901,179.383L550.456,179.383L550.469,179.383L550.024,179.383L534.704,651.858L426.578,651.858L395.479,5.359L476.131,5.359L486.041,491.357L486.486,491.357L507.21,5.359L593.703,5.359Z"/> <path d="M1038.57,651.858L995.017,651.858L994.721,421.543L973.855,421.479L936.896,5.359L1022.95,5.359L1037.14,325.039L1039.75,325.039L1053.95,5.359L1140,5.359L1103.04,421.479L1082.17,421.543L1081.88,651.858L1038.32,651.858"/> <path d="M276.43,657.216C207.856,657.216 174.288,614.436 174.288,562.157L174.288,95.06C174.288,42.781 218.573,0 276.43,0C334.288,0 378.572,42.781 378.572,95.06L378.572,562.15C378.572,614.436 344.998,657.21 276.43,657.21L276.43,657.216ZM288.572,567.206L288.572,90.011C288.572,83.33 283.11,77.868 276.43,77.868C269.75,77.868 264.289,83.33 264.289,90.011L264.289,567.206C264.289,573.887 269.75,579.349 276.43,579.349C283.11,579.349 288.572,573.887 288.572,567.206Z"/></symbol></defs></svg>
 
-  <!-- HEADER -->
-  <div class="header">
-    <img src="milo-logo.jpeg" alt="Milo by Autonomous Minds" class="header-logo">
-    <div class="header-divider"></div>
-    <img src="quay-logo.svg" alt="QuayTickets" class="header-logo-svg">
+<nav id="nav">
+  <div class="nav-in">
+    <div class="lockup">
+      <span class="milo-mark">Milo</span>
+      <span class="lock-x">×</span>
+      <img class="qt-mark" src="quaytickets-logo.png" alt="QuayTickets"/>
+    </div>
+    <div class="nav-links">
+      <a href="#now">What changed</a>
+      <a href="#problem">The gap</a>
+      <a href="#demo">Ask it</a>
+      <a href="#people">Who uses it</a>
+      <a href="#security">Security</a>
+      <a href="#connection">Connection</a>
+    </div>
+    <a class="nav-cta" href="#pilot">Book the pilot</a>
   </div>
-  <div class="header-sub">Prepared for Rachel, Dan, Darren and Keith &mdash; The Lowry / Quay Tickets</div>
+</nav>
 
-
-  <!-- HERO -->
-  <section class="hero">
-    <p class="hero-quote">We were looking for AI to sit on top of all of that, to do lovely reports and tell us wonderful things about our organisation.</p>
-    <p class="hero-frame">We heard you. Here's what that looks like.</p>
-  </section>
-
-
-  <!-- THE PROBLEM -->
-  <section class="section reveal">
-    <div class="section-label">The Problem</div>
-    <h2>Five Systems. <span class="em">One Organisation.</span></h2>
-    <p>On any given Monday, understanding how the weekend performed means stitching together data from the ticketing platform, the ePOS system, Artefacts, SharePoint spreadsheets and finance. Each one managed by a different team. Each one formatted differently. It works. But by the time the picture is assembled, the moment to act on it has often passed.</p>
-
-    <ul class="problem-list">
-      <li class="problem-item">
-        <strong>The Monday morning question.</strong> Keith wants cross-system figures. That means someone building a spreadsheet. Every time. The answer exists, getting to it takes hours.
-      </li>
-      <li class="problem-item">
-        <strong>Forecasting in the dark.</strong> Monthly budgets are built from manual data pulls across multiple sources. There is no automated view of how revenue is trending across ticketing, events, food and beverage and retail.
-      </li>
-      <li class="problem-item">
-        <strong>The full picture of a show.</strong> A performance sells out. But what did it actually generate across ticket sales, bar spend and merchandise? Joining those numbers is a job in itself.
-      </li>
-      <li class="problem-item">
-        <strong>Visibility without a Power BI expert.</strong> The need for dashboards is real. Dashboards that are live, interactive and usable by everyone from Rachel down to the box office team, without needing someone to build and maintain them.
-      </li>
-    </ul>
-  </section>
-
-
-  <!-- WHAT MILO DOES -->
-  <section class="section reveal">
-    <div class="section-label">The Solution</div>
-    <h2>What <span class="em">Milo</span> Does</h2>
-    <div class="milo-explain">
-      <p>Milo connects to your existing data sources and lets anyone at The Lowry ask questions in plain English, getting answers with explanations. The why, not just the what.</p>
-      <p class="mt-sm">No SQL. No pivot tables. No waiting for a report to be built. Type a question, get an answer that makes sense.</p>
-      <p class="mt-sm"><strong>The key difference from Copilot:</strong> Milo only uses your data. It does not go to the web, does not share anything with Microsoft or OpenAI, and will not guess when it does not know. If your data does not contain the answer, Milo tells you that. It gives insight from what you have, nothing else.</p>
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-meta">
+      <span class="chip live"><i></i>Tixly is live</span>
+      <span class="chip">Proof of concept</span>
+      <span class="chip">September 2026</span>
     </div>
-  </section>
-
-
-  <!-- USE CASES -->
-  <section class="section reveal">
-    <div class="section-label">Use Cases</div>
-    <h2>Four Things Milo Solves <span class="em">From Day One</span></h2>
-
-    <div class="use-cases">
-      <div class="use-case">
-        <div class="use-case-number">01</div>
-        <h3>Post-Show Intelligence</h3>
-        <p>Monday morning. A sold-out weekend. <em>"How did it perform across ticketing, food and drink and retail?"</em> One question. One answer. No spreadsheet required.</p>
-        <p>Milo pulls from your ticketing data, ePOS and finance in a single view, the moment you ask.</p>
-      </div>
-
-      <div class="use-case">
-        <div class="use-case-number">02</div>
-        <h3>RFM Segmentation</h3>
-        <p>Dan's question was the right one. Which customers are most likely to convert on the next campaign? Milo builds those segments from your ticketing data. No analyst. No SQL. Just ask.</p>
-        <p>Geographic breakdown included. Where are your highest-converting customers coming from? Which regions should the next campaign target?</p>
-      </div>
-
-      <div class="use-case">
-        <div class="use-case-number">03</div>
-        <h3>Forecasting Support</h3>
-        <p>Monthly budgets informed by live data trends rather than manual pulls. Revenue across all streams, tracked in real time, with Milo able to surface the patterns before your finance team has to find them.</p>
-      </div>
-
-      <div class="use-case">
-        <div class="use-case-number">04</div>
-        <h3>Campaign Attribution</h3>
-        <p>Did the last email campaign move the needle? Milo connects marketing activity to ticket sales data so you can see what actually drove revenue, and what did not, without waiting for a post-campaign report.</p>
-      </div>
+    <h1>
+      <span class="ln"><span>Tixly is live.</span></span>
+      <span class="ln"><span>Now make it</span></span>
+      <span class="ln"><span><em>talk back.</em></span></span>
+    </h1>
+    <p class="lead hero-sub">The migration is done and the open API is in place. What is still missing is the layer on top: anyone at Lowry or QuayTickets asking a question in plain English and getting a real answer, with the working shown.</p>
+    <div class="hero-for">
+      <div><div class="hf-k">Prepared for</div><div class="hf-v">Rachel, Dan, Darren and Keith</div></div>
+      <div><div class="hf-k">Organisation</div><div class="hf-v">Lowry / QuayTickets</div></div>
+      <div><div class="hf-k">Ask</div><div class="hf-v">Four week proof of concept</div></div>
     </div>
-  </section>
-
-
-  <!-- WHO USES IT -->
-  <section class="section reveal">
-    <div class="section-label">Who Uses It</div>
-    <h2>Four People. <span class="em">One Tool.</span></h2>
-
-    <div class="persona-grid">
-      <div class="persona-card">
-        <div class="persona-icon">R</div>
-        <div class="persona-name">Rachel</div>
-        <div class="persona-role">Director, Audience Sales, Marketing &amp; IT</div>
-        <p class="persona-use">Cross-department visibility. Board-level reporting. Revenue trends across every stream, on demand.</p>
-      </div>
-
-      <div class="persona-card">
-        <div class="persona-icon">D</div>
-        <div class="persona-name">Dan</div>
-        <div class="persona-role">Head of CRM &amp; Digital</div>
-        <p class="persona-use">RFM modeling, customer segmentation and campaign performance. Deep insight without needing a data analyst.</p>
-      </div>
-
-      <div class="persona-card">
-        <div class="persona-icon">D</div>
-        <div class="persona-name">Darren</div>
-        <div class="persona-role">Head of IT</div>
-        <p class="persona-use">Data governance and knowledge base management. Define how Milo interprets your data, set access permissions, maintain integrity.</p>
-      </div>
-
-      <div class="persona-card">
-        <div class="persona-icon">K</div>
-        <div class="persona-name">Keith</div>
-        <div class="persona-role">Head of Ticketing / Quay Tickets</div>
-        <p class="persona-use">Ticketing performance across venues and clients. The cross-system view that currently lives in a spreadsheet.</p>
-      </div>
+    <div class="hero-logos">
+      <img class="qt" src="quaytickets-logo.png" alt="QuayTickets"/>
+      <span class="sep"></span>
+      <svg class="lw" viewBox="0 0 1140 658" style="width:auto;height:34px" aria-label="Lowry"><use href="#lowry"/></svg>
+      <span class="cap">One organisation, one charitable mission, five places the numbers currently live.</span>
     </div>
-  </section>
-
-
-  <!-- SECURITY -->
-  <section class="section reveal">
-    <div class="section-label">Security &amp; Privacy</div>
-    <h2>Why Not Just <span class="em">Build a Copilot Agent?</span></h2>
-    <p>Rachel asked exactly the right question. The honest answer is that Copilot still routes queries through Microsoft's infrastructure, is connected to the web, and can generate answers from sources outside your data. Milo does none of those things. It is built exclusively for your data and nothing else.</p>
-
-    <div class="security-grid">
-      <div class="security-item">
-        <div class="security-icon">&#128274;</div>
-        <div>
-          <strong>No data leaves your environment</strong>
-          <p>Milo does not send your data to OpenAI, Anthropic, Microsoft or anyone else.</p>
-        </div>
-      </div>
-
-      <div class="security-item">
-        <div class="security-icon">&#127466;&#127482;</div>
-        <div>
-          <strong>AWS Frankfurt, EU only</strong>
-          <p>All data hosted in the EU. Never leaves the region.</p>
-        </div>
-      </div>
-
-      <div class="security-item">
-        <div class="security-icon">&#9989;</div>
-        <div>
-          <strong>ISO and SOC 2 Certified</strong>
-          <p>Enterprise-grade security certification. Same bar as any software provider you work with.</p>
-        </div>
-      </div>
-
-      <div class="security-item">
-        <div class="security-icon">&#128737;</div>
-        <div>
-          <strong>Pen Tested</strong>
-          <p>Independent penetration testing completed.</p>
-        </div>
-      </div>
-
-      <div class="security-item">
-        <div class="security-icon">&#128683;</div>
-        <div>
-          <strong>No web access</strong>
-          <p>If the answer is not in your data, Milo says so. It does not search the internet or make things up.</p>
-        </div>
-      </div>
-
-      <div class="security-item">
-        <div class="security-icon">&#128193;</div>
-        <div>
-          <strong>Your data is your Milo</strong>
-          <p>Not a shared model. Not training anyone else's AI. Your instance is yours alone.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- SOCIAL PROOF -->
-  <section class="section reveal">
-    <div class="section-label">Social Proof</div>
-    <h2>Already Working <span class="em">in Ticketing and Live Events</span></h2>
-    <p>Milo is already being used by organisations in ticketing and live events. Quay Tickets would be joining good company.</p>
-
-    <div class="proof-cards">
-      <div class="proof-card">
-        <span class="proof-tag">Active POC</span>
-        <h3>Al Dana Amphitheatre</h3>
-        <p>Middle Eastern live events and venue group. Using Milo for customer and ticketing data analysis, geographic campaign optimisation and audience segmentation.</p>
-      </div>
-
-      <div class="proof-card">
-        <span class="proof-tag">Active POC</span>
-        <h3>UK Ticketing Operator</h3>
-        <p>A Quay Tickets-style operation with complex multi-source data. Went from manual weekly reports to live answers in the first week of the POC.</p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- THE POC -->
-  <section class="section reveal">
-    <div class="section-label">What Happens Next</div>
-    <h2>The <span class="em">Proof of Concept</span></h2>
-
-    <div class="poc-steps">
-      <div class="poc-step">
-        <div class="poc-step-num">1</div>
-        <p><strong>Connect your data.</strong> We work with Darren to integrate your current sources. Post-Tixly the open API makes this clean. We can also work with current exports if you want to move earlier.</p>
-      </div>
-      <div class="poc-step">
-        <div class="poc-step-num">2</div>
-        <p><strong>Milo learns your data.</strong> We label your data structure together so Milo understands your venue hierarchy, pricing models and how your different revenue streams relate.</p>
-      </div>
-      <div class="poc-step">
-        <div class="poc-step-num">3</div>
-        <p><strong>Rachel, Dan and Keith ask it questions live.</strong> Before any commercial commitment. Real data, real questions, real answers.</p>
-      </div>
-      <div class="poc-step">
-        <div class="poc-step-num">4</div>
-        <p><strong>Walk-away terms.</strong> If it does not work for you, that is the end of it. No strings.</p>
-      </div>
-    </div>
-
-    <p class="mt-sm" style="margin-top: 20px;"><strong style="color: var(--text);">Cost:</strong> &pound;1,200 &nbsp;&bull;&nbsp; <strong style="color: var(--text);">Monthly after POC:</strong> &pound;1,490 &nbsp;&bull;&nbsp; <strong style="color: var(--text);">Unlimited users</strong></p>
-
-    <div class="timeline-callout" style="margin-top: 24px;">
-      <div class="timeline-icon">&#128197;</div>
-      <p><span>Natural timing:</span> post-Tixly go-live in June, when your open API is in place and the new CRM is coming online. That is the moment all these systems finally talk to each other. Milo is what you put on top. We will also be at the <span>Ticketing Business Forum (April 27-29)</span> if you want to put faces to names before then.</p>
-    </div>
-
-    <p class="mt-sm" style="margin-top: 16px; font-size: 0.82rem; color: var(--text-muted);">Note: ePOS connectivity via your in-house virtual data centre is something our CTO Philip will confirm directly with Darren as a next step.</p>
-
-    <!-- TICKET STUB -->
-    <div class="ticket-wrapper">
-      <div class="ticket" id="ticket" onclick="tearTicket()">
-        <div class="ticket-main">
-          <div class="ticket-event-label">Admit One</div>
-          <div class="ticket-event-name">Milo x <span>The Lowry</span><br>Proof of Concept</div>
-          <div class="ticket-details">
-            <div>
-              <div class="ticket-detail-label">Venue</div>
-              <div class="ticket-detail-value">Your Data</div>
-            </div>
-            <div>
-              <div class="ticket-detail-label">Date</div>
-              <div class="ticket-detail-value">Post-Tixly, June 2026</div>
-            </div>
-            <div>
-              <div class="ticket-detail-label">Gate</div>
-              <div class="ticket-detail-value">Open API</div>
-            </div>
-            <div>
-              <div class="ticket-detail-label">Price</div>
-              <div class="ticket-detail-value">&pound;1,200</div>
-            </div>
-          </div>
-          <div class="ticket-barcode" id="barcode">
-            <div class="scan-line"></div>
-          </div>
-          <div class="ticket-number">QT &bull; 2026 &bull; 06 &bull; POC &bull; MILO</div>
-        </div>
-
-        <div class="ticket-perf">
-          <svg width="2" height="100%" preserveAspectRatio="none">
-            <line x1="1" y1="0" x2="1" y2="100%" />
-          </svg>
-        </div>
-
-        <div class="ticket-stub" id="stub">
-          <div class="ticket-stub-label">Tear Here</div>
-          <div class="ticket-stub-text">Your<br>Ticket<br>to Better<br>Data</div>
-        </div>
-
-        <div class="ticket-reveal">
-          <p>Rachel sees it live.<br>Walk-away terms.<br><strong>No risk.</strong></p>
-        </div>
-      </div>
-      <div class="ticket-hint" id="ticketHint">&#8592; Click to tear the stub</div>
-    </div>
-  </section>
-
-
-  <!-- FOOTER CTA -->
-  <section class="footer-cta reveal">
-    <blockquote>&ldquo;The data exists. The systems are being upgraded. The next logical step is making it all talk back to you.&rdquo;</blockquote>
-
-    <div class="flip-card-container">
-      <div class="flip-card" id="flipCard" onmouseenter="flipCard(true)" onmouseleave="flipCard(false)" onclick="toggleFlip()">
-        <div class="flip-face flip-front">
-          <h3>Book the Pilot</h3>
-          <div class="flip-price">&pound;1,200</div>
-          <div class="flip-hint">Hover to see what's included</div>
-        </div>
-        <div class="flip-face flip-back">
-          <p><strong>What you get:</strong><br>Data connected. Rachel, Dan and Keith briefed.<br>Walk-away terms. 4 weeks.</p>
-          <a href="https://calendly.com/tom-milo" target="_blank" rel="noopener" class="cta-btn">Book the Call &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <div class="footer-meta">
-    Milo by Autonomous Minds &nbsp;&bull;&nbsp; usemilo.ai &nbsp;&bull;&nbsp; April 2026
   </div>
+  <div class="ticker" style="margin-top:56px">
+    <div class="ticker-track" id="tick"></div>
+  </div>
+</section>
 
-</div>
+<!-- ══ STATS ══ -->
+<section class="b-off">
+  <div class="wrap" style="padding-left:0;padding-right:0">
+    <div class="stats">
+      <div class="stat reveal"><div class="s-num">5</div><div class="s-lab">Systems holding the answer to a single question</div></div>
+      <div class="stat reveal d1"><div class="s-num">4</div><div class="s-lab">Teams who need it, one place to ask</div></div>
+      <div class="stat reveal d2"><div class="s-num">£1,200</div><div class="s-lab">Four week pilot, walk away at the end if it is not for you</div></div>
+    </div>
+  </div>
+</section>
 
+<!-- ══ PULL QUOTE ══ -->
+<section class="block b-purple pull">
+  <div class="wrap">
+    <div class="reveal">
+      <q>We were looking for AI to sit on top of all of that, to do lovely reports and tell us wonderful things about our organisation.</q>
+      <p class="attrib">From our conversation earlier this year, before the Tixly migration landed. The systems underneath have changed since. The ask has not.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THEN / NOW ══ -->
+<section id="now" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>What changed</span>
+      <h2>The reason to wait<br/>has gone.</h2>
+      <p class="lead">When we last spoke, the honest answer was that the timing was not right. The migration was in flight and the integration work would have been done twice. That is no longer the case.</p>
+    </div>
+    <div class="tn reveal d1">
+      <div class="tn-col">
+        <div class="tn-k">Earlier this year</div>
+        <h3>Wait for Tixly</h3>
+        <ul class="tn-list">
+          <li>Migration still in flight, connections liable to change</li>
+          <li>Exports and spreadsheets the only route between systems</li>
+          <li>Every cross-system number assembled by hand</li>
+          <li>Any integration work at risk of being repeated</li>
+        </ul>
+      </div>
+      <div class="tn-col now">
+        <div class="tn-k">Now</div>
+        <h3>Tixly is live</h3>
+        <ul class="tn-list">
+          <li>Migration complete, the platform is settled</li>
+          <li>Open API in place, so the connection is clean</li>
+          <li>Ticketing data is finally accessible on demand</li>
+          <li>Nothing left to wait for, only the layer on top</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROBLEM ══ -->
+<section id="problem" class="block b-plum sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>The gap Tixly does not close</span>
+      <h2>Five systems.<br/>One organisation.</h2>
+      <p class="lead">Tixly fixed the ticketing half. It did not join ticketing to the bar, to retail, to the diary or to finance. Understanding how a weekend performed still means stitching those together, each one owned by a different team and formatted a different way. It works. By the time the picture is assembled, the moment to act on it has usually passed.</p>
+    </div>
+    <div class="grid g4 prob reveal d1">
+      <div class="pc">
+        <div class="pc-n">01</div>
+        <h4>The Monday morning question</h4>
+        <p>Keith wants cross-system figures. That means someone building a spreadsheet, every time. The answer exists. Getting to it takes hours.</p>
+      </div>
+      <div class="pc">
+        <div class="pc-n">02</div>
+        <h4>Forecasting by hand</h4>
+        <p>Monthly budgets built from manual pulls across multiple sources. No automated view of how revenue is trending across ticketing, events, food and beverage and retail.</p>
+      </div>
+      <div class="pc">
+        <div class="pc-n">03</div>
+        <h4>The full picture of a show</h4>
+        <p>A performance sells out. What did it actually generate across tickets, bar spend and merchandise? Joining those three numbers is a job in itself.</p>
+      </div>
+      <div class="pc">
+        <div class="pc-n">04</div>
+        <h4>Dashboards without a specialist</h4>
+        <p>The need is real and it is not for another Power BI licence. It is for live, interactive views that anyone from Rachel to the box office can build and read.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHAT MILO DOES ══ -->
+<section class="b-off sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>What Milo is</span>
+      <h2>The analyst,<br/>not another dashboard.</h2>
+      <p class="lead">Milo connects to your sources and answers questions in plain English, with the reasoning shown. No SQL, no pivot tables, no waiting for a report to be built. We build the connections from scratch for whatever you run, including the systems that do not have a tidy integration waiting for them.</p>
+    </div>
+    <div class="vidblock reveal d1">
+      <div class="vid-head">
+        <div class="vh-l">
+          <h3>What Milo actually is.</h3>
+        </div>
+        <span class="vid-meta">Click to play</span>
+      </div>
+      <div class="vid-frame" id="vidframe">
+        <button class="vid-poster" id="vidposter" type="button" aria-label="Play the Milo overview video, one minute twenty-nine">
+          <span class="vp-bg"></span>
+          <span class="vp-glow"></span>
+          <span class="vp-inner">
+            <span class="vp-mark">Milo</span>
+            <span class="vp-title">The whole thing,<br/>in ninety seconds</span>
+            <span class="vp-sub">No setup, no slides. What it is and what it does with your data.</span>
+          </span>
+          <span class="vp-play"><svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><path d="M25 15L0.25 29.29V0.71L25 15Z" fill="#000"/></svg></span>
+          <span class="vp-dur">1:29</span>
+        </button>
+      </div>
+    </div>
+    <div class="grid g4 reveal d1" style="border-top:3px solid var(--ink)">
+      <div class="pc" style="border-right:1px solid var(--line)">
+        <div class="pc-n" style="color:var(--purple);opacity:1">→</div>
+        <h4>Ask in plain English</h4>
+        <p>Type the question the way you would say it out loud. Get the answer and the why behind it.</p>
+      </div>
+      <div class="pc" style="border-right:1px solid var(--line)">
+        <div class="pc-n" style="color:var(--magenta);opacity:1">→</div>
+        <h4>Dashboards by anyone</h4>
+        <p>Describe the view you want and it is built. No queue, no specialist, no licence per seat.</p>
+      </div>
+      <div class="pc" style="border-right:1px solid var(--line)">
+        <div class="pc-n" style="color:var(--blue);opacity:1">→</div>
+        <h4>Questions become automations</h4>
+        <p>Any question worth asking twice becomes a scheduled answer that arrives on its own.</p>
+      </div>
+      <div class="pc">
+        <div class="pc-n" style="color:var(--forest);opacity:1">→</div>
+        <h4>Your data only</h4>
+        <p>No web, no guessing. If the answer is not in your data, Milo says so rather than inventing it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ USE CASES ══ -->
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Day one</span>
+      <h2>Four things it solves<br/>in week one.</h2>
+    </div>
+    <div class="uc reveal d1">
+      <div class="uc-row" style="--c:var(--magenta)">
+        <div class="uc-n"><span>01</span></div>
+        <div class="uc-t"><div class="who">Keith</div><h3>Post-show intelligence</h3></div>
+        <div class="uc-d"><span class="ask">"How did the weekend perform across ticketing, food and drink and retail?"</span>One question, one answer, pulled from ticketing, ePOS and finance at the moment you ask it.</div>
+      </div>
+      <div class="uc-row" style="--c:var(--blue)">
+        <div class="uc-n"><span>02</span></div>
+        <div class="uc-t"><div class="who">Dan</div><h3>RFM segmentation</h3></div>
+        <div class="uc-d"><span class="ask">"Which customers are most likely to convert on the next campaign?"</span>Segments built from your ticketing data, with the geographic breakdown included. No analyst, no SQL.</div>
+      </div>
+      <div class="uc-row" style="--c:var(--orange)">
+        <div class="uc-n"><span>03</span></div>
+        <div class="uc-t"><div class="who">Rachel</div><h3>Forecasting support</h3></div>
+        <div class="uc-d"><span class="ask">"Are we tracking against budget this month?"</span>Revenue across every stream, live, with the patterns surfaced before finance has to go looking for them.</div>
+      </div>
+      <div class="uc-row" style="--c:var(--forest)">
+        <div class="uc-n"><span>04</span></div>
+        <div class="uc-t"><div class="who">Dan</div><h3>Campaign attribution</h3></div>
+        <div class="uc-d"><span class="ask">"Did the last email actually move the needle?"</span>Marketing activity connected to ticket sales, so you can see what drove revenue without waiting for a post-campaign report.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DEMO ══ -->
+<section id="demo" class="block b-ink sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" style="color:var(--yellow)"><span class="dot"></span>Interactive, pick a question</span>
+      <h2>Ask it something.</h2>
+      <p class="lead" style="color:rgba(255,255,255,.7)">This is the interface. Four questions someone at Lowry would genuinely ask on a Monday morning.</p>
+    </div>
+    <div class="demo-shell reveal d1">
+      <div class="demo-bar">
+        <span class="cdot" style="background:#FF5F57"></span>
+        <span class="cdot" style="background:#FEBC2E"></span>
+        <span class="cdot" style="background:#28C840"></span>
+        <span class="title">Milo · Lowry workspace</span>
+        <span class="live"><i></i>Connected</span>
+      </div>
+      <div class="demo-tabs" id="dtabs"></div>
+      <div class="demo-body" id="dbody"></div>
+      <div class="demo-foot">
+        <div class="fake-input">Ask Milo anything about Lowry or QuayTickets…</div>
+        <div class="send"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 8h11M9 4l4 4-4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+    <p class="mocknote">Illustrative only. The figures above come from a sample dataset, not from Lowry or QuayTickets data. In the pilot every answer comes from your own connected systems.</p>
+  </div>
+</section>
+
+<!-- ══ PEOPLE ══ -->
+<section id="people" class="block b-blue sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>In the room</span>
+      <h2>Four people.<br/>One tool.</h2>
+      <p class="lead">Unlimited users, so it is not four either. Everyone from the board pack down to the box office gets the same question box.</p>
+    </div>
+    <div class="grid g4 ppl reveal d1">
+      <div class="pp">
+        <div class="pp-av">R</div>
+        <h4>Rachel</h4>
+        <div class="role">Director, Audience Sales, Marketing &amp; IT</div>
+        <p>Cross-department visibility and board-level reporting. Revenue trends across every stream, on demand.</p>
+      </div>
+      <div class="pp">
+        <div class="pp-av">D</div>
+        <h4>Dan</h4>
+        <div class="role">Head of CRM &amp; Digital</div>
+        <p>RFM modelling, customer segmentation and campaign performance. Deep insight without a data analyst in the loop.</p>
+      </div>
+      <div class="pp">
+        <div class="pp-av">D</div>
+        <h4>Darren</h4>
+        <div class="role">Head of IT</div>
+        <p>Data governance and the knowledge base. Defines how Milo reads your data, who sees what, and where the boundaries sit.</p>
+      </div>
+      <div class="pp">
+        <div class="pp-av">K</div>
+        <h4>Keith</h4>
+        <div class="role">Head of Ticketing, QuayTickets</div>
+        <p>Ticketing performance across venues and clients. The cross-system view that currently lives in a spreadsheet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECURITY ══ -->
+<section id="security" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Rachel's question</span>
+      <h2>Why not just build<br/>a Copilot agent?</h2>
+      <p class="lead">It was the right question to ask. The honest answer is that Copilot routes queries through Microsoft's infrastructure, is connected to the web, and can answer from sources outside your data. Milo does none of those things.</p>
+    </div>
+    <div class="secgrid reveal d1">
+      <div class="sc">
+        <div class="sc-i" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="7" stroke="#000" stroke-width="1.6"/><path d="M5.5 7V4.8a2.5 2.5 0 015 0V7" stroke="#000" stroke-width="1.6"/></svg>
+        </div>
+        <h4>Nothing leaves your environment</h4>
+        <p>Your data is not sent to OpenAI, Anthropic, Microsoft or anyone else.</p>
+      </div>
+      <div class="sc">
+        <div class="sc-i" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#000" stroke-width="1.6"/><path d="M2 8h12M8 2c3 3.5 3 8.5 0 12M8 2C5 5.5 5 10.5 8 14" stroke="#000" stroke-width="1.2"/></svg>
+        </div>
+        <h4>AWS Frankfurt, EU only</h4>
+        <p>Hosted in the EU. It does not leave the region.</p>
+      </div>
+      <div class="sc">
+        <div class="sc-i" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.4l3 3 6-6.4" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>ISO and SOC 2 certified</h4>
+        <p>The same bar you would hold any other software supplier to.</p>
+      </div>
+      <div class="sc">
+        <div class="sc-i" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 2l5 2v4.2c0 3-2.1 5.1-5 5.8-2.9-.7-5-2.8-5-5.8V4l5-2z" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Independently pen tested</h4>
+        <p>Third party penetration testing completed, report available.</p>
+      </div>
+      <div class="sc">
+        <div class="sc-i" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#000" stroke-width="1.6"/><path d="M4 12L12 4" stroke="#000" stroke-width="1.6"/></svg>
+        </div>
+        <h4>No web access</h4>
+        <p>If the answer is not in your data, Milo tells you. It does not search the internet or fill the gap with a guess.</p>
+      </div>
+      <div class="sc">
+        <div class="sc-i" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2.5 5.5h4l1.2 1.5h5.8v6H2.5v-7.5z" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Your instance is yours</h4>
+        <p>Not a shared model. Your data trains nothing for anyone else.</p>
+      </div>
+    </div>
+    <div class="vs reveal d2">
+      <div class="vs-col">
+        <div class="vs-k">Copilot agent</div>
+        <h3>Built for everything</h3>
+        <ul class="vs-l">
+          <li>Queries route through Microsoft infrastructure</li>
+          <li>Connected to the web by default</li>
+          <li>Can answer from sources outside your data</li>
+          <li>Governance and guardrails are yours to build</li>
+          <li>Someone at Lowry has to own and maintain it</li>
+        </ul>
+      </div>
+      <div class="vs-col milo">
+        <div class="vs-k">Milo</div>
+        <h3>Built for your data</h3>
+        <ul class="vs-l">
+          <li>Runs in your own EU instance</li>
+          <li>No web access, no outside sources</li>
+          <li>Says so when the answer is not in your data</li>
+          <li>Governance defined with Darren, enforced per user</li>
+          <li>We build and maintain the connections</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROOF ══ -->
+<section class="block b-forest sec-tight">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:40px">
+      <span class="eyebrow"><span class="dot"></span>Already running</span>
+      <h2>You would be in<br/>good company.</h2>
+      <p class="lead">One of these is a ticket agency at national scale. The other three are multi-site hospitality: bars, restaurants, venues and a taproom. Between them that is both halves of what Lowry actually runs.</p>
+    </div>
+    <div class="proof reveal d1">
+      <div class="pr">
+        <span class="pr-tag">Ticketing</span>
+        <h4>See Tickets</h4>
+        <p>One of Europe's largest ticket agencies, selling for festivals, arenas, theatre and attractions. The first proof of concept we ran after Milo went to market, and the closest thing on our client list to a direct QuayTickets peer.</p>
+        <p>Almost twenty years of ticketing history in one database: shows, ticket types and the marketing tools behind each launch. Milo attributes launch revenue back to the activity that actually drove it.</p>
+      </div>
+      <div class="pr">
+        <span class="pr-tag ghost">Hospitality, international</span>
+        <h4>Nikki Beach Global</h4>
+        <p>Luxury beach club, hotel and resort group with venues across Europe, the Middle East, the Americas and Asia.</p>
+        <p>Reservations split across SevenRooms and OpenTable, payments across Square and SumUp. Four systems and several territories, read as one view of how a venue is trading.</p>
+      </div>
+      <div class="pr">
+        <span class="pr-tag ghost">Bars and restaurants</span>
+        <h4>Urban Leisure Group</h4>
+        <p>London bar and restaurant group running on Toast, Harri, Marketman, Design My Night and QuickBooks.</p>
+        <p>All five connected in under two weeks. The Monday pack that used to take a morning of exports and a spreadsheet now lands in the inbox before anyone logs in.</p>
+      </div>
+      <div class="pr">
+        <span class="pr-tag ghost">Brewing and taproom</span>
+        <h4>Two Tribes Brewing</h4>
+        <p>Wholesale, hundreds of Tesco shelves, a King's Cross taproom and a distribution arm, across seven systems that had never spoken to each other.</p>
+        <p>Seven weeks later twelve people were building their own dashboards, with twenty live across sales, finance and production. No data team involved.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TIXLY CONNECTION ══ -->
+<section id="connection" class="b-off sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>The integration</span>
+      <h2>What we need,<br/>and what we do.</h2>
+      <p class="lead">Tixly exposes three open APIs. We have been through what each one gives us and where the revenue data actually sits. Once the keys are in our hands, the rest is our job.</p>
+    </div>
+    <div class="api reveal d1">
+      <div class="ac lead-api">
+        <div class="ac-top"><h4>Admin API</h4><span class="ac-auth">Basic auth</span></div>
+        <div class="ac-use">The one that matters here</div>
+        <ul>
+          <li>Downstream sales information</li>
+          <li>Ticket matrices, allocations and tags</li>
+          <li>Revenue per ticket for analytics</li>
+          <li>Productions and event groups</li>
+        </ul>
+      </div>
+      <div class="ac">
+        <div class="ac-top"><h4>Event API</h4><span class="ac-auth">API key</span></div>
+        <div class="ac-use">Structure and schedule</div>
+        <ul>
+          <li>Event details and schedules</li>
+          <li>Sale windows and purchase URLs</li>
+          <li>Ticket availability</li>
+          <li>Country-specific base URL, documented via Swagger</li>
+        </ul>
+      </div>
+      <div class="ac">
+        <div class="ac-top"><h4>CRM API</h4><span class="ac-auth">Bearer token</span></div>
+        <div class="ac-use">Customers and members</div>
+        <ul>
+          <li>Member-focused actions and integrations</li>
+          <li>The base layer under Dan's RFM segments</li>
+          <li>Separate authorisation from the Admin API</li>
+        </ul>
+      </div>
+    </div>
+    <p class="api-src">Based on Tixly's published API documentation and website integration guide. We will confirm scope and endpoints with Darren before anything is connected.</p>
+    <div class="tn reveal d2">
+      <div class="tn-col">
+        <div class="tn-k">From your side</div>
+        <h3>Roughly one email</h3>
+        <ul class="tn-list">
+          <li>The country-specific base URL</li>
+          <li>API keys and credentials for the endpoints above</li>
+          <li>Darren to confirm scope and access boundaries</li>
+        </ul>
+      </div>
+      <div class="tn-col now">
+        <div class="tn-k">From ours</div>
+        <h3>Everything else</h3>
+        <ul class="tn-list">
+          <li>Connections built, tested and maintained by our team</li>
+          <li>Your venue hierarchy, pricing models and revenue streams mapped</li>
+          <li>ePOS, finance and the rest built from scratch alongside it</li>
+          <li>We come back to you when it is done and working</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PILOT ══ -->
+<section id="pilot" class="block b-crimson sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>What happens next</span>
+      <h2>The proof<br/>of concept.</h2>
+      <p class="lead">Four weeks, real data, real questions. You decide at the end of it.</p>
+    </div>
+    <div class="steps reveal d1">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div><h4>Connect your data</h4><p>We work with Darren to integrate your sources. With Tixly live and the open API in place, ticketing is the clean part. We build the rest from scratch.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div><h4>Milo learns your data</h4><p>We label the structure together so it understands your venue hierarchy, pricing models and how the revenue streams relate to each other.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div><h4>You ask it questions live</h4><p>Rachel, Dan and Keith put their own questions to it, on your own data, before any commercial commitment.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div><h4>Walk-away terms</h4><p>If it does not do what you need, that is the end of it. No notice period, no strings.</p></div>
+      </div>
+    </div>
+    <div class="pricing reveal d2">
+      <div class="pri">
+        <div class="pri-k">Proof of concept</div>
+        <div class="amt">£1,200</div>
+        <div class="per">Four weeks, one off</div>
+        <ul>
+          <li>Sources connected and labelled</li>
+          <li>Rachel, Dan and Keith briefed and using it</li>
+          <li>Walk away at the end, no obligation</li>
+        </ul>
+      </div>
+      <div class="pri">
+        <div class="pri-k">If you keep it</div>
+        <div class="amt">£1,490</div>
+        <div class="per">Per month, unlimited users</div>
+        <ul>
+          <li>Everyone at Lowry and QuayTickets, not a seat count</li>
+          <li>Connections maintained by us</li>
+          <li>New sources added as you add them</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note reveal d2">
+      <b>One open item.</b> ePOS connectivity through your in-house virtual data centre is the piece we still need to confirm. Philip, our CTO, will take that up with Darren directly as the first technical step.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-l">
+        <span class="milo-mark">Milo</span>
+        <span class="lock-x">×</span>
+        <img class="qt" src="quaytickets-logo.png" alt="QuayTickets"/>
+        <svg class="lw" viewBox="0 0 1140 658" style="width:auto;height:22px" aria-label="Lowry"><use href="#lowry"/></svg>
+      </div>
+      <div class="foot-r">
+        Milo by Autonomous Minds · usemilo.ai<br/>
+        Prepared for Lowry and QuayTickets, September 2026
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
+/* ═══ Ticker ═══ */
+(function(){
+  const items=['Ticketing','ePOS','Retail','Artifax','Finance','SharePoint','CRM','One question box'];
+  const el=document.getElementById('tick');
+  const html=items.map(t=>'<span>'+t+'</span>').join('');
+  el.innerHTML=html+html;
+})();
+
+/* ═══ Scroll progress + sticky nav ═══ */
+(function(){
+  const bar=document.getElementById('progress'),nav=document.getElementById('nav');
+  const onScroll=()=>{
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h)*100:0)+'%';
+    nav.classList.toggle('stuck',window.scrollY>40);
+  };
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+
+/* ═══ Reveal on scroll ═══ */
+(function(){
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+})();
+
+/* ═══ Explainer video: load the player only when asked ═══ */
+(function(){
+  const p=document.getElementById('vidposter'),f=document.getElementById('vidframe');
+  if(!p||!f)return;
+  p.addEventListener('click',()=>{
+    f.innerHTML='<iframe src="https://player.vimeo.com/video/1196983997?autoplay=1&title=0&byline=0&portrait=0&dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Milo overview"></iframe>';
   });
-}, { threshold: 0.12 });
-reveals.forEach(r => observer.observe(r));
+})();
 
-const barcode = document.getElementById('barcode');
-const barcodeObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) barcode.classList.add('scanning');
-  });
-}, { threshold: 0.5 });
-barcodeObs.observe(barcode);
+/* ═══ Demo ═══
+   Sample dataset, clearly flagged as illustrative in the page copy. */
+const DEMO=[
+{k:'Post-show',
+ q:'How did the weekend perform across ticketing, food and drink and retail?',
+ a:'Strong weekend, and the interesting part is not the ticket line. Six performances, <b>94% capacity</b>, <b>£186,400</b> total across the three streams. Ticketing did what you expected. Bar spend per head was <span class="up">£8.40</span>, up from your twelve week average of £6.90, and it is concentrated almost entirely in the Lyric Theatre pre-show window. Retail is the outlier: <span class="dn">£1.10 per head</span>, and Saturday matinee accounted for over half of it.',
+ c:{t:'Weekend revenue by stream',rows:[{l:'Ticketing',p:88,v:'£142k',pos:1},{l:'Food and drink',p:44,v:'£31.4k',pos:1},{l:'Retail',p:17,v:'£8.2k',pos:0},{l:'Programmes',p:11,v:'£4.8k',pos:1}]},
+ i:'The pre-show bar window is doing the work and the interval is not. On these numbers, extending pre-show service by thirty minutes across the run is worth roughly <b>£4,100 a week</b>. Want this as a Monday morning automation?'},
 
-let torn = false;
-function tearTicket() {
-  if (torn) return;
-  torn = true;
-  const ticket = document.getElementById('ticket');
-  ticket.classList.add('active');
-  setTimeout(() => ticket.classList.add('torn'), 100);
-  document.getElementById('ticketHint').style.opacity = '0';
-}
+{k:'Segments',
+ q:'Which customers are most likely to convert on the next drama campaign?',
+ a:'Built the RFM segments from your ticketing history. <b>4,180 bookers</b> sit in the top two segments and they are worth targeting differently. Your champions convert at <span class="up">31%</span> on drama, roughly five times the list average. The group actually worth your attention is the 2,640 <b>lapsing loyalists</b>: they booked drama twice or more, nothing in fourteen months, and they still open everything you send.',
+ c:{t:'Predicted conversion, next drama campaign',rows:[{l:'Champions',p:93,v:'31%',pos:1},{l:'Loyal drama',p:64,v:'21%',pos:1},{l:'Lapsing loyalists',p:40,v:'13%',pos:1},{l:'List average',p:18,v:'6%',pos:0}]},
+ i:'Geography splits it further. <b>62% of the lapsing group is inside a twenty minute drive</b>, so this is a reactivation problem rather than a reach problem. A single targeted send beats another all-list email on every measure here.'},
 
-let isFlipped = false;
-function flipCard(state) {
-  if (window.innerWidth > 768) {
-    document.getElementById('flipCard').classList.toggle('flipped', state);
+{k:'Forecast',
+ q:'Are we tracking against this month with three weeks to go?',
+ a:'Overall you are at <b>78% of the monthly revenue budget with 71% of the month gone</b>, so marginally ahead. That headline hides two different stories. Ticketing and events are carrying it. Food and beverage is tracking behind and has been for three consecutive months, which looks structural rather than seasonal.',
+ c:{t:'Percentage of monthly budget achieved',rows:[{l:'Events and hires',p:96,v:'96%',pos:1},{l:'Ticketing',p:84,v:'84%',pos:1},{l:'Retail',p:72,v:'72%',pos:1},{l:'Food and beverage',p:58,v:'58%',pos:0}]},
+ i:'On the current run rate you finish the month <b>around £26k ahead overall</b> and <b>£19k behind on food and beverage</b>. That second number is the one worth a conversation before the next budget round.'},
+
+{k:'Campaigns',
+ q:'Did last week’s email actually sell tickets, or did it just get opened?',
+ a:'It sold. <b>£24,600</b> in ticket revenue traced back to the send inside seven days, against a list of 38,400. Open rate was healthy at 41% and, unusually, the click through converted rather than browsed. Worth noting what did not work: the second reminder to non-openers produced <span class="dn">£410</span> and three unsubscribes for every booking.',
+ c:{t:'Revenue attributed, last 7 days',rows:[{l:'Main email send',p:90,v:'£24.6k',pos:1},{l:'Organic and direct',p:57,v:'£15.4k',pos:1},{l:'Paid social',p:31,v:'£8.3k',pos:1},{l:'Reminder send',p:4,v:'£0.4k',pos:0}]},
+ i:'The pattern across your last six campaigns is consistent: <b>the first send does the selling and the reminder costs you list health</b>. Drop the non-opener reminder and you lose about 2% of revenue and keep roughly 340 subscribers a month.'}
+];
+
+(function(){
+  const tabs=document.getElementById('dtabs'),body=document.getElementById('dbody');
+  if(!tabs||!body)return;
+  let active=-1,timers=[];
+  const colour=p=>p?'linear-gradient(90deg,#4E9BF8,#8340DD)':'#C54216';
+
+  function render(i){
+    if(i===active)return;
+    active=i;timers.forEach(clearTimeout);timers=[];
+    [...tabs.children].forEach((t,x)=>t.classList.toggle('on',x===i));
+    const d=DEMO[i];
+    body.innerHTML='<div class="msg u">'+d.q+'</div>'+
+      '<div class="msg m"><div class="mhead"><span class="mm">Milo</span><span class="t">thinking…</span></div>'+
+      '<div class="typing"><i></i><i></i><i></i></div></div>';
+    timers.push(setTimeout(()=>{
+      const chart=d.c?'<div class="chart"><div class="chart-t">'+d.c.t+'</div>'+
+        d.c.rows.map((r,x)=>'<div class="crow"><div class="c-l">'+r.l+'</div>'+
+          '<div class="c-bar"><i style="width:'+r.p+'%;background:'+colour(r.pos)+';animation-delay:'+(x*.09)+'s"></i></div>'+
+          '<div class="c-v">'+r.v+'</div></div>').join('')+'</div>':'';
+      body.innerHTML='<div class="msg u">'+d.q+'</div>'+
+        '<div class="msg m"><div class="mhead"><span class="mm">Milo</span><span class="t">answered in 3.1s</span></div>'+
+        '<p>'+d.a+'</p>'+chart+'<div class="insight">'+d.i+'</div></div>';
+    },1150));
   }
-}
-function toggleFlip() {
-  if (window.innerWidth <= 768) {
-    isFlipped = !isFlipped;
-    document.getElementById('flipCard').classList.toggle('flipped', isFlipped);
-  }
-}
+
+  tabs.innerHTML=DEMO.map((d,i)=>'<button class="dtab" data-i="'+i+'">'+d.k+'</button>').join('');
+  tabs.addEventListener('click',e=>{const b=e.target.closest('.dtab');if(b)render(+b.dataset.i)});
+
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){render(0);io.disconnect()}});
+  },{threshold:.25});
+  io.observe(body.closest('.demo-shell'));
+})();
 </script>
-
 </body>
 </html>
