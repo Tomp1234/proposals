@@ -196,22 +196,6 @@ h2 .am{color:var(--amber)}
 .pills{display:flex;flex-wrap:wrap;gap:6px}
 .pill{font-family:var(--mono);font-size:.64rem;padding:5px 9px;border-radius:5px;background:rgba(19,18,15,.05);border:1px solid var(--line);color:var(--muted)}
 
-/* ── calculator ── */
-.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;margin-top:40px;align-items:start}
-@media(max-width:800px){.calc{grid-template-columns:1fr}}
-.ctrls{display:grid;gap:22px}
-.ctrl label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-dim);margin-bottom:10px}
-.ctrl label .cv{font-size:1.05rem;letter-spacing:-.02em;color:var(--sand);font-weight:500}
-input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:3px;border-radius:99px;background:rgba(243,239,230,.2);outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;height:19px;border-radius:50%;background:var(--amber);cursor:pointer;border:3px solid var(--ink)}
-input[type=range]::-moz-range-thumb{width:19px;height:19px;border-radius:50%;background:var(--amber);cursor:pointer;border:3px solid var(--ink)}
-.out{border:1px solid var(--on-dark-line);border-radius:8px;padding:26px;background:rgba(243,239,230,.04)}
-.out .ol{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-dim)}
-.out .ov{font-size:clamp(2.2rem,6vw,3.4rem);font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--amber);margin:12px 0 6px}
-.out .on{font-size:.9rem;color:var(--on-dark-mut)}
-.out hr{border:0;border-top:1px solid var(--on-dark-line);margin:20px 0}
-.out .fine{font-family:var(--mono);font-size:.62rem;line-height:1.7;color:var(--on-dark-dim)}
-
 /* ── callout ── */
 .callout{border-left:3px solid var(--amber);padding:20px 22px;background:rgba(250,167,63,.07);border-radius:0 8px 8px 0;margin-top:34px;max-width:70ch}
 .callout p{font-size:.97rem;color:var(--on-dark-mut)}
@@ -533,40 +517,6 @@ footer{background:var(--ink-2);border-top:1px solid var(--on-dark-line);padding-
 
     <div class="callout">
       <p><b>What we need from you is small.</b> Read access to the Fabric model and one conversation with whoever owns the till receipt contract. Everything after that is ours, including the connectors that do not exist yet.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── CALCULATOR ── -->
-<section class="sec reveal">
-  <div class="glow" style="width:500px;height:500px;background:rgba(196,0,122,.12);right:-180px;bottom:-200px"></div>
-  <div class="wrap">
-    <div class="kicker">Move the sliders · these are your numbers, not ours</div>
-    <h2>What a pound of spend per head <span class="am">is actually worth.</span></h2>
-    <p class="lede">The defaults below are round placeholders, deliberately. Set them to your real attendance and your real per-head figure and the answer is the size of the prize sitting in the F&amp;B and merch feeds.</p>
-
-    <div class="calc">
-      <div class="ctrls">
-        <div class="ctrl">
-          <label for="s1">Admissions per month <span class="cv" id="v1">90,000</span></label>
-          <input type="range" id="s1" min="10000" max="200000" step="5000" value="90000">
-        </div>
-        <div class="ctrl">
-          <label for="s2">Ancillary spend per head today <span class="cv" id="v2">£9.00</span></label>
-          <input type="range" id="s2" min="200" max="3000" step="25" value="900">
-        </div>
-        <div class="ctrl">
-          <label for="s3">Uplift you think is reachable <span class="cv" id="v3">6%</span></label>
-          <input type="range" id="s3" min="1" max="25" step="1" value="6">
-        </div>
-      </div>
-      <div class="out">
-        <div class="ol">Additional ancillary revenue, per year</div>
-        <div class="ov" id="outv">£583,200</div>
-        <div class="on" id="outn">On <b id="onA">90,000</b> admissions a month at <b id="onB">£9.00</b> per head, a <b id="onC">6%</b> uplift is <b id="onD">£48,600</b> a month.</div>
-        <hr>
-        <div class="fine">Milo does not create the uplift. It tells you which nights, which ticket tiers and which booker types are below the line, while the season is still running rather than after it.</div>
-      </div>
     </div>
   </div>
 </section>
@@ -915,27 +865,6 @@ var CHAIRS = [
     showAnswer(c.qs[qi],false);
   }
   paint();
-})();
-
-/* ── calculator ── */
-(function(){
-  var s1=document.getElementById('s1'),s2=document.getElementById('s2'),s3=document.getElementById('s3');
-  if(!s1)return;
-  function money(n){return '£'+Math.round(n).toLocaleString('en-GB');}
-  function calc(){
-    var adm=+s1.value, sph=(+s2.value)/100, up=+s3.value;
-    var perMonth=adm*sph*(up/100), perYear=perMonth*12;
-    document.getElementById('v1').textContent=adm.toLocaleString('en-GB');
-    document.getElementById('v2').textContent='£'+sph.toFixed(2);
-    document.getElementById('v3').textContent=up+'%';
-    document.getElementById('outv').textContent=money(perYear);
-    document.getElementById('onA').textContent=adm.toLocaleString('en-GB');
-    document.getElementById('onB').textContent='£'+sph.toFixed(2);
-    document.getElementById('onC').textContent=up+'%';
-    document.getElementById('onD').textContent=money(perMonth);
-  }
-  [s1,s2,s3].forEach(function(s){s.addEventListener('input',calc);});
-  calc();
 })();
 
 /* ── video ── */
