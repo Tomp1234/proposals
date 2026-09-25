@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Milo × Au Vodka</title>
-<meta name="description" content="How Milo joins Au Vodka's supermarket, on-trade, ecommerce and finance data into one place anyone at Au can ask a question of.">
+<meta name="description" content="How Milo gives Au Vodka the analytics capability of the drinks giants, without the army of analysts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -41,6 +41,7 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--black
 body{font-family:var(--sans);font-size:15px;line-height:1.65;background:var(--black);color:var(--ivory);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
 img,svg{display:block;max-width:100%}
 [hidden]{display:none!important}
+.nw{white-space:nowrap}
 .wrap{max-width:1120px;margin-inline:auto;padding-inline:28px;position:relative}
 h1,h2,h3,h4{font-family:var(--serif);font-weight:600;text-wrap:balance}
 :focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
@@ -284,6 +285,22 @@ h2 .g{color:var(--gold)}
 .foot p a{color:var(--gold)}
 .foot .srcl{max-width:74ch;margin:12px auto 0;text-transform:none;letter-spacing:.01em;font-size:.72rem;line-height:1.7}
 
+/* the giants */
+.vs{margin-top:50px;border:1px solid var(--line-2);border-radius:16px;overflow:hidden;background:var(--black)}
+.vs-row{display:grid;grid-template-columns:170px minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--line-2)}
+.vs-row:first-child{border-top:0}
+.vs-row>span{padding:16px 22px;font-size:.92rem;line-height:1.5;color:var(--mut)}
+.vs-row>span:first-child{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:19px}
+.vs-row .m{background:rgba(218,186,0,.07);color:var(--ivory);border-left:1px solid var(--line)}
+.vs-head>span{padding-block:20px}
+.vs-head b{display:block;font-family:var(--serif);font-weight:600;font-size:1.55rem;line-height:1.05;color:var(--ivory)}
+.vs-head .m{background:rgba(218,186,0,.13)}
+.vs-head .m b{color:var(--gold)}
+.vs-head em{display:block;font-style:normal;font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+.proofline{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+.proofline p{border-left:1px solid var(--gold);padding-left:16px;color:var(--mut);font-size:.94rem}
+.proofline b{color:var(--ivory);font-weight:500}
+
 @media(max-width:980px){
   .hero-in{grid-template-columns:1fr;gap:44px}
   .tl{grid-template-columns:1fr;gap:26px;margin-top:44px}
@@ -303,6 +320,14 @@ h2 .g{color:var(--gold)}
   .cstats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ccols{grid-template-columns:1fr}
   .fam{grid-template-columns:1fr;gap:12px}
+  .vs-row{grid-template-columns:1fr}
+  .vs-head{display:none}
+  .vs-row>span:first-child{padding-bottom:0;color:var(--gold)}
+  .vs-row>span:nth-child(2)::before,.vs-row .m::before{display:block;font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+  .vs-row>span:nth-child(2)::before{content:"The giants";color:var(--dim)}
+  .vs-row .m::before{content:"Au with Milo";color:var(--gold)}
+  .vs-row .m{border-left:0}
+  .proofline{grid-template-columns:1fr}
   .case{padding:28px 22px}
 }
 @media(max-width:700px){
@@ -367,6 +392,7 @@ h2 .g{color:var(--gold)}
       <span>Milo</span>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="#giants">The giants</a>
       <a href="#why">Why now</a>
       <a href="#how">How it works</a>
       <a href="#try">Try it</a>
@@ -387,7 +413,7 @@ h2 .g{color:var(--gold)}
     <div>
       <p class="eyebrow">Milo × Au Vodka · Overview</p>
       <h1>Ask <span class="foil">Au</span><br>anything.</h1>
-      <p class="lede">Good to meet you at the show. Au sells through supermarkets, bars, its own store and markets on both sides of the Atlantic, and each of them reports its numbers in its own shape. Milo joins them up and puts a box on top that anyone at Au can type a question into. The answer comes back in seconds, with its sources attached.</p>
+      <p class="lede">Good to meet you at the show. Diageo, Heineken and Carlsberg have whole teams whose job is knowing what sold, where and why. Milo gives Au the same answers without the team. It joins your supermarket, bar, ecommerce and finance data and puts a box on top that anyone at Au can type a question into. The answer comes back in seconds, with its sources attached.</p>
       <div class="chips">
         <span class="chip">Supermarkets</span>
         <span class="chip">Bars &amp; wholesale</span>
@@ -428,7 +454,35 @@ h2 .g{color:var(--gold)}
   <div class="wrap sgrid">
     <div class="scell"><div class="v">700+</div><div class="l">integrations our engineers build and maintain</div></div>
     <div class="scell"><div class="v">Seconds</div><div class="l">from a typed question to a sourced answer</div></div>
-    <div class="scell"><div class="v">Anyone</div><div class="l">at Au can build a dashboard, with no ticket and no data team</div></div>
+    <div class="scell"><div class="v">Anyone</div><div class="l">at Au can build a dashboard. No analyst, no ticket.</div></div>
+  </div>
+</section>
+
+<!-- THE GIANTS -->
+<section class="sec alt" id="giants">
+  <div class="wrap">
+    <p class="kicker">Level the field</p>
+    <h2>You've <span class="nw">out-sold</span> Gordon's.<br><span class="g">Now <span class="nw">out-think</span> Diageo.</span></h2>
+    <p class="lede">Au's RTDs overtook Diageo's Gordon's to become the UK's bestselling RTD brand in the off-trade. Diageo, Heineken and Carlsberg still have something most brands don't. Behind their numbers sit whole departments of analysts, data engineers and insight managers, with budgets to match. Milo gives brands like Au, Two Tribes and Prime Time the same capability, without building the department.</p>
+
+    <div class="vs" role="table" aria-label="How the giants get their answers, and how Milo gives Au the same">
+      <div class="vs-row vs-head" role="row">
+        <span role="columnheader"></span>
+        <span role="columnheader"><b>The giants</b><em>Diageo, Heineken, Carlsberg · built with headcount</em></span>
+        <span role="columnheader" class="m"><b>Au with Milo</b><em>The same capability · built in</em></span>
+      </div>
+      <div class="vs-row" role="row"><span role="rowheader">Joined-up data</span><span role="cell">Data engineers building and maintaining pipelines between every system</span><span role="cell" class="m">Our engineers connect every system, and keep it connected</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Retail insight</span><span role="cell">Category and insight teams modelling EPOS, Circana and NielsenIQ data</span><span role="cell" class="m">Rate of sale, distribution and promo uplift, answered in seconds</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">A new question</span><span role="cell">A request to the analytics team, and a place in the queue</span><span role="cell" class="m">Type it. Pin the answer and it becomes a dashboard</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">The Monday pack</span><span role="cell">Assembled by specialists, every week</span><span role="cell" class="m">Writes and sends itself</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Early warnings</span><span role="cell">Analysts watching the numbers for exceptions</span><span role="cell" class="m">Alerts the day a store, a venue or a subscriber cohort slips</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">A new market</span><span role="cell">A new team and a new reporting build</span><span role="cell" class="m">A new connection</span></div>
+    </div>
+
+    <div class="proofline">
+      <p><b>Two Tribes has 35 people and no data team.</b> Seven weeks after its first system was connected, every department was running on its own dashboards.</p>
+      <p><b>And it holds up at giant scale.</b> Kellogg's commercial finance team asks Milo across dozens of markets, tracking trade spend, promotional ROI and margin across hundreds of SKUs.</p>
+    </div>
   </div>
 </section>
 
@@ -451,7 +505,7 @@ h2 .g{color:var(--gold)}
     <blockquote class="pq">
       <span class="qm" aria-hidden="true">“</span>
       <div>
-        <p>What Charlie, Jackson and Charlie have achieved in just over a decade is spectacular and rare, and we have big plans for Au…</p>
+        <p>What Charlie [Morgan], Jackson [Quinn] and Charlie [Sloth] have achieved in just over a decade is spectacular and rare, and we have big plans for Au…</p>
         <cite>Jake Wenz, President and CEO, Sazerac · 14 September 2026</cite>
       </div>
     </blockquote>
@@ -516,7 +570,7 @@ h2 .g{color:var(--gold)}
   <div class="wrap">
     <p class="kicker">Try it · pick a seat, then a question</p>
     <h2>Six seats at Au.<br><span class="g">One box.</span></h2>
-    <p class="lede">The same box, asked from six seats around the business. Choose a seat and a question to see what comes back and which systems it had to join. The figures are illustrative, not yours. Week one of a pilot is where these get asked of your real numbers.</p>
+    <p class="lede">Six seats around the business, and the questions a big brand's insight team answers every week. Here, anyone at Au can ask them. Choose a seat and a question to see what comes back and which systems it had to join. The figures are illustrative, not yours. Week one of a pilot is where these get asked of your real numbers.</p>
 
     <div class="tabs" role="tablist" aria-label="Choose a seat">
       <button class="tab" type="button" role="tab" id="tab-ecom" data-desk="ecom" aria-selected="true" aria-controls="deskpanel">Ecommerce</button>
@@ -556,8 +610,8 @@ h2 .g{color:var(--gold)}
 <section class="sec" id="proof">
   <div class="wrap">
     <p class="kicker">Proof</p>
-    <h2>Two drinks brands,<br><span class="g">two stages.</span></h2>
-    <p class="lede">Two Tribes shows what the first seven weeks produce. Prime Time signed this month: a younger brand with the same shape as Au.</p>
+    <h2>Independents,<br><span class="g">running like giants.</span></h2>
+    <p class="lede">Two Tribes and Prime Time compete for the same fridge space as Heineken and Carlsberg, with a fraction of the people. Two Tribes shows what seven weeks on Milo produces. Prime Time signed this month.</p>
 
     <div class="cases">
       <article class="case">
@@ -568,7 +622,7 @@ h2 .g{color:var(--gold)}
           </div>
           <a class="case-link" href="https://www.milo.ai/case-studies/two-tribes-brewery" target="_blank" rel="noopener">Full case study ↗</a>
         </div>
-        <p class="case-lede">Wholesale, Tesco shelves, a King's Cross taproom and a distribution arm, on seven systems that had never spoken to each other. No data team, no BI consultants and no implementation project.</p>
+        <p class="case-lede">Wholesale, Tesco shelves, a King's Cross taproom and a distribution arm, run by 35 people on seven systems that had never spoken to each other. No data team, no BI consultants and no implementation project.</p>
         <div class="sys" aria-label="Systems connected"><span>Breww</span><span>Xero ×2</span><span>Toast</span><span>BrightHR</span><span>Bowimi</span><span>SharePoint</span></div>
 
         <div class="cstats">
@@ -582,7 +636,7 @@ h2 .g{color:var(--gold)}
           <div>
             <p class="mini-k">The part closest to Au</p>
             <h4>A Tesco analyser covering all 831 stores</h4>
-            <p>Anomalies surface automatically and stores are tiered by performance, so reps plan their routes around where the volume actually is. The board pack that took days to assemble now assembles itself.</p>
+            <p>The store-level view a big brewer's category team builds, at a brewery with no data team. Anomalies surface automatically and stores are tiered by performance, so reps plan their routes around where the volume actually is. The board pack that took days to assemble now assembles itself.</p>
           </div>
           <div>
             <p class="mini-k">Four alerts that fire without being asked</p>
@@ -612,7 +666,7 @@ h2 .g{color:var(--gold)}
           <p class="case-k">Prime Time · Low-calorie beer · Signed September 2026</p>
           <h3>Beer. But better. Now on Milo.</h3>
           <p class="tx">Founded by Harvey Armstrong and Sam Holmes, Prime Time makes a low-calorie lager with 95 calories at 4.2%. It sells through UK retail, national on-trade partners and its own online store, and is launching in the US with a pilot listing at Total Wine.</p>
-          <p class="tx">It's on this page because it has Au's shape at an earlier stage: supermarkets, bars, its own store and a first market abroad, each reporting in its own way. Prime Time signed with Milo in September, early in that journey.</p>
+          <p class="tx">It's here because it's the same fight at an earlier stage: a small team taking on the global lager brands across supermarkets, bars, its own store and a first market abroad. Prime Time signed with Milo in September. What it gets is what those brands pay whole teams for, with every channel in one place and answers in seconds.</p>
           <p class="ask">Ask us how their first weeks are going</p>
         </div>
       </article>
@@ -769,7 +823,7 @@ h2 .g{color:var(--gold)}
 
     <p class="note">Commercials are straightforward and yours whenever you want them. They aren't the interesting part of this conversation yet.</p>
 
-    <div class="sign"><b>Liam Rabone · Milo</b><a href="mailto:liam@milo.ai">liam@milo.ai</a></div>
+    <div class="sign"><b>Liam James Rabone · Milo</b><a href="mailto:liam@milo.ai">liam@milo.ai</a></div>
   </div>
 </section>
 
@@ -781,7 +835,7 @@ h2 .g{color:var(--gold)}
       <span class="x" aria-hidden="true">×</span>
       <svg class="aulogo" viewBox="0 0 372 340" role="img" aria-label="Au Vodka"><use href="#aulogo"/></svg>
     </div>
-    <p>Prepared for Au Vodka by <a href="mailto:liam@milo.ai">Liam Rabone</a>, Milo</p>
+    <p>Prepared for Au Vodka by <a href="mailto:liam@milo.ai">Liam James Rabone</a>, Milo</p>
     <p class="srcl">Au figures are public: Sazerac's announcement of 14 September 2026, company results as reported by The Grocer, and auvodka.co.uk. Every figure inside the examples is illustrative.</p>
   </div>
 </footer>
