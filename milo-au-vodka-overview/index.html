@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Milo × Au Vodka</title>
+<meta name="description" content="How Milo joins Au Vodka's supermarket, on-trade, ecommerce and finance data into one place anyone at Au can ask a question of.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+/* One deliberate look: Au black and Au gold. Gold values are taken from auvodka.co.uk (#DABA00, hover #FFDC0E). */
+:root{
+  color-scheme:dark;
+  --black:#050403;
+  --char:#0D0B07;
+  --char-2:#14110A;
+  --gold:#DABA00;
+  --gold-hi:#FFDC0E;
+  --line:rgba(218,186,0,.30);
+  --line-2:rgba(218,186,0,.14);
+  --ivory:#F5F0E1;
+  --mut:rgba(245,240,225,.72);
+  --dim:rgba(245,240,225,.48);
+  --hair:rgba(245,240,225,.12);
+  --ink:#0B0A06;
+  --ink-mut:rgba(11,10,6,.74);
+  --ink-line:rgba(11,10,6,.2);
+  --up:#8ED99C;
+  --down:#FF8C76;
+  --foil:linear-gradient(100deg,#9A7B00 0%,#DABA00 20%,#FFF1A8 38%,#E9C920 52%,#B39005 72%,#F4D95E 90%,#DABA00 100%);
+  --serif:'Cormorant Garamond',Garamond,'Times New Roman',serif;
+  --sans:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --tb:64px;
+}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--black)}
+body{font-family:var(--sans);font-size:15px;line-height:1.65;background:var(--black);color:var(--ivory);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+[hidden]{display:none!important}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:28px;position:relative}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;text-wrap:balance}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+[id]{scroll-margin-top:calc(var(--tb) + 12px)}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:rgba(5,4,3,.86);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid var(--line-2)}
+.top .wrap{display:flex;align-items:center;gap:22px;min-height:64px}
+.mlock{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.mlock svg{width:34px;height:27px}
+.mlock span{font-weight:700;font-size:1.16rem;letter-spacing:-.04em;color:var(--ivory)}
+.nav{display:flex;gap:2px;margin-inline:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-family:var(--mono);font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);text-decoration:none;padding:8px 12px;border-radius:999px;white-space:nowrap;transition:color .2s,background .2s}
+.nav a:hover{color:var(--ivory)}
+.nav a[aria-current="true"]{color:var(--ink);background:var(--gold)}
+.aulock{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.aulock .x{font-family:var(--mono);font-size:.8rem;color:var(--dim)}
+.aulock .aulogo{width:42px;height:38px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-block:76px 92px;border-bottom:1px solid var(--line-2);background:radial-gradient(900px 540px at 92% -10%,rgba(218,186,0,.2),transparent 62%),radial-gradient(640px 460px at -8% 112%,rgba(218,186,0,.08),transparent 62%),var(--black)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);background-size:92px 92px;background-position:-1px -1px;-webkit-mask-image:radial-gradient(ellipse 62% 74% at 76% 34%,#000 10%,transparent 72%);mask-image:radial-gradient(ellipse 62% 74% at 76% 34%,#000 10%,transparent 72%);opacity:.8}
+.hero-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);gap:56px;align-items:center}
+.eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+h1{font-size:clamp(3.9rem,9.2vw,7.3rem);line-height:.86;letter-spacing:-.025em;margin-top:26px;color:var(--ivory)}
+.foil{background:var(--foil);background-size:240% 100%;background-position:0 0;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-right:.04em}
+h1 .foil{animation:shine 3.4s cubic-bezier(.3,.6,.2,1) .25s 1 both}
+@keyframes shine{from{background-position:100% 0}to{background-position:0 0}}
+.hero .lede{margin-top:28px;font-size:1.04rem;max-width:52ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chip{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 13px;border-radius:999px;border:1px solid var(--line);color:var(--ivory);background:rgba(5,4,3,.5)}
+
+/* hero question card */
+.askcard{position:relative;background:linear-gradient(180deg,#171309,#0C0A06);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 44px 100px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,220,14,.08)}
+.qbar{display:flex;align-items:flex-start;gap:12px;background:var(--black);border:1px solid rgba(218,186,0,.55);border-radius:12px;padding:14px}
+.qbar svg{width:27px;height:22px;flex-shrink:0;margin-top:1px}
+.qbar p{flex:1;font-size:.95rem;line-height:1.45;color:var(--ivory)}
+.qbar p::after{content:"";display:inline-block;width:2px;height:1.05em;background:var(--gold-hi);margin-left:3px;vertical-align:-.16em;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.qbar .go{width:30px;height:30px;border-radius:50%;background:var(--gold);display:grid;place-items:center;flex-shrink:0}
+.ask-a{padding:18px 6px 4px}
+.ans-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--hair)}
+.ans-top .h{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.tag{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border:1px solid var(--hair);border-radius:999px;padding:4px 9px;white-space:nowrap}
+.mtab{width:100%;border-collapse:collapse;margin-top:6px;font-size:.88rem}
+.mtab th{font-family:var(--mono);font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);font-weight:400;text-align:right;padding:10px 0 8px}
+.mtab td{padding:9px 0;border-top:1px dotted var(--hair);text-align:right;font-family:var(--mono);font-size:.84rem;font-variant-numeric:tabular-nums}
+.mtab th:first-child,.mtab td:first-child{text-align:left}
+.mtab th+th,.mtab td+td{padding-left:14px}
+.mtab td:first-child{font-family:var(--sans);font-size:.88rem;font-weight:500;color:var(--ivory)}
+.ask-a .read{font-size:.86rem;color:var(--mut);margin:14px 0 14px}
+.ask-a .read b,.ans .read b{color:var(--ivory);font-weight:500}
+
+/* shared answer bits */
+.up{color:var(--up)}
+.down{color:var(--down)}
+.flat{color:var(--dim)}
+.srcs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1px solid var(--hair);padding-top:13px}
+.srcs .sl{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-right:4px}
+.src{font-family:var(--mono);font-size:.62rem;padding:5px 10px;border-radius:999px;background:rgba(218,186,0,.08);color:var(--gold);border:1px solid rgba(218,186,0,.24)}
+
+/* gold strip */
+.strip{background:var(--gold);color:var(--ink)}
+.sgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.scell{padding:30px 28px 32px;border-left:1px solid var(--ink-line)}
+.scell:first-child{border-left:0;padding-left:0}
+.scell .v{font-weight:600;font-size:2.35rem;letter-spacing:-.045em;line-height:1}
+.scell .l{font-size:.86rem;color:var(--ink-mut);margin-top:9px;max-width:28ch;line-height:1.5}
+
+/* sections */
+.sec{padding-block:104px;border-bottom:1px solid var(--line-2);position:relative}
+.alt{background:var(--char)}
+.kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+h2{font-size:clamp(2.5rem,5.4vw,4.1rem);line-height:.96;letter-spacing:-.015em;max-width:20ch;margin-bottom:20px;color:var(--ivory)}
+h2 .g{color:var(--gold)}
+.lede{color:var(--mut);max-width:62ch;font-size:1.02rem}
+
+/* timeline */
+.tl{list-style:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:58px;position:relative}
+.tl::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold) 78%,rgba(218,186,0,0) 100%)}
+.tl li{position:relative;padding:36px 20px 0 0}
+.tl li::before{content:"";position:absolute;top:0;left:0;width:15px;height:15px;border-radius:50%;background:var(--black);border:1px solid var(--gold)}
+.tl li.now::before{background:var(--gold);box-shadow:0 0 0 6px rgba(218,186,0,.16)}
+.tl li.next::before{border-style:dashed}
+.tl .yr{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.tl h3{font-size:1.62rem;line-height:1.02;margin:8px 0 9px;color:var(--ivory)}
+.tl p{font-size:.84rem;color:var(--mut);line-height:1.55}
+.tl li.next h3{color:var(--gold)}
+.pq{margin-top:70px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:start;max-width:900px}
+.pq .qm{font-family:var(--serif);font-size:6.4rem;line-height:.62;color:var(--gold)}
+.pq p{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.55rem,3vw,2.2rem);line-height:1.16;color:var(--ivory)}
+.pq cite{display:block;margin-top:16px;font-family:var(--mono);font-style:normal;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.argue{margin-top:30px;max-width:64ch;color:var(--mut)}
+.argue b{color:var(--ivory);font-weight:500}
+
+/* how it works */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:54px}
+.step{border-top:1px solid var(--gold);padding-top:24px}
+.step .no{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.step h3{font-size:1.8rem;line-height:1.04;margin:12px 0 12px}
+.step p{font-size:.92rem;color:var(--mut)}
+.step .ex{margin-top:16px;color:var(--ivory);border-left:1px solid var(--gold);padding-left:14px;font-size:.9rem}
+
+/* video */
+.vid{max-width:880px;margin:46px auto 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 44px 100px rgba(0,0,0,.7)}
+.vid .frame{position:relative;aspect-ratio:16/9;max-width:100%;background:#000}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center;text-decoration:none;color:var(--ivory);background:radial-gradient(80% 90% at 50% 42%,#2B230A 0%,#0F0C06 55%,#000 100%);cursor:pointer;overflow:hidden}
+.poster::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 55% 60% at 50% 45%,#000,transparent 80%);mask-image:radial-gradient(ellipse 55% 60% at 50% 45%,#000,transparent 80%);pointer-events:none}
+.poster>*{position:relative}
+.ptile{width:96px;height:96px;border:1px solid var(--gold);display:grid;place-items:center;position:relative;background:rgba(5,4,3,.6)}
+.ptile svg{width:56px;height:45px}
+.ptile i{position:absolute;top:6px;right:8px;font-style:normal;font-family:var(--mono);font-size:.58rem;color:var(--gold)}
+.poster .ttl{font-family:var(--serif);font-weight:600;font-size:clamp(1.45rem,3.2vw,2.1rem);line-height:1}
+.poster .play{width:72px;height:72px;border-radius:50%;background:var(--gold);display:grid;place-items:center;box-shadow:0 16px 44px rgba(218,186,0,.34);transition:transform .25s ease,background .25s ease}
+.poster:hover .play,.poster:focus-visible .play{transform:scale(1.07);background:var(--gold-hi)}
+.poster .sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.poster:focus-visible{outline:2px solid var(--gold-hi);outline-offset:-5px}
+.vid-note{text-align:center;margin-top:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.vid-note a{color:var(--gold)}
+
+/* desks */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:42px;padding-bottom:18px;border-bottom:1px solid var(--line-2)}
+.tab{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:11px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--mut);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.tab:hover{color:var(--ivory);border-color:var(--gold)}
+.tab[aria-selected="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500}
+.desk-role{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:20px}
+.qa{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px;margin-top:16px;align-items:start}
+.qlist{display:grid;gap:10px}
+.qbtn{text-align:left;font-family:inherit;font-size:.94rem;line-height:1.42;color:var(--mut);background:rgba(245,240,225,.03);border:1px solid var(--hair);border-left:2px solid transparent;border-radius:10px;padding:15px 17px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.qbtn:hover{background:rgba(245,240,225,.06);color:var(--ivory)}
+.qbtn[aria-selected="true"]{background:rgba(218,186,0,.08);border-color:var(--line);border-left-color:var(--gold);color:var(--ivory)}
+.qbtn .who{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.ans{background:var(--char-2);border:1px solid var(--line);border-radius:16px;padding:22px 24px 20px;min-height:300px;box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px dotted var(--hair);font-size:.9rem}
+.row .k{font-weight:500;color:var(--ivory)}
+.row .n{font-family:var(--mono);font-size:.82rem;font-variant-numeric:tabular-nums;color:var(--ivory);text-align:right}
+.row .d{font-family:var(--mono);font-size:.72rem;white-space:nowrap;text-align:right}
+.ans .read{font-size:.9rem;color:var(--mut);margin:16px 0}
+.desk-foot{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:22px}
+
+/* proof */
+.cases{display:grid;gap:22px;margin-top:54px}
+.case{background:var(--char-2);border:1px solid var(--line-2);border-radius:18px;padding:36px 34px}
+.case-h{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.case-k{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.case h3{font-size:clamp(1.95rem,3.6vw,2.7rem);line-height:1;margin-top:12px;max-width:19ch}
+.case-link{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 16px;white-space:nowrap;transition:background .2s,color .2s}
+.case-link:hover{background:var(--gold);color:var(--ink)}
+.case-lede{color:var(--mut);max-width:66ch;margin-top:16px}
+.sys{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.sys span{font-family:var(--mono);font-size:.66rem;padding:6px 11px;border-radius:6px;border:1px solid var(--hair);color:var(--ivory)}
+.cstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:12px;overflow:hidden;margin-top:28px}
+.cstats div{background:var(--char);padding:20px 18px 22px}
+.cstats b{display:block;font-weight:600;font-size:clamp(1.3rem,5.4vw,1.9rem);white-space:nowrap;letter-spacing:-.035em;line-height:1;color:var(--gold)}
+.cstats span{display:block;font-size:.8rem;color:var(--mut);margin-top:10px;line-height:1.45}
+.ccols{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:30px}
+.mini-k{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.ccols h4{font-size:1.55rem;line-height:1.08;margin-bottom:8px}
+.ccols p{font-size:.9rem;color:var(--mut)}
+.ccols .mini-k{font-size:.58rem;color:var(--dim)}
+.alerts{list-style:none}
+.alerts li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px dotted var(--hair);font-size:.9rem}
+.alerts em{font-style:normal;font-family:var(--mono);font-size:.7rem;color:var(--gold);white-space:nowrap}
+.cquote{margin-top:30px;padding:24px 28px;background:var(--gold);color:var(--ink);border-radius:12px;display:flex;align-items:baseline;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+.cquote blockquote{font-family:var(--serif);font-weight:600;font-style:italic;font-size:clamp(1.8rem,3.6vw,2.5rem);line-height:1.02}
+.cquote figcaption{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mut)}
+.cnote{margin-top:24px;font-size:.9rem;color:var(--mut);max-width:74ch;border-left:1px solid var(--gold);padding-left:16px}
+.cnote b{color:var(--ivory);font-weight:500}
+.case.pt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:34px;align-items:start}
+.pt-tile{width:132px;aspect-ratio:1;border:1.5px solid #CFCEC9;display:grid;grid-template-rows:auto 1fr auto;padding:9px 11px 11px;background:linear-gradient(150deg,#1E1E1C,#0A0A09)}
+.pt-tile .n{font-family:var(--serif);font-weight:600;font-size:1rem;text-align:right;color:#C9C8C3;line-height:1}
+.pt-tile .s{font-family:var(--serif);font-weight:600;font-size:3.6rem;line-height:1;text-align:center;align-self:center;background:linear-gradient(115deg,#8F8F8B 0%,#F6F6F3 42%,#A9A9A5 68%,#EEEEEA 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.pt-tile .nm{font-family:var(--serif);font-weight:600;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;text-align:center;color:#D6D5D0}
+.pt-cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:12px;max-width:132px;line-height:1.6}
+.pt-body .tx{color:var(--mut);max-width:64ch;margin-top:14px}
+.pt-body .ask{color:var(--gold);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;margin-top:20px}
+
+/* periodic table */
+.ptable{display:grid;gap:16px;margin-top:50px}
+.insp{position:sticky;top:calc(var(--tb) + 12px);z-index:5;display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:rgba(13,11,7,.95);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.insp-fig{width:86px;height:86px;display:grid;place-items:center}
+.insp-fig .aulogo{width:86px;height:79px}
+.itile{width:86px;height:86px;border:1px solid var(--gold);background:var(--gold);color:var(--ink);display:grid;grid-template-rows:auto 1fr auto;padding:6px 7px 7px;text-align:center}
+.itile i{font-style:normal;font-family:var(--mono);font-size:.6rem;text-align:left;line-height:1}
+.itile b{font-family:var(--serif);font-weight:700;font-size:2.1rem;line-height:1;align-self:center}
+.itile span{font-size:.56rem;line-height:1.15;font-weight:500}
+.insp-t{display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap}
+.insp-t b{font-family:var(--serif);font-weight:600;font-size:1.55rem;line-height:1.05}
+.insp-t em{font-style:normal;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.insp-t .lv{color:var(--gold-hi)}
+.insp p{font-size:.9rem;color:var(--mut);margin-top:5px;max-width:70ch}
+.fam{display:grid;grid-template-columns:196px minmax(0,1fr);gap:22px;align-items:start;padding-top:18px;border-top:1px solid var(--line-2)}
+.fam-h b{display:block;font-family:var(--serif);font-weight:600;font-size:1.5rem;line-height:1.05}
+.fam-h span{display:block;font-size:.8rem;color:var(--dim);margin-top:6px;line-height:1.45}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
+.el{position:relative;aspect-ratio:1;border:1px solid rgba(218,186,0,.32);border-radius:2px;background:var(--char-2);color:var(--ivory);cursor:pointer;display:grid;grid-template-rows:auto 1fr auto;padding:6px 6px 8px;text-align:center;font-family:var(--sans);transition:background .16s,border-color .16s,transform .16s}
+.el i{font-style:normal;font-family:var(--mono);font-size:.56rem;color:var(--dim);text-align:left;line-height:1}
+.el b{font-family:var(--serif);font-weight:600;font-size:1.75rem;line-height:1;color:var(--gold);align-self:center}
+.el span{font-size:.6rem;line-height:1.2;color:var(--mut);overflow-wrap:anywhere}
+.el.live::after{content:"";position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--gold-hi);box-shadow:0 0 8px rgba(255,220,14,.65)}
+.el:hover,.el:focus-visible,.el.on{background:var(--gold);border-color:var(--gold);transform:translateY(-2px)}
+.el:hover b,.el:focus-visible b,.el.on b,.el:hover i,.el:focus-visible i,.el.on i,.el:hover span,.el:focus-visible span,.el.on span{color:var(--ink)}
+.el.live:hover::after,.el.live:focus-visible::after,.el.live.on::after{background:var(--ink);box-shadow:none}
+.callouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:44px}
+.co{border:1px solid var(--line-2);border-radius:14px;padding:24px 22px;background:var(--char)}
+.co .h{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.co h3{font-size:1.55rem;line-height:1.06;margin-bottom:10px}
+.co p{font-size:.9rem;color:var(--mut)}
+
+/* security */
+.band{padding-block:88px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.pill{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-radius:999px;border:1px solid var(--line);color:var(--ivory)}
+
+/* pilot, on gold */
+.gold{background:var(--gold);color:var(--ink);border-bottom:0}
+.gold .kicker,.gold h2{color:var(--ink)}
+.gold .lede{color:var(--ink-mut)}
+.gold :focus-visible{outline-color:var(--ink)}
+.weeks{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:50px}
+.weeks li{border-top:2px solid var(--ink);padding-top:18px}
+.weeks .w{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase}
+.weeks h3{font-size:1.7rem;line-height:1.04;margin:10px 0 8px}
+.weeks p{font-size:.9rem;color:var(--ink-mut)}
+.gold .note{margin-top:40px;max-width:62ch;color:var(--ink-mut)}
+.sign{margin-top:34px;padding-top:22px;border-top:1px solid var(--ink-line);display:flex;align-items:baseline;gap:8px 18px;flex-wrap:wrap}
+.sign b{font-family:var(--serif);font-weight:600;font-size:1.55rem}
+.sign a{font-family:var(--mono);font-size:.84rem;color:var(--ink);text-underline-offset:4px}
+
+/* footer */
+.foot{background:var(--black);padding-block:52px 60px;text-align:center}
+.flock{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:20px}
+.flock svg{width:34px;height:27px}
+.flock .wm{font-weight:700;font-size:1.1rem;letter-spacing:-.04em}
+.flock .x{font-family:var(--mono);color:var(--dim)}
+.flock .aulogo{width:40px;height:37px}
+.foot p{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.foot p a{color:var(--gold)}
+.foot .srcl{max-width:74ch;margin:12px auto 0;text-transform:none;letter-spacing:.01em;font-size:.72rem;line-height:1.7}
+
+@media(max-width:980px){
+  .hero-in{grid-template-columns:1fr;gap:44px}
+  .tl{grid-template-columns:1fr;gap:26px;margin-top:44px}
+  .tl::before{top:4px;bottom:0;left:7px;right:auto;width:1px;height:auto;background:linear-gradient(180deg,var(--gold) 0%,var(--gold) 84%,rgba(218,186,0,0) 100%)}
+  .tl li{padding:0 0 0 38px}
+  .tl li::before{top:4px}
+  .tl h3{margin-top:4px}
+  .callouts{grid-template-columns:1fr}
+  .weeks{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:860px){
+  .top .wrap{flex-wrap:wrap;column-gap:12px;row-gap:2px;padding-block:10px 0;min-height:0}
+  .aulock{margin-left:auto}
+  .nav{order:3;flex-basis:100%;margin-inline:-10px;padding:4px 0 8px}
+  .three{grid-template-columns:1fr;gap:34px}
+  .qa{grid-template-columns:1fr}
+  .cstats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ccols{grid-template-columns:1fr}
+  .fam{grid-template-columns:1fr;gap:12px}
+  .case{padding:28px 22px}
+}
+@media(max-width:700px){
+  .wrap{padding-inline:18px}
+  .sec{padding-block:74px}
+  .hero{padding-block:52px 64px}
+  .sgrid{grid-template-columns:1fr}
+  .scell,.scell:first-child{border-left:0;border-top:1px solid var(--ink-line);padding:22px 0}
+  .scell:first-child{border-top:0}
+  .insp{top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 10px);order:99;grid-template-columns:auto minmax(0,1fr);gap:14px;padding:12px 14px}
+  .insp-fig,.itile{width:64px;height:64px}
+  .insp-fig .aulogo{width:64px;height:59px}
+  .itile b{font-size:1.6rem}
+  .itile span{font-size:.5rem}
+  .insp-t b{font-size:1.25rem}
+  .insp p{font-size:.82rem}
+  .case.pt{grid-template-columns:1fr;gap:22px}
+  .pq{grid-template-columns:1fr;gap:6px}
+  .pq .qm{font-size:4.6rem}
+}
+@media(max-width:520px){
+  .weeks{grid-template-columns:1fr}
+  .tiles{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .el b{font-size:1.32rem}
+  .el span{font-size:.52rem}
+  .el i{font-size:.5rem}
+  .row{grid-template-columns:minmax(0,1fr) auto;row-gap:2px}
+  .row .d{grid-column:1/-1;text-align:left}
+  .poster .ptile{display:none}
+  .poster .play{width:58px;height:58px}
+  .poster{gap:10px}
+  .aulock .x{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="mg" gradientUnits="userSpaceOnUse" x1="5" y1="34" x2="46" y2="3">
+      <stop offset="0%" stop-color="#5B8DEF"/><stop offset="100%" stop-color="#B57BF3"/>
+    </linearGradient>
+    <g id="milomark">
+      <path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#mg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="7" cy="31" r="4" fill="url(#mg)"/><circle cx="19" cy="19" r="4" fill="url(#mg)"/>
+      <circle cx="31" cy="26" r="4" fill="url(#mg)"/><circle cx="43" cy="12" r="4" fill="url(#mg)"/>
+      <path transform="translate(22,8) scale(2.7)" fill="url(#mg)" d="M0,-1 C0.15,-0.35 0.35,-0.15 1,0 C0.35,0.15 0.15,0.35 0,1 C-0.15,0.35 -0.35,0.15 -1,0 C-0.35,-0.15 -0.15,-0.35 0,-1 Z"/>
+      <path transform="translate(36,5) scale(4)" fill="url(#mg)" d="M0,-1 C0.15,-0.35 0.35,-0.15 1,0 C0.35,0.15 0.15,0.35 0,1 C-0.15,0.35 -0.35,0.15 -1,0 C-0.35,-0.15 -0.15,-0.35 0,-1 Z"/>
+    </g>
+    <symbol id="aulogo" viewBox="0 0 372 340"><image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAAFUCAMAAAADETdXAAAAJGVYSWZJSSoACAAAAAEAPAECAAkAAAAaAAAAAAAAAGltYWdlcnk0AAAnPYy6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwBQTFRF5MAy07Ak6eHE49GH4L9J5cVW0a4h6Mde6chf4b862rg55sVYyKcY9ei8375F1rUw4sRi0K0e5taW6chg1bxX3LxB/v7+5ct56cpl18aF1s2lyqoiuqVOzqwd2MN0y6kayKUW2bg2+/nz4sBDy7Zk1LIo4t3Hx7qH1bQt59ql68to48JR3L9V17Ux2tO55Ny6y6wr+fPZ8uzXyqgZ6+PJ4sFOy7VZ2sJo9vPpzKkW5t692r1Nu7Wiyqkb8unGx6w44cJRxqUX3dnL49q3x7d18/Dl6+rk58hlxKUjzLJH4cBL7eO4xKxH9ezK3bw+3c2S29GoxaUd0rQ60LI29Oaw/fz7yKYX7ere+vXh8O7j07En1bEe9vTx27o94M2E4cBN5MNU0bxo58dbwq1V6uXT5clt/Pnu9+7M1bMs7dyc0rVBysCY+Pfz1rhE7dV2z8ak5OPb2bcz7NFr3Ls+5eLV+vn35cpx2LUt6clV8vDp0cSQ5Mdp8fHs1LlLx6kp+vfqyqgfvqEn3LoxzKob6N6+5+DA4sBN8NqI89Jp0MGJ1sqa27o72LQj27gs6cZR785o0cec3Lo16ebaz7ZM6slf282b48Zl4dey49/N1M627ujS1siS6Mda6c1x9vXu6cdg7cxl4NKdz6wY1rMp8Oa/yqcV3rw53cFb5MJJ49u4wqYv1rc+68lh0L995MJN5MNS2LpH6shh48NT6clN78xiyqYW0rEu6slk4r0p2rpA27xB5sVC8/Lt592z37w06s1d8uGk6MVN7ste/Pv3v6xh8t+a6spjyaYV+e/R689j4cFP6cpn7MtZ48JQ4sZax6cn5tu64sRX6cll9/TpzKoa6ctX58hL48FM6spm6spl6chi6cli6stn6clj68tl6spn78xayacZ68tm68tn6spk6Mhi68pmzaoY/Pfm27s+6Mlk4MRg7MxpyaUW6stl17c23LxDz8iv6NB/7OCt68pn4MJdzq8v39nB48ld493C7sxc3te79+3F3cdx7Mtm////fBjHkAAAAQB0Uk5T////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AFP3ByUAAB0FSURBVHja7N0LQBNXugBg3shDMAooIiThURXUBsOj0WtZFSwgRXwkgFEEtIiIVaoUbUUt1PoARXzhA0WCCNUi2tZH1VJbrFhbt1vKFtBaN7oWa7Fau9LrVTb3nJkkzISQTKKxQv4fd0vIJPPPx8+ZMyczZ0xaW319fa81NTWfv7K1Xy/r5ORkO0vLxA8/9Lt4MTLSYrSDwz3nU7/8MjMvj3v37t3hwx2HDElN9Tk+HYcpz4pn5WblpoxVq9woQXmAlsLLEq+anpo6ZIij43D0dnfz8mb+8ssp53sODg6jIyNnXbzo5/dhoqWdnV1ysnWvfv2uXD3R3HTtmq9vqzJ8r1271tR84uqVfkSydspkZ0VaWFg43KNl64izpSbLs+oq107JmnYkO8RxOJGtrTJbC4vISJTshyhZS5wrSnbrlfP/bmpCufre6O8iU8bcN2xMyPist/LHJj/+2NQ8oP7KZTk43ohqv0uB76FtQBTOztGL8/JsudyMDOSdmlrmM93U1NTKyorljqKhgY1DKpXa24s4asPe3l4q5bPZY8Y0NOCXsFhWVqZog3zw1gzPyOBybdG2RDs7O6O1oU2JDAz080vE20JsTEm/y1fr65uJrWltxd719Vcv9yuxVoAn+vkFBs4ik72Hkp2ZZ9uRrQ+yVkmWj3PtIlkiVylbNVnT6T5lKFtUJzjbPCJbBwL+vcBLftXyXHGVXL5ydUBz008d6ClrCO/Tp4n/vBH3NNBzcxmjs9m5ucRmaES30IRO/kHqjU4mywidTJb1xOj+SxH169P8b92K670GwZ/u/ZegP0mldzt0/x9Qdfsrqv4WrvreUOmGRU/5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" width="372" height="340"/></symbol>
+  </defs>
+</svg>
+
+<!-- TOP BAR -->
+<div class="top">
+  <div class="wrap">
+    <a class="mlock" href="#top" aria-label="Milo, back to top">
+      <svg viewBox="0 0 50 40" aria-hidden="true"><use href="#milomark"/></svg>
+      <span>Milo</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#why">Why now</a>
+      <a href="#how">How it works</a>
+      <a href="#try">Try it</a>
+      <a href="#proof">Proof</a>
+      <a href="#connect">Connections</a>
+      <a href="#pilot">Pilot</a>
+    </nav>
+    <div class="aulock">
+      <span class="x" aria-hidden="true">×</span>
+      <svg class="aulogo" viewBox="0 0 372 340" role="img" aria-label="Au Vodka"><use href="#aulogo"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-in">
+    <div>
+      <p class="eyebrow">Milo × Au Vodka · Overview</p>
+      <h1>Ask <span class="foil">Au</span><br>anything.</h1>
+      <p class="lede">Good to meet you at the show. Au sells through supermarkets, bars, its own store and markets on both sides of the Atlantic, and each of them reports its numbers in its own shape. Milo joins them up and puts a box on top that anyone at Au can type a question into. The answer comes back in seconds, with its sources attached.</p>
+      <div class="chips">
+        <span class="chip">Supermarkets</span>
+        <span class="chip">Bars &amp; wholesale</span>
+        <span class="chip">auvodka.co.uk</span>
+        <span class="chip">Subscriptions</span>
+        <span class="chip">Paid social</span>
+        <span class="chip">US &amp; Europe</span>
+        <span class="chip">Finance &amp; bond</span>
+      </div>
+    </div>
+
+    <figure class="askcard" aria-label="An example question typed into Milo, with the answer it returns">
+      <div class="qbar">
+        <svg viewBox="0 0 50 40" aria-hidden="true"><use href="#milomark"/></svg>
+        <p>Which flavours are growing fastest in supermarkets, and are they selling online too?</p>
+        <span class="go" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 13 13"><path d="M2 6.5h8M6.8 3l3.4 3.5L6.8 10" fill="none" stroke="#0B0A06" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="ask-a">
+        <div class="ans-top"><span class="h">What comes back</span><span class="tag">Illustrative figures</span></div>
+        <table class="mtab">
+          <thead><tr><th scope="col">Flavour · last 4 wks vs prior 4</th><th scope="col">Supermarkets</th><th scope="col">Online</th></tr></thead>
+          <tbody>
+            <tr><td>Juicy Peach</td><td class="up">+19%</td><td class="up">+27%</td></tr>
+            <tr><td>Pink Lemonade</td><td class="up">+11%</td><td class="up">+16%</td></tr>
+            <tr><td>Blue Raspberry</td><td class="up">+8%</td><td class="up">+12%</td></tr>
+            <tr><td>Black Grape</td><td class="flat">+3%</td><td class="down">−2%</td></tr>
+          </tbody>
+        </table>
+        <p class="read">Rate of sale in supermarkets, set against the same flavours' orders on auvodka.co.uk. <b>Juicy Peach is climbing in both</b>, which is worth knowing before the next range review.</p>
+        <div class="srcs"><span class="sl">Sources joined</span><span class="src">Retailer EPOS</span><span class="src">Circana</span><span class="src">Shopify</span><span class="src">Recharge</span></div>
+      </div>
+    </figure>
+  </div>
+</header>
+
+<!-- GOLD STRIP -->
+<section class="strip" aria-label="Milo in three numbers">
+  <div class="wrap sgrid">
+    <div class="scell"><div class="v">700+</div><div class="l">integrations our engineers build and maintain</div></div>
+    <div class="scell"><div class="v">Seconds</div><div class="l">from a typed question to a sourced answer</div></div>
+    <div class="scell"><div class="v">Anyone</div><div class="l">at Au can build a dashboard, with no ticket and no data team</div></div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section class="sec" id="why">
+  <div class="wrap">
+    <p class="kicker">Why now</p>
+    <h2>From Swansea<br><span class="g">to Sazerac.</span></h2>
+    <p class="lede">Eleven years, one gold bottle and more channels every year. Each step below added somewhere new to sell, and somewhere new for the numbers to live.</p>
+
+    <ol class="tl">
+      <li><span class="yr">2015</span><h3>Swansea</h3><p>School friends Charlie Morgan and Jackson Quinn start Au. Charlie Sloth invests two years later.</p></li>
+      <li><span class="yr">2021</span><h3>Black Grape</h3><p>The first flavour lands, and turnover goes from £700k to £38m in a year.</p></li>
+      <li><span class="yr">2022</span><h3>Cans and the US</h3><p>The first RTD can sells out in under a week. The US launch sells 50,000 bottles in its first week, and Atlanta opens.</p></li>
+      <li><span class="yr">2025</span><h3>£82.8m</h3><p>Turnover up 27.3% in the year to April, RTD volumes up 65.8% to more than 1.1m nine-litre cases. By the end of the year, the UK's bestselling off-trade RTD brand.</p></li>
+      <li class="now"><span class="yr">14 Sep 2026</span><h3>Sazerac</h3><p>The acquisition completes, and Swansea stays home.</p></li>
+      <li class="next"><span class="yr">Next</span><h3>Big plans</h3><p>More markets, more retailers and more formats, each reporting in its own shape.</p></li>
+    </ol>
+
+    <blockquote class="pq">
+      <span class="qm" aria-hidden="true">“</span>
+      <div>
+        <p>What Charlie, Jackson and Charlie have achieved in just over a decade is spectacular and rare, and we have big plans for Au…</p>
+        <cite>Jake Wenz, President and CEO, Sazerac · 14 September 2026</cite>
+      </div>
+    </blockquote>
+
+    <p class="argue">Big plans mean more of everything on this timeline, all at once. For a brand at Au's stage, the answer to "how did we do last week?" usually lives in retailer portals, wholesaler files, Shopify, Recharge, the ad accounts and the ledger. <b>The time to join those up is before the next market.</b></p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec alt" id="how">
+  <div class="wrap">
+    <p class="kicker">How it works</p>
+    <h2>Ask. Pin. <span class="g">Automate.</span></h2>
+    <p class="lede">Three steps, and each one feeds the next. A question becomes a dashboard, and the dashboard becomes something that sends itself.</p>
+
+    <div class="three">
+      <article class="step">
+        <span class="no">01 · Ask</span>
+        <h3>Plain English in, answer out</h3>
+        <p>Typed the way you'd say it across the desk. The answer comes back in seconds with the rows behind it, so it can be checked rather than taken on trust.</p>
+        <p class="ex">“Rate of sale by flavour in Tesco this week, against the four-week average.”</p>
+      </article>
+      <article class="step">
+        <span class="no">02 · Pin</span>
+        <h3>Dashboards built by anyone</h3>
+        <p>Pin any answer and it becomes a live view that refreshes itself. National account managers build their own retailer views and ecommerce builds the subscriber view, with no data team and no ticket.</p>
+        <p class="ex">At Two Tribes, one rep built her own account book without being asked.</p>
+      </article>
+      <article class="step">
+        <span class="no">03 · Automate</span>
+        <h3>A question becomes a routine</h3>
+        <p>Anything worth asking every Monday gets scheduled. The trading pack writes and sends itself, and alerts fire the day a store stops selling or a venue stops ordering.</p>
+        <p class="ex">Delivered to email, Slack, Teams or WhatsApp.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="sec" id="video">
+  <div class="wrap">
+    <p class="kicker">See it</p>
+    <h2>Ninety seconds<br><span class="g">is enough.</span></h2>
+    <p class="lede">Rather than describe the box any further, here it is working.</p>
+
+    <div class="vid">
+      <div class="frame" id="vidframe" data-vid="1196983997">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+          <span class="ptile" aria-hidden="true"><i>1:29</i><svg viewBox="0 0 50 40"><use href="#milomark"/></svg></span>
+          <span class="ttl">Milo product overview</span>
+          <span class="play" aria-hidden="true"><svg width="21" height="25" viewBox="0 0 21 25"><path d="M3 2.5 L19 12.5 L3 22.5 Z" fill="#0B0A06"/></svg></span>
+          <span class="sub">Press play · 1 min 29 sec</span>
+        </a>
+      </div>
+    </div>
+    <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+  </div>
+</section>
+
+<!-- TRY IT -->
+<section class="sec alt" id="try">
+  <div class="wrap">
+    <p class="kicker">Try it · pick a seat, then a question</p>
+    <h2>Six seats at Au.<br><span class="g">One box.</span></h2>
+    <p class="lede">The same box, asked from six seats around the business. Choose a seat and a question to see what comes back and which systems it had to join. The figures are illustrative, not yours. Week one of a pilot is where these get asked of your real numbers.</p>
+
+    <div class="tabs" role="tablist" aria-label="Choose a seat">
+      <button class="tab" type="button" role="tab" id="tab-ecom" data-desk="ecom" aria-selected="true" aria-controls="deskpanel">Ecommerce</button>
+      <button class="tab" type="button" role="tab" id="tab-sm" data-desk="sm" aria-selected="false" aria-controls="deskpanel">Supermarkets</button>
+      <button class="tab" type="button" role="tab" id="tab-bars" data-desk="bars" aria-selected="false" aria-controls="deskpanel">Bars &amp; wholesale</button>
+      <button class="tab" type="button" role="tab" id="tab-fin" data-desk="fin" aria-selected="false" aria-controls="deskpanel">Finance</button>
+      <button class="tab" type="button" role="tab" id="tab-sc" data-desk="sc" aria-selected="false" aria-controls="deskpanel">Supply chain</button>
+      <button class="tab" type="button" role="tab" id="tab-lead" data-desk="lead" aria-selected="false" aria-controls="deskpanel">Leadership</button>
+    </div>
+
+    <div id="deskpanel" role="tabpanel" aria-labelledby="tab-ecom">
+      <p class="desk-role" id="deskrole">Ecommerce · auvodka.co.uk, subscriptions and the funnel</p>
+      <div class="qa">
+        <div class="qlist" id="qlist" role="tablist" aria-label="Choose a question">
+          <button class="qbtn" type="button" role="tab" data-i="0" aria-selected="true"><span class="who">Monday, 9am</span>“How did the store do last week, and where did the revenue come from?”</button>
+          <button class="qbtn" type="button" role="tab" data-i="1" aria-selected="false"><span class="who">Before the budget call</span>“What did Meta and TikTok actually return last month, once refunds and repeat orders are counted?”</button>
+          <button class="qbtn" type="button" role="tab" data-i="2" aria-selected="false"><span class="who">Range planning</span>“Which flavours do subscribers swap out of, and what do they swap into?”</button>
+        </div>
+        <div class="ans" id="ans" aria-live="polite">
+          <div class="ans-top"><span class="h">What comes back</span><span class="tag">Illustrative figures</span></div>
+          <div class="rows">
+            <div class="row"><span class="k">Online revenue</span><span class="n">£148.2k</span><span class="d up">+12% on prior week</span></div>
+            <div class="row"><span class="k">Orders</span><span class="n">3,962</span><span class="d up">+9%</span></div>
+            <div class="row"><span class="k">Average order</span><span class="n">£37.40</span><span class="d up">+2.6%</span></div>
+            <div class="row"><span class="k">From subscribers</span><span class="n">31% of revenue</span><span class="d up">+1.4 pts</span></div>
+          </div>
+          <p class="read">Revenue split by where it came from as well as how much. <b>Subscriber share is the line to watch</b>, because it's the revenue that doesn't need buying again next week.</p>
+          <div class="srcs"><span class="sl">Sources joined</span><span class="src">Shopify</span><span class="src">Recharge</span><span class="src">Klaviyo</span><span class="src">GA4</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="desk-foot">Fourteen questions here. In a pilot, the list is whatever your team types.</p>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="sec" id="proof">
+  <div class="wrap">
+    <p class="kicker">Proof</p>
+    <h2>Two drinks brands,<br><span class="g">two stages.</span></h2>
+    <p class="lede">Two Tribes shows what the first seven weeks produce. Prime Time signed this month: a younger brand with the same shape as Au.</p>
+
+    <div class="cases">
+      <article class="case">
+        <div class="case-h">
+          <div>
+            <p class="case-k">Case study · Two Tribes Brewing · London</p>
+            <h3>Every department got an analyst in seven weeks.</h3>
+          </div>
+          <a class="case-link" href="https://www.milo.ai/case-studies/two-tribes-brewery" target="_blank" rel="noopener">Full case study ↗</a>
+        </div>
+        <p class="case-lede">Wholesale, Tesco shelves, a King's Cross taproom and a distribution arm, on seven systems that had never spoken to each other. No data team, no BI consultants and no implementation project.</p>
+        <div class="sys" aria-label="Systems connected"><span>Breww</span><span>Xero ×2</span><span>Toast</span><span>BrightHR</span><span>Bowimi</span><span>SharePoint</span></div>
+
+        <div class="cstats">
+          <div><b>2 weeks</b><span>to connect all seven systems</span></div>
+          <div><b>1 → 12</b><span>active users in six weeks, across six departments</span></div>
+          <div><b>48 → 566</b><span>interactions in May, then in June</span></div>
+          <div><b>20 · 20 · 4</b><span>live dashboards, custom apps and alerts</span></div>
+        </div>
+
+        <div class="ccols">
+          <div>
+            <p class="mini-k">The part closest to Au</p>
+            <h4>A Tesco analyser covering all 831 stores</h4>
+            <p>Anomalies surface automatically and stores are tiered by performance, so reps plan their routes around where the volume actually is. The board pack that took days to assemble now assembles itself.</p>
+          </div>
+          <div>
+            <p class="mini-k">Four alerts that fire without being asked</p>
+            <ul class="alerts">
+              <li><span>New customer wins</span><em>Weekdays, 2pm</em></li>
+              <li><span>Newly overdue invoices</span><em>Weekday mornings</em></li>
+              <li><span>Dispense volume changes</span><em>Weekly</em></li>
+              <li><span>Taproom past £8k</span><em>Daily</em></li>
+            </ul>
+          </div>
+        </div>
+
+        <figure class="cquote">
+          <blockquote>“Milo is my work wife.”</blockquote>
+          <figcaption>CFO, Two Tribes Brewing</figcaption>
+        </figure>
+
+        <p class="cnote"><b>Their advice on the first weeks: validate early.</b> Two Tribes checked Milo against their manual reports and found gaps from voided orders, marketing customers counted as sales and credit note treatment. Each became a rule in Milo's knowledge base, so future reporting reflects it.</p>
+      </article>
+
+      <article class="case pt">
+        <div>
+          <div class="pt-tile" aria-hidden="true"><span class="n">78</span><span class="s">Pt</span><span class="nm">Prime Time</span></div>
+          <p class="pt-cap">Platinum, element 78. One along from gold.</p>
+        </div>
+        <div class="pt-body">
+          <p class="case-k">Prime Time · Low-calorie beer · Signed September 2026</p>
+          <h3>Beer. But better. Now on Milo.</h3>
+          <p class="tx">Founded by Harvey Armstrong and Sam Holmes, Prime Time makes a low-calorie lager with 95 calories at 4.2%. It sells through UK retail, national on-trade partners and its own online store, and is launching in the US with a pilot listing at Total Wine.</p>
+          <p class="tx">It's on this page because it has Au's shape at an earlier stage: supermarkets, bars, its own store and a first market abroad, each reporting in its own way. Prime Time signed with Milo in September, early in that journey.</p>
+          <p class="ask">Ask us how their first weeks are going</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section class="sec alt" id="connect">
+  <div class="wrap">
+    <p class="kicker">What we connect</p>
+    <h2>The periodic table<br><span class="g">of Au.</span></h2>
+    <p class="lede">This is what Milo connects rather than a guess at what Au runs, with one exception: tiles with a gold dot are running on auvodka.co.uk today. Plug and play sources connect in minutes. Retailer portals, wholesaler files and custom APIs take our engineers one to three days. Either way it's our build, not a project for you.</p>
+
+    <div class="ptable">
+      <div class="insp" id="insp" aria-live="polite">
+        <div class="insp-fig">
+          <svg class="aulogo" id="insp-logo" viewBox="0 0 372 340" role="img" aria-label="Au Vodka, element 79"><use href="#aulogo"/></svg>
+          <div class="itile" id="insp-tile" hidden><i id="insp-n"></i><b id="insp-s"></b><span id="insp-nm"></span></div>
+        </div>
+        <div>
+          <div class="insp-t"><b id="insp-name">Au Vodka</b><em id="insp-fam">Element 79</em><em class="lv" id="insp-live" hidden>● Running on auvodka.co.uk today</em></div>
+          <p id="insp-d">Gold is 79, as the bottle says. The forty tiles below are what Milo connects for a drinks brand. Hover or tap one to see what Milo reads from it.</p>
+        </div>
+      </div>
+
+      <div class="fam" data-f="Your store">
+        <div class="fam-h"><b>Your store</b><span>auvodka.co.uk and the tools around it</span></div>
+        <div class="tiles">
+          <button class="el live" type="button" data-d="Orders, customers, products and discounts, as they happen."><i>1</i><b>Sh</b><span>Shopify</span></button>
+          <button class="el live" type="button" data-d="Subscribers, skips, swaps and cancellations, by flavour."><i>2</i><b>Rc</b><span>Recharge</span></button>
+          <button class="el live" type="button" data-d="Email and SMS flows, and the revenue each one brings in."><i>3</i><b>Kl</b><span>Klaviyo</span></button>
+          <button class="el live" type="button" data-d="Upsells and add-ons offered, taken and passed over."><i>4</i><b>Rb</b><span>Rebuy</span></button>
+          <button class="el live" type="button" data-d="Reviews and star ratings by product, and what people actually say."><i>5</i><b>Ok</b><span>Okendo</span></button>
+          <button class="el live" type="button" data-d="Support tickets by topic, order and flavour."><i>6</i><b>Gg</b><span>Gorgias</span></button>
+          <button class="el live" type="button" data-d="Sessions, funnels and conversion by traffic source."><i>7</i><b>Ga</b><span>Google Analytics</span></button>
+          <button class="el" type="button" data-d="Marketplace orders, fees, returns and reviews."><i>8</i><b>Am</b><span>Amazon</span></button>
+        </div>
+      </div>
+
+      <div class="fam" data-f="Paid &amp; social">
+        <div class="fam-h"><b>Paid &amp; social</b><span>Where the brand gets built</span></div>
+        <div class="tiles">
+          <button class="el live" type="button" data-d="Spend, reach and return by campaign, across Facebook and Instagram."><i>9</i><b>Mt</b><span>Meta Ads</span></button>
+          <button class="el" type="button" data-d="Ad spend and organic reach, matched to real orders."><i>10</i><b>Tk</b><span>TikTok</span></button>
+          <button class="el" type="button" data-d="In-app orders and creator-led sales."><i>11</i><b>Ts</b><span>TikTok Shop</span></button>
+          <button class="el" type="button" data-d="Search and Shopping spend, set against orders."><i>12</i><b>Gd</b><span>Google Ads</span></button>
+          <button class="el" type="button" data-d="Organic reach and engagement, post by post."><i>13</i><b>Ig</b><span>Instagram</span></button>
+          <button class="el" type="button" data-d="Creator codes and seeded stock, tracked through to sales."><i>14</i><b>Cr</b><span>Creators</span></button>
+        </div>
+      </div>
+
+      <div class="fam" data-f="Supermarkets">
+        <div class="fam-h"><b>Supermarkets</b><span>EPOS, ranging and market data</span></div>
+        <div class="tiles">
+          <button class="el" type="button" data-d="Store-level sales, availability and promotions."><i>15</i><b>Te</b><span>Tesco</span></button>
+          <button class="el" type="button" data-d="Sales and stock by store and by line."><i>16</i><b>As</b><span>Asda</span></button>
+          <button class="el" type="button" data-d="Sales, stock and depot cover by store."><i>17</i><b>Mo</b><span>Morrisons</span></button>
+          <button class="el" type="button" data-d="Sales, stock and promotions by store."><i>18</i><b>Sb</b><span>Sainsbury's</span></button>
+          <button class="el" type="button" data-d="Convenience sales by store and region."><i>19</i><b>Co</b><span>Co-op</span></button>
+          <button class="el" type="button" data-d="Market share, distribution and rate of sale against the category."><i>20</i><b>Ci</b><span>Circana</span></button>
+          <button class="el" type="button" data-d="Category and competitor performance."><i>21</i><b>Nq</b><span>NielsenIQ</span></button>
+        </div>
+      </div>
+
+      <div class="fam" data-f="Bars, wholesale &amp; export">
+        <div class="fam-h"><b>Bars, wholesale &amp; export</b><span>Venues, distributors and the reps who visit them</span></div>
+        <div class="tiles">
+          <button class="el" type="button" data-d="On-trade sales and distribution by venue type."><i>22</i><b>Cg</b><span>CGA</span></button>
+          <button class="el" type="button" data-d="Orders and depletions from wholesale partners."><i>23</i><b>Wh</b><span>Wholesalers</span></button>
+          <button class="el" type="button" data-d="Distributor sales to retail, state by state."><i>24</i><b>Dp</b><span>US depletions</span></button>
+          <button class="el" type="button" data-d="Orders and sell-through in each European market."><i>25</i><b>Eu</b><span>EU distributors</span></button>
+          <button class="el" type="button" data-d="Accounts, pipeline and rep activity."><i>26</i><b>Hs</b><span>HubSpot</span></button>
+          <button class="el" type="button" data-d="Accounts, opportunities and visits."><i>27</i><b>Sf</b><span>Salesforce</span></button>
+          <button class="el" type="button" data-d="Calls and visits logged in the field."><i>28</i><b>Rv</b><span>Rep visits</span></button>
+        </div>
+      </div>
+
+      <div class="fam" data-f="Money &amp; stock">
+        <div class="fam-h"><b>Money &amp; stock</b><span>Ledgers, stock and bond</span></div>
+        <div class="tiles">
+          <button class="el" type="button" data-d="Invoices, payments, debtors and cash."><i>29</i><b>Xe</b><span>Xero</span></button>
+          <button class="el" type="button" data-d="Ledgers, VAT and management accounts."><i>30</i><b>Sg</b><span>Sage</span></button>
+          <button class="el" type="button" data-d="Ledger, orders and inventory in one place."><i>31</i><b>Ns</b><span>NetSuite</span></button>
+          <button class="el" type="button" data-d="Finance, sales orders and stock."><i>32</i><b>Bc</b><span>Business Central</span></button>
+          <button class="el" type="button" data-d="Group finance and supply chain."><i>33</i><b>Sa</b><span>SAP</span></button>
+          <button class="el" type="button" data-d="Duty-suspended and duty-paid stock, and the duty due on release."><i>34</i><b>Bd</b><span>Bond &amp; duty</span></button>
+          <button class="el" type="button" data-d="Stock by location, picks and what shipped."><i>35</i><b>Wm</b><span>3PL &amp; warehouse</span></button>
+        </div>
+      </div>
+
+      <div class="fam" data-f="Files &amp; the rest">
+        <div class="fam-h"><b>Files &amp; the rest</b><span>Where the forecast quietly lives</span></div>
+        <div class="tiles">
+          <button class="el" type="button" data-d="The workbook the forecast lives in."><i>36</i><b>Ex</b><span>Excel</span></button>
+          <button class="el" type="button" data-d="Plans, trackers and shared lists."><i>37</i><b>Gs</b><span>Google Sheets</span></button>
+          <button class="el" type="button" data-d="Documents, price files and team sites."><i>38</i><b>Sp</b><span>SharePoint</span></button>
+          <button class="el" type="button" data-d="Files the team already shares."><i>39</i><b>Dr</b><span>Google Drive</span></button>
+          <button class="el" type="button" data-d="Invoices, remittances and reports that arrive as attachments, read as data."><i>40</i><b>Pd</b><span>PDFs &amp; email</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callouts">
+      <div class="co">
+        <p class="h">Nothing gets switched off</p>
+        <h3>Keep every system you run</h3>
+        <p>Shopify, the retailer portals, the ledger and anything the group adds after 14 September all stay where they are. Milo reads what already exists, so a systems change doesn't reset the reporting.</p>
+      </div>
+      <div class="co">
+        <p class="h">On building it yourselves</p>
+        <h3>Two jobs, and we do both</h3>
+        <p>An internal build is really two projects: the integrations underneath, and the tool people actually use on top. We build the integrations from scratch for you, and the tool already exists.</p>
+      </div>
+      <div class="co">
+        <p class="h">It learns how Au counts</p>
+        <h3>Taught once, applied everywhere</h3>
+        <p>Nine-litre cases, rate of sale, depletions and duty-paid stock are set up once. So are house rules, like seeded stock for creators never counting as a sale, and every answer after applies them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section class="sec band" id="security">
+  <div class="wrap">
+    <p class="kicker">Security</p>
+    <h2>Before it touches<br><span class="g">a single order.</span></h2>
+    <p class="lede">Milo is SOC 2 and ISO 27001 certified and independently penetration tested. Access is role based down to the individual, so retailer terms stay with the people who negotiate them. An NDA goes in place before we connect anything, and the first connection can be read only or sandboxed. Send over your security questionnaire and DPA and we'll come back with the full pack.</p>
+    <div class="pills">
+      <span class="pill">SOC 2</span>
+      <span class="pill">ISO 27001</span>
+      <span class="pill">Independently pen tested</span>
+      <span class="pill">Role based access</span>
+      <span class="pill">Read only or sandbox first</span>
+      <span class="pill">NDA first</span>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT -->
+<section class="sec gold" id="pilot">
+  <div class="wrap">
+    <p class="kicker">How a pilot runs</p>
+    <h2>Four weeks. One team.<br>Your real numbers.</h2>
+    <p class="lede">Two Tribes' advice after their first months was to start with one defined job and a few internal champions, then let it spread. So a pilot picks one team. Ecommerce is the quickest start, since store data is clean and the questions come fast. The supermarket side is the biggest prize.</p>
+
+    <ol class="weeks">
+      <li><span class="w">Week 1</span><h3>Connect</h3><p>Credentials in, and our engineers do the building. Read only or sandbox access first if that's easier to sign off.</p></li>
+      <li><span class="w">Week 2</span><h3>Teach it Au</h3><p>Flavours, formats and pack sizes mapped so every channel reads in the same units, down to nine-litre cases. House rules go in once.</p></li>
+      <li><span class="w">Week 3</span><h3>Real questions</h3><p>Your team asks it whatever they want. Dashboards get pinned and the Monday trading pack gets scheduled.</p></li>
+      <li><span class="w">Week 4</span><h3>Go or no go</h3><p>An honest review of what it answered well and what it didn't. Nothing to unwind if the answer is no.</p></li>
+    </ol>
+
+    <p class="note">Commercials are straightforward and yours whenever you want them. They aren't the interesting part of this conversation yet.</p>
+
+    <div class="sign"><b>Liam Rabone · Milo</b><a href="mailto:liam@milo.ai">liam@milo.ai</a></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="flock">
+      <svg viewBox="0 0 50 40" aria-hidden="true"><use href="#milomark"/></svg>
+      <span class="wm">Milo</span>
+      <span class="x" aria-hidden="true">×</span>
+      <svg class="aulogo" viewBox="0 0 372 340" role="img" aria-label="Au Vodka"><use href="#aulogo"/></svg>
+    </div>
+    <p>Prepared for Au Vodka by <a href="mailto:liam@milo.ai">Liam Rabone</a>, Milo</p>
+    <p class="srcl">Au figures are public: Sazerac's announcement of 14 September 2026, company results as reported by The Grocer, and auvodka.co.uk. Every figure inside the examples is illustrative.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement,bar=document.querySelector('.top');
+  function tb(){if(bar)root.style.setProperty('--tb',bar.offsetHeight+'px')}
+  tb();window.addEventListener('resize',tb);
+
+  /* video: play inline where the page is hosted, otherwise the poster links out to Vimeo */
+  var f=document.getElementById('vidframe'),p=document.getElementById('vidplay'),h=location.hostname;
+  var inline=h===''||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(h);
+  if(f&&p&&inline){p.addEventListener('click',function(e){
+    e.preventDefault();
+    var i=document.createElement('iframe');
+    i.src='https://player.vimeo.com/video/'+f.dataset.vid+'?title=0&byline=0&portrait=0&dnt=1&autoplay=1';
+    i.setAttribute('allow','autoplay; fullscreen; picture-in-picture');
+    i.setAttribute('allowfullscreen','');
+    i.setAttribute('title','Milo product overview');
+    f.appendChild(i);p.remove();
+  });}
+
+  /* seats */
+  var DESKS={
+    ecom:{role:'Ecommerce · auvodka.co.uk, subscriptions and the funnel',qs:[
+      {who:'Monday, 9am',q:'How did the store do last week, and where did the revenue come from?',
+       rows:[['Online revenue','£148.2k','+12% on prior week','up'],['Orders','3,962','+9%','up'],['Average order','£37.40','+2.6%','up'],['From subscribers','31% of revenue','+1.4 pts','up']],
+       read:'Revenue split by where it came from as well as how much. <b>Subscriber share is the line to watch</b>, because it\'s the revenue that doesn\'t need buying again next week.',
+       src:['Shopify','Recharge','Klaviyo','GA4']},
+      {who:'Before the budget call',q:'What did Meta and TikTok actually return last month, once refunds and repeat orders are counted?',
+       rows:[['Meta','£42.0k spend','3.1× return','flat'],['TikTok','£28.5k spend','4.4× return','up'],['Klaviyo flows','No media spend','£61.3k revenue','up'],['Blended','£70.5k spend','3.6× return','up']],
+       read:'Each platform claims the same sale in its own dashboard. This starts from the orders Shopify actually took and works back, so <b>the return is net of refunds and counts the second order</b>, which is where a subscription brand makes its money.',
+       src:['Shopify','Meta Ads','TikTok','Klaviyo','Recharge']},
+      {who:'Range planning',q:'Which flavours do subscribers swap out of, and what do they swap into?',
+       rows:[['Black Grape → Blue Raspberry','214 swaps','last 90 days','flat'],['Pink Lemonade → Juicy Peach','167 swaps','rising','up'],['Original → Fruit Punch','98 swaps','steady','flat'],['Net gainer','Juicy Peach','+241 subscribers','up']],
+       read:'Swaps are subscribers voting with their next order. <b>A flavour gaining swaps online is a signal worth checking against retail</b>, and this is where it shows up first.',
+       src:['Recharge','Shopify']}
+    ]},
+    sm:{role:'Supermarkets · national accounts, EPOS, ranging and promotions',qs:[
+      {who:'Weekly trading call',q:'Rate of sale by retailer this week, against the four-week average.',
+       rows:[['Tesco','6.1 units / store / wk','+7% vs 4-wk avg','up'],['Asda','4.4 units / store / wk','+2%','flat'],['Morrisons','3.8 units / store / wk','−5%','down'],['Wholesale & convenience','2.7 units / outlet / wk','+11%','up']],
+       read:'Every retailer\'s export read on one basis, with bottles and cans kept apart so an RTD surge can\'t hide a dip in bottles. <b>Morrisons is the one to ask about</b>, and the next question is obvious: which stores?',
+       src:['Tesco','Asda','Morrisons','Wholesalers','Promo calendar']},
+      {who:'Before the account review',q:'Which stores are ranged on a line but haven\'t sold it in three weeks?',
+       rows:[['Stores flagged','143 of 2,310','6.2%','down'],['Most affected line','Slimline cans','61 stores','down'],['Depot stock','Available','not a supply issue','flat'],['Sales at risk','£38k over 4 wks','at current rate','down']],
+       read:'The Two Tribes Tesco analyser, pointed at Au. <b>A ranged store selling nothing is usually a shelf problem rather than a demand problem</b>, and it stays invisible until ranging, depot stock and EPOS are lined up store by store.',
+       src:['Retailer EPOS','Ranging files','Depot stock']},
+      {who:'After the promotion',q:'What did the last promotion actually add, once the dip afterwards is counted?',
+       rows:[['Uplift in promo weeks','+38%','vs baseline','up'],['Dip afterwards','−9%','three weeks after','down'],['Net extra units','+21%','over seven weeks','up'],['Cost per extra unit','£1.84','trade spend','flat']],
+       read:'Uplift net of the dip and the funding, so <b>a promotion is judged on what it left behind</b> rather than on its best week.',
+       src:['Retailer EPOS','Promo calendar','Trade spend','Ledger']}
+    ]},
+    bars:{role:'Bars & wholesale · venues, wholesalers and the reps who visit them',qs:[
+      {who:'Every Monday',q:'Which venues have stopped ordering on their usual pattern?',
+       rows:[['Accounts overdue an order','37','22 last month','down'],['Largest by volume','Group account, South Wales','18 days late','down'],['Typical gap','11 days','past usual rhythm','down'],['Reps alerted','6','automatically','up']],
+       read:'Ordering rhythm learned account by account, with an alert the day one slips. <b>Two Tribes runs this exact alert</b>, so account managers hear about a quiet customer before it has chosen someone else.',
+       src:['Wholesalers','HubSpot','Orders']},
+      {who:'Planning the week',q:'Which of our top 50 venues has nobody visited in 60 days?',
+       rows:[['Top 50 venues','50','by 12-month volume','flat'],['No visit in 60 days','9','18%','down'],['Of those, volume down','6','−14% average','down'],['Routes','Updated','nearest rep assigned','up']],
+       read:'Visit history joined to what each venue actually buys. <b>The visits that matter are the ones that quietly stopped.</b>',
+       src:['HubSpot','Rep visits','Wholesalers']}
+    ]},
+    fin:{role:'Finance · margin, cash and month end',qs:[
+      {who:'Month end',q:'Gross margin by channel this month, after trade spend and duty.',
+       rows:[['Supermarkets','34.2%','−0.8 pts','down'],['Bars & wholesale','41.5%','+0.6 pts','up'],['Online store','58.9%','+1.2 pts','up'],['International','29.7%','+2.1 pts','up']],
+       read:'Margin after the costs that actually move it: trade spend by retailer and duty by format. <b>Channel margins rarely move together</b>, and this is the view that shows which one is carrying the others.',
+       src:['Ledger','Trade spend','Duty returns','Retailer EPOS','Shopify']},
+      {who:'Weekday mornings',q:'Which customers are past terms, and who looks after them?',
+       rows:[['Over 30 days','£412k','14 accounts','down'],['Over 60 days','£96k','3 accounts','down'],['Largest','Wholesaler B','£121k, 41 days','down'],['Collected this week','£233k','+18%','up']],
+       read:'The Two Tribes debtors monitor, with each overdue invoice pushed into the account manager\'s own view. <b>Sales hear about it before the next visit</b>, not after.',
+       src:['Ledger','HubSpot']}
+    ]},
+    sc:{role:'Supply chain · stock, bond and the next eight weeks',qs:[
+      {who:'Tuesday S&OP',q:'Weeks of cover by flavour and format, against the next eight weeks of demand.',
+       rows:[['Blue Raspberry 70cl','3.1 weeks','below 4-week floor','down'],['RTD 4-packs','9.6 weeks','above 8-week ceiling','flat'],['Black Grape 70cl','5.2 weeks','in range','up'],['Slimline cans','6.4 weeks','in range','up']],
+       read:'Stock across bond, 3PL and in transit, set against orders and forecast rather than last month\'s run rate. <b>The flavour that runs out is always the one selling best.</b>',
+       src:['Stock system','3PL','Retailer orders','Forecast']},
+      {who:'Before the duty return',q:'How much stock is duty-suspended against duty-paid, and how much leaves bond this month?',
+       rows:[['Duty-suspended','142k nine-litre cases','in bond','flat'],['Duty-paid','38k nine-litre cases','at the 3PL','flat'],['Due to leave bond','61k nine-litre cases','this month','up'],['Duty on release','£2.9m','estimated','flat']],
+       read:'Bond movements, stock and the duty calendar read together, so <b>the duty bill becomes a forecast instead of a surprise</b>.',
+       src:['Bond records','Stock system','Duty returns','Orders']}
+    ]},
+    lead:{role:'Leadership · the whole business, UK, US and Europe',qs:[
+      {who:'Monday note',q:'This week\'s sales in nine-litre cases across the UK, US and Europe, against plan.',
+       rows:[['UK','33.4k cases','+4% vs plan','up'],['US','2.1k cases','−7% vs plan','down'],['Europe','1.2k cases','+12% vs plan','up'],['Total','36.7k cases','+4% vs plan','up']],
+       read:'Every channel converted to the industry\'s own unit, bottles and cans alike. <b>It reads the same in Swansea as it does in Louisville</b>, on a Monday morning rather than at month end.',
+       src:['Retailer EPOS','Wholesalers','US depletions','Shopify','Plan']},
+      {who:'The US question',q:'US depletions against what we shipped to distributors this quarter.',
+       rows:[['Shipped to distributors','8.4k cases','quarter to date','flat'],['Sold on to retail','6.1k cases','73% sell-through','up'],['Slowest state','State C','52% sell-through','down'],['Distributor stock','7.2 weeks','of cover','down']],
+       read:'Shipments are what Au sold to distributors, and depletions are what they sold on. <b>The gap between the two decides the next order</b>, in the US and in every market after it.',
+       src:['US depletions','Shipments','Orders']}
+    ]}
+  };
+
+  var qlist=document.getElementById('qlist'),ans=document.getElementById('ans'),roleEl=document.getElementById('deskrole'),panel=document.getElementById('deskpanel');
+  var tabs=[].slice.call(document.querySelectorAll('.tab')),cur='ecom';
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function renderAns(d,i){
+    var a=DESKS[d].qs[i];
+    ans.innerHTML='<div class="ans-top"><span class="h">What comes back</span><span class="tag">Illustrative figures</span></div>'+
+      '<div class="rows">'+a.rows.map(function(r){return '<div class="row"><span class="k">'+esc(r[0])+'</span><span class="n">'+esc(r[1])+'</span><span class="d '+r[3]+'">'+esc(r[2])+'</span></div>'}).join('')+'</div>'+
+      '<p class="read">'+a.read+'</p>'+
+      '<div class="srcs"><span class="sl">Sources joined</span>'+a.src.map(function(s){return '<span class="src">'+esc(s)+'</span>'}).join('')+'</div>';
+  }
+  function bindQs(){
+    var bs=[].slice.call(qlist.querySelectorAll('.qbtn'));
+    bs.forEach(function(b){b.addEventListener('click',function(){
+      bs.forEach(function(o){o.setAttribute('aria-selected',o===b?'true':'false')});
+      renderAns(cur,+b.dataset.i);
+    })});
+  }
+  function renderDesk(d){
+    cur=d;roleEl.textContent=DESKS[d].role;
+    qlist.innerHTML=DESKS[d].qs.map(function(a,i){
+      return '<button class="qbtn" type="button" role="tab" data-i="'+i+'" aria-selected="'+(i===0)+'"><span class="who">'+esc(a.who)+'</span>“'+esc(a.q)+'”</button>';
+    }).join('');
+    bindQs();renderAns(d,0);
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(o){o.setAttribute('aria-selected',o===t?'true':'false')});
+    panel.setAttribute('aria-labelledby',t.id);
+    renderDesk(t.dataset.desk);
+  })});
+  bindQs();
+
+  /* periodic table inspector */
+  var els=[].slice.call(document.querySelectorAll('.el')),
+      logo=document.getElementById('insp-logo'),tile=document.getElementById('insp-tile'),
+      iN=document.getElementById('insp-n'),iS=document.getElementById('insp-s'),iNm=document.getElementById('insp-nm'),
+      iName=document.getElementById('insp-name'),iFam=document.getElementById('insp-fam'),iLive=document.getElementById('insp-live'),iD=document.getElementById('insp-d');
+  function show(el){
+    els.forEach(function(o){o.classList.toggle('on',o===el)});
+    var nm=el.querySelector('span').textContent;
+    logo.setAttribute('hidden','');tile.hidden=false;
+    iN.textContent=el.querySelector('i').textContent;
+    iS.textContent=el.querySelector('b').textContent;
+    iNm.textContent=nm;iName.textContent=nm;
+    iFam.textContent=el.closest('.fam').dataset.f;
+    iLive.hidden=!el.classList.contains('live');
+    iD.textContent=el.dataset.d;
+  }
+  els.forEach(function(el){
+    el.addEventListener('mouseenter',function(){show(el)});
+    el.addEventListener('focus',function(){show(el)});
+    el.addEventListener('click',function(){show(el)});
+  });
+
+  /* nav highlight */
+  var links=[].slice.call(document.querySelectorAll('.nav a')),byId={};
+  links.forEach(function(a){byId[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      links.forEach(function(a){a.removeAttribute('aria-current')});
+      var a=byId[e.target.id];
+      if(a){a.setAttribute('aria-current','true');var n=a.parentNode;if(n.scrollWidth>n.clientWidth)n.scrollTo({left:a.offsetLeft-24,behavior:'smooth'})}
+    })},{rootMargin:'-42% 0px -52% 0px'});
+    Object.keys(byId).forEach(function(id){var s=document.getElementById(id);if(s)io.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>
