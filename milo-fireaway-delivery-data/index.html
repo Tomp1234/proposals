@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="What Deliveroo and Uber Eats expose through their APIs, where the gaps are, and how Milo closes each one. Prepared for Fireaway Pizza.">
+<meta name="robots" content="noindex">
+<title>Deliveroo and Uber Eats Data</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --paper:#FDF8F4;
+  --surface:#FFFFFF;
+  --sunk:#F7EFE8;
+  --ink:#17120E;
+  --muted:#5E544C;
+  --dim:#8A7E74;
+  --line:#E5DAD1;
+  --line-hi:#D3C3B6;
+  --flame:#EA680E;
+  --ember:#C2450F;
+  --yes:#1B7A4B;   --yes-bg:#E8F3EC;
+  --part:#A5670C;  --part-bg:#FAF0DE;
+  --no:#B03A22;    --no-bg:#FBEAE4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#12100E;
+    --surface:#1B1714;
+    --sunk:#221C18;
+    --ink:#F5EDE6;
+    --muted:#B5A79C;
+    --dim:#897B70;
+    --line:#302923;
+    --line-hi:#413730;
+    --flame:#F58B4D;
+    --ember:#F58B4D;
+    --yes:#5FC98D;   --yes-bg:rgba(95,201,141,.13);
+    --part:#E8B057;  --part-bg:rgba(232,176,87,.13);
+    --no:#FF8A6B;    --no-bg:rgba(255,138,107,.13);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#12100E;
+  --surface:#1B1714;
+  --sunk:#221C18;
+  --ink:#F5EDE6;
+  --muted:#B5A79C;
+  --dim:#897B70;
+  --line:#302923;
+  --line-hi:#413730;
+  --flame:#F58B4D;
+  --ember:#F58B4D;
+  --yes:#5FC98D;   --yes-bg:rgba(95,201,141,.13);
+  --part:#E8B057;  --part-bg:rgba(232,176,87,.13);
+  --no:#FF8A6B;    --no-bg:rgba(255,138,107,.13);
+}
+
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Archivo',system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+.sheet{max-width:1000px;margin:0 auto;padding-block:36px 56px;padding-left:20px;padding-right:20px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+/* ── masthead ─────────────────────────────── */
+.mast{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding-bottom:20px;border-bottom:2px solid var(--ink)}
+.brands{display:flex;align-items:center;gap:13px}
+.milo{font-weight:800;font-size:1.3rem;letter-spacing:-.05em;
+  background:linear-gradient(96deg,#2563EB,#7C3AED);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brands .x{color:var(--dim);font-size:.95rem}
+.fa{display:flex;align-items:center;gap:8px}
+.fa svg{width:26px;height:26px;display:block}
+.fa span{font-weight:800;font-size:1rem;letter-spacing:-.02em}
+.meta{text-align:right;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);line-height:1.7}
+.meta b{color:var(--muted);font-weight:600}
+
+.titleblock{padding-top:30px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.17em;text-transform:uppercase;color:var(--ember);margin-bottom:13px}
+h1{font-size:clamp(1.85rem,4.4vw,2.85rem);font-weight:800;letter-spacing:-.04em;line-height:1.06}
+.standfirst{margin-top:14px;font-size:1.04rem;color:var(--muted);max-width:66ch}
+
+/* ── verdict ──────────────────────────────── */
+.verdict{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--flame);
+  border-radius:4px;padding:22px 24px;display:grid;gap:14px}
+.verdict p{margin:0;max-width:74ch}
+.verdict p:first-child{font-size:1.05rem;font-weight:500;color:var(--ink)}
+.verdict p:not(:first-child){font-size:.94rem;color:var(--muted)}
+.verdict b{font-weight:600;color:var(--ink)}
+
+/* ── section furniture ────────────────────── */
+section{margin-top:44px}
+.shead{display:flex;align-items:baseline;gap:12px;padding-bottom:11px;border-bottom:1px solid var(--line-hi);margin-bottom:20px}
+.shead h2{font-size:1.16rem;font-weight:700;letter-spacing:-.025em}
+.shead .n{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ember);flex-shrink:0}
+.shead .aside{margin-left:auto;font-size:.76rem;color:var(--dim);text-align:right}
+.note{font-size:.9rem;color:var(--muted);max-width:74ch;margin:0 0 16px}
+
+/* ── tables ───────────────────────────────── */
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700;
+  padding:11px 14px;background:var(--sunk);border-bottom:1px solid var(--line-hi);white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.area{color:var(--ink);font-weight:600;width:27%;min-width:190px}
+td.src{color:var(--ink);font-weight:600;min-width:170px}
+td.lim{white-space:nowrap}
+.matrix{min-width:720px}
+.detail table{min-width:600px}
+
+/* three-state capability chip: state is in the shape, not just the word */
+.cap{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.82rem;
+  padding:3px 9px 3px 7px;border-radius:3px;white-space:nowrap}
+.cap::before{content:"";width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cap.y{background:var(--yes-bg);color:var(--yes)}   .cap.y::before{background:var(--yes)}
+.cap.p{background:var(--part-bg);color:var(--part)} .cap.p::before{background:var(--part)}
+.cap.n{background:var(--no-bg);color:var(--no)}     .cap.n::before{background:var(--no)}
+.cap+.sub{display:block;margin-top:5px;font-size:.83rem;color:var(--muted)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:13px;font-size:.78rem;color:var(--dim)}
+
+/* ── platform panels ──────────────────────── */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{border:1px solid var(--line);border-radius:4px;background:var(--surface);overflow:hidden;display:flex;flex-direction:column}
+.panel>header{padding:17px 18px;border-bottom:1px solid var(--line-hi);background:var(--sunk)}
+.panel h3{font-size:1.05rem;font-weight:700;letter-spacing:-.025em}
+.panel h3 .tag{font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ember);display:block;margin-bottom:6px}
+.panel>header p{margin:8px 0 0;font-size:.87rem;color:var(--muted)}
+.panel .scroll{border:0;border-radius:0;background:transparent}
+.panel .body{padding:16px 18px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted);margin-top:auto}
+.panel .body b{color:var(--ink);font-weight:600}
+
+/* ── gaps ─────────────────────────────────── */
+.gaps{display:grid;gap:11px}
+.gap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:0;
+  border:1px solid var(--line);border-radius:4px;background:var(--surface);overflow:hidden}
+.gap .g,.gap .f{padding:16px 18px}
+.gap .g{border-right:1px solid var(--line)}
+.gap .lbl{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;
+  margin-bottom:7px;color:var(--no)}
+.gap .f .lbl{color:var(--yes)}
+.gap h4{margin:0 0 5px;font-size:.95rem;font-weight:600;letter-spacing:-.015em}
+.gap p{margin:0;font-size:.88rem;color:var(--muted)}
+
+/* ── access ───────────────────────────────── */
+.access{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.acard{border:1px solid var(--line);border-radius:4px;padding:20px;background:var(--surface)}
+.acard h4{margin:0 0 4px;font-size:1rem;font-weight:700;letter-spacing:-.02em}
+.acard .eta{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--ember);margin-bottom:13px}
+.acard ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.acard li{position:relative;padding-left:17px;font-size:.88rem;color:var(--muted)}
+.acard li::before{content:"";position:absolute;left:0;top:.52em;width:5px;height:5px;border-radius:50%;background:var(--flame)}
+.acard code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--sunk);padding:1px 5px;border-radius:3px;color:var(--ink)}
+
+/* ── scope ────────────────────────────────── */
+.scope{margin-top:44px;border-top:2px solid var(--ink);padding-top:20px;display:grid;gap:9px}
+.scope .h{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.scope p{margin:0;font-size:.89rem;color:var(--muted);max-width:78ch}
+.scope b{color:var(--ink);font-weight:600}
+
+footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--dim)}
+footer b{color:var(--muted);font-weight:600}
+
+@media(max-width:820px){
+  .panels,.access{grid-template-columns:1fr}
+  .gap{grid-template-columns:1fr}
+  .gap .g{border-right:0;border-bottom:1px solid var(--line)}
+  .meta{text-align:left}
+}
+@media print{
+  body{background:#fff}
+  .sheet{max-width:none;padding:0}
+  .panel,.gap,.acard,.verdict,.scroll{break-inside:avoid}
+  section{break-inside:avoid-page}
+}
+</style>
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="mast">
+    <div class="brands">
+      <span class="milo">Milo</span>
+      <span class="x">for</span>
+      <span class="fa">
+        <svg viewBox="0 0 60 60" role="img" aria-label="Fireaway">
+          <circle cx="30" cy="30" r="29" fill="#EA680E"/>
+          <path d="M30.5 11c.6 5.4-2.8 7.4-5.2 10.4-2.6 3.2-4.3 6.4-4.3 10.3 0 5.4 4.2 9.3 9.5 9.3s9.5-3.9 9.5-9.3c0-4.6-2.6-7.3-4.6-10.6-.3 2.4-1.4 3.9-2.8 3.9-2.3 0-2.3-3.2-2.1-14z" fill="#fff"/>
+          <path d="M30 27.5c1.6 2.2 3.4 3.7 3.4 6.4 0 2.3-1.6 4-3.6 4s-3.6-1.7-3.6-4c0-2 1.5-3.4 2.4-4.7z" fill="#EA680E"/>
+        </svg>
+        <span>FIREAWAY</span>
+      </span>
+    </div>
+    <div class="meta">
+      <div><b>Platform capability review</b></div>
+      <div>26 September 2026</div>
+      <div>Prepared by Milo engineering</div>
+    </div>
+  </div>
+
+  <div class="titleblock">
+    <div class="eyebrow">What the delivery platforms actually give us</div>
+    <h1>Deliveroo and Uber Eats, source by source.</h1>
+    <p class="standfirst">Our engineers have been through both developer platforms in detail. This is what each one will and will not hand over, where the gaps are, and how we fill them. Written before any work starts so there are no surprises in week three.</p>
+  </div>
+
+  <div class="verdict">
+    <p><b>Uber Eats gives us considerably more to work with.</b> Real-time orders plus settled financial, operational and feedback reporting going back roughly six months.</p>
+    <p>Deliveroo gives us real-time orders and item-level refunds, but only <b>30 days of history</b> and <b>no payout, commission or ratings data through the API</b>. That is a platform limitation, not a Milo one, and it is worth knowing now because it changes where some of your margin numbers have to come from.</p>
+    <p>Both cover only the stores you operate or that authorise us. Neither gives market or competitor data, and no tool built on these APIs can claim otherwise.</p>
+  </div>
+
+  <section>
+    <div class="shead">
+      <span class="n">01</span>
+      <h2>What we get, side by side</h2>
+      <span class="aside">Per store, for sites you operate or authorise</span>
+    </div>
+    <div class="scroll">
+      <table class="matrix">
+        <thead>
+          <tr><th>Data area</th><th>Deliveroo</th><th>Uber Eats</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="area">Orders, items, modifiers</td>
+            <td><span class="cap y">Yes</span><span class="sub">Real time, webhook</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Real time, webhook plus Get Order</span></td>
+          </tr>
+          <tr>
+            <td class="area">Order status</td>
+            <td><span class="cap y">Yes</span><span class="sub">Accepted, rejected, cancelled</span></td>
+            <td><span class="cap y">Yes</span></td>
+          </tr>
+          <tr>
+            <td class="area">Prep and courier timing</td>
+            <td><span class="cap y">Yes</span><span class="sub">Rider assigned, near, arrived events</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Prep and delivery times in Order History</span></td>
+          </tr>
+          <tr>
+            <td class="area">Refunds</td>
+            <td><span class="cap y">Yes</span><span class="sub">Item-level webhook, enabled per brand</span></td>
+            <td><span class="cap p">Reports only</span><span class="sub">Not on the live order feed</span></td>
+          </tr>
+          <tr>
+            <td class="area">Payouts, fees, commission, tax</td>
+            <td><span class="cap n">No</span><span class="sub">Not in the current API</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Payment Details and Finance Summary</span></td>
+          </tr>
+          <tr>
+            <td class="area">Customer and courier ratings</td>
+            <td><span class="cap n">No</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Feedback reports</span></td>
+          </tr>
+          <tr>
+            <td class="area">Store downtime and availability</td>
+            <td><span class="cap p">Partial</span><span class="sub">Site status and opening hours only</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Hourly online versus offline minutes</span></td>
+          </tr>
+          <tr>
+            <td class="area">Menu and product catalogue</td>
+            <td><span class="cap y">Yes</span><span class="sub">Menu API</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Menu API</span></td>
+          </tr>
+          <tr>
+            <td class="area">Promotions</td>
+            <td><span class="cap y">Yes</span><span class="sub">Promotions API</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Promotions API plus promo fields on orders</span></td>
+          </tr>
+          <tr>
+            <td class="area">Customer identity</td>
+            <td><span class="cap p">Minimal</span></td>
+            <td><span class="cap p">Minimal</span><span class="sub">No full name or email</span></td>
+          </tr>
+          <tr>
+            <td class="area">History available via API</td>
+            <td><span class="cap n">30 days</span><span class="sub">The API forgets past that point</span></td>
+            <td><span class="cap y">~6 months</span><span class="sub">Operational; up to 5 years billing</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span class="cap y">Yes</span> Available through the API
+      <span class="cap p">Partial</span> Available with a caveat
+      <span class="cap n">No</span> Not available, needs another route
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="n">02</span>
+      <h2>Source by source</h2>
+    </div>
+    <div class="panels">
+
+      <div class="panel detail">
+        <header>
+          <h3><span class="tag">Deliveroo</span>Real time only</h3>
+          <p>Everything has to be captured as it happens, because the API forgets after 30 days.</p>
+        </header>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Source</th><th>What it gives us</th></tr></thead>
+            <tbody>
+              <tr><td class="src">Order Events webhook</td><td>New orders, remakes, accepted, confirmed, rejected, cancelled. Push only, so we run an always-on receiver.</td></tr>
+              <tr><td class="src">Rider Status webhook</td><td>Rider assigned, near site, at site, unassigned. A good proxy for handover time.</td></tr>
+              <tr><td class="src">Get Orders / Get Order</td><td>Backfill by restaurant and date. Capped at <span class="mono">30 days</span> back, <span class="mono">100</span> orders per page, <span class="mono">1 req/sec</span>.</td></tr>
+              <tr><td class="src">Refund webhook</td><td>Refund amount, reason code and item-level lines keyed on your PLU. Enabled per brand on request, deduplicated on <span class="mono">refund_id</span>.</td></tr>
+              <tr><td class="src">Menu, Site, Promotions</td><td>Menu structure, opening hours, open or closed status, promotions. Dimension data rather than transactions.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="body"><b>Not available:</b> payouts, commission and ratings are absent from the current Developer Portal. Those come from Restaurant Hub exports, or possibly the legacy Data API, which we are confirming with Deliveroo.</div>
+      </div>
+
+      <div class="panel detail">
+        <header>
+          <h3><span class="tag">Uber Eats</span>Two layers</h3>
+          <p>An Orders API for live provisional numbers, and a Reporting API for settled numbers we treat as the source of truth.</p>
+        </header>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Report</th><th>Gives us</th><th class="lim">History</th></tr></thead>
+            <tbody>
+              <tr><td class="src">Payment Details</td><td>Order-level sales, fees, tax, refunds, payout amount and date</td><td class="lim mono">32 days</td></tr>
+              <tr><td class="src">Finance Summary</td><td>Aggregated financials per store</td><td class="lim mono">30 days</td></tr>
+              <tr><td class="src">Orders and Items</td><td>Item-level sales</td><td class="lim mono">15 days</td></tr>
+              <tr><td class="src">Order History</td><td>All orders including cancelled and missed, with prep and delivery times</td><td class="lim mono">~188 days</td></tr>
+              <tr><td class="src">Downtime</td><td>Hourly online versus offline minutes</td><td class="lim mono">~188 days</td></tr>
+              <tr><td class="src">Customer &amp; Delivery Feedback</td><td>Ratings, tags, comments</td><td class="lim mono">~188 days</td></tr>
+              <tr><td class="src">Menu Item Feedback</td><td>Item-level ratings and comments</td><td class="lim mono">~188 days</td></tr>
+              <tr><td class="src">Order Errors</td><td>Missing or wrong items, adjustments</td><td class="lim mono">~188 days</td></tr>
+              <tr><td class="src">Billing Details</td><td>Invoiced fees</td><td class="lim mono">5 years</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="body"><b>How it arrives:</b> CSV via webhook, up to <span class="mono">50</span> stores per request and <span class="mono">60</span> requests per minute. Figures can take <b>up to 72 hours to settle</b>, and refunds and chargebacks appear only in reports. Column sets change by country and over time, so we parse by header name rather than position.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="n">03</span>
+      <h2>The gaps, and how we close them</h2>
+      <span class="aside">Every gap has a route. None of them are blockers.</span>
+    </div>
+    <div class="gaps">
+
+      <div class="gap">
+        <div class="g">
+          <div class="lbl">Gap</div>
+          <h4>Deliveroo finance and ratings</h4>
+          <p>Commission, payouts and ratings are not exposed by the API, so channel margin cannot come from Deliveroo alone.</p>
+        </div>
+        <div class="f">
+          <div class="lbl">How we close it</div>
+          <h4>Restaurant Hub exports, joined to the order feed</h4>
+          <p>We take finance from Hub exports and reconcile them against the live order data, so margin per store and per channel still resolves. If Deliveroo confirms an API route, we switch to it and nothing downstream changes.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="g">
+          <div class="lbl">Gap</div>
+          <h4>Deliveroo history stops at 30 days</h4>
+          <p>Anything older than a month is already gone and cannot be recovered later. Every day of delay is a day of history lost permanently.</p>
+        </div>
+        <div class="f">
+          <div class="lbl">How we close it</div>
+          <h4>Start capturing webhooks now</h4>
+          <p>We stand up the receiver early and run a daily Get Orders sweep as a safety net against missed pushes. The sooner this starts, the deeper your first year of trend data goes.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="g">
+          <div class="lbl">Gap</div>
+          <h4>The platforms do not share item IDs</h4>
+          <p>Deliveroo and Uber Eats each use their own identifiers, so the same pizza is a different product on each, and like-for-like comparison fails.</p>
+        </div>
+        <div class="f">
+          <div class="lbl">How we close it</div>
+          <h4>Map both to your PLU and SKU</h4>
+          <p>We map every platform item onto your own product codes, which is what makes cross-platform and POS comparison possible in a single query.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="g">
+          <div class="lbl">Gap</div>
+          <h4>Live and settled numbers disagree</h4>
+          <p>Uber Eats figures move for up to 72 hours as refunds and adjustments land, so a number read on the day will not match the invoice.</p>
+        </div>
+        <div class="f">
+          <div class="lbl">How we close it</div>
+          <h4>Treat reports as the source of truth</h4>
+          <p>Live orders drive the operational views, settled reports drive anything financial. Each number carries its source, so nobody presents a provisional figure to your board as final.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="n">04</span>
+      <h2>Getting access</h2>
+      <span class="aside">Both need paperwork before code</span>
+    </div>
+    <p class="note">Neither platform grants access on request alone. Both involve their partner teams, and the Uber Eats licence is the longer pole, so it is worth starting both in parallel on day one.</p>
+    <div class="access">
+      <div class="acard">
+        <h4>Deliveroo</h4>
+        <div class="eta">Developer Portal, then their integration team</div>
+        <ul>
+          <li>Register on the Developer Portal and complete <code>OAuth</code></li>
+          <li>Work with their integration team to enable the webhooks</li>
+          <li>Refund webhook is switched on per brand, so it needs requesting explicitly</li>
+          <li>Restaurant Hub export access for the finance side</li>
+        </ul>
+      </div>
+      <div class="acard">
+        <h4>Uber Eats</h4>
+        <div class="eta">Roughly 2 to 4 weeks for a reporting-only integration</div>
+        <ul>
+          <li>NDA and API licence</li>
+          <li>Partner manager approval</li>
+          <li><code>eats.report</code> and <code>eats.order</code> scopes</li>
+          <li>Reporting webhook endpoint registered and verified</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="scope">
+    <div class="h">Scope and honesty notes</div>
+    <p><b>Just Eat is not covered here.</b> This review covers Deliveroo and Uber Eats. The same review of Just Eat is underway and we will send it through as a second sheet rather than guess at it now.</p>
+    <p><b>These are platform capabilities, not results.</b> Everything above describes what the APIs expose. No Fireaway data has been connected or analysed at this stage.</p>
+    <p><b>Coverage is limited to your own estate.</b> Both platforms return data only for stores you operate or that authorise us, franchise sites included once they grant access. Neither exposes market share or competitor performance.</p>
+  </div>
+
+  <footer>
+    <span>Prepared for Fireaway Pizza by <b>Liam James Rabone</b>, Milo</span>
+    <span><b>liam@milo.ai</b></span>
+  </footer>
+
+</div>
+</body>
+</html>
