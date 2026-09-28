@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Milo × Unreasonable Procurement</title>
-<meta name="description" content="One live layer across supplier price files, invoices, purchase to pay, EPOS and the ledger, with a box anyone can type a procurement question into.">
+<meta name="description" content="How Milo automates the monthly supplier fee run and client reporting for Unreasonable Procurement, what it costs next to a data analyst, and founding pricing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -22,13 +22,16 @@
   --lapis-dp:#152C8F;
   --lapis-lt:#93A8FF;
   --copper:#D97A2B;
-  --muted:rgba(14,18,32,.64);
-  --dim:rgba(14,18,32,.42);
+  --copper-dp:#A5561A;
+  --muted:rgba(14,18,32,.66);
+  --dim:rgba(14,18,32,.46);
   --line:rgba(14,18,32,.13);
   --on-dark:#E9EDFF;
-  --on-dark-mut:rgba(233,237,255,.64);
-  --on-dark-dim:rgba(233,237,255,.40);
+  --on-dark-mut:rgba(233,237,255,.68);
+  --on-dark-dim:rgba(233,237,255,.44);
   --on-dark-line:rgba(233,237,255,.14);
+  --up:#177A4C;
+  --down:#C4482B;
 }
 
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -36,6 +39,7 @@ body{font-family:'Instrument Sans',system-ui,-apple-system,sans-serif;background
 section{position:relative;overflow:hidden}
 .wrap{max-width:1080px;margin:0 auto;padding-inline:24px;position:relative;z-index:30}
 h1,h2,h3,.wm,.v{font-family:'Bricolage Grotesque','Instrument Sans',system-ui,sans-serif}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
 
 .tex{position:absolute;inset:0;pointer-events:none}
 .noise{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.045;mix-blend-mode:multiply}
@@ -55,7 +59,7 @@ h1,h2,h3,.wm,.v{font-family:'Bricolage Grotesque','Instrument Sans',system-ui,sa
 
 /* hero */
 .hero{background:var(--tint);padding-bottom:78px}
-h1{font-size:clamp(2.6rem,8.4vw,5.9rem);line-height:.9;letter-spacing:-.055em;font-weight:800;margin-top:58px;text-wrap:balance}
+h1{font-size:clamp(2.5rem,7.4vw,5.3rem);line-height:.92;letter-spacing:-.055em;font-weight:800;margin-top:58px;text-wrap:balance}
 h1 .thin{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:400;letter-spacing:.16em;text-transform:uppercase;display:block;font-size:.7rem;line-height:1;margin-bottom:26px;color:var(--lapis)}
 h1 .fl{color:var(--lapis)}
 .hero-note{margin-top:32px;max-width:64ch;color:var(--muted);font-size:1.07rem}
@@ -65,13 +69,13 @@ h1 .fl{color:var(--lapis)}
 
 /* stat strip */
 .strip{background:var(--ink)}
-.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-left:1px solid var(--on-dark-line)}
-.scell{padding:40px 26px;border-right:1px solid var(--on-dark-line)}
-.scell .v{font-size:2.5rem;font-weight:800;letter-spacing:-.055em;line-height:1;color:var(--lapis-lt)}
-.scell .l{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-dim);margin-top:13px}
+.sgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-left:1px solid var(--on-dark-line)}
+.scell{padding:38px 24px;border-right:1px solid var(--on-dark-line)}
+.scell .v{font-size:2.4rem;font-weight:800;letter-spacing:-.055em;line-height:1;color:var(--lapis-lt);font-variant-numeric:tabular-nums}
+.scell .l{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-dim);margin-top:13px;line-height:1.5}
 
 /* section furniture */
-.sec{padding-block:100px}
+.sec{padding-block:96px}
 .kicker{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lapis);margin-bottom:22px}
 .kicker.on-dark{color:var(--lapis-lt)}
 h2{font-size:clamp(2rem,5.2vw,3.4rem);line-height:1;letter-spacing:-.05em;font-weight:800;margin-bottom:20px;max-width:23ch;text-wrap:balance}
@@ -84,19 +88,44 @@ h2 .ac{color:var(--lapis)}
 .dark h2 .ac{color:var(--lapis-lt)}
 .dark .lede{color:var(--on-dark-mut)}
 
-/* three up */
-.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));gap:18px;margin-top:52px}
-.tc{border-top:2px solid var(--ink);padding-top:24px}
-.tc .n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);margin-bottom:14px}
-.tc h3{font-size:1.3rem;font-weight:700;letter-spacing:-.04em;margin-bottom:12px;line-height:1.12}
-.tc p{font-size:.94rem;color:var(--muted)}
-.tc .ex{margin-top:16px;font-size:.9rem;color:var(--lapis-dp);border-left:2px solid var(--lapis);padding-left:14px}
+/* two jobs */
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:48px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.job{background:var(--paper-lt);padding:32px 28px}
+.job.b{background:var(--ink);color:var(--on-dark)}
+.job .h{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--copper-dp);margin-bottom:10px}
+.job.b .h{color:var(--lapis-lt)}
+.job h3{font-size:1.4rem;font-weight:700;letter-spacing:-.04em;line-height:1.1;margin-bottom:22px}
+.job ul{list-style:none;display:grid;gap:13px}
+.job li{display:grid;grid-template-columns:16px 1fr;gap:12px;font-size:.94rem;line-height:1.45;color:var(--muted)}
+.job.b li{color:var(--on-dark-mut)}
+.job li::before{content:"→";color:var(--lapis);font-weight:700}
+.job.b li::before{color:var(--lapis-lt)}
+.co{border:1px solid var(--line);border-radius:6px;padding:26px 26px;background:var(--paper-lt);margin-top:18px;display:grid;grid-template-columns:230px 1fr;gap:26px;align-items:start}
+.co .h{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper-dp)}
+.co h3{font-size:1.16rem;font-weight:700;letter-spacing:-.035em;margin-top:9px;line-height:1.15}
+.co p{font-size:.94rem;color:var(--muted)}
+
+/* the loop */
+.loop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:48px;background:var(--on-dark-line);border:1px solid var(--on-dark-line);border-radius:6px;overflow:hidden}
+.st{background:var(--ink);padding:26px 24px;display:flex;flex-direction:column;gap:12px}
+.st .n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lapis-lt)}
+.st h3{font-size:1.24rem;font-weight:700;letter-spacing:-.04em;line-height:1.1;color:var(--on-dark)}
+.st .was,.st .now{font-size:.9rem;line-height:1.45}
+.st .was{color:var(--on-dark-dim)}
+.st .now{color:var(--on-dark-mut)}
+.st .was b,.st .now b{display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.st .was b{color:var(--on-dark-dim)}
+.st .now b{color:var(--copper)}
+.prompt{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:rgba(147,168,255,.08);border:1px solid rgba(147,168,255,.22);border-radius:6px;padding:20px 22px}
+.prompt .pl{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lapis-lt);line-height:1.5}
+.prompt .pq{font-size:1.02rem;color:var(--on-dark);font-weight:500}
+.loop-note{font-size:.92rem;color:var(--on-dark-mut);margin-top:18px;max-width:70ch}
 
 /* video */
 .vid{max-width:840px;margin:48px auto 0;border-radius:6px;overflow:hidden;border:1px solid var(--on-dark-line);background:#080B14;box-shadow:0 30px 70px rgba(0,0,0,.45)}
 .vid .frame{position:relative;aspect-ratio:16/9;max-width:100%}
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.poster{position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;cursor:pointer;border:0;font-family:inherit;color:var(--on-dark);background:radial-gradient(118% 118% at 50% 38%,#1D2A5C 0%,#0E1220 60%,#07090F 100%)}
+.poster{position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;cursor:pointer;text-decoration:none;font-family:inherit;color:var(--on-dark);background:radial-gradient(118% 118% at 50% 38%,#1D2A5C 0%,#0E1220 60%,#07090F 100%)}
 .poster .ttl{font-family:'Bricolage Grotesque','Instrument Sans',sans-serif;font-weight:700;font-size:clamp(1.05rem,2.6vw,1.34rem);letter-spacing:-.04em;line-height:1.1}
 .poster .play{width:72px;height:72px;border-radius:50%;background:var(--lapis);display:grid;place-items:center;box-shadow:0 14px 40px rgba(39,71,214,.55);transition:transform .25s ease,background .25s ease}
 .poster:hover .play,.poster:focus-visible .play{transform:scale(1.07);background:#3358EE}
@@ -105,7 +134,7 @@ h2 .ac{color:var(--lapis)}
 .vid-note{font-family:'IBM Plex Mono',ui-monospace,monospace;text-align:center;margin-top:20px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-dim)}
 .vid-note a{color:var(--lapis-lt)}
 
-/* desks: interactive */
+/* chairs */
 .desks{margin-top:48px}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--on-dark-line);padding-bottom:18px}
 .tab{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:11px 17px;border-radius:999px;border:1px solid var(--on-dark-line);background:transparent;color:var(--on-dark-mut);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
@@ -123,14 +152,14 @@ h2 .ac{color:var(--lapis)}
 .ans{background:var(--paper-lt);color:var(--ink);border-radius:6px;padding:26px 24px 22px;box-shadow:0 22px 50px rgba(0,0,0,.36);min-height:280px}
 .ans-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:17px}
 .ans-top .h{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lapis)}
-.ans-top .tag{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);border:1px solid rgba(217,122,43,.4);border-radius:999px;padding:4px 9px;white-space:nowrap}
-.rows{display:grid;gap:0;margin-bottom:18px}
+.ans-top .tag{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--copper-dp);border:1px solid rgba(217,122,43,.4);border-radius:999px;padding:4px 9px;white-space:nowrap}
+.rows{display:grid;margin-bottom:18px}
 .row{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px dotted var(--line);font-size:.92rem}
 .row .k{font-weight:500}
 .row .n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.88rem;font-variant-numeric:tabular-nums}
 .row .d{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.76rem;white-space:nowrap}
-.up{color:#177A4C}
-.down{color:#C4482B}
+.up{color:var(--up)}
+.down{color:var(--down)}
 .flat{color:var(--dim)}
 .ans .read{font-size:.92rem;color:var(--muted);margin-bottom:18px}
 .ans .read b{color:var(--ink);font-weight:600}
@@ -139,145 +168,125 @@ h2 .ac{color:var(--lapis)}
 .src{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;padding:5px 10px;border-radius:999px;background:rgba(39,71,214,.08);color:var(--lapis-dp);border:1px solid rgba(39,71,214,.17)}
 .desk-foot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-dim);margin-top:22px}
 
-/* calculator */
-.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1px;margin-top:48px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.calc-in{background:var(--paper-lt);padding:32px 28px}
-.calc-out{background:var(--ink);color:var(--on-dark);padding:32px 28px;display:flex;flex-direction:column;justify-content:center;gap:26px}
-.fld{margin-bottom:26px}
-.fld:last-child{margin-bottom:0}
-.fld .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:11px}
-.fld .lab span{font-size:.9rem;color:var(--muted);max-width:34ch}
-.fld .lab output{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:1.05rem;color:var(--lapis-dp);font-variant-numeric:tabular-nums;white-space:nowrap}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:3px;background:rgba(39,71,214,.2);outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--lapis);cursor:pointer;border:3px solid var(--paper-lt);box-shadow:0 2px 8px rgba(39,71,214,.4)}
-input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--lapis);cursor:pointer;border:3px solid var(--paper-lt)}
-input[type=range]:focus-visible{outline:2px solid var(--lapis);outline-offset:6px}
-.res .rl{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-dim);margin-bottom:10px}
-.res .rv{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2.4rem,6vw,3.5rem);font-weight:800;letter-spacing:-.055em;line-height:.95;color:var(--lapis-lt)}
-.res .rv small{font-size:.9rem;font-weight:500;letter-spacing:-.01em;color:var(--on-dark-mut);margin-left:8px}
-.res .rn{font-size:.88rem;color:var(--on-dark-mut);margin-top:11px;max-width:40ch}
-.calc-note{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:20px}
-.ba{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.ba .b{display:grid;gap:7px}
-.ba .bl{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-dim)}
-.ba .bv{font-family:'Bricolage Grotesque',sans-serif;font-size:1.85rem;font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--on-dark-mut)}
-.ba .bv.ac{color:var(--lapis-lt)}
-.ba .arrow{color:var(--lapis-lt);font-size:1.2rem;padding-top:14px}
-.res.final{border-top:1px solid var(--on-dark-line);padding-top:24px}
-.res.final p{font-size:1.04rem;line-height:1.5;color:var(--on-dark);max-width:44ch;font-weight:500}
-.res.final b{color:var(--lapis-lt);font-weight:700}
+/* analyst vs milo */
+.ctrls{display:flex;flex-wrap:wrap;gap:14px 28px;margin-top:44px;align-items:center}
+.ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.ctrl .cl{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--paper-lt)}
+.seg button{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.68rem;letter-spacing:.06em;padding:9px 14px;border-radius:999px;border:0;background:transparent;color:var(--muted);cursor:pointer;transition:background .2s,color .2s}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--on-dark)}
+.seg button:focus-visible{outline:2px solid var(--lapis);outline-offset:2px}
+.an{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:1px;margin-top:20px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.an-chart{background:var(--paper-lt);padding:30px 28px 26px;display:flex;flex-direction:column;justify-content:center}
+.an-chart .ct{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:26px}
+.brow{margin-bottom:22px}
+.bh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+.bh .bn{font-weight:600;font-size:.95rem}
+.bh .bv{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.95rem;font-variant-numeric:tabular-nums;color:var(--ink)}
+.track{height:30px;position:relative;border-left:1px solid rgba(14,18,32,.3);border-right:1px solid var(--line);background-image:linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:33.333% 100%}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;transition:width .55s cubic-bezier(.2,.7,.2,1)}
+.fill.a{background:var(--copper)}
+.fill.m{background:var(--lapis)}
+.axis{position:relative;height:18px;margin-top:4px}
+.axis span{position:absolute;top:0;transform:translateX(-50%);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.62rem;color:var(--dim);font-variant-numeric:tabular-nums}
+.axis span:first-child{transform:none}
+.axis span:last-child{transform:translateX(-100%)}
+.an-out{background:var(--ink);color:var(--on-dark);padding:30px 28px}
+.an-out .big{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(3rem,7vw,4.2rem);font-weight:800;letter-spacing:-.06em;line-height:.9;color:var(--lapis-lt);font-variant-numeric:tabular-nums}
+.an-out .bl{font-size:.92rem;color:var(--on-dark-mut);margin-top:10px;max-width:34ch}
+.lines{margin-top:24px;border-top:1px solid var(--on-dark-line)}
+.ln{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dotted var(--on-dark-line);font-size:.88rem;color:var(--on-dark-mut)}
+.ln span:last-child{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;color:var(--on-dark)}
+.ln.t{font-weight:600;color:var(--on-dark);border-bottom:1px solid var(--on-dark-line)}
+.ln.t span:last-child{color:var(--copper)}
+.ln.mi span:last-child{color:var(--lapis-lt)}
+.an-out .sum{margin-top:20px;font-size:.96rem;line-height:1.5;color:var(--on-dark)}
+.an-out .sum b{color:var(--lapis-lt)}
 
-/* split */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:52px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.sp{background:var(--paper-lt);padding:32px 28px}
-.sp.b{background:var(--ink);color:var(--on-dark)}
-.sp .h{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px}
-.sp.a .h{color:var(--dim)}
-.sp.b .h{color:var(--lapis-lt)}
-.sp ul{list-style:none;display:grid;gap:15px}
-.sp li{display:grid;grid-template-columns:16px 1fr;gap:12px;font-size:.94rem;line-height:1.45}
-.sp.a li{color:var(--muted)}
-.sp.a li::before{content:"×";color:var(--copper);font-weight:700}
-.sp.b li{color:var(--on-dark-mut)}
-.sp.b li::before{content:"→";color:var(--lapis-lt);font-weight:700}
+.cmp{margin-top:22px;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.crow{display:grid;grid-template-columns:190px minmax(0,1fr) minmax(0,1fr);gap:1px;background:var(--line)}
+.crow>*{background:var(--paper-lt);padding:17px 19px;font-size:.9rem;color:var(--muted);line-height:1.45}
+.crow .dim{background:var(--tint);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.crow .milo{background:#EEF1FC;color:var(--ink)}
+.crow.head>*{background:var(--ink);color:var(--on-dark);font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.02rem;letter-spacing:-.035em;padding-block:18px}
+.crow.head .milo{background:var(--lapis);color:#fff}
+.fine{font-size:.8rem;color:var(--dim);margin-top:18px;max-width:84ch;line-height:1.55}
+.fine a{color:var(--lapis-dp)}
 
-/* connector wall */
-.wall{display:grid;gap:1px;margin-top:48px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.fam{background:var(--paper-lt);padding:24px 26px;display:grid;grid-template-columns:230px 1fr;gap:26px;align-items:start}
-.fam .t span{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.02rem;letter-spacing:-.03em;margin-bottom:5px}
-.fam .t{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.fam .t em{display:block;font-family:'Instrument Sans',sans-serif;font-style:normal;text-transform:none;letter-spacing:0;font-size:.85rem;color:var(--muted);margin-top:9px;line-height:1.4}
-.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
-.pill{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.7rem;padding:6px 11px;border-radius:4px;background:rgba(39,71,214,.07);color:var(--lapis-dp);border:1px solid rgba(39,71,214,.15)}
-.pill.more{background:transparent;color:var(--dim);border-style:dashed;border-color:var(--line)}
-
-/* callouts */
-.callouts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
-.co{border:1px solid var(--line);border-radius:6px;padding:26px 24px;background:var(--paper-lt)}
-.co .h{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);margin-bottom:12px}
-.co h3{font-size:1.16rem;font-weight:700;letter-spacing:-.035em;margin-bottom:11px;line-height:1.15}
-.co p{font-size:.92rem;color:var(--muted)}
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:48px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.fq{background:var(--paper-lt);padding:28px 26px}
+.fq h3{font-size:1.14rem;font-weight:700;letter-spacing:-.035em;line-height:1.2;margin-bottom:12px}
+.fq p{font-size:.93rem;color:var(--muted)}
 
 /* governance band */
-.band{background:var(--ink-2);color:var(--on-dark);padding-block:74px}
+.band{background:var(--ink-2);color:var(--on-dark);padding-block:70px}
 .band h2{color:var(--on-dark);max-width:24ch}
 .band .kicker{color:var(--lapis-lt)}
 .band .lede{color:var(--on-dark-mut)}
-.cf-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.cf-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
 .cf-pill{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;border-radius:999px;border:1px solid var(--on-dark-line);color:var(--on-dark-mut)}
 
-.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:48px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.wc{background:var(--paper-lt);padding:30px 28px;display:flex;flex-direction:column}
-.wc .nm{font-family:'Bricolage Grotesque',sans-serif;font-size:1.34rem;font-weight:800;letter-spacing:-.045em;line-height:1;margin-bottom:9px}
-.wc .sect{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);margin-bottom:17px}
-.wc p{font-size:.93rem;color:var(--muted);margin-bottom:18px}
-.wc p b{color:var(--ink);font-weight:600}
-.wc .rel{margin-top:auto;border-top:1px solid var(--line);padding-top:15px;font-size:.87rem;color:var(--lapis-dp);display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
-.wc .rel::before{content:"→";color:var(--lapis);font-weight:700}
-
 /* weeks */
-.weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(218px,1fr));gap:18px;margin-top:52px}
+.weeks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:48px}
 .wk{border-top:2px solid var(--lapis);padding-top:20px}
 .wk .n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lapis);margin-bottom:11px}
 .wk h3{font-size:1.1rem;font-weight:700;letter-spacing:-.035em;margin-bottom:9px}
 .wk p{font-size:.9rem;color:var(--muted)}
 
-/* terms */
-.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;margin-top:40px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.tm{background:var(--paper-lt);padding:24px 22px}
-.tm .v{font-family:'Bricolage Grotesque',sans-serif;font-size:1.9rem;font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--lapis-dp)}
-.tm .l{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:11px}
-.note{font-size:.92rem;color:var(--muted);margin-top:30px;max-width:66ch}
+/* pricing */
+.price{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:56px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.pc{background:var(--paper-lt);padding:30px 26px;display:flex;flex-direction:column;gap:10px}
+.pc.hi{background:var(--ink);color:var(--on-dark)}
+.pc .l{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper-dp)}
+.pc.hi .l{color:var(--lapis-lt)}
+.pc .v{font-size:2.9rem;font-weight:800;letter-spacing:-.06em;line-height:1;color:var(--lapis-dp);font-variant-numeric:tabular-nums}
+.pc.hi .v{color:var(--on-dark)}
+.pc .v small{font-family:'Instrument Sans',sans-serif;font-size:.95rem;font-weight:500;letter-spacing:0;color:var(--muted);margin-left:4px}
+.pc.hi .v small{color:var(--on-dark-mut)}
+.pc .was{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.7rem;letter-spacing:.06em;color:var(--dim)}
+.pc.hi .was{color:var(--on-dark-dim)}
+.pc .was s{text-decoration-thickness:1px}
+.pc p{font-size:.92rem;color:var(--muted);margin-top:6px}
+.pc.hi p{color:var(--on-dark-mut)}
 
-/* comparison */
-.cmp{margin-top:48px;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.crow{display:grid;grid-template-columns:172px repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}
-.crow>*{background:var(--paper-lt);padding:19px 19px;font-size:.89rem;color:var(--muted);line-height:1.45}
-.crow .dim{background:var(--tint);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-.crow .milo{background:rgba(39,71,214,.055);color:var(--ink)}
-.crow>*[data-c]::before{display:none}
-.crow.head>*{background:var(--ink);color:var(--on-dark-dim);padding-block:21px}
-.crow.head .milo{background:var(--lapis);color:#fff}
-.crow.head .nm{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.04rem;letter-spacing:-.04em;color:var(--on-dark);display:block}
-.crow.head .milo .nm{color:#fff}
-.crow.head .sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;display:block;margin-top:7px}
-.crow.head .milo .sub{color:rgba(255,255,255,.72)}
-.cmp-note{font-size:.92rem;color:var(--muted);margin-top:26px;max-width:68ch;border-left:2px solid var(--lapis);padding-left:16px}
-.cmp-note b{color:var(--ink);font-weight:600}
+.frank{margin-top:22px;border-left:2px solid var(--copper);padding:4px 0 4px 18px;max-width:72ch;font-size:.98rem;color:var(--muted)}
+.frank b{color:var(--ink);font-weight:600}
 
-/* cta */
-.cta{background:var(--ink);color:var(--on-dark);padding-block:92px;text-align:center}
-.cta .lock{display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:30px}
-.cta .lock .wm{font-weight:800;font-size:1.3rem;letter-spacing:-.045em;color:var(--on-dark)}
-.cta .lock .x{color:var(--on-dark-dim);font-size:1rem}
-.cta h2{margin:0 auto 18px;max-width:20ch;color:var(--on-dark)}
-.cta p{color:var(--on-dark-mut);max-width:58ch;margin:0 auto;font-size:1rem}
-.acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:34px}
-.btn{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:16px 26px;border-radius:999px;text-decoration:none;transition:transform .2s,background .2s}
-.btn:hover{transform:translateY(-2px)}
-.btn-p{background:var(--lapis-lt);color:#0E1220;font-weight:500}
-.btn-s{border:1px solid var(--on-dark-line);color:var(--on-dark-mut)}
+.path{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:48px}
+.pt{border-top:2px solid var(--ink);padding-top:20px}
+.pt .n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper-dp);margin-bottom:11px}
+.pt h3{font-size:1.14rem;font-weight:700;letter-spacing:-.035em;margin-bottom:9px;line-height:1.15}
+.pt p{font-size:.9rem;color:var(--muted)}
+.close{margin-top:52px;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.3rem,2.8vw,1.75rem);font-weight:700;letter-spacing:-.04em;line-height:1.2;max-width:32ch;text-wrap:balance}
+.close .ac{color:var(--lapis)}
 
-footer{background:var(--ink);color:var(--on-dark-dim);text-align:center;padding:0 24px 50px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase}
-footer a{color:var(--lapis-lt)}
-
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
+footer{background:var(--ink);color:var(--on-dark-dim);padding:44px 24px 50px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;text-align:center;line-height:1.9}
+footer .lock{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px;font-family:'Bricolage Grotesque',sans-serif;text-transform:none;letter-spacing:-.04em;font-size:1.1rem;font-weight:800;color:var(--on-dark)}
+footer .lock .x{color:var(--on-dark-dim);font-weight:400}
+footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user-select:all}
 
 @media(max-width:880px){
+  .sgrid{grid-template-columns:1fr 1fr}
+  .scell{border-bottom:1px solid var(--on-dark-line)}
+  .jobs,.loop,.an,.faq,.price,.path,.qa{grid-template-columns:1fr}
+  .weeks{grid-template-columns:1fr 1fr}
+  .co{grid-template-columns:1fr;gap:12px}
   .crow{grid-template-columns:1fr}
   .crow.head{display:none}
   .crow .dim{font-size:.68rem;letter-spacing:.1em;color:var(--lapis-dp)}
-  .crow>*[data-c]::before{content:attr(data-c);display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lapis);margin-bottom:9px}
-  .qa{grid-template-columns:1fr}
-  .who-grid{grid-template-columns:1fr}
-  .calc,.split,.callouts{grid-template-columns:1fr}
-  .fam{grid-template-columns:1fr;gap:14px}
+  .crow>*[data-c]::before{content:attr(data-c);display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lapis);margin-bottom:7px}
+  .prompt{grid-template-columns:1fr;gap:8px}
   .bar{grid-template-columns:1fr auto;row-gap:14px}
   .bar .who{grid-column:1/-1;order:3;text-align:left}
-  .sec{padding-block:72px}
+  .sec{padding-block:70px}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+@media(max-width:520px){
+  .sgrid,.weeks{grid-template-columns:1fr}
+  .wrap{padding-inline:18px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -309,25 +318,24 @@ footer a{color:var(--lapis-lt)}
         <svg class="mmark" viewBox="0 0 50 40" aria-label="Milo"><use href="#milomark"/></svg>
         <span class="wm">Milo</span>
       </div>
-      <div class="who">Overview · Prepared for Jonathan and Mikyle</div>
+      <div class="who">Overview · For Jonathan and Mikyle · 28 Sep 2026</div>
       <div class="cli">
         <span class="mono-tile">UP</span>
         <span class="wm">Unreasonable<br>Procurement</span>
       </div>
     </div>
 
-    <h1><span class="thin">The short version</span>An unreasonable<br>amount of<br><span class="fl">proof.</span></h1>
+    <h1><span class="thin">After our call</span>Automate it at two clients.<br><span class="fl">Not at twenty.</span></h1>
 
-    <p class="hero-note">Your fee only lands once the saving is found, and every client sees exactly what they pay. That makes evidence the product: price per line, per supplier, per site, across clients who all run different systems. Milo is one live layer over those systems with a box anyone can type a question into. Our engineers build every connection, including the ugly ones like PDF invoices and supplier price files.</p>
+    <p class="hero-note">You are two months in, with two clients live and a target of ten by January and twenty by next summer. At Compass, collecting supplier invoices and billing the fee each month took a team of ten. This page shows how Milo takes that job on while it is still small, along with the reporting your clients see, so the growth lands on something already running. Pricing is at the end.</p>
 
     <div class="chips">
-      <span class="chip solid">Supplier price files</span>
-      <span class="chip solid">Invoices &amp; credits</span>
-      <span class="chip">Purchase to pay</span>
-      <span class="chip">EPOS &amp; sales</span>
-      <span class="chip">Stock &amp; GP</span>
-      <span class="chip">Finance ledgers</span>
-      <span class="chip">Spreadsheets</span>
+      <span class="chip solid">Supplier fee run</span>
+      <span class="chip solid">Credit control</span>
+      <span class="chip">Catchweight &amp; units</span>
+      <span class="chip">Client spend reporting</span>
+      <span class="chip">Market prices</span>
+      <span class="chip">Any P2P system</span>
     </div>
   </div>
 </section>
@@ -335,509 +343,446 @@ footer a{color:var(--lapis-lt)}
 <!-- STAT STRIP -->
 <section class="strip">
   <div class="sgrid">
-    <div class="scell"><div class="v">700+</div><div class="l">Integrations we build and maintain</div></div>
-    <div class="scell"><div class="v">4 wks</div><div class="l">Credentials to live answers</div></div>
-    <div class="scell"><div class="v">Anyone</div><div class="l">Who can build a dashboard</div></div>
+    <div class="scell"><div class="v">2 → 20</div><div class="l">Clients today, and your target by summer 2027</div></div>
+    <div class="scell"><div class="v">10</div><div class="l">People on the supplier fee cycle at Compass</div></div>
+    <div class="scell"><div class="v">£1,050</div><div class="l">A month per client, founding price for your two current clients</div></div>
+    <div class="scell"><div class="v">10%</div><div class="l">Of year one, paid to you for every client you refer</div></div>
   </div>
 </section>
 
-<!-- WHAT MILO IS -->
-<section class="sec reveal" style="background:var(--paper)">
+<!-- TWO JOBS -->
+<section class="sec" style="background:var(--paper)">
   <div class="tex noise"></div>
   <div class="wrap">
-    <div class="kicker">Start here</div>
-    <h2>Three things, <span class="lt">and that is most of it.</span></h2>
-    <p class="lede">Milo is not a BI tool somebody has to build and then keep alive. It is a layer over the systems your clients and suppliers already run, with a question box on top. The three steps are a sequence: the question becomes the dashboard, and the dashboard becomes the thing that sends itself.</p>
+    <div class="kicker">What we heard</div>
+    <h2>Two jobs. <span class="lt">One set of data under both.</span></h2>
+    <p class="lede">You described two needs. One is helping clients run their operation. The other is running Unreasonable Procurement itself without a spreadsheet that works once and then nobody trusts. Both are built from the same invoices, prices and volumes, so Milo does them from one place.</p>
 
-    <div class="three">
-      <div class="tc">
-        <div class="n">First · Ask</div>
-        <h3>Plain English in, answer out</h3>
-        <p>Typed the way you would say it to a category manager. The answer comes back in seconds with the invoice lines attached, so it can be checked rather than believed.</p>
-        <div class="ex">"Every line we paid above the agreed price last month, by supplier and by site."</div>
+    <div class="jobs">
+      <div class="job">
+        <div class="h">Client facing</div>
+        <h3>Help your clients run their operation</h3>
+        <ul>
+          <li>Every invoice line checked against the agreed price</li>
+          <li>Off-contract buying and unapproved suppliers, by site</li>
+          <li>Spend by category set against what their EPOS says they sold</li>
+          <li>Their prices against the market, and against what your other clients pay, anonymised</li>
+          <li>A monthly statement showing exactly what they pay, your fee included</li>
+        </ul>
       </div>
-      <div class="tc">
-        <div class="n">Then · Pin</div>
-        <h3>Dashboards built by anyone</h3>
-        <p>Any answer can be pinned and becomes a live view that refreshes itself. An account manager builds the client's savings view without a data team, a developer or a ticket.</p>
-        <div class="ex">Access is role based, so a client sees their estate and nothing else.</div>
+      <div class="job b">
+        <div class="h">Internal</div>
+        <h3>Run Unreasonable Procurement on autopilot</h3>
+        <ul>
+          <li>The monthly fee run, from supplier invoices through to invoices sent</li>
+          <li>Credit control emails and late payment flags</li>
+          <li>Fee income and spend under management, by client and by supplier</li>
+          <li>Deals in the pipeline tracked next to the clients you already run</li>
+          <li>One knowledge base the whole team shares as you hire</li>
+        </ul>
       </div>
-      <div class="tc">
-        <div class="n">After that · Automate</div>
-        <h3>A question becomes a routine</h3>
-        <p>Once a question is worth asking every month, schedule it. The savings and spend statement writes and sends itself, and alerts fire when a price crosses a line you set.</p>
-        <div class="ex">Delivered into email, Slack, Teams or WhatsApp.</div>
-      </div>
+    </div>
+
+    <div class="co">
+      <div><div class="h">On P2P systems</div><h3>Milo is not a P2P system, and does not need to be</h3></div>
+      <p>You are agnostic about which P2P a client runs, because Procure Wizard suits some sectors and not others. Milo sits across all of them, and across the clients who still order by phone and email with no platform at all. Each client keeps the system that suits them. You get one view across every one of them.</p>
     </div>
   </div>
 </section>
 
-<!-- VIDEO -->
-<section class="sec dark" style="padding-block:88px">
+<!-- THE LOOP -->
+<section class="sec dark">
   <div class="tex noise"></div>
   <div class="tex rule-dark"></div>
   <div class="wrap">
+    <div class="kicker on-dark">The job that took a team of ten</div>
+    <h2>The monthly fee run, <span class="ac">as a routine.</span></h2>
+    <p class="lede">Today it is: email ten suppliers, collect last month's invoices, work out the fee, bill it, chase it. That works at two clients. At twenty it is a department. Here is the same loop in Milo, set up once.</p>
+
+    <div class="loop">
+      <div class="st">
+        <div class="n">Step 1</div><h3>Collect</h3>
+        <p class="was"><b>Today</b>Email every supplier for last month's invoices, then wait.</p>
+        <p class="now"><b>In Milo</b>Pulled from the P2P export where a client has one. Where they order by phone or email, invoices and statements land in one inbox and are read as data.</p>
+      </div>
+      <div class="st">
+        <div class="n">Step 2</div><h3>Read and match</h3>
+        <p class="was"><b>Today</b>Retype PDFs into a spreadsheet.</p>
+        <p class="now"><b>In Milo</b>PDFs, CSVs and spreadsheets read line by line. Products match on code, so a line renamed between June and July is still the same product.</p>
+      </div>
+      <div class="st">
+        <div class="n">Step 3</div><h3>Normalise</h3>
+        <p class="was"><b>Today</b>Catchweight and pack sizes worked out by hand, and sometimes wrong.</p>
+        <p class="now"><b>In Milo</b>Units, pack sizes and catchweight rules taught once in the knowledge base, then applied to every line after.</p>
+      </div>
+      <div class="st">
+        <div class="n">Step 4</div><h3>Calculate</h3>
+        <p class="was"><b>Today</b>Volume times fee rate, supplier by supplier, in a workbook.</p>
+        <p class="now"><b>In Milo</b>Fee by supplier and by client from your agreed rates, with every line checked against its agreed price on the same pass.</p>
+      </div>
+      <div class="st">
+        <div class="n">Step 5</div><h3>Invoice</h3>
+        <p class="was"><b>Today</b>Build and send each invoice by hand.</p>
+        <p class="now"><b>In Milo</b>A draft invoice per supplier, ready for one of you to approve and send.</p>
+      </div>
+      <div class="st">
+        <div class="n">Step 6</div><h3>Chase</h3>
+        <p class="was"><b>Today</b>Remember who has not paid.</p>
+        <p class="now"><b>In Milo</b>Standard reminders go out on schedule. A supplier that goes quiet after the last one is flagged to you, with their recent volumes alongside.</p>
+      </div>
+    </div>
+
+    <div class="prompt">
+      <div class="pl">Recurring prompt<br>3rd of each month</div>
+      <div class="pq">"Calculate last month's fee for every supplier across all clients, draft the invoices, and send me anything that does not reconcile."</div>
+    </div>
+    <p class="loop-note">Each client's monthly spend statement comes out of the same data on the same day. Nobody builds it.</p>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="sec" style="background:var(--ink-2);color:var(--on-dark);padding-block:80px">
+  <div class="tex noise"></div>
+  <div class="wrap">
     <div class="kicker on-dark">See it</div>
-    <h2 style="max-width:26ch">Ninety seconds <span class="ac">is enough.</span></h2>
-    <p class="lede">Rather than describe the question box any further, here it is working.</p>
+    <h2 style="max-width:26ch;color:var(--on-dark)">Ninety seconds, <span style="color:var(--lapis-lt)">if you want a refresher.</span></h2>
 
     <div class="vid">
       <div class="frame" id="vidframe" data-vid="1196983997">
-        <button class="poster" id="vidplay" type="button" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
           <svg style="width:56px;height:45px" viewBox="0 0 50 40" aria-hidden="true"><use href="#milomark"/></svg>
           <span class="ttl">Milo product overview</span>
           <span class="play"><svg width="21" height="25" viewBox="0 0 21 25" aria-hidden="true"><path d="M3 2.5 L19 12.5 L3 22.5 Z" fill="#ffffff"/></svg></span>
           <span class="sub">Press play · 1 min 29 sec</span>
-        </button>
+        </a>
       </div>
     </div>
     <div class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></div>
   </div>
 </section>
 
-<!-- INTERACTIVE: THREE DESKS -->
-<section class="sec dark reveal">
+<!-- CHAIRS -->
+<section class="sec dark">
   <div class="tex noise"></div>
   <div class="tex rule-dark"></div>
   <div class="wrap">
     <div class="kicker on-dark">Try it · pick a chair, pick a question</div>
     <h2>Three chairs. <span class="ac">One box.</span></h2>
-    <p class="lede">The same box, asked from the three seats that matter in your model: the business, the category and the client you have to prove it to. Choose a chair, then a question, to see the shape of what comes back and which systems it had to touch. The figures are illustrative, not your numbers. Week one of a pilot is where they get asked of the real thing.</p>
+    <p class="lede">On the call you saw the command centre Milo built from sample procurement data: spend by category, supplier pricing, contracts and rebates, compliance. These are the kinds of questions behind it, asked from the three seats in your model. The figures are illustrative. In the pilot they get asked of a real client's invoices.</p>
 
     <div class="desks">
       <div class="tabs" role="tablist" aria-label="Choose a chair">
-        <button class="tab" role="tab" id="tab-md" data-desk="md" aria-selected="true" aria-controls="deskpanel">Jonathan · Director</button>
+        <button class="tab" role="tab" id="tab-md" data-desk="md" aria-selected="true" aria-controls="deskpanel">Jonathan · Managing Director</button>
         <button class="tab" role="tab" id="tab-cat" data-desk="cat" aria-selected="false" aria-controls="deskpanel">Mikyle · Procurement Director</button>
-        <button class="tab" role="tab" id="tab-cli" data-desk="cli" aria-selected="false" aria-controls="deskpanel">The client · what the operator sees</button>
+        <button class="tab" role="tab" id="tab-cli" data-desk="cli" aria-selected="false" aria-controls="deskpanel">Your client</button>
       </div>
 
       <div id="deskpanel" role="tabpanel" aria-labelledby="tab-md">
         <div class="desk-role" id="deskrole"></div>
         <div class="qa">
           <div class="qlist" id="qlist" role="tablist" aria-label="Choose a question"></div>
-          <div class="ans" id="ans" role="tabpanel" aria-live="polite"></div>
+          <div class="ans" id="ans" aria-live="polite"></div>
         </div>
       </div>
 
-      <div class="desk-foot">Ten questions here. In a pilot the list is whatever you type.</div>
+      <div class="desk-foot">Nine questions here. In the pilot, the list is whatever you type.</div>
     </div>
   </div>
 </section>
 
-<!-- THE SHIFT -->
-<section class="sec reveal" style="background:var(--tint)">
+<!-- ANALYST VS MILO -->
+<section class="sec" style="background:var(--paper)">
   <div class="tex noise"></div>
   <div class="wrap">
-    <div class="kicker">The shift</div>
-    <h2>From <span class="lt">price files and pivots</span> to <span class="ac">a question and an answer.</span></h2>
-    <p class="lede">Procurement data is the least tidy data in hospitality. Price files arrive as spreadsheets, invoices arrive as PDFs, pack sizes never agree, and the client's EPOS knows nothing about either. None of that is broken, it was just never asked to line up.</p>
+    <div class="kicker">Milo or a hire</div>
+    <h2>What an analyst costs. <span class="ac">What Milo costs.</span></h2>
+    <p class="lede">Compass spends millions on data it still cannot open up. Most independents have nobody on it at all. Here is the full cost of hiring one analyst to do the gathering, at 2026 London market rates, next to Milo at your founding price of £1,050 a month per client.</p>
 
-    <div class="split">
-      <div class="sp a">
-        <div class="h">How it usually works</div>
-        <ul>
-          <li>Price files land as spreadsheets and get checked by hand, if at all</li>
-          <li>The saving is proved in a workbook that one person really understands</li>
-          <li>Price creep shows up on the invoice, weeks after the delivery</li>
-          <li>Pack sizes and units differ, so like for like is a manual exercise</li>
-          <li>Supplier volume gets reconciled at quarter end from whatever can be found</li>
-          <li>Every new client adds another version of the same monthly report</li>
-        </ul>
-      </div>
-      <div class="sp b">
-        <div class="h">With Milo</div>
-        <ul>
-          <li>Price files, invoices, credits, EPOS and the ledger read on one basis</li>
-          <li>Ask in plain English, answer in seconds with the invoice lines attached</li>
-          <li>An alert the day a line prices above the agreed rate, not at month end</li>
-          <li>Everything normalised to price per kilo, per litre, per unit</li>
-          <li>Volume by supplier is live, so profit share is a number rather than a job</li>
-          <li>Client statements build and send themselves, however many clients there are</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INTERACTIVE: CALCULATOR -->
-<section class="sec reveal" style="background:var(--paper)">
-  <div class="tex noise"></div>
-  <div class="wrap">
-    <div class="kicker">Try it · move the sliders</div>
-    <h2>What proof <span class="ac">costs you.</span></h2>
-    <p class="lede">No claim here, just your own arithmetic. Set it to whatever is true today. The point is not the hours, it is the last line: reporting load scales with every client you win, and negotiating is the part that should scale instead.</p>
-
-    <div class="calc">
-      <div class="calc-in">
-        <div class="fld">
-          <label class="lab" for="s-cli"><span>Client accounts you report to each month</span><output id="o-cli">12</output></label>
-          <input type="range" id="s-cli" min="1" max="60" step="1" value="12">
-        </div>
-        <div class="fld">
-          <label class="lab" for="s-sup"><span>Suppliers behind a typical client</span><output id="o-sup">18</output></label>
-          <input type="range" id="s-sup" min="2" max="80" step="1" value="18">
-        </div>
-        <div class="fld">
-          <label class="lab" for="s-hrs"><span>Hours to assemble one client's savings and spend report</span><output id="o-hrs">6</output></label>
-          <input type="range" id="s-hrs" min="1" max="30" step="1" value="6">
-        </div>
-        <div class="fld">
-          <label class="lab" for="s-lag"><span>Working days from month end to that report landing</span><output id="o-lag">12</output></label>
-          <input type="range" id="s-lag" min="1" max="30" step="1" value="12">
-        </div>
-        <div class="calc-note">Your inputs. Nothing here is a Milo statistic.</div>
-      </div>
-      <div class="calc-out">
-        <div class="res">
-          <div class="rl">Person days a year assembling client reporting</div>
-          <div class="rv" id="r-total">115</div>
-          <div class="rn" id="r-total-n"></div>
-        </div>
-        <div class="res">
-          <div class="rl">Supplier relationships behind those numbers</div>
-          <div class="rv" id="r-sup">216 <small>price lists, invoice formats, credit notes</small></div>
-          <div class="rn">Every one of them a different file, a different pack size and a different idea of what a line item looks like. That is the part Milo takes on.</div>
-        </div>
-        <div class="res">
-          <div class="rl">How long before a client can see where they are</div>
-          <div class="ba">
-            <div class="b"><span class="bl">Today</span><span class="bv" id="r-lag">12 days</span></div>
-            <div class="arrow">&rarr;</div>
-            <div class="b"><span class="bl">With Milo</span><span class="bv ac">Live</span></div>
-          </div>
-          <div class="rn">Anything coming from a connected system is current, so a client can be shown what they spent and what they saved without waiting for anyone to build it.</div>
-        </div>
-        <div class="res final">
-          <div class="rl">The end result</div>
-          <p id="r-final"></p>
+    <div class="ctrls">
+      <div class="ctrl">
+        <span class="cl" id="lv-l">Analyst level</span>
+        <div class="seg" role="group" aria-labelledby="lv-l">
+          <button type="button" id="lv-jr" data-lv="jr" aria-pressed="false">Junior · £35k</button>
+          <button type="button" id="lv-mid" data-lv="mid" aria-pressed="true">Mid-level · £50k</button>
+          <button type="button" id="lv-sr" data-lv="sr" aria-pressed="false">Senior · £65k</button>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT WE CONNECT -->
-<section class="sec reveal" style="background:var(--paper)">
-  <div class="tex noise"></div>
-  <div class="wrap">
-    <div class="kicker">What we connect</div>
-    <h2>Both ends of <span class="ac">the supply chain,</span> <span class="lt">and the ledger in between.</span></h2>
-    <p class="lede">This is what Milo connects, not a guess at what you or your clients run. Plug and play sources connect in minutes. Databases, warehouses, supplier feeds and custom APIs take our engineers one to three days. Either way it is our build, not a project for you.</p>
-
-    <div class="wall">
-      <div class="fam">
-        <div class="t"><span>Supplier data</span>The awkward half of procurement<em>Price files, PDF invoices, credits and delivery notes, read as data rather than as paperwork.</em></div>
-        <div class="pills">
-          <span class="pill">Price files</span><span class="pill">PDF invoices</span><span class="pill">EDI</span><span class="pill">Delivery notes</span><span class="pill">Credit notes</span><span class="pill">Statements</span><span class="pill">Supplier portals</span><span class="pill">Email inbox</span>
+      <div class="ctrl">
+        <span class="cl" id="yr-l">Period</span>
+        <div class="seg" role="group" aria-labelledby="yr-l">
+          <button type="button" id="yr-1" data-yr="1" aria-pressed="true">Year one</button>
+          <button type="button" id="yr-2" data-yr="0" aria-pressed="false">Each year after</button>
         </div>
       </div>
-      <div class="fam">
-        <div class="t"><span>Purchase to pay</span>Order, receipt, invoice, match<em>Where the three way match either happens or quietly does not.</em></div>
-        <div class="pills">
-          <span class="pill">Procure Wizard</span><span class="pill">Fourth</span><span class="pill">Nory</span><span class="pill">Marketman</span><span class="pill">Growyze</span><span class="pill">Kafoodle</span><span class="pill">Custom APIs</span>
-        </div>
-      </div>
-      <div class="fam">
-        <div class="t"><span>Finance &amp; ledger</span>What actually got paid<em>Per client, per site, reconciled against what was ordered.</em></div>
-        <div class="pills">
-          <span class="pill">Xero</span><span class="pill">Sage</span><span class="pill">QuickBooks</span><span class="pill">NetSuite</span><span class="pill">Dext</span><span class="pill">Soldo</span><span class="pill">Open banking</span>
-        </div>
-      </div>
-      <div class="fam">
-        <div class="t"><span>EPOS &amp; sales</span>The other side of the GP line<em>Spend is only half the answer. Cost of sales needs what was sold.</em></div>
-        <div class="pills">
-          <span class="pill">Lightspeed</span><span class="pill">Zonal</span><span class="pill">Toast</span><span class="pill">Square</span><span class="pill">Tevalis</span><span class="pill">Deliveroo</span><span class="pill">Uber Eats</span><span class="pill">Just Eat</span>
-        </div>
-      </div>
-      <div class="fam">
-        <div class="t"><span>Stock, recipes &amp; waste</span>From delivery to plate<em>Theoretical against actual usage, with the price movement underneath it.</em></div>
-        <div class="pills">
-          <span class="pill">Stock counts</span><span class="pill">Recipe cards</span><span class="pill">Yield</span><span class="pill">Wastage</span><span class="pill">Allergens</span><span class="pill">Menu engineering</span>
-        </div>
-      </div>
-      <div class="fam">
-        <div class="t"><span>Your side of the desk</span>Pipeline, and the sheet everyone depends on<em>Including the workbook the savings model quietly runs on.</em></div>
-        <div class="pills">
-          <span class="pill">HubSpot</span><span class="pill">Pipedrive</span><span class="pill">Google Sheets</span><span class="pill">Excel</span><span class="pill">SharePoint</span><span class="pill">Drive</span><span class="pill more">and whatever else you run</span>
+      <div class="ctrl">
+        <span class="cl" id="nc-l">Milo covering</span>
+        <div class="seg" role="group" aria-labelledby="nc-l">
+          <button type="button" id="nc-2" data-nc="2" aria-pressed="true">Both current clients</button>
+          <button type="button" id="nc-1" data-nc="1" aria-pressed="false">One client</button>
         </div>
       </div>
     </div>
 
-    <div class="callouts">
-      <div class="co">
-        <div class="h">Not a rip and replace</div>
-        <h3>Nothing gets switched off</h3>
-        <p>Clients keep their EPOS, their stock system and their ledger. Suppliers keep sending files the way they always have. Milo reads what already exists, which matters when the systems are not yours to change.</p>
+    <div class="an">
+      <div class="an-chart">
+        <div class="ct" id="a-ct">Fully loaded cost, year one</div>
+        <div class="brow">
+          <div class="bh"><span class="bn" id="a-name">Mid-level data analyst</span><span class="bv" id="a-val">£69,563</span></div>
+          <div class="track"><div class="fill a" id="a-bar" style="width:77.3%"></div></div>
+        </div>
+        <div class="brow">
+          <div class="bh"><span class="bn" id="m-name">Milo, both current clients</span><span class="bv" id="m-val">£25,200</span></div>
+          <div class="track"><div class="fill m" id="m-bar" style="width:28%"></div></div>
+        </div>
+        <div class="axis" aria-hidden="true"><span style="left:0">£0</span><span style="left:33.333%">£30k</span><span style="left:66.667%">£60k</span><span style="left:100%">£90k</span></div>
       </div>
-      <div class="co">
-        <div class="h">On the system in development</div>
-        <h3>Two jobs, and we do both</h3>
-        <p>Your site says the system is in development. An internal build is really two projects: the integrations underneath, and the tool that sits on top of them. We build the integrations from scratch and the tool already exists. Spend your build on procurement, not on plumbing.</p>
+      <div class="an-out">
+        <div class="big" id="a-pct">36%</div>
+        <div class="bl" id="a-pct-l">Milo as a share of a mid-level analyst, year one</div>
+        <div class="lines">
+          <div class="ln"><span>Base salary</span><span id="l-sal">£50,000</span></div>
+          <div class="ln"><span>Employer NI, 15% above £5,000</span><span id="l-ni">£6,750</span></div>
+          <div class="ln"><span>Pension, 3% of qualifying earnings</span><span id="l-pen">£1,313</span></div>
+          <div class="ln"><span id="l-rec-l">Recruitment fee, 20%</span><span id="l-rec">£10,000</span></div>
+          <div class="ln"><span>Laptop, software and licences</span><span>£1,500</span></div>
+          <div class="ln t"><span>Analyst, total</span><span id="l-tot">£69,563</span></div>
+          <div class="ln mi"><span id="l-milo-l">Milo, 2 clients × 12 × £1,050</span><span id="l-milo">£25,200</span></div>
+        </div>
+        <p class="sum" id="a-sum"></p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- COMPARISON -->
-<section class="sec reveal" style="background:var(--paper)">
-  <div class="tex noise"></div>
-  <div class="wrap">
-    <div class="kicker">Three ways to get there</div>
-    <h2>Power BI, build it yourself, <span class="ac">or this.</span></h2>
-    <p class="lede">You will be quoted all three. The difference is not really about charts. It is about who does the gathering, and who is still doing it in two years.</p>
 
     <div class="cmp">
-      <div class="crow head">
-        <div class="dim"></div>
-        <div><span class="nm">Power BI</span><span class="sub">or any BI tool</span></div>
-        <div><span class="nm">Build it yourself</span><span class="sub">in house or with an agency</span></div>
-        <div class="milo"><span class="nm">Milo</span><span class="sub">what we do</span></div>
-      </div>
-
+      <div class="crow head"><div></div><div>A data analyst</div><div class="milo">Milo</div></div>
       <div class="crow">
-        <div class="dim">What you are buying</div>
-        <div data-c="Power BI">A visualisation layer. It draws the charts once something else has gathered, joined and modelled the data.</div>
-        <div data-c="Build it yourself">Two projects. The connections underneath, and the tool people actually use on top of them.</div>
-        <div class="milo" data-c="Milo">Both halves. We build the connections from scratch, and the tool on top already exists.</div>
+        <div class="dim">Getting started</div>
+        <div data-c="A data analyst">Six to ten weeks to hire, plus their notice period, then a few months learning your suppliers and clients.</div>
+        <div class="milo" data-c="Milo">Answering real questions inside the four-week pilot, with our engineers doing the build.</div>
       </div>
-
       <div class="crow">
-        <div class="dim">Supplier files</div>
-        <div data-c="Power BI">Not its job. Price files and PDF invoices need a pipeline in front of it, or a person exporting and pasting.</div>
-        <div data-c="Build it yourself">The least glamorous part, and the one always underestimated. Every supplier is another format that changes without warning.</div>
-        <div class="milo" data-c="Milo">Our engineers build it. Plug and play sources in minutes, supplier feeds and custom APIs in one to three days.</div>
+        <div class="dim">Availability</div>
+        <div data-c="A data analyst">About 225 working days a year, in office hours, less holidays and sick days.</div>
+        <div class="milo" data-c="Milo">Every day. The fee run goes out on the 3rd whether anyone is in or not.</div>
       </div>
-
       <div class="crow">
-        <div class="dim">Pack sizes and units</div>
-        <div data-c="Power BI">Only if somebody has modelled it upstream first. A chart cannot tell a 5kg case from a 2.5kg one.</div>
-        <div data-c="Build it yourself">Yours to design, and yours to maintain every time a supplier quietly changes a case size.</div>
-        <div class="milo" data-c="Milo">Mapped in week two, so every line reads as price per kilo, litre or unit before anything gets compared.</div>
+        <div class="dim">Who gets answers</div>
+        <div data-c="A data analyst">Whoever is at the front of their queue that week.</div>
+        <div class="milo" data-c="Milo">Anyone on the team, by typing a question. Dashboards can be built by anyone too.</div>
       </div>
-
       <div class="crow">
-        <div class="dim">Asking something new</div>
-        <div data-c="Power BI">A trained report builder, or a ticket to whoever owns the model. New question, new build.</div>
-        <div data-c="Build it yourself">A developer and a place in the queue, which is where most internal tools quietly stop being used.</div>
-        <div class="milo" data-c="Milo">Anyone who can type a sentence. Pin the answer and it becomes a live dashboard, no ticket.</div>
+        <div class="dim">As clients grow</div>
+        <div data-c="A data analyst">More clients means more reports, and in the end a second hire.</div>
+        <div class="milo" data-c="Milo">More clients means more connections, and integrations are unlimited.</div>
       </div>
-
       <div class="crow">
-        <div class="dim">Time to first answer</div>
-        <div data-c="Power BI">Weeks of modelling before the first useful report, and only once the data is already flowing.</div>
-        <div data-c="Build it yourself">Months, and the estimate moves. The integrations are where it slips, every time.</div>
-        <div class="milo" data-c="Milo">Four weeks from credentials to live answers, including the building we do for you.</div>
+        <div class="dim">When they leave</div>
+        <div data-c="A data analyst">The workbook, the supplier quirks and the catchweight rules leave with them.</div>
+        <div class="milo" data-c="Milo">The rules live in the knowledge base and stay with the business.</div>
       </div>
-
       <div class="crow">
-        <div class="dim">A client&rsquo;s own view</div>
-        <div data-c="Power BI">Per user licensing and workspace permissions. Sharing outside your own tenant is the awkward part.</div>
-        <div data-c="Build it yourself">Build a client portal, then keep it secure, hosted and alive for as long as the client stays.</div>
-        <div class="milo" data-c="Milo">Role based access down to the individual. A client sees their estate and nothing else, and the statement sends itself.</div>
-      </div>
-
-      <div class="crow">
-        <div class="dim">When a format changes</div>
-        <div data-c="Power BI">The refresh fails and somebody goes and fixes the query, usually in the week you needed it.</div>
-        <div data-c="Build it yourself">Your problem, on your weekend, permanently.</div>
-        <div class="milo" data-c="Milo">Connectors are monitored for drift and our engineers fix them. It is what you are paying us for.</div>
-      </div>
-
-      <div class="crow">
-        <div class="dim">The next client</div>
-        <div data-c="Power BI">Another workspace, another model to maintain, another set of licences.</div>
-        <div data-c="Build it yourself">More load on the same small team, until reporting is the thing capping how many clients you can take.</div>
-        <div class="milo" data-c="Milo">A connection, not a project. The negotiating scales and the reporting does not grow with it.</div>
+        <div class="dim">Where the person wins</div>
+        <div data-c="A data analyst">Judgment, supplier relationships and the negotiation itself.</div>
+        <div class="milo" data-c="Milo">Milo does none of that. It gets the numbers to whoever does, before they pick up the phone.</div>
       </div>
     </div>
 
-    <p class="cmp-note">Power BI is a good tool and none of this is an argument that it is bad. The point is what it assumes you already have: supplier data gathered, joined and modelled by somebody, and that somebody still there in a year keeping it true. <b>That person is the expensive part, and that part is what we do.</b></p>
+    <p class="fine">Salaries are rounded midpoints of 2026 London ranges (junior £32–40k, mid-level £45–55k, senior £55–80k) from <a href="https://www.glassdoor.com/Salaries/london-united-kingdom-data-analyst-salary-SRCH_IL.0,21_IM1035_KO22,34.htm" target="_blank" rel="noopener">Glassdoor</a>, <a href="https://www.roberthalf.com/gb/en/job-details/data-analyst/london" target="_blank" rel="noopener">Robert Half</a> and <a href="https://uk.indeed.com/career/data-analyst/salaries/London" target="_blank" rel="noopener">Indeed</a>. Employer NI at 15% above £5,000 a year; smaller employers may offset some of it with the Employment Allowance. Pension at the 3% auto-enrolment minimum on earnings between £6,240 and £50,270. Recruitment at a typical 20% agency fee, year one only. Milo at your founding price of £1,050 a month per client.</p>
   </div>
 </section>
 
-<!-- WHO WE WORK WITH -->
-<section class="sec reveal" style="background:var(--tint)">
+<!-- WHAT YOU ASKED -->
+<section class="sec" style="background:var(--tint)">
   <div class="tex noise"></div>
   <div class="wrap">
-    <div class="kicker">Who we work with</div>
-    <h2>The same problem, <span class="lt">up and down the same chain.</span></h2>
-    <p class="lede">Not a logo wall. Four businesses sitting at different points of the food and drink supply chain, each with the same gap between what they buy, what they sell and what anyone can prove.</p>
+    <div class="kicker">What you asked</div>
+    <h2>Your questions, <span class="lt">answered properly.</span></h2>
+    <p class="lede">The ones that came up on the call, with the answers written down this time.</p>
 
-    <div class="who-grid">
-      <div class="wc">
-        <div class="nm">Nikki Beach Global</div>
-        <div class="sect">Beach clubs, hotels &amp; restaurants · worldwide</div>
-        <p>A luxury hospitality group with venues across Europe, the Middle East, the Americas and Asia, with reservations split across SevenRooms and OpenTable and payments across Square and SumUp. <b>One view of how the whole estate is trading this week, without waiting for every site to send its numbers in.</b></p>
-        <div class="rel">This is your client, the multi site operator whose systems were chosen site by site.</div>
+    <div class="faq">
+      <div class="fq">
+        <h3>Why not just connect our clients to Claude?</h3>
+        <p>For one person with a couple of spreadsheets and HubSpot, Claude is great and we would tell you to use it. Past that, three things change. Milo ingests the data rather than reading it when you ask, so years of invoices are there and answers come back fast. Connectors to bespoke systems like P2P and EPOS tend to break within days, and our engineers keep them running. And two people on Claude get two different answers, whereas in Milo the team shares one knowledge base, with controls on who sees what.</p>
       </div>
-      <div class="wc">
-        <div class="nm">Two Tribes Brewery</div>
-        <div class="sect">Craft brewing &amp; drinks · UK</div>
-        <p>Sales tracked across pubs, Tesco, Shopify and wholesale, with data split between Breww, Xero and several retail portals. <b>Channels that each report differently, netted down to one picture of how the product is actually selling.</b></p>
-        <div class="rel">The supplier end of your chain, and the producer whose volume you are negotiating on.</div>
+      <div class="fq">
+        <h3>Can it read PDF invoices, and cope with catchweight?</h3>
+        <p>Yes. PDFs, CSVs, spreadsheets and system exports. Lines match on product code, so a description that changes month to month is still the same product. Units, pack sizes and catchweight are taught once in the knowledge base. For one pub client, a day means 12 till 4. Once Milo was told that, it got it right every time after.</p>
       </div>
-      <div class="wc">
-        <div class="nm">Kellogg&rsquo;s</div>
-        <div class="sect">Global FMCG · commercial finance</div>
-        <p>The commercial finance team asks Milo across dozens of markets, tracking trade spend, promotional ROI and margin across hundreds of SKUs. <b>Line level price and margin at a scale well past anything in hospitality procurement.</b></p>
-        <div class="rel">Settles the SKU volume question before anyone gets to ask it.</div>
+      <div class="fq">
+        <h3>Does the monthly fee limit how many systems we connect?</h3>
+        <p>No. Connect as many as you need. Price follows usage, counted in interactions, and a team of around twenty people typically uses about 500 a month. Once the dashboards and routines are built you ask less, because the answers come to you. We also pick the right model for each question, so a price check takes seconds rather than minutes.</p>
       </div>
-      <div class="wc">
-        <div class="nm">Coolr</div>
-        <div class="sect">Agency · UK</div>
-        <p>Runs campaigns for Burger King, Deliveroo, Heineken, L&rsquo;Or&eacute;al, Samsung, Lidl and more than fifteen other major brands. <b>Twenty to thirty client reports that used to take days now come together in hours, and their finance director cut a three day report to thirty minutes.</b></p>
-        <div class="rel">The closest match to your model: many clients, each on their own systems, all owed a monthly report.</div>
+      <div class="fq">
+        <h3>Can it bring in data from outside the business?</h3>
+        <p>Yes. Market prices, weather, holidays and trends. For a Nisa Local store it gathered Coca-Cola prices from nearby shops to show how far price could move and stay competitive. For you, that is the potato price index: every client's prices set against the market and against each other.</p>
+      </div>
+      <div class="fq">
+        <h3>What should we do now so we are ready?</h3>
+        <p>Keep your data up to date, in whatever form it is in. Excel and CSV exports are a fine start. A high-end London restaurant group we signed recently started from CSV exports of their booking system and HubSpot, before a single integration was built.</p>
+      </div>
+      <div class="fq">
+        <h3>Could our clients use Milo too?</h3>
+        <p>Yes, in two ways. Refer a client and you earn 10% of their first-year contract. Further on, Milo can run under your name as the data platform behind all your clients, each seeing only their own data. That second route is the bigger opportunity, and we would price it with you once the pilot has proved the concept.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- GOVERNANCE -->
-<section class="band reveal">
+<section class="band">
   <div class="tex noise"></div>
   <div class="tex rule-dark"></div>
   <div class="wrap">
     <div class="kicker">Before it touches a single supplier file</div>
     <h2>Negotiated rates are the most sensitive data you hold.</h2>
-    <p class="lede">Milo is SOC 2 and ISO 27001 certified and independently penetration tested. Access is role based down to the individual and client data stays separated, so one client cannot see another client's pricing and a supplier cannot see the terms behind the next one. An NDA goes in place before we connect anything. Send your security questionnaire and DPA and we will come back with the sub processor list, the data handling detail and the certifications in full.</p>
+    <p class="lede">Milo is SOC 2 and ISO 27001 certified and independently penetration tested. Access is role based down to the individual, and each client's data is kept separate, so no client sees another's pricing and no supplier sees the terms behind the next. An NDA goes in place before we connect anything.</p>
     <div class="cf-row">
       <span class="cf-pill">SOC 2</span>
       <span class="cf-pill">ISO 27001</span>
       <span class="cf-pill">Independently pen tested</span>
       <span class="cf-pill">Role based access</span>
       <span class="cf-pill">Client data separated</span>
-      <span class="cf-pill">Read only or sandbox first</span>
+      <span class="cf-pill">Read only first</span>
       <span class="cf-pill">NDA first</span>
     </div>
   </div>
 </section>
 
-<!-- PILOT -->
-<section class="sec reveal" style="background:var(--paper)">
+<!-- PILOT AND PRICING -->
+<section class="sec" style="background:var(--paper)">
   <div class="tex noise"></div>
   <div class="wrap">
-    <div class="kicker">How a pilot runs</div>
-    <h2>One month, <span class="lt">one client, real invoices.</span></h2>
-    <p class="lede">Not a rollout. One client account and its supplier set, chosen because it proves the point fastest. The one with the most suppliers and the messiest price files is the right candidate, because the hard part is never volume, it is making files that were never designed to agree with each other agree.</p>
+    <div class="kicker">Pilot and pricing</div>
+    <h2>Start on one live client. <span class="lt">Grow it from there.</span></h2>
+    <p class="lede">One of your two current clients and its supplier set, plus your own fee run. Four weeks, with our engineers doing the building and customer success working alongside you throughout. Your second client follows on the same terms.</p>
 
     <div class="weeks">
-      <div class="wk"><div class="n">Week 1</div><h3>Connect</h3><p>Credentials in, price files and invoice feeds connected, our engineers doing the building. Read only or sandbox access first if that is easier to sign off.</p></div>
-      <div class="wk"><div class="n">Week 2</div><h3>Normalise it</h3><p>Suppliers, products, pack sizes and units mapped so they compare properly. A 5kg case from one supplier and a 2.5kg case from another become the same price per kilo. This is where the questions become answerable at all.</p></div>
-      <div class="wk"><div class="n">Week 3</div><h3>Real questions</h3><p>You both ask it whatever you want. Price compliance, basket movement, supplier volume, category spend. Dashboards get pinned, the client statement gets scheduled.</p></div>
-      <div class="wk"><div class="n">Week 4</div><h3>Go or no go</h3><p>An honest review of what it answered well and what it did not. Nothing to unwind if the answer is no.</p></div>
+      <div class="wk"><div class="n">Week 1</div><h3>Connect</h3><p>The client's P2P export or supplier invoices, your ledger, your fee agreements. Read only access first.</p></div>
+      <div class="wk"><div class="n">Week 2</div><h3>Teach it</h3><p>Product codes, catchweight, pack sizes, your fee rules and the approved supplier list, all into the knowledge base.</p></div>
+      <div class="wk"><div class="n">Week 3</div><h3>Automate</h3><p>The fee run and credit control set as routines. The client's spend dashboard pinned. Price and off-contract alerts on.</p></div>
+      <div class="wk"><div class="n">Week 4</div><h3>Review</h3><p>An honest read-out of what it answered well and what it did not. Nothing to unwind if the answer is no.</p></div>
     </div>
 
-    <p class="note">The downside of finding out is a month and one client's supplier set, with nothing to unwind if the answer is no. Commercials are straightforward and we will put them in front of you whenever you want them, but they are not the interesting part of this conversation yet.</p>
-  </div>
-</section>
+    <div class="price">
+      <div class="pc">
+        <div class="l">Pilot · per client, one month</div>
+        <div class="v">£1,050</div>
+        <div class="was">Standard <s>£1,500</s></div>
+        <p>For each of your two current clients: setup, every integration the pilot needs, and customer success support for the month.</p>
+      </div>
+      <div class="pc hi">
+        <div class="l">Then, per client, going forward</div>
+        <div class="v">£1,050<small>a month</small></div>
+        <div class="was">Standard <s>£1,500</s> a month</div>
+        <p>The founding price for your two current clients, so £2,100 a month for both. Unlimited integrations, and the standard allowance of around 500 interactions a month.</p>
+      </div>
+      <div class="pc">
+        <div class="l">Referral · paid to you</div>
+        <div class="v">10%</div>
+        <div class="was">Of first-year contract value</div>
+        <p>For any client you bring to Milo. One client on our standard plan is £18,000 a year, so £1,800 to you.</p>
+      </div>
+    </div>
 
-<!-- CTA -->
-<section class="cta">
-  <div class="tex noise"></div>
-  <div class="tex rule-dark"></div>
-  <div class="wrap">
-    <div class="lock">
-      <svg style="width:44px;height:35px" viewBox="0 0 50 40" aria-hidden="true"><use href="#milomark"/></svg>
-      <span class="wm">Milo</span>
-      <span class="x">×</span>
-      <span class="mono-tile" style="background:var(--lapis-lt);color:#0E1220">UP</span>
-      <span class="wm">Unreasonable Procurement</span>
+    <p class="frank">You were straight with us that at two clients this is early, and that it earns its keep as clients and data grow. <b>We agree.</b> The founding price is there so the history, the rules and the routines are already in place when January comes, rather than built in a hurry during it.</p>
+
+    <div class="path">
+      <div class="pt"><div class="n">Now · 2 clients</div><h3>Founding price on both current clients</h3><p>The fee run automated, both clients' reporting running, the knowledge base filling up with how your suppliers really invoice.</p></div>
+      <div class="pt"><div class="n">January · 10 clients</div><h3>The pressure lands on a running system</h3><p>Each new client is a connection, not a project. The rules from the first ones already apply.</p></div>
+      <div class="pt"><div class="n">Summer 2027 · 20 clients</div><h3>The bigger conversation</h3><p>Milo as the data platform behind every client, under your name. We price that together once the concept is proved.</p></div>
     </div>
-    <h2>Bring three questions. We will answer them live.</h2>
-    <p>Good to meet you both at the show. Pick the three questions you most wish you could answer on the spot, one from the category side, one from a client, one from the business. Send them over and we will put them straight into the box on the call. Thirty minutes is enough.</p>
-    <div class="acts">
-      <a class="btn btn-p" href="mailto:liam@milo.ai?subject=Milo%20%C3%97%20Unreasonable%20Procurement%3A%2030%20minutes">Book 30 minutes</a>
-      <a class="btn btn-s" href="mailto:liam@milo.ai?subject=Milo%20%C3%97%20Unreasonable%20Procurement%3A%20NDA%20and%20security%20pack">Send the NDA and security pack</a>
-    </div>
+
+    <p class="close">We would rather grow with you than price you for where you will be in a year. <span class="ac">Start small, and we scale when you do.</span></p>
   </div>
 </section>
 
 <footer>
-  Prepared for Jonathan Wright and Mikyle Carrick, Unreasonable Procurement, by <a href="mailto:liam@milo.ai">Liam Rabone</a> · Milo
+  <div class="lock">
+    <svg style="width:38px;height:30px" viewBox="0 0 50 40" aria-hidden="true"><use href="#milomark"/></svg>
+    <span>Milo</span><span class="x">×</span><span>Unreasonable Procurement</span>
+  </div>
+  Prepared for Jonathan Wright and Mikyle Carrick by Liam James Rabone · Milo<br>
+  <span class="addr">liam@milo.ai</span>
 </footer>
 
 <script>
 (function(){
-  /* video */
-  var f=document.getElementById('vidframe'),b=document.getElementById('vidplay');
-  if(f&&b){b.addEventListener('click',function(){
+  /* video: play inline where the page is hosted, otherwise the poster links out to Vimeo */
+  var f=document.getElementById('vidframe'),p=document.getElementById('vidplay'),h=location.hostname;
+  var inline=h===''||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(h);
+  if(f&&p&&inline){p.addEventListener('click',function(e){
+    e.preventDefault();
     var i=document.createElement('iframe');
     i.src='https://player.vimeo.com/video/'+f.dataset.vid+'?title=0&byline=0&portrait=0&dnt=1&autoplay=1';
     i.setAttribute('allow','autoplay; fullscreen; picture-in-picture');
     i.setAttribute('allowfullscreen','');
     i.setAttribute('title','Milo product overview');
-    f.appendChild(i);b.remove();
+    f.appendChild(i);p.remove();
   });}
 
-  /* desks */
+  /* chairs */
   var DESKS={
     md:{
-      role:'Director · the view across every client, every supplier and the fee in between',
+      role:'Managing Director · the business, the fee and the pipeline',
       qs:[
-        {who:'Monday, 8am',
-         q:'Spend under management and fee income by client this month, against last.',
-         rows:[['Spend under management','£4.2m','+9% vs last','up'],['Fee income','£186k','+7% vs last','up'],['Clients live','23','+2 this month','up'],['Average fee rate','4.4%','-0.2pts','down']],
-         read:'Fee income read against the spend it came from, client by client, built from supplier invoices and the ledger together rather than from a workbook. <b>The average fee rate is the line that moves quietly</b>, because it drifts with mix long before anyone renegotiates anything.',
-         src:['Supplier invoices','Xero','Sage','Client agreements','Spreadsheets']},
-        {who:'The investor question',
-         q:'How much of our fee income sits with our five largest suppliers?',
-         rows:[['Top 5 suppliers','61% of fee income','concentration','down'],['Largest client','18% of fee income','concentration','flat'],['Next 10 suppliers','27% of fee income','spread','up'],['Long tail','12% of fee income','spread','up']],
-         read:'Concentration on both sides of the desk, supplier and client, in one answer. <b>It is the first thing a bank or an investor asks</b>, and normally the thing that costs somebody a day to assemble.',
-         src:['Supplier invoices','Fee ledger','Xero','Client agreements']},
-        {who:'Before a renewal',
-         q:'What have we saved this client since we started, and how much did they keep?',
-         rows:[['Baseline basket','£1.14m annualised','at onboarding','flat'],['Current basket','£1.02m annualised','like for like','up'],['Gross saving','£118k','10.4%','up'],['Net of UP fee','£71k','6.2%','up']],
-         read:'Saving measured on a like for like basket rather than on total spend, so volume growth cannot flatter it. <b>Net of your fee is the number that renews the contract</b>, and it is the hardest one to produce by hand.',
-         src:['Price files','Supplier invoices','Baseline basket','Fee ledger','EPOS']}
+        {who:'1st of the month',
+         q:'What fee is due from each supplier for September, and who still owes us for August?',
+         rows:[['Fee due, September','£7,820','14 suppliers','flat'],['Already paid','£5,940','11 suppliers','up'],['Overdue from August','£1,160','2 suppliers','down'],['Invoice still to come','£720','1 supplier','flat']],
+         read:'The fee run and credit control in one answer, built from supplier invoices and your ledger. <b>The overdue line is the one that triggers the reminder email</b>, and once it is set up nobody has to ask.',
+         src:['Supplier invoices','P2P export','Xero','Fee agreements']},
+        {who:'Monday morning',
+         q:'Spend under management and fee income by client, this month against last.',
+         rows:[['Client A','£41k spend','+4%','up'],['Client B','£218k spend','+7%','up'],['On-contract spend','88%','+3pts','up'],['Fee income','£7.8k','+6%','up']],
+         read:'The page an investor asks for, built from invoices rather than a workbook. <b>At ten clients it is the same question</b>, and still one line to ask.',
+         src:['Supplier invoices','P2P export','Xero','Client agreements']},
+        {who:'Pipeline review',
+         q:'What is in the pipeline, and what fee does it add if we win it?',
+         rows:[['Garden centre group','£1.8m spend','proposal','flat'],['Pub group','£1.2m spend','pricing sent','up'],['Care home group','£0.9m spend','first meeting','flat'],['Weighted fee','£41k a year','at stage odds','up']],
+         read:'Deals tracked next to the clients you already run, so the forecast and the fee model use the same numbers. <b>A new client goes from pipeline to live data</b> without a new spreadsheet.',
+         src:['HubSpot','Spreadsheets','Fee agreements']}
       ]},
     cat:{
-      role:'Procurement Director · price, basket, volume and service, by supplier and by line',
+      role:'Procurement Director · price, pack size and supplier, line by line',
       qs:[
-        {who:'First thing, every day',
+        {who:'Every morning',
          q:'Where did we pay above the agreed price yesterday, by supplier and by line?',
-         rows:[['Dairy supplier','14 lines','£412 over','down'],['Produce supplier','6 lines','£157 over','down'],['Meat supplier','2 lines','£94 over','flat'],['All clients','22 lines','£663 over','down']],
-         read:'Every invoice line matched against the agreed price file on the day it lands, not at month end. <b>This is the one that pays for itself</b>, because price creep is only worth chasing while the credit is still easy to ask for.',
-         src:['Price files','Supplier invoices','Delivery notes','Purchase to pay']},
+         rows:[['Dairy supplier','14 lines','£412 over','down'],['Produce supplier','6 lines','£157 over','down'],['Meat supplier','2 lines','£94 over','down'],['All clients','22 lines','£663 over','down']],
+         read:'Every invoice line checked against the agreed price the day it lands, not at month end. <b>Price creep is only worth chasing while the credit is still easy to ask for.</b>',
+         src:['Price files','Supplier invoices','Delivery notes','P2P export']},
+        {who:'Catchweight',
+         q:'Chicken last month: what did we order, what was invoiced, and what did it cost per kilo?',
+         rows:[['Ordered','420 kg','estimated','flat'],['Invoiced','447 kg','+6.4%','down'],['Price per kilo','£6.12','as agreed','up'],['Paid above order','£165','check delivery notes','down']],
+         read:'Catchweight lines read at the weight actually invoiced and set against the order. <b>The unit on the order and the unit on the invoice are different</b>, which is exactly where invoicing errors hide.',
+         src:['Supplier invoices','P2P export','Delivery notes','Knowledge base']},
         {who:'Category review',
-         q:'What has moved on the core basket in 90 days, and which lines are driving it?',
-         rows:[['Dairy','+6.8%','butter, cream','down'],['Produce','+3.1%','salad, soft fruit','down'],['Meat','-1.4%','chicken','up'],['Ambient','+0.4%','holding','flat']],
-         read:'Basket inflation built from what was actually invoiced, normalised to price per kilo so a pack size change cannot hide a rise. <b>A supplier moving pack size instead of price shows up here</b> and almost nowhere else.',
-         src:['Price files','Supplier invoices','Pack size mapping','Historic baskets']},
-        {who:'Service review',
-         q:'Which suppliers are short delivering, and what has it cost in credits and gaps?',
-         rows:[['Supplier A','96.2% fill rate','£1.2k credits','up'],['Supplier B','88.4% fill rate','£4.6k credits','down'],['Supplier C','93.1% fill rate','£2.1k credits','flat'],['All clients','92.6% fill rate','£7.9k credits','down']],
-         read:'Ordered against delivered against credited, by supplier and by site. <b>Service failure is normally argued from memory</b>, and this turns it into a figure you can open a negotiation with.',
-         src:['Purchase to pay','Delivery notes','Credit notes','Supplier invoices']},
-        {who:'Quarter end',
-         q:'Which suppliers are due profit share this quarter, and on what volume?',
-         rows:[['Supplier A','£1.9m volume','share due','up'],['Supplier B','£640k volume','share due','up'],['Supplier C','£312k volume','below threshold','flat'],['Quarter','£2.85m volume','across 9 suppliers','up']],
-         read:'Volume by supplier across every client, live, so the share owed is a number rather than a quarter end exercise. <b>It also tells a producer what your volume is worth before the conversation starts</b>, which is the whole argument for bringing them in.',
-         src:['Supplier invoices','Purchase to pay','Xero','Supplier agreements']}
+         q:'How has the core basket moved in 90 days, against the market?',
+         rows:[['Potatoes','+8.2%','market +6.9%','down'],['Dairy','+5.1%','market +5.4%','flat'],['Chicken','-1.4%','market -0.8%','up'],['Coffee','+11.6%','market +12.3%','flat']],
+         read:'Your invoices set against market prices Milo gathers from outside the business. <b>Across every client, this becomes a market index</b> you can put in front of the next one.',
+         src:['Supplier invoices','Market prices','Historic baskets']}
       ]},
     cli:{
-      role:'The client · the operator you promised would see exactly what they pay',
+      role:'Your client · the operator you promised radical transparency',
       qs:[
-        {who:'The monthly statement',
-         q:'What did we save this month, and against what baseline?',
+        {who:'Monthly statement',
+         q:'What did we spend this month, and what did we save against the baseline?',
          rows:[['Baseline basket','£94.2k','like for like','flat'],['Paid this month','£86.8k','same volumes','up'],['Saving','£7.4k','7.9%','up'],['UP fee','£2.9k','shown in full','flat']],
-         read:'The transparency promise, produced rather than assembled. <b>Baseline, paid, saved and your fee in one view</b>, with the invoice rows sitting behind every figure if the client wants to click through.',
+         read:'Baseline, paid, saved and your fee in one view, with the invoice rows behind every figure. <b>Radical transparency, produced rather than assembled</b> every month.',
          src:['Price files','Supplier invoices','Baseline basket','Fee ledger']},
-        {who:'The one they will repeat',
-         q:'What share of our spend is with British producers, and which ones?',
-         rows:[['British producers','38% of spend','+6pts YTD','up'],['Within 50 miles','11% of spend','+3pts YTD','up'],['Named producers','17 farms','+4 this year','up'],['Imported','62% of spend','-6pts YTD','up']],
-         read:'Backing local stops being a line on a website and becomes a figure an operator can put on a menu. <b>Built from the supplier list, so it is defensible</b> rather than a claim.',
-         src:['Supplier invoices','Supplier master data','Producer register']},
-        {who:'Thursday, GP call',
-         q:'Where is food cost going by site and by category, against what we sold?',
+        {who:'Compliance',
+         q:'Which sites are buying off contract, and from whom?',
+         rows:[['Site 3','£2.4k','unapproved dairy','down'],['Site 7','£1.1k','local bakery','down'],['Site 1','£0.3k','cash and carry','flat'],['Estate','96% on contract','+2pts','up']],
+         read:'On the sample data from our call, Milo’s first recommendation was to stop buying from unapproved suppliers. <b>This is the question behind it</b>, and it can run as a weekly alert.',
+         src:['P2P export','Supplier invoices','Approved supplier list']},
+        {who:'GP call',
+         q:'Where is food cost going by site, against what we sold?',
          rows:[['Site 1','28.4% food cost','+0.9pts','down'],['Site 2','26.1% food cost','-0.4pts','up'],['Site 3','31.2% food cost','+2.1pts','down'],['Estate','28.6% food cost','+0.8pts','down']],
-         read:'Purchases joined to EPOS sales and stock movement, so a cost problem separates into a price problem, a waste problem or a menu problem. <b>Procurement can only fix the first of those</b>, and this is what proves which one it is.',
-         src:['Supplier invoices','EPOS','Stock counts','Recipe cards']}
+         read:'Purchases joined to EPOS sales and stock. <b>Procurement can fix a price problem</b>, and this shows whether the problem is price, waste or the menu.',
+         src:['Supplier invoices','Square','Stock counts','Recipe cards']}
       ]}
   };
 
   var qlist=document.getElementById('qlist'),ans=document.getElementById('ans'),roleEl=document.getElementById('deskrole');
   var tabs=[].slice.call(document.querySelectorAll('.tab'));
-  var cur='md',curQ=0;
+  var cur='md';
 
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 
@@ -854,7 +799,7 @@ footer a{color:var(--lapis-lt)}
   }
 
   function renderDesk(d){
-    cur=d;curQ=0;
+    cur=d;
     roleEl.textContent=DESKS[d].role;
     qlist.innerHTML=DESKS[d].qs.map(function(a,i){
       return '<button class="qbtn" type="button" role="tab" data-i="'+i+'" aria-selected="'+(i===0)+'">'+
@@ -862,9 +807,8 @@ footer a{color:var(--lapis-lt)}
     }).join('');
     [].slice.call(qlist.querySelectorAll('.qbtn')).forEach(function(b){
       b.addEventListener('click',function(){
-        curQ=+b.dataset.i;
         [].slice.call(qlist.querySelectorAll('.qbtn')).forEach(function(o){o.setAttribute('aria-selected',o===b)});
-        renderAns(cur,curQ);
+        renderAns(cur,+b.dataset.i);
       });
     });
     renderAns(d,0);
@@ -879,34 +823,66 @@ footer a{color:var(--lapis-lt)}
   });
   renderDesk('md');
 
-  /* calculator */
-  var ids=['cli','sup','hrs','lag'],el={};
-  ids.forEach(function(k){el[k]=document.getElementById('s-'+k);el['o'+k]=document.getElementById('o-'+k)});
-  function d(n){return n+(n===1?' day':' days')}
-  function calc(){
-    var cli=+el.cli.value,sup=+el.sup.value,hrs=+el.hrs.value,lag=+el.lag.value;
-    el.ocli.textContent=cli;
-    el.osup.textContent=sup;
-    el.ohrs.textContent=hrs;
-    el.olag.textContent=lag;
-    var days=Math.round(cli*hrs*12/7.5),
-        per=Math.round(hrs*12/7.5*10)/10,
-        rel=cli*sup;
-    document.getElementById('r-total').textContent=days;
-    document.getElementById('r-total-n').textContent=cli+(cli===1?' client × ':' clients × ')+hrs+(hrs===1?' hour':' hours')+' × 12 months, at a 7.5 hour day.';
-    document.getElementById('r-sup').innerHTML=rel.toLocaleString('en-GB')+' <small>price lists, invoice formats, credit notes</small>';
-    document.getElementById('r-lag').textContent=d(lag);
-    document.getElementById('r-final').innerHTML=
-      '<b>'+days+(days===1?' person day':' person days')+' a year</b> goes into proving the saving rather than finding the next one, and every client you win adds <b>'+per+' days</b> of it before anyone negotiates anything. Milo takes on the assembling, so winning the '+(cli+1)+'th client costs you a negotiation and not a reporting job.';
+  /* analyst vs milo */
+  var LV={jr:{n:'Junior',s:35000},mid:{n:'Mid-level',s:50000},sr:{n:'Senior',s:65000}};
+  var lv='mid',yr=1,nc=2,MAX=90000;
+  function gbp(n){return '£'+Math.round(n).toLocaleString('en-GB')}
+  function $(id){return document.getElementById(id)}
+  function an(){
+    var s=LV[lv].s,
+        ni=.15*Math.max(0,s-5000),
+        pen=.03*(Math.min(s,50270)-6240),
+        rec=yr?.2*s:0,
+        tot=Math.round(s)+Math.round(ni)+Math.round(pen)+Math.round(rec)+1500,
+        MILO=1050*12*nc,
+        cov=nc===2?'both current clients':'one client',
+        pct=Math.round(MILO/tot*100),
+        wks=Math.round(MILO/tot*52),
+        per=yr?'year one':'each year after',
+        name=LV[lv].n.toLowerCase();
+    $('a-ct').textContent='Fully loaded cost, '+per;
+    $('a-name').textContent=LV[lv].n+' data analyst';
+    $('a-val').textContent=gbp(tot);
+    $('a-bar').style.width=(tot/MAX*100).toFixed(1)+'%';
+    $('a-bar').title=LV[lv].n+' analyst, '+per+': '+gbp(tot);
+    $('m-bar').style.width=(MILO/MAX*100).toFixed(1)+'%';
+    $('m-bar').title='Milo, '+cov+': '+gbp(MILO);
+    $('m-name').textContent='Milo, '+cov;
+    $('m-val').textContent=gbp(MILO);
+    $('l-milo-l').textContent='Milo, '+(nc===2?'2 clients × ':'')+'12 × £1,050';
+    $('l-milo').textContent=gbp(MILO);
+    $('a-pct').textContent=pct+'%';
+    $('a-pct-l').textContent='Milo as a share of a '+name+' analyst, '+per;
+    $('l-sal').textContent=gbp(s);
+    $('l-ni').textContent=gbp(ni);
+    $('l-pen').textContent=gbp(pen);
+    $('l-rec-l').textContent=yr?'Recruitment fee, 20%':'Recruitment fee, year one only';
+    $('l-rec').textContent=gbp(rec);
+    $('l-tot').textContent=gbp(tot);
+    $('a-sum').innerHTML='A year of Milo on '+cov+' costs about what a '+name+' analyst costs you in <b>'+wks+' weeks</b>, and '+gbp(tot-MILO)+' less over the year. It is live inside the four-week pilot and works through holidays and sick days.';
   }
-  ids.forEach(function(k){el[k].addEventListener('input',calc)});
-  calc();
-
-  /* reveal */
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
-  },{threshold:.08});
-  [].slice.call(document.querySelectorAll('.reveal')).forEach(function(n){io.observe(n)});
+  [].slice.call(document.querySelectorAll('[data-nc]')).forEach(function(b){
+    b.addEventListener('click',function(){
+      nc=+b.dataset.nc;
+      [].slice.call(document.querySelectorAll('[data-nc]')).forEach(function(o){o.setAttribute('aria-pressed',o===b)});
+      an();
+    });
+  });
+  [].slice.call(document.querySelectorAll('[data-lv]')).forEach(function(b){
+    b.addEventListener('click',function(){
+      lv=b.dataset.lv;
+      [].slice.call(document.querySelectorAll('[data-lv]')).forEach(function(o){o.setAttribute('aria-pressed',o===b)});
+      an();
+    });
+  });
+  [].slice.call(document.querySelectorAll('[data-yr]')).forEach(function(b){
+    b.addEventListener('click',function(){
+      yr=+b.dataset.yr;
+      [].slice.call(document.querySelectorAll('[data-yr]')).forEach(function(o){o.setAttribute('aria-pressed',o===b)});
+      an();
+    });
+  });
+  an();
 })();
 </script>
 
