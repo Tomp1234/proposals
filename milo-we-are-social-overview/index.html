@@ -96,7 +96,7 @@ h2 .ac{color:var(--violet)}
 .vid{max-width:840px;margin:48px auto 0;border-radius:6px;overflow:hidden;border:1px solid var(--on-dark-line);background:#0C0A12;box-shadow:0 30px 70px rgba(0,0,0,.45)}
 .vid .frame{position:relative;aspect-ratio:16/9;max-width:100%}
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.poster{position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;cursor:pointer;border:0;font-family:inherit;color:var(--on-dark);background:radial-gradient(118% 118% at 50% 38%,#2B2145 0%,#15121C 60%,#0B0910 100%)}
+.poster{text-decoration:none;position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;cursor:pointer;border:0;font-family:inherit;color:var(--on-dark);background:radial-gradient(118% 118% at 50% 38%,#2B2145 0%,#15121C 60%,#0B0910 100%)}
 .poster .ttl{font-family:'Bricolage Grotesque','Instrument Sans',sans-serif;font-weight:700;font-size:clamp(1.05rem,2.6vw,1.34rem);letter-spacing:-.04em;line-height:1.1}
 .poster .play{width:72px;height:72px;border-radius:50%;background:var(--violet);display:grid;place-items:center;box-shadow:0 14px 40px rgba(91,45,217,.5);transition:transform .25s ease,background .25s ease}
 .poster:hover .play,.poster:focus-visible .play{transform:scale(1.07);background:#6E42EE}
@@ -161,7 +161,11 @@ h2 .ac{color:var(--violet)}
 .wk .n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:13px}
 .wk h3{font-size:1.06rem;font-weight:700;letter-spacing:-.035em;margin-bottom:10px}
 .wk p{font-size:.89rem;color:var(--muted)}
-.note{margin-top:34px;font-size:.88rem;color:var(--dim);max-width:72ch}
+.proof{margin-top:44px;background:var(--ink);color:var(--on-dark);border-radius:6px;padding:34px 32px;max-width:76ch}
+.proof .h{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--violet-lt);margin-bottom:14px}
+.proof h3{font-family:'Bricolage Grotesque','Instrument Sans',sans-serif;font-size:clamp(1.3rem,3.4vw,1.75rem);font-weight:700;letter-spacing:-.04em;line-height:1.1;margin-bottom:14px;color:#fff}
+.proof p{font-size:.97rem;color:var(--on-dark-mut)}
+.note{margin-top:28px;font-size:.88rem;color:var(--dim);max-width:72ch}
 
 /* ── cta ────────────────────────────────────────── */
 .cta{background:var(--ink);padding-block:108px 88px;text-align:center}
@@ -297,12 +301,12 @@ footer a{color:var(--violet-lt);text-decoration:none}
 
     <div class="vid">
       <div class="frame" id="vidframe" data-vid="1196983997">
-        <button class="poster" id="vidplay" type="button" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
           <svg style="width:56px;height:45px" viewBox="0 0 50 40" aria-hidden="true"><use href="#milomark"/></svg>
           <span class="ttl">Milo product overview</span>
           <span class="play"><svg width="21" height="25" viewBox="0 0 21 25" aria-hidden="true"><path d="M3 2.5 L19 12.5 L3 22.5 Z" fill="#ffffff"/></svg></span>
           <span class="sub">Press play · 1 min 29 sec</span>
-        </button>
+        </a>
       </div>
     </div>
     <div class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></div>
@@ -484,7 +488,13 @@ footer a{color:var(--violet-lt);text-decoration:none}
       <div class="wk"><div class="n">Week 4</div><h3>Go or no go</h3><p>An honest review of what it answered well and what it did not. Nothing to unwind if the answer is no.</p></div>
     </div>
 
-    <p class="note">We do this today for ticketing, entertainment and multi site retail businesses, all of which have the same shape of problem: many systems, no single place to ask. Commercials are straightforward and we will put them in front of you whenever you want them, but they are not the interesting part of this conversation yet.</p>
+    <div class="proof">
+      <div class="h">Social agency · Multi brand</div>
+      <h3>Coolr had exactly this problem.</h3>
+      <p>Coolr runs social and influencer campaigns for Burger King, Deliveroo, Heineken and 15+ other major brands. Reporting across every account used to take a full day. With Milo it takes under 15 minutes, with engagement rates, content ROI, influencer reach and spend efficiency in one view.</p>
+    </div>
+
+    <p class="note">Commercials are straightforward and we will put them in front of you whenever you want them, but they are not the interesting part of this conversation yet.</p>
   </div>
 </section>
 
@@ -518,7 +528,11 @@ footer a{color:var(--violet-lt);text-decoration:none}
   var f = document.getElementById('vidframe');
   var b = document.getElementById('vidplay');
   if(!f || !b) return;
-  b.addEventListener('click', function(){
+  var h = location.hostname;
+  var inline = /(^|\.)milo\.ai$/.test(h) || /\.github\.io$/.test(h) || h === 'localhost' || location.protocol === 'file:';
+  if(!inline) return;
+  b.addEventListener('click', function(e){
+    e.preventDefault();
     var i = document.createElement('iframe');
     i.src = 'https://player.vimeo.com/video/' + f.dataset.vid + '?title=0&byline=0&portrait=0&dnt=1&autoplay=1';
     i.setAttribute('allow','autoplay; fullscreen; picture-in-picture');
