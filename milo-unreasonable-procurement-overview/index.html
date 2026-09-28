@@ -236,7 +236,7 @@ h2 .ac{color:var(--lapis)}
 .wk p{font-size:.9rem;color:var(--muted)}
 
 /* pricing */
-.price{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:56px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.price{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:1px;margin-top:56px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
 .pc{background:var(--paper-lt);padding:30px 26px;display:flex;flex-direction:column;gap:10px}
 .pc.hi{background:var(--ink);color:var(--on-dark)}
 .pc .l{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper-dp)}
@@ -250,6 +250,9 @@ h2 .ac{color:var(--lapis)}
 .pc .was s{text-decoration-thickness:1px}
 .pc p{font-size:.92rem;color:var(--muted);margin-top:6px}
 .pc.hi p{color:var(--on-dark-mut)}
+.inc{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin-top:10px;padding-top:18px;border-top:1px solid var(--on-dark-line)}
+.inc li{display:grid;grid-template-columns:16px 1fr;gap:10px;font-size:.94rem;line-height:1.4;color:var(--on-dark)}
+.inc li::before{content:"✓";color:var(--lapis-lt);font-weight:700}
 
 .frank{margin-top:22px;border-left:2px solid var(--copper);padding:4px 0 4px 18px;max-width:72ch;font-size:.98rem;color:var(--muted)}
 .frank b{color:var(--ink);font-weight:600}
@@ -283,7 +286,7 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
   .sec{padding-block:70px}
 }
 @media(max-width:520px){
-  .sgrid,.weeks{grid-template-columns:1fr}
+  .sgrid,.weeks,.inc{grid-template-columns:1fr}
   .wrap{padding-inline:18px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -345,7 +348,7 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
   <div class="sgrid">
     <div class="scell"><div class="v">2 → 20</div><div class="l">Clients today, and your target by summer 2027</div></div>
     <div class="scell"><div class="v">10</div><div class="l">People on the supplier fee cycle at Compass</div></div>
-    <div class="scell"><div class="v">£1,050</div><div class="l">A month per client, founding price for your two current clients</div></div>
+    <div class="scell"><div class="v">£1,050</div><div class="l">A month, founding price covering your two current clients</div></div>
     <div class="scell"><div class="v">10%</div><div class="l">Of year one, paid to you for every client you refer</div></div>
   </div>
 </section>
@@ -468,7 +471,7 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
   <div class="wrap">
     <div class="kicker on-dark">Try it · pick a chair, pick a question</div>
     <h2>Three chairs. <span class="ac">One box.</span></h2>
-    <p class="lede">On the call you saw the command centre Milo built from sample procurement data: spend by category, supplier pricing, contracts and rebates, compliance. These are the kinds of questions behind it, asked from the three seats in your model. The figures are illustrative. In the pilot they get asked of a real client's invoices.</p>
+    <p class="lede">On the call you saw the command centre Milo built from sample procurement data: spend by category, supplier pricing, contracts and rebates, compliance. These are the kinds of questions behind it, asked from the three seats in your model. The figures are illustrative. In the pilot they get asked of your clients' real invoices.</p>
 
     <div class="desks">
       <div class="tabs" role="tablist" aria-label="Choose a chair">
@@ -496,7 +499,7 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
   <div class="wrap">
     <div class="kicker">Milo or a hire</div>
     <h2>What an analyst costs. <span class="ac">What Milo costs.</span></h2>
-    <p class="lede">Compass spends millions on data it still cannot open up. Most independents have nobody on it at all. Here is the full cost of hiring one analyst to do the gathering, at 2026 London market rates, next to Milo at your founding price of £1,050 a month per client.</p>
+    <p class="lede">Compass spends millions on data it still cannot open up. Most independents have nobody on it at all. Here is the full cost of hiring one analyst to do the gathering, at 2026 London market rates, next to Milo at your founding price of £1,050 a month for both current clients.</p>
 
     <div class="ctrls">
       <div class="ctrl">
@@ -514,13 +517,6 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
           <button type="button" id="yr-2" data-yr="0" aria-pressed="false">Each year after</button>
         </div>
       </div>
-      <div class="ctrl">
-        <span class="cl" id="nc-l">Milo covering</span>
-        <div class="seg" role="group" aria-labelledby="nc-l">
-          <button type="button" id="nc-2" data-nc="2" aria-pressed="true">Both current clients</button>
-          <button type="button" id="nc-1" data-nc="1" aria-pressed="false">One client</button>
-        </div>
-      </div>
     </div>
 
     <div class="an">
@@ -531,13 +527,13 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
           <div class="track"><div class="fill a" id="a-bar" style="width:77.3%"></div></div>
         </div>
         <div class="brow">
-          <div class="bh"><span class="bn" id="m-name">Milo, both current clients</span><span class="bv" id="m-val">£25,200</span></div>
-          <div class="track"><div class="fill m" id="m-bar" style="width:28%"></div></div>
+          <div class="bh"><span class="bn">Milo, both current clients</span><span class="bv">£12,600</span></div>
+          <div class="track"><div class="fill m" id="m-bar" style="width:14%" title="Milo, both current clients: 12 months at £1,050"></div></div>
         </div>
         <div class="axis" aria-hidden="true"><span style="left:0">£0</span><span style="left:33.333%">£30k</span><span style="left:66.667%">£60k</span><span style="left:100%">£90k</span></div>
       </div>
       <div class="an-out">
-        <div class="big" id="a-pct">36%</div>
+        <div class="big" id="a-pct">18%</div>
         <div class="bl" id="a-pct-l">Milo as a share of a mid-level analyst, year one</div>
         <div class="lines">
           <div class="ln"><span>Base salary</span><span id="l-sal">£50,000</span></div>
@@ -546,7 +542,7 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
           <div class="ln"><span id="l-rec-l">Recruitment fee, 20%</span><span id="l-rec">£10,000</span></div>
           <div class="ln"><span>Laptop, software and licences</span><span>£1,500</span></div>
           <div class="ln t"><span>Analyst, total</span><span id="l-tot">£69,563</span></div>
-          <div class="ln mi"><span id="l-milo-l">Milo, 2 clients × 12 × £1,050</span><span id="l-milo">£25,200</span></div>
+          <div class="ln mi"><span>Milo, 12 × £1,050</span><span>£12,600</span></div>
         </div>
         <p class="sum" id="a-sum"></p>
       </div>
@@ -586,7 +582,7 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
       </div>
     </div>
 
-    <p class="fine">Salaries are rounded midpoints of 2026 London ranges (junior £32–40k, mid-level £45–55k, senior £55–80k) from <a href="https://www.glassdoor.com/Salaries/london-united-kingdom-data-analyst-salary-SRCH_IL.0,21_IM1035_KO22,34.htm" target="_blank" rel="noopener">Glassdoor</a>, <a href="https://www.roberthalf.com/gb/en/job-details/data-analyst/london" target="_blank" rel="noopener">Robert Half</a> and <a href="https://uk.indeed.com/career/data-analyst/salaries/London" target="_blank" rel="noopener">Indeed</a>. Employer NI at 15% above £5,000 a year; smaller employers may offset some of it with the Employment Allowance. Pension at the 3% auto-enrolment minimum on earnings between £6,240 and £50,270. Recruitment at a typical 20% agency fee, year one only. Milo at your founding price of £1,050 a month per client.</p>
+    <p class="fine">Salaries are rounded midpoints of 2026 London ranges (junior £32–40k, mid-level £45–55k, senior £55–80k) from <a href="https://www.glassdoor.com/Salaries/london-united-kingdom-data-analyst-salary-SRCH_IL.0,21_IM1035_KO22,34.htm" target="_blank" rel="noopener">Glassdoor</a>, <a href="https://www.roberthalf.com/gb/en/job-details/data-analyst/london" target="_blank" rel="noopener">Robert Half</a> and <a href="https://uk.indeed.com/career/data-analyst/salaries/London" target="_blank" rel="noopener">Indeed</a>. Employer NI at 15% above £5,000 a year; smaller employers may offset some of it with the Employment Allowance. Pension at the 3% auto-enrolment minimum on earnings between £6,240 and £50,270. Recruitment at a typical 20% agency fee, year one only. Milo at your founding price of £1,050 a month, covering both current clients.</p>
   </div>
 </section>
 
@@ -609,7 +605,7 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
       </div>
       <div class="fq">
         <h3>Does the monthly fee limit how many systems we connect?</h3>
-        <p>No. Connect as many as you need. Price follows usage, counted in interactions, and a team of around twenty people typically uses about 500 a month. Once the dashboards and routines are built you ask less, because the answers come to you. We also pick the right model for each question, so a price check takes seconds rather than minutes.</p>
+        <p>No. Connect as many as you need. Price follows usage, counted in interactions. Your founding price includes 200 a month, plenty for the two of you, and a team of around twenty typically uses about 500. Once the dashboards and routines are built you ask less, because the answers come to you. We also pick the right model for each question, so a price check takes seconds rather than minutes.</p>
       </div>
       <div class="fq">
         <h3>Can it bring in data from outside the business?</h3>
@@ -652,28 +648,28 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
   <div class="tex noise"></div>
   <div class="wrap">
     <div class="kicker">Pilot and pricing</div>
-    <h2>Start on one live client. <span class="lt">Grow it from there.</span></h2>
-    <p class="lede">One of your two current clients and its supplier set, plus your own fee run. Four weeks, with our engineers doing the building and customer success working alongside you throughout. Your second client follows on the same terms.</p>
+    <h2>Start with your two clients. <span class="lt">Grow it from there.</span></h2>
+    <p class="lede">Your two current clients and their suppliers, plus your own fee run. Four weeks, with our engineers doing the building and customer success working alongside you throughout.</p>
 
     <div class="weeks">
-      <div class="wk"><div class="n">Week 1</div><h3>Connect</h3><p>The client's P2P export or supplier invoices, your ledger, your fee agreements. Read only access first.</p></div>
+      <div class="wk"><div class="n">Week 1</div><h3>Connect</h3><p>Each client's P2P export or supplier invoices, your ledger, your fee agreements. Read only access first.</p></div>
       <div class="wk"><div class="n">Week 2</div><h3>Teach it</h3><p>Product codes, catchweight, pack sizes, your fee rules and the approved supplier list, all into the knowledge base.</p></div>
-      <div class="wk"><div class="n">Week 3</div><h3>Automate</h3><p>The fee run and credit control set as routines. The client's spend dashboard pinned. Price and off-contract alerts on.</p></div>
+      <div class="wk"><div class="n">Week 3</div><h3>Automate</h3><p>The fee run and credit control set as routines. Each client's spend dashboard pinned. Price and off-contract alerts on.</p></div>
       <div class="wk"><div class="n">Week 4</div><h3>Review</h3><p>An honest read-out of what it answered well and what it did not. Nothing to unwind if the answer is no.</p></div>
     </div>
 
     <div class="price">
-      <div class="pc">
-        <div class="l">Pilot · per client, one month</div>
-        <div class="v">£1,050</div>
-        <div class="was">Standard <s>£1,500</s></div>
-        <p>For each of your two current clients: setup, every integration the pilot needs, and customer success support for the month.</p>
-      </div>
       <div class="pc hi">
-        <div class="l">Then, per client, going forward</div>
+        <div class="l">Pilot · your two current clients</div>
         <div class="v">£1,050<small>a month</small></div>
         <div class="was">Standard <s>£1,500</s> a month</div>
-        <p>The founding price for your two current clients, so £2,100 a month for both. Unlimited integrations, and the standard allowance of around 500 interactions a month.</p>
+        <ul class="inc">
+          <li>200 interactions a month</li>
+          <li>Onboarding</li>
+          <li>We build your integrations</li>
+          <li>Continued support from engineering and customer success</li>
+        </ul>
+        <p>After the pilot it simply continues, at the same price and on the same terms.</p>
       </div>
       <div class="pc">
         <div class="l">Referral · paid to you</div>
@@ -825,7 +821,7 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
 
   /* analyst vs milo */
   var LV={jr:{n:'Junior',s:35000},mid:{n:'Mid-level',s:50000},sr:{n:'Senior',s:65000}};
-  var lv='mid',yr=1,nc=2,MAX=90000;
+  var lv='mid',yr=1,MILO=1050*12,MAX=90000;
   function gbp(n){return '£'+Math.round(n).toLocaleString('en-GB')}
   function $(id){return document.getElementById(id)}
   function an(){
@@ -834,8 +830,6 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
         pen=.03*(Math.min(s,50270)-6240),
         rec=yr?.2*s:0,
         tot=Math.round(s)+Math.round(ni)+Math.round(pen)+Math.round(rec)+1500,
-        MILO=1050*12*nc,
-        cov=nc===2?'both current clients':'one client',
         pct=Math.round(MILO/tot*100),
         wks=Math.round(MILO/tot*52),
         per=yr?'year one':'each year after',
@@ -846,11 +840,6 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
     $('a-bar').style.width=(tot/MAX*100).toFixed(1)+'%';
     $('a-bar').title=LV[lv].n+' analyst, '+per+': '+gbp(tot);
     $('m-bar').style.width=(MILO/MAX*100).toFixed(1)+'%';
-    $('m-bar').title='Milo, '+cov+': '+gbp(MILO);
-    $('m-name').textContent='Milo, '+cov;
-    $('m-val').textContent=gbp(MILO);
-    $('l-milo-l').textContent='Milo, '+(nc===2?'2 clients × ':'')+'12 × £1,050';
-    $('l-milo').textContent=gbp(MILO);
     $('a-pct').textContent=pct+'%';
     $('a-pct-l').textContent='Milo as a share of a '+name+' analyst, '+per;
     $('l-sal').textContent=gbp(s);
@@ -859,15 +848,8 @@ footer .addr{color:var(--lapis-lt);text-transform:none;letter-spacing:.04em;user
     $('l-rec-l').textContent=yr?'Recruitment fee, 20%':'Recruitment fee, year one only';
     $('l-rec').textContent=gbp(rec);
     $('l-tot').textContent=gbp(tot);
-    $('a-sum').innerHTML='A year of Milo on '+cov+' costs about what a '+name+' analyst costs you in <b>'+wks+' weeks</b>, and '+gbp(tot-MILO)+' less over the year. It is live inside the four-week pilot and works through holidays and sick days.';
+    $('a-sum').innerHTML='A year of Milo across both your current clients costs about what a '+name+' analyst costs you in <b>'+wks+' weeks</b>, and '+gbp(tot-MILO)+' less over the year. It is live inside the four-week pilot and works through holidays and sick days.';
   }
-  [].slice.call(document.querySelectorAll('[data-nc]')).forEach(function(b){
-    b.addEventListener('click',function(){
-      nc=+b.dataset.nc;
-      [].slice.call(document.querySelectorAll('[data-nc]')).forEach(function(o){o.setAttribute('aria-pressed',o===b)});
-      an();
-    });
-  });
   [].slice.call(document.querySelectorAll('[data-lv]')).forEach(function(b){
     b.addEventListener('click',function(){
       lv=b.dataset.lv;
