@@ -261,6 +261,18 @@
         "/Users/tompickett/op-final-hoop"
       ],
       "port": 8830
+    },
+    {
+      "name": "abba-voyage",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8895",
+        "--directory",
+        "abba-voyage-proposal"
+      ],
+      "port": 8895
     }
   ]
 }
