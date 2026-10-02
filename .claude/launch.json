@@ -2,6 +2,18 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "bigbus",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8895",
+        "--directory",
+        "milo-bigbus-proposal"
+      ],
+      "port": 8895
+    },
+    {
       "name": "heckfield",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
