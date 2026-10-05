@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Milo × Juice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: full-width bands (paper, stone, navy) on one 1160px wrap. The demo console is the loud object; everything around it stays quiet. Palette and type from getmejuice.com. */
+:root{
+  color-scheme:light;
+  --bg:#FAF8F4;--surface:#FFFFFF;--stone:#EDE8DE;--ink:#15212B;--ink-2:#3B4955;--muted:#66737E;--line:#E2DCD0;--line-2:rgba(21,33,43,.18);--track:#EEE9DF;
+  --navy:#243848;--navy-ink:#F4F1EA;--navy-2:#B9C6D1;--navy-line:#3A4E60;--navy-card:#2B4255;
+  --orange:#FC4E0F;--orange-ink:#BF3906;--peach:#FFE3D7;--lime:#B4EF03;--on-accent:#FFFFFF;
+  --series:#243848;
+  --good:#1D7A0E;--warn:#9A5A00;--bad:#BF3906;
+  --display:"Epilogue","Helvetica Neue",Arial,sans-serif;
+  --sans:"Epilogue","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E171E;--surface:#15212A;--stone:#1A2731;--ink:#F1EDE5;--ink-2:#C5CCD2;--muted:#8C99A4;--line:#26343F;--line-2:rgba(241,237,229,.2);--track:#22303A;
+    --navy:#182B39;--navy-ink:#F1EDE5;--navy-2:#A9B6C1;--navy-line:#2D4556;--navy-card:#1F3546;
+    --orange:#FF5A1F;--orange-ink:#FF8B5E;--peach:#3A2116;
+    --series:#A9C2D6;
+    --good:#6BCB57;--warn:#E3A341;--bad:#FF8B5E;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E171E;--surface:#15212A;--stone:#1A2731;--ink:#F1EDE5;--ink-2:#C5CCD2;--muted:#8C99A4;--line:#26343F;--line-2:rgba(241,237,229,.2);--track:#22303A;
+  --navy:#182B39;--navy-ink:#F1EDE5;--navy-2:#A9B6C1;--navy-line:#2D4556;--navy-card:#1F3546;
+  --orange:#FF5A1F;--orange-ink:#FF8B5E;--peach:#3A2116;
+  --series:#A9C2D6;
+  --good:#6BCB57;--warn:#E3A341;--bad:#FF8B5E;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{margin:0;text-wrap:balance}
+h1{font:800 clamp(40px,6vw,78px)/.98 var(--display);letter-spacing:-.04em}
+h2{font:800 clamp(30px,4vw,50px)/1.02 var(--display);letter-spacing:-.035em}
+h3{font-size:17px;line-height:1.35;font-weight:700;letter-spacing:-.01em}
+h1 em,h2 em{font-style:normal;color:var(--orange)}
+p{margin:0}
+a{color:var(--orange-ink)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.eyebrow{font:500 12px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:16px}
+.intro{font-size:17px;color:var(--ink-2);max-width:62ch;margin-top:16px}
+.sec{padding-block:clamp(64px,8vw,104px)}
+.band-stone{background:var(--stone)}
+.band-navy{background:var(--navy);color:var(--navy-ink)}
+.band-navy .eyebrow{color:var(--lime)}
+.band-navy .intro{color:var(--navy-2)}
+.band-navy h2 em{color:var(--lime)}
+.tnum{font-variant-numeric:tabular-nums}
+@keyframes fillup{0%{transform:scaleY(0)}70%,100%{transform:scaleY(1)}}
+
+/* top */
+.topbar{background:var(--navy);color:var(--navy-ink)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;padding-block:16px}
+.lockup{display:flex;align-items:center;gap:14px}
+.milo{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:20px;letter-spacing:-.02em}
+.milo svg{width:30px;height:24px}
+.x{opacity:.55;font-size:17px}
+.jlogo{width:86px;height:36px;color:var(--orange);display:block}
+.for{font:400 12.5px/1.3 var(--mono);color:var(--navy-2);letter-spacing:.04em}
+.snav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.snav .wrap{display:flex;gap:4px 22px;overflow-x:auto;scrollbar-width:none;padding-block:12px}
+.snav a{flex:none;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:14px}
+.snav a:hover{color:var(--orange-ink)}
+.snav a span{font:500 11px/1 var(--mono);color:var(--muted);margin-right:6px}
+
+/* hero */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:54ch;margin-top:24px}
+.askbar{margin-top:30px;display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--ink);border-radius:999px;padding:6px 6px 6px 18px;max-width:620px}
+.askbar svg{flex:none;width:18px;height:22px;color:var(--orange)}
+.askbar input{flex:1;min-width:0;border:0;background:transparent;font-size:16px;padding:10px 0;outline:none}
+.askbar input::placeholder{color:var(--muted)}
+.go{appearance:none;border:0;cursor:pointer;background:var(--orange);color:var(--on-accent);font-weight:700;font-size:15px;padding:11px 22px;border-radius:999px;transition:transform .15s}
+.go:hover{transform:translateY(-1px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;max-width:640px}
+.chip{appearance:none;cursor:pointer;border:1px solid var(--line-2);background:transparent;border-radius:999px;padding:6px 13px;font-size:13.5px;font-weight:500;color:var(--ink-2);text-align:left;transition:border-color .15s,background-color .15s}
+.chip:hover{border-color:var(--orange);background:var(--surface)}
+.letter{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--orange);border-radius:6px;padding:28px 28px 24px;display:grid;gap:13px;font-size:15px;color:var(--ink-2)}
+.letter .to{font-weight:700;font-size:19px;color:var(--ink);letter-spacing:-.01em}
+.sig{color:var(--ink);font-weight:700;display:grid;gap:2px;border-top:1px solid var(--line);padding-top:14px;margin-top:4px}
+.sig span{font-weight:400;font-size:13px;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:clamp(40px,5vw,56px) 0 0;padding:0}
+.facts div{border-top:2px solid var(--ink);padding-top:12px}
+.facts dt{font:800 clamp(30px,3.4vw,42px)/1 var(--display);letter-spacing:-.035em}
+.facts dd{margin:6px 0 0;font-size:14px;color:var(--muted);line-height:1.45;max-width:30ch}
+
+/* console */
+.console{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.5fr);gap:16px;margin-top:40px;align-items:start}
+.side{display:grid;gap:14px;min-width:0}
+.seats{display:flex;flex-wrap:wrap;gap:6px}
+.seat{appearance:none;cursor:pointer;border:1px solid var(--line-2);background:transparent;border-radius:999px;padding:7px 14px;font-weight:600;font-size:14px;transition:background-color .15s,border-color .15s}
+.seat:hover{background:var(--surface)}
+.seat[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.qlist{display:grid;gap:8px}
+.seat-sub{font:500 11.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.qbtn{appearance:none;cursor:pointer;text-align:left;border:1px solid var(--line-2);background:var(--bg);border-radius:6px;padding:13px 15px;font-size:14.5px;font-weight:500;line-height:1.45;display:flex;gap:10px;align-items:flex-start;transition:border-color .15s,background-color .15s}
+.qbtn::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;margin-top:7px;border:1.5px solid var(--muted)}
+.qbtn:hover{background:var(--surface)}
+.qbtn[aria-pressed="true"]{background:var(--surface);border-color:var(--ink)}
+.qbtn[aria-pressed="true"]::before{background:var(--orange);border-color:var(--orange)}
+.qbtn.locked::after{content:"Access test";margin-left:auto;flex:none;font:500 10.5px/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line-2);border-radius:3px;padding:0 5px}
+.own{display:grid;gap:6px;padding-top:6px}
+.own label{font:500 11.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.own-row{display:flex;gap:8px}
+.own-row input{flex:1;min-width:0;border:1px solid var(--line-2);background:var(--surface);border-radius:6px;padding:10px 12px;font-size:14.5px}
+.own-row button{appearance:none;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:6px;padding:0 16px;font-weight:700;font-size:14px}
+.panel{background:var(--surface);border:1px solid var(--ink);border-radius:8px;overflow:hidden;min-width:0;min-height:600px}
+.ph{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line)}
+.ph .milo{font-size:15px}
+.ph .milo svg{width:22px;height:18px}
+.ph .ws{font-weight:400;color:var(--muted);font-size:13px;margin-left:4px}
+.sample{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--peach);color:var(--orange-ink)}
+.pb{padding:20px 20px 22px;display:grid;gap:16px}
+.qb{justify-self:end;max-width:88%;background:var(--navy);color:var(--navy-ink);padding:11px 16px;border-radius:16px 16px 4px 16px;font-size:15px;font-weight:500;line-height:1.45}
+.near{justify-self:end;font-size:12.5px;color:var(--muted);margin-top:-8px}
+.think{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.drop{width:16px;height:20px;color:var(--orange);flex:none}
+.drop .f{transform-box:fill-box;transform-origin:50% 100%;animation:fillup 1s ease-in-out infinite}
+.ans{display:grid;gap:14px}
+.ans>p{font-size:15px;color:var(--ink-2);line-height:1.65}
+.viz{border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:grid;gap:10px;min-width:0}
+.vt{font:500 11.5px/1.35 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lg{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;color:var(--ink-2)}
+.lg span{display:inline-flex;align-items:center;gap:7px}
+.k{display:inline-block;width:18px;border-top:2px solid var(--series)}
+.k.dash{border-top-style:dashed}
+.k.tgt{border-color:var(--orange)}
+svg.lc{display:block;width:100%;height:auto;overflow:visible}
+.lc .gl{stroke:var(--line);stroke-width:1}
+.lc .tk{fill:var(--muted);font:400 11px var(--mono)}
+.lc .el{fill:var(--ink);font:600 11.5px var(--sans)}
+.lc .rl{fill:var(--muted);font:500 11px var(--sans)}
+.lc .ref{stroke:var(--muted);stroke-width:1;stroke-dasharray:2 3}
+.lc .ln{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lc .s-main{stroke:var(--series)}
+.lc .s-proj{stroke:var(--series);stroke-dasharray:5 5}
+.lc .s-tgt{stroke:var(--orange)}
+.lc .dot{stroke:var(--surface);stroke-width:2}
+.lc .dot.s-main,.lc .dot.s-proj{fill:var(--series)}
+.lc .dot.s-tgt{fill:var(--orange)}
+.lc .xh{stroke:var(--muted);stroke-width:1;opacity:0}
+.lc .hit{fill:transparent}
+.row{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr) 4.4em;gap:12px;align-items:center;font-size:13.5px}
+.lab{color:var(--ink-2);line-height:1.3}
+.lab b{display:block;font-size:11.5px;font-weight:500;color:var(--muted)}
+.bar{height:12px;background:var(--track);border-radius:0 4px 4px 0}
+.bar i{display:block;height:100%;border-radius:inherit;background:var(--series)}
+.row.flag .bar i{background:var(--orange)}
+.val{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto}
+table.hm{border-collapse:separate;border-spacing:3px;font-size:12.5px;font-variant-numeric:tabular-nums;width:100%;min-width:420px}
+.hm th{font:500 11px/1.2 var(--mono);color:var(--muted);font-weight:500;text-align:center;padding:4px}
+.hm th[scope="row"]{text-align:left;white-space:nowrap;padding-right:8px}
+.hm td{text-align:center;padding:9px 4px;border-radius:3px;background:color-mix(in oklab,var(--orange) var(--p),var(--surface));color:var(--ink);font-weight:600}
+.hm td.hot{color:var(--on-accent)}
+.hm td.nil{background:transparent}
+.hm tr.flagrow th{color:var(--ink)}
+.scale{display:flex;align-items:center;gap:10px;font:400 11px var(--mono);color:var(--muted)}
+.scale i{flex:0 1 160px;height:8px;border-radius:4px;background:linear-gradient(90deg,color-mix(in oklab,var(--orange) 8%,var(--surface)),var(--orange))}
+table.wl{border-collapse:collapse;width:100%;min-width:480px;font-size:13.5px}
+.wl th{font:500 11px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 10px 8px 0;font-weight:500}
+.wl td{padding:10px 10px 10px 0;border-top:1px solid var(--line);vertical-align:top}
+.wl td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.wl .who{font-weight:600}
+.wl .who span{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.sigs{display:flex;flex-wrap:wrap;gap:5px}
+.sg{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.sg::before{content:"▲ ";font-size:9px}
+.sg.bad{color:var(--bad)}
+.sg.warn{color:var(--warn)}
+table.cmp{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+.cmp th{font:500 11px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right;padding:0 0 8px 12px;font-weight:500}
+.cmp th:first-child{text-align:left;padding-left:0}
+.cmp td{padding:9px 0 9px 12px;border-top:1px solid var(--line);text-align:right;font-weight:700;white-space:nowrap}
+.cmp td:first-child{text-align:left;font-weight:400;color:var(--ink-2);padding-left:0;white-space:normal}
+.cmp td.w{color:var(--bad)}
+.cmp td.w::after{content:" ▲";font-size:10px}
+.brief{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.brief li{display:grid;grid-template-columns:5.6em minmax(0,1fr);gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.brief li:first-child{border-top:0;padding-top:2px}
+.tone{font:500 11px/1.9 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.tone.up{color:var(--good)}
+.tone.down{color:var(--bad)}
+.tone.plan{color:var(--warn)}
+.refuse{border:1.5px dashed var(--line-2);border-radius:6px;padding:16px;display:grid;gap:10px}
+.refuse .lk{display:flex;align-items:center;gap:8px;font-weight:700}
+.refuse .lk svg{width:16px;height:16px;color:var(--orange-ink)}
+.refuse p{font-size:14.5px;color:var(--ink-2)}
+.log{font:400 12px/1.5 var(--mono);color:var(--muted)}
+.src{font-size:12.5px;color:var(--muted);line-height:1.5}
+.auto{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:11px 14px;border-radius:6px;background:var(--stone);font-size:14px;line-height:1.45}
+.auto .pill{font:500 11px/1.4 var(--mono);letter-spacing:.04em;padding:3px 9px;border-radius:999px;border:1px solid var(--line-2);white-space:nowrap}
+.mk{appearance:none;cursor:pointer;margin-left:auto;border:0;background:transparent;font-weight:700;font-size:13.5px;color:var(--orange-ink);padding:2px 0;text-decoration:underline;text-underline-offset:3px}
+.note{font-size:13px;color:var(--ink-2);margin-top:16px;max-width:84ch}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.45;padding:7px 10px;border-radius:5px;max-width:240px;white-space:pre-line;opacity:0;transition:opacity .1s}
+
+/* alert builder */
+.builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);margin-top:40px;align-items:start}
+.steps{display:grid;gap:22px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0;font:500 11.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+legend b{color:var(--orange-ink);font-weight:500;margin-right:6px}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:block;cursor:pointer;border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500;transition:background-color .15s,border-color .15s}
+.opt span:hover{background:var(--surface)}
+.opt input:checked+span{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.opt input:focus-visible+span{outline:3px solid var(--orange);outline-offset:2px}
+.rule{font-size:15px;color:var(--ink-2);border-left:3px solid var(--orange);padding:4px 0 4px 14px}
+.rule b{color:var(--ink)}
+.preview{display:grid;gap:10px}
+.pv-ch{font:500 11.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.msg{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 18px 16px;display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 12px;box-shadow:0 10px 30px -18px rgba(21,33,43,.35)}
+.av{grid-row:span 3;width:36px;height:36px;border-radius:8px;background:var(--navy);display:grid;place-items:center}
+.av svg{width:24px;height:19px}
+.mh{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.mh b{font-size:15px}
+.mh span{font-size:12.5px;color:var(--muted)}
+.subj{font-weight:700;font-size:14.5px}
+.mb{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.mf{grid-column:2;font-size:12.5px;color:var(--muted);margin-top:6px}
+.msg.alert .subj::before{content:"Alert · ";color:var(--orange-ink)}
+
+/* access */
+.tw2{overflow-x:auto;margin-top:36px}
+table.acc{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+.acc th,.acc td{padding:11px 10px;text-align:center;border-bottom:1px solid var(--line)}
+.acc thead th{font:500 11px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;vertical-align:bottom}
+.acc th[scope="row"]{text-align:left;padding-left:0}
+.acc .rb{appearance:none;cursor:pointer;border:1px solid var(--line-2);background:transparent;border-radius:999px;padding:5px 12px;font-weight:600;font-size:14px;white-space:nowrap}
+.acc tr.on{background:var(--surface)}
+.acc tr.on .rb{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lv{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2)}
+.lv i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--series)}
+.lv.l2 i{background:var(--series)}
+.lv.l1 i{background:linear-gradient(90deg,var(--series) 50%,transparent 50%)}
+.lv.l0{color:var(--muted)}
+.lv.l0 i{border-color:var(--muted)}
+.acc-say{margin-top:18px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start;max-width:80ch}
+.acc-say .who{font:500 11.5px/1.9 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);white-space:nowrap}
+.acc-say p{font-size:15.5px;color:var(--ink-2)}
+.logline{margin-top:14px;font-size:14px;color:var(--muted)}
+
+/* build */
+.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:40px}
+.way{background:var(--navy-card);border:1px solid var(--navy-line);border-radius:8px;padding:22px;display:grid;gap:10px;align-content:start}
+.way .n{font:500 11.5px/1 var(--mono);letter-spacing:.1em;color:var(--lime)}
+.way h3{font-size:19px}
+.way p{color:var(--navy-2);font-size:15px}
+.keep{margin-top:30px;font-weight:700;font-size:clamp(19px,2vw,23px);letter-spacing:-.015em;max-width:52ch}
+
+/* connect */
+.wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 18px;margin-top:40px}
+.fam{border-top:2px solid var(--ink);padding-top:14px}
+.fam .sub{font-size:13.5px;color:var(--muted);margin-top:2px}
+.fam ul{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.fam li{font-size:13.5px;font-weight:500;padding:4px 10px;border-radius:4px;background:var(--surface);border:1px solid var(--line)}
+.fam.out li{background:transparent}
+
+/* proof */
+.cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px}
+.case{background:var(--surface);border-radius:8px;padding:clamp(22px,3vw,32px);display:grid;gap:12px;align-content:start}
+.case .big{font:800 clamp(40px,5vw,60px)/1 var(--display);letter-spacing:-.045em;color:var(--orange)}
+.case .tag{font:500 11.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.case p{font-size:15.5px;color:var(--ink-2)}
+.case .why{font-size:14.5px;border-top:1px solid var(--line);padding-top:12px}
+.case .why b{color:var(--ink)}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,4vw,60px);align-items:center}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:8px;overflow:hidden;background:var(--navy)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:12px;text-decoration:none;color:var(--navy-ink);background:var(--navy)}
+.poster::after{content:"";position:absolute;right:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:var(--orange);opacity:.9}
+.p-mark{position:relative;z-index:1;display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;background:var(--surface);color:var(--ink);padding:5px 14px 5px 10px;border-radius:999px}
+.p-mark svg{width:24px;height:19px}
+.p-ttl{position:relative;z-index:1;font:800 clamp(22px,3vw,32px)/1.1 var(--display);letter-spacing:-.03em}
+.p-play{position:relative;z-index:1;width:68px;height:68px;border-radius:50%;background:var(--orange);color:var(--on-accent);display:grid;place-items:center;transition:transform .2s}
+.poster:hover .p-play{transform:scale(1.06)}
+.p-sub{position:relative;z-index:1;font:500 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--navy-2)}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+
+/* start */
+.plan{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.plan li{border-top:2px solid var(--ink);padding-top:14px;display:grid;gap:8px;align-content:start}
+.plan .n{font:500 12px/1 var(--mono);letter-spacing:.1em;color:var(--orange-ink)}
+.plan p{font-size:15px;color:var(--ink-2)}
+
+/* trust */
+.trust{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px 40px;align-items:center;padding:clamp(24px,4vw,40px);border-radius:8px;background:var(--stone)}
+.trust h2{font-size:clamp(26px,2.8vw,34px)}
+.tchips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.tchips li{font-size:14px;font-weight:500;padding:7px 14px;border-radius:999px;background:var(--surface)}
+footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
+
+@media (max-width:960px){
+  .hero-grid,.console,.builder,.vid-grid,.trust{grid-template-columns:1fr}
+  .panel{min-height:0}
+  .ways{grid-template-columns:1fr}
+  .wall,.plan{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .facts,.wall,.plan,.cases{grid-template-columns:1fr}
+  .row{grid-template-columns:minmax(0,8em) minmax(0,1fr) 3.9em}
+  .brief li{grid-template-columns:1fr;gap:0}
+  .acc-say{grid-template-columns:1fr;gap:4px}
+  .askbar{padding-left:14px}
+  .go{padding-inline:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="juice-logo" viewBox="0 0 90 38"><path fill="currentColor" d="M27.3409 18.9716C27.3409 19.7167 27.2205 20.419 26.9754 21.0808C26.7324 21.7426 26.3669 22.2785 25.8789 22.6884C25.393 23.0982 24.774 23.3032 24.0261 23.3032C23.2782 23.3032 22.7162 23.1239 22.3402 22.7631C21.9662 22.4044 21.719 21.9241 21.6007 21.3242C21.4824 20.7264 21.4233 20.0668 21.4233 19.3474V18.344V17.172V9.30296C21.4233 9.18768 21.3303 9.09375 21.2162 9.09375H14.0859C13.9719 9.09375 13.8789 9.18768 13.8789 9.30296V18.4593V20.0006V21.4096C13.8789 22.4813 13.9782 23.506 14.1789 24.4837C14.3796 25.4615 14.7282 26.3346 15.2289 27.1032C15.7275 27.8717 16.4247 28.478 17.3162 28.9199C18.2078 29.3618 19.355 29.5817 20.7514 29.5817C22.0127 29.5817 23.1388 29.3768 24.1317 28.9669C25.1247 28.557 25.9676 27.9635 26.6585 27.1886C26.7683 27.0669 26.8719 26.9409 26.9733 26.8107C27.0937 26.6549 27.3409 26.7424 27.3409 26.9409V28.9776C27.3409 29.0929 27.4338 29.1868 27.5479 29.1868H34.6803C34.7944 29.1868 34.8874 29.0929 34.8874 28.9776V9.3051C34.8874 9.18982 34.7944 9.09589 34.6803 9.09589H27.5479C27.4338 9.09589 27.3409 9.18982 27.3409 9.3051V18.9716Z"/><path fill="currentColor" d="M76.3855 14.6266C76.9834 14.2487 77.727 14.0587 78.6122 14.0587C79.5228 14.0587 80.2496 14.2167 80.7946 14.5327C81.3376 14.8486 81.7306 15.2372 81.9735 15.6962C82.1045 15.9438 82.1996 16.1872 82.2608 16.4263C82.2946 16.5586 82.1953 16.6888 82.058 16.6888H75.1918C75.0461 16.6888 74.9467 16.5415 74.9975 16.4049C75.0101 16.3708 75.0228 16.3366 75.0376 16.3024C75.3376 15.5638 75.7876 15.0045 76.3855 14.6266ZM88.5355 13.8047C87.6123 12.1715 86.2982 10.9099 84.5932 10.0218C82.8904 9.13154 80.8644 8.6875 78.5172 8.6875C76.2461 8.6875 74.2517 9.123 72.5362 9.99188C70.8207 10.8629 69.4876 12.0861 68.539 13.6617C67.5904 15.2372 67.1172 17.0795 67.1172 19.1866C67.1172 21.2424 67.5777 23.0613 68.5031 24.6454C69.4263 26.2273 70.7425 27.4655 72.4538 28.3536C74.1629 29.2417 76.1869 29.6878 78.5193 29.6878C80.2052 29.6878 81.7136 29.5021 83.051 29.1306C84.3862 28.7592 85.5291 28.2468 86.4777 27.5978C87.4263 26.9489 88.1721 26.2145 88.7151 25.3947C89.2094 24.6475 89.5158 23.8747 89.632 23.0763C89.651 22.9524 89.5496 22.8414 89.427 22.8414H82.3665C82.2798 22.8414 82.2038 22.8969 82.1742 22.9781C82.1341 23.0869 82.0686 23.2001 81.9756 23.3154C81.8446 23.4797 81.6503 23.6292 81.3968 23.768C81.1411 23.9067 80.801 24.0199 80.3763 24.1095C79.9517 24.197 79.4404 24.2419 78.8404 24.2419C77.8306 24.2419 77.013 24.0369 76.3876 23.627C75.7623 23.2172 75.308 22.6215 75.0207 21.8402C74.9805 21.7313 74.9446 21.6203 74.9108 21.5072C74.8707 21.3727 74.97 21.236 75.1094 21.236H89.6679C89.7735 21.236 89.8622 21.157 89.8728 21.0503C89.8855 20.9201 89.8982 20.7664 89.9066 20.5913C89.9193 20.3266 89.9256 20.0064 89.9256 19.6264C89.9214 17.3763 89.4608 15.4378 88.5355 13.8047Z"/><path fill="currentColor" d="M60.7662 21.8445C60.6585 21.806 60.5359 21.8594 60.4979 21.9683C60.4303 22.1625 60.3479 22.3483 60.2465 22.5233C60.0162 22.9204 59.6719 23.2321 59.2176 23.4605C58.7613 23.689 58.1592 23.8021 57.4113 23.8021C56.6507 23.8021 55.9916 23.6014 55.4359 23.1979C54.8803 22.7945 54.4535 22.233 54.1535 21.5136C53.8535 20.7941 53.7035 19.9744 53.7035 19.0542C53.7035 18.1085 53.8535 17.3015 54.1535 16.6333C54.4535 15.9651 54.8803 15.4528 55.4359 15.1005C55.9916 14.7483 56.6486 14.5711 57.4113 14.5711C58.1845 14.5711 58.7866 14.6949 59.2176 14.9404C59.6486 15.1859 59.9697 15.4869 60.181 15.8392C60.2232 15.9096 60.2634 15.9801 60.2993 16.0484C60.3521 16.1466 60.4704 16.1893 60.5718 16.1402L66.6859 13.2197C66.8021 13.1642 66.8423 13.0148 66.7683 12.9102C66.4049 12.3957 65.9718 11.9047 65.469 11.4393C64.5775 10.6131 63.462 9.94705 62.1268 9.44323C60.7915 8.93941 59.243 8.6875 57.4831 8.6875C55.0979 8.6875 53.0528 9.12513 51.3416 10.0026C49.6324 10.88 48.3204 12.0925 47.4099 13.6446C46.4993 15.1966 46.043 17.0005 46.043 19.0564C46.043 21.0994 46.4993 22.9226 47.4099 24.5237C48.3204 26.1269 49.6324 27.3865 51.3416 28.3066C53.0507 29.2267 55.0979 29.6878 57.4831 29.6878C59.243 29.6878 60.7894 29.4295 62.1268 28.9108C63.462 28.3941 64.5754 27.7153 65.469 26.8763C66.2549 26.1376 66.8697 25.3328 67.3176 24.466C67.3747 24.355 67.3197 24.2163 67.2014 24.1736L60.7662 21.8445Z"/><path fill="currentColor" d="M11.7404 9.09375C11.8545 9.09375 11.9475 9.18769 11.9475 9.30297V30.8712C11.9475 31.7016 11.8291 32.5342 11.5904 33.3668C11.3538 34.1994 10.8996 34.9636 10.2235 35.6553C9.54958 36.3491 8.56507 36.9063 7.26578 37.329C5.96648 37.7517 4.25732 37.9631 2.13408 37.9631C1.76013 37.9631 1.38831 37.9545 1.02071 37.9353C0.73972 37.9204 0.490416 37.9076 0.272811 37.8969C0.162952 37.8905 0.0763335 37.7987 0.0763335 37.6877V32.547C0.0763335 32.421 0.184086 32.325 0.306621 32.3399C0.507325 32.3655 0.739715 32.389 1.00169 32.4104C1.36929 32.4424 1.74746 32.4595 2.13408 32.4595C2.58408 32.4595 2.95591 32.4061 3.24746 32.2994C3.54112 32.1926 3.77141 32.0496 3.94043 31.8746C4.10733 31.6974 4.22986 31.5095 4.3038 31.3045C4.37774 31.1039 4.41578 30.9096 4.41578 30.7196V17.9533C4.41578 17.838 4.32493 17.7462 4.21084 17.7441L0.279155 17.7014C0.165071 17.6993 0.0742188 17.6075 0.0742188 17.4922V12.4732C0.0742188 12.3579 0.167185 12.264 0.28127 12.264L2.13198 12.2704C2.58198 12.2704 2.9538 12.2149 3.24535 12.1081C3.53901 12.0014 3.7693 11.8584 3.93831 11.6833C4.10521 11.5061 4.22774 11.3161 4.30168 11.1154C4.37563 10.9126 4.41366 10.7184 4.41366 10.5284V9.30297C4.41366 9.18769 4.50662 9.09375 4.6207 9.09375H11.7404Z"/><path fill="currentColor" d="M41.7637 7.81913C41.751 7.10823 42.2158 6.60226 42.8116 6.34181C43.1179 6.21372 43.4115 6.05789 43.6862 5.86789C44.5165 5.29362 44.9306 4.4653 44.9306 3.3808C44.9306 2.29631 44.5144 1.46586 43.6862 0.891594C42.8559 0.317324 41.8862 0.03125 40.7749 0.03125C39.6637 0.03125 38.6939 0.317324 37.8637 0.891594C37.0334 1.46586 36.6172 2.29417 36.6172 3.3808C36.6172 4.45249 37.0313 5.27866 37.8637 5.85934C38.1341 6.04934 38.4193 6.20305 38.7193 6.33114C38.7172 6.33114 38.7151 6.33114 38.7151 6.33114C39.3214 6.58732 39.7989 7.10181 39.7883 7.82125C39.7778 8.38911 39.1756 9.09362 37.963 9.09575H37.2573C37.1432 9.09575 37.0503 9.18968 37.0503 9.30496V28.9774C37.0503 29.0927 37.1432 29.1866 37.2573 29.1866H44.3137C44.4277 29.1866 44.5207 29.0927 44.5207 28.9774V9.30282C44.5207 9.18754 44.4277 9.09361 44.3137 9.09361H43.589C42.3742 9.09148 41.7721 8.38699 41.7637 7.81913Z"/></symbol>
+    <symbol id="drop" viewBox="0 0 16 20"><path d="M8 1.2C8 1.2 1.5 8.6 1.5 12.6a6.5 6.5 0 0 0 13 0C14.5 8.6 8 1.2 8 1.2Z" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="lockup">
+      <span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="x" aria-hidden="true">×</span>
+      <svg class="jlogo" role="img" aria-label="Juice"><use href="#juice-logo"/></svg>
+    </div>
+    <p class="for">Prepared for the Juice team · October 2026</p>
+  </div>
+</div>
+
+<nav class="snav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#clarity"><span>01</span>Clarity</a>
+    <a href="#confidence"><span>02</span>Confidence</a>
+    <a href="#control"><span>03</span>Control</a>
+    <a href="#build">Your dev team</a>
+    <a href="#connect">Connect</a>
+    <a href="#proof">Proof</a>
+    <a href="#start">Getting started</a>
+  </div>
+</nav>
+
+<header class="wrap sec">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Milo × Juice · An overview</p>
+      <h1>You built insights for your borrowers. <em>This one's for Juice.</em></h1>
+      <p class="lede">Milo connects to the loan book, brokers, sales, finance and the funding line, and answers questions about them in plain English. You get a chart, a number or a written answer in seconds, with the sources shown.</p>
+      <form class="askbar" id="hero-form" role="search">
+        <svg aria-hidden="true"><use href="#drop"/></svg>
+        <label for="hero-q" class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Ask Milo a question</label>
+        <input id="hero-q" type="text" autocomplete="off" placeholder="Ask about the book, brokers, the funding line…">
+        <button class="go" type="submit">Ask</button>
+      </form>
+      <div class="chips" id="hero-chips"></div>
+    </div>
+    <aside class="letter" aria-label="A note from Liam James Rabone">
+      <p class="to">To the Juice team,</p>
+      <p>Congratulations on Fintech Business of the Year, and to Katherine on Rising Fintech Star.</p>
+      <p>Juice Insights gives every borrower a runway forecast and an anomaly radar from the accounts they connect. Milo does the same job for Juice's own numbers.</p>
+      <p>You have data across sales, brokers, finance and the loan book, with one analyst and no data team. That's the size where Milo makes the biggest difference.</p>
+      <p>Everything below runs on sample data, so click around. Ask as each seat, set up an alert, and see who can see what.</p>
+      <p class="sig">Liam James Rabone<span>Milo · liam@milo.ai</span></p>
+    </aside>
+  </div>
+  <dl class="facts">
+    <div><dt>Seconds</dt><dd>from a typed question to an answer, with its sources</dd></div>
+    <div><dt>700+</dt><dd>integrations, plus bespoke connectors where none exists</dd></div>
+    <div><dt>Unlimited</dt><dd>users across every team, on one price</dd></div>
+  </dl>
+</header>
+
+<section class="band-stone sec" id="clarity" aria-labelledby="clarity-h">
+  <div class="wrap">
+    <p class="eyebrow">01 · Clarity</p>
+    <h2 id="clarity-h">Ask as any seat <em>at Juice</em>.</h2>
+    <p class="intro">Pick a seat and a question, or type your own. Hover the charts for the detail. Every answer shows where it came from and can become an alert.</p>
+    <div class="console">
+      <div class="side">
+        <div class="seats" id="seats" role="tablist" aria-label="Choose a seat"></div>
+        <div class="qlist" id="qlist" role="tabpanel"></div>
+        <form class="own" id="own-form">
+          <label for="own-q">Or type your own</label>
+          <div class="own-row"><input id="own-q" type="text" autocomplete="off" placeholder="e.g. how much headroom is left?"><button type="submit">Ask</button></div>
+        </form>
+      </div>
+      <div class="panel">
+        <div class="ph">
+          <span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo<span class="ws">· Juice workspace</span></span>
+          <span class="sample">Sample data</span>
+        </div>
+        <div class="pb" id="pbody" aria-live="polite"></div>
+      </div>
+    </div>
+    <p class="note">Illustrative. The questions are the kind a lender asks every week. The figures are invented to show the shape of an answer and are not Juice's numbers. In week one they get asked of the real ones.</p>
+  </div>
+</section>
+
+<section class="wrap sec" id="confidence" aria-labelledby="conf-h">
+  <p class="eyebrow">02 · Confidence</p>
+  <h2 id="conf-h">Ask once. Then it <em>tells you first</em>.</h2>
+  <p class="intro">Any answer can run on a schedule, or fire the moment a number crosses a line. Build one here.</p>
+  <div class="builder">
+    <div class="steps">
+      <fieldset><legend><b>1</b>What to watch</legend><div class="opts" id="b-q"></div></fieldset>
+      <fieldset><legend><b>2</b>When</legend><div class="opts" id="b-w"></div></fieldset>
+      <fieldset><legend><b>3</b>Where</legend><div class="opts" id="b-c"></div></fieldset>
+      <p class="rule" id="b-rule"></p>
+    </div>
+    <div class="preview">
+      <p class="pv-ch" id="b-ch"></p>
+      <div class="msg" id="b-msg"></div>
+    </div>
+  </div>
+</section>
+
+<section class="band-stone sec" id="control" aria-labelledby="ctrl-h">
+  <div class="wrap">
+    <p class="eyebrow">03 · Control</p>
+    <h2 id="ctrl-h">Every seat sees <em>its own numbers</em>.</h2>
+    <p class="intro">Access is set by role, once, for the whole business. Pick a role to see what it can ask about.</p>
+    <div class="tw2"><table class="acc" id="acc"></table></div>
+    <div class="acc-say"><span class="who" id="acc-who"></span><p id="acc-say"></p></div>
+    <p class="logline">Every question is logged: who asked, what they asked, and what Milo returned.</p>
+  </div>
+</section>
+
+<section class="band-navy sec" id="build" aria-labelledby="build-h">
+  <div class="wrap">
+    <p class="eyebrow">For the tech team</p>
+    <h2 id="build-h">You built Juice Insights. <em>No need to build it twice.</em></h2>
+    <p class="intro">An internal analyst tool is two jobs: the integrations, and the tool everyone uses on top. Milo does both, so the dev roadmap stays on the product borrowers use.</p>
+    <div class="ways">
+      <div class="way"><p class="n">THE PIPES</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including bespoke connectors for anything without one, and fix them when a schema changes.</p></div>
+      <div class="way"><p class="n">THE DASHBOARDS</p><h3>Anyone can build one</h3><p>Pin an answer and it becomes a live dashboard. Whoever asked the question builds it, so it never waits in the analyst's queue.</p></div>
+      <div class="way"><p class="n">THE AUTOMATIONS</p><h3>Questions keep running</h3><p>Any question can run on a schedule or fire on a threshold, like the alerts above. Nobody writes a pipeline for it.</p></div>
+    </div>
+    <p class="keep">Your developers keep building what wins borrowers. Milo looks after the numbers that run Juice.</p>
+  </div>
+</section>
+
+<section class="wrap sec" id="connect" aria-labelledby="con-h">
+  <p class="eyebrow">What we connect</p>
+  <h2 id="con-h">Every facility leaves <em>a trail</em>.</h2>
+  <p class="intro">An application, a decision, a drawdown, a repayment, a broker fee. Each one is recorded in a different system. These are the systems Milo connects for lenders, grouped by job. It isn't a guess at Juice's stack.</p>
+  <div class="wall">
+    <div class="fam"><h3>Loan book</h3><p class="sub">Every facility, drawdown and repayment</p><ul><li>Loan management system</li><li>Drawdowns and repayments</li><li>Credit decisions</li><li>Collections notes</li></ul></div>
+    <div class="fam"><h3>Borrower data</h3><p class="sub">What borrowers already connect to you</p><ul><li>Open banking</li><li>Codat</li><li>Xero · QuickBooks · Sage</li><li>Shopify · Amazon · Stripe</li></ul></div>
+    <div class="fam"><h3>Sales and brokers</h3><p class="sub">Where every deal came from</p><ul><li>HubSpot · Salesforce</li><li>NACFB broker submissions</li><li>Introducer referrals</li><li>Partner Hub</li></ul></div>
+    <div class="fam"><h3>Finance and funding</h3><p class="sub">How Juice itself is run</p><ul><li>Xero</li><li>Bank feeds</li><li>Funding line reporting</li><li>Excel · Google Sheets</li></ul></div>
+    <div class="fam"><h3>Growth</h3><p class="sub">What brings borrowers in</p><ul><li>GA4</li><li>Google Ads</li><li>Meta</li><li>LinkedIn Ads</li></ul></div>
+    <div class="fam out"><h3>Where answers land</h3><p class="sub">The channels the team already uses</p><ul><li>Slack</li><li>Microsoft Teams</li><li>WhatsApp</li><li>Email</li><li>Browser</li></ul></div>
+  </div>
+  <p class="note">If borrower data reaches you through Codat, Milo connects to its API directly, which covers Xero and open banking in one connection.</p>
+</section>
+
+<section class="band-stone sec" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <p class="eyebrow">Proof</p>
+    <h2 id="proof-h">What it looks like <em>in practice</em>.</h2>
+    <div class="cases">
+      <article class="case">
+        <p class="tag">Coolr · Finance and reporting</p>
+        <p class="big">3 days → 30 min</p>
+        <p>Coolr's team built 20 to 30 reports by hand, and it took days. With Milo connected to their data, the same packs come together in hours. Their finance director cut a three-day report to 30 minutes.</p>
+        <p class="why"><b>Why it's here.</b> Month-end packs for the board, investors and the funding line are the same kind of work.</p>
+      </article>
+      <article class="case">
+        <p class="tag">National multi-site operator · Forecast accuracy</p>
+        <p class="big">~95%</p>
+        <p>An operator asked us to benchmark Milo against a specialist analytics consultancy's model. We connected Milo to the same data and reproduced their rankings, matching about 95% of the consultancy's output in a fraction of the time.</p>
+        <p class="why"><b>Why it's here.</b> Lending is just as unforgiving about being wrong.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="vid-h">
+  <div class="vid-grid">
+    <div>
+      <p class="eyebrow">See it</p>
+      <h2 id="vid-h">Ninety seconds of <em>Milo working</em>.</h2>
+      <p class="intro">The question box, the answers and the dashboards, without anyone describing them.</p>
+    </div>
+    <div>
+      <div class="video" id="vidframe" data-vid="1196983997">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+          <span class="p-ttl">Milo product overview</span>
+          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+          <span class="p-sub">Press play · 1 min 29 sec</span>
+        </a>
+      </div>
+      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" id="start" aria-labelledby="start-h" style="padding-top:0">
+  <p class="eyebrow">Getting started</p>
+  <h2 id="start-h">Live in days, <em>not months</em>.</h2>
+  <p class="intro">No engineering sprint and no long implementation. We do the building.</p>
+  <ol class="plan">
+    <li><p class="n">STEP 1</p><h3>Connect</h3><p>The loan book, borrower data, CRM, Xero and funding line reporting, all on read-only access.</p></li>
+    <li><p class="n">STEP 2</p><h3>Define</h3><p>We teach Milo Juice's terms: drawn balance, utilisation, days past due, vintage, broker source, cost of funds.</p></li>
+    <li><p class="n">STEP 3</p><h3>Set access</h3><p>Risk sees borrower detail, Sales sees pipeline, the board sees the summary.</p></li>
+    <li><p class="n">STEP 4</p><h3>Ask</h3><p>The team asks in the browser, Slack, Teams or WhatsApp, and the first alerts start landing.</p></li>
+  </ol>
+</section>
+
+<section class="wrap" aria-labelledby="trust-h" style="padding-bottom:clamp(40px,6vw,72px)">
+  <div class="trust">
+    <h2 id="trust-h">Security to a lender's standard.</h2>
+    <ul class="tchips">
+      <li>SOC 2 Type II</li><li>ISO 27001</li><li>GDPR</li><li>Read-only connections</li><li>Access set by role</li><li>Every question logged</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="wrap">Prepared for the Juice team by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · SOC 2 · ISO 27001 · GDPR</footer>
+
+<div id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var Qs=['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26','Q2 26','Q3 26','Q4 26','Q1 27','Q2 27','Q3 27','Q4 27','Q1 28','Q2 28','Q3 28','Q4 28'];
+  var book=[11.8,13.9,16.2,18.4,21.5,25.1,28.9],proj=[],path=[];
+  Qs.forEach(function(_,k){
+    path.push(+(11.8*Math.pow(100/11.8,k/15)).toFixed(1));
+    proj.push(k<6?null:+(28.9*Math.pow(1.16,k-6)).toFixed(1));
+  });
+  while(book.length<Qs.length)book.push(null);
+
+  var SEATS=[{id:'ceo',name:'CEO',sub:'The whole business'},{id:'fin',name:'Finance',sub:'Cash, margin and the funding line'},{id:'risk',name:'Risk',sub:'The loan book'},{id:'sales',name:'Sales',sub:'Brokers and pipeline'},{id:'growth',name:'Growth',sub:'Marketing and products'}];
+
+  var Q=[
+    {seat:'ceo',q:'Are we on track for a £100m loan book by 2028?',kw:/100|track|target|2028|book size|on course|trajectory/,reading:'the loan book, quarter by quarter',
+     a:'Just ahead of the pace. Reaching £100m by the end of 2028 needs the book to grow about 15% a quarter, and it has grown about 16% a quarter over the last year. Keep that up and you pass £100m in the last quarter of 2028. Brokers drove most of the growth in Q3.',
+     viz:{type:'line',title:'Loan book, £m',x:Qs,max:125,ticks:[0,25,50,75,100,125],every:2,tick:function(t){return '£'+t+'m'},fmt:function(v){return '£'+v.toFixed(1)+'m'},
+       series:[{name:'Loan book',cls:'s-main',vals:book,end:'above'},{name:'At the current pace',cls:'s-proj',vals:proj,end:'right'},{name:'Pace needed for £100m',cls:'s-tgt',vals:path,end:'right'}]},
+     src:'Loan management system · drawdowns and repayments · CRM (deal source)',auto:{i:4,t:'Lands with the leadership team at month end.'},access:'Leadership'},
+    {seat:'ceo',q:'What changed this month that I should know before the board?',kw:/board|changed|summary|brief|update|investor/,reading:'every source, for September against August',
+     a:'Four things moved in September. Two good, one to watch and one to plan for.',
+     viz:{type:'brief',title:'September against August',items:[
+       ['up','Up','Broker applications up 38% on August. Brokers are now 41% of all applications.'],
+       ['up','Up','Drawn balance up £2.1m to £28.9m. Average utilisation across Flex facilities is 64%.'],
+       ['down','Watch','Balances 30+ days past due rose from 1.0% to 1.2% of the book, mostly in the Q3 2025 vintage.'],
+       ['plan','Plan','The funding line is 71% drawn. At this pace it is full by April 2027.']]},
+     src:'Loan book · CRM · Xero · funding line reporting',auto:{i:4,t:'The same brief at every month end, before the board pack.'},access:'Leadership'},
+    {seat:'fin',q:'How much headroom is left on the Paragon line at this pace?',kw:/paragon|headroom|funding line|facility|credit line|funding/,reading:'drawn balances, repayments and the funding line',
+     a:'The line is 71% drawn at the end of September, up from 52% in April. At the last six months’ pace, net of repayments, it is full in April 2027. It passes 85% around the turn of the year, so an increase is worth raising with Paragon this quarter.',
+     viz:{type:'line',title:'Funding line, % drawn',x:['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr'],max:100,ticks:[0,25,50,75,100],every:1,tick:function(t){return t+'%'},fmt:function(v){return v+'%'},
+       ref:{v:100,label:'Facility limit'},
+       series:[{name:'Drawn',cls:'s-main',vals:[52,55,59,62,66,71,null,null,null,null,null,null,null],end:'above'},{name:'At the current pace',cls:'s-proj',vals:[null,null,null,null,null,71,75,79,83,87,91,96,100],end:'right'}]},
+     src:'Loan management system · bank feeds · funding line reporting',auto:{i:1,t:'An alert to Finance and the CEO when the line passes 80%.'},access:'Finance, CEO'},
+    {seat:'fin',q:'Who paid late this month, and how much is past due?',kw:/late|overdue|past due|paid|arrears|dpd|missed|collections/,reading:'repayment schedules against receipts',
+     a:'Twenty borrowers paid late in September, with £890k past due in total. £350k of it is more than 30 days late, which is 1.2% of the drawn book, up from 1.0% in August. The rise is in 1–30 days. Seven of those eleven borrowers repay a day or two before their Amazon payout lands.',
+     viz:{type:'bars',title:'Past due by days late, £k',rows:[['1–30 days',540,'£540k','11 borrowers',1],['31–60 days',190,'£190k','4 borrowers'],['61–90 days',100,'£100k','3 borrowers'],['90+ days',60,'£60k','2 borrowers']]},
+     src:'Repayment schedules · bank feeds · Amazon and Shopify payout dates',auto:{i:3,t:'Every morning at 7am to Finance and Risk.'},access:'Finance, Risk'},
+    {seat:'risk',q:'Which borrowers are showing early signs of strain?',kw:/strain|early|warning|watch|stress|signal|risk|struggl/,reading:'borrowers’ connected accounts and repayments',
+     a:'Four borrowers trip two or more early-warning signals, and none is past 30 days yet. The furniture retailer started repaying a new lender in August. That shows in its bank feed, but nowhere in the book yet.',
+     viz:{type:'watch',title:'Borrowers with two or more signals',rows:[
+       ['Furniture retailer','Juice Detox','£600k','84%',[['Revenue down 3 months','bad'],['New lender in bank feed','bad']]],
+       ['Skincare brand','Juice Flex','£400k','98%',[['Revenue down 3 months','bad'],['At limit','warn']]],
+       ['Pet food brand','Juice Flex','£250k','91%',[['Under 2 months runway','bad'],['Paid late','warn']]],
+       ['Coffee subscription','Juice Now','£60k','100%',[['At limit','warn'],['Paid late','warn']]]]},
+     src:'Open banking · Codat · Shopify and Amazon payouts · repayment history',auto:{i:2,t:'An alert to Risk the day a borrower trips a second signal.'},access:'Risk, Finance'},
+    {seat:'risk',q:'How do arrears compare by vintage?',kw:/vintage|cohort|by quarter|origination|months on book/,reading:'every facility by the quarter it was opened',
+     a:'The Q3 2025 vintage is running hot. 3.1% of its balance is 30+ days past due at nine months, against 1.3% for the other vintages at the same age. Three home and garden borrowers account for most of it. The vintages since have come back in line.',
+     viz:{type:'heat',title:'Balance 30+ days past due, by months on book',corner:'Vintage',cols:['3m','6m','9m','12m','15m','18m'],max:3.6,flag:2,rows:[
+       ['Q1 2025',[0.4,0.9,1.3,1.6,1.8,1.9]],['Q2 2025',[0.5,1.0,1.4,1.7,1.9,null]],['Q3 2025',[0.8,1.9,3.1,3.6,null,null]],
+       ['Q4 2025',[0.4,0.8,1.2,null,null,null]],['Q1 2026',[0.3,0.7,null,null,null,null]],['Q2 2026',[0.3,null,null,null,null,null]]]},
+     src:'Loan management system · repayment history · sector tags from onboarding',auto:{i:3,t:'Refreshed monthly for the credit committee.'},access:'Risk, Finance'},
+    {seat:'sales',q:'Which brokers send deals that actually draw down?',kw:/broker|nacfb|introducer|partner|source|referr/,reading:'applications, decisions and first drawdowns by source',
+     a:'Brokers sent 112 applications in the last 90 days, 41% of the total, and 28% of them reached a first drawdown, against 19% for direct. Three broker firms account for half of the funded broker deals. Introducers convert best but send the fewest.',
+     viz:{type:'bars',title:'Applications to first drawdown, last 90 days',rows:[['Introducers',35,'35%','23 applications'],['NACFB brokers',28,'28%','112 applications',1],['Partners',24,'24%','41 applications'],['Direct',19,'19%','96 applications']]},
+     src:'CRM · broker submissions · credit decisions · first drawdowns',auto:{i:0,t:'Every Monday at 8am to the sales team.'},access:'Sales'},
+    {seat:'sales',locked:true,q:'Show me each borrower’s arrears and their directors’ details.',kw:/director|personal|each borrower|names/,reading:'your access',
+     viz:{type:'refuse'},src:'',auto:null,access:'Sales'},
+    {seat:'growth',q:'Which marketing channels bring borrowers who actually draw?',kw:/marketing|channel|cac|ads|google|linkedin|meta|campaign|acquisition|cost per/,reading:'ad spend, applications and first drawdowns',
+     a:'Partners and content bring drawn borrowers most cheaply. Meta brings applications, but few of them draw: £4,100 per drawn borrower, more than six times the partner cost. LinkedIn is expensive, but its borrowers take the largest limits, £310k on average.',
+     viz:{type:'bars',title:'Cost per drawn borrower, last quarter',rows:[['Meta',4100,'£4,100','Most applications, fewest draw',1],['LinkedIn Ads',3200,'£3,200','Largest average limit'],['Google Ads',1850,'£1,850'],['Content and SEO',910,'£910'],['Partners',640,'£640']]},
+     src:'Google Ads · Meta · LinkedIn Ads · GA4 · CRM · first drawdowns',auto:{i:5,t:'Monthly to Growth, with an alert if any channel passes £3,000.'},access:'Growth'},
+    {seat:'growth',q:'How is Juice Now doing against Flex?',kw:/juice now|\bnow\b|flex|product|detox|compare/,reading:'every facility, split by product',
+     a:'Juice Now approves more applications and draws faster, as it was designed to. Its borrowers also run closer to their limits and fall behind slightly more often: 2.4% of balance is 30+ days past due, against 1.6% on Flex. That one is worth watching as Now scales.',
+     viz:{type:'cmp',title:'Facilities opened in the last six months',head:['','Juice Now','Juice Flex'],rows:[['Approval rate','58%','41%'],['Days from application to first drawdown','2.1','6.4'],['Average limit','£45k','£280k'],['Utilisation after 90 days','88%','64%'],['Balance 30+ days past due','2.4%','1.6%',1]]},
+     src:'Loan management system · credit decisions · repayment history',auto:{i:4,t:'In the month-end brief, split by product.'},access:'Leadership, Growth'}
+  ];
+  var HERO=[0,6,4];
+
+  /* charts */
+  var drop='<svg class="drop" viewBox="0 0 16 20" aria-hidden="true"><path class="f" d="M8 1.2C8 1.2 1.5 8.6 1.5 12.6a6.5 6.5 0 0 0 13 0C14.5 8.6 8 1.2 8 1.2Z" fill="currentColor" opacity=".9"/><use href="#drop"/></svg>';
+  function line(v,width){
+    var W=Math.max(300,Math.min(680,width)),H=W<460?220:250,L=46,R=W<460?50:60,T=16,B=28,pw=W-L-R,ph=H-T-B,n=v.x.length;
+    var every=W<460?v.every*2:v.every;
+    function X(i){return L+pw*i/(n-1)}
+    function Y(y){return T+ph*(1-y/v.max)}
+    var s='<svg class="lc" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(v.title)+'">';
+    v.ticks.forEach(function(t){s+='<line class="gl" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(t)+'" y2="'+Y(t)+'"/><text class="tk" x="'+(L-8)+'" y="'+(Y(t)+4)+'" text-anchor="end">'+esc(v.tick(t))+'</text>'});
+    v.x.forEach(function(lb,i){if(i%every===0)s+='<text class="tk" x="'+X(i)+'" y="'+(H-6)+'" text-anchor="middle">'+esc(lb)+'</text>'});
+    if(v.ref)s+='<line class="ref" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v.ref.v)+'" y2="'+Y(v.ref.v)+'"/><text class="rl" x="'+(L+6)+'" y="'+(Y(v.ref.v)-6)+'">'+esc(v.ref.label)+'</text>';
+    s+='<line class="xh" x1="0" x2="0" y1="'+T+'" y2="'+(T+ph)+'"/>';
+    v.series.forEach(function(se){
+      var d='',pen=false;
+      se.vals.forEach(function(y,i){if(y==null){pen=false;return}d+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(y).toFixed(1);pen=true});
+      s+='<path class="ln '+se.cls+'" d="'+d+'"/>';
+    });
+    v.series.forEach(function(se){
+      var i=se.vals.length-1;while(i>=0&&se.vals[i]==null)i--;
+      var x=X(i),y=Y(se.vals[i]),lab=esc(v.fmt(se.vals[i]));
+      s+='<circle class="dot '+se.cls+'" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="4.5"/>';
+      if(se.end==='above')s+='<text class="el" x="'+x.toFixed(1)+'" y="'+(y-12).toFixed(1)+'" text-anchor="end">'+lab+'</text>';
+      else s+='<text class="el" x="'+(x+9).toFixed(1)+'" y="'+(y+4).toFixed(1)+'">'+lab+'</text>';
+    });
+    var cw=pw/(n-1);
+    v.x.forEach(function(lb,i){
+      var tip=[lb];
+      v.series.forEach(function(se){if(se.vals[i]!=null)tip.push(se.name+': '+v.fmt(se.vals[i]))});
+      s+='<rect class="hit" x="'+(X(i)-cw/2).toFixed(1)+'" y="'+T+'" width="'+cw.toFixed(1)+'" height="'+ph+'" data-cx="'+X(i).toFixed(1)+'" data-tip="'+esc(tip.join('\n'))+'"/>';
+    });
+    s+='</svg>';
+    var lg='';
+    if(v.series.length>1)lg='<div class="lg">'+v.series.map(function(se){return '<span><i class="k'+(se.cls==='s-proj'?' dash':se.cls==='s-tgt'?' tgt':'')+'"></i>'+esc(se.name)+'</span>'}).join('')+(v.ref?'':'')+'</div>';
+    return lg+s;
+  }
+  function bars(v){
+    var max=Math.max.apply(null,v.rows.map(function(r){return r[1]}));
+    return v.rows.map(function(r){
+      return '<div class="row'+(r[4]?' flag':'')+'" data-tip="'+esc(r[0]+': '+r[2]+(r[3]?'\n'+r[3]:''))+'"><span class="lab">'+esc(r[0])+(r[3]?'<b>'+esc(r[3])+'</b>':'')+'</span><span class="bar"><i style="width:'+(r[1]/max*100).toFixed(1)+'%"></i></span><span class="val">'+esc(r[2])+'</span></div>';
+    }).join('');
+  }
+  function heat(v){
+    var h='<div class="tw"><table class="hm"><thead><tr><th scope="col">'+esc(v.corner)+'</th>'+v.cols.map(function(c){return '<th scope="col">'+c+'</th>'}).join('')+'</tr></thead><tbody>';
+    v.rows.forEach(function(r,ri){
+      h+='<tr'+(ri===v.flag?' class="flagrow"':'')+'><th scope="row">'+esc(r[0])+'</th>';
+      r[1].forEach(function(x,j){
+        if(x==null){h+='<td class="nil"></td>';return}
+        var p=Math.round(6+x/v.max*86);
+        h+='<td class="'+(p>55?'hot':'')+'" style="--p:'+p+'%" data-tip="'+esc(r[0]+' vintage at '+v.cols[j]+' on book\n'+x.toFixed(1)+'% of balance 30+ days past due')+'">'+x.toFixed(1)+'%</td>';
+      });
+      h+='</tr>';
+    });
+    return h+'</tbody></table></div><div class="scale"><span>0%</span><i></i><span>'+v.max.toFixed(1)+'%</span></div>';
+  }
+  function watch(v){
+    return '<div class="tw"><table class="wl"><thead><tr><th>Borrower</th><th>Limit</th><th>Drawn</th><th>Signals</th></tr></thead><tbody>'+v.rows.map(function(r){
+      return '<tr><td class="who">'+esc(r[0])+'<span>'+esc(r[1])+'</span></td><td class="n">'+r[2]+'</td><td class="n">'+r[3]+'</td><td><div class="sigs">'+r[4].map(function(s){return '<span class="sg '+s[1]+'">'+esc(s[0])+'</span>'}).join('')+'</div></td></tr>';
+    }).join('')+'</tbody></table></div>';
+  }
+  function cmp(v){
+    return '<table class="cmp"><thead><tr>'+v.head.map(function(h){return '<th scope="col">'+esc(h)+'</th>'}).join('')+'</tr></thead><tbody>'+v.rows.map(function(r){
+      return '<tr><td>'+esc(r[0])+'</td><td'+(r[3]?' class="w"':'')+'>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td></tr>';
+    }).join('')+'</tbody></table>';
+  }
+  function brief(v){
+    return '<ul class="brief">'+v.items.map(function(it){return '<li><span class="tone '+it[0]+'">'+esc(it[1])+'</span><span>'+esc(it[2])+'</span></li>'}).join('')+'</ul>';
+  }
+  var lock='<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="7" width="11" height="7.5" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
+  function answer(d,width){
+    var v=d.viz;
+    if(v.type==='refuse'){
+      return '<div class="ans"><div class="refuse"><p class="lk">'+lock+'Not available to your role</p><p>Borrower-level credit data and personal details are set to Risk and Finance, so I can’t show them to Sales. I can show arrears by broker source at portfolio level, or which of your broker deals are up to date.</p><p class="log">Logged · Sales · 09:12 · declined, borrower-level credit data</p></div><div class="auto"><strong>Access set by role</strong><span>Milo says what it can’t show, and offers what it can.</span><a class="mk" href="#control">See who sees what</a></div></div>';
+    }
+    var body=v.type==='line'?line(v,width):v.type==='bars'?bars(v):v.type==='heat'?heat(v):v.type==='watch'?watch(v):v.type==='cmp'?cmp(v):brief(v);
+    return '<div class="ans"><p>'+esc(d.a)+'</p><div class="viz"><p class="vt">'+esc(v.title)+'</p>'+body+'</div><p class="src">Sources · '+esc(d.src)+'</p>'+
+      (d.auto?'<div class="auto"><strong>Automate it</strong><span>'+esc(d.auto.t)+'</span><span class="pill">'+esc(d.access)+'</span><button type="button" class="mk" data-auto="'+d.auto.i+'">Build this alert</button></div>':'')+'</div>';
+  }
+
+  /* console */
+  var seatsEl=$('seats'),qlist=$('qlist'),body=$('pbody'),seatBtns=[],cur={seat:'ceo',q:0,typed:null},timer=null;
+  function setSeat(id){
+    cur.seat=id;
+    seatBtns.forEach(function(b){var on=b.dataset.seat===id;b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1});
+    var s=SEATS.filter(function(x){return x.id===id})[0];
+    qlist.setAttribute('aria-labelledby','seat-'+id);
+    qlist.innerHTML='<p class="seat-sub">'+esc(s.sub)+'</p>'+Q.map(function(d,i){return d.seat===id?'<button type="button" class="qbtn'+(d.locked?' locked':'')+'" data-q="'+i+'" aria-pressed="'+(i===cur.q?'true':'false')+'">'+esc(d.q)+'</button>':''}).join('');
+  }
+  function width(){return body.clientWidth-74}
+  function run(i,typed,animate){
+    var d=Q[i];cur.q=i;cur.typed=typed||null;
+    if(d.seat!==cur.seat)setSeat(d.seat);
+    [].forEach.call(qlist.querySelectorAll('.qbtn'),function(b){b.setAttribute('aria-pressed',+b.dataset.q===i?'true':'false')});
+    var qb='<p class="qb">'+esc(typed||d.q)+'</p>'+(typed&&typed!==d.q?'<p class="near">Closest prepared question: '+esc(d.q)+'</p>':'');
+    clearTimeout(timer);
+    if(animate&&!reduce){
+      body.innerHTML=qb+'<p class="think">'+drop+'Reading '+esc(d.reading)+'…</p>';
+      timer=setTimeout(function(){body.innerHTML=qb+answer(d,width())},950);
+    }else body.innerHTML=qb+answer(d,width());
+  }
+  function nomatch(text){
+    clearTimeout(timer);cur.typed=null;
+    var picks=Q.filter(function(d){return d.seat===cur.seat&&!d.locked}).slice(0,2).map(function(d){return Q.indexOf(d)});
+    body.innerHTML='<p class="qb">'+esc(text)+'</p><div class="ans"><p>This demo runs on sample data, so I can only answer the prepared questions. On Juice’s own data, that question works like any other. These are the closest I have:</p><div class="chips">'+picks.map(function(i){return '<button type="button" class="chip" data-q="'+i+'">'+esc(Q[i].q)+'</button>'}).join('')+'</div></div>';
+  }
+  function ask(text){
+    text=String(text||'').trim();if(!text)return;
+    var t=text.toLowerCase(),hit=-1;
+    var order=[7,5,2,6,8,0,3,4,1,9];
+    for(var k=0;k<order.length&&hit<0;k++)if(Q[order[k]].kw.test(t))hit=order[k];
+    if(hit<0)nomatch(text);else run(hit,text,true);
+  }
+  SEATS.forEach(function(s,k){
+    var b=document.createElement('button');
+    b.type='button';b.className='seat';b.id='seat-'+s.id;b.dataset.seat=s.id;b.textContent=s.name;
+    b.setAttribute('role','tab');b.setAttribute('aria-controls','qlist');
+    b.addEventListener('click',function(){setSeat(s.id);var first=Q.findIndex(function(d){return d.seat===s.id});run(first,null,true)});
+    b.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown')n=(k+1)%SEATS.length;
+      if(e.key==='ArrowLeft'||e.key==='ArrowUp')n=(k-1+SEATS.length)%SEATS.length;
+      if(n!==null){e.preventDefault();seatBtns[n].focus();seatBtns[n].click()}
+    });
+    seatsEl.appendChild(b);seatBtns.push(b);
+  });
+  document.addEventListener('click',function(e){
+    var q=e.target.closest('[data-q]');
+    if(q){run(+q.dataset.q,null,true);if(q.closest('#hero-chips'))jump('clarity');return}
+    var a=e.target.closest('[data-auto]');
+    if(a){pick('bq',+a.dataset.auto);jump('confidence')}
+  });
+  $('own-form').addEventListener('submit',function(e){e.preventDefault();var inp=$('own-q');ask(inp.value);inp.value=''});
+  $('hero-form').addEventListener('submit',function(e){e.preventDefault();var inp=$('hero-q');if(!inp.value.trim())return;ask(inp.value);inp.value='';jump('clarity')});
+  $('hero-chips').innerHTML=HERO.map(function(i){return '<button type="button" class="chip" data-q="'+i+'">'+esc(Q[i].q)+'</button>'}).join('');
+  function jump(id){var el=$(id);if(el)el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}
+  setSeat('ceo');run(0,null,false);
+  var rt=null;
+  window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){if(Q[cur.q].viz.type==='line'&&!body.querySelector('.think'))run(cur.q,cur.typed,false)},150)});
+
+  /* tooltips */
+  var tip=$('tip');
+  document.addEventListener('mouseover',function(e){
+    var t=e.target.closest&&e.target.closest('[data-tip]');if(!t)return;
+    tip.textContent=t.getAttribute('data-tip');tip.style.opacity='1';
+    if(t.dataset.cx){var xh=t.ownerSVGElement.querySelector('.xh');xh.setAttribute('x1',t.dataset.cx);xh.setAttribute('x2',t.dataset.cx);xh.style.opacity='1'}
+  });
+  document.addEventListener('mousemove',function(e){
+    if(tip.style.opacity!=='1')return;
+    var x=e.clientX+14,y=e.clientY+14,w=tip.offsetWidth,h=tip.offsetHeight;
+    if(x+w>window.innerWidth-8)x=e.clientX-w-14;
+    if(y+h>window.innerHeight-8)y=e.clientY-h-14;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  });
+  document.addEventListener('mouseout',function(e){
+    var t=e.target.closest&&e.target.closest('[data-tip]');if(!t)return;
+    if(e.relatedTarget&&t.contains(e.relatedTarget))return;
+    tip.style.opacity='0';
+    if(t.dataset.cx)t.ownerSVGElement.querySelector('.xh').style.opacity='0';
+  });
+
+  /* alert builder */
+  var B={
+    q:[
+      {name:'Broker pipeline',to:'the sales team',slack:'#sales',line:'broker applications fall 25% below their four-week average',
+       s:'31 applications in the last 7 days (+9 on the 7 before) and 8 first drawdowns. One firm sent 7 of them. Two deals have sat in underwriting for over five days.',
+       a:'Broker applications are 27% below their four-week average. Two firms that usually send four or five a week have sent none.'},
+      {name:'Funding line headroom',to:'Finance and the CEO',slack:'#finance',line:'the funding line passes 80% drawn',
+       s:'The funding line is 71% drawn, up 2.4 points on last month. At this pace it is full in April 2027.',
+       a:'The funding line has just passed 80% drawn. At this pace it is full in April 2027.'},
+      {name:'Early-warning watchlist',to:'Risk',slack:'#risk',line:'a borrower trips a second warning signal',
+       s:'4 borrowers trip two or more early-warning signals. New since last time: a pet food brand with under two months of runway in its bank feed.',
+       a:'A furniture retailer has tripped a second signal: revenue down three months running, and a new lender in its bank feed. Limit £600k, 84% drawn.'},
+      {name:'Late payments',to:'Finance and Risk',slack:'#credit',line:'balances 30+ days past due pass 1.5% of the book',
+       s:'£890k past due across 20 borrowers. £350k is over 30 days, 1.2% of the drawn book, up from 1.0%.',
+       a:'Balances 30+ days past due have passed 1.5% of the book. Most of the move is three borrowers in the Q3 2025 vintage.'},
+      {name:'Board numbers',to:'the leadership team',slack:'#leadership',line:'a headline number moves 10% on the month',
+       s:'Book £28.9m (+£2.1m). Broker applications +38%. 30+ days past due 1.2%. Funding line 71% drawn. Reply to ask a follow-up.',
+       a:'Broker applications are up 38% on last month, past the 10% line. Brokers are now 41% of all applications.'},
+      {name:'Cost per drawn borrower',to:'Growth',slack:'#growth',line:'any channel passes £3,000 per drawn borrower',
+       s:'Partners £640, content £910, Google Ads £1,850, LinkedIn £3,200, Meta £4,100 per drawn borrower.',
+       a:'Meta has passed £3,000 per drawn borrower. Spend is up 20% on last month with no rise in drawdowns.'}
+    ],
+    w:[{name:'Every Monday, 8am',time:'Monday 08:00'},{name:'Every morning, 7am',time:'Today 07:00'},{name:'At month end',time:'30 Sep 18:00'},{name:'When it crosses a line',time:'Just now',alert:true}],
+    c:[{name:'Slack'},{name:'Teams'},{name:'Email'},{name:'WhatsApp'}]
+  };
+  var st={bq:0,bw:0,bc:0};
+  function opts(el,key,list){
+    $(el).innerHTML=list.map(function(o,i){return '<label class="opt"><input type="radio" name="'+key+'" id="'+key+'-'+i+'" value="'+i+'"'+(i===st[key]?' checked':'')+'><span>'+esc(o.name)+'</span></label>'}).join('');
+    $(el).addEventListener('change',function(e){st[key]=+e.target.value;render()});
+  }
+  function pick(key,i){st[key]=i;var r=$(key+'-'+i);if(r)r.checked=true;render()}
+  function render(){
+    var q=B.q[st.bq],w=B.w[st.bw],c=B.c[st.bc];
+    var where=c.name==='Slack'?'Slack '+q.slack:c.name==='Teams'?'the '+q.slack.slice(1)+' channel in Teams':c.name==='Email'?'an email to '+q.to:'WhatsApp to '+q.to;
+    $('b-rule').innerHTML=w.alert?'Milo watches <b>'+esc(q.name.toLowerCase())+'</b> and messages '+esc(q.to)+' on '+esc(c.name)+' the moment '+esc(q.line)+'.':'Milo sends <b>'+esc(q.name.toLowerCase())+'</b> to '+esc(q.to)+' on '+esc(c.name)+', '+esc(w.name.toLowerCase())+'.';
+    $('b-ch').textContent='Preview · '+where;
+    var m=$('b-msg');m.className='msg'+(w.alert?' alert':'');
+    m.innerHTML='<span class="av"><svg aria-hidden="true"><use href="#milo-icon"/></svg></span><p class="mh"><b>Milo</b><span>'+esc(w.time)+'</span></p><p class="subj">'+esc(q.name)+'</p><p class="mb">'+esc(w.alert?q.a:q.s)+'</p><p class="mf">'+(c.name==='Email'?'Reply to this email to ask Milo a follow-up':'Ask a follow-up in the thread')+'</p>';
+  }
+  opts('b-q','bq',B.q);opts('b-w','bw',B.w);opts('b-c','bc',B.c);render();
+
+  /* access */
+  var DOM=['Loan book summary','Borrower credit detail','Funding line','Brokers and pipeline','Marketing spend','Payroll'];
+  var LV=[['l0','Closed'],['l1','Summary'],['l2','Full']];
+  var ROLES=[
+    ['CEO',[2,2,2,2,2,2],'Everything, including payroll.'],
+    ['Finance',[2,2,2,1,2,2],'The full book, borrower detail and the funding line, with pipeline in summary.'],
+    ['Risk',[2,2,1,1,0,0],'Every borrower and every signal. The funding line and pipeline in summary. No marketing or payroll.'],
+    ['Sales',[1,0,0,2,1,0],'Their pipeline and broker performance in full, and the book at portfolio level. Borrower credit detail stays closed, and Milo says so when asked.'],
+    ['Growth',[1,0,0,1,2,0],'Marketing spend and returns in full. The book and pipeline in summary.'],
+    ['Board and investors',[1,0,1,1,1,0],'A read-only summary they can ask questions of between board meetings. No borrower names and no payroll.']
+  ];
+  var acc=$('acc'),sel=3;
+  function accRender(){
+    acc.innerHTML='<thead><tr><th scope="col" style="text-align:left;padding-left:0">Role</th>'+DOM.map(function(d){return '<th scope="col">'+esc(d)+'</th>'}).join('')+'</tr></thead><tbody>'+ROLES.map(function(r,i){
+      return '<tr'+(i===sel?' class="on"':'')+'><th scope="row"><button type="button" class="rb" data-role="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(r[0])+'</button></th>'+r[1].map(function(l){return '<td><span class="lv '+LV[l][0]+'"><i></i>'+LV[l][1]+'</span></td>'}).join('')+'</tr>';
+    }).join('')+'</tbody>';
+    $('acc-who').textContent=ROLES[sel][0];$('acc-say').textContent=ROLES[sel][2];
+  }
+  acc.addEventListener('click',function(e){var b=e.target.closest('[data-role]');if(b){sel=+b.dataset.role;accRender();var nb=acc.querySelector('[data-role="'+sel+'"]');if(nb)nb.focus()}});
+  accRender();
+
+  /* video */
+  var f=$('vidframe'),p=$('vidplay'),host=location.hostname;
+  var inline=host===''||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener('click',function(e){
+    e.preventDefault();
+    var fr=document.createElement('iframe');
+    fr.src='https://player.vimeo.com/video/'+f.dataset.vid+'?title=0&byline=0&portrait=0&dnt=1&autoplay=1';
+    fr.setAttribute('allow','autoplay; fullscreen; picture-in-picture');
+    fr.setAttribute('allowfullscreen','');
+    fr.setAttribute('title','Milo product overview');
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
