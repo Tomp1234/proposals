@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Milo × The Uncommon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#F8F5E4;--surface:#FFFDF6;--ink:#1D1D1D;--ink-2:#46433B;--muted:#736E5C;--line:#E3DCC0;--line-2:rgba(29,29,29,.22);--track:#EEE8D0;
+  --rose:#F3D8D0;--rose-ink:#A34E4A;--rose-mark:#D98481;
+  --sage:#D7EBDC;--sage-ink:#3D7552;
+  --butter:#F2ECCC;
+  --band:#1D1D1D;--band-ink:#F8F5E4;--band-2:#CAC4AE;--band-line:#3B3934;--band-card:#282724;
+  --serif:"Newsreader","Iowan Old Style",Georgia,serif;
+  --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+  --head:"Bebas Neue","Arial Narrow",Impact,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#191815;--surface:#22211D;--ink:#F4F0DD;--ink-2:#D3CDB6;--muted:#A19B86;--line:#36342E;--line-2:rgba(244,240,221,.2);--track:#302E28;
+    --rose:#3B2A27;--rose-ink:#EFA7A2;
+    --sage:#1F2E25;--sage-ink:#8FC7A1;
+    --butter:#2C291E;
+    --band:#0E0E0D;--band-card:#1C1B19;--band-line:#33312C;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#191815;--surface:#22211D;--ink:#F4F0DD;--ink-2:#D3CDB6;--muted:#A19B86;--line:#36342E;--line-2:rgba(244,240,221,.2);--track:#302E28;
+  --rose:#3B2A27;--rose-ink:#EFA7A2;
+  --sage:#1F2E25;--sage-ink:#8FC7A1;
+  --butter:#2C291E;
+  --band:#0E0E0D;--band-card:#1C1B19;--band-line:#33312C;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+h1{font:300 clamp(44px,6.6vw,84px)/1 var(--serif);letter-spacing:-.025em}
+h2{font:300 clamp(32px,4.3vw,52px)/1.06 var(--serif);letter-spacing:-.02em}
+h3{font-size:17px;line-height:1.35;font-weight:600}
+h1 em,h2 em{font-style:italic;color:var(--rose-ink)}
+p{margin:0}
+a{color:var(--rose-ink)}
+:focus-visible{outline:3px solid var(--rose-mark);outline-offset:3px}
+.eyebrow{font:400 19px/1.2 var(--head);letter-spacing:.08em;color:var(--rose-ink);margin-bottom:14px}
+.intro{font-size:17px;color:var(--ink-2);max-width:62ch;margin-top:16px}
+.sec{padding-block:clamp(64px,9vw,112px)}
+.num{font-family:var(--head);font-weight:400;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* scalloped edges, after the header on wearetheuncommon.co.uk */
+.scl{position:relative;z-index:1;background:var(--c)}
+.scl::before,.scl::after{content:"";position:absolute;left:0;right:0;height:10px;background:radial-gradient(circle at 10px 10px,var(--c) 9.5px,transparent 10px) repeat-x;background-size:20px 20px;pointer-events:none}
+.scl::before{top:-10px}
+.scl::after{bottom:-10px;background-position:0 -10px}
+.scl.b-only::before{display:none}
+.c-band{--c:var(--band);color:var(--band-ink)}
+.c-sage{--c:var(--sage)}
+.c-rose{--c:var(--rose)}
+
+/* double rule, after the logo badge */
+.frame{border:1.5px solid var(--ink);box-shadow:inset 0 0 0 5px var(--surface),inset 0 0 0 6px var(--ink);background:var(--surface)}
+
+/* top */
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-block:18px}
+.lockup{display:flex;align-items:center;gap:16px}
+.milo{display:flex;align-items:center;gap:7px;font-weight:700;font-size:21px;letter-spacing:-.02em}
+.milo svg{width:30px;height:24px}
+.x{opacity:.6;font-size:18px}
+.ulogo{width:124px;height:52px;display:block;color:currentColor}
+.for{font-size:13px;color:var(--band-2);letter-spacing:.02em}
+
+/* hero */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(36px,5vw,72px);align-items:start}
+.lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:56ch;margin-top:26px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:44px 0 0;padding:0}
+.facts div{border-top:1.5px solid var(--ink);padding-top:12px}
+.facts dt{font:400 clamp(34px,3.6vw,44px)/1 var(--head);letter-spacing:.02em}
+.facts dd{margin:6px 0 0;font-size:13.5px;color:var(--muted);line-height:1.45}
+.letter{padding:32px 30px;display:grid;gap:14px;font-size:15.5px;color:var(--ink-2)}
+.letter .to{font:300 26px/1.2 var(--serif);color:var(--ink)}
+.sig{color:var(--ink);font-weight:600;display:grid;gap:2px;border-top:1px solid var(--line);padding-top:16px;margin-top:4px}
+.sig span{font-weight:400;font-size:13px;color:var(--muted)}
+
+/* demo */
+.demo{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:16px;margin-top:44px;align-items:start}
+.tabs{display:grid;gap:8px}
+.tab{appearance:none;font:inherit;text-align:left;cursor:pointer;display:grid;gap:4px;padding:15px 18px;border-radius:4px;border:1px solid var(--line-2);background:transparent;color:var(--ink);transition:background-color .2s,border-color .2s}
+.tab:hover{background:var(--surface)}
+.tab .seat{font:400 15px/1.2 var(--head);letter-spacing:.08em;color:var(--muted)}
+.tab .tq{font-size:14.5px;font-weight:500;line-height:1.45}
+.tab[aria-selected="true"]{background:var(--surface);border-color:var(--ink)}
+.tab[aria-selected="true"] .seat{color:var(--rose-ink)}
+.panel{background:var(--surface);border:1px solid var(--ink);border-radius:4px;overflow:hidden;min-height:560px}
+.ph{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 20px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.ph .milo{font-size:15px;color:var(--ink)}
+.ph .milo svg{width:22px;height:18px}
+.live{display:inline-flex;align-items:center;gap:7px}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage-ink)}
+.pb{padding:22px;display:grid;gap:18px}
+.qb{justify-self:end;max-width:90%;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:14px 14px 3px 14px;font-size:15px;font-weight:500;line-height:1.45}
+.think{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted)}
+.think svg{width:20px;height:20px;color:var(--rose-ink);animation:spin .9s linear infinite}
+.ans{display:grid;gap:16px}
+.ans>p{font-size:15px;color:var(--ink-2);line-height:1.65}
+.chart{border:1px solid var(--line);border-radius:4px;padding:16px;display:grid;gap:10px}
+.ct{font:400 14px/1.2 var(--head);letter-spacing:.08em;color:var(--muted)}
+.row{display:grid;grid-template-columns:minmax(0,12.5em) minmax(0,1fr) 4.2em;gap:12px;align-items:center;font-size:13.5px}
+.lab{color:var(--ink-2);line-height:1.3}
+.lab b{display:block;font-size:11.5px;font-weight:600;color:var(--rose-ink)}
+.bar{height:10px;border-radius:0 4px 4px 0;background:var(--track)}
+.bar i{display:block;height:100%;border-radius:inherit;background:var(--sage-ink)}
+.row.flag .bar i{background:var(--rose-ink)}
+.val{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.src{font-size:12.5px;color:var(--muted);line-height:1.5}
+.auto{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:12px 14px;border-radius:4px;background:var(--butter);font-size:14px;line-height:1.45}
+.pill{font-size:11.5px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:999px;border:1px solid var(--ink);white-space:nowrap}
+.note{font-size:13px;color:var(--ink-2);margin-top:16px;max-width:84ch}
+
+/* automations */
+.inbox{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:40px}
+.msg{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px;display:grid;gap:10px;align-content:start}
+.when{font:400 16px/1.2 var(--head);letter-spacing:.08em;color:var(--rose-ink)}
+.msg p{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.msg .who{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.via{font-size:13.5px;color:var(--muted);margin-top:16px}
+
+/* claude */
+.c-band .eyebrow{color:#EFA7A2}
+.c-band .intro{color:var(--band-2)}
+.c-band h2 em{color:#EFA7A2}
+.ways{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:44px}
+.way{border:1px solid var(--band-line);border-radius:4px;padding:24px;background:var(--band-card);display:grid;gap:14px;align-content:start}
+.way.m{border-color:var(--band-2)}
+.way h3{font:400 20px/1.2 var(--head);letter-spacing:.07em;color:var(--band-2)}
+.way.m h3{color:#9ED3AE}
+.way ol{margin:0;padding-left:1.3em;display:grid;gap:8px;color:var(--band-2);font-size:15px}
+.way .ask{font:300 italic 24px/1.3 var(--serif);color:var(--band-ink)}
+.way p{color:var(--band-2);font-size:15px}
+.vs{margin-top:14px;border-top:1px solid var(--band-line)}
+.vs-row{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr) minmax(0,1.25fr);gap:20px;padding-block:14px;border-bottom:1px solid var(--band-line);font-size:14.5px;line-height:1.5}
+.vs-row [role="rowheader"]{font-weight:600;color:var(--band-ink)}
+.vs-row [role="cell"]{color:var(--band-2)}
+.vs-row .m{color:var(--band-ink)}
+.vs-head{font:400 16px/1.2 var(--head);letter-spacing:.08em}
+.vs-head span{color:var(--band-2)!important}
+.vs-head .m{color:#9ED3AE!important}
+.keep{margin-top:28px;font:300 clamp(22px,2.4vw,28px)/1.3 var(--serif);max-width:44ch}
+
+/* connect */
+.wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:40px}
+.fam{border-top:1.5px solid var(--ink);padding-top:14px}
+.fam h3{font:400 18px/1.2 var(--head);letter-spacing:.08em}
+.fam .sub{font-size:13px;color:var(--muted);margin-top:2px}
+.fam ul{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.fam li{font-size:13.5px;font-weight:500;padding:4px 10px;border-radius:3px;background:var(--surface);border:1px solid var(--line)}
+.fam li.chk{border-style:dashed;color:var(--muted)}
+.also{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:32px}
+.also p{background:var(--butter);border-radius:4px;padding:16px 18px;font-size:15px;color:var(--ink-2)}
+.also b{color:var(--ink)}
+
+/* proof */
+.proof{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(32px,5vw,64px);align-items:start}
+.proof .tx{font-size:16px;color:var(--ink-2);margin-top:18px;max-width:56ch}
+.sys{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.sys span{font-size:13px;font-weight:500;padding:3px 10px;border-radius:3px;border:1px solid var(--line-2)}
+.cq{margin:28px 0 0;padding:0}
+.cq blockquote{margin:0;font:300 italic clamp(26px,3vw,34px)/1.2 var(--serif)}
+.cq figcaption{font-size:13.5px;color:var(--ink-2);margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.stats div{background:var(--surface);border-radius:4px;padding:18px}
+.stats b{display:block;font:400 clamp(36px,4vw,46px)/1 var(--head);letter-spacing:.02em}
+.stats span{display:block;font-size:13.5px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.forus{grid-column:1/-1;background:var(--surface);border-radius:4px;padding:16px 18px;font-size:15px;color:var(--ink-2)}
+.forus strong{color:var(--ink)}
+.case-link{display:inline-block;margin-top:18px;font-weight:600;font-size:14.5px;color:var(--ink)}
+.proof{margin-top:40px}
+.tag{font:400 16px/1.2 var(--head);letter-spacing:.08em;color:var(--rose-ink)}
+.ph3{font:300 clamp(26px,2.8vw,34px)/1.15 var(--serif);letter-spacing:-.015em;margin-top:8px}
+.pt{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px clamp(32px,5vw,64px);align-items:center;margin-top:clamp(40px,5vw,56px);padding-top:clamp(32px,4vw,44px);border-top:1.5px solid var(--ink)}
+.pt .tx{margin-top:14px}
+.pt .forus{grid-column:auto}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,4vw,60px);align-items:center}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:4px;overflow:hidden;background:var(--rose)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:12px;text-decoration:none;color:var(--ink);background:var(--rose)}
+.poster::before{content:"";position:absolute;inset:12px;border:1.5px solid currentColor;box-shadow:inset 0 0 0 5px var(--rose),inset 0 0 0 6px currentColor;opacity:.5}
+.p-mark{position:relative;display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;background:var(--surface);color:var(--ink);padding:5px 14px 5px 10px;border-radius:999px}
+.p-mark svg{width:24px;height:19px}
+.p-ttl{position:relative;font:300 clamp(24px,3vw,34px)/1.1 var(--serif)}
+.p-play{position:relative;width:70px;height:70px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;transition:transform .2s}
+.poster:hover .p-play{transform:scale(1.06)}
+.p-sub{position:relative;font:400 16px/1.2 var(--head);letter-spacing:.1em}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+
+/* pilot */
+.pilot{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(28px,4vw,56px);align-items:start;margin-top:40px}
+.weeks{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
+.wk{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:18px;padding:18px 14px;border-bottom:1px solid var(--line)}
+.wk.key{background:var(--butter)}
+.wk .n{font:400 18px/1.3 var(--head);letter-spacing:.08em;color:var(--rose-ink)}
+.wk p{font-size:15px;color:var(--ink-2);line-height:1.55;margin-top:4px}
+.price{padding:30px 28px;display:grid;gap:18px}
+.price .lbl{font:400 17px/1.2 var(--head);letter-spacing:.08em;color:var(--muted)}
+.price .amt{font:400 64px/1 var(--head);letter-spacing:.01em}
+.price .amt small{font-size:.34em;letter-spacing:.06em;color:var(--muted);margin-left:6px}
+.price p{font-size:14.5px;color:var(--ink-2)}
+.price hr{border:0;border-top:1px solid var(--line);margin:0}
+.price .nb{font-size:14px;background:var(--sage);border-radius:4px;padding:14px 16px;color:var(--ink)}
+
+/* trust */
+.trust{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px 40px;align-items:center;padding:clamp(24px,4vw,40px);border-radius:4px;background:var(--sage)}
+.trust h2{font-size:clamp(26px,2.8vw,34px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chips li{font-size:14px;font-weight:500;padding:7px 14px;border-radius:999px;background:var(--surface)}
+footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
+
+@media (max-width:960px){
+  .hero-grid,.vid-grid,.proof,.pt,.pilot,.trust{grid-template-columns:1fr}
+  .demo,.ways{grid-template-columns:1fr}
+  .panel{min-height:0}
+  .inbox{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .vs-row{grid-template-columns:1fr;gap:4px}
+  .vs-head{display:none}
+  .vs-row [role="cell"]::before{content:attr(data-k);display:block;font:400 14px/1.3 var(--head);letter-spacing:.08em;color:var(--band-2)}
+  .vs-row .m::before{color:#9ED3AE!important}
+  .also{grid-template-columns:1fr}
+  .wk{grid-template-columns:1fr;gap:2px}
+}
+@media (max-width:560px){
+  .facts,.inbox,.wall,.stats{grid-template-columns:1fr}
+  .row{grid-template-columns:minmax(0,8.5em) minmax(0,1fr) 3.8em}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="unc-logo" viewBox="0 0 167 70"><path fill-rule="evenodd" clip-rule="evenodd" d="M162.626 66.4714H3.60791V3.61621H162.626V66.4714ZM162.201 66.0466H4.03256V4.04106H162.201V66.0466Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M166.234 70.0001H0V0.0876465H166.234V70.0001ZM165.172 68.9382H1.06195V1.14951H165.172V68.9382Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M74.8015 22.6768H76.2006V17.4029H78.1988V16.0933H72.8034V17.4029H74.8015V22.6768ZM57.7878 39.7431C54.3043 39.7431 51.7087 37.0284 51.7087 33.5789C51.7087 30.1639 54.2531 27.3805 57.8731 27.3805C60.076 27.3805 61.4077 28.1487 62.5518 29.2414L61.2027 30.7955C60.2467 29.9076 59.2221 29.31 57.856 29.31C55.5678 29.31 53.9117 31.1882 53.9117 33.5448C53.9117 35.9009 55.5678 37.8136 57.856 37.8136C59.3245 37.8136 60.2636 37.216 61.2882 36.2596L62.6369 37.6254C61.3908 38.9232 60.0247 39.7431 57.7878 39.7431ZM25.8177 39.7258C28.9424 39.7258 30.9573 37.9329 30.9573 34.3642V27.5855H28.8569V34.4666C28.8569 36.6696 27.7131 37.7964 25.8516 37.7964C23.9735 37.7964 22.8294 36.601 22.8294 34.3815V27.5855H20.7292V34.4666C20.7292 37.9329 22.7098 39.7258 25.8177 39.7258ZM46.7778 27.5855H44.7116V35.8497L38.3084 27.5855H36.3616V39.538H38.4278V31.0345L45.0191 39.538H46.7778V27.5855ZM69.1053 33.5449C69.1053 31.2054 70.7614 29.31 73.1351 29.31C75.5085 29.31 77.199 31.2395 77.199 33.5789C77.199 35.9182 75.5427 37.8136 73.1692 37.8136C70.7958 37.8136 69.1053 35.8843 69.1053 33.5449ZM66.9023 33.5789C66.9023 36.9598 69.4637 39.7431 73.1351 39.7431C76.8062 39.7431 79.4015 36.9258 79.4015 33.5449C79.4015 30.1639 76.8402 27.3805 73.1691 27.3805C69.4978 27.3805 66.9023 30.1978 66.9023 33.5789ZM89.5408 36.6011H89.4724L85.733 31.0005V39.538H83.6668V27.5855H85.9038L89.5408 33.2374L93.1778 27.5855H95.4147V39.538H93.3145V30.9666L89.5408 36.6011ZM106.768 36.6011H106.836L110.61 30.9666V39.538H112.71V27.5855H110.473L106.836 33.2374L103.199 27.5855H100.962V39.538H103.028V31.0005L106.768 36.6011ZM123.882 29.31C121.509 29.31 119.853 31.2054 119.853 33.5449C119.853 35.8843 121.543 37.8136 123.916 37.8136C126.29 37.8136 127.946 35.9182 127.946 33.5789C127.946 31.2395 126.256 29.31 123.882 29.31ZM123.882 39.7431C120.211 39.7431 117.65 36.9598 117.65 33.5789C117.65 30.1978 120.245 27.3805 123.916 27.3805C127.588 27.3805 130.149 30.1639 130.149 33.5449C130.149 36.9258 127.554 39.7431 123.882 39.7431ZM145.505 27.5855H143.438V35.8497L137.035 27.5855H135.089V39.538H137.155V31.0345L143.746 39.538H145.505V27.5855ZM43.4975 51.7845H44.1059L46.0935 46.1785H45.3188L43.8069 50.5823L42.3567 46.1631H41.7634L40.3132 50.5823L38.817 46.2196L38.8027 46.1785H38.0029L39.9758 51.7439L39.9905 51.7845H40.592L42.0481 47.4966L43.4975 51.7845ZM48.6857 51.7457H47.9479V46.1784H48.6857V51.7457ZM55.2108 51.7458H55.7913V46.1785H55.0698V50.4261L51.7306 46.1785H51.0642V51.7458H51.7856V47.3963L55.2108 51.7458ZM58.1561 51.7458H62.2528V51.0635H58.8926V49.2803H61.8642V48.5981H58.8926V46.8622H62.214V46.1785H58.1561V51.7458ZM67.4751 48.9549C67.4751 47.7131 68.3648 46.7762 69.5445 46.7762C70.7338 46.7762 71.6303 47.7194 71.6303 48.9703C71.6303 50.212 70.7402 51.149 69.5597 51.149C68.3712 51.149 67.4751 50.2058 67.4751 48.9549ZM66.7137 48.9703C66.7137 50.6062 67.9308 51.84 69.5446 51.84C71.1404 51.84 72.3906 50.5728 72.3906 48.9549C72.3906 47.319 71.1736 46.0858 69.5598 46.0858C67.9637 46.0858 66.7137 47.3529 66.7137 48.9703ZM74.4884 51.7458H75.225V49.373H78.173V48.6907H75.225V46.8689H78.5227V46.1785H74.4884V51.7458ZM83.1786 51.7458H87.2747V51.0635H83.9148V49.2803H86.8862V48.5981H83.9148V46.8622H87.236V46.1785H83.1786V51.7458ZM93.3648 51.7458H93.945V46.1785H93.2239V50.4261L89.9032 46.2018L89.8844 46.1785H89.2185V51.7458H89.9396V47.3963L93.3462 51.7223L93.3648 51.7458ZM96.0376 48.9703C96.0376 50.6598 97.2016 51.8398 98.8686 51.8398C99.978 51.8398 100.74 51.3085 101.095 50.9919L101.116 50.9737V48.7142H98.7454V49.3897H100.401V50.6512C99.9952 50.9727 99.4333 51.1643 98.892 51.1643C97.6402 51.1643 96.7988 50.2766 96.7988 48.9549C96.7988 47.7332 97.6809 46.7762 98.8065 46.7762C99.6144 46.7762 100.061 47.0682 100.422 47.3835L100.469 47.4242L100.946 46.8627L100.899 46.8231C100.277 46.2993 99.6775 46.0858 98.8299 46.0858C97.2641 46.0858 96.0376 47.3529 96.0376 48.9703ZM103.337 51.7458H107.139V51.0549H104.073V46.1785H103.337V51.7458ZM112.693 49.6325H110.401L111.55 47.0676L112.693 49.6325ZM113.626 51.7458H114.422L111.886 46.1397H111.231L108.694 51.7458H109.459L110.105 50.3062H112.988L113.61 51.7094L113.626 51.7458ZM120.355 51.7458H120.935V46.1785H120.214V50.4261L116.893 46.2018L116.874 46.1785H116.208V51.7458H116.929V47.3963L120.336 51.7223L120.355 51.7458ZM125.252 51.0549H124.037V46.8689H125.252C126.543 46.8689 127.446 47.7333 127.446 48.9703C127.446 50.1977 126.543 51.0549 125.252 51.0549ZM123.3 51.7458H125.252C126.963 51.7458 128.205 50.5722 128.205 48.955C128.205 47.3462 126.963 46.1785 125.252 46.1785H123.3V51.7458ZM84.6015 22.6768H85.9915V16.0933H84.6015V18.7126H81.8785V16.0933H80.4881V22.6768H81.8785V20.0215H84.6015V22.6768ZM88.4311 22.6768H93.4303V21.4032H89.821V19.9947H92.9802V18.7212H89.821V17.3668H93.3854V16.0933H88.4311V22.6768Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar scl b-only c-band">
+  <div class="wrap">
+    <div class="lockup">
+      <span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="x" aria-hidden="true">×</span>
+      <svg class="ulogo" role="img" aria-label="The Uncommon, Wine of England"><use href="#unc-logo"/></svg>
+    </div>
+    <p class="for">Prepared for Ben · The Uncommon</p>
+  </div>
+</div>
+
+<header class="wrap sec hero">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Milo × The Uncommon · After our call</p>
+      <h1>What does a can of <em>Gerald</em> cost to make?</h1>
+      <p class="lede">Today that answer takes two people a long time, working through invoices by hand. With Milo, anyone on the team types the question and gets the answer in seconds, with the invoices behind it. Stock on hand and sales by channel work the same way.</p>
+      <dl class="facts">
+        <div><dt>Seconds</dt><dd>from a typed question to cost per can, with its sources</dd></div>
+        <div><dt>1,500+</dt><dd>integrations, and our engineers build any missing ones at no extra cost</dd></div>
+        <div><dt>6 weeks</dt><dd>from the first connection to a go or no go</dd></div>
+      </dl>
+    </div>
+    <aside class="letter frame" aria-label="A note from Liam James Rabone">
+      <p class="to">Ben,</p>
+      <p>Thanks for the time on our call. I said I'd put together something more tangible than the demo, so this page is built around The Uncommon: cost per can, stock on hand and sales reporting, and what Milo does with each.</p>
+      <p>One section is written with Henry in mind. The team already uses Claude a lot, so the first question from Henry is likely to be what Milo can do that Claude can't. <a href="#claude">It's answered below.</a></p>
+      <p class="sig">Liam James Rabone<span>Milo · liam@milo.ai</span></p>
+    </aside>
+  </div>
+</header>
+
+<section class="scl c-sage sec" id="try" aria-labelledby="try-h">
+  <div class="wrap">
+    <p class="eyebrow">Meet the locals, by the numbers</p>
+    <h2 id="try-h">Not another spreadsheet of <em>the usual</em>.</h2>
+    <p class="intro">Five questions from our call, typed the way you'd ask them. Pick one to see what comes back, which systems it joined, and how it keeps running without anyone asking again.</p>
+    <div class="demo">
+      <div class="tabs" id="tabs" role="tablist" aria-label="Choose a question"></div>
+      <div class="panel">
+        <div class="ph">
+          <span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+          <span class="live">Xero · Shopify · invoices · sheets</span>
+        </div>
+        <div class="pb" id="pbody" role="tabpanel" aria-live="polite"></div>
+      </div>
+    </div>
+    <p class="note">Illustrative. The questions come from our call. The figures are invented to show the shape of an answer and are not The Uncommon's numbers. Week two of the pilot is where they get asked of the real ones.</p>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="auto-h">
+  <p class="eyebrow">Automations</p>
+  <h2 id="auto-h">Ask once. After that, <em>it just arrives</em>.</h2>
+  <p class="intro">Any answer can run on a schedule or fire when something changes. These are the four we'd set up first.</p>
+  <div class="inbox">
+    <article class="msg"><p class="when">Monday · 8am</p><h3>Last week's sales by channel</h3><p>Volume through retailers, distributors, venues, the online shop and on-trade, with any distributor ordering less than usual.</p><p class="who">To the whole team</p></article>
+    <article class="msg"><p class="when">After every canning run</p><h3>Cost per can, updated</h3><p>Each wine's cost per can with the new run's invoices in, and what moved since the last run.</p><p class="who">To Ben and Henry</p></article>
+    <article class="msg"><p class="when">When cover drops</p><h3>Stock alert</h3><p>Any wine whose stock won't last until its next canning run, with the weeks of cover left across every location.</p><p class="who">To Ben</p></article>
+    <article class="msg"><p class="when">1st of the month</p><h3>Who's gone quiet</h3><p>Venues and independents that haven't reordered in 60 days, and distributors ordering less than last quarter.</p><p class="who">To whoever sells</p></article>
+  </div>
+  <p class="via">Delivered by email, Slack, Teams or WhatsApp.</p>
+</section>
+
+<section class="scl c-band sec" id="claude" aria-labelledby="claude-h">
+  <div class="wrap">
+    <p class="eyebrow">For Henry</p>
+    <h2 id="claude-h">What can Milo do that <em>Claude can't?</em></h2>
+    <p class="intro">A fair question when the team uses Claude every day. Claude works with whatever you bring to the conversation. Milo is already connected to the business, so every conversation starts with all of it.</p>
+    <div class="ways">
+      <div class="way">
+        <h3>Cost per can, with Claude</h3>
+        <ol>
+          <li>Export last quarter's bills from Xero</li>
+          <li>Find the supplier invoices and the canning log</li>
+          <li>Upload them and explain how the bulk wine splits across runs</li>
+          <li>Check the answer, then do it all again next quarter</li>
+        </ol>
+      </div>
+      <div class="way m">
+        <h3>Cost per can, with Milo</h3>
+        <p class="ask">“What did each wine cost per can last quarter?”</p>
+        <p>The answer comes back in seconds with the invoices behind it. Pin it and it's a dashboard. Schedule it and it recalculates after every canning run.</p>
+      </div>
+    </div>
+    <div class="vs" role="table" aria-label="Claude and Milo compared">
+      <div class="vs-row vs-head" role="row"><span role="columnheader"></span><span role="columnheader">Claude</span><span role="columnheader" class="m">Milo</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Your data</span><span role="cell" data-k="Claude">What you upload, paste or connect yourself</span><span role="cell" class="m" data-k="Milo">Xero, Shopify, invoices, sheets and distributor files, connected and kept connected by our engineers</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">History</span><span role="cell" data-k="Claude">Whatever you bring to that conversation</span><span role="cell" class="m" data-k="Milo">Every order, invoice and canning run, kept in one place</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">House rules</span><span role="cell" data-k="Claude">Set up per chat or per project, by each person</span><span role="cell" class="m" data-k="Milo">Taught once for the business: how bulk wine splits across runs, what counts as on-trade, what a case holds</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Everyone's number</span><span role="cell" data-k="Claude">Two people asking can get two answers</span><span role="cell" class="m" data-k="Milo">One set of numbers for the whole team</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Dashboards and alerts</span><span role="cell" data-k="Claude">Yours to build and keep running</span><span role="cell" class="m" data-k="Milo">Pin an answer and it refreshes itself. Any question can run on a schedule</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Who sees what</span><span role="cell" data-k="Claude">Whoever has the file sees all of it</span><span role="cell" class="m" data-k="Milo">Set by role. Margins for Ben and Henry, sales for everyone</span></div>
+    </div>
+    <p class="keep">Keep Claude for writing, planning and thinking things through. Milo is the one that knows your numbers.</p>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="con-h">
+  <p class="eyebrow">What we connect</p>
+  <h2 id="con-h">From the North Kent Downs <em>to Wimbledon</em>.</h2>
+  <p class="intro">Every can leaves a record somewhere different on its way from the vineyard to the glass. Everything here came up on our call or runs on your online shop today, apart from Ferovinum, which we flagged as one to check.</p>
+  <div class="wall">
+    <div class="fam"><h3>Made and stored</h3><p class="sub">The cost of every can starts here</p><ul><li>Canning runs</li><li>Bulk wine purchases</li><li>Supplier invoices</li><li>Stock by location</li><li class="chk">Ferovinum, to check</li></ul></div>
+    <div class="fam"><h3>Retailers</h3><p class="sub">Orders, plus sales data where the retailer shares it</p><ul><li>Waitrose</li><li>Tesco</li><li>Ocado</li><li>Fortnum &amp; Mason</li></ul></div>
+    <div class="fam"><h3>Distributors</h3><p class="sub">Delis and farm shops, through five partners</p><ul><li>Cotswold Fayre</li><li>Four more national distributors</li></ul></div>
+    <div class="fam"><h3>Venues and events</h3><p class="sub">Where people meet the locals</p><ul><li>Wimbledon</li><li>Tottenham Hotspur Stadium</li><li>Harlequins</li><li>Compass Group</li><li>Independents</li><li>Bottles in pubs and restaurants</li></ul></div>
+    <div class="fam"><h3>Online shop</h3><p class="sub">Running on wearetheuncommon.co.uk today</p><ul><li>Shopify</li><li>Klaviyo</li><li>GA4</li></ul></div>
+    <div class="fam"><h3>Money and files</h3><p class="sub">Where the reporting happens now</p><ul><li>Xero</li><li>Google Sheets</li><li>Excel</li></ul></div>
+  </div>
+  <div class="also">
+    <p><b>No stock system yet?</b> You don't need one to start. Milo reads the stock sheets you keep today and joins them to sales.</p>
+    <p><b>Plug and play, then custom.</b> Most of these connect in minutes. Anything without a ready connector, our engineers build at no extra cost.</p>
+  </div>
+</section>
+
+<section class="scl c-rose sec" aria-labelledby="proof-h">
+  <div class="wrap">
+    <p class="eyebrow">Proof from drinks brands</p>
+    <h2 id="proof-h">Two drinks brands, <em>already on Milo</em>.</h2>
+    <div class="proof">
+      <div>
+        <p class="tag">Two Tribes Brewing · London · Case study</p>
+        <h3 class="ph3">A brewery with no data team.</h3>
+        <p class="tx">Wholesale, Tesco shelves, a King's Cross taproom and a distribution arm, run by 35 people on seven systems that had never spoken to each other. No analysts and no implementation project.</p>
+        <div class="sys" aria-label="Systems connected"><span>Breww</span><span>Xero ×2</span><span>Toast</span><span>BrightHR</span><span>Bowimi</span><span>SharePoint</span></div>
+        <figure class="cq"><blockquote>“Milo is my work wife.”</blockquote><figcaption>CFO, Two Tribes Brewing</figcaption></figure>
+        <a class="case-link" href="https://www.milo.ai/case-studies/two-tribes-brewery" target="_blank" rel="noopener">Read the full case study ↗</a>
+      </div>
+      <div class="stats">
+        <div><b>2 weeks</b><span>to connect all seven systems</span></div>
+        <div><b>1 → 12</b><span>active users in six weeks, across six departments</span></div>
+        <div><b>20</b><span>live dashboards, built by the team</span></div>
+        <div><b>831</b><span>Tesco stores in one analyser, with anomalies flagged</span></div>
+        <p class="forus"><strong>Why it's here.</strong> The same mix of supermarkets, wholesale, venues and direct, and the same gap: nobody whose job is the numbers.</p>
+      </div>
+    </div>
+    <article class="pt">
+      <div>
+        <p class="tag">Prime Time · Low-calorie lager · Just started</p>
+        <h3 class="ph3">Where is our stock, across every retailer?</h3>
+        <p class="tx">Prime Time has just started with Milo, on Breww, Xero and HubSpot. The job that mattered most to them was knowing where their stock was across all of their retailers, in one answer.</p>
+        <div class="sys" aria-label="Systems connected"><span>Breww</span><span>Xero</span><span>HubSpot</span></div>
+      </div>
+      <p class="forus"><strong>Why it's here.</strong> It's the same job as your stock on hand, which is tracked by hand across several locations today. Prime Time put it first.</p>
+    </article>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="vid-h">
+  <div class="vid-grid">
+    <div>
+      <p class="eyebrow">See it</p>
+      <h2 id="vid-h">Ninety seconds of <em>Milo working</em>.</h2>
+      <p class="intro">The question box, the answers and the dashboards, without anyone describing them.</p>
+    </div>
+    <div>
+      <div class="video" id="vidframe" data-vid="1196983997">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+          <span class="p-ttl">Milo product overview</span>
+          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+          <span class="p-sub">Press play · 1 min 29 sec</span>
+        </a>
+      </div>
+      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" id="pilot" aria-labelledby="pilot-h" style="padding-top:0">
+  <p class="eyebrow">How it starts</p>
+  <h2 id="pilot-h">Six weeks, on <em>your real numbers</em>.</h2>
+  <p class="intro">You're deciding on tooling before Christmas, and six weeks fits inside that. We come to you, we do the building, and you finish with dashboards and automations already running.</p>
+  <div class="pilot">
+    <ol class="weeks">
+      <li class="wk"><p class="n">Week 1</p><div><h3>We come to you</h3><p>We visit, meet Henry and the team, and connect Xero, Shopify and the sheets on read-only access.</p></div></li>
+      <li class="wk key"><p class="n">Week 2</p><div><h3>The cost of a can</h3><p>Milo learns how invoices, bulk wine and canning runs add up to a cost per can. You check it against the figures worked out by hand.</p></div></li>
+      <li class="wk"><p class="n">Weeks 3–4</p><div><h3>Stock and sales</h3><p>Stock across every location in one view, and sales by channel from the invoices and trackers, including which distributors are growing or slipping.</p></div></li>
+      <li class="wk"><p class="n">Week 5</p><div><h3>Running on its own</h3><p>The Monday sales pack, stock alerts and cost per can after each run, scheduled and landing.</p></div></li>
+      <li class="wk"><p class="n">Week 6</p><div><h3>Go or no go</h3><p>A straight review of what it answered well and what it didn't. If it hasn't shown its value, you get the pilot fee back.</p></div></li>
+    </ol>
+    <div class="price frame">
+      <div><p class="lbl">The pilot</p><p class="amt">£1,500<small>six weeks</small></p></div>
+      <p>Onboarding, the office visit, every integration, dashboards and automations.</p>
+      <hr>
+      <div><p class="lbl">After the pilot, from</p><p class="amt">£1,500<small>a month</small></p></div>
+      <p class="nb"><strong>Money back if it doesn't pay off.</strong> If the six weeks don't show a return or clear value, we refund the £1,500 pilot fee in full.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="trust-h" style="padding-bottom:clamp(40px,6vw,72px)">
+  <div class="trust">
+    <h2 id="trust-h">Your numbers, handled properly.</h2>
+    <ul class="chips">
+      <li>SOC 2 Type II</li><li>ISO 27001</li><li>GDPR</li><li>Hosted in the EU</li><li>Read-only connections</li><li>Access set by role</li><li>A record of who asked what</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="wrap">Prepared for Ben, The Uncommon · October 2026 · Milo is an Autonomous Minds product · SOC 2 · ISO 27001 · GDPR</footer>
+
+<script>
+(function(){
+  var seats=[
+    {seat:'Ben · cost per can',
+     reading:'Xero bills, supplier invoices and the canning run log',
+     q:'What did each wine cost per can to make last quarter?',
+     a:'Eleanor and Gerald cost the most last quarter, at £1.95 and £1.92 a can including duty. Both rose 9p on the quarter before, because their latest runs used the bulk wine bought in March. Alfie and Peggy cost least, at around £1.20 even in a larger 250ml can, because they\u2019re blended with sparkling water and sit in a lower duty band.',
+     t:'Cost per can last quarter, including duty',
+     rows:[['Eleanor · bubbly rosé',1.95,'£1.95','▲ 9p on last quarter'],['Gerald · bubbly white',1.92,'£1.92','▲ 9p on last quarter'],['Percival · smooth red',1.88,'£1.88'],['Penelope · pale rosé',1.74,'£1.74'],['Clarence · crisp white',1.71,'£1.71'],['Peggy · rosé spritzer, 250ml',1.24,'£1.24'],['Alfie · white spritzer, 250ml',1.21,'£1.21']],
+     src:'Xero bills · supplier invoices (PDF) · canning run log · bulk wine purchases',
+     auto:'Recalculates after every canning run and lands with Ben and Henry.',
+     access:'Ben and Henry only'},
+    {seat:'Ben · stock',
+     reading:'stock sheets for every location, sales and the canning schedule',
+     q:'How many weeks of stock have we got of each wine, and will anything run out before its next canning run?',
+     a:'Gerald is the one to watch. At the last eight weeks’ pace there are four weeks of cans left across every location, and its next canning run is six weeks away. Everything else lasts until its next run. Penelope has the most cover, at fourteen weeks.',
+     t:'Weeks of cover at the current sales pace',
+     rows:[['Gerald',4,'4 wks','▲ Runs out before its next run'],['Eleanor',7,'7 wks'],['Clarence',9,'9 wks'],['Percival',11,'11 wks'],['Penelope',14,'14 wks']],
+     src:'Stock sheets by location · Shopify · invoices · canning schedule',
+     auto:'Alerts Ben the day any wine’s cover drops below the time to its next run.',
+     access:'Ops'},
+    {seat:'Ben and Henry · sales',
+     reading:'Excel invoices, the Google Sheets trackers and Shopify',
+     q:'How did sales split by channel last month, and which distributors are growing or slipping?',
+     a:'Retailers were the biggest channel at 41% of volume, then distributors at 27% and venues and events at 19%. The online shop was 9% and bottles in pubs and restaurants 4%. Two of the five distributors grew on the month. One ordered 30% less for the second month running, which is the kind of drop that usually gets noticed a quarter late.',
+     t:'Share of volume last month, in 9-litre cases',
+     rows:[['Retailers',41,'41%'],['Distributors',27,'27%'],['Venues and events',19,'19%'],['Online shop',9,'9%'],['On-trade bottles',4,'4%']],
+     src:'Excel invoices · Google Sheets trackers · Shopify · Xero',
+     auto:'Every Monday at 8am, to the whole team.',
+     access:'Whole team'},
+    {seat:'Henry · production',
+     reading:'twelve months of sales and the canning run log',
+     q:'Going on the last twelve months, how much wine do we need for next year’s canning runs?',
+     a:'About 150,000 litres, or ten canning runs of 15,000 litres. Gerald and Eleanor need half of it between them. Against this year’s harvest estimate that leaves roughly 22,000 litres to buy in, so a bulk purchase like March’s would need agreeing by February to be blended in time.',
+     t:'Litres needed next year, by wine',
+     rows:[['Gerald',42000,'42k L'],['Eleanor',33000,'33k L'],['Clarence',21000,'21k L'],['Alfie and Peggy',21000,'21k L'],['Penelope',18000,'18k L'],['Percival',15000,'15k L']],
+     src:'Twelve months of sales · canning run log · harvest estimate · bulk wine purchases',
+     auto:'Monthly: the forecast against actual sales, so the next bulk buy is sized on real numbers.',
+     access:'Ben and Henry'},
+    {seat:'Henry · brand',
+     reading:'Shopify orders, customer addresses and distributor invoices',
+     q:'Since the bottles went into pubs and restaurants, have online orders grown near those venues?',
+     a:'Yes, and there’s no sign the bottles are taking sales from the cans. Online orders from postcodes within five miles of a venue pouring the bottles are up 22% since launch, against 7% everywhere else. Can sales through distributors in the same areas are up 3%, in line with the rest of the country.',
+     t:'Growth since the bottle launch',
+     rows:[['Online orders near a bottle venue',22,'+22%'],['Online orders everywhere else',7,'+7%'],['Distributor cans, same areas',3,'+3%']],
+     src:'Shopify orders · Xero customer addresses · distributor invoices',
+     auto:'Monthly, to Henry and the marketing team.',
+     access:'Marketing'}
+  ];
+  var tabs=document.getElementById('tabs'),body=document.getElementById('pbody');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var btns=[],timer=null;
+  var spin='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="40 100" stroke-linecap="round"/></svg>';
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function answer(d){
+    var max=Math.max.apply(null,d.rows.map(function(r){return r[1]}));
+    var rows=d.rows.map(function(r){
+      return '<div class="row'+(r[3]?' flag':'')+'"><span class="lab">'+esc(r[0])+(r[3]?'<b>'+esc(r[3])+'</b>':'')+'</span><span class="bar"><i style="width:'+(r[1]/max*100).toFixed(1)+'%"></i></span><span class="val">'+esc(r[2])+'</span></div>';
+    }).join('');
+    return '<div class="ans"><p>'+esc(d.a)+'</p><div class="chart"><p class="ct">'+esc(d.t)+'</p>'+rows+'</div><p class="src">Sources · '+esc(d.src)+'</p><div class="auto"><strong>Automate it</strong><span>'+esc(d.auto)+'</span><span class="pill">'+esc(d.access)+'</span></div></div>';
+  }
+  function show(i,animate){
+    btns.forEach(function(b,j){b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1});
+    body.setAttribute('aria-labelledby','tab-'+i);
+    var d=seats[i],q='<p class="qb">'+esc(d.q)+'</p>';
+    clearTimeout(timer);
+    if(animate&&!reduce){
+      body.innerHTML=q+'<p class="think">'+spin+'Reading '+esc(d.reading)+'…</p>';
+      timer=setTimeout(function(){body.innerHTML=q+answer(d)},900);
+    }else{
+      body.innerHTML=q+answer(d);
+    }
+  }
+  seats.forEach(function(d,i){
+    var b=document.createElement('button');
+    b.type='button';b.className='tab';b.id='tab-'+i;
+    b.setAttribute('role','tab');b.setAttribute('aria-controls','pbody');
+    b.innerHTML='<span class="seat">'+esc(d.seat)+'</span><span class="tq">'+esc(d.q)+'</span>';
+    b.addEventListener('click',function(){show(i,true)});
+    b.addEventListener('keydown',function(e){
+      var k=e.key,n=null;
+      if(k==='ArrowDown'||k==='ArrowRight')n=(i+1)%seats.length;
+      if(k==='ArrowUp'||k==='ArrowLeft')n=(i-1+seats.length)%seats.length;
+      if(n!==null){e.preventDefault();btns[n].focus();show(n,true)}
+    });
+    tabs.appendChild(b);btns.push(b);
+  });
+  show(0,false);
+
+  var f=document.getElementById('vidframe'),p=document.getElementById('vidplay'),host=location.hostname;
+  var inline=host===''||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener('click',function(e){
+    e.preventDefault();
+    var fr=document.createElement('iframe');
+    fr.src='https://player.vimeo.com/video/'+f.dataset.vid+'?title=0&byline=0&portrait=0&dnt=1&autoplay=1';
+    fr.setAttribute('allow','autoplay; fullscreen; picture-in-picture');
+    fr.setAttribute('allowfullscreen','');
+    fr.setAttribute('title','Milo product overview');
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+
+</body>
+</html>
