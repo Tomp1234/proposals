@@ -187,6 +187,10 @@ a{color:var(--rose-ink)}
 .pt{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px clamp(32px,5vw,64px);align-items:center;margin-top:clamp(40px,5vw,56px);padding-top:clamp(32px,4vw,44px);border-top:1.5px solid var(--ink)}
 .pt .tx{margin-top:14px}
 .pt .forus{grid-column:auto}
+.pt-side{display:grid;gap:14px}
+.stack{background:var(--surface);border-radius:4px;padding:18px;display:grid;gap:16px}
+.stack .k{font:400 15px/1.2 var(--head);letter-spacing:.08em;color:var(--muted)}
+.stack .sys{margin-top:8px}
 
 /* video */
 .vid-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,4vw,60px);align-items:center}
@@ -397,12 +401,18 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
     </div>
     <article class="pt">
       <div>
-        <p class="tag">Prime Time · Low-calorie lager · Just started</p>
+        <p class="tag">Prime Time · Low-calorie lager · Customer story</p>
         <h3 class="ph3">Where is our stock, across every retailer?</h3>
-        <p class="tx">Prime Time has just started with Milo, on Breww, Xero and HubSpot. The job that mattered most to them was knowing where their stock was across all of their retailers, in one answer.</p>
-        <div class="sys" aria-label="Systems connected"><span>Breww</span><span>Xero</span><span>HubSpot</span></div>
+        <p class="tx">Prime Time is a drinks brand with a setup very close to Two Tribes. Milo connects Breww, their CRM and Xero, and joins them to their retail, direct-to-consumer, marketing and HR data.</p>
+        <p class="tx">The question that mattered most to them was knowing where their stock was across all of their retailers, in one answer instead of a round of emails and spreadsheets.</p>
       </div>
-      <p class="forus"><strong>Why it's here.</strong> It's the same job as your stock on hand, which is tracked by hand across several locations today. Prime Time put it first.</p>
+      <div class="pt-side">
+        <div class="stack">
+          <div><p class="k">At the core</p><div class="sys"><span>Breww</span><span>HubSpot CRM</span><span>Xero</span></div></div>
+          <div><p class="k">Joined to</p><div class="sys"><span>Retail data</span><span>Direct-to-consumer</span><span>Marketing</span><span>HR</span></div></div>
+        </div>
+        <p class="forus"><strong>Why it's here.</strong> It's the same job as your stock on hand, which is tracked by hand across several locations today. Prime Time put it first.</p>
+      </div>
     </article>
   </div>
 </section>
