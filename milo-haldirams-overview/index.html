@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Haldiram's</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700;1,800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a Haldiram's pack. A red band carries the thesis with the logo's ring as a watermark, then a light shop floor of working tools: the seat demo, a retailer stock grid, an alert builder. Bold italic Poppins echoes the wordmark. */
+:root{
+  --paper:#FFFBF5;--panel:#FBF0E2;--card:#FFFFFF;--ink:#22140F;--muted:#6D5A50;--rule:#EEDFCB;
+  --red:#C8141B;--brand:#D3121A;--brand-deep:#A50E14;--gold:#FBB102;--gold-ink:#7A4E00;--tint:#FDE7E8;--bar:#F1BDBF;
+  --good:#2C7A4B;--good-bg:#E3F1E7;--warn:#8F5B00;--warn-bg:#FCEFD2;--bad:#A3161C;--bad-bg:#FADADB;--over:#3D5A80;--over-bg:#E3EAF4;
+  --on-brand:#FFFFFF;--on-red:#FFFFFF;
+  --display:"Poppins","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --body:"Poppins","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#170F0C;--panel:#21170F;--card:#261B16;--ink:#F7EEE6;--muted:#BDA99C;--rule:#3B2C24;
+  --red:#FF6B6F;--brand:#A8121A;--brand-deep:#7E0D12;--gold:#FFC23D;--gold-ink:#FFC23D;--tint:#3D1C1C;--bar:#6E2C2E;
+  --good:#7FD19E;--good-bg:#1C3326;--warn:#F0B85A;--warn-bg:#3A2A12;--bad:#FF8A8D;--bad-bg:#40191B;--over:#9DB7DE;--over-bg:#1D2738;
+  --on-brand:#FFFFFF;--on-red:#1A0B0B;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#170F0C;--panel:#21170F;--card:#261B16;--ink:#F7EEE6;--muted:#BDA99C;--rule:#3B2C24;
+  --red:#FF6B6F;--brand:#A8121A;--brand-deep:#7E0D12;--gold:#FFC23D;--gold-ink:#FFC23D;--tint:#3D1C1C;--bar:#6E2C2E;
+  --good:#7FD19E;--good-bg:#1C3326;--warn:#F0B85A;--warn-bg:#3A2A12;--bad:#FF8A8D;--bad-bg:#40191B;--over:#9DB7DE;--over-bg:#1D2738;
+  --on-brand:#FFFFFF;--on-red:#1A0B0B;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;text-wrap:balance;margin:0}
+h2 em{font-style:italic;font-weight:800;color:var(--red)}
+p{margin:0}
+a{color:var(--red)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+.ring{width:18px;height:12px;flex:none}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px}
+.lockup{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-weight:700;font-size:18px;letter-spacing:-.01em}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--muted);font-size:15px}
+.lk-hal img{height:36px;width:auto;display:block}
+.nav{display:flex;gap:2px}
+.nav a{font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px}
+.nav a:hover{color:var(--ink);background:var(--panel)}
+@media (max-width:860px){.nav{display:none}}
+
+/* hero */
+.hero{background:var(--brand);color:var(--on-brand);position:relative;overflow:hidden;padding-block:56px 60px}
+.hero .wm{position:absolute;right:-180px;top:50%;transform:translateY(-50%);width:980px;max-width:none;height:auto;color:#FFFFFF;opacity:.13;pointer-events:none}
+.hero .wrap{position:relative}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:start}
+.eyebrow{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.hero .eyebrow{color:#FFFFFF;opacity:.92}
+.hero h1{font-size:clamp(38px,5.4vw,64px);line-height:1.02;font-weight:800;font-style:italic;letter-spacing:-.03em;margin-bottom:22px}
+.hero h1 span{display:block;color:var(--gold)}
+.lede{font-size:17.5px;max-width:34em;margin-bottom:26px;color:#FFFFFF;opacity:.94}
+.ask{display:flex;gap:8px;background:#FFFFFF;border-radius:12px;padding:6px;max-width:560px;box-shadow:0 10px 30px -14px rgba(60,0,0,.6)}
+.ask input{flex:1;min-width:0;border:0;background:transparent;padding:10px 12px;font-size:15.5px;outline:none;color:#22140F}
+.ask input::placeholder{color:#7A6A61}
+.btn{border:0;border-radius:8px;background:var(--red);color:var(--on-red);font-weight:700;padding:10px 18px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--brand-deep);color:#FFFFFF}
+.ask .btn{background:#C8141B;color:#FFFFFF}
+.ask .btn:hover{background:#A50E14}
+.ask-hint{font-size:13px;margin-top:10px;color:#FFFFFF;opacity:.85}
+
+.letter{background:var(--card);color:var(--ink);border-radius:6px;padding:26px 26px 24px;box-shadow:0 24px 50px -24px rgba(40,0,0,.55)}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-family:var(--mono);font-size:12px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--rule)}
+.refs b{font-weight:500;color:var(--ink)}
+.letter p{font-size:14.5px;margin-bottom:11px}
+.letter .sal{font-weight:600;font-size:16px}
+.sign{margin-top:16px}
+.sign .nm{font-weight:700;font-style:italic;font-size:18px}
+.sign .ml{font-size:13px;color:var(--muted)}
+
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--rule)}
+.stat{padding:20px 20px 20px 0}
+.stat+.stat{padding-left:20px;border-left:1px solid var(--rule)}
+.stat b{display:block;font-size:26px;font-weight:800;font-style:italic;letter-spacing:-.02em;color:var(--red)}
+.stat span{font-size:13.5px;color:var(--muted)}
+@media (max-width:880px){.hero-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.stat,.stat+.stat{padding:14px 0;border-left:0}.stat+.stat{border-top:1px solid var(--rule)}}
+
+/* sections */
+section.band{padding-block:68px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+.head{max-width:680px;margin-bottom:30px}
+.head h2{font-size:clamp(28px,3.4vw,40px);line-height:1.12;margin-bottom:10px}
+.head p{color:var(--muted);font-size:16px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:76ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:6px}
+.seat{text-align:left;border:1px solid transparent;background:transparent;border-radius:10px;padding:10px 12px;cursor:pointer}
+.seat b{display:block;font-size:14.5px}
+.seat span{display:block;font-size:12.5px;color:var(--muted)}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--card);border-color:var(--rule);box-shadow:inset 3px 0 0 var(--red)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.q{border:1px solid var(--rule);background:var(--card);border-radius:999px;padding:7px 14px;font-size:13.5px;cursor:pointer;text-align:left}
+.q:hover{border-color:var(--red)}
+.q[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--on-red)}
+.console{background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:700}
+.c-head .who svg{width:22px;height:18px}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--tint);color:var(--red)}
+.c-body{padding:20px 18px;min-height:340px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--panel);border-radius:12px 12px 2px 12px;padding:9px 14px;max-width:80%;font-size:14.5px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:22px;height:22px;color:var(--red);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;background:var(--panel);border-radius:3px;overflow:hidden}
+.bf{display:block;height:100%;background:var(--bar);border-radius:0 4px 4px 0;transition:width .5s ease}
+.bf.hl{background:var(--red)}
+.bf.neg{background:var(--muted);opacity:.5}
+.bv{font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);border-radius:8px;margin-bottom:16px}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px;font-weight:600}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-family:var(--mono);font-size:11.5px;padding:3px 9px;border-radius:999px;white-space:nowrap;flex:none}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.kpi{background:var(--card);padding:12px 14px}
+.kpi b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border-radius:8px;padding:14px;margin-bottom:16px;font-size:14.5px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--red);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.ghost{border:1px solid var(--red);background:transparent;color:var(--red);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.ghost:hover{background:var(--tint)}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--card);border-radius:8px;padding:9px 12px}
+@media (max-width:860px){.demo{grid-template-columns:1fr}.seats{flex-direction:row;flex-wrap:wrap}.seat{flex:1 1 140px;border-color:var(--rule)}.seat span{display:none}.bar-row{grid-template-columns:minmax(0,118px) minmax(0,1fr) 58px}}
+
+/* shelf grid */
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:10px;padding:3px;background:var(--card);margin-bottom:16px}
+.seg button{border:0;background:transparent;border-radius:7px;padding:7px 14px;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--red);color:var(--on-red)}
+.shelf{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:28px;align-items:start}
+.hm-wrap{min-width:0}
+.hm{display:grid;grid-template-columns:minmax(84px,1.25fr) repeat(5,minmax(0,1fr));gap:3px}
+.hm .ch{font-family:var(--mono);font-size:11.5px;color:var(--muted);padding:0 2px 6px;text-align:center;line-height:1.25;align-self:end;overflow-wrap:anywhere}
+.hm .rh{font-size:13px;font-weight:600;display:flex;align-items:center;padding-right:6px;line-height:1.25}
+.cell{border:0;border-radius:4px;min-height:44px;font-family:var(--mono);font-size:13.5px;font-weight:500;cursor:pointer;font-variant-numeric:tabular-nums;transition:transform .12s}
+.cell:hover{transform:scale(1.04)}
+.cell[aria-pressed="true"]{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--ink)}
+.cell.s-bad{background:var(--bad-bg);color:var(--bad)}
+.cell.s-warn{background:var(--warn-bg);color:var(--warn)}
+.cell.s-ok{background:var(--good-bg);color:var(--good)}
+.cell.s-over{background:var(--over-bg);color:var(--over)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.detail{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px}
+.d-k{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.d-big{font-size:38px;font-weight:800;font-style:italic;letter-spacing:-.02em;line-height:1.1;margin:4px 0 2px}
+.d-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.d-rows{display:grid;gap:0;border-top:1px solid var(--rule);margin-bottom:14px}
+.d-rows div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:13.5px}
+.d-rows b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
+.d-say{display:flex;gap:10px;font-size:14px;margin-bottom:14px}
+.d-say svg{width:24px;height:20px;flex:none;margin-top:2px}
+@media (max-width:900px){.shelf{grid-template-columns:1fr}}
+@media (max-width:440px){.hm .ch{font-size:10px}.hm .rh{font-size:12px}.cell{font-size:12px;min-height:40px}}
+
+/* alerts */
+.pane-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.field select{border:1px solid var(--rule);background:var(--card);border-radius:8px;padding:10px 12px;width:100%}
+.preview{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:16px}
+.pv-top{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.pv-top b{color:var(--ink)}
+.pv-msg{display:flex;gap:12px}
+.pv-msg svg{width:30px;height:24px;flex:none;margin-top:2px}
+.pv-msg p{font-size:14.5px}
+.pv-msg .from{font-weight:700;font-size:13.5px;margin-bottom:2px}
+.pv-when{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px dashed var(--rule)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:22px}
+.card .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.card h3{font-size:19px;margin-bottom:6px}
+.card p{font-size:14.5px;color:var(--muted)}
+.jobs{margin-top:44px}
+@media (max-width:860px){.pane-grid,.three{grid-template-columns:1fr}}
+
+/* connect */
+.conn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule)}
+.cg{padding:18px 20px 20px 0;border-bottom:1px solid var(--rule)}
+.cg h3{font-size:15px;font-weight:700;margin-bottom:2px}
+.cg p{font-size:13px;color:var(--muted);margin-bottom:10px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pills span{font-size:12.5px;border:1px solid var(--rule);background:var(--card);border-radius:6px;padding:4px 9px}
+.build{margin-top:22px;font-size:15px;max-width:70ch}
+.build b{color:var(--red)}
+@media (max-width:860px){.conn{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.conn{grid-template-columns:1fr}}
+
+/* proof */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--brand);color:var(--on-brand);border-radius:14px;padding:32px;margin-bottom:20px;position:relative;overflow:hidden}
+.feature .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.9;margin-bottom:10px}
+.feature h3{font-size:clamp(24px,2.8vw,32px);line-height:1.15;font-style:italic;font-weight:800;margin-bottom:12px}
+.feature p{font-size:15px;opacity:.95;margin-bottom:10px}
+.feature .why{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.4);font-size:14px}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:14px 16px;position:relative}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:rgba(255,255,255,.5)}
+.chain .t{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.chain b{display:block;font-size:16px}
+.chain li.end{background:#FFFFFF;color:#22140F;border-color:#FFFFFF}
+.chain li.end .t{color:#C8141B;opacity:1}
+.proof .card{display:flex;flex-direction:column}
+.card .big{font-size:40px;font-weight:800;font-style:italic;color:var(--red);line-height:1;margin:6px 0 12px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.card .why{margin-top:auto;padding-top:14px;border-top:1px dashed var(--rule);font-size:13.5px;color:var(--ink)}
+.proof .card p.body{margin-bottom:14px}
+@media (max-width:860px){.feature{grid-template-columns:1fr;padding:24px}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:12px;overflow:hidden;background:#7E0D12}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;text-decoration:none;color:#FFFFFF;background:radial-gradient(120% 90% at 20% 10%,#E0161E 0%,#A50E14 55%,#3A0607 100%)}
+.poster .pw{position:absolute;right:-120px;bottom:-90px;width:520px;max-width:none;color:#FFFFFF;opacity:.14}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:700}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-size:clamp(20px,2.8vw,28px);font-weight:700;font-style:italic;position:relative}
+.p-play{width:64px;height:64px;border-radius:50%;background:#FFFFFF;color:#A50E14;display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .2s;position:relative}
+.poster:hover .p-play{transform:scale(1.06)}
+.p-sub{font-family:var(--mono);font-size:12px;opacity:.88;position:relative}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+@media (max-width:860px){.vid-grid{grid-template-columns:1fr}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.step{border-top:3px solid var(--red);padding-top:14px}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:.06em}
+.step h3{font-size:19px;margin:4px 0 6px}
+.step p{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* security */
+.sec{background:var(--panel);border-radius:14px;padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+.sec h2{font-size:clamp(24px,3vw,32px);line-height:1.15;margin-bottom:12px}
+.sec p{color:var(--muted);font-size:15px;margin-bottom:10px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;align-content:start}
+.badges span{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:8px 12px;font-size:13.5px;font-weight:600}
+.badges span svg{width:14px;height:14px;color:var(--red)}
+@media (max-width:860px){.sec{grid-template-columns:1fr;padding:24px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:68px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.cell{transition:none}}
+</style>
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="hal-ring" viewBox="0 0 300 180"><ellipse cx="150" cy="90" rx="144" ry="58" fill="none" stroke="currentColor" stroke-width="10"/><path d="M90 30 A80 80 0 0 1 210 30 M90 150 A80 80 0 0 0 210 150" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></symbol>
+    <symbol id="spin" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="6" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-width="2"/><path d="M2 12a10 6 0 0 1 10-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Haldiram's">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <span class="lk-hal"><img src="data:image/png;base64,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" alt="Haldiram's" width="64" height="36"></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#try">Try it</a>
+      <a href="#shelves">Shelves</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#connect">Connect</a>
+      <a href="#proof">Proof</a>
+      <a href="#security">Security</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <svg class="wm" viewBox="0 0 300 180" aria-hidden="true"><use href="#hal-ring"/></svg>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><svg class="ring" aria-hidden="true"><use href="#hal-ring"/></svg>Milo × Haldiram's · Introduced by Rose Media Group</p>
+        <h1>Every shelf. Every market. <span>One question away.</span></h1>
+        <p class="lede">Haldiram's sells across India, the UK and Dubai, with America next. In each market the numbers sit with different retailers, distributors, agencies and systems. Milo joins them up, so anyone in the business can ask a question in plain English and get the answer in seconds, with its sources.</p>
+        <form class="ask" id="hero-ask" autocomplete="off">
+          <label for="hero-q" style="position:absolute;left:-9999px">Ask Milo a question about Haldiram's</label>
+          <input id="hero-q" type="text" placeholder="Which retailers will run short of Bhujia before Diwali?">
+          <button class="btn" type="submit">Ask Milo</button>
+        </form>
+        <p class="ask-hint">Ask about stock, retailers, shipments, campaigns or markets. It runs on sample data.</p>
+      </div>
+
+      <article class="letter" aria-label="A note from Liam">
+        <div class="refs">
+          <span>Our ref</span><b>MILO / HAL / 01</b>
+          <span>Re</span><b>Introduction via Rose Media Group</b>
+          <span>For</span><b>The Haldiram's team</b>
+        </div>
+        <p class="sal">To the Haldiram's team,</p>
+        <p>Rose Media Group introduced us. From working with you, they described something any brand selling in several countries will recognise: the data lives in different places, and getting things done takes longer than it should.</p>
+        <p>That is the problem Milo is built for. We connect your retailers, distributors, agencies and systems, and then anyone can ask a question and get an answer they can trust. Kellogg's uses Milo across dozens of markets, and their story is further down.</p>
+        <p>Everything on this page runs on sample data, so click around.</p>
+        <div class="sign">
+          <p class="nm">Liam James Rabone</p>
+          <p class="ml">Milo · liam@milo.ai</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b>Seconds</b><span>from a typed question to an answer, with its sources</span></div>
+    <div class="stat"><b>One view</b><span>of India, the UK and Dubai, with America added when it opens</span></div>
+    <div class="stat"><b>700+</b><span>integrations, plus bespoke connectors our engineers build</span></div>
+  </div>
+</div>
+
+<section class="band first" id="try" aria-labelledby="try-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><svg class="ring" aria-hidden="true"><use href="#hal-ring"/></svg>Try it</p>
+      <h2 id="try-h">Ask as any seat <em>at Haldiram's</em>.</h2>
+      <p>Pick a seat and a question, or type your own. Every answer shows where it came from, and most can become an alert.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · Haldiram's workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" style="position:absolute;left:-9999px">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Illustrative. The products are from the Haldiram's range and the retailers are the ones discussed with Rose Media. Every figure, store, shipment and agency result is invented to show the shape of an answer. None of it is Haldiram's data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="shelves" aria-labelledby="shelf-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><svg class="ring" aria-hidden="true"><use href="#hal-ring"/></svg>Every shelf</p>
+      <h2 id="shelf-h">Tesco to wholesale, <em>on one grid</em>.</h2>
+      <p>Each retailer reports stock and sales its own way. Milo reads them all and turns them into one number everyone understands: weeks of cover. Tap a square for the detail.</p>
+    </div>
+    <div class="seg" role="group" aria-label="Demand">
+      <button type="button" id="m-now" aria-pressed="true">This week</button>
+      <button type="button" id="m-diwali" aria-pressed="false">With Diwali demand</button>
+    </div>
+    <div class="shelf">
+      <div class="hm-wrap">
+        <div class="hm" id="hm" role="group" aria-label="Weeks of cover by product and retailer"></div>
+        <div class="legend" aria-hidden="true">
+          <span><i style="background:var(--bad-bg);box-shadow:inset 0 0 0 1px var(--bad)"></i>Under 1 week · short</span>
+          <span><i style="background:var(--warn-bg);box-shadow:inset 0 0 0 1px var(--warn)"></i>1 to 2 weeks · low</span>
+          <span><i style="background:var(--good-bg);box-shadow:inset 0 0 0 1px var(--good)"></i>2 to 8 weeks · healthy</span>
+          <span><i style="background:var(--over-bg);box-shadow:inset 0 0 0 1px var(--over)"></i>Over 8 weeks · overstocked</span>
+        </div>
+      </div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+    <p class="note">Sample data. Diwali demand uses an invented uplift for each product, highest for gifting lines like Soan Papdi and Kaju Katli.</p>
+  </div>
+</section>
+
+<section class="band" id="alerts" aria-labelledby="alert-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><svg class="ring" aria-hidden="true"><use href="#hal-ring"/></svg>Automations</p>
+      <h2 id="alert-h">Ask once. <em>It keeps watching.</em></h2>
+      <p>Any question can run on a schedule, or fire the moment a number crosses a line. Build one here.</p>
+    </div>
+    <div class="pane-grid">
+      <div>
+        <div class="field"><label for="w-what">What to watch</label>
+          <select id="w-what">
+            <option value="cover">A retailer drops below two weeks of cover</option>
+            <option value="gap">A store stops selling a product it usually sells</option>
+            <option value="ship">A shipment from India slips past its date</option>
+            <option value="fill">A distributor fills fewer than 90% of orders</option>
+            <option value="roas">A campaign returns less than twice its spend</option>
+            <option value="drop">A market's sales fall over 10%, with the reason</option>
+          </select></div>
+        <div class="field"><label for="w-when">When</label>
+          <select id="w-when">
+            <option value="now">The moment it happens</option>
+            <option value="mon">Every Monday at 8am</option>
+            <option value="month">First working day of the month</option>
+          </select></div>
+        <div class="field"><label for="w-where">Where</label>
+          <select id="w-where">
+            <option value="Email">Email</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Microsoft Teams">Microsoft Teams</option>
+            <option value="Slack">Slack</option>
+          </select></div>
+      </div>
+      <div class="preview" aria-live="polite">
+        <div class="pv-top"><span id="pv-chan"><b>Email</b></span><span id="pv-to">To: UK sales</span></div>
+        <div class="pv-msg"><svg aria-hidden="true"><use href="#milo-icon"/></svg><div><p class="from">Milo</p><p id="pv-msg"></p></div></div>
+        <p class="pv-when" id="pv-when"></p>
+      </div>
+    </div>
+
+    <div class="three jobs">
+      <div class="card"><p class="k">The pipes</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including bespoke ones for systems without a connector, and fix them when something changes.</p></div>
+      <div class="card"><p class="k">The dashboards</p><h3>Anyone can build one</h3><p>Pin an answer and it becomes a live dashboard. Whoever asked the question builds it, so nothing waits in a queue.</p></div>
+      <div class="card"><p class="k">The automations</p><h3>Questions keep running</h3><p>Any question can become a scheduled report or an alert, like the ones above. Nobody writes a pipeline for it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="connect" aria-labelledby="conn-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><svg class="ring" aria-hidden="true"><use href="#hal-ring"/></svg>What Milo connects</p>
+      <h2 id="conn-h">Four markets. <em>One set of pipes.</em></h2>
+      <p>This is what Milo connects for a brand that sells the way Haldiram's does. It isn't a guess at your stack.</p>
+    </div>
+    <div class="conn">
+      <div class="cg"><h3>Supermarkets and wholesale</h3><p>Stock and sales, store by store</p><div class="pills"><span>Tesco</span><span>Sainsbury's</span><span>Waitrose</span><span>Ocado</span><span>Wholesaler sell-out files</span><span>Store-level EPOS</span></div></div>
+      <div class="cg"><h3>Online and quick commerce</h3><p>Marketplaces in every market</p><div class="pills"><span>Amazon</span><span>Blinkit</span><span>Swiggy Instamart</span><span>Zepto</span><span>Noon</span><span>Your own web shop</span></div></div>
+      <div class="cg"><h3>Supply chain</h3><p>From factory to shelf</p><div class="pills"><span>SAP</span><span>Microsoft Dynamics</span><span>Warehouse stock</span><span>Freight forwarder updates</span><span>Distributor orders</span></div></div>
+      <div class="cg"><h3>Marketing and agencies</h3><p>Every agency, on one scale</p><div class="pills"><span>Meta</span><span>Google Ads</span><span>TikTok</span><span>YouTube</span><span>Snapchat</span><span>Retailer media</span><span>Agency reports</span></div></div>
+      <div class="cg"><h3>Restaurants</h3><p>Tills, delivery and menus</p><div class="pills"><span>Petpooja</span><span>Foodics</span><span>Square</span><span>Zomato</span><span>Talabat</span><span>Deliveroo</span></div></div>
+      <div class="cg"><h3>Finance and files</h3><p>Rupees, dirham and pounds</p><div class="pills"><span>Tally</span><span>Xero</span><span>Sage</span><span>Excel</span><span>Google Sheets</span><span>SharePoint</span></div></div>
+    </div>
+    <p class="build">Most of these connect in minutes. <b>Anything without a ready connector, our engineers build</b>, and they keep it running when a retailer changes its format.</p>
+  </div>
+</section>
+
+<section class="band proof" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><svg class="ring" aria-hidden="true"><use href="#hal-ring"/></svg>Proof</p>
+      <h2 id="proof-h">Already working for <em>food and drink</em>.</h2>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k">Kellogg's · Middle East and North Africa</p>
+        <h3>Sales were falling across MENA. The cause was on the shelf.</h3>
+        <p>Kellogg's commercial finance team uses Milo across dozens of markets, tracking trade spend, promotional ROI and margin across hundreds of SKUs.</p>
+        <p>When sales fell across the Middle East and North Africa, Milo traced the decline to a shortage of Coco Pops rather than a drop in demand.</p>
+        <p class="why"><b>Why it's here.</b> Haldiram's sells the same way: many markets, many products, many distributors. A dip in one country is a supply question as often as a demand one, and Milo checks both. Try the Leadership seat above.</p>
+      </div>
+      <ol class="chain" aria-label="How Milo found the cause">
+        <li><span class="t">The symptom</span><b>Sales down across MENA</b></li>
+        <li><span class="t">What Milo did</span><b>Joined sales to supply, market by market</b></li>
+        <li class="end"><span class="t">The cause</span><b>A Coco Pops shortage</b></li>
+      </ol>
+    </div>
+    <div class="three">
+      <div class="card">
+        <p class="k">Two Tribes · Brewery, London</p>
+        <p class="big">831</p>
+        <p class="body">Tesco stores in one analyser, with anomalies flagged. Seven systems connected in two weeks, with no data team, and twenty dashboards built by the team.</p>
+        <p class="why"><b>Why it's here.</b> The same supermarket question: which store, which product, which week.</p>
+      </div>
+      <div class="card">
+        <p class="k">Nikki Beach Global · Hospitality</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants across Europe, the Middle East, the Americas and Asia. SevenRooms, OpenTable, Square and SumUp, read as one view of how each venue is trading.</p>
+        <p class="why"><b>Why it's here.</b> Several countries and several systems, the same shape as running restaurants in more than one market.</p>
+      </div>
+      <div class="card">
+        <p class="k">ETM Group · Restaurants and bars, London</p>
+        <p class="big">3 → 1</p>
+        <p class="body">London pubs, bars and restaurants, including Aviary and Wagtail. Bookings in OpenTable, events in Collins and tills in Zonal, read together in Milo.</p>
+        <p class="why"><b>Why it's here.</b> A food business run by operators, not analysts, asking its own questions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><svg class="ring" aria-hidden="true"><use href="#hal-ring"/></svg>See it</p>
+        <h2 id="vid-h" style="font-size:clamp(26px,3.2vw,36px);line-height:1.12;margin-bottom:10px">Ninety seconds of <em>Milo working</em>.</h2>
+        <p style="color:var(--muted)">The question box, the answers and the dashboards, without anyone describing them.</p>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <svg class="pw" viewBox="0 0 300 180" aria-hidden="true"><use href="#hal-ring"/></svg>
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="start-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><svg class="ring" aria-hidden="true"><use href="#hal-ring"/></svg>Getting started</p>
+      <h2 id="start-h">One market first. <em>Then the rest.</em></h2>
+      <p>No engineering sprint and no long implementation. We do the building.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n">STEP 1</p><h3>Connect</h3><p>Start with one market: retailer data, warehouse stock and shipments, all on read-only access.</p></div>
+      <div class="step"><p class="n">STEP 2</p><h3>Define</h3><p>We teach Milo your terms: product names in each market, cases and packs, retailer codes, rupees, dirham and pounds.</p></div>
+      <div class="step"><p class="n">STEP 3</p><h3>Set access</h3><p>Sales sees retailers, each agency sees its own campaigns, leadership sees every market.</p></div>
+      <div class="step"><p class="n">STEP 4</p><h3>Ask</h3><p>The team asks in the browser, email, Teams or WhatsApp. Other markets join the same workspace, America included.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="security" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <h2 id="sec-h">Your numbers, <em>your rules</em>.</h2>
+        <p>Milo is SOC 2 Type II and ISO 27001 certified. Connections are read-only, access is set by role, and every question is logged with who asked it and what Milo returned.</p>
+        <p>Agencies and distributors can have their own view without seeing anything else. Where data has to stay in a particular country, Milo can run on your own servers.</p>
+      </div>
+      <div class="badges">
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>SOC 2 Type II</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>ISO 27001</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>GDPR</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Hosted in the EU</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Or on your own servers</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Read-only connections</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Access set by role</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Every question logged</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Prepared for Haldiram's by Liam James Rabone, with thanks to Rose Media Group · October 2026 · Milo is an Autonomous Minds product · SOC 2 · ISO 27001 · GDPR</div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var SEATS=[
+    {name:"UK retail",sub:"Supermarkets, wholesale, online",qs:[
+      {q:"Which retailers will run short of Bhujia before Diwali?",kw:["short","bhujia","diwali","run","out","stock","cover","retailers"],type:"list",
+       rows:[["Ocado","0.9 weeks of cover · next delivery in 9 days","Short in 6 days","bad"],["Tesco","1.6 weeks of cover · order has no Diwali uplift","Short before Diwali","bad"],["Sainsbury's","2.4 weeks of cover · order matches last year's uplift","Watch","warn"],["Waitrose","4.8 weeks of cover","Healthy","ok"],["Wholesale","6.1 weeks of cover","Healthy","ok"]],
+       say:"Ocado runs short first, in about six days, three days before its next delivery. Tesco's order has no Diwali uplift in it. Last year Bhujia sold 2.3 times its usual weekly volume in the fortnight before Diwali.",
+       src:["Retailer supplier data","Warehouse stock","Purchase orders"],alert:"cover"},
+      {q:"Which Tesco stores have stopped selling Soan Papdi?",kw:["stores","stopped","store","gap","shelf","soan","papdi","zero","selling"],type:"list",
+       rows:[["Tesco Extra · Wembley","No sales for 9 days · sold 46 a week before","Likely off shelf","bad"],["Tesco Extra · Leicester","No sales for 8 days · sold 39 a week before","Likely off shelf","bad"],["Tesco Superstore · Bradford","No sales for 7 days · depot shows stock","Check","warn"],["Tesco Extra · Hounslow","Selling again after 6 days","Recovered","ok"]],
+       say:"Three stores that usually sell 30 to 50 boxes a week have sold nothing for over a week, and the depot shows stock. That points to a gap on the shelf, not falling demand. Worth a call to the field team.",
+       src:["Tesco store-level EPOS","Depot stock"],alert:"gap"},
+      {q:"How many Gulab Jamun tins did each retailer sell this month?",kw:["gulab","jamun","tins","sold","sell","rate","sales","month","retailer"],type:"bars",unit:"k",dec:1,hi:"high",
+       cap:"Gulab Jamun tins sold, last four weeks, thousands",
+       rows:[["Tesco",18.4],["Sainsbury's",11.2],["Wholesale",9.6],["Ocado",4.1],["Waitrose",2.7]],
+       say:"Tesco sells the most, at 18,400 tins in four weeks. Waitrose sells the least, and 40% of its stores sold fewer than two tins a week.",
+       src:["Retailer supplier data","Wholesaler sell-out files"],alert:"cover"}
+    ]},
+    {name:"Supply chain",sub:"Shipments, warehouse, distributors",qs:[
+      {q:"Which shipments from India are running late?",kw:["shipment","shipments","late","container","india","eta","customs","delay"],type:"list",
+       rows:[["HAL-2611 · Nhava Sheva to London Gateway","Namkeens · 22 pallets · arrival moved 6 days","Late","bad"],["HAL-2608 · Kolkata to Felixstowe","Sweets · 14 pallets · held at customs for 3 days","Held","bad"],["HAL-2617 · Nhava Sheva to London Gateway","Bakery · 9 pallets","Watch","warn"],["HAL-2615 · Nhava Sheva to Jebel Ali","Namkeens and sweets · Dubai distributor","On time","ok"]],
+       say:"Two UK containers are late. HAL-2611 carries most of the Bhujia for the Diwali orders, so a six-day slip leaves Ocado and Tesco short.",
+       src:["Freight forwarder updates","Purchase orders","Warehouse stock"],alert:"ship"},
+      {q:"How many weeks of stock do we hold at the UK warehouse?",kw:["weeks","warehouse","cover","hold","stock","product","inventory"],type:"bars",unit:" wks",dec:1,hi:"low",
+       cap:"Weeks of cover at the UK warehouse, by product",
+       rows:[["Bhujia",1.8],["Gulab Jamun",3.2],["Chana Dal",4.5],["Soan Papdi",5.9],["Rosogulla",7.4],["Corn Flake Mix",11.6]],
+       say:"Bhujia has the least cover, at 1.8 weeks, before any Diwali demand. Corn Flake Mix has nearly twelve weeks, so its next order can wait.",
+       src:["Warehouse stock","Sales forecast"],alert:"cover"},
+      {q:"What's each distributor's fill rate this quarter?",kw:["distributor","distributors","fill","rate","orders","full","shorts"],type:"bars",unit:"%",hi:"low",
+       cap:"Orders delivered in full, this quarter",
+       rows:[["UK wholesaler A",97],["UK wholesaler B",94],["UAE distributor",88],["Specialist grocer network",81]],
+       say:"The specialist grocer network delivers 81% of orders in full, the lowest of the four. Most of the shorts are sweets, which suggests it orders less than it sells around festivals.",
+       src:["Distributor orders","Invoices"],alert:"fill"}
+    ]},
+    {name:"Marketing",sub:"Campaigns, agencies, social",qs:[
+      {q:"Which channel drove last Diwali's sales uplift?",kw:["channel","campaign","diwali","uplift","roas","return","ads","spend","drove"],type:"bars",unit:"x",dec:1,hi:"high",
+       cap:"Sales per pound spent, Diwali 2025 campaign, by channel",
+       rows:[["Tesco retailer media",5.8],["Meta",4.1],["TikTok",3.6],["Google search",2.9],["YouTube",1.4]],
+       say:"Tesco retailer media returned the most, at 5.8 times spend. YouTube returned the least. Each agency reports its own channels, so this is the first time they sit on one scale.",
+       src:["Meta Ads","TikTok Ads","Google Ads","Tesco retailer media","Retailer sales"],alert:"roas"},
+      {q:"Compare our agencies' results this quarter",kw:["agency","agencies","compare","results","quarter","performance"],type:"list",
+       rows:[["UK social agency","Meta and TikTok · £42,000 spent","4.0x return","ok"],["India digital agency","Meta and Google · ₹38 lakh spent","3.4x return","ok"],["UK media agency","Google and YouTube · £35,000 spent","2.1x return","warn"],["Dubai agency","Meta and Snapchat · AED 160,000 spent","1.7x return","bad"]],
+       say:"Four agencies, three currencies, one scale. The Dubai agency returns the least, at 1.7 times spend, and most of its budget went on awareness ads with no sales tracking attached.",
+       src:["Agency reports","Meta Ads","Google Ads","Retailer sales"],alert:"roas"},
+      {q:"Agency login: show me our margin by retailer",kw:["margin","terms","trade","profit","agency","login"],type:"refuse",
+       say:"Agency logins see their own campaigns and the sales those campaigns drove. Margin and trade terms are limited to Finance and Leadership, so I can't show them here. I can show sales uplift during your campaigns instead.",
+       src:["Access policy"],alert:null}
+    ]},
+    {name:"Restaurants",sub:"Sites, covers, menu",qs:[
+      {q:"How did each restaurant trade last week?",kw:["restaurant","restaurants","trade","site","covers","week","lunch"],type:"bars",unit:"%",signed:true,hi:"low",
+       cap:"Sales last week against the week before",
+       rows:[["Dubai · Site 1",8],["Dubai · Site 2",3],["India · Site 1",5],["India · Site 2",-11],["India · Site 3",2]],
+       say:"India Site 2 fell 11%, and all of the drop came at weekday lunch. Delivery orders held up, so it's walk-in trade that slipped.",
+       src:["Restaurant POS","Delivery platforms"],alert:null},
+      {q:"Which dishes earn the most per plate?",kw:["dish","dishes","menu","plate","margin","thali","chole","earn"],type:"bars",unit:"%",hi:"high",
+       cap:"Gross margin by menu item, last 30 days",
+       rows:[["Sweets counter",77],["Chole bhature",72],["Raj kachori",68],["Paneer tikka",49],["Thali",46]],
+       say:"The sweets counter earns the most per plate, at a 77% margin. The thali sells the most but earns the least, because paneer costs rose 14% this year.",
+       src:["Restaurant POS","Recipe costs","Supplier invoices"],alert:null}
+    ]},
+    {name:"Leadership",sub:"Every market on one page",qs:[
+      {q:"Why are Dubai sales down this month?",kw:["why","dubai","uae","down","drop","fall","decline","sales"],type:"summary",
+       kpis:[["−12%","UAE sales against last month"],["19 days","Soan Papdi and Kaju Katli out of stock at the main distributor"],["71%","of the fall explained by those two gaps"],["+6%","sales growth where both were on the shelf"]],
+       say:"It isn't demand. Soan Papdi and Kaju Katli were out of stock at your main UAE distributor for 19 days, and that explains 71% of the fall. Where both were on the shelf, sales grew. It's the same kind of answer Milo found for Kellogg's in the Middle East.",
+       src:["Distributor stock","Distributor sales","Shipments"],alert:"drop"},
+      {q:"How is each market growing this quarter?",kw:["market","markets","growth","growing","quarter","india","uk","country"],type:"bars",unit:"%",signed:true,hi:"low",
+       cap:"Net sales this quarter against the same quarter last year, in pounds",
+       rows:[["UK",14],["India",9],["UAE",-3]],
+       say:"The UK is growing fastest, at 14%. The UAE is the only market down, and the question above shows why. Rupees, dirham and pounds are converted at the same month-end rates.",
+       src:["Finance system in each market","Exchange rates"],alert:"drop"},
+      {q:"Which products are growing in every market?",kw:["products","product","every","all","growing","range","sku"],type:"list",
+       rows:[["Bhujia","India +7% · UK +18% · UAE +4%","Up everywhere","ok"],["Gulab Jamun","India +5% · UK +11% · UAE −2%","Mixed","warn"],["Corn Flake Mix","India +3% · UK −6% · UAE +2%","Mixed","warn"],["Kaju Katli","India +12% · UK +9% · UAE −21%","Supply gap in UAE","bad"]],
+       say:"Bhujia is growing everywhere, fastest in the UK. Kaju Katli is up in India and the UK and only down in the UAE, which fits the distributor stock-out.",
+       src:["Retailer supplier data","Distributor sales","Finance system in each market"],alert:null}
+    ]}
+  ];
+
+  var ALERTS={
+    cover:{to:"UK sales",msg:"Bhujia at Ocado is down to 0.9 weeks of cover. The next delivery is in 9 days, so it runs short in about 6. Tesco is next, at 1.6 weeks."},
+    gap:{to:"Field sales",msg:"Tesco Extra · Wembley hasn't sold Soan Papdi for 9 days. It sold 46 a week before, and the depot shows stock. It's likely off the shelf."},
+    ship:{to:"Supply chain",msg:"HAL-2611 (Nhava Sheva to London Gateway) is now 6 days late. It carries 22 pallets of namkeens, including most of the Bhujia for Diwali orders."},
+    fill:{to:"Supply chain",msg:"The specialist grocer network delivered 81% of orders in full this quarter, below your 90% line. Most of the shorts were sweets."},
+    roas:{to:"Marketing",msg:"The Dubai agency's campaign is returning 1.7 times spend this month, below your 2x line. 64% of its budget went on awareness ads with no sales tracking."},
+    drop:{to:"Leadership",msg:"UAE sales are down 12% on last month. Soan Papdi and Kaju Katli were out of stock at your main distributor for 19 days, which explains 71% of the fall."}
+  };
+  var WHEN={now:"Sent the moment it happens",mon:"Checked every Monday at 8am, in each team's own time zone",month:"Checked on the first working day of each month"};
+
+  var seat=0,qi=0,timer=null;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  function renderSeats(){
+    $("seats").innerHTML=SEATS.map(function(s,i){
+      return '<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    }).join("");
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+  }
+
+  function fmt(v,a){
+    var n=a.dec?Math.abs(v).toFixed(a.dec):String(Math.abs(v));
+    if(v<0)n="−"+n;else if(a.signed&&v>0)n="+"+n;
+    return n+(a.unit||"");
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var raw=a.rows.map(function(r){return r[1]});
+      var pick=a.hi==="low"?Math.min.apply(null,raw):Math.max.apply(null,raw);
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        var cls=r[1]===pick?"hl":(r[1]<0?"neg":"");
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf '+cls+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<button type="button" class="ghost" data-alert="'+a.alert+'">Turn into an alert</button>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed!==a.q)head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#spin"/></svg>Checking retailers, shipments and campaigns</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,did:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,much:1,many:1,all:1,last:1,year:1,is:1,we:1,me:1,each:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9&%'-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=q.kw.join(" ");var hay=(q.q+" "+kw).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+  $("hero-ask").addEventListener("submit",function(e){
+    e.preventDefault();var v=$("hero-q").value.trim()||$("hero-q").placeholder;
+    askTyped(v);$("try").scrollIntoView({behavior:reduce?"auto":"smooth"});
+  });
+
+  /* alert builder */
+  function pv(){
+    var a=ALERTS[$("w-what").value];
+    $("pv-chan").innerHTML="<b>"+esc($("w-where").value)+"</b>";
+    $("pv-to").textContent="To: "+a.to;
+    $("pv-msg").textContent=a.msg;
+    $("pv-when").textContent=WHEN[$("w-when").value];
+  }
+  ["w-what","w-when","w-where"].forEach(function(id){$(id).addEventListener("change",pv)});
+  pv();
+  function toAlert(k){$("w-what").value=k;pv();$("alerts").scrollIntoView({behavior:reduce?"auto":"smooth"})}
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(b)toAlert(b.dataset.alert);
+  });
+
+  /* shelf grid */
+  var RET=["Tesco","Sainsbury's","Waitrose","Ocado","Wholesale"];
+  var MULT=[1,0.62,0.14,0.27,0.8];
+  var NEXT=[5,6,8,9,12];
+  var PROD=[
+    ["Bhujia",4200,2.3,[1.6,2.4,4.8,0.9,6.1]],
+    ["Chana Dal",2100,1.6,[3.8,4.2,6.5,2.9,7.2]],
+    ["Corn Flake Mix",1500,1.5,[9.4,8.1,12.6,5.2,10.3]],
+    ["Gulab Jamun",4600,2.0,[3.1,2.7,5.5,2.2,4.4]],
+    ["Soan Papdi",1900,3.1,[4.2,3.6,7.8,3.1,8.9]],
+    ["Kaju Katli",900,3.4,[2.8,3.4,5.9,1.9,4.1]],
+    ["Rosogulla",1300,1.8,[5.1,4.6,9.2,3.8,6.7]]
+  ];
+  var mode="now",sel=[0,3];
+  function cellData(p,r){
+    var P=PROD[p],rate=Math.round(P[1]*MULT[r]/10)*10,stock=Math.round(P[3][r]*rate/10)*10;
+    if(mode==="diwali")rate=Math.round(rate*P[2]/10)*10;
+    var cover=stock/rate;
+    return {name:P[0],ret:RET[r],rate:rate,stock:stock,cover:cover,next:NEXT[r]};
+  }
+  function band(c){return c<1?"bad":c<2?"warn":c<=8?"ok":"over"}
+  var NUM=new Intl.NumberFormat("en-GB");
+  function renderGrid(){
+    var h='<span></span>'+RET.map(function(r){return '<span class="ch">'+esc(r)+'</span>'}).join("");
+    PROD.forEach(function(P,p){
+      h+='<span class="rh">'+esc(P[0])+'</span>';
+      RET.forEach(function(R,r){
+        var d=cellData(p,r),on=sel[0]===p&&sel[1]===r;
+        h+='<button type="button" class="cell s-'+band(d.cover)+'" data-p="'+p+'" data-r="'+r+'" aria-pressed="'+on+'" aria-label="'+esc(d.name+" at "+d.ret+": "+d.cover.toFixed(1)+" weeks of cover")+'">'+d.cover.toFixed(1)+'</button>';
+      });
+    });
+    $("hm").innerHTML=h;
+    renderDetail();
+  }
+  function renderDetail(){
+    var d=cellData(sel[0],sel[1]),b=band(d.cover),days=Math.round(d.cover*7),say;
+    if(b==="bad"||b==="warn"){
+      say=days<d.next
+        ?"At this rate it runs out in about "+days+" days, "+(d.next-days)+" days before the next delivery lands. Worth pulling that delivery forward."
+        :"It runs out in about "+days+" days and the next delivery lands in "+d.next+", so it's tight but covered.";
+    }else if(b==="over"){
+      say="More than eight weeks on hand, so stock sits on the shelf and ages. The next order can be smaller.";
+    }else{
+      say="Healthy. The next delivery lands well before stock runs low.";
+    }
+    var label={bad:"Short",warn:"Low",ok:"Healthy",over:"Overstocked"}[b];
+    $("detail").innerHTML='<p class="d-k">'+esc(d.ret)+' · '+esc(d.name)+'</p><p class="d-big">'+d.cover.toFixed(1)+' weeks</p><p class="d-sub">of cover · <span class="chip '+b+'">'+label+'</span></p>'+
+      '<div class="d-rows"><div><span>Stock at '+esc(d.ret)+'</span><b>'+NUM.format(d.stock)+' packs</b></div><div><span>Selling'+(mode==="diwali"?" (Diwali weeks)":"")+'</span><b>'+NUM.format(d.rate)+' a week</b></div><div><span>Next delivery</span><b>in '+d.next+' days</b></div></div>'+
+      '<div class="d-say"><svg aria-hidden="true"><use href="#milo-icon"/></svg><p>'+esc(say)+'</p></div>'+
+      '<button type="button" class="ghost" id="d-alert">Alert me below two weeks</button>';
+  }
+  $("hm").addEventListener("click",function(e){
+    var b=e.target.closest("[data-p]");if(!b)return;
+    sel=[+b.dataset.p,+b.dataset.r];renderGrid();
+  });
+  $("detail").addEventListener("click",function(e){if(e.target.closest("#d-alert"))toAlert("cover")});
+  function setMode(m){
+    mode=m;$("m-now").setAttribute("aria-pressed",m==="now");$("m-diwali").setAttribute("aria-pressed",m==="diwali");renderGrid();
+  }
+  $("m-now").addEventListener("click",function(){setMode("now")});
+  $("m-diwali").addEventListener("click",function(){setMode("diwali")});
+
+  renderSeats();renderQs();ask(null,true);renderGrid();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+
+</body>
+</html>
