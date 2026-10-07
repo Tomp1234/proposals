@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="What Deliveroo and Uber Eats expose through their APIs, where the gaps are, and how Milo closes each one. Prepared for Fireaway Pizza.">
+<meta name="description" content="What Deliveroo, Uber Eats and Just Eat expose through their APIs, where the gaps are, and how Milo closes each one. Prepared for Fireaway Pizza.">
 <meta name="robots" content="noindex">
-<title>Deliveroo and Uber Eats Data</title>
+<title>Fireaway Delivery Data</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -112,10 +112,10 @@ th{text-align:left;font-size:.66rem;letter-spacing:.12em;text-transform:uppercas
   padding:11px 14px;background:var(--sunk);border-bottom:1px solid var(--line-hi);white-space:nowrap}
 td{padding:12px 14px;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
 tr:last-child td{border-bottom:0}
-td.area{color:var(--ink);font-weight:600;width:27%;min-width:190px}
+td.area{color:var(--ink);font-weight:600;width:22%;min-width:180px}
 td.src{color:var(--ink);font-weight:600;min-width:170px}
 td.lim{white-space:nowrap}
-.matrix{min-width:720px}
+.matrix{min-width:880px}
 .panel table{min-width:560px}
 .lim{white-space:nowrap;width:104px}
 td.src{width:23%}
@@ -214,14 +214,15 @@ footer b{color:var(--muted);font-weight:600}
 
   <div class="titleblock">
     <div class="eyebrow">What the delivery platforms actually give us</div>
-    <h1>Deliveroo and Uber Eats, source by source.</h1>
-    <p class="standfirst">Our engineers have been through both developer platforms in detail. This is what each one will and will not hand over, where the gaps are, and how we fill them. Written before any work starts so there are no surprises in week three.</p>
+    <h1>Deliveroo, Uber Eats and Just Eat, side by side.</h1>
+    <p class="standfirst">Our engineers have been through all three developer platforms in detail. This is what each one will and will not hand over, where the gaps are, and how we fill them. Written before any work starts so there are no surprises in week three.</p>
   </div>
 
   <div class="verdict">
-    <p><b>Uber Eats gives us considerably more to work with.</b> Real-time orders plus settled financial, operational and feedback reporting going back roughly six months.</p>
-    <p>Deliveroo gives us real-time orders and item-level refunds, but only <b>30 days of history</b> and <b>no payout, commission or ratings data through the API</b>. That is a platform limitation, not a Milo one, and it is worth knowing now because it changes where some of your margin numbers have to come from.</p>
-    <p>Both cover only the stores you operate or that authorise us. Neither gives market or competitor data, and no tool built on these APIs can claim otherwise.</p>
+    <p><b>Uber Eats gives us the most to work with.</b> Real-time orders plus settled financial, operational and feedback reporting going back roughly six months.</p>
+    <p>Deliveroo and Just Eat both give real-time orders and item-level refunds, but <b>neither exposes commission</b>, so margin on those channels has to be assembled from another source. These are platform limitations rather than Milo ones, and they change where some of your numbers come from.</p>
+    <p><b>History is the urgent part.</b> Deliveroo holds 30 days. Just Eat holds none at all, so its record begins the day we connect. Anything either platform has not already given us is gone permanently, which makes the start date worth more than it looks.</p>
+    <p>All three cover only the stores you operate or that authorise us. None gives market or competitor data, and no tool built on these APIs can claim otherwise.</p>
   </div>
 
   <section>
@@ -233,63 +234,74 @@ footer b{color:var(--muted);font-weight:600}
     <div class="scroll">
       <table class="matrix">
         <thead>
-          <tr><th>Data area</th><th>Deliveroo</th><th>Uber Eats</th></tr>
+          <tr><th>Data area</th><th>Deliveroo</th><th>Uber Eats</th><th>Just Eat</th></tr>
         </thead>
         <tbody>
           <tr>
             <td class="area">Orders, items, modifiers</td>
             <td><span class="cap y">Yes</span><span class="sub">Real time, webhook</span></td>
             <td><span class="cap y">Yes</span><span class="sub">Real time, webhook plus Get Order</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Real time webhook, push only</span></td>
           </tr>
           <tr>
             <td class="area">Order status</td>
             <td><span class="cap y">Yes</span><span class="sub">Accepted, rejected, cancelled</span></td>
             <td><span class="cap y">Yes</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">With coded cancel and reject reasons</span></td>
           </tr>
           <tr>
             <td class="area">Prep and courier timing</td>
             <td><span class="cap y">Yes</span><span class="sub">Rider assigned, near, arrived events</span></td>
             <td><span class="cap y">Yes</span><span class="sub">Prep and delivery times in Order History</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Driver events, plus prep and due time on the order</span></td>
           </tr>
           <tr>
             <td class="area">Refunds</td>
             <td><span class="cap y">Yes</span><span class="sub">Item-level webhook, enabled per brand</span></td>
             <td><span class="cap p">Reports only</span><span class="sub">Not on the live order feed</span></td>
+            <td><span class="cap y">Yes</span><span class="sub">Item-level via customer claims, claimed versus accepted</span></td>
           </tr>
           <tr>
             <td class="area">Payouts, fees, commission, tax</td>
             <td><span class="cap n">No</span><span class="sub">Not in the current API</span></td>
             <td><span class="cap y">Yes</span><span class="sub">Payment Details and Finance Summary</span></td>
+            <td><span class="cap p">Partial</span><span class="sub">Order fees, discount, tax and tips. No commission or payouts</span></td>
           </tr>
           <tr>
             <td class="area">Customer and courier ratings</td>
             <td><span class="cap n">No</span></td>
             <td><span class="cap y">Yes</span><span class="sub">Feedback reports</span></td>
+            <td><span class="cap n">No</span></td>
           </tr>
           <tr>
             <td class="area">Store downtime and availability</td>
             <td><span class="cap p">Partial</span><span class="sub">Site status and opening hours only</span></td>
             <td><span class="cap y">Yes</span><span class="sub">Hourly online versus offline minutes</span></td>
+            <td><span class="cap p">Partial</span><span class="sub">Online and offline events, service times</span></td>
           </tr>
           <tr>
             <td class="area">Menu and product catalogue</td>
             <td><span class="cap y">Yes</span><span class="sub">Menu API</span></td>
             <td><span class="cap y">Yes</span><span class="sub">Menu API</span></td>
+            <td><span class="cap y">Yes</span></td>
           </tr>
           <tr>
             <td class="area">Promotions</td>
             <td><span class="cap y">Yes</span><span class="sub">Promotions API</span></td>
             <td><span class="cap y">Yes</span><span class="sub">Promotions API plus promo fields on orders</span></td>
+            <td><span class="cap p">Partial</span><span class="sub">Discount value per order, deals in menu</span></td>
           </tr>
           <tr>
             <td class="area">Customer identity</td>
             <td><span class="cap p">Minimal</span></td>
             <td><span class="cap p">Minimal</span><span class="sub">No full name or email</span></td>
+            <td><span class="cap p">Minimal</span><span class="sub">ID, name, masked phone, prior order counts</span></td>
           </tr>
           <tr>
             <td class="area">History available via API</td>
             <td><span class="cap n">30 days</span><span class="sub">The API forgets past that point</span></td>
             <td><span class="cap y">~6 months</span><span class="sub">Operational; up to 5 years billing</span></td>
+            <td><span class="cap n">None</span><span class="sub">The record starts at go-live</span></td>
           </tr>
         </tbody>
       </table>
@@ -305,6 +317,7 @@ footer b{color:var(--muted);font-weight:600}
     <div class="shead">
       <span class="n">02</span>
       <h2>Source by source</h2>
+      <span class="aside">Deliveroo and Uber Eats. Just Eat breakdown to follow.</span>
     </div>
     <div class="panels">
 
@@ -379,13 +392,13 @@ footer b{color:var(--muted);font-weight:600}
       <div class="gap">
         <div class="g">
           <div class="lbl">Gap</div>
-          <h4>Deliveroo history stops at 30 days</h4>
-          <p>Anything older than a month is already gone and cannot be recovered later. Every day of delay is a day of history lost permanently.</p>
+          <h4>History does not exist until we start capturing</h4>
+          <p>Deliveroo holds 30 days. Just Eat holds nothing at all and begins at go-live. Anything older is already gone and cannot be bought back later.</p>
         </div>
         <div class="f">
           <div class="lbl">How we close it</div>
-          <h4>Start capturing webhooks now</h4>
-          <p>We stand up the receiver early and run a daily Get Orders sweep as a safety net against missed pushes. The sooner this starts, the deeper your first year of trend data goes.</p>
+          <h4>Stand up the receivers on day one</h4>
+          <p>We start capturing webhooks immediately, with a daily Get Orders sweep on Deliveroo as a safety net against missed pushes. Every week of delay is a week of trend data you will never have.</p>
         </div>
       </div>
 
@@ -424,7 +437,7 @@ footer b{color:var(--muted);font-weight:600}
       <h2>Getting access</h2>
       <span class="aside">Both need paperwork before code</span>
     </div>
-    <p class="note">Neither platform grants access on request alone. Both involve their partner teams, and the Uber Eats licence is the longer pole, so it is worth starting both in parallel on day one.</p>
+    <p class="note">Neither platform grants access on request alone. Both involve their partner teams, and the Uber Eats licence is the longer pole, so it is worth starting both in parallel on day one. Just Eat access requirements are being confirmed and will follow with the source detail.</p>
     <div class="access">
       <div class="acard">
         <h4>Deliveroo</h4>
@@ -451,7 +464,7 @@ footer b{color:var(--muted);font-weight:600}
 
   <div class="scope">
     <div class="h">Scope and honesty notes</div>
-    <p><b>Just Eat is not covered here.</b> This review covers Deliveroo and Uber Eats. The same review of Just Eat is underway and we will send it through as a second sheet rather than guess at it now.</p>
+    <p><b>Just Eat source detail is still being written up.</b> The comparison above covers all three platforms. The source-by-source breakdown and access requirements for Just Eat follow shortly, and we would rather send them late than guess at them now.</p>
     <p><b>These are platform capabilities, not results.</b> Everything above describes what the APIs expose. No Fireaway data has been connected or analysed at this stage.</p>
     <p><b>Coverage is limited to your own estate.</b> Both platforms return data only for stores you operate or that authorise us, franchise sites included once they grant access. Neither exposes market share or competitor performance.</p>
   </div>
