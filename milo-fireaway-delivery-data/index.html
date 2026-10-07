@@ -159,9 +159,7 @@ td.src{width:23%}
 .acard{border:1px solid var(--line);border-radius:4px;padding:20px;background:var(--surface)}
 .acard h4{margin:0 0 4px;font-size:1rem;font-weight:700;letter-spacing:-.02em}
 .acard .eta{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--ember);margin-bottom:13px}
-.acard.tbc{border-style:dashed}
-.acard.tbc .eta{color:var(--part)}
-.acard.tbc li::before{background:var(--part)}
+.acard .prov{margin-top:15px;padding-top:12px;border-top:1px dashed var(--line-hi);font-size:.78rem;color:var(--dim)}
 .acard ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
 .acard li{position:relative;padding-left:17px;font-size:.88rem;color:var(--muted)}
 .acard li::before{content:"";position:absolute;left:0;top:.52em;width:5px;height:5px;border-radius:50%;background:var(--flame)}
@@ -262,7 +260,7 @@ footer b{color:var(--muted);font-weight:600}
             <td class="area">Refunds</td>
             <td><span class="cap y">Yes</span><span class="sub">Item-level webhook, enabled per brand</span></td>
             <td><span class="cap p">Reports only</span><span class="sub">Not on the live order feed</span></td>
-            <td><span class="cap y">Yes</span><span class="sub">Item-level via customer claims, claimed versus accepted</span></td>
+            <td><span class="cap p">To confirm</span><span class="sub">Item-level refunds sit on an older Order API that is no longer public</span></td>
           </tr>
           <tr>
             <td class="area">Payouts, fees, commission, tax</td>
@@ -379,14 +377,14 @@ footer b{color:var(--muted);font-weight:600}
               <tr><td class="src">Order webhook</td><td>New orders with items and modifiers. Push only, so we run an always-on receiver.</td></tr>
               <tr><td class="src">Order status</td><td>Accepted, cancelled and rejected, with coded cancel and reject reasons rather than free text.</td></tr>
               <tr><td class="src">Driver events</td><td>Driver progress through the delivery, plus prep time and due time carried on the order itself.</td></tr>
-              <tr><td class="src">Customer claims</td><td>Item-level refunds, with claimed and accepted values held separately.</td></tr>
+              <tr><td class="src">Customer claims</td><td>Item-level refunds, with claimed and accepted values held separately. This sits on an older Order API that is no longer public, so the route is still to be confirmed.</td></tr>
               <tr><td class="src">Order financials</td><td>Order fees, discount, tax and tips, per order.</td></tr>
               <tr><td class="src">Menu and deals</td><td>Menu structure and catalogue, with deals carried in the menu and discount value on the order.</td></tr>
               <tr><td class="src">Availability</td><td>Online and offline events, plus service times.</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="body"><b>Not available:</b> commission and payouts, and customer or courier ratings. There is no historical endpoint at all, so nothing before go-live can be recovered. Feed names here follow the capability review; exact endpoint naming is being confirmed with Just Eat.</div>
+        <div class="body"><b>Not available:</b> commission and payouts, and customer or courier ratings. There is no call that reads or lists orders at all, only pushes, so nothing before go-live can be recovered. <b>Provisional:</b> this follows JET Connect documentation and integrator guides rather than a live integration.</div>
       </div>
 
     </div>
@@ -441,6 +439,19 @@ footer b{color:var(--muted);font-weight:600}
 
       <div class="gap">
         <div class="g">
+          <div class="lbl">Open question</div>
+          <h4>Just Eat pushes to a single endpoint</h4>
+          <p>JET Connect sends each order to one receive-order endpoint per location. If your POS or a middleware already holds that slot, a second receiver may not be registerable alongside it.</p>
+        </div>
+        <div class="f">
+          <div class="lbl">What we need from you</div>
+          <h4>Confirmation of what receives Just Eat orders today</h4>
+          <p>If the orders already land in the POS SQL Server, we take them from there instead, which reaches the same data by a shorter route and avoids the contention entirely. This is the one answer we need before the Just Eat build can be scoped.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="g">
           <div class="lbl">Gap</div>
           <h4>Live and settled numbers disagree</h4>
           <p>Uber Eats figures move for up to 72 hours as refunds and adjustments land, so a number read on the day will not match the invoice.</p>
@@ -483,22 +494,25 @@ footer b{color:var(--muted);font-weight:600}
           <li>Reporting webhook endpoint registered and verified</li>
         </ul>
       </div>
-      <div class="acard tbc">
+      <div class="acard">
         <h4>Just Eat</h4>
-        <div class="eta">Requirements being confirmed</div>
+        <div class="eta">Partner agreement first, then about a week per store</div>
         <ul>
-          <li>Partner approval route and who owns it</li>
-          <li>Credential and scope model</li>
-          <li>Lead time from application to live webhook</li>
-          <li>Whether any backfill exists at go-live, which we expect not</li>
+          <li>Commercial agreement between Milo and Just Eat's integrations team. <b>We are the applicant, not you.</b></li>
+          <li>One API key per brand and no scopes, sent as a one-time link that expires after 7 days and travels in <code>X-Flyt-Api-Key</code></li>
+          <li>We register the webhook endpoints with a shared key or HMAC secret. Static IPs on request.</li>
+          <li>Your part is a Just Eat location ID per store, which becomes its <code>posLocationId</code></li>
+          <li>Around 7 working days for Just Eat to activate each store, then up to a week for final confirmation</li>
+          <li>No backfill, so history starts at go-live</li>
         </ul>
+        <div class="prov">From JET Connect documentation and integrator guides, not yet verified against the live API. How long the partner agreement itself takes for a new integrator is not published.</div>
       </div>
     </div>
   </section>
 
   <div class="scope">
     <div class="h">Scope and honesty notes</div>
-    <p><b>Just Eat access requirements are still outstanding.</b> The comparison and the feed breakdown cover all three platforms. What we do not yet have is Just Eat's approval route and lead time, so that card lists what we are confirming rather than guessing at dates.</p>
+    <p><b>The Just Eat detail is provisional.</b> Deliveroo and Uber Eats come from their developer portals. Just Eat's portal was unavailable, so its rows follow JET Connect documentation and two integrators' setup guides rather than a live integration. The refund route and the partner agreement lead time are the two parts we would not commit to yet.</p>
     <p><b>These are platform capabilities, not results.</b> Everything above describes what the APIs expose. No Fireaway data has been connected or analysed at this stage.</p>
     <p><b>Coverage is limited to your own estate.</b> Both platforms return data only for stores you operate or that authorise us, franchise sites included once they grant access. Neither exposes market share or competitor performance.</p>
   </div>
