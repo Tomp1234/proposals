@@ -5,30 +5,19 @@
   "observability": {
     "enabled": true
   },
-  "main": "valerie-tracker/worker.js",
+  "main": "site-worker/worker.js",
   "assets": {
     "directory": ".",
     "binding": "ASSETS"
-  },
-  "durable_objects": {
-    "bindings": [
-      {
-        "name": "TRACKER",
-        "class_name": "TrackerDO"
-      }
-    ]
   },
   "migrations": [
     {
       "tag": "v1",
       "new_sqlite_classes": ["TrackerDO"]
-    }
-  ],
-  "rules": [
+    },
     {
-      "type": "Text",
-      "globs": ["**/*.html"],
-      "fallthrough": true
+      "tag": "v2",
+      "deleted_classes": ["TrackerDO"]
     }
   ],
   "compatibility_flags": [
