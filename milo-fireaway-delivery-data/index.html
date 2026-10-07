@@ -155,10 +155,13 @@ td.src{width:23%}
 .gap p{margin:0;font-size:.88rem;color:var(--muted)}
 
 /* ── access ───────────────────────────────── */
-.access{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.access{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .acard{border:1px solid var(--line);border-radius:4px;padding:20px;background:var(--surface)}
 .acard h4{margin:0 0 4px;font-size:1rem;font-weight:700;letter-spacing:-.02em}
 .acard .eta{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--ember);margin-bottom:13px}
+.acard.tbc{border-style:dashed}
+.acard.tbc .eta{color:var(--part)}
+.acard.tbc li::before{background:var(--part)}
 .acard ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
 .acard li{position:relative;padding-left:17px;font-size:.88rem;color:var(--muted)}
 .acard li::before{content:"";position:absolute;left:0;top:.52em;width:5px;height:5px;border-radius:50%;background:var(--flame)}
@@ -317,7 +320,6 @@ footer b{color:var(--muted);font-weight:600}
     <div class="shead">
       <span class="n">02</span>
       <h2>Source by source</h2>
-      <span class="aside">Deliveroo and Uber Eats. Just Eat breakdown to follow.</span>
     </div>
     <div class="panels">
 
@@ -363,6 +365,28 @@ footer b{color:var(--muted);font-weight:600}
           </table>
         </div>
         <div class="body"><b>How it arrives:</b> CSV via webhook, up to <span class="mono">50</span> stores per request and <span class="mono">60</span> requests per minute. Figures can take <b>up to 72 hours to settle</b>, and refunds and chargebacks appear only in reports. Column sets change by country and over time, so we parse by header name rather than position.</div>
+      </div>
+
+      <div class="panel detail">
+        <header>
+          <h3><span class="tag">Just Eat</span>Push only, no history</h3>
+          <p>Orders arrive in real time by webhook. Nothing is retained for retrieval, so the record begins the day we connect.</p>
+        </header>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Feed</th><th>What it gives us</th></tr></thead>
+            <tbody>
+              <tr><td class="src">Order webhook</td><td>New orders with items and modifiers. Push only, so we run an always-on receiver.</td></tr>
+              <tr><td class="src">Order status</td><td>Accepted, cancelled and rejected, with coded cancel and reject reasons rather than free text.</td></tr>
+              <tr><td class="src">Driver events</td><td>Driver progress through the delivery, plus prep time and due time carried on the order itself.</td></tr>
+              <tr><td class="src">Customer claims</td><td>Item-level refunds, with claimed and accepted values held separately.</td></tr>
+              <tr><td class="src">Order financials</td><td>Order fees, discount, tax and tips, per order.</td></tr>
+              <tr><td class="src">Menu and deals</td><td>Menu structure and catalogue, with deals carried in the menu and discount value on the order.</td></tr>
+              <tr><td class="src">Availability</td><td>Online and offline events, plus service times.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="body"><b>Not available:</b> commission and payouts, and customer or courier ratings. There is no historical endpoint at all, so nothing before go-live can be recovered. Feed names here follow the capability review; exact endpoint naming is being confirmed with Just Eat.</div>
       </div>
 
     </div>
@@ -437,7 +461,7 @@ footer b{color:var(--muted);font-weight:600}
       <h2>Getting access</h2>
       <span class="aside">Both need paperwork before code</span>
     </div>
-    <p class="note">Neither platform grants access on request alone. Both involve their partner teams, and the Uber Eats licence is the longer pole, so it is worth starting both in parallel on day one. Just Eat access requirements are being confirmed and will follow with the source detail.</p>
+    <p class="note">None of the three grants access on request alone. All involve their partner teams, and the Uber Eats licence is the longest pole, so it is worth starting every application in parallel on day one.</p>
     <div class="access">
       <div class="acard">
         <h4>Deliveroo</h4>
@@ -459,12 +483,22 @@ footer b{color:var(--muted);font-weight:600}
           <li>Reporting webhook endpoint registered and verified</li>
         </ul>
       </div>
+      <div class="acard tbc">
+        <h4>Just Eat</h4>
+        <div class="eta">Requirements being confirmed</div>
+        <ul>
+          <li>Partner approval route and who owns it</li>
+          <li>Credential and scope model</li>
+          <li>Lead time from application to live webhook</li>
+          <li>Whether any backfill exists at go-live, which we expect not</li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <div class="scope">
     <div class="h">Scope and honesty notes</div>
-    <p><b>Just Eat source detail is still being written up.</b> The comparison above covers all three platforms. The source-by-source breakdown and access requirements for Just Eat follow shortly, and we would rather send them late than guess at them now.</p>
+    <p><b>Just Eat access requirements are still outstanding.</b> The comparison and the feed breakdown cover all three platforms. What we do not yet have is Just Eat's approval route and lead time, so that card lists what we are confirming rather than guessing at dates.</p>
     <p><b>These are platform capabilities, not results.</b> Everything above describes what the APIs expose. No Fireaway data has been connected or analysed at this stage.</p>
     <p><b>Coverage is limited to your own estate.</b> Both platforms return data only for stores you operate or that authorise us, franchise sites included once they grant access. Neither exposes market share or competitor performance.</p>
   </div>
