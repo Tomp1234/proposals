@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × THE·TEAM</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: THE·TEAM's own system. Cream paper, ink bands with a slope divider like their site, red used the way their logo uses the middle dot: small, square, deliberate. Montserrat stands in for their Gotham. */
+:root{
+  --paper:#FFFDF8;--panel:#F3F1EC;--card:#FFFFFF;--ink:#100906;--muted:#5F5B58;--rule:#E2E0DB;
+  --red:#CC0F25;--brand:#EE1F37;--tint:#FDE6E8;--bar:#D9D9D6;
+  --night:#100906;--night-line:#2E2724;--on-night:#FFFDF8;--on-night-2:#C9C5C0;
+  --hi-bg:#100906;--hi-fg:#FFFDF8;--mid-bg:#C4C2BD;--mid-fg:#100906;--lo-bg:#ECEAE5;--lo-fg:#3A3532;
+  --good:#2C7A4B;--good-bg:#E3F1E7;--warn:#8F5B00;--warn-bg:#FCEFD2;--bad:#B3121F;--bad-bg:#FBDDE0;--over:#3D5A80;--over-bg:#E3EAF4;
+  --on-red:#FFFFFF;
+  --display:"Montserrat","Gotham","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --body:"Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#110B09;--panel:#1B1513;--card:#1F1916;--ink:#F4F0EA;--muted:#ABA59F;--rule:#352E2A;
+  --red:#FF5C6C;--brand:#EE1F37;--tint:#3B191D;--bar:#4A4440;
+  --night:#1C1512;--night-line:#3A322D;--on-night:#FFFDF8;--on-night-2:#C9C5C0;
+  --hi-bg:#F4F0EA;--hi-fg:#110B09;--mid-bg:#6B6560;--mid-fg:#FFFDF8;--lo-bg:#2B2421;--lo-fg:#D8D3CD;
+  --good:#7FD19E;--good-bg:#1C3326;--warn:#F0B85A;--warn-bg:#3A2A12;--bad:#FF8A93;--bad-bg:#40191D;--over:#9DB7DE;--over-bg:#1D2738;
+  --on-red:#1A0B0B;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#110B09;--panel:#1B1513;--card:#1F1916;--ink:#F4F0EA;--muted:#ABA59F;--rule:#352E2A;
+  --red:#FF5C6C;--brand:#EE1F37;--tint:#3B191D;--bar:#4A4440;
+  --night:#1C1512;--night-line:#3A322D;--on-night:#FFFDF8;--on-night-2:#C9C5C0;
+  --hi-bg:#F4F0EA;--hi-fg:#110B09;--mid-bg:#6B6560;--mid-fg:#FFFDF8;--lo-bg:#2B2421;--lo-fg:#D8D3CD;
+  --good:#7FD19E;--good-bg:#1C3326;--warn:#F0B85A;--warn-bg:#3A2A12;--bad:#FF8A93;--bad-bg:#40191D;--over:#9DB7DE;--over-bg:#1D2738;
+  --on-red:#1A0B0B;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.01em;text-wrap:balance;margin:0}
+h2 em,h1 em{font-style:italic;font-weight:900;color:var(--red)}
+p{margin:0}
+a{color:var(--red)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:2px}
+.dot{display:inline-block;width:8px;height:8px;background:var(--brand);flex:none}
+.stop{display:inline-block;width:.2em;height:.2em;background:var(--brand);margin-left:.06em;vertical-align:baseline}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-weight:800;font-size:18px}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--muted);font-size:15px}
+.lk-tt{width:128px;height:16px;display:block;color:var(--ink)}
+.nav{display:flex;gap:2px}
+.nav a{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 10px}
+.nav a:hover{color:var(--ink);background:var(--panel)}
+@media (max-width:900px){.nav{display:none}}
+@media (max-width:400px){.lk-tt{width:110px;height:14px}.lockup{gap:8px}}
+
+/* hero */
+.hero{background:var(--night);color:var(--on-night);padding-block:56px 104px;clip-path:polygon(0 0,100% 0,100% calc(100% - 56px),0 100%)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:start}
+.eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.hero .eyebrow{color:var(--on-night-2)}
+.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.04;font-weight:900;text-transform:uppercase;letter-spacing:-.015em;margin-bottom:22px}
+.hero h1 em{color:var(--brand);display:block}
+.lede{font-size:17px;max-width:34em;margin-bottom:26px;color:var(--on-night-2)}
+.ask{display:flex;gap:8px;background:#FFFDF8;padding:6px;max-width:560px}
+.ask input{flex:1;min-width:0;border:0;background:transparent;padding:10px 12px;font-size:15px;outline:none;color:#100906}
+.ask input::placeholder{color:#6E6966}
+.btn{border:0;background:var(--red);color:var(--on-red);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:10px 18px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.ask .btn{background:#EE1F37;color:#FFFFFF}
+.ask .btn:hover{background:#CC0F25}
+.ask-hint{font-size:13px;margin-top:10px;color:var(--on-night-2)}
+
+.letter{background:var(--paper);color:var(--ink);padding:26px 26px 24px;border-top:6px solid var(--brand)}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-family:var(--mono);font-size:12px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--rule)}
+.refs b{font-weight:500;color:var(--ink)}
+.letter p{font-size:14.5px;margin-bottom:11px}
+.letter .sal{font-weight:700;font-size:15.5px}
+.sign{margin-top:16px}
+.sign .nm{font-weight:800;font-style:italic;font-size:17px}
+.sign .ml{font-size:13px;color:var(--muted)}
+
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--rule);margin-top:-8px}
+.stat{padding:20px 20px 20px 0}
+.stat+.stat{padding-left:20px;border-left:1px solid var(--rule)}
+.stat b{display:block;font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
+.stat span{font-size:13.5px;color:var(--muted)}
+@media (max-width:880px){.hero-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.stat,.stat+.stat{padding:14px 0;border-left:0}.stat+.stat{border-top:1px solid var(--rule)}}
+
+/* sections */
+section.band{padding-block:68px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+.head{max-width:700px;margin-bottom:30px}
+.head h2{font-size:clamp(25px,3.1vw,36px);line-height:1.12;text-transform:uppercase;margin-bottom:12px}
+.head p{color:var(--muted);font-size:15.5px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:76ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:2px}
+.sg{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer}
+.seat b{display:block;font-size:14px;font-weight:700}
+.seat span{display:block;font-size:12px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--card);border-color:var(--rule);box-shadow:inset 4px 0 0 var(--brand)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.q{border:1px solid var(--rule);background:var(--card);padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;text-align:left}
+.q:hover{border-color:var(--ink)}
+.q[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.console{background:var(--card);border:1px solid var(--rule)}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:700}
+.c-head .who svg{width:22px;height:18px}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;background:var(--tint);color:var(--red)}
+.c-body{padding:20px 18px;min-height:350px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--panel);padding:9px 14px;max-width:80%;font-size:14px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking i{width:10px;height:10px;background:var(--brand);animation:pulse .8s ease-in-out infinite alternate}
+@keyframes pulse{from{transform:scale(.6);opacity:.5}to{transform:scale(1.1);opacity:1}}
+.say{font-size:14.5px;max-width:64ch;margin-bottom:16px}
+.cap{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:13px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;background:var(--panel);overflow:hidden}
+.bf{display:block;height:100%;background:var(--bar);transition:width .5s ease}
+.bf.hl{background:var(--brand)}
+.bf.neg{background:var(--muted);opacity:.45}
+.bv{font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);margin-bottom:16px}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:13.5px;font-weight:700}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-family:var(--mono);font-size:11.5px;padding:3px 9px;white-space:nowrap;flex:none}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:16px}
+.kpi{background:var(--card);padding:12px 14px}
+.kpi b{display:block;font-size:22px;font-weight:900;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:14px;margin-bottom:16px;font-size:14px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--red);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.ghost{border:1px solid var(--ink);background:transparent;color:var(--ink);padding:6px 12px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.ghost:hover{background:var(--ink);color:var(--paper)}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--card);padding:9px 12px}
+@media (max-width:860px){
+  .demo{grid-template-columns:1fr}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--rule)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,118px) minmax(0,1fr) 58px}
+}
+
+/* brand grid */
+.seg{display:inline-flex;border:1px solid var(--rule);padding:3px;background:var(--card);margin-bottom:16px}
+.seg button{border:0;background:transparent;padding:7px 14px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.split{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:28px;align-items:start}
+.hm{display:grid;grid-template-columns:minmax(88px,1.3fr) repeat(5,minmax(0,1fr));gap:3px}
+.hm .ch{font-family:var(--mono);font-size:11px;color:var(--muted);padding:0 2px 6px;text-align:center;line-height:1.25;align-self:end;overflow-wrap:anywhere}
+.hm .rh{font-size:12.5px;font-weight:700;display:flex;align-items:center;padding-right:6px;line-height:1.25}
+.cell{border:0;min-height:46px;font-family:var(--mono);font-size:13px;font-weight:500;cursor:pointer;font-variant-numeric:tabular-nums;transition:opacity .2s,background-color .2s}
+.cell[aria-pressed="true"]{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--brand)}
+.cell.v-hi{background:var(--hi-bg);color:var(--hi-fg)}
+.cell.v-mid{background:var(--mid-bg);color:var(--mid-fg)}
+.cell.v-lo{background:var(--lo-bg);color:var(--lo-fg)}
+.cell.v-open{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--rule)}
+.cell.v-open[aria-pressed="true"]{box-shadow:inset 0 0 0 1px var(--rule),0 0 0 2px var(--paper),0 0 0 4px var(--brand)}
+.doors .cell:not(.v-open){opacity:.28}
+.doors .cell.v-open{background:var(--tint);color:var(--red);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;display:inline-block}
+.detail{background:var(--card);border:1px solid var(--rule);padding:18px}
+.d-k{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.d-big{font-size:38px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin:4px 0 2px}
+.d-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.d-rows{display:grid;border-top:1px solid var(--rule);margin-bottom:14px}
+.d-rows div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:13px}
+.d-rows b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
+.d-rows b.open{color:var(--red)}
+.d-rows div.sel span{font-weight:700}
+.d-say{display:flex;gap:10px;font-size:13.5px;margin-bottom:14px}
+.d-say svg{width:24px;height:20px;flex:none;margin-top:2px}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+@media (max-width:440px){.hm{grid-template-columns:minmax(72px,1.2fr) repeat(5,minmax(0,1fr))}.hm .ch{font-size:9.5px}.hm .rh{font-size:11.5px}.cell{font-size:11px;min-height:42px}}
+
+/* alerts */
+.pane-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.field select{border:1px solid var(--rule);background:var(--card);padding:10px 12px;width:100%}
+.preview{background:var(--card);border:1px solid var(--rule);padding:16px}
+.pv-top{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.pv-top b{color:var(--ink)}
+.pv-msg{display:flex;gap:12px}
+.pv-msg svg{width:30px;height:24px;flex:none;margin-top:2px}
+.pv-msg p{font-size:14px}
+.pv-msg .from{font-weight:800;font-size:13.5px;margin-bottom:2px}
+.pv-when{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px dashed var(--rule)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--rule);padding:22px}
+.card .k{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.card h3{font-size:17px;margin-bottom:6px}
+.card p{font-size:14px;color:var(--muted)}
+.jobs{margin-top:44px}
+@media (max-width:860px){.pane-grid,.three{grid-template-columns:1fr}}
+
+/* connect */
+.conn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule)}
+.cg{padding:18px 20px 20px 0;border-bottom:1px solid var(--rule)}
+.cg h3{font-size:14px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:2px}
+.cg p{font-size:13px;color:var(--muted);margin-bottom:10px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pills span{font-size:12px;border:1px solid var(--rule);background:var(--card);padding:4px 9px}
+.build{margin-top:22px;font-size:15px;max-width:70ch}
+.build b{color:var(--red)}
+@media (max-width:860px){.conn{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.conn{grid-template-columns:1fr}}
+
+/* proof */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--night);color:var(--on-night);padding:32px;margin-bottom:20px;border-top:6px solid var(--brand)}
+.feature .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-night-2);margin-bottom:10px}
+.feature h3{font-size:clamp(22px,2.6vw,30px);line-height:1.15;text-transform:uppercase;margin-bottom:12px}
+.feature p{font-size:14.5px;color:var(--on-night-2);margin-bottom:10px}
+.feature p b{color:var(--on-night)}
+.feature .why{margin-top:14px;padding-top:14px;border-top:1px dashed var(--night-line);font-size:14px}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid var(--night-line);padding:14px 16px;position:relative}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:var(--night-line)}
+.chain .t{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-night-2)}
+.chain b{display:block;font-size:15.5px}
+.chain li.end{background:#FFFDF8;color:#100906;border-color:#FFFDF8}
+.chain li.end .t{color:#CC0F25}
+.proof .card{display:flex;flex-direction:column}
+.card .big{font-size:36px;font-weight:900;color:var(--ink);line-height:1;margin:6px 0 12px;font-variant-numeric:tabular-nums;letter-spacing:-.02em;text-transform:uppercase}
+.card .why{margin-top:auto;padding-top:14px;border-top:1px dashed var(--rule);font-size:13.5px;color:var(--ink)}
+.proof .card p.body{margin-bottom:14px}
+@media (max-width:860px){.feature{grid-template-columns:1fr;padding:24px}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:#100906}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;text-decoration:none;color:#FFFDF8;background:#100906;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.poster::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;background:#EE1F37;clip-path:polygon(0 70%,100% 0,100% 100%,0 100%)}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:800}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-size:clamp(17px,2.4vw,24px);font-weight:900;text-transform:uppercase;position:relative;z-index:1}
+.p-play{width:64px;height:64px;background:#FFFDF8;color:#100906;display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .2s;position:relative;z-index:1}
+.poster:hover .p-play{transform:scale(1.06)}
+.p-sub{font-family:var(--mono);font-size:12px;color:#C9C5C0;position:relative;z-index:1}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+@media (max-width:860px){.vid-grid{grid-template-columns:1fr}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.step{border-top:3px solid var(--ink);padding-top:14px}
+.step .n{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:.08em}
+.step h3{font-size:17px;text-transform:uppercase;margin:4px 0 6px}
+.step p{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* security */
+.sec{background:var(--panel);padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+.sec h2{font-size:clamp(22px,2.8vw,30px);line-height:1.15;text-transform:uppercase;margin-bottom:12px}
+.sec p{color:var(--muted);font-size:14.5px;margin-bottom:10px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;align-content:start}
+.badges span{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--rule);padding:8px 12px;font-size:13px;font-weight:600}
+.badges span svg{width:14px;height:14px;color:var(--red)}
+@media (max-width:860px){.sec{grid-template-columns:1fr;padding:24px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:68px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking i{animation:none}.bf,.p-play,.cell{transition:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="tt-word" viewBox="0 0 234 28" fill="currentColor"><path fill-rule="evenodd" d="m24.44 4.58h-8.61v-4.39h21.97v4.39h-8.61v22.58h-4.75v-22.58z"/><path fill-rule="evenodd" d="m45.82 0.19h4.75v11.21h12.9v-11.21h4.75v26.97h-4.75v-11.37h-12.9v11.37h-4.75v-26.97z"/><path fill-rule="evenodd" d="m77.12 0.19h20.04v4.24h-15.29v7.01h13.56v4.28h-13.56v7.2h15.49v4.24h-20.24v-26.97z"/><path fill-rule="evenodd" d="m121.76 4.58h-8.61v-4.39h21.97v4.39h-8.61v22.58h-4.75v-22.58z"/><path fill-rule="evenodd" d="m143.81 0.19h20.04v4.24h-15.29v7.01h13.55v4.28h-13.55v7.2h15.48v4.24h-20.23v-26.97z"/><path d="m183.45 0h4.4l11.9 27.16h-5.02l-2.75-6.51h-12.78l-2.78 6.51h-4.87zm6.8 16.45l-4.67-10.79-4.64 10.79z"/><path fill-rule="evenodd" d="m206.73 0.19h5.06l8.23 12.75 8.22-12.75h5.06v26.97h-4.75v-19.34l-8.53 12.71h-0.16l-8.45-12.63v19.26h-4.68v-26.97z"/><path fill-rule="evenodd" d="m111.21 11.34v4.41h-4.26v-4.41z"/></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and THE·TEAM">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <svg class="lk-tt" aria-hidden="true"><use href="#tt-word"/></svg>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#try">Departments</a>
+      <a href="#brands">Brands</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#connect">Connect</a>
+      <a href="#proof">Proof</a>
+      <a href="#security">Security</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>Milo × THE·TEAM · Every department</p>
+        <h1>The unifying power of <em>one set of numbers<span class="stop"></span></em></h1>
+        <p class="lede">Talent, marketing, LIVE·TEAM, events, rights sales, finance and people. Milo connects the systems each department runs on, so anyone at THE·TEAM can ask a question in plain English and get an answer they can trust.</p>
+        <form class="ask" id="hero-ask" autocomplete="off">
+          <label for="hero-q" style="position:absolute;left:-9999px">Ask Milo a question about THE·TEAM</label>
+          <input id="hero-q" type="text" placeholder="Which brands buy from more than one department?">
+          <button class="btn" type="submit">Ask Milo</button>
+        </form>
+        <p class="ask-hint">Ask about deals, tours, creators, jobs, entries or invoices. It runs on sample data.</p>
+      </div>
+
+      <article class="letter" aria-label="A note from Liam">
+        <div class="refs">
+          <span>Our ref</span><b>MILO / TT / 01</b>
+          <span>Re</span><b>Milo across every department</b>
+          <span>For</span><b>THE·TEAM</b>
+        </div>
+        <p class="sal">To THE·TEAM,</p>
+        <p>You believe in the unifying power of sports, music and entertainment. In a business with talent, marketing, live production, events and rights sales under one roof, across 28 countries, the numbers are harder to unify. They usually sit in each department's own systems.</p>
+        <p>Milo connects those systems. Anyone in any department asks a question in plain English and gets the answer in seconds, with its sources. With Outreach Talent Group joining in October, there is one more roster to bring in.</p>
+        <p>Every department has its own seat below. It all runs on sample data, so click around.</p>
+        <div class="sign">
+          <p class="nm">Liam James Rabone</p>
+          <p class="ml">Milo · liam@milo.ai</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b>Seconds</b><span>from a typed question to an answer, with its sources</span></div>
+    <div class="stat"><b>Ten seats</b><span>from agents to finance, in one workspace with access set by role</span></div>
+    <div class="stat"><b>700+</b><span>integrations, plus bespoke connectors our engineers build</span></div>
+  </div>
+</div>
+
+<section class="band first" id="try" aria-labelledby="try-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="dot"></span>Every department</p>
+      <h2 id="try-h">Ask as <em>any department</em>.</h2>
+      <p>Pick a seat and a question, or type your own. Every answer shows where it came from, and most can become an alert.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a department"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · THE·TEAM workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" style="position:absolute;left:-9999px">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Illustrative. The departments and services are THE·TEAM's own, from the.team. Every client, brand, event, figure and result is invented to show the shape of an answer. None of it is THE·TEAM's data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="brands" aria-labelledby="brand-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="dot"></span>One brand, every department</p>
+      <h2 id="brand-h">Five departments. <em>One relationship.</em></h2>
+      <p>A brand can buy marketing, rights, talent, builds and hospitality from five different teams at THE·TEAM. Milo joins the deals and invoices, so every account lead sees the whole relationship and the doors still shut. Tap a square.</p>
+    </div>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" id="m-spend" aria-pressed="true">Spend this year</button>
+      <button type="button" id="m-doors" aria-pressed="false">Open doors</button>
+    </div>
+    <div class="split">
+      <div>
+        <div class="hm" id="hm" role="group" aria-label="Spend by brand and department"></div>
+        <div class="legend" aria-hidden="true">
+          <span><i style="background:var(--hi-bg)"></i>$2m and over</span>
+          <span><i style="background:var(--mid-bg)"></i>$800k to $2m</span>
+          <span><i style="background:var(--lo-bg)"></i>Under $800k</span>
+          <span><i style="box-shadow:inset 0 0 0 1px var(--muted)"></i>No business yet</span>
+        </div>
+      </div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+    <p class="note">Sample brands and figures, invented for illustration.</p>
+  </div>
+</section>
+
+<section class="band" id="alerts" aria-labelledby="alert-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="dot"></span>Automations</p>
+      <h2 id="alert-h">Ask once. <em>It keeps watching.</em></h2>
+      <p>Any question can run on a schedule, or fire the moment a number crosses a line. Build one for any department here.</p>
+    </div>
+    <div class="pane-grid">
+      <div>
+        <div class="field"><label for="w-what">What to watch</label>
+          <select id="w-what">
+            <option value="renew">A client deal comes up for renewal within 90 days</option>
+            <option value="tour">A tour date is under 60% sold three weeks out</option>
+            <option value="creator">A creator's engagement drops 20% in a month</option>
+            <option value="roi">A client campaign returns less than 3x its cost</option>
+            <option value="unsold">A property has unsold categories 60 days from launch</option>
+            <option value="job">A production job goes 10% over budget</option>
+            <option value="entries">Event entries fall behind last year</option>
+            <option value="overdue">An invoice passes 60 days unpaid</option>
+            <option value="brand">A brand starts buying from a new department</option>
+          </select></div>
+        <div class="field"><label for="w-when">When</label>
+          <select id="w-when">
+            <option value="now">The moment it happens</option>
+            <option value="mon">Every Monday at 8am</option>
+            <option value="month">First working day of the month</option>
+          </select></div>
+        <div class="field"><label for="w-where">Where</label>
+          <select id="w-where">
+            <option value="Email">Email</option>
+            <option value="Slack">Slack</option>
+            <option value="Microsoft Teams">Microsoft Teams</option>
+            <option value="WhatsApp">WhatsApp</option>
+          </select></div>
+      </div>
+      <div class="preview" aria-live="polite">
+        <div class="pv-top"><span id="pv-chan"><b>Email</b></span><span id="pv-to">To: Sports & Media agents</span></div>
+        <div class="pv-msg"><svg aria-hidden="true"><use href="#milo-icon"/></svg><div><p class="from">Milo</p><p id="pv-msg"></p></div></div>
+        <p class="pv-when" id="pv-when"></p>
+      </div>
+    </div>
+
+    <div class="three jobs">
+      <div class="card"><p class="k"><span class="dot"></span>The pipes</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including bespoke ones for systems without a connector, and fix them when something changes.</p></div>
+      <div class="card"><p class="k"><span class="dot"></span>The dashboards</p><h3>Anyone can build one</h3><p>Pin an answer and it becomes a live dashboard. An agent, a producer or a finance lead builds their own, so nothing waits in a queue for the data team.</p></div>
+      <div class="card"><p class="k"><span class="dot"></span>The automations</p><h3>Questions keep running</h3><p>Any question can become a scheduled report or an alert, like the ones above. Nobody writes a pipeline for it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="connect" aria-labelledby="conn-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="dot"></span>What Milo connects</p>
+      <h2 id="conn-h">Every department. <em>One set of pipes.</em></h2>
+      <p>This is what Milo connects for a business shaped like THE·TEAM. It isn't a guess at your stack.</p>
+    </div>
+    <div class="conn">
+      <div class="cg"><h3>Talent and deals</h3><p>Rosters, contracts, pipeline</p><div class="pills"><span>Salesforce</span><span>HubSpot</span><span>Monday.com</span><span>Airtable</span><span>DocuSign</span><span>Contract trackers in Excel</span></div></div>
+      <div class="cg"><h3>Music and touring</h3><p>Bookings, routing, tickets</p><div class="pills"><span>Prism.fm</span><span>Master Tour</span><span>Ticketmaster</span><span>AXS</span><span>See Tickets</span><span>Spotify for Artists</span><span>Chartmetric</span></div></div>
+      <div class="cg"><h3>Creators and social</h3><p>Every platform, every creator</p><div class="pills"><span>TikTok</span><span>Instagram</span><span>YouTube</span><span>Twitch</span><span>Snapchat</span><span>CreatorIQ</span></div></div>
+      <div class="cg"><h3>Marketing and media</h3><p>Campaigns and results on one scale</p><div class="pills"><span>Meta Ads</span><span>Google Ads</span><span>TikTok Ads</span><span>GA4</span><span>Brandwatch</span><span>Sprinklr</span><span>Sponsorship valuation reports</span></div></div>
+      <div class="cg"><h3>Live and events</h3><p>Jobs, stock, entries, hospitality</p><div class="pills"><span>Current RMS</span><span>Rentman</span><span>Job costing</span><span>Production schedules</span><span>Let's Do This</span><span>Hospitality sales</span></div></div>
+      <div class="cg"><h3>Finance, people and files</h3><p>Every country, every currency</p><div class="pills"><span>NetSuite</span><span>Sage Intacct</span><span>Workday</span><span>Greenhouse</span><span>Microsoft 365</span><span>SharePoint</span><span>Snowflake</span></div></div>
+    </div>
+    <p class="build">Most of these connect in minutes. <b>Anything without a ready connector, our engineers build</b>, and they keep it running when a system changes.</p>
+  </div>
+</section>
+
+<section class="band proof" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="dot"></span>Proof</p>
+      <h2 id="proof-h">Already working for <em>agencies and live businesses</em>.</h2>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k">Coolr · Social and influencer agency, London</p>
+        <h3>A year-end board report in thirty minutes.</h3>
+        <p>Coolr runs campaigns for <b>Burger King, Deliveroo, Heineken, L'Oréal, Samsung, Lidl</b> and more. Its COO was about to build the year-end finance report for the board, from all the different tools the agency runs on.</p>
+        <p>We connected Coolr's tools to Milo and gave her the report in thirty minutes. Then the rest of the company started using it. Everyone asks, and people with the right access build automations and reports.</p>
+        <p class="why"><b>Why it's here.</b> An agency with big-brand clients and a board to answer to. THE·TEAM is the same shape, with more departments and more countries.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at Coolr">
+        <li><span class="t">The task</span><b>Year-end board report</b></li>
+        <li><span class="t">What Milo did</span><b>Connected every tool the agency runs on</b></li>
+        <li class="end"><span class="t">The result</span><b>Ready in 30 minutes, then used company-wide</b></li>
+      </ol>
+    </div>
+    <div class="three">
+      <div class="card">
+        <p class="k">Kellogg's · Global food brand</p>
+        <p class="big">Dozens</p>
+        <p class="body">of markets in one view for the commercial finance team. When sales fell across the Middle East and North Africa, Milo traced it to a Coco Pops shortage, not a drop in demand.</p>
+        <p class="why"><b>Why it's here.</b> 28 countries and many divisions, read as one set of numbers.</p>
+      </div>
+      <div class="card">
+        <p class="k">See Tickets · Ticketing</p>
+        <p class="big">~20 years</p>
+        <p class="body">of ticketing history in one place: shows, ticket types and the marketing behind each launch, with launch revenue traced back to what drove it.</p>
+        <p class="why"><b>Why it's here.</b> The Music and Events seats ask the same questions of their own ticket sales.</p>
+      </div>
+      <div class="card">
+        <p class="k">Nikki Beach Global · Hospitality</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants across Europe, the Middle East, the Americas and Asia. SevenRooms, OpenTable, Square and SumUp, read as one view.</p>
+        <p class="why"><b>Why it's here.</b> Premium experiences on several continents, like hospitality and major events.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>See it</p>
+        <h2 id="vid-h" style="font-size:clamp(23px,2.8vw,32px);line-height:1.15;text-transform:uppercase;margin-bottom:10px">Ninety seconds of <em>Milo working</em>.</h2>
+        <p style="color:var(--muted)">The question box, the answers and the dashboards, without anyone describing them.</p>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="start-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="dot"></span>Getting started</p>
+      <h2 id="start-h">One department first. <em>Then the rest.</em></h2>
+      <p>No engineering sprint and no long implementation. We do the building.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n"><span class="dot"></span>STEP 1</p><h3>Connect</h3><p>Start with one department, such as Rights Sales or Finance, on read-only access to the systems it already uses.</p></div>
+      <div class="step"><p class="n"><span class="dot"></span>STEP 2</p><h3>Define</h3><p>We teach Milo your terms: gross deal value, commission, properties and categories, regions, and every currency converted the same way.</p></div>
+      <div class="step"><p class="n"><span class="dot"></span>STEP 3</p><h3>Set access</h3><p>Agents see their own clients, Finance sees every division, and leadership sees all of it.</p></div>
+      <div class="step"><p class="n"><span class="dot"></span>STEP 4</p><h3>Ask</h3><p>The team asks in the browser, email, Slack or Teams. Each department joins the same workspace when it's ready.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="security" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <h2 id="sec-h">Client terms stay <em>with the right people</em>.</h2>
+        <p>Milo is SOC 2 Type II and ISO 27001 certified. Connections are read-only, access is set by role, and every question is logged with who asked it and what Milo returned.</p>
+        <p>An agent sees their own clients' deals and nobody else's. Where data has to stay in a particular country, Milo can run on your own servers.</p>
+      </div>
+      <div class="badges">
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>SOC 2 Type II</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>ISO 27001</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>GDPR</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Hosted in the EU</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Or on your own servers</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Read-only connections</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Access set by role</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Every question logged</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Prepared for THE·TEAM by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · SOC 2 · ISO 27001 · GDPR</div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var SEATS=[
+    {g:"Talent",name:"Sports & Media",sub:"Athletes, broadcasters, coaches",qs:[
+      {q:"Which client deals renew in the next 90 days?",kw:["renew","renewal","renewals","deals","deal","endorsement","contract","contracts","expire","90"],type:"list",
+       rows:[["Golf client · apparel endorsement","Renews in 34 days · brand hasn't opened talks","Act now","bad"],["NFL client · trading card deal","Renews in 51 days · terms drafted","In talks","warn"],["Broadcaster client · network contract","Renews in 68 days · offer received","In talks","warn"],["Football client · boot deal","Renews in 87 days · extension agreed in principle","On track","ok"]],
+       say:"Four renewals land in the next 90 days, worth $6.8m a year between them. The golf apparel deal is the one to chase. It renews in 34 days, the brand hasn't opened talks, and last time the renewal took 52 days to agree.",
+       src:["CRM","Contract tracker","Finance system"],alert:"renew"},
+      {q:"Which sports earned the most commission this year?",kw:["commission","sports","sport","earned","revenue","income","fees"],type:"bars",pre:"$",unit:"m",dec:1,hi:"high",
+       cap:"Commission earned year to date, $ millions",
+       rows:[["Global football",14.2],["NFL",11.8],["Basketball",9.6],["Golf",7.1],["Baseball",6.4],["Cricket",2.3]],
+       say:"Global football earned the most, at $14.2m, and grew fastest, up 18% on last year. Cricket is the smallest, but it doubled, mostly from franchise league contracts.",
+       src:["Finance system","Contract tracker"],alert:null}
+    ]},
+    {g:"Talent",name:"Music",sub:"Agents, touring, artist services",qs:[
+      {q:"How is the autumn tour selling, city by city?",kw:["tour","selling","sold","tickets","city","cities","dates","sell","arena"],type:"bars",unit:"%",hi:"low",
+       cap:"Tickets sold against capacity, arena tour, three weeks out",
+       rows:[["Manchester",96],["London",91],["Glasgow",84],["Dublin",78],["Amsterdam",62],["Berlin",47]],
+       say:"Berlin is at 47% with three weeks to go, the slowest date on the routing. Last year's Berlin show sold 30% of its tickets in the final fortnight, so it needs a push now rather than later.",
+       src:["Ticketmaster","AXS","See Tickets","Routing sheet"],alert:"tour"},
+      {q:"Where should the next tour add dates?",kw:["next","add","routing","listeners","streaming","where","new","markets"],type:"list",
+       rows:[["Lisbon","41,000 monthly listeners · no show since 2023","Strong","ok"],["Warsaw","36,000 monthly listeners · last show sold out in 4 days","Strong","ok"],["Leeds","29,000 monthly listeners · 70 minutes from the Manchester date","Overlaps","warn"],["Zurich","12,000 monthly listeners · high venue costs","Test first","warn"]],
+       say:"Lisbon has the most listeners without a recent show, and Warsaw's last date sold out in four days. Leeds would mostly draw the same fans as Manchester.",
+       src:["Spotify for Artists","Chartmetric","Ticketing history"],alert:null}
+    ]},
+    {g:"Talent",name:"Creators",sub:"Creator representation and partnerships",qs:[
+      {q:"Which creators are growing fastest?",kw:["creators","creator","growing","growth","followers","fastest","engagement","audience"],type:"bars",unit:"%",signed:true,hi:"high",
+       cap:"Audience growth across platforms, last 90 days",
+       rows:[["Fitness creator",34],["Cooking creator",27],["Gaming creator",19],["Beauty creator",12],["Comedy creator",4]],
+       say:"The fitness creator grew 34% in 90 days, almost all of it on TikTok. Engagement grew faster than followers, which usually means a better rate at the next brand negotiation.",
+       src:["TikTok","Instagram","YouTube","Twitch"],alert:"creator"},
+      {q:"Which brand deals are stuck waiting on the brand?",kw:["stuck","waiting","signature","pipeline","pending","sent","brief"],type:"list",
+       rows:[["Fitness creator · sportswear brand","Three TikTok videos · contract sent 19 days ago","Chase","bad"],["Cooking creator · supermarket","YouTube integration · brief approved, contract out 9 days","Watch","warn"],["Gaming creator · energy drink","Twitch series · signed, first post due in 6 days","On track","ok"]],
+       say:"One deal has waited on the brand for 19 days, longer than anything else on the board. The usual gap between an approved brief and a signature is eight days.",
+       src:["CRM","Contract tracker","Email"],alert:null},
+      {q:"Show me the fees on our athletes' endorsement deals",kw:["fees","athlete","athletes","terms","rates","endorsements"],type:"refuse",
+       say:"Creator agents see creator deals. Athlete contract terms are limited to the Sports & Media agents on each client and to Finance, so I can't show them here. I can show which brands already work with both your creators and your athletes, without the fees.",
+       src:["Access policy"],alert:null}
+    ]},
+    {g:"Brands and rights",name:"Marketing",sub:"Strategy, creative, experiential",qs:[
+      {q:"Which activation formats returned the most for clients?",kw:["activation","activations","format","formats","returned","return","roi","sponsorship","experiential"],type:"bars",unit:"x",dec:1,hi:"high",
+       cap:"Value returned per dollar of activation spend, client campaigns this year",
+       rows:[["Athlete content series",6.2],["Fan village",5.1],["Music festival partnership",4.4],["Stadium takeover",3.2],["Trackside branding",2.4]],
+       say:"The athlete content series returned 6.2 times its cost, the most of any format. It used talent from THE·TEAM's own roster, a link only an agency with both sides can make.",
+       src:["Campaign budgets","Social platforms","Brand lift surveys","Finance system"],alert:"roi"},
+      {q:"How did our World Cup campaigns perform on social?",kw:["world","cup","social","campaigns","perform","platform","tiktok","instagram","views"],type:"bars",unit:"%",dec:1,hi:"high",
+       cap:"Engagement rate by platform, World Cup 2026 client campaigns",
+       rows:[["TikTok",7.8],["Instagram",5.2],["YouTube",3.9],["X",1.6],["Facebook",1.1]],
+       say:"TikTok engaged the most, at 7.8%. Six in ten views came in the 48 hours around match days, so that is where the content calendar should bunch.",
+       src:["TikTok","Instagram","YouTube","X","Facebook"],alert:"roi"}
+    ]},
+    {g:"Brands and rights",name:"Rights Sales",sub:"Commercial sales, go-to-market",qs:[
+      {q:"Which categories are still unsold across our rights holders?",kw:["categories","category","unsold","rights","holders","properties","inventory","open","sponsorship"],type:"list",
+       rows:[["Rugby property","Insurance and airline open · 41 days to launch","2 open","bad"],["Motorsport team","Energy, fintech and watches open · season starts in 5 months","3 open","warn"],["Running event","Sportswear open · two brands in talks","1 open","warn"],["Cricket competition","Every category sold","Sold out","ok"]],
+       say:"Six categories are open across four properties. The rugby property is the most urgent, with two categories unsold, 41 days to launch and no airline in the pipeline.",
+       src:["CRM pipeline","Rights inventory","Contract tracker"],alert:"unsold"},
+      {q:"How much of the pipeline will close this quarter?",kw:["pipeline","close","quarter","stage","forecast","likely","value"],type:"bars",pre:"$",unit:"m",hi:"high",
+       cap:"Pipeline value by stage, $ millions",
+       rows:[["Prospecting",48],["Proposal sent",31],["Negotiating",19],["Contract out",8]],
+       say:"There is $106m in the pipeline. $27m of it is in negotiation or out for contract, and deals at those stages closed 64% of the time last year, so about $17m should land this quarter.",
+       src:["CRM pipeline","Closed deal history"],alert:"unsold"}
+    ]},
+    {g:"Live and events",name:"LIVE·TEAM",sub:"Branding, signage, fabrication",qs:[
+      {q:"Which jobs are running over budget?",kw:["jobs","job","budget","over","overrun","cost","costs","materials","production"],type:"list",
+       rows:[["Stadium dressing · football final","Materials 14% over · reprint after an artwork change","Over","bad"],["Fan zone build · multi-sport event","Labour 8% over · two extra install nights","Watch","warn"],["Retail fit-out · flagship store","On budget · 62% complete","On track","ok"],["Touring showcase · product launch","4% under · reused rental truss","Under","ok"]],
+       say:"Two of 14 live jobs are over budget. The football final dressing is 14% over on materials because the artwork changed after the first print run. Changes after sign-off caused most overruns this year.",
+       src:["Job costing","Production schedule","Purchase orders"],alert:"job"},
+      {q:"Which rental stock sat idle this quarter?",kw:["rental","stock","idle","hire","utilisation","utilization","equipment","screens","flagpoles"],type:"bars",unit:"%",hi:"low",
+       cap:"Share of the quarter each line was out on hire",
+       rows:[["LED screens",81],["Truss arches",64],["Media backdrops",58],["Temporary billboards",33],["Flagpoles",21]],
+       say:"Flagpoles were out on hire 21% of the quarter, the lowest of any line. LED screens were the busiest and were double-booked twice, so the next stock spend belongs there.",
+       src:["Rental system","Warehouse stock"],alert:null}
+    ]},
+    {g:"Live and events",name:"Events",sub:"Major events, mass participation, hospitality",qs:[
+      {q:"Are entries ahead of last year?",kw:["entries","entry","ahead","behind","registrations","race","triathlon","marathon","participants"],type:"bars",unit:"%",signed:true,hi:"low",
+       cap:"Entries against last year, same point in the sales cycle",
+       rows:[["Kids' races",21],["City half marathon",12],["Novice triathlon",6],["Sprint duathlon",-3],["Long-distance triathlon",-9]],
+       say:"The long-distance triathlon is 9% behind last year with 14 weeks to go. Returning athletes are level, so the gap is new entrants, and paid social spend on that event is down a third.",
+       src:["Entry platform","Meta Ads","Email platform"],alert:"entries"},
+      {q:"Which hospitality packages are selling slowest?",kw:["hospitality","packages","package","premium","slowest","boxes","access"],type:"bars",unit:"%",hi:"low",
+       cap:"Hospitality packages sold, by event",
+       rows:[["Football final",92],["Golf championship",86],["Grand Prix",71],["Rugby test",58],["Tennis final",44]],
+       say:"The tennis final has sold 44% of its packages with six weeks to go. Most of what's left is the top tier, which sold out last year, so price looks like the issue rather than demand.",
+       src:["Hospitality sales","CRM","Finance system"],alert:null}
+    ]},
+    {g:"Running the business",name:"Finance",sub:"Revenue, cash, currencies",qs:[
+      {q:"How is each division growing this year?",kw:["division","divisions","growing","growth","revenue","split"],type:"bars",unit:"%",signed:true,hi:"low",
+       cap:"Revenue against last year, by division, in dollars",
+       rows:[["Creators",24],["Rights Sales",17],["Music",11],["Marketing",8],["Sports & Media",6],["LIVE·TEAM",-2]],
+       say:"Creators grew fastest, at 24%. LIVE·TEAM is the only division behind last year, and all of the gap is two large UK jobs that moved into next quarter. Every country's ledger is converted at the same month-end rates.",
+       src:["Finance system in each country","Exchange rates","Job costing"],alert:null},
+      {q:"Which clients owe us the most, and for how long?",kw:["owe","overdue","debt","debtors","invoice","invoices","unpaid","late","cash","paid"],type:"list",
+       rows:[["Brand client · sportswear","$1.4m · 74 days overdue","Chase","bad"],["Rights holder · motorsport","$860k · 48 days overdue","Watch","warn"],["Promoter · touring","$610k · 31 days overdue","Watch","warn"],["Brand client · bank","$540k · paid this morning","Cleared","ok"]],
+       say:"$2.9m is more than 30 days late across three accounts. The sportswear brand owes half of it, on invoices from three different departments, and no single account lead can see the whole amount.",
+       src:["Finance system","CRM"],alert:"overdue"}
+    ]},
+    {g:"Running the business",name:"People",sub:"Hiring, headcount, retention",qs:[
+      {q:"How long does each department take to fill a role?",kw:["hire","hiring","fill","roles","role","recruit","recruitment","days","vacancies"],type:"bars",unit:" days",hi:"high",
+       cap:"Average days from opening a role to an accepted offer",
+       rows:[["Analytics & Insights",71],["Information Technology",64],["Creative",48],["Client Services",37],["Experiential & Production",29]],
+       say:"Analytics & Insights roles take 71 days to fill, the longest of any department. Half of those candidates drop out after the second interview, which is where the process waits longest.",
+       src:["Applicant tracking","HR system"],alert:null},
+      {q:"Where is staff turnover highest?",kw:["turnover","attrition","leavers","staff","retention","highest","people"],type:"bars",unit:"%",hi:"high",
+       cap:"Staff turnover over the last 12 months, by region",
+       rows:[["Middle East & Africa",15],["Americas",12],["Europe",9],["Asia/Pacific",7]],
+       say:"Middle East and Africa has the highest turnover, at 15%. Most of it is fixed-term event roles ending after major events. Leave those out and it matches Europe.",
+       src:["HR system"],alert:null}
+    ]},
+    {g:"Running the business",name:"Leadership",sub:"Every division on one page",qs:[
+      {q:"Which brands buy from more than one department?",kw:["brands","brand","buy","department","departments","cross","relationship","relationships"],type:"summary",
+       kpis:[["38%","of brand revenue comes from brands buying from three or more departments"],["2.6x","more revenue per brand when they do"],["212","brands buy from only one department"],["14","of those already sponsor talent you represent"]],
+       say:"Brands that buy from three or more departments spend 2.6 times as much. 212 brands buy from only one, and 14 of those already sponsor athletes, artists or creators you represent. That is the shortest list of introductions in the business. The grid below shows how one brand looks across every department.",
+       src:["CRM","Finance system","Contract tracker"],alert:"brand"},
+      {q:"How is each region growing this quarter?",kw:["region","regions","quarter","americas","europe","asia","middle","east","country","countries"],type:"bars",unit:"%",signed:true,hi:"low",
+       cap:"Revenue against the same quarter last year, by region",
+       rows:[["Middle East & Africa",18],["Europe",12],["Americas",9],["Asia/Pacific",5]],
+       say:"Middle East and Africa grew fastest, at 18%, on major events in Saudi Arabia and the UAE. Asia/Pacific grew least, at 5%. Any region breaks down by division and country with one more question.",
+       src:["Finance system in each country","Exchange rates"],alert:null}
+    ]}
+  ];
+
+  var ALERTS={
+    renew:{to:"Sports & Media agents",msg:"The golf client's apparel endorsement renews in 34 days and the brand hasn't opened talks. Last time, the renewal took 52 days to agree."},
+    tour:{to:"Music agents",msg:"Berlin is at 47% sold with three weeks to go, the slowest date on the tour. Last year's Berlin show sold 30% of its tickets in the final fortnight."},
+    creator:{to:"Creators team",msg:"The comedy creator's engagement fell 23% this month, mostly on Instagram. Two brand deals are due to post in the next fortnight."},
+    roi:{to:"Marketing",msg:"A client's stadium takeover is returning 2.1 times its cost, below your 3x line. Fan village activations have returned 5.1 times this year."},
+    unsold:{to:"Rights Sales",msg:"The rugby property still has two unsold categories, insurance and airline, with 41 days to launch. No airline is in the pipeline."},
+    job:{to:"LIVE·TEAM production",msg:"Stadium dressing for the football final is now 14% over budget on materials, after an artwork change forced a reprint."},
+    entries:{to:"Events",msg:"The long-distance triathlon is 9% behind last year's entries with 14 weeks to go. Returning athletes are level and new entrants are down."},
+    overdue:{to:"Finance",msg:"The sportswear brand's $1.4m is now 74 days overdue, on invoices from three departments. All three account leads are copied."},
+    brand:{to:"Account leads",msg:"The airline just bought its first hospitality package. Until now only Rights Sales worked with them, so both account leads are copied and can see the whole relationship."}
+  };
+  var WHEN={now:"Sent the moment it happens",mon:"Checked every Monday at 8am, in each team's own time zone",month:"Checked on the first working day of each month"};
+
+  var seat=0,qi=0,timer=null;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+  }
+
+  function fmt(v,a){
+    var n=a.dec?Math.abs(v).toFixed(a.dec):String(Math.abs(v));
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;else if(a.signed&&v>0)n="+"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var raw=a.rows.map(function(r){return r[1]});
+      var pick=a.hi==="low"?Math.min.apply(null,raw):Math.max.apply(null,raw);
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        var cls=r[1]===pick?"hl":(r[1]<0?"neg":"");
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf '+cls+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<button type="button" class="ghost" data-alert="'+a.alert+'">Turn into an alert</button>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed!==a.q)head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><i aria-hidden="true"></i>Checking deals, tours, jobs and invoices</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,did:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,much:1,many:1,all:1,last:1,year:1,is:1,we:1,me:1,each:1,more:1,than:1,one:1,most:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9&%'-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=q.kw.join(" ");var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+  $("hero-ask").addEventListener("submit",function(e){
+    e.preventDefault();var v=$("hero-q").value.trim()||$("hero-q").placeholder;
+    askTyped(v);$("try").scrollIntoView({behavior:reduce?"auto":"smooth"});
+  });
+
+  /* alert builder */
+  function pv(){
+    var a=ALERTS[$("w-what").value];
+    $("pv-chan").innerHTML="<b>"+esc($("w-where").value)+"</b>";
+    $("pv-to").textContent="To: "+a.to;
+    $("pv-msg").textContent=a.msg;
+    $("pv-when").textContent=WHEN[$("w-when").value];
+  }
+  ["w-what","w-when","w-where"].forEach(function(id){$(id).addEventListener("change",pv)});
+  pv();
+  function toAlert(k){$("w-what").value=k;pv();$("alerts").scrollIntoView({behavior:reduce?"auto":"smooth"})}
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(b)toAlert(b.dataset.alert);
+  });
+
+  /* brand grid */
+  var DEPTS=["Marketing","Rights Sales","Talent deals","LIVE·TEAM","Hospitality"];
+  var BRANDS=[
+    ["Sportswear brand",[2400,0,3100,650,120],"Your biggest relationship, across four departments. Marketing runs their campaigns and eight of your athletes wear their kit, but Rights Sales has never pitched them a property. The motorsport and rugby categories in the Rights Sales seat are still open."],
+    ["Global bank",[1800,2200,0,400,380],"Four departments, but no talent. They sponsor a rugby property with no player ambassadors, and you represent rugby players without a banking partner."],
+    ["Energy drink",[900,0,1200,300,0],"Creators, athletes, campaigns and event sets. Nobody has pitched them a property, and the music festival partnership format returned 4.4 times its cost for other clients."],
+    ["Carmaker",[0,900,0,1100,210],"LIVE·TEAM is the biggest line, from trackside and showroom builds. Marketing has never pitched them strategy or content, and they have no talent deals with THE·TEAM."],
+    ["Airline",[0,1500,0,0,0],"Only Rights Sales knows them: one property and one contact. If that renewal goes, the whole relationship goes with it."],
+    ["Streaming service",[600,0,0,0,0],"Marketing only, on a content brief. They cast talent for every campaign, and none of it has come from THE·TEAM's roster yet."]
+  ];
+  var doors=false,bsel=[0,1];
+  function money(k){return k>=1000?"$"+(k/1000).toFixed(1)+"m":"$"+k+"k"}
+  function lvl(k){return k===0?"open":k>=2000?"hi":k>=800?"mid":"lo"}
+  function renderBrands(){
+    var h='<span></span>'+DEPTS.map(function(d){return '<span class="ch">'+esc(d)+'</span>'}).join("");
+    BRANDS.forEach(function(B,b){
+      h+='<span class="rh">'+esc(B[0])+'</span>';
+      B[1].forEach(function(v,d){
+        var on=bsel[0]===b&&bsel[1]===d;
+        var label=v?money(v):(doors?"Open":"·");
+        h+='<button type="button" class="cell v-'+lvl(v)+'" data-b="'+b+'" data-d="'+d+'" aria-pressed="'+on+'" aria-label="'+esc(B[0]+", "+DEPTS[d]+": "+(v?money(v)+" this year":"no business yet"))+'">'+label+'</button>';
+      });
+    });
+    $("hm").innerHTML=h;
+    $("hm").classList.toggle("doors",doors);
+    renderBrandDetail();
+  }
+  function renderBrandDetail(){
+    var B=BRANDS[bsel[0]],tot=0,n=0;
+    B[1].forEach(function(v){tot+=v;if(v)n++});
+    var rows=B[1].map(function(v,d){
+      return '<div'+(d===bsel[1]?' class="sel"':'')+'><span>'+esc(DEPTS[d])+'</span><b'+(v?'':' class="open"')+'>'+(v?money(v):"No business yet")+'</b></div>';
+    }).join("");
+    $("detail").innerHTML='<p class="d-k">Sample brand · '+esc(B[0])+'</p><p class="d-big">'+money(tot)+'</p><p class="d-sub">with THE·TEAM this year · '+n+' of 5 departments</p>'+
+      '<div class="d-rows">'+rows+'</div>'+
+      '<div class="d-say"><svg aria-hidden="true"><use href="#milo-icon"/></svg><p>'+esc(B[2])+'</p></div>'+
+      '<button type="button" class="ghost" id="b-alert">Alert every account lead</button>';
+  }
+  $("hm").addEventListener("click",function(e){
+    var b=e.target.closest("[data-b]");if(!b)return;
+    bsel=[+b.dataset.b,+b.dataset.d];renderBrands();
+  });
+  $("detail").addEventListener("click",function(e){if(e.target.closest("#b-alert"))toAlert("brand")});
+  function setDoors(on){
+    doors=on;$("m-spend").setAttribute("aria-pressed",!on);$("m-doors").setAttribute("aria-pressed",on);renderBrands();
+  }
+  $("m-spend").addEventListener("click",function(){setDoors(false)});
+  $("m-doors").addEventListener("click",function(){setDoors(true)});
+
+  renderSeats();renderQs();ask(null,true);renderBrands();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+
+</body>
+</html>
