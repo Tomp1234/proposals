@@ -394,20 +394,20 @@ footer b{color:var(--muted);font-weight:600}
     <div class="shead">
       <span class="n">03</span>
       <h2>The gaps, and how we close them</h2>
-      <span class="aside">Every gap has a route. None of them are blockers.</span>
+      <span class="aside">Four have a route. One needs an answer from you.</span>
     </div>
     <div class="gaps">
 
       <div class="gap">
         <div class="g">
           <div class="lbl">Gap</div>
-          <h4>Deliveroo finance and ratings</h4>
-          <p>Commission, payouts and ratings are not exposed by the API, so channel margin cannot come from Deliveroo alone.</p>
+          <h4>Commission is missing on two of the three</h4>
+          <p>Deliveroo exposes no payouts, commission or ratings at all. Just Eat gives order fees, discount, tax and tips, but no commission or payouts either. Channel margin cannot come from those two APIs alone.</p>
         </div>
         <div class="f">
           <div class="lbl">How we close it</div>
-          <h4>Restaurant Hub exports, joined to the order feed</h4>
-          <p>We take finance from Hub exports and reconcile them against the live order data, so margin per store and per channel still resolves. If Deliveroo confirms an API route, we switch to it and nothing downstream changes.</p>
+          <h4>Hub exports, reconciled against the order feed</h4>
+          <p>We take finance from Deliveroo's Restaurant Hub and Just Eat's Partner Hub and reconcile both against the live order data, so margin per store and per channel still resolves. If either confirms an API route later, we switch to it and nothing downstream changes. Ratings are the one thing with no alternative: they exist on Uber Eats only.</p>
         </div>
       </div>
 
@@ -427,12 +427,12 @@ footer b{color:var(--muted);font-weight:600}
       <div class="gap">
         <div class="g">
           <div class="lbl">Gap</div>
-          <h4>The platforms do not share item IDs</h4>
-          <p>Deliveroo and Uber Eats each use their own identifiers, so the same pizza is a different product on each, and like-for-like comparison fails.</p>
+          <h4>No two platforms share item IDs</h4>
+          <p>Deliveroo, Uber Eats and Just Eat each use their own identifiers, so the same pizza is a different product on each one, and like-for-like comparison fails.</p>
         </div>
         <div class="f">
           <div class="lbl">How we close it</div>
-          <h4>Map both to your PLU and SKU</h4>
+          <h4>Map all three to your PLU and SKU</h4>
           <p>We map every platform item onto your own product codes, which is what makes cross-platform and POS comparison possible in a single query.</p>
         </div>
       </div>
@@ -454,12 +454,12 @@ footer b{color:var(--muted);font-weight:600}
         <div class="g">
           <div class="lbl">Gap</div>
           <h4>Live and settled numbers disagree</h4>
-          <p>Uber Eats figures move for up to 72 hours as refunds and adjustments land, so a number read on the day will not match the invoice.</p>
+          <p>Uber Eats figures move for up to 72 hours as refunds and adjustments land. Deliveroo and Just Eat have no settled layer in the API at all, so their final figures exist only in the hub exports.</p>
         </div>
         <div class="f">
           <div class="lbl">How we close it</div>
-          <h4>Treat reports as the source of truth</h4>
-          <p>Live orders drive the operational views, settled reports drive anything financial. Each number carries its source, so nobody presents a provisional figure to your board as final.</p>
+          <h4>Treat the settled source as truth</h4>
+          <p>Live orders drive the operational views. Settled reports and hub exports drive anything financial. Each number carries its source, so nobody presents a provisional figure to your board as final.</p>
         </div>
       </div>
 
