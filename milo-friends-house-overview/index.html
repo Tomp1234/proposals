@@ -77,16 +77,10 @@ button,input,select{font:inherit;color:inherit}
 .sticker{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:500;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);border:1px solid rgba(255,235,43,.45);padding:7px 14px;margin-bottom:26px}
 .hero h1{font-size:clamp(44px,6.4vw,86px);line-height:.98;font-weight:800;letter-spacing:-.035em;margin-bottom:24px}
 .hero h1 span{display:block;color:var(--yellow)}
-.lede{font-size:17.5px;max-width:33em;margin-bottom:26px;color:var(--on-night-2)}
+.lede{font-size:17.5px;max-width:33em;margin-bottom:0;color:var(--on-night-2)}
 .lede b{color:var(--on-night);font-weight:600}
-.ask{display:flex;gap:8px;background:var(--pill);color:var(--on-pill);border-radius:999px;padding:5px;max-width:560px;box-shadow:0 0 0 4px rgba(255,235,43,.22)}
-.ask input{flex:1;min-width:0;border:0;background:transparent;padding:9px 14px;font-size:15px;outline:none;color:var(--on-pill)}
-.ask input::placeholder{color:var(--pill-hint)}
 .btn{border:0;background:var(--ink);color:var(--paper);font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px;cursor:pointer;white-space:nowrap}
 .btn:hover{opacity:.88}
-.ask .btn{background:var(--yellow);color:var(--on-yellow)}
-.ask .btn:hover{background:var(--on-pill);color:var(--pill);opacity:1}
-.ask-hint{font-size:13px;margin-top:10px;color:var(--on-night-2)}
 
 /* the house */
 .house{border:1px solid var(--night-line);background:var(--night-deep);padding:22px 20px 20px;position:relative}
@@ -440,12 +434,6 @@ footer p+p{margin-top:6px}
         <p class="sticker">Milo × Friends House · Overview and proposal</p>
         <h1>Let your numbers <span>speak.</span></h1>
         <p class="lede">A conference venue, a café, a bookshop and Swarthmoor Hall, with every booking, sale and campaign in a different system. <b>Milo joins them up</b>, so anyone at Friends House can ask a question in plain English and get the answer in seconds.</p>
-        <form class="ask" id="hero-ask" autocomplete="off">
-          <label for="hero-q" class="sr">Ask Milo a question about Friends House</label>
-          <input id="hero-q" type="text" placeholder="Which campaigns turned into bookings?">
-          <button class="btn" type="submit">Ask Milo</button>
-        </form>
-        <p class="ask-hint">Ask about bookings, staffing, campaigns, the café, the bookshop or Swarthmoor Hall. It runs on sample data.</p>
       </div>
 
       <div class="house">
@@ -1051,10 +1039,6 @@ footer p+p{margin-top:6px}
     qi=+b.dataset.q;renderQs();ask();
   });
   $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
-  $("hero-ask").addEventListener("submit",function(e){
-    e.preventDefault();var v=$("hero-q").value.trim()||$("hero-q").placeholder;
-    askTyped(v);$("ask").scrollIntoView({behavior:reduce?"auto":"smooth"});
-  });
 
   /* staffing */
   var SHIFT=110,SCALE=900;
