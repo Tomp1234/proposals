@@ -1,0 +1,1189 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Living Things</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Montserrat:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Living Things' own system. Forest-green bands like their site, lime as the highlighter, cream paper between. Archivo at full width and weight stands in for the campaign's poster type, Montserrat is their own heading face, and a mono for labels because their site sets body copy in one. Campaign red only where the campaign is. */
+:root{
+  --logo:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAU4AAACjCAYAAADl/veBAAAApmVYSWZJSSoACAAAAAYAEgEDAAEAAAABAAAAGgEFAAEAAABWAAAAGwEFAAEAAABeAAAAKAEDAAEAAAACAAAAPAECAAkAAABmAAAAaYcEAAEAAABwAAAAAAAAAC8ZAQDoAwAALxkBAOgDAABpbWFnZXJ5NAAABAAAkAcABAAAADAyMTABoAMAAQAAAP//AAACoAQAAQAAAE4BAAADoAQAAQAAAKMAAAAAAAAAvFsnAgAAAQtpQ0NQaWNjAAB4nGNgYFyRk5xbzCTAwJCbV1IU5O6kEBEZpcB+h4GRQZKBmUGTwTIxubjAMSDAhwEn+HaNgRFEX9YFmcVAGuBMSS1OZmBg+MDAwBCfXFBUwsDACLKLp7ykAMSOYGBgECmKiIxiYGDMAbHTIewGEDsJwp4CVhMS5MzAwMjDwMDgkI7ETkJiQ+0CAdZko+RMZIcklxaVQZlSDAwMpxlPMiezTuLI5v4mYC8aKG2i+FFzgpGE9SQ31sDy2LfZBVWsnRtn1azJ3F97+fBLg///S1IrSkCanZ0NGEBhiB42CLH8RQwMFl8ZGJgnIMSSZjIwbG9lYJC4hRBTWcDAwN/CwLDtPADw/U3bQyU8RgAAAAlwSFlzAAALEgAACxIB0t1+/AAAF+VJREFUeNrtnU9y2zi3xU9cPZe+FVg9fqyyevY4krwCq6sex5ZXEGUFVlYQeQWRxxxEXkFLIw4jV3He8g6kFeQNvssERiCKEkkQIM+vipU/piUCBA6Ai4t7P/z48QOXEEThFMAUFknjZAzHCKKwD2ACYAxgAGB04lc2ALZyrdI42btWJh8IonAsdZ7V+3XO7a8Adkqdb8/4nnlNRdilcbI8s40N5dLLe5Cy7QGsAazPKWMD724gZYD8OWjgMQrXv4kPJYRzDuDRZknTOPng0MufAJgVEMpTvABYpHGydq2+y74D6SBjpcMPAfSO3L45NTDK581kwO6VKMYbgKXU+/7Ed/6oqSqLlHcqgnlXoozLNE52DfeVoTK5GMENNmUmYn+4IkS+II1gUWEDuANwF0ThBsDE9xmoiFu2Grmu8HPnIpq9Cj7uWgahWRCF0zROVo7V4RTAvGT9ZWV8DKLwGcDMZtuSWfJU3tk1WsZV2wpkoUGvaxo1RwB2Isyucsipm2EQhUsA/0qHraSzBFHYD6JwLZ/Zq7g8PQDf5LltszSUdSBl/Vqx2NxL25pZ6idzMY18aaNogsJ5VmMYSoPu1fg1PQBrGa1d4yBLLb1e+iI836WDVs3KwvLuvkZbpokH3b4mg/K2xrL2AHwJonBZV/sKonAcROGupkHOKSic53VgG/TEFOASBwBjfcNB7Ly7mgQzExNbNrFHMTPUzecjovnVktjc1zE4B1G4APBPW2eYOhTOYo1iaLlB3DtU/GOiuQDwrebOPrVc1knNn/+Sxslcq8e5iKZNbqoST1lxbAF87JIm2BDOzwD+I9dTzn2f5J4/ZafZJay7QTlk65waRHNpqaPY3oGt8z0f9IFAZppNeUrciL2+TBvty2fcONZfa6fuXfUnbYSdBVEIQ6f7lMZJtjzdA5iIkdwV14Wu8qTvOItoujQj9oV3u9qKzbxJboIoXKRxcvamUZdFEzXPOA/iUqGj/9+bIprvGppD9bS2/H0HBxyYX/UOJctzm6K5acl73hicrZvYyTfxUQ4TXFJXnRRN1Cyca5PfmPyfuhQ3brqIcLy5UEkNPIsLfoW6aE4asGPZFpe66t1k13RJdM6qZxlAOyuaqFk4twV/tr7wM2xja6Pi4MBs+1k9ySTLMuszJJml2Zp1fq7phM2boS5dWk0BwLXYW08is9NObQSZcGFXPe80gzPCKY3/oeavyXawmz49pJtTFg365U3krHmdPOu73RWim6Fmjvo4nix/UwOoi9Ad6QxkBvRXTR35BcDAAdvmszrzEt/GxjaD0jjZp3EyFO+MqjkA+DuNkzpXE/ry37aLVVGuxRyTRyuPT16CC8KZ53TsXDSkNE620pEfKlpGvgC4TePElXPq+oxi7sAzQWaEf4pL26Hkx72JEA9qPqf+qg1CE8eF56ioO2piaIw63ZHyRG+i3Xds+j+AA4hdp692Mpl9LpUIQJWFlcvOxDcQ1cZkj2tstimbKD8jGEl9zMSt7Zywcm9anW8N3zUEMCwTaszA+ow+4QJ5z+eqiaER6hTOURCFA73zi9CoO3KTIAr7uoBIx3BldB7LkbzPui1MyrfUxV9EZ4hf9tEiQpHZkO4A3MpxRpu4tqx8lPbxmxO+1OnaUIdDAH2Jt1io/mQmuBRhrVI4dYF2OYALAPSCKBweMRe5amJohLod4BeGY2x6w8zOZk81AXHtvDZEPKcA5qdmJjIQnCOYMwdGdRftcTcAvktotPkpMTwzSPFYTBF1HbTQn9WHAx1DXfA9MDFYp27hvJMTQJkIHgv8e6/MtvoVxCKsk2sAX8WXbSlLv4scp6VBZlfjyyDDMt0lX717aScvIvAXmTJkxTORQaHu8m217/UB03O6bmKwjo1AxqOCI+3dhZGum6In/mwf5RjpRklfsDW4WQ20y7XZh77R5eqy8mc7CaJQtV3uj7ivjZU/BzYHZM385LNwVhX8JDtEcuodvMoEytlZLiPAV8fI87P1uuj4MMu4lsunAdd13gmnrDyqELCfMUhlpfXNcM9BsiCs5b6ZBEN2Dvpxkgx9huz6RgaxQxXt4JO6JyDeKZ8M901Vc5HEsHhysVI44yQZup3WxSj0XiH2fd/rs6xwHkxBfNI4WYi7WWbbfz3iUzt38YgnZ5yE1MdIuXwNilFW8PM2TldH/v4TsRNvXKsUCifJ6/SElCXPPWxX8D7ncsRTOAlxi9s0Tj5kV01n9F1kf+HPGoHCSQghZ0LhJITUSb/gz/I2oZxzjaNwEkLqZFzwZ3n3OecaR+EkhORRNg/TjSmnkfyf6mlwZzqWKrEhnIvKROEkhORRRYSuhZrDPSeIz0q7b+hosB86wBNCjpPGyS6IwkPJWd8NgJ2kloYEWOkduW8r9/Vz7mscCich5BTrCuIB9AqeALqWOKxOw6U6IeQULqSrdgoKJyHkFBRODQonISQXOS/+zJr4BYWTEFIE5lNXoHASQk4icTKdi1LUFBROQkhRmOlSoHASQgohyfG6Eq0pFwonIaQwaZzMJZlap6FwEkLOZSqJ1ToLhZMQchZpnGy7nmudwkkIORsRz4eulp9n1X9Fa5kpjWLOWiEknzROlkEU7sXH08lgHHXReeEU0VxrsQEpnIT86iM/5K+vAMZykgiQHOkSW3MlATo6QaeX6kdEkxBi5gbAWo2ZiV/L9iGAp65URGeFk6JJyEVk4vkuWnsaJ/s0TmYAbrvgrtRJ4ZSlxY6iSchFZAGHf9tZT+NkncbJUDaOWiugnbJxKptAzgdKbYBhEIWsBVKUHoB/gij8bNpMTeNkCWAp6S+mACZtsoF2RjiDKJxI/pLOGLDP5AurgFzAo/StmQQCeYfYP2cAZrK8H8rV17JXDn3amW+9cGYvFcCIbZyQWriR2edGBHRruknOuu9MgZGDKFz71EdbKZwysmWCyRkmIXYYAfguArqU5XoraYVwKkuAsVzc9CGkOUYARkEULmR2uQawlhlnK/BKOIMozIzQY+0lEULcowfgXi4EUfgmS/XMFrpT8rb3fSqYbzNO7oYT4i/Xcnk/2Snjx7lnO7BKa5Y5hPhOGeHcsvqsQuEkpDpK6ReF0x8onIRUR6kV88XCKRFS3lj/dpAdyU5H3SakQtZlfvmqyS8nrG9CmsB0yukcygrniq/AKqxvQsrzUvYDSglnGicrLh+tQuEkxIF+dOXCQ5BiiF35hTVByMUcXBFOppmwy4JVQMjFrNTUH5dSWjhlt/eZ78MOYtTesCYIuYhKJnpXFT4MbZ2evXxCOsZTVYFGKhFOeRh2ZkvIrLMzibEIqYBDlRpVWc6hNE4WXEJaZc4DCIQUZlqFbTOj6mRtEy7Z7SCNgPVNyGmexHWyMioVTunMY3ZmOyj5XAghZjaStrhSKk8PLJ2Z4mkJSU/wwJog5DdeZVVWObXkVad42oXiSchvvAIYV2nXVLmq66lFPIdtTkrvEiKetxysCMFzGifDukQTdQqndOZdGidDAJ/5LutH3JSG9G4gHeUA4CGNk2ndX3RlozRpnMwB/MUObaWud2mcjGXpztkn6QovAIa2UhJf2SpVGidb6dC3FFAr9b0EMJDZPgWUtJUNgNs0TiY20w9bz3Ipy8mx5EKfAJgyD3ptdb0HMJf81lldM50y8Z03iXC0aCpXe2PpgaXACwCLIAr7YpsbSn7loW95ll1GBHQJYCl1PVHqeyj5rwlxkYPkN9vJn2vZeG6UDz9+/OCrOYHMjgeWv3Zb567gkXKOG6zmvd4hGnievQudkrgPhZMQQs7kilVACCHnQeEkhJAz+YNVQEycsOtat79aKK9uT901tWNL3OfD//zf/9rO1b205aSqdYxhjfl6GilThXXTl9gC2W57EfewbLdzLXlctgW/aypuUXUwK/IciivcpIBXwauUcV11aLIK2/VQBrnMI6URxE+7rnIOFC8QSHu1zc9+/kcDfn1rNEO/xrI2VaYqGuNcBORcl6Se1OcIwGMQha/iV3dqABnU+B76J8o7lTB85/gN38j1MYjCg7h1NeY/qLiTTUQ8WutKFkShWs5rBx7pZz/nUr2jBFE4E9GsquPdAPiazShdWuZKB1xU0Pl6AD6KiD4BmNsyWZQc5Hxql30Z3KaOiKURbg51kCAKlwC+1NQBRwC2soS0ybOcSnvXCYMoXAH4VkMn/AhgJ6Jcq5DI+/oXwH3LRXMuju6PLosmKJzdQxrnfc1f0wOwltmDDZ71iDgi3DsAdzWX85scaa3jXU2kDHW/r6bb5DCIwq0IphcDA4WzQ8hy79HS1/UspfV4NYjmROxRtjrhR5kVVvWeslnmt7YfhxXTznff4lVQOLvFxPL31R0X8aDvrspMswnBua9CPGWWvm77LBO/TEZffXx2Cme3sB04pW471buUryKaTXo43Isp5CIU0Wx9tDARTW8HBwon8ZWN6lcporN0YGn7eElwEoqmX1A4u4VtF6E6A1brZoCZQ6KzumBjbNUR0Zy1wQxB4ewQ4pz+ZvEr6zpN9az6iVre9CrCWRtjsrxvfYBpmYl/aUNZ6ABvv/FkxxuHysbGQOyBb8qscK0Ebq3SyXoK4B8LRX2u8Riq/rlzuMdjEIXLUwcBxC7rkujX2e69PZasQ+G013Cmsqud51d4rWyojJTffZHz4KUbXhon6yAK/67ZHvhcY6bBN9XRXWabri79pgVEvTVicoKZ607t58Cles0EUTgNonAnbheXOmPfyXHGnQhwKWRTpY40wgcAn2pOz6oH2qg9FWwJpqfaRkfsmq6ZUkpD4ayGraGxZKchvlY40l6LgJY+0qikEb4F8FwyE+YrgE8ABmmc1BWBKsMn4bw+scPuoomhDlpXTi7Vy/OghxuTmUSdjr03AL4HUfjpHKGSTrwAMM7sprLsXSs/H4vNdaDYXlWyWepWscHuDN+VudfM9DPkZTAs011f/k1MvqXSRlqzdM1pc/02OvNTOMvxoNsdLfuofQmicHjm0vhGglPM9GdXRbRkZ5mKQFdtQ33V/t1Y7MkzOPaMEw+evQpcXhFcDJfql/PcsGhmXHLUr6faTKsKxqHZc+vYeNK9C3wQzpGhnvo1Bx9xiVYKJ2ecl2EKLDFvcElyH0ThPo2Tc4NqXIvIfZWd+7WkxSg06xQ761i56j61oz+XD8JpohOzTTGltHLzqwnhHFjKl11nzpiZ1kAmDuwafgyisEx6h7tsFhREIZTUGMZ36Ih9ru/AMxQRkKGW0qOq9v8sfr+n7KXPMlufWH5vTaS3sEITwnlvaWb2uabdvGdtg8Ilx95lEIWDihzme104zWIJXeCrEJS/lUFyLgGb9eX/QTYCt/i1KrJ5Ht7XFcFJaOM8H12MFw7FTOzVmJCOVEfZWd9nw8pianApm6szXRlQbZoJKJwEOHJG2jVXi3tLppAmeAyi8Ed2+TgjriilyG8rHBHFZYH7dgBeLBV30FYhoHCehz7Ku+rYO3P0uUh5u+xbju1e3Tzb5JhsbMUsba2fKnfVi3MwxH901bH3TmydzmSabPK9GTa5fLbd5r1TVSjz8stvPS5/Hm+G+hnWYUpzRTif5YTJXnaojwWgUO+bWQ5R5dNRP4gti/bO/7pX6ek1frSxoBLAJfvnvo1lPMEyjRPjKlDMV5n7XGkfWheW6ps0TqbKEcDVEQP2i3bfQs5HH6PqhqMvb1y3I3blZAp5Lw4ZrbUvXkIaJ+s0ThZpnEwA/AfAQxlbrwvCOTcV0hC5Z2a4b5ETmLfq5Yj+ea6f/KArUTvJ21xS7ad5wtla/8oipHGyT+NkKSL6p6xkz6Jp4TzknFJRl8avOfa6lY0HVd06KtoZrR1fnrNjlLU793Leq7rKGOUcpbW1Gnm1XLfjIArnck2DKByf6gMSJWx6roA2beMsasBeX/AZVW6M6P5xXpxY8eg5O0MaJzvFDnkpc138jrjGzfQVnSznbTnA27azjo7EBoCsYNcSEHxrei8AphL3YXnKI8AXd6S8F7A71kAr/H69on2ZyXV6SeYwZWdid2oaYhFN08rrUQ18LbOvlcVyNpmqWWckx6K/SzxbY3AbWQEPT9k/2+rHuan58zmTI2WoQlAeJbrVGsC/ObPILArWFsB3y6fcXHV7upHgNjvxznmH2EAncmzbiC/COTzzZy6NdITU1T6vC24CXjcUpcj1ftiTmLbGjAri2vRg+sWmhbOoAftc4ax6OTIMonCdXW2NMUis0YmBXVwHXzx41CyjgsnDZ2kSTxdmnJMC/2/M3SKiq//+m8n4W5KeYngedSHlAaldUJ47UtyVR8/6GEThUp/MiXj+rQ54LgjnQp8my87WteE+fXZqOmHUlXSrxG+60k5XJRMB2uYewNognivVddKFI5c9edC5EpTV5Fx+A2AbROFCdtmnR+w7Lh0zvDU8W+vTwZLTyPHITdsPKsjx6IVn6YFvZHZ51EToyln1XsFz59cn7nuqKIhvZZ1D/XcQhV08P0yOMwfwTwfKuRCfUlfi1hbhJojC5bFEiG1yRzp0KE81aQEysPqweVK2nHtP++a9yV0JLRPOuUuzTUIKMvPMBngREldi4+GjfzG5KrVFODfyYgjxiuyoX0eKO/V0kPhNW9ognG8MoUZ8RkIpPnWgnL4OEiP16CpaIJwHABMu0YnvpHEy64JvpwwSDx4++jsbrc/C+S71KSG+Izu4XRDPpYfiea3OOn3NOWQUTTHiZo6rO+bcIS4iHXAAYK/b5tM4mUoYNFfzWZ1TzrlSrrlWzqWU86tHRZpmBxd8nHG+HhHNqUR/+UcunicnLnfAR9mxNUXnmXq6nNV5zC45DaiXcwngr5wsDq4xkhB+3gnnU45o+jRyEZLxRd94wHtR8dGFx8T9EfHcygkdX0wUE3gknK8AbtM4mekbQTJiUzSJz3w9JiqSofPBo1lZHvdHgmjsZZZ968FAMYYHwvkG4CGNk6Hh+GJfGtsXx8tASBHuJWyhKSr5Mo2TgQjoq+/llNgUA0M51zJQ3Dp8ospZ4XyTafttGicDWbK8Q0LMbdtgQCdEYSRRyY1+ySKgQ0ks9snjZXwWsOdYOdeGNL6uOM73gijsN7Gr/mbIE7TNrjz3Ihml5hRM0mJ6AL4FUfgCYGbyDJH/W2QnWhRvEtWrZOx45KWsnBsA0yPl3Msu9lLp/wOlrBm2Iy8NmxDOpe6acAqpsKmHEVYIuZQ7Scr2LHEYjrrWKZONtdJn5p6ErBsB+LdgOXfKpGullNV6yDqn/ThlKn8sPichXeBe7J8bmXmtWnpSzqdyjp0STllyjJWLs0tC/kuWtuWrLOPXYtpqW/4iL8rZhHCOlRMFmU2mz8johBTmLluFyekbdd9gL/sF4xaW86CkHN43mX64CeEctT1dACGWudZydLXVtNXTtKOpcm7bFMiYEOIIpuC/LWJ/1QKHWkJI8+g60m9xWXdXBp9KQgg5F11HWiucaZzsrpo0sBJCWoO+693WpfoGcuRyxXdOCClJV4RzDQBXcuqg9Vn2CCG18WY4Kt1W4VxBCfKx5LsnhFzIu1WrHJG+bmE5fw4QFE5CSFn09LltzTr7s5xX+BUkoC2Rpgkh9tgYAnO0MW3NQZ1gqg7w8xYWlhBSL+90Q5bpbTw+vVCDjvwUTjlE72rUZUKIe7wYgm/MWljOg26OuDIUmjvshJBTHHSRlLQfbVymT/UQd++EU2wVbRwxCCHVYopOP29hKMjnNE5+83X/LciH5PjxJVUnIcQ+z3ouMAnq8bFl5Xw9NpE0RkeSVJ3cZSeE6GxEH3QWLSvnAcDkWBT6vLByE0ZOIoQovJp8ND3Kb1SUA4BxXv6jo8IpSjvmTjshRHRgrM/AJC/YY4vK+SrlzA1+lBsBXippEkThooX2C0JIMZ7SOPnN1id2zTadOtzkLc9VCkWAl0r7m65KhHSKA4C/c0Rz3ZJd9AOAT2mcjItm1iycOkO25AcAntieCGk9TwAGJlecIArHLRLNFwDDNE7O2tw6K1mbqPFMlu5zMRQzhS8h7eAgkY7mxzZGgiicAfjSgrI+A1hemnb4oiyXUqlTOSkwkautmfUIaTMHmT2uAKzylqpBFK487+cbpZylUgaVSg8slbzMDMQyhR/INWw474heMXsHfFO3HayDveGZbD7D9kgHarIOmkxXs1Ou7andY42+R/7dWd71vZRzXeWH/z+gHCYxrRbeJQAAAABJRU5ErkJggg==");
+  --sun:url("data:image/png;base64,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");
+  --paper:#FFF6EE;--panel:#F6EADC;--card:#FFFCF8;--ink:#1B2A20;--muted:#5A6458;--rule:#E5D8C6;
+  --forest:#2B5438;--on-forest:#FFF6EE;--on-forest-2:#CDE2C4;--forest-line:#46704F;--forest-deep:#224430;
+  --lime:#C4FF6E;--on-lime:#1B2A20;--pink:#F4A6CF;
+  --red:#E23A35;--red-ink:#B8231F;
+  --em:#2B5438;--hl:#C4FF6E;--brand:#2B5438;
+  --bar:#D8CBB9;
+  --good:#2E6B37;--good-bg:#E0EDD6;--warn:#855600;--warn-bg:#F8EAC4;--bad:#A3301A;--bad-bg:#FADCD3;--over:#3C5D78;--over-bg:#E1EAF1;
+  --display:"Archivo","Arial Black",system-ui,sans-serif;
+  --body:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono","SF Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1913;--panel:#15231A;--card:#1A2A20;--ink:#F3EEE4;--muted:#A9B3A6;--rule:#2C3C31;
+  --forest:#1E3D29;--on-forest:#FFF6EE;--on-forest-2:#BFD6B5;--forest-line:#37593F;--forest-deep:#173020;
+  --lime:#C4FF6E;--on-lime:#1B2A20;--pink:#F4A6CF;
+  --red:#FF6A5E;--red-ink:#FF8A80;
+  --em:#C4FF6E;--hl:transparent;--brand:#C4FF6E;
+  --bar:#3A4A3E;
+  --good:#8FD19A;--good-bg:#1D3322;--warn:#F0BE5E;--warn-bg:#3A2C12;--bad:#FF9C82;--bad-bg:#3F1E16;--over:#9DBBD6;--over-bg:#1E2A36;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1913;--panel:#15231A;--card:#1A2A20;--ink:#F3EEE4;--muted:#A9B3A6;--rule:#2C3C31;
+  --forest:#1E3D29;--on-forest:#FFF6EE;--on-forest-2:#BFD6B5;--forest-line:#37593F;--forest-deep:#173020;
+  --lime:#C4FF6E;--on-lime:#1B2A20;--pink:#F4A6CF;
+  --red:#FF6A5E;--red-ink:#FF8A80;
+  --em:#C4FF6E;--hl:transparent;--brand:#C4FF6E;
+  --bar:#3A4A3E;
+  --good:#8FD19A;--good-bg:#1D3322;--warn:#F0BE5E;--warn-bg:#3A2C12;--bad:#FF9C82;--bad-bg:#3F1E16;--over:#9DBBD6;--over-bg:#1E2A36;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 112;letter-spacing:-.01em;text-wrap:balance;margin:0;line-height:1.05}
+h2 em,h3 em{font-style:normal;color:var(--em);background-image:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 92%,transparent 92%)}
+p{margin:0}
+a{color:var(--brand)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--red-ink);outline-offset:2px;border-radius:4px}
+.pip{display:inline-block;width:10px;height:10px;background:var(--pink);-webkit-mask:var(--sun) center/contain no-repeat;mask:var(--sun) center/contain no-repeat;flex:none;transform:scale(1.5)}
+.eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+.sr{position:absolute;left:-9999px}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-weight:700;font-size:18px}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--muted)}
+.lt-mark{display:block;background:currentColor;-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
+.lk-lt{width:78px;height:38px;color:var(--brand)}
+.nav{display:flex;gap:2px}
+.nav a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:6px 11px;border-radius:999px}
+.nav a:hover{color:var(--ink);background:var(--panel)}
+@media (max-width:920px){.nav{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--forest);color:var(--on-forest);padding-block:56px 64px}
+.hero .wrap{position:relative;z-index:1}
+.sunburst{position:absolute;right:-90px;top:-90px;width:360px;height:360px;background:var(--pink);opacity:.16;-webkit-mask:var(--sun) center/contain no-repeat;mask:var(--sun) center/contain no-repeat;animation:spin 90s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bubbles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.bubbles i{position:absolute;bottom:-40px;border:1.5px solid rgba(255,246,238,.35);border-radius:50%;background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.35),rgba(255,255,255,0) 45%);animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-55vh) translateX(10px)}100%{transform:translateY(-110vh) translateX(-6px)}}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:center}
+.sticker{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--on-lime);font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;transform:rotate(-2.5deg);margin-bottom:24px;border-radius:4px}
+.hero h1{font-size:clamp(40px,5.7vw,78px);line-height:.94;font-weight:900;font-variation-settings:"wdth" 118;text-transform:uppercase;color:var(--lime);margin-bottom:24px;letter-spacing:-.015em}
+.hero h1 span{display:block;color:var(--on-forest)}
+.lede{font-size:17px;max-width:34em;margin-bottom:26px;color:var(--on-forest-2)}
+.lede b{color:var(--on-forest);font-weight:600}
+.ask{display:flex;gap:8px;background:var(--paper);color:var(--ink);border-radius:999px;padding:5px;max-width:560px;box-shadow:0 0 0 4px rgba(196,255,110,.18)}
+.ask input{flex:1;min-width:0;border:0;background:transparent;padding:9px 14px;font-size:15px;outline:none;color:var(--ink)}
+.ask input::placeholder{color:var(--muted)}
+.btn{border:0;background:var(--forest);color:var(--on-forest);font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.ask .btn{background:var(--lime);color:var(--on-lime)}
+.ask .btn:hover{background:var(--ink);color:var(--paper)}
+.ask-hint{font-size:13px;margin-top:10px;color:var(--on-forest-2)}
+
+/* the can pyramid */
+.shelf{display:grid;justify-items:center;gap:14px}
+.stack{display:grid;gap:10px;justify-items:center}
+.row{display:flex;gap:12px;justify-content:center}
+.can{--c:#ccc;--t:#222;--f:#999;position:relative;width:86px;height:152px;border:0;padding:0;cursor:pointer;border-radius:12px/9px;
+  background:linear-gradient(90deg,rgba(0,0,0,.24) 0,rgba(255,255,255,.3) 20%,rgba(255,255,255,0) 42%,rgba(0,0,0,.06) 72%,rgba(0,0,0,.28) 100%),var(--c);
+  box-shadow:0 12px 18px -8px rgba(0,0,0,.45);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s}
+.can::before,.can::after{content:"";position:absolute;left:3px;right:3px;border-radius:50%;background:linear-gradient(90deg,#8E9794,#EEF2F0 32%,#B9C1BE 62%,#87908D)}
+.can::before{top:-5px;height:12px}
+.can::after{bottom:-3px;height:8px}
+.can .bs{position:absolute;top:13px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:6.5px;letter-spacing:.06em;color:var(--t);opacity:.85}
+.can .lt-mark{position:absolute;left:9px;right:9px;top:24px;height:40px;color:var(--t)}
+.can .fr{position:absolute;left:50%;top:72px;width:34px;height:34px;margin-left:-17px;border-radius:50%;background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.55),rgba(255,255,255,0) 40%),var(--f)}
+.can .fl{position:absolute;left:6px;right:6px;bottom:13px;text-align:center;font-family:var(--display);font-variation-settings:"wdth" 100;font-weight:900;font-size:8.5px;line-height:1.1;text-transform:uppercase;color:var(--t)}
+.can:hover{transform:translateY(-5px) rotate(-2deg)}
+.can[aria-pressed="true"]{transform:translateY(-8px) rotate(-3deg);box-shadow:0 0 0 3px var(--lime),0 18px 22px -8px rgba(0,0,0,.5)}
+.canread{width:100%;max-width:400px;border:1px solid var(--forest-line);background:var(--forest-deep);border-radius:18px;padding:16px 18px}
+.cr-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.cr-name{font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:800;font-size:19px;line-height:1.15}
+.cr-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:10px}
+.cr-stats b{display:block;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:900;font-size:22px;color:var(--lime);line-height:1.15;font-variant-numeric:tabular-nums}
+.cr-stats span{display:block;font-size:11.5px;line-height:1.35;color:var(--on-forest-2)}
+.cr-say{font-size:13.5px;color:var(--on-forest)}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;background:var(--lime);color:var(--on-lime);transform:rotate(-2deg);border-radius:3px;white-space:nowrap}
+.shelf-hint{font-family:var(--mono);font-size:11.5px;color:var(--on-forest-2);letter-spacing:.04em}
+.wave{display:block;width:100%;height:26px;color:var(--forest);margin-top:-1px}
+@media (max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr)}.sunburst{width:260px;height:260px}}
+@media (max-width:420px){.can{width:76px;height:136px}.can .lt-mark{top:22px;height:34px}.can .fr{top:62px;width:30px;height:30px;margin-left:-15px}.row{gap:9px}}
+
+/* letter and glance */
+.intro{padding-block:44px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:36px;align-items:start}
+.letter{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:28px 28px 26px}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-family:var(--mono);font-size:12px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--rule)}
+.refs b{font-weight:500;color:var(--ink)}
+.letter p{font-size:14.5px;margin-bottom:11px}
+.letter .sal{font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:800;font-size:21px}
+.sign{margin-top:16px}
+.sign .nm{font-family:var(--display);font-variation-settings:"wdth" 100;font-weight:800;font-size:19px}
+.sign .ml{font-size:13px;color:var(--muted)}
+.glance{list-style:none;margin:0;padding:0;display:grid}
+.glance li{display:grid;grid-template-columns:minmax(0,118px) minmax(0,1fr);gap:16px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--rule)}
+.glance li:first-child{border-top:2px solid var(--ink)}
+.glance b{font-family:var(--display);font-variation-settings:"wdth" 118;font-weight:900;font-size:30px;line-height:1;color:var(--brand);font-variant-numeric:tabular-nums}
+.glance span{font-size:13.5px;color:var(--muted)}
+.glance-src{font-size:12px;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* sections */
+section.band{padding-block:68px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+.head{max-width:720px;margin-bottom:30px}
+.head h2{font-size:clamp(28px,3.7vw,44px);margin-bottom:12px}
+.head p{color:var(--muted);font-size:16px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:3px}
+.sg{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer;border-radius:12px}
+.seat b{display:block;font-size:14.5px;font-weight:700}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--card);border-color:var(--rule);box-shadow:inset 4px 0 0 var(--lime),inset 5px 0 0 var(--forest)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--rule);background:var(--card);padding:7px 15px;font-size:13.5px;font-weight:500;cursor:pointer;text-align:left;border-radius:999px}
+.q:hover{border-color:var(--ink)}
+.q[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--on-forest)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.sys .s{font-family:var(--body);font-size:12.5px;color:var(--ink);background:var(--panel);padding:2px 10px;border-radius:999px}
+.console{background:var(--card);border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:700}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:350px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--panel);padding:9px 15px;max-width:80%;font-size:14px;border-radius:16px 16px 4px 16px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking i{width:12px;height:12px;background:var(--forest);border-radius:50%;animation:fizz .8s ease-in-out infinite alternate}
+@keyframes fizz{from{transform:translateY(3px) scale(.6);opacity:.5}to{transform:translateY(-3px) scale(1.1);opacity:1}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;overflow:hidden}
+.bf{display:block;height:100%;background:var(--bar);border-radius:0 4px 4px 0;transition:width .5s ease}
+.bf.hl{background:var(--red)}
+.bf.neg{background:var(--muted);opacity:.45}
+.bv{font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);border-radius:12px;margin-bottom:16px}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px;font-weight:700}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-family:var(--mono);font-size:11.5px;padding:3px 10px;white-space:nowrap;flex:none;border-radius:999px}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-variation-settings:"wdth" 112;font-size:25px;font-weight:900;line-height:1.2;font-variant-numeric:tabular-nums}
+.kpi b.up{color:var(--good)}
+.kpi b.down{color:var(--bad)}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:14px;margin-bottom:16px;font-size:14.5px;border-radius:12px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--red-ink);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.ghost{border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;border-radius:999px}
+.ghost:hover{background:var(--ink);color:var(--paper)}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--card);padding:9px 14px;border-radius:999px}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--rule)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,130px) minmax(0,1fr) 62px}
+}
+
+/* campaign readout */
+section.camp{background:var(--forest);color:var(--on-forest);border-top:0;position:relative;overflow:hidden}
+.camp .head p{color:var(--on-forest-2)}
+.camp .eyebrow{color:var(--lime)}
+.camp h2 em{color:var(--lime);background-image:none}
+.camp .note{color:var(--on-forest-2)}
+.camp-grid{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:start}
+.chans{display:flex;flex-direction:column;gap:6px}
+.chan{border:1.5px solid var(--forest-line);background:transparent;color:var(--on-forest);padding:9px 14px;text-align:left;font-weight:700;font-size:14px;border-radius:999px;cursor:pointer}
+.chan small{display:block;font-weight:500;font-size:11.5px;color:var(--on-forest-2)}
+.chan:hover{border-color:var(--on-forest)}
+.chan[aria-pressed="true"]{background:var(--lime);border-color:var(--lime);color:var(--on-lime)}
+.chan[aria-pressed="true"] small{color:var(--on-lime)}
+.readout{min-width:0;background:var(--card);color:var(--ink);border-radius:20px;padding:20px}
+.ro-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.ro-kpis .kpi b.red{color:var(--red-ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:22px;height:0;border-top:3px solid var(--red)}
+.legend i.rest{border-top:2.5px dashed var(--muted)}
+.chartbox{overflow-x:auto;margin-bottom:14px}
+.chartbox svg{display:block;width:100%;min-width:560px;height:auto}
+.ch-grid{stroke:var(--rule);stroke-width:1}
+.ch-lab{fill:var(--muted);font-family:var(--mono);font-size:11px}
+.ch-win{fill:var(--lime);opacity:.28}
+.ch-winlab{fill:var(--ink);font-family:var(--mono);font-size:11px;font-weight:500}
+.ch-camp{fill:none;stroke:var(--red);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.ch-rest{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:6 5;stroke-linecap:round}
+.ch-dot{fill:var(--card);stroke:var(--red);stroke-width:2.5}
+.ch-end{fill:var(--red);font-family:var(--display);font-weight:900;font-size:14px}
+.d-say{display:flex;gap:10px;font-size:14.5px;margin-bottom:14px}
+.d-say svg{width:24px;height:20px;flex:none;margin-top:2px}
+@media (max-width:860px){.camp-grid{grid-template-columns:minmax(0,1fr)}.chans{flex-direction:row;overflow-x:auto;padding-bottom:6px}.chan{flex:none}.chan small{display:none}.ro-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* buyer packs */
+.report{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:22px;position:relative}
+.report::before{content:"";position:absolute;inset:8px;border:1.5px dashed var(--rule);border-radius:14px;pointer-events:none}
+.report>*{position:relative}
+.r-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.r-top .lt-mark{width:92px;height:45px;color:var(--brand);transform:rotate(-2deg)}
+.r-lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
+.r-for{font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.r-for b{color:var(--ink)}
+.report .kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.fl-rows{display:grid;gap:7px;margin-bottom:16px}
+.fl-rows .bar-row{grid-template-columns:minmax(0,190px) minmax(0,1fr) 62px}
+.fl-rows .bf{border:1px solid rgba(0,0,0,.12)}
+.fl-rows .na .bt{border:1.5px dashed var(--rule);border-radius:4px;height:14px}
+.fl-rows .na .bl,.fl-rows .na .bv{color:var(--muted)}
+.theask{display:flex;gap:14px;align-items:flex-start;background:var(--forest);color:var(--on-forest);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.theask .tag{flex:none;margin-top:2px}
+.theask p{font-size:14.5px}
+@media (max-width:600px){.report .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.fl-rows .bar-row{grid-template-columns:minmax(0,120px) minmax(0,1fr) 54px}}
+
+/* alerts */
+.pane-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.field select{border:1px solid var(--rule);background:var(--card);padding:10px 12px;width:100%;border-radius:10px}
+.preview{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:18px}
+.pv-top{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.pv-top b{color:var(--ink)}
+.pv-msg{display:flex;gap:12px}
+.pv-msg svg{width:30px;height:24px;flex:none;margin-top:2px}
+.pv-msg p{font-size:14.5px}
+.pv-msg .from{font-weight:700;font-size:13.5px;margin-bottom:2px}
+.pv-when{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px dashed var(--rule)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:22px}
+.card .k{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:8px}
+.card h3{font-size:20px;margin-bottom:6px}
+.card p{font-size:14px;color:var(--muted)}
+.jobs{margin-top:44px}
+@media (max-width:860px){.pane-grid,.three{grid-template-columns:minmax(0,1fr)}}
+
+/* giants */
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--rule);border-radius:20px;overflow:hidden;margin-bottom:24px}
+.vs>div{padding:20px 22px}
+.vs .them{background:var(--panel)}
+.vs .us{background:var(--card)}
+.vs h3{font-size:19px;margin-bottom:12px}
+.vs ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.vs li{font-size:14px;padding-left:22px;position:relative}
+.vs .them li{color:var(--muted)}
+.vs .them li::before{content:"";position:absolute;left:2px;top:9px;width:9px;height:2px;background:var(--muted)}
+.vs .us li::before{content:"";position:absolute;left:0;top:3px;width:14px;height:14px;background:var(--pink);-webkit-mask:var(--sun) center/contain no-repeat;mask:var(--sun) center/contain no-repeat}
+@media (max-width:760px){.vs{grid-template-columns:minmax(0,1fr)}}
+
+/* integrations */
+.intg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px}
+.ig-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.ig-h h3{font-size:26px}
+.ig-h span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.desk{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.desk b{display:block;font-size:15px}
+.desk small{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;border:1px solid var(--rule);background:var(--card);padding:4px 11px;border-radius:999px}
+.pills span.live{border-color:var(--brand)}
+.pills span.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good)}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:16px 18px;background:var(--panel);border-radius:14px;font-size:14px}
+.outs b{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.build{margin-top:18px;font-size:15.5px;max-width:70ch}
+.build b{color:var(--brand)}
+@media (max-width:860px){.intg{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}}
+
+/* proof */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--forest);color:var(--on-forest);padding:32px;margin-bottom:20px;border-radius:24px}
+.feature .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime);margin-bottom:10px}
+.feature h3{font-size:clamp(26px,3vw,36px);margin-bottom:12px}
+.feature p{font-size:15px;color:var(--on-forest-2);margin-bottom:10px}
+.feature p b{color:var(--on-forest)}
+.feature a{color:var(--lime)}
+.feature .why{margin-top:14px;padding-top:14px;border-top:1px dashed var(--forest-line);font-size:14px}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid var(--forest-line);padding:14px 16px;position:relative;border-radius:14px}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:var(--forest-line)}
+.chain .t{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-forest-2)}
+.chain b{display:block;font-size:16px}
+.chain li.end{background:var(--lime);color:var(--on-lime);border-color:var(--lime)}
+.chain li.end .t{color:var(--on-lime)}
+.proof .card{display:flex;flex-direction:column}
+.card .big{font-family:var(--display);font-variation-settings:"wdth" 118;font-size:36px;font-weight:900;color:var(--ink);line-height:1.05;margin:6px 0 12px;letter-spacing:-.01em}
+.card .why{margin-top:auto;padding-top:14px;border-top:1px dashed var(--rule);font-size:13.5px;color:var(--ink)}
+.proof .card p.body{margin-bottom:14px}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--forest);border-radius:24px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;text-decoration:none;color:var(--on-forest);background:var(--forest);overflow:hidden}
+.poster::after{content:"";position:absolute;right:-50px;bottom:-60px;width:240px;height:240px;background:var(--pink);opacity:.9;-webkit-mask:var(--sun) center/contain no-repeat;mask:var(--sun) center/contain no-repeat}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:700}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-family:var(--display);font-variation-settings:"wdth" 118;font-size:clamp(20px,2.6vw,30px);font-weight:900;text-transform:uppercase;color:var(--lime);position:relative;z-index:1}
+.p-play{width:66px;height:66px;background:var(--lime);color:var(--on-lime);display:flex;align-items:center;justify-content:center;padding-left:4px;border-radius:50%;transition:transform .2s;position:relative;z-index:1}
+.poster:hover .p-play{transform:scale(1.06)}
+.p-sub{font-family:var(--mono);font-size:12px;color:var(--on-forest-2);position:relative;z-index:1}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.step{border-top:3px solid var(--ink);padding-top:14px}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--brand);letter-spacing:.08em}
+.step h3{font-size:22px;margin:4px 0 6px}
+.step p{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* security */
+.sec{background:var(--panel);padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;border-radius:24px}
+.sec h2{font-size:clamp(26px,3.2vw,36px);margin-bottom:12px}
+.sec p{color:var(--muted);font-size:15px;margin-bottom:10px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;align-content:start}
+.badges span{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--rule);padding:8px 13px;font-size:13px;font-weight:600;border-radius:999px}
+.badges span svg{width:14px;height:14px;color:var(--good)}
+@media (max-width:860px){.sec{grid-template-columns:minmax(0,1fr);padding:24px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:68px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking i,.sunburst,.bubbles i{animation:none}.bubbles{display:none}.bf,.p-play,.can{transition:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Living Things">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <span class="lt-mark lk-lt" role="img" aria-label="Living Things"></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#try">Ask</a>
+      <a href="#campaign">Campaign</a>
+      <a href="#buyers">Buyer packs</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#proof">Proof</a>
+      <a href="#integrations">Integrations</a>
+      <a href="#security">Security</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="sunburst" aria-hidden="true"></div>
+  <div class="bubbles" aria-hidden="true">
+    <i style="left:4%;width:14px;height:14px;animation-duration:13s;animation-delay:-2s"></i>
+    <i style="left:11%;width:8px;height:8px;animation-duration:9s;animation-delay:-6s"></i>
+    <i style="left:19%;width:20px;height:20px;animation-duration:16s;animation-delay:-9s"></i>
+    <i style="left:27%;width:10px;height:10px;animation-duration:11s;animation-delay:-1s"></i>
+    <i style="left:36%;width:6px;height:6px;animation-duration:8s;animation-delay:-4s"></i>
+    <i style="left:45%;width:16px;height:16px;animation-duration:14s;animation-delay:-11s"></i>
+    <i style="left:53%;width:9px;height:9px;animation-duration:10s;animation-delay:-7s"></i>
+    <i style="left:61%;width:24px;height:24px;animation-duration:18s;animation-delay:-3s"></i>
+    <i style="left:70%;width:7px;height:7px;animation-duration:9s;animation-delay:-5s"></i>
+    <i style="left:78%;width:13px;height:13px;animation-duration:12s;animation-delay:-8s"></i>
+    <i style="left:86%;width:18px;height:18px;animation-duration:15s;animation-delay:-12s"></i>
+    <i style="left:94%;width:9px;height:9px;animation-duration:10s;animation-delay:-2s"></i>
+  </div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="sticker">Milo × Living Things · Sales, brand and operations</p>
+        <h1>Refresh your inner <span>numbers.</span></h1>
+        <p class="lede">Six flavours, every major UK grocer, 18 countries and a campaign seen by an estimated 5.73 million people. <b>Milo joins the numbers behind all of it</b>, so anyone at Living Things can ask a question in plain English and get the answer in seconds.</p>
+        <form class="ask" id="hero-ask" autocomplete="off">
+          <label for="hero-q" class="sr">Ask Milo a question about Living Things</label>
+          <input id="hero-q" type="text" placeholder="Did Refresh Your Inner Thing work?">
+          <button class="btn" type="submit">Ask Milo</button>
+        </form>
+        <p class="ask-hint">Ask about rate of sale, store gaps, the campaign, stock or subscribers. It runs on sample data.</p>
+      </div>
+
+      <div class="shelf">
+        <div class="stack" id="stack" role="group" aria-label="Pick a flavour"></div>
+        <div class="canread" id="canread" aria-live="polite"></div>
+        <p class="shelf-hint">Tap a can · sample figures</p>
+      </div>
+    </div>
+  </div>
+</section>
+<svg class="wave" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1200 V8 C1150 22 1100 22 1050 8 S950 -6 900 8 S800 22 750 8 S650 -6 600 8 S500 22 450 8 S350 -6 300 8 S200 22 150 8 S50 -6 0 8 Z" fill="currentColor"/></svg>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="refs">
+          <span>Our ref</span><b>MILO / LT / 01</b>
+          <span>Re</span><b>Milo across sales, brand and operations</b>
+          <span>For</span><b>The Living Things team</b>
+        </div>
+        <p class="sal">To the Living Things team,</p>
+        <p>Living Things became the UK's number one prebiotic soda by getting into more of the places people buy a soft drink. Tesco, Waitrose, Sainsbury's, Morrisons, Ocado and ASDA Express. LEON and Pizza Express. Albert Heijn, Dunnes and Co-op to-go. Your own shop.</p>
+        <p>Each of those places reports in its own way: a retailer portal, a distributor's spreadsheet, a Circana cut, a Shopify dashboard. Milo connects them. Anyone in sales, marketing or operations asks a question in plain English and gets the answer in seconds, with its sources, and any answer can become a dashboard or an alert.</p>
+        <p>Refresh Your Inner Thing has just finished its four weeks across London. The next thing every buyer will ask is what it did to rate of sale, and that's the first question we'd answer.</p>
+        <p>Everything below runs on sample data, so click around.</p>
+        <div class="sign">
+          <p class="nm">Liam James Rabone</p>
+          <p class="ml">Milo · liam@milo.ai</p>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow"><span class="pip"></span>Living Things, so far</p>
+        <ul class="glance">
+          <li><b>2023</b><span>Founded in London by Jonathan Relph and Ben Vear</span></li>
+          <li><b>No.1</b><span>prebiotic soda in the UK by total market sales, on Circana data</span></li>
+          <li><b>18</b><span>countries, with 40,000 points of distribution set as the target for May</span></li>
+          <li><b>5.73m</b><span>people reached by Refresh Your Inner Thing, the first above-the-line campaign</span></li>
+          <li><b>£100m</b><span>medium-term revenue ambition, with Spadel's The Source Ventures on board</span></li>
+        </ul>
+        <p class="glance-src">From public sources: The Grocer, Retail Times, Grocery Gazette, Just Drinks and Spadel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="try" aria-labelledby="try-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="pip"></span>Ask Milo</p>
+      <h2 id="try-h">Sales, brand and operations, <em>one workspace</em>.</h2>
+      <p>Pick a seat and a question, or type your own. Each seat shows the systems it reads from, every answer shows its sources, and most can become an alert.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · Living Things workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Illustrative. The flavours, retailers, markets and campaign are Living Things' own, from public sources. Every store, depot, account, figure and result is invented to show the shape of an answer. None of it is Living Things' data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band camp" id="campaign" aria-labelledby="camp-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="pip"></span>Refresh Your Inner Thing · the readout</p>
+      <h2 id="camp-h">5.73 million people saw it. <em>Who bought a can?</em></h2>
+      <p>Four weeks on the Underground, buses and street posters, from 7 September, planned around the neighbourhoods where Living Things already sells. Milo reads every retailer's sales for those neighbourhoods against the rest of the UK. Pick a channel.</p>
+    </div>
+    <div class="camp-grid">
+      <div class="chans" id="chans" role="group" aria-label="Choose a channel"></div>
+      <div class="readout">
+        <div class="ro-kpis" id="ro-kpis"></div>
+        <div class="legend"><span><i></i>Campaign neighbourhoods</span><span><i class="rest"></i>Rest of the UK</span><span>Sales index, four weeks before = 100</span></div>
+        <div class="chartbox"><svg id="chart" viewBox="0 0 680 290" role="img" aria-label="Weekly sales index"></svg></div>
+        <div class="d-say"><svg aria-hidden="true"><use href="#milo-icon"/></svg><p id="ro-say"></p></div>
+        <div class="a-foot"><span class="src" id="ro-src"></span><button type="button" class="ghost" data-alert="campaign">Send this every Monday</button></div>
+      </div>
+    </div>
+    <p class="note">Illustrative. The campaign, its dates and its reach are public. Which neighbourhoods it covered, and every figure here, are invented to show the shape of the answer. Week one of a pilot maps the real ones.</p>
+  </div>
+</section>
+
+<section class="band first" id="buyers" aria-labelledby="buy-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="pip"></span>Buyer packs</p>
+      <h2 id="buy-h">Every range review, <em>already written</em>.</h2>
+      <p>Rate of sale, distribution, flavour by flavour and the campaign lift for each retailer, with the ask built in. Pick a retailer.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="packs" role="group" aria-label="Choose a retailer"></div>
+      <div class="report" id="report" aria-live="polite"></div>
+    </div>
+    <p class="note">Sample packs. Store counts, rates of sale, ranging and asks are invented for illustration.</p>
+  </div>
+</section>
+
+<section class="band" id="alerts" aria-labelledby="alert-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="pip"></span>Automations</p>
+      <h2 id="alert-h">Ask once. <em>It keeps watching.</em></h2>
+      <p>Any question can run on a schedule, or fire the moment a number crosses a line. Build one for any desk here.</p>
+    </div>
+    <div class="pane-grid">
+      <div>
+        <div class="field"><label for="w-what">What to watch</label>
+          <select id="w-what">
+            <optgroup label="Sales">
+              <option value="pack">A retailer's review pack is ready</option>
+              <option value="gap">A ranged store stops scanning</option>
+              <option value="slip">A wholesale depot's orders fall four weeks running</option>
+              <option value="export">A market will run out before its next shipment</option>
+            </optgroup>
+            <optgroup label="Brand">
+              <option value="campaign">The weekly campaign readout is ready</option>
+              <option value="churn">Subscription cancellations rise above normal</option>
+            </optgroup>
+            <optgroup label="Operations">
+              <option value="stock">A flavour drops under three weeks of cover</option>
+              <option value="date">Stock gets within 12 weeks of its best-before date</option>
+              <option value="promo">A promotion returns less than it costs</option>
+              <option value="board">The monthly board pack is ready</option>
+            </optgroup>
+          </select></div>
+        <div class="field"><label for="w-when">When</label>
+          <select id="w-when">
+            <option value="mon">Every Monday at 8am</option>
+            <option value="now">The moment it happens</option>
+            <option value="month">First working day of the month</option>
+          </select></div>
+        <div class="field"><label for="w-where">Where</label>
+          <select id="w-where">
+            <option value="Slack">Slack</option>
+            <option value="Email">Email</option>
+            <option value="Microsoft Teams">Microsoft Teams</option>
+            <option value="WhatsApp">WhatsApp</option>
+          </select></div>
+      </div>
+      <div class="preview" aria-live="polite">
+        <div class="pv-top"><span id="pv-chan"><b>Slack</b></span><span id="pv-to"></span></div>
+        <div class="pv-msg"><svg aria-hidden="true"><use href="#milo-icon"/></svg><div><p class="from">Milo</p><p id="pv-msg"></p></div></div>
+        <p class="pv-when" id="pv-when"></p>
+      </div>
+    </div>
+
+    <div class="three jobs">
+      <div class="card"><p class="k"><span class="pip"></span>The pipes</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including bespoke ones for a wholesaler's emailed spreadsheet, and fix them when something changes.</p></div>
+      <div class="card"><p class="k"><span class="pip"></span>The dashboards</p><h3>Anyone can build one</h3><p>Pin an answer and it becomes a live dashboard. Off trade, marketing or operations build their own, so nothing waits for an analyst.</p></div>
+      <div class="card"><p class="k"><span class="pip"></span>The automations</p><h3>Questions keep running</h3><p>Any question can become a scheduled report or an alert, like the ones above. Nobody writes a pipeline for it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band proof" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="pip"></span>Proof</p>
+      <h2 id="proof-h">The giants have found prebiotic soda. <em>Out-think them.</em></h2>
+      <p>In 2025 PepsiCo bought poppi for $1.95bn, and Coca-Cola launched Simply Pop. When they come for the UK chiller, they'll bring category teams that read every retailer's numbers every Monday. Milo gives a team Living Things' size the same reach.</p>
+    </div>
+    <div class="vs">
+      <div class="them">
+        <h3>A soft drinks giant has</h3>
+        <ul>
+          <li>Category managers reading every retailer's sales every Monday</li>
+          <li>An insight agency to judge a campaign, a quarter later</li>
+          <li>Data engineers joining Circana, EPOS, shipments and finance</li>
+          <li>A BI team building dashboards on request</li>
+        </ul>
+      </div>
+      <div class="us">
+        <h3>Living Things <em>with Milo</em> has</h3>
+        <ul>
+          <li>One question, every retailer, answered in seconds</li>
+          <li>The campaign readout above, the week the posters come down</li>
+          <li>Our engineers building and maintaining every connection</li>
+          <li>Anyone pinning an answer to make a dashboard</li>
+        </ul>
+      </div>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k">Two Tribes Brewing · London · Case study</p>
+        <h3>A drinks brand with no data team.</h3>
+        <p>Wholesale, Tesco shelves, a King's Cross taproom and a distribution arm, run by <b>35 people on seven systems</b> that had never spoken to each other. No analysts and no implementation project.</p>
+        <p>Breww, two Xero accounts, Toast, BrightHR, Bowimi and SharePoint were connected in two weeks. The team has built twenty live dashboards of its own. <a href="https://hey.milo.ai/two-tribes-case-study/" target="_blank" rel="noopener">Read the case study</a></p>
+        <p class="why"><b>Why it's here.</b> The same route to market as Living Things, from Tesco shelves to trade accounts to direct selling, read by a team without a data department.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at Two Tribes">
+        <li><span class="t">Connected</span><b>All seven systems in two weeks</b></li>
+        <li><span class="t">Adopted</span><b>1 to 12 active users in six weeks, across six departments</b></li>
+        <li class="end"><span class="t">Watching</span><b>831 Tesco stores in one view, with anomalies flagged</b></li>
+      </ol>
+    </div>
+    <div class="three">
+      <div class="card">
+        <p class="k">Prime Time · Low-calorie lager</p>
+        <p class="big">Every retailer</p>
+        <p class="body">Breww, HubSpot and Xero, joined to retail, direct-to-consumer and marketing data. Knowing where their stock sat across all of their retailers was the question that mattered most.</p>
+        <p class="why"><b>Why it's here.</b> A challenger drinks brand in the same aisles. Where the stock sits, retailer by retailer, is the question behind every store gap above.</p>
+      </div>
+      <div class="card">
+        <p class="k">Kellogg's · Global food brand</p>
+        <p class="big">Dozens</p>
+        <p class="body">of markets in one view for the commercial finance team. When sales fell across the Middle East and North Africa, Milo traced it to a Coco Pops shortage, not a drop in demand.</p>
+        <p class="why"><b>Why it's here.</b> Eighteen countries is a lot of distributors to chase by email. The same question works for Ireland or the Netherlands.</p>
+      </div>
+      <div class="card">
+        <p class="k">Coolr · Social agency, London</p>
+        <p class="big">30 minutes</p>
+        <p class="body">for a year-end board report the COO was about to build by hand from every tool the agency runs on. Then the rest of the company started asking Milo too.</p>
+        <p class="why"><b>Why it's here.</b> A board pack for Spadel and the other investors is the same job: a report pulled from every tool by people with other work to do.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="integrations" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="pip"></span>Integrations</p>
+      <h2 id="int-h">Every desk, <em>connected</em>.</h2>
+      <p>What Milo connects for a soft drinks brand selling the way Living Things does. A green dot means it's running on drinklivingthings.com today. The rest is what Milo connects, not a guess at your stack.</p>
+    </div>
+    <div class="intg">
+      <div>
+        <div class="ig-h"><h3>Sales</h3><span>Four desks</span></div>
+        <div class="desk"><div><b>Grocery multiples</b><small>Tesco, Waitrose, Sainsbury's, Morrisons, Ocado, ASDA</small></div><div class="pills"><span>Retailer EPOS portals</span><span>Circana</span><span>NielsenIQ</span><span>Range plans</span><span>EDI</span><span>HubSpot</span><span>Salesforce</span></div></div>
+        <div class="desk"><div><b>Convenience and wholesale</b><small>Symbols, independents, cash and carry</small></div><div class="pills"><span>Wholesaler depletion reports</span><span>Symbol group data</span><span>Field sales apps</span><span>POS trackers</span><span>Email attachments</span></div></div>
+        <div class="desk"><div><b>Foodservice and travel</b><small>Restaurants, cafés, stations</small></div><div class="pills"><span>Operator sales reports</span><span>Distributor portals</span><span>EDI</span><span>Invoices</span></div></div>
+        <div class="desk"><div><b>International</b><small>18 countries and counting</small></div><div class="pills"><span>Distributor sell-out reports</span><span>Export invoices</span><span>Freight forwarders</span><span>Currency rates</span></div></div>
+      </div>
+      <div>
+        <div class="ig-h"><h3>Brand and operations</h3><span>Four desks</span></div>
+        <div class="desk"><div><b>Marketing</b><small>Campaigns, social, promotions</small></div><div class="pills"><span>Meta Ads</span><span>TikTok Ads</span><span>Google Ads</span><span>YouTube</span><span>Agency reports</span></div></div>
+        <div class="desk"><div><b>D2C</b><small>The shop and Subscribe &amp; save</small></div><div class="pills"><span class="live">Shopify</span><span class="live">Seal Subscriptions</span><span class="live">Klaviyo</span><span class="live">GA4</span><span>Amazon</span><span>Stripe</span></div></div>
+        <div class="desk"><div><b>Supply and stock</b><small>Canning runs to depot</small></div><div class="pills"><span>Co-packer reports</span><span>3PL portals</span><span>Cin7</span><span>Unleashed</span><span>Brightpearl</span><span>Google Sheets</span></div></div>
+        <div class="desk"><div><b>Finance</b><small>Trade spend, cash, the board</small></div><div class="pills"><span>Xero</span><span>QuickBooks</span><span>Sage</span><span>NetSuite</span><span>Retailer remittances</span><span>Excel</span></div></div>
+      </div>
+    </div>
+    <div class="outs"><b>Answers arrive in</b><span>Slack</span><span>Microsoft Teams</span><span>Email</span><span>WhatsApp</span><span>The browser</span></div>
+    <p class="build">Most of these connect in minutes. <b>Anything without a ready connector, like a wholesaler's emailed depletion report, our engineers build</b>, and they keep it running when it changes.</p>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="pip"></span>See it</p>
+        <h2 id="vid-h" style="font-size:clamp(26px,3.2vw,38px);margin-bottom:10px">Ninety seconds of <em>Milo working</em>.</h2>
+        <p style="color:var(--muted)">The question box, the answers and the dashboards, without anyone describing them.</p>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="start-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="pip"></span>Getting started</p>
+      <h2 id="start-h">Built for a team <em>your size</em>.</h2>
+      <p>No data hire and no engineering sprint. We build the connections, so nobody at Living Things has to become an analyst.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n">STEP 1</p><h3>Connect</h3><p>Retailer EPOS portals, wholesaler reports, Circana and Shopify first, on read-only access. Stock, finance and international follow.</p></div>
+      <div class="step"><p class="n">STEP 2</p><h3>Define</h3><p>We teach Milo your terms: cans, four-packs and cases, what counts as a ranged store, the campaign neighbourhoods, and one exchange rate for euros and francs.</p></div>
+      <div class="step"><p class="n">STEP 3</p><h3>Set access</h3><p>Sales sees volumes and rate of sale. Prices, terms and margins stay with whoever you choose.</p></div>
+      <div class="step"><p class="n">STEP 4</p><h3>Ask</h3><p>The team asks in Slack, Teams, email, WhatsApp or the browser. Buyer packs, the campaign readout and the board pack arrive on their own.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="security" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <h2 id="sec-h">Each retailer sees <em>only its own</em>.</h2>
+        <p>Milo is SOC 2 Type II and ISO 27001 certified. Connections are read-only, access is set by role, and every question is logged with who asked it and what Milo returned.</p>
+        <p>A buyer pack only ever shows one retailer's numbers. What one retailer pays never appears in another's pack, and margins stay with the people you choose.</p>
+      </div>
+      <div class="badges">
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>SOC 2 Type II</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>ISO 27001</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>GDPR</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Hosted in the EU</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Read-only connections</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Access set by role</span>
+        <span><svg aria-hidden="true"><use href="#tick"/></svg>Every question logged</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for the Living Things team by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · SOC 2 · ISO 27001 · GDPR</p>
+    <p>Living Things facts are from public reporting. Every figure in the demos is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* flavours: colours taken from the cans */
+  var FLAV={
+    PBO:{name:"Peach & Blood Orange",c:"#F7B27E",t:"#E2382E",f:"#F07A2A",share:13,ros:3.3,lift:17,cover:6,say:"Steady everywhere it's ranged. The North West depot hasn't reordered it since July."},
+    WL:{name:"Watermelon & Lime",c:"#A9D18F",t:"#E1352F",f:"#E5484D",share:24,ros:4.5,lift:44,cover:2.5,say:"Lifted most by the campaign film, and now the shortest on cover. The next canning run needs to come forward."},
+    CL:{name:"Cherry & Lime",c:"#D8232D",t:"#F8C6D2",f:"#9E0F1B",share:15,ros:3.5,lift:21,cover:5,say:"The newest flavour, launched in April, and not yet ranged in Sainsbury's."},
+    RA:{name:"Rhubarb & Apple",c:"#E33A4C",t:"#E4E68A",f:"#7DB35A",share:10,ros:2.9,lift:10,cover:7,say:"Ranged in Waitrose and Morrisons only, so its rate of sale there is the case for more stores."},
+    LG:{name:"Lemon & Ginger",c:"#BCDCEC",t:"#1F4D30",f:"#F4D63E",share:13,ros:3.1,lift:12,cover:9.5,say:"The slowest to sell through. 41,000 cans reach their best-before date in 11 weeks."},
+    RP:{name:"Raspberry & Pomegranate",c:"#F4AAD3",t:"#6B3FB6",f:"#E0335E",share:25,ros:4.6,lift:39,cover:4.5,say:"The best seller by share, and the top flavour in Waitrose every week."}
+  };
+  var PYRAMID=[["PBO"],["WL","CL"],["RA","LG","RP"]];
+  var flav="WL";
+  function canHTML(k){
+    var f=FLAV[k];
+    return '<button type="button" class="can" data-can="'+k+'" aria-pressed="'+(k===flav)+'" aria-label="'+esc(f.name)+'" style="--c:'+f.c+';--t:'+f.t+';--f:'+f.f+'">'+
+      '<span class="bs">BIOTIC SODA</span><span class="lt-mark"></span><span class="fr"></span><span class="fl">'+esc(f.name.replace(" & "," & "))+'</span></button>';
+  }
+  function renderStack(){
+    $("stack").innerHTML=PYRAMID.map(function(r){return '<div class="row">'+r.map(canHTML).join("")+'</div>'}).join("");
+    var f=FLAV[flav];
+    $("canread").innerHTML='<div class="cr-top"><p class="cr-name">'+esc(f.name)+'</p><span class="tag">Sample data</span></div>'+
+      '<div class="cr-stats"><div><b>'+f.ros.toFixed(1)+'</b><span>cans per store a week in the multiples</span></div>'+
+      '<div><b>+'+f.lift+'%</b><span>lift in campaign neighbourhoods</span></div>'+
+      '<div><b>'+f.cover+' wks</b><span>of stock cover left</span></div></div>'+
+      '<p class="cr-say">'+esc(f.say)+'</p>';
+  }
+  $("stack").addEventListener("click",function(e){
+    var b=e.target.closest("[data-can]");if(!b)return;
+    flav=b.dataset.can;renderStack();
+    var c=$("stack").querySelector('[data-can="'+flav+'"]');if(c)c.focus();
+  });
+
+  /* seats */
+  var SEATS=[
+    {g:"Sales",name:"Off trade",sub:"Tesco, Waitrose, Sainsbury's, Morrisons, Ocado",sys:["Retailer EPOS portals","Circana","Range plans","CRM"],qs:[
+      {q:"Where is rate of sale strongest, by retailer?",kw:["rate","sale","ros","strongest","retailer","retailers","fastest","multiples","velocity","selling","supermarket","supermarkets"],type:"bars",dec:1,hi:"high",
+       cap:"Cans per store per week, per flavour, last four weeks",
+       rows:[["Waitrose",5.2],["Sainsbury's",4.1],["Tesco",3.7],["ASDA Express",3.2],["Morrisons",2.4]],
+       say:"Waitrose sells 5.2 cans of each flavour per store a week, the fastest of the multiples. Morrisons is slowest at 2.4, but it was listed this spring and has grown every month since.",
+       src:["Retailer EPOS portals","Range plans"],alert:"pack"},
+      {q:"Which stores are ranged but not scanning?",kw:["stores","store","ranged","scanning","scan","gaps","gap","shelf","missing","availability","listed"],type:"list",
+       rows:[["Tesco Extra, Leeds","Ranged for five flavours · no scans in 19 days","Off shelf?","bad"],["Sainsbury's, Bath","Cherry & Lime isn't ranged, and Peach & Blood Orange stopped scanning 12 days ago","Gap","warn"],["Morrisons, Bradford","Selling 40% under similar stores since a planogram change","Check","over"],["Waitrose, Cheltenham","Back to normal after last week's gap","Fixed","ok"]],
+       say:"38 stores list Living Things but haven't scanned a can in at least ten days. That usually means stock stuck in the back or a missed planogram, not lost shoppers. These four had the biggest sales before they went quiet, and the full list is ready for the field team.",
+       src:["Retailer EPOS portals","Range plans"],alert:"gap"},
+      {q:"Build the Waitrose review pack",kw:["build","review","pack","waitrose","buyer","meeting","category","prepare","range"],type:"summary",
+       kpis:[["5.2","cans per store a week, per flavour, the fastest of the multiples"],["296 of 312","stores scanning last week"],["+22%","in London campaign stores, against 4% elsewhere"],["7.0","cans a week for Raspberry & Pomegranate, the top flavour"]],
+       say:"Here's the pack for the next Waitrose review: rate of sale, distribution, the campaign lift and flavour mix, with the ask built in. The buyer packs section below builds one for each retailer.",
+       src:["Retailer EPOS portals","Campaign plan","Range plans"],alert:"pack"}
+    ]},
+    {g:"Sales",name:"Convenience and wholesale",sub:"Symbols, independents, cash and carry",sys:["Wholesaler depletion reports","Distributor sales","POS tracker"],qs:[
+      {q:"Which wholesale depots are growing, and which are slipping?",kw:["wholesale","wholesaler","wholesalers","depot","depots","growing","slipping","cash","carry","convenience","symbols","symbol"],type:"bars",unit:"%",signed:true,hi:"low",
+       cap:"Cases against the previous quarter, by depot",
+       rows:[["London cash and carry",42],["South East delivered",18],["Midlands depot",6],["North West depot",-9]],
+       say:"London cash and carry is up 42% on the last quarter, most of it since the campaign POS went into independents. The North West depot is down 9% and hasn't reordered Peach & Blood Orange since July.",
+       src:["Wholesaler depletion reports","Distributor sales"],alert:"slip"},
+      {q:"Did the floor stands in London independents sell?",kw:["floor","stands","stand","fsdu","fsdus","pos","independents","independent","wobblers","barkers"],type:"bars",dec:1,hi:"high",
+       cap:"Cans per store per week during the campaign, London independents",
+       rows:[["With a floor stand",11.2],["Shelf barker only",7.4],["No campaign POS",5.1]],
+       say:"Independents with a floor stand sold 11.2 cans a week through the campaign, more than twice the stores with no POS. 40 stands are in stores selling under five a week, so moving them to the next 40 best stores is the obvious next step.",
+       src:["Distributor sales","POS tracker"],alert:null}
+    ]},
+    {g:"Sales",name:"Foodservice and travel",sub:"Restaurants, cafés, stations, airports",sys:["Operator sales reports","Distributor sales","Invoices"],qs:[
+      {q:"Where does foodservice sell fastest?",kw:["foodservice","restaurant","restaurants","cafe","café","cafes","travel","airport","airports","station","stations","sites","on-trade","hospitality"],type:"bars",hi:"high",
+       cap:"Cans per site per week, last four weeks",
+       rows:[["Travel · airports",38],["Restaurant chain · stations",31],["Café chain · offices",24],["Restaurant chain · high street",14]],
+       say:"Airport sites sell 38 cans a week each, nearly three times a high street restaurant. Travellers pay full price and want something better than a cola, which is the case for the next travel listing.",
+       src:["Operator sales reports","Distributor sales"],alert:null},
+      {q:"Show me what each retailer pays per case",kw:["pays","pay","price","prices","cost","terms","margin","margins"],type:"refuse",
+       say:"Foodservice sees volumes, sites and sell-through for its own accounts. Retailer prices and terms are limited to the people you choose, so I can't show them here. I can rank your foodservice accounts by growth instead.",
+       src:["Access policy"],alert:null}
+    ]},
+    {g:"Sales",name:"International",sub:"Ireland, Netherlands, Switzerland, Czech Republic",sys:["Distributor sell-out reports","Export invoices","Shipping schedule","Currency rates"],qs:[
+      {q:"How is each market growing?",kw:["market","markets","international","export","country","countries","ireland","netherlands","switzerland","czech","abroad"],type:"bars",unit:"%",signed:true,hi:"high",
+       cap:"Cans against the same quarter last year",
+       rows:[["Ireland",64],["Netherlands",38],["Switzerland",22],["Czech Republic",11]],
+       say:"Ireland is up 64% on the same quarter last year, the fastest of the four biggest markets. Every figure is in cans and in pounds at one exchange rate, so the markets compare like for like.",
+       src:["Distributor sell-out reports","Export invoices","Currency rates"],alert:null},
+      {q:"Which market will run out first?",kw:["run","out","first","shipment","container","shipping","short"],type:"list",
+       rows:[["Netherlands","Watermelon & Lime: 2.1 weeks of cover, next container lands in four","Short","bad"],["Ireland","Cherry & Lime under three weeks of cover","Low","warn"],["Switzerland","Covered until late November","Covered","ok"],["Czech Republic","14 weeks of Lemon & Ginger, three times what it needs","Overstocked","over"]],
+       say:"The Netherlands runs out of Watermelon & Lime about two weeks before the next container lands, so that shipment needs to come forward. The Czech distributor has the opposite problem, with 14 weeks of Lemon & Ginger.",
+       src:["Distributor sell-out reports","Shipping schedule"],alert:"export"}
+    ]},
+    {g:"Brand",name:"Marketing",sub:"Campaigns, promotions, social",sys:["Retailer EPOS portals","Circana","Meta Ads","TikTok Ads","GA4"],qs:[
+      {q:"Did Refresh Your Inner Thing work?",kw:["refresh","inner","thing","campaign","work","worked","posters","tube","underground","ooh","advertising","awareness"],type:"bars",unit:"%",signed:true,hi:"high",
+       cap:"Sales in the campaign weeks against the four weeks before",
+       rows:[["London · campaign neighbourhoods",27],["London · elsewhere",9],["Rest of the UK",3]],
+       say:"Sales rose 27% in the neighbourhoods around the posters, against 3% in the rest of the UK. That's about 7,200 extra cans in four weeks. The campaign readout below breaks it down by week and by retailer.",
+       src:["Retailer EPOS portals","Ocado","Wholesaler depletion reports","Campaign plan"],alert:"campaign"},
+      {q:"Which flavours did the campaign lift most?",kw:["flavours","flavour","flavors","lift","lifted","film","watermelon","raspberry"],type:"bars",unit:"%",signed:true,hi:"high",
+       cap:"Sales lift in campaign neighbourhoods, by flavour",
+       rows:[["Watermelon & Lime",44],["Raspberry & Pomegranate",39],["Cherry & Lime",21],["Peach & Blood Orange",17],["Lemon & Ginger",12],["Rhubarb & Apple",10]],
+       say:"The two flavours in the film, Watermelon & Lime and Raspberry & Pomegranate, lifted more than twice as much as the rest. The film sold the flavours it showed.",
+       src:["Retailer EPOS portals","Campaign plan"],alert:null},
+      {q:"Did the nail art four-packs sell faster?",kw:["nail","art","four-packs","four-pack","promo","on-pack","stickers","sticker"],type:"bars",dec:1,unit:" wks",hi:"low",
+       cap:"Weeks to sell through a delivery of four-packs",
+       rows:[["Nail art promo packs",5.2],["Standard four-packs",7.9]],
+       say:"The nail art packs sold through in 5.2 weeks, against 7.9 for the standard four-pack, about a third faster. Stores near the Waitrose nail bars sold out first.",
+       src:["Retailer EPOS portals","Promotions plan"],alert:null}
+    ]},
+    {g:"Brand",name:"D2C",sub:"The shop and Subscribe & save",sys:["Shopify","Seal Subscriptions","Klaviyo","GA4"],qs:[
+      {q:"Why do subscribers cancel?",kw:["subscribers","subscriber","cancel","cancelling","cancellations","churn","subscribe","save"],type:"bars",unit:"%",hi:"high",
+       cap:"Reasons given at cancellation, last 90 days",
+       rows:[["Too many cans at home",36],["Price",21],["Buy it in a supermarket now",18],["Delivery problem",14],["Taste",11]],
+       say:"36% of people who cancel have too many cans at home, and most of them were on a fortnightly plan. Another 18% now buy Living Things in a supermarket, so they changed channel rather than left.",
+       src:["Seal Subscriptions","Shopify","Klaviyo"],alert:"churn"},
+      {q:"Which first order turns into a subscription?",kw:["first","order","orders","turns","convert","new","customers","customer","subscription","d2c","shop","website"],type:"bars",unit:"%",hi:"high",
+       cap:"First orders that subscribe within 60 days",
+       rows:[["Mixed case",29],["Raspberry & Pomegranate case",22],["Cherry & Lime case",17],["Lemon & Ginger case",12]],
+       say:"29% of people whose first order is a mixed case subscribe within 60 days, the best of any first order. It's the one to put in front of new visitors.",
+       src:["Shopify","Seal Subscriptions","GA4"],alert:null}
+    ]},
+    {g:"Operations",name:"Supply and stock",sub:"Cover, canning runs, best-before",sys:["Stock system","Warehouse portal","Production plan","Confirmed orders"],qs:[
+      {q:"How many weeks of stock do we have, by flavour?",kw:["weeks","stock","cover","inventory","left","canning","warehouse"],type:"bars",unit:" wks",dec:1,hi:"low",
+       cap:"Weeks of cover at the current rate of sale",
+       rows:[["Lemon & Ginger",9.5],["Rhubarb & Apple",7],["Peach & Blood Orange",6],["Cherry & Lime",5],["Raspberry & Pomegranate",4.5],["Watermelon & Lime",2.5]],
+       say:"Watermelon & Lime has 2.5 weeks of cover, the least of any flavour, after the campaign lifted it 44%. The next canning run needs to come forward.",
+       src:["Stock system","Retailer EPOS portals","Production plan"],alert:"stock"},
+      {q:"Which stock is closest to its best-before date?",kw:["best","before","best-before","date","dates","expiry","expire","dated","write","batch"],type:"list",
+       rows:[["Lemon & Ginger · June batch","41,000 cans · best before in 11 weeks · the slowest seller","Move","bad"],["Rhubarb & Apple · July batch","18,500 cans · best before in 16 weeks","Watch","warn"],["Watermelon & Lime · September batch","Selling faster than it was canned","Fine","ok"]],
+       say:"41,000 cans of Lemon & Ginger reach their best-before date in 11 weeks at the current rate of sale. A promotion in one retailer, or the next foodservice order, moves it before it becomes a write-off.",
+       src:["Stock system","Production plan","Retailer EPOS portals"],alert:"date"}
+    ]},
+    {g:"Operations",name:"Finance",sub:"Trade spend, margin, the board pack",sys:["Accounts system","Trade spend plan","Retailer remittances"],qs:[
+      {q:"Which promotions paid for themselves?",kw:["promotions","promotion","promos","paid","trade","spend","return","roi","deal","meal"],type:"bars",pre:"£",dec:2,hi:"high",
+       cap:"Gross profit back for every £1 of trade spend, last quarter",
+       rows:[["Meal deal inclusion",2.6],["Online multibuy",2.1],["Loyalty card price",1.2],["One third off",0.8]],
+       say:"Getting into a meal deal returned £2.60 for every £1 of trade spend, the best of the quarter. One third off returned 80p, so it cost more than it brought in.",
+       src:["Trade spend plan","Retailer EPOS portals","Retailer remittances"],alert:"promo"},
+      {q:"Which channel makes the most per can?",kw:["channel","channels","contribution","profit","profitable","makes","per","can"],type:"bars",unit:"p",hi:"high",
+       cap:"Contribution per can after trade spend and delivery, pence",
+       rows:[["D2C",62],["Foodservice",48],["Grocery",31],["International",24]],
+       say:"D2C makes twice the contribution per can of grocery, but grocery carries most of the volume. International makes the least once freight and distributor margins come off.",
+       src:["Accounts system","Trade spend plan"],alert:"board"}
+    ]}
+  ];
+
+  var ALERTS={
+    pack:{to:"Off trade",msg:"The Waitrose review pack is ready: 5.2 cans per store a week per flavour, 296 of 312 stores scanning, and 22% up in London campaign stores."},
+    gap:{to:"Off trade and field sales",msg:"Tesco Extra, Leeds is ranged for five flavours and hasn't scanned a can in 19 days. It usually sells about 25 a week."},
+    slip:{to:"Convenience and wholesale",msg:"The North West depot's orders are down four weeks running, and it hasn't reordered Peach & Blood Orange since July."},
+    export:{to:"International",msg:"The Netherlands runs out of Watermelon & Lime about two weeks before the next container lands."},
+    campaign:{to:"Marketing",msg:"Week three of Refresh Your Inner Thing: sales in the campaign neighbourhoods are __W3__ points ahead of the rest of the UK, led by independents with floor stands."},
+    churn:{to:"D2C",msg:"Subscription cancellations are 40% above a normal week, and most say they have too many cans at home."},
+    stock:{to:"Operations",msg:"Watermelon & Lime is down to 2.5 weeks of cover after the campaign. The next canning run needs to come forward."},
+    date:{to:"Operations and sales",msg:"41,000 cans of Lemon & Ginger reach their best-before date in 11 weeks at the current rate of sale."},
+    promo:{to:"Finance and off trade",msg:"One third off returned 80p for every £1 of trade spend last quarter, the only promotion under £1."},
+    board:{to:"Leadership",msg:"September's board pack is ready: sales by channel and market, the campaign readout, stock cover and trade spend, each with its sources."}
+  };
+  var WHEN={now:"Sent the moment it happens",mon:"Checked every Monday at 8am",month:"Checked on the first working day of each month"};
+
+  var seat=0,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var n=a.dec?Math.abs(v).toFixed(a.dec):String(Math.abs(v));
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;else if(a.signed&&v>0)n="+"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var raw=a.rows.map(function(r){return r[1]});
+      var pick=a.hi==="low"?Math.min.apply(null,raw):Math.max.apply(null,raw);
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        var cls=r[1]===pick?"hl":(r[1]<0?"neg":"");
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf '+cls+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<button type="button" class="ghost" data-alert="'+a.alert+'">Turn into an alert</button>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><i aria-hidden="true"></i>Checking retailers, depots, stock and the shop</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,did:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,much:1,many:1,all:1,is:1,we:1,me:1,each:1,more:1,than:1,one:1,most:1,"haven't":1,do:1,by:1,in:1,of:1,to:1,us:1,"we're":1,it:1,its:1,"it's":1,living:1,things:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9&%'é-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+  $("hero-ask").addEventListener("submit",function(e){
+    e.preventDefault();var v=$("hero-q").value.trim()||$("hero-q").placeholder;
+    askTyped(v);$("try").scrollIntoView({behavior:reduce?"auto":"smooth"});
+  });
+
+  /* campaign readout */
+  var WEEKS=["10 Aug","17 Aug","24 Aug","31 Aug","7 Sep","14 Sep","21 Sep","28 Sep","5 Oct"];
+  var ON=[4,5,6,7],AFTER=8;
+  var CH=[
+    {name:"Independents",sub:"Floor stands and shelf barkers",base:2400,c:[97,103,99,101,118,137,150,146,133],r:[100,98,102,100,101,102,103,102,102],src:"Wholesaler depletion reports",
+     note:"Independents were the biggest source of extra cans, which is worth knowing before the next campaign's POS budget is set."},
+    {name:"Ocado",sub:"Orders from campaign postcodes",base:1800,c:[100,97,103,100,109,121,129,127,118],r:[99,101,100,100,103,105,107,106,105],src:"Ocado",
+     note:"Measured on orders from campaign postcodes. A poster at a bus stop sends people to the shop next to it first, so online moves less."},
+    {name:"Waitrose",sub:"London stores",base:1600,c:[101,99,100,100,110,122,128,126,117],r:[100,100,99,101,103,104,105,104,104],src:"Retailer EPOS portals",
+     note:"Raspberry & Pomegranate did most of the work, and that's the headline for the next Waitrose review."},
+    {name:"Tesco",sub:"London stores",base:1500,c:[100,101,99,100,107,116,121,119,112],r:[99,100,101,100,102,104,104,103,103],src:"Retailer EPOS portals",
+     note:"The smallest lift of the big grocers, and the stores near Tube stations moved most."},
+    {name:"ASDA Express",sub:"London stores with POS",base:500,c:[98,102,99,101,121,142,152,148,131],r:[101,99,100,100,101,103,104,103,102],src:"Retailer EPOS portals",
+     note:"Every London ASDA Express in the campaign had floor stands and shelf barkers, which is the case for keeping them."}
+  ];
+  (function(){
+    var tot=0,c=[],r=[];
+    CH.forEach(function(ch){tot+=ch.base});
+    WEEKS.forEach(function(_,w){
+      var sc=0,sr=0;CH.forEach(function(ch){sc+=ch.c[w]*ch.base;sr+=ch.r[w]*ch.base});
+      c.push(sc/tot);r.push(sr/tot);
+    });
+    CH.unshift({name:"All channels",sub:"Every retailer and depot",base:tot,c:c,r:r,src:"Retailer EPOS portals · Ocado · Wholesaler depletion reports",note:""});
+  })();
+  function stats(ch){
+    var ca=0,ra=0,extra=0;
+    ON.forEach(function(w){ca+=ch.c[w];ra+=ch.r[w];extra+=(ch.c[w]-ch.r[w])/100*ch.base});
+    ca/=ON.length;ra/=ON.length;
+    if(ch.name==="All channels"){extra=0;CH.slice(1).forEach(function(x){extra+=stats(x).rawExtra})}
+    return {c:Math.round(ca-100),r:Math.round(ra-100),extra:Math.round(extra/100)*100,rawExtra:extra,after:Math.round(ch.c[AFTER]-ch.r[AFTER])};
+  }
+  ALERTS.campaign.msg=ALERTS.campaign.msg.replace("__W3__",String(Math.round(CH[0].c[6]-CH[0].r[6])));
+  var chan=0;
+  function renderChans(){
+    $("chans").innerHTML=CH.map(function(ch,i){
+      return '<button type="button" class="chan" data-chan="'+i+'" aria-pressed="'+(i===chan)+'">'+esc(ch.name)+'<small>'+esc(ch.sub)+'</small></button>';
+    }).join("");
+  }
+  var X0=46,X1=600,Y0=40,Y1=246,LO=90,HI=160;
+  function x(i){return X0+i*(X1-X0)/(WEEKS.length-1)}
+  function y(v){return Y1-(v-LO)/(HI-LO)*(Y1-Y0)}
+  function path(arr){return arr.map(function(v,i){return (i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)}).join(" ")}
+  function renderChart(){
+    var ch=CH[chan],s=stats(ch),h="";
+    var wx0=x(ON[0])-(X1-X0)/16,wx1=x(ON[ON.length-1])+(X1-X0)/16;
+    h+='<rect class="ch-win" x="'+wx0.toFixed(1)+'" y="'+(Y0-14)+'" width="'+(wx1-wx0).toFixed(1)+'" height="'+(Y1-Y0+14)+'" rx="8"/>';
+    h+='<text class="ch-winlab" x="'+((wx0+wx1)/2).toFixed(1)+'" y="'+(Y0-20)+'" text-anchor="middle">Posters up · 7 Sep to 4 Oct</text>';
+    [100,120,140,160].forEach(function(t){
+      h+='<line class="ch-grid" x1="'+X0+'" x2="'+X1+'" y1="'+y(t)+'" y2="'+y(t)+'"/>';
+      h+='<text class="ch-lab" x="'+(X0-8)+'" y="'+(y(t)+4)+'" text-anchor="end">'+t+'</text>';
+    });
+    WEEKS.forEach(function(wk,i){h+='<text class="ch-lab" x="'+x(i).toFixed(1)+'" y="'+(Y1+24)+'" text-anchor="middle">'+wk+'</text>'});
+    h+='<path class="ch-rest" d="'+path(ch.r)+'"/>';
+    h+='<path class="ch-camp" id="camp-line" d="'+path(ch.c)+'"/>';
+    ch.c.forEach(function(v,i){h+='<circle class="ch-dot" cx="'+x(i).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="4"/>'});
+    var lc=ch.c[ch.c.length-1],lr=ch.r[ch.r.length-1];
+    h+='<text class="ch-end" x="'+(X1+12)+'" y="'+(y(lc)+5).toFixed(1)+'">'+Math.round(lc)+'</text>';
+    h+='<text class="ch-lab" x="'+(X1+12)+'" y="'+(y(lr)+5).toFixed(1)+'">'+Math.round(lr)+'</text>';
+    $("chart").innerHTML=h;
+    $("chart").setAttribute("aria-label","Weekly sales index for "+ch.name+". Campaign neighbourhoods rose "+s.c+"% over the four campaign weeks, the rest of the UK "+s.r+"%.");
+    var line=$("camp-line");
+    if(!reduce&&line.getTotalLength){
+      var L=line.getTotalLength();line.style.strokeDasharray=L;line.style.strokeDashoffset=L;
+      line.getBoundingClientRect();line.style.transition="stroke-dashoffset .9s ease";line.style.strokeDashoffset="0";
+    }
+    $("ro-kpis").innerHTML=
+      '<div class="kpi"><b class="red">+'+s.c+'%</b><span>campaign neighbourhoods, four weeks</span></div>'+
+      '<div class="kpi"><b>+'+s.r+'%</b><span>rest of the UK, same weeks</span></div>'+
+      '<div class="kpi"><b>'+s.extra.toLocaleString("en-GB")+'</b><span>extra cans in four weeks</span></div>'+
+      '<div class="kpi"><b class="up">+'+s.after+' pts</b><span>still ahead a week after</span></div>';
+    var lead=chan===0?"Across every channel, sales":ch.name+" sales";
+    $("ro-say").textContent=lead+" in the campaign neighbourhoods rose "+s.c+"% over the four weeks, against "+s.r+"% in the rest of the UK. That's about "+s.extra.toLocaleString("en-GB")+" extra cans, and a week after the posters came down they're still "+s.after+" points ahead."+(ch.note?" "+ch.note:" Independents with floor stands moved most, and the two flavours in the film lifted twice as much as the rest.");
+    $("ro-src").textContent="Sources · "+ch.src+" · Campaign plan";
+  }
+  $("chans").addEventListener("click",function(e){
+    var b=e.target.closest("[data-chan]");if(!b)return;
+    chan=+b.dataset.chan;renderChans();renderChart();
+  });
+
+  /* buyer packs */
+  var FL_ORDER=["RP","WL","CL","PBO","LG","RA"];
+  var PACKS=[
+    {name:"Waitrose",sub:"312 stores ranged",ros:"5.2",scan:"296 of 312",k3:["+18%","against the same quarter last year"],k4:["+22%","London campaign stores, against 4% elsewhere"],
+     fl:{RP:7.0,WL:6.1,CL:5.0,PBO:4.6,LG:4.4,RA:4.1},
+     ask:"A second facing for Raspberry & Pomegranate in the 60 London stores, where it sold out twice during the campaign.",
+     say:"Waitrose is the fastest-selling multiple, up 18% on last year, and the campaign added 22% in London. Raspberry & Pomegranate leads every week, so the ask writes itself."},
+    {name:"Tesco",sub:"780 stores ranged",ros:"3.7",scan:"742 of 780",k3:["+26%","against the same quarter last year"],k4:["+16%","London campaign stores, against 3% elsewhere"],
+     fl:{WL:4.6,RP:4.4,CL:3.5,LG:3.2,PBO:2.8},
+     ask:"Range the five flavours in 120 Express stores near stations and offices, where similar stores already sell four cans a week per flavour.",
+     say:"Tesco is the biggest account by volume, with 742 stores scanning, and the campaign added 16% in London. The gap is Express stores near stations, where the same shoppers already buy the range."},
+    {name:"Sainsbury's",sub:"410 stores ranged",ros:"4.1",scan:"388 of 410",k3:["+12%","against the same quarter last year"],k4:["4 of 6","flavours ranged"],
+     fl:{RP:4.9,WL:4.6,PBO:3.6,LG:3.3},
+     ask:"Range Cherry & Lime, the newest flavour, which sells 5.0 cans per store a week in Waitrose.",
+     say:"Steady growth of 12% on last year with four flavours on shelf. Cherry & Lime is the obvious addition, and the pack shows what it does elsewhere."},
+    {name:"Morrisons",sub:"240 stores · listed this spring",ros:"2.4",scan:"212 of 240",k3:["+48%","since the first full month, in May"],k4:["38","stores under one can a week per flavour"],
+     fl:{WL:3.1,RP:2.9,CL:2.5,LG:2.2,PBO:2.0,RA:1.7},
+     ask:"Move up from the bottom shelf in the 38 slowest stores. Where the range sits at eye level, it sells 2.9 cans a week per flavour.",
+     say:"Up 48% since May, but 38 stores sell under one can a week per flavour, and in all 38 the range sits on the bottom shelf. Fix the shelf before asking for more stores."},
+    {name:"ASDA Express",sub:"170 stores · listed this spring",ros:"3.2",scan:"164 of 170",k3:["+31%","since the first full month, in May"],k4:["+41%","London stores with POS, against 3% elsewhere"],
+     fl:{WL:3.9,RP:3.6,CL:2.9,LG:2.4},
+     ask:"Keep the floor stands in the London stores now the campaign is over, and add them to the next 40 busiest stores.",
+     say:"The biggest campaign lift of any retailer, 41% in London stores with floor stands, against 3% elsewhere. That's the evidence for keeping the POS."}
+  ];
+  var pk=0;
+  function renderPacks(){
+    $("packs").innerHTML=PACKS.map(function(p,i){
+      return '<button type="button" class="seat" data-pack="'+i+'" aria-pressed="'+(i===pk)+'"><b>'+esc(p.name)+'</b><span>'+esc(p.sub)+'</span></button>';
+    }).join("");
+  }
+  function renderReport(){
+    var p=PACKS[pk],max=0;
+    FL_ORDER.forEach(function(k){if(p.fl[k]&&p.fl[k]>max)max=p.fl[k]});
+    var ranged=FL_ORDER.filter(function(k){return p.fl[k]}).sort(function(a,b){return p.fl[b]-p.fl[a]});
+    var missing=FL_ORDER.filter(function(k){return !p.fl[k]});
+    var rows=ranged.map(function(k){
+      return '<div class="bar-row"><span class="bl">'+esc(FLAV[k].name)+'</span><span class="bt"><span class="bf" style="width:'+Math.round(p.fl[k]/max*100)+'%;background:'+FLAV[k].c+'"></span></span><span class="bv">'+p.fl[k].toFixed(1)+'</span></div>';
+    }).concat(missing.map(function(k){
+      return '<div class="bar-row na"><span class="bl">'+esc(FLAV[k].name)+'</span><span class="bt"></span><span class="bv">Not ranged</span></div>';
+    }));
+    $("report").innerHTML=
+      '<div class="r-top"><span class="lt-mark" role="img" aria-label="Living Things"></span><span class="r-lbl">Range review<br>July to September 2026</span></div>'+
+      '<p class="r-for">Prepared for <b>the '+esc(p.name)+' buyer</b> · '+esc(p.sub)+' · sample</p>'+
+      '<div class="kpis">'+
+        '<div class="kpi"><b>'+esc(p.ros)+'</b><span>cans per store a week, per flavour</span></div>'+
+        '<div class="kpi"><b>'+esc(p.scan)+'</b><span>stores scanning last week</span></div>'+
+        '<div class="kpi"><b class="up">'+esc(p.k3[0])+'</b><span>'+esc(p.k3[1])+'</span></div>'+
+        '<div class="kpi"><b>'+esc(p.k4[0])+'</b><span>'+esc(p.k4[1])+'</span></div>'+
+      '</div>'+
+      '<p class="cap">Cans per store per week, by flavour</p><div class="fl-rows">'+rows.join("")+'</div>'+
+      '<div class="theask"><span class="tag">The ask</span><p>'+esc(p.ask)+'</p></div>'+
+      '<div class="d-say"><svg aria-hidden="true"><use href="#milo-icon"/></svg><p>'+esc(p.say)+'</p></div>'+
+      '<div class="a-foot"><span class="src">Sources · Retailer EPOS portals · Range plans · Campaign plan</span><button type="button" class="ghost" data-alert="pack">Send before every review</button></div>';
+  }
+  $("packs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-pack]");if(!b)return;
+    pk=+b.dataset.pack;renderPacks();renderReport();
+  });
+
+  /* alert builder */
+  function pv(){
+    var a=ALERTS[$("w-what").value];
+    $("pv-chan").innerHTML="<b>"+esc($("w-where").value)+"</b>";
+    $("pv-to").textContent="To: "+a.to;
+    $("pv-msg").textContent=a.msg;
+    $("pv-when").textContent=WHEN[$("w-when").value];
+  }
+  ["w-what","w-when","w-where"].forEach(function(id){$(id).addEventListener("change",pv)});
+  function toAlert(k){$("w-what").value=k;pv();$("alerts").scrollIntoView({behavior:reduce?"auto":"smooth"})}
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(b)toAlert(b.dataset.alert);
+  });
+
+  renderStack();renderSeats();renderQs();ask(null,true);renderChans();renderChart();renderPacks();renderReport();pv();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+
+</body>
+</html>
