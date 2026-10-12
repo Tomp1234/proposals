@@ -166,7 +166,7 @@ h3 { font-family: var(--disp); font-weight: 500; font-size: 1.16rem; color: var(
 .roles li b { font-family: var(--disp); font-weight: 500; color: var(--teal); }
 
 .why { margin-top: 34px; }
-.why-top { margin-top: 22px; margin-bottom: 20px; }
+.why-mid { margin-top: 50px; }
 .why h3 { font-size: 1.24rem; font-weight: 600; }
 .why-g { margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .why-g div { border-top: 2px solid var(--teal); padding-top: 12px; }
@@ -337,6 +337,7 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
   #proof { break-before: page; }
   #trust { padding-top: 26px; }
   #price { break-before: page; }
+  .why-mid { margin-top: 26px; }
   h2 { font-size: 1.9rem; margin-top: 10px; }
   .lede { font-size: 0.95rem; margin-top: 8px; }
   .sys { margin-top: 16px; break-inside: avoid; }
@@ -548,14 +549,14 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
   <!-- ═══ 02 PROOF ═══ -->
   <section id="proof">
     <div class="sec-head">
-      <span class="eyebrow lbl">02 · Supply and demand, already on Milo</span>
-      <h2>Not a CDMO yet. The same problem, many times.</h2>
-      <p class="lede">We haven't worked with a CDMO. We have built supply and demand views for manufacturers and multi-site operators across Europe, which is the S&amp;OP problem with different labels.</p>
+      <span class="eyebrow lbl">02 · Built for a CDMO</span>
+      <h2>Supply, demand and the gap between them.</h2>
+      <p class="lede">S&amp;OP comes down to three views. Milo builds them from SAP and the site plans, then keeps them current as the schedules change.</p>
     </div>
     <div class="first">
       <div>
-        <h3>First CDMO on Milo.</h3>
-        <p>That works in your favour. The S&amp;OP views get <b>built around your line model</b>, not a template, and you keep everything that gets built. Our engineer spends week one with your planners learning how a campaign, a changeover and a QC release show up in the data.</p>
+        <h3>Built around your line model.</h3>
+        <p>Not a template. Our engineer spends week one with your planners learning how a campaign, a changeover and a QC release show up in the data, and <b>you keep everything that gets built.</b></p>
       </div>
       <ol>
         <li>Supply: what each line can make, by week, from the site plans.</li>
@@ -563,12 +564,6 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
         <li>The gap: utilisation, revenue at risk and when each site runs out of room.</li>
       </ol>
     </div>
-    <div class="cases">
-      <div class="case"><span class="cd lbl">Global food manufacturer · Middle East</span><h3>Kellogg's</h3><div class="ck">Stock-outs found and fixed</div><p>Coco Pops was already the best seller. Milo showed it running out for two or three days at a time in around 25 stores. More stock went in, and more sold.</p></div>
-      <div class="case"><span class="cd lbl">Brewer · London · seven systems</span><h3>Two Tribes</h3><div class="ck">Connected in two weeks</div><p>Sales, stock, finance and retailer data that had never been joined. All seven systems connected in two weeks, 20 dashboards built by the team, no analysts hired.</p></div>
-      <div class="case"><span class="cd lbl">Contract logistics · UK and Germany</span><h3>Multi-site operator</h3><div class="ck">In proof of concept</div><p>A daily view of every site's performance that took a team hours each morning, rebuilt so it arrives on its own across sites in two countries.</p></div>
-    </div>
-    <p class="callnote"><b>The longer version</b><span>Our manufacturing overview covers how Milo runs supply and demand across sites: <a href="https://hey.milo.ai/milo-manufacturing-slides/" target="_blank" rel="noopener">hey.milo.ai/milo-manufacturing-slides</a></span></p>
 
     <!-- Security, folded into proof -->
     <div id="trust" style="padding-top:60px">
@@ -587,20 +582,20 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
         <p>Connections are read-only. Policies, sub-processors and the security pack are at <a href="https://trust.milo.ai/" target="_blank" rel="noopener">trust.milo.ai</a>, and we'll take your IT team through them on a call.</p>
       </div>
     </div>
-  </section>
-
-  <!-- ═══ 03 START ═══ -->
-  <section id="price">
-    <div class="sec-head"><span class="eyebrow lbl">03 · Plan and terms</span></div>
-    <div class="why why-top">
+    <div class="why why-mid">
       <h3>Why Milo, not something else.</h3>
       <div class="why-g">
         <div><b>Against Copilot and ChatGPT</b><span>Their connectors scan files, so Project plans need converting and answers vary. Milo takes the data in and calculates it the same way every time.</span></div>
         <div><b>Against Power BI</b><span>Every report needs someone to build and maintain it. Milo builds it when you ask, and it stays live.</span></div>
         <div><b>Against US platforms</b><span>Most are US built and hosted. Milo is a European team, hosted in Frankfurt, that comes to your office.</span></div>
-        <div><b>Who we are</b><span>16 people, two years in, backed by European investors. Kellogg's, ABBA Voyage and Two Tribes run on Milo.</span></div>
+        <div><b>Who we are</b><span>16 people, two years in, backed by European investors.</span></div>
       </div>
     </div>
+  </section>
+
+  <!-- ═══ 03 START ═══ -->
+  <section id="price">
+    <div class="sec-head"><span class="eyebrow lbl">03 · Plan and terms</span></div>
     <div class="price">
       <div>
         <h2>Live in a week.<br>Decide after a month.</h2>
