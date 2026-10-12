@@ -165,6 +165,13 @@ h3 { font-family: var(--disp); font-weight: 500; font-size: 1.16rem; color: var(
 .roles li { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 0.94rem; line-height: 1.5; }
 .roles li b { font-family: var(--disp); font-weight: 500; color: var(--teal); }
 
+.why { margin-top: 34px; }
+.why-top { margin-top: 22px; margin-bottom: 20px; }
+.why h3 { font-size: 1.24rem; font-weight: 600; }
+.why-g { margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.why-g div { border-top: 2px solid var(--teal); padding-top: 12px; }
+.why-g b { display: block; font-family: var(--disp); font-weight: 500; color: var(--teal); }
+.why-g span { display: block; margin-top: 6px; font-size: 0.9rem; line-height: 1.5; }
 .cmp-wrap { margin-top: 30px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; overflow-x: auto; }
 table.cmp { width: 100%; border-collapse: collapse; font-size: 0.93rem; min-width: 620px; }
 table.cmp th { text-align: left; font-family: var(--disp); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
@@ -246,6 +253,7 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
   .mv, .case { border-right: 0; border-bottom: 1px solid var(--line-2); }
   .mv:last-child, .case:last-child { border-bottom: 0; }
   .own { grid-template-columns: 1fr; gap: 26px; }
+  .why-g { grid-template-columns: 1fr 1fr; }
   .first { grid-template-columns: 1fr; gap: 20px; }
   .c-top { padding: 0 20px; }
 }
@@ -274,6 +282,7 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
   .sy:nth-child(n) { border-right: 0; border-bottom: 1px solid var(--line-2); }
   .sy:last-child { border-bottom: 0; }
   .roles li { grid-template-columns: 1fr; gap: 2px; }
+  .why-g { grid-template-columns: 1fr; }
   .first { padding: 24px 20px; }
   .case, .mv { padding: 22px 20px; }
   .callnote { flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -340,6 +349,14 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
   .own { margin-top: 16px; gap: 28px; break-inside: avoid; }
   .own p, .roles li { font-size: 0.86rem; }
   .roles li { padding: 6px 0; grid-template-columns: 120px 1fr; }
+  .why { margin-top: 12px; break-inside: avoid; }
+  .own h3, .why h3 { font-size: 1.05rem; }
+  .mv h3 { font-size: 1rem; }
+  .why-g { gap: 16px; margin-top: 8px; }
+  .why-g div { padding-top: 7px; }
+  .why-g span { font-size: 0.8rem; line-height: 1.4; margin-top: 3px; }
+  .own p { line-height: 1.5; }
+  .lede { line-height: 1.5; }
   .cmp-wrap { margin-top: 14px; overflow: visible; break-inside: avoid; }
   table.cmp { min-width: 0; font-size: 0.84rem; }
   table.cmp th { padding: 9px 14px 7px; font-size: 0.6rem; }
@@ -494,7 +511,7 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
     <div class="sec-head">
       <span class="eyebrow lbl">01 · Systems and master data</span>
       <h2>SAP, Excel and Project in one place. Power BI goes.</h2>
-      <p class="lede">Milo connects to each system directly and keeps the data flowing, so nobody exports, converts or pastes into a deck. It builds its own dashboards, so the commercial and financial forecasts move across with everything else.</p>
+      <p class="lede">Milo connects to each system directly, so nobody exports, converts or pastes into a deck, and builds its own dashboards for the forecasts.</p>
     </div>
     <div class="sys">
       <div class="sy"><b>SAP materials</b><span>Materials, process orders, sales orders and customers.</span></div>
@@ -514,7 +531,7 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
     <div class="own">
       <div>
         <h3>Master data: we don't wait for it to be clean.</h3>
-        <p>In week one our engineer maps each site's codes for lines, materials and customers to one model. Where SAP and a site plan disagree, Milo flags it to the person who owns it, and the rule that fixes it is written once and reused. Data quality improves because the mismatches are visible every day, not found at quarter end.</p>
+        <p>In week one our engineer maps each site's codes for lines, materials and customers to one model. Where SAP and a site plan disagree, Milo flags it to the person who owns it, and the rule that fixes it is written once and reused. Mismatches surface every day, not at quarter end.</p>
       </div>
       <div>
         <h3>The organisation it needs.</h3>
@@ -575,6 +592,15 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
   <!-- ═══ 03 START ═══ -->
   <section id="price">
     <div class="sec-head"><span class="eyebrow lbl">03 · Plan and terms</span></div>
+    <div class="why why-top">
+      <h3>Why Milo, not something else.</h3>
+      <div class="why-g">
+        <div><b>Against Copilot and ChatGPT</b><span>Their connectors scan files, so Project plans need converting and answers vary. Milo takes the data in and calculates it the same way every time.</span></div>
+        <div><b>Against Power BI</b><span>Every report needs someone to build and maintain it. Milo builds it when you ask, and it stays live.</span></div>
+        <div><b>Against US platforms</b><span>Most are US built and hosted. Milo is a European team, hosted in Frankfurt, that comes to your office.</span></div>
+        <div><b>Who we are</b><span>16 people, two years in, backed by European investors. Kellogg's, ABBA Voyage and Two Tribes run on Milo.</span></div>
+      </div>
+    </div>
     <div class="price">
       <div>
         <h2>Live in a week.<br>Decide after a month.</h2>
@@ -582,7 +608,8 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
           <li><span class="lbl">Before</span><div><h3>IT review</h3><p>Security pack and a call with IT. Read-only access to SAP, the site plans and Project.</p></div></li>
           <li><span class="lbl">Week 0</span><div><h3>Connect</h3><p>Done on our side. The engineer maps lines, materials and customers across the five sites.</p></div></li>
           <li><span class="lbl">Weeks 1 and 2</span><div><h3>Build</h3><p>A workshop at your UK office with the site leads on Teams. Utilisation, the gap and the capacity view, built live.</p></div></li>
-          <li><span class="lbl">Weeks 2 to 4</span><div><h3>Test</h3><p>Run an S&amp;OP review from Milo. Check every figure against SAP. Then decide.</p></div></li>
+          <li><span class="lbl">Weeks 2 to 4</span><div><h3>Test</h3><p>Run an S&amp;OP review from Milo and check every figure against SAP. Success is agreed up front: the pack runs itself, the numbers match, the site leads use it.</p></div></li>
+          <li><span class="lbl">Month 2 on</span><div><h3>Roll out</h3><p>All five sites and their planners, then the project portfolio and the sites in India.</p></div></li>
         </ol>
       </div>
       <div class="ticket">
@@ -597,7 +624,8 @@ footer a { color: var(--teal); font-weight: 700; text-decoration-color: var(--gr
             <li>SAP, the Excel plans, Project and Teams connected</li>
             <li>Nothing owed after month one unless you carry on</li>
           </ul>
-          <p class="after">Carry on from around <strong>£2,500 to £3,500 a month</strong>, depending on how many people across the sites use it. Monthly, no lock-in.</p>
+          <p class="after">Carry on from <strong>£3,500 a month</strong>, with unlimited users across the sites. Monthly, no lock-in.</p>
+          <p class="after">Contracted on our standard terms and SLA, with a GDPR data processing agreement. One order form to sign.</p>
         </div>
       </div>
     </div>
