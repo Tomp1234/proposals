@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Quickfridge</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Saira:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Quickfridge's own system. Their navy from the site as the dark bands, drawn like the floor plans in their brochure (white line work on navy), teal from the logo, and the yellow "ME" box that stands for the unit itself as the bullet and the fleet board's marks. Saira and Saira Condensed are their site fonts. */
+:root{
+  --paper:#F3F5F8;--panel:#E6EAF0;--card:#FFFFFF;--ink:#19203A;--muted:#525E78;--rule:#D5DBE4;
+  --night:#223564;--night-deep:#1A2A52;--night-line:#3C4F82;--on-night:#FFFFFF;--on-night-2:#BCC6DE;
+  --teal:#25B6BC;--teal-ink:#00788E;--sun:#FFD800;--sun-ink:#7A6200;--hot:#FF7A59;--blue:#004D99;--on-bright:#19203A;
+  --em:#00788E;--brand:#00788E;--bar:#D5DBE4;--hlbar:#25B6BC;
+  --good:#1E6B46;--good-bg:#DDF1E6;--warn:#7A5A00;--warn-bg:#FBEFC2;--bad:#A3271B;--bad-bg:#FBDEDA;--over:#0B5CAD;--over-bg:#DFEBF8;
+  --display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Saira",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono","SF Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0C1222;--panel:#151E35;--card:#18223C;--ink:#EDF1F8;--muted:#A3AEC6;--rule:#28344F;
+  --night:#14203F;--night-deep:#0E1830;--night-line:#2C3B66;--on-night:#FFFFFF;--on-night-2:#B0BBD6;
+  --teal-ink:#4FD0D5;--sun-ink:#FFD800;
+  --em:#4FD0D5;--brand:#5FD6DA;--bar:#2C3958;--hlbar:#25B6BC;
+  --good:#8FD9AE;--good-bg:#12301F;--warn:#F2CD55;--warn-bg:#352B0C;--bad:#FF968A;--bad-bg:#3C1712;--over:#93C1F2;--over-bg:#13284A;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0C1222;--panel:#151E35;--card:#18223C;--ink:#EDF1F8;--muted:#A3AEC6;--rule:#28344F;
+  --night:#14203F;--night-deep:#0E1830;--night-line:#2C3B66;--on-night:#FFFFFF;--on-night-2:#B0BBD6;
+  --teal-ink:#4FD0D5;--sun-ink:#FFD800;
+  --em:#4FD0D5;--brand:#5FD6DA;--bar:#2C3958;--hlbar:#25B6BC;
+  --good:#8FD9AE;--good-bg:#12301F;--warn:#F2CD55;--warn-bg:#352B0C;--bad:#FF968A;--bad-bg:#3C1712;--over:#93C1F2;--over-bg:#13284A;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:400;font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:-.005em;text-wrap:balance;margin:0;line-height:.95}
+h3{line-height:1.05}
+h2 em,h3 em{font-style:normal;color:var(--em)}
+p{margin:0}
+b,strong{font-weight:650}
+a{color:var(--brand)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:4px}
+.co{display:inline-block;flex:none;width:13px;height:8px;background:var(--sun);border:1.5px solid currentColor;border-radius:2px}
+.label,.eyebrow{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);margin-bottom:14px}
+.eyebrow .co{color:var(--ink)}
+.sr{position:absolute;left:-9999px}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-weight:700;font-size:18px}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--muted)}
+.lk-qf{display:block;width:122px;height:28px;color:var(--ink)}
+.nav{display:flex;gap:2px}
+.nav a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:999px}
+.nav a:hover{color:var(--ink);background:var(--panel)}
+@media (max-width:980px){.nav{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background-color:var(--night);color:var(--on-night);padding-block:56px 48px;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.mark{display:block;width:76px;height:63px;color:var(--on-night);margin-bottom:22px}
+.sticker{display:inline-flex;align-items:center;gap:10px;color:var(--sun);border:1px solid rgba(255,216,0,.45);padding:7px 14px;margin-bottom:22px;border-radius:999px}
+.sticker .co{color:var(--night)}
+.echo{font-family:var(--mono);font-size:13px;color:var(--on-night-2);margin-bottom:8px;letter-spacing:.02em}
+.echo s{text-decoration-color:var(--teal);text-decoration-thickness:2px}
+.hero h1{font-size:clamp(46px,6.2vw,84px);font-weight:800;line-height:.9;margin-bottom:24px}
+.hero h1 span{display:block;color:var(--teal)}
+.lede{font-size:17px;max-width:33em;color:var(--on-night-2)}
+.lede b{color:var(--on-night);font-weight:600}
+.btn{border:0;background:var(--ink);color:var(--paper);font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{opacity:.88}
+
+/* fleet board */
+.fb-panel{border:1px solid var(--night-line);background:var(--night-deep);padding:18px 18px 16px;border-radius:16px}
+.fb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.fb-k{color:var(--on-night-2)}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;background:var(--sun);color:var(--on-bright);white-space:nowrap;border-radius:999px}
+.fb-q{font-family:var(--mono);font-size:12px;color:var(--sun);min-height:19px;margin-bottom:4px}
+.fb{display:grid;gap:3px;margin-bottom:4px}
+.fb-row{display:grid;grid-template-columns:minmax(0,104px) minmax(0,1fr) 62px;gap:10px;align-items:center;min-height:20px;transition:opacity .3s}
+.fb-row.dim{opacity:.32}
+.fb-n{font-family:var(--mono);font-size:11.5px;color:var(--on-night);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fb-row.hot .fb-n{color:var(--sun)}
+.fb-u{display:flex;gap:4px;align-items:center;flex-wrap:nowrap}
+.u{display:block;width:17px;height:11px;border-radius:2px;border:1.5px solid var(--on-night-2);background:transparent;flex:none;transition:background .3s,border-color .3s}
+.u.on{background:var(--teal);border-color:var(--teal)}
+.u.long{background:var(--sun);border-color:var(--sun)}
+.u.late{background:var(--hot);border-color:var(--hot)}
+.u.out{border-style:dashed;border-color:var(--sun);opacity:.85}
+.u.in{background:transparent;border:1.5px dashed var(--sun)}
+.fb-v{font-family:var(--mono);font-size:12px;text-align:right;color:var(--on-night-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fb-v.t{border-radius:4px;padding:0 6px}
+.fb-v.bad{color:var(--hot)}
+.fb-v.tight{color:var(--sun)}
+.fb-v.mv{color:var(--sun);font-weight:500}
+.fb-head{display:grid;grid-template-columns:minmax(0,104px) minmax(0,1fr) 62px;gap:10px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-night-2);padding-bottom:4px;margin-bottom:4px;border-bottom:1px dashed var(--night-line)}
+.fb-head span:last-child{text-align:right}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:var(--mono);font-size:11px;color:var(--on-night-2);margin:10px 0 12px;min-height:17px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg .u{width:14px;height:9px}
+.et-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.et{border:1px solid var(--night-line);background:transparent;color:var(--on-night);text-align:left;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;border-radius:12px;transition:border-color .2s,background .2s}
+.et small{font-family:var(--mono);font-size:10.5px;color:var(--on-night-2);line-height:1.3}
+.et b{font-family:var(--display);font-weight:700;font-size:16px;line-height:1.1;text-transform:uppercase}
+.et:hover{border-color:var(--on-night-2)}
+.et[aria-pressed="true"]{background:rgba(255,216,0,.1);border-color:var(--sun)}
+.et[aria-pressed="true"] small{color:var(--sun)}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.r-stats b{display:block;font-family:var(--display);font-weight:700;font-size:30px;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--teal)}
+.r-stats span{display:block;font-size:11.5px;line-height:1.35;color:var(--on-night-2)}
+.r-say{font-size:14px;color:var(--on-night)}
+.fb-hint{font-family:var(--mono);font-size:11px;color:var(--on-night-2);margin-top:12px;letter-spacing:.02em}
+@media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){
+  .et-row{grid-template-columns:repeat(2,minmax(0,1fr))}.r-stats b{font-size:24px}
+  .fb-row,.fb-head{grid-template-columns:minmax(0,86px) minmax(0,1fr) 50px;gap:6px}
+  .fb-u{gap:2px}.fb-u .u{width:12px;height:9px}.fb-n{font-size:11px}
+}
+
+/* letter and glance */
+.intro{padding-block:40px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:start}
+.letter{background:var(--card);border:1px solid var(--rule);padding:28px 28px 26px;border-radius:16px}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-family:var(--mono);font-size:12px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--rule)}
+.refs b{font-weight:500;color:var(--ink)}
+.letter p{font-size:15px;margin-bottom:11px}
+.letter .sal{font-family:var(--display);font-weight:700;font-size:24px;text-transform:uppercase}
+.sign{margin-top:16px}
+.sign .nm{font-weight:700;font-size:17px}
+.sign .ml{font-size:13px;color:var(--muted)}
+.glance{list-style:none;margin:0;padding:0;display:grid}
+.glance li{display:grid;grid-template-columns:minmax(0,118px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
+.glance li:first-child{border-top:3px solid var(--ink)}
+.glance b{font-family:var(--display);font-weight:700;font-size:40px;line-height:.95;font-variant-numeric:tabular-nums}
+.glance span{font-size:14px;color:var(--muted)}
+.glance-src{font-size:12px;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* sections */
+section.band{padding-block:72px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+.head{max-width:740px;margin-bottom:30px}
+.head h2{font-size:clamp(38px,5.2vw,62px);margin-bottom:14px}
+.head p{color:var(--muted);font-size:16.5px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:3px}
+.sg{color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer;border-radius:12px}
+.seat b{display:block;font-size:14.5px}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--card);border-color:var(--rule);box-shadow:inset 4px 0 0 var(--c)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--rule);background:var(--card);padding:7px 15px;font-size:13.5px;font-weight:600;cursor:pointer;text-align:left;border-radius:999px}
+.q:hover{border-color:var(--ink)}
+.q[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.sys .s{font-family:var(--body);font-weight:600;font-size:12.5px;color:var(--ink);background:var(--panel);padding:2px 10px;border-radius:999px}
+.console{background:var(--card);border:1px solid var(--rule);overflow:hidden;border-radius:16px}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:700}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:340px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--panel);padding:9px 15px;max-width:80%;font-size:14px;border-radius:16px 16px 4px 16px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;color:var(--ink);animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;overflow:hidden;border-radius:0 3px 3px 0}
+.bf{display:block;height:100%;background:var(--bar);border-radius:0 3px 3px 0;transition:width .5s ease}
+.bf.hl{background:var(--hlbar)}
+.bf.neg{background:var(--muted);opacity:.45}
+.bv{font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);margin-bottom:16px;border-radius:12px;overflow:hidden}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-family:var(--mono);font-size:11.5px;padding:3px 10px;white-space:nowrap;flex:none;border-radius:999px}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden;margin-bottom:16px;border-radius:12px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-size:30px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:14px;margin-bottom:16px;font-size:14.5px;border-radius:12px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--bad);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--good);max-width:52ch}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--card);padding:9px 14px;border-radius:999px}
+.ghost{border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;border-radius:999px}
+.ghost:hover{background:var(--ink);color:var(--paper)}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--rule)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,120px) minmax(0,1fr) 62px}
+}
+
+/* two doors (dark band) */
+section.dark{background-color:var(--night);color:var(--on-night);border-top:0;position:relative;overflow:hidden;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
+section.dark .wrap{position:relative}
+section.dark .head p,section.dark .note{color:var(--on-night-2)}
+section.dark .eyebrow{color:var(--sun)}
+section.dark .eyebrow .co{color:var(--night)}
+section.dark h2 em{color:var(--teal)}
+.dr-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:640px;margin-bottom:22px}
+.dr{border:1.5px solid var(--night-line);background:transparent;color:var(--on-night);padding:12px 16px;text-align:left;cursor:pointer;border-radius:14px}
+.dr .lbl{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-night-2)}
+.dr b{display:block;font-family:var(--display);font-weight:700;font-size:24px;text-transform:uppercase;line-height:1.1}
+.dr small{display:block;font-family:var(--mono);font-size:11px;color:var(--on-night-2)}
+.dr:hover{border-color:var(--on-night-2)}
+.dr[aria-pressed="true"]{background:var(--sun);border-color:var(--sun);color:var(--on-bright)}
+.dr[aria-pressed="true"] small,.dr[aria-pressed="true"] .lbl{color:var(--on-bright)}
+.dr-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.mc{background:var(--card);color:var(--ink);border-radius:16px;padding:18px;display:flex;flex-direction:column;min-width:0}
+.mc .mq{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:12px;min-height:34px}
+.mc .mrow{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:4px 10px;align-items:center;margin-bottom:9px;font-size:13.5px}
+.mc .mrow .mt{grid-column:1/-1;height:8px;background:var(--panel);border-radius:2px;overflow:hidden}
+.mc .mrow .mt i{display:block;height:100%;background:var(--bar);border-radius:2px;transition:width .5s ease}
+.mc .mrow:first-of-type .mt i{background:var(--hlbar)}
+.mc .mrow .mv{font-family:var(--mono);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.mc .line{font-family:var(--display);font-weight:700;font-size:28px;line-height:1;text-transform:uppercase;color:var(--teal-ink);margin-bottom:10px}
+.mc .mw{font-size:13.5px;color:var(--muted)}
+.dr-rule{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14.5px;color:var(--on-night-2);max-width:80ch}
+.dr-rule svg{width:24px;height:20px;flex:none;margin-top:2px}
+@media (max-width:980px){.dr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.dr-grid{grid-template-columns:minmax(0,1fr)}.dr b{font-size:20px}}
+
+/* systems */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:44px}
+.card{background:var(--card);border:1px solid var(--rule);padding:22px;border-radius:16px}
+.card .k{display:flex;align-items:center;gap:10px;color:var(--muted);margin-bottom:10px}
+.card .k .co{color:var(--ink)}
+.card h3{font-size:24px;margin-bottom:8px}
+.card p{font-size:14px;color:var(--muted)}
+.intg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px}
+.ig-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:3px solid var(--c)}
+.ig-h h3{font-size:28px}
+.ig-h span{color:var(--muted)}
+.desk{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.desk b{display:block;font-size:15px}
+.desk small{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border:1px solid var(--rule);background:var(--card);padding:4px 11px;border-radius:999px}
+.pills span.v::before,.seen i{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);flex:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:14px}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:16px 18px;background:var(--panel);font-size:14px;border-radius:14px}
+.outs b{color:var(--muted)}
+.build{margin-top:18px;font-size:15.5px;max-width:72ch}
+@media (max-width:860px){.intg,.three{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}}
+
+/* proof */
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-bottom:28px}
+.vs>div{padding:22px 24px;border-radius:16px}
+.vs .them{background:var(--panel)}
+.vs .us{background:var(--night);color:var(--on-night)}
+.vs h3{font-size:26px;margin-bottom:12px}
+.vs .us h3 em{color:var(--teal)}
+.vs ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.vs li{display:flex;gap:10px;font-size:14.5px}
+.vs li::before{content:"";width:12px;height:7px;margin-top:8px;flex:none;border:1.5px solid currentColor;border-radius:2px;opacity:.55}
+.vs .them li{color:var(--muted)}
+.vs .us li::before{background:var(--sun);border-color:var(--sun);opacity:1}
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--night);color:var(--on-night);padding:32px;margin-bottom:20px;border-radius:20px;position:relative;overflow:hidden}
+.feature::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,var(--teal) 0 50%,var(--sun) 50% 100%)}
+.feature .k{color:var(--sun);margin-bottom:10px}
+.feature h3{font-size:clamp(30px,3.6vw,44px);line-height:.96;margin-bottom:14px}
+.feature p{font-size:15px;color:var(--on-night-2);margin-bottom:10px}
+.feature p b{color:var(--on-night)}
+.feature a{color:var(--teal)}
+.feature .why{margin-top:14px;padding-top:14px;border-top:1px dashed var(--night-line);font-size:14px}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid var(--night-line);padding:14px 16px;position:relative;border-radius:14px}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:var(--night-line)}
+.chain .t{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-night-2)}
+.chain b{display:block;font-size:16px}
+.chain li.end{background:var(--sun);color:var(--on-bright);border-color:var(--sun)}
+.chain li.end .t{color:var(--on-bright)}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pcard{background:var(--card);border:1px solid var(--rule);padding:22px;display:flex;flex-direction:column;border-radius:16px}
+.pcard .k{color:var(--muted);margin-bottom:8px}
+.pcard .big{font-family:var(--display);font-weight:800;font-size:50px;line-height:.92;text-transform:uppercase;color:var(--c);margin-bottom:10px}
+.pcard .body{font-size:14px;margin-bottom:12px}
+.pcard .why{margin-top:auto;padding-top:12px;border-top:1px dashed var(--rule);font-size:13.5px;color:var(--muted)}
+.pcard .why b{color:var(--ink)}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid,.vs{grid-template-columns:minmax(0,1fr)}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.vid-grid h2{font-size:clamp(34px,4.2vw,52px);margin-bottom:12px}
+.vid-grid p.s{color:var(--muted)}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--night);border-radius:20px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:var(--on-night);background-color:var(--night);overflow:hidden;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px}
+.poster::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,var(--teal) 0 50%,var(--sun) 50% 100%)}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:700}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-family:var(--display);font-size:clamp(26px,3.6vw,44px);font-weight:800;text-transform:uppercase;line-height:1;position:relative;z-index:1;text-align:center;padding-inline:12px}
+.p-play{width:72px;height:72px;border-radius:50%;background:var(--sun);color:var(--on-bright);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-family:var(--mono);font-size:12px;color:var(--on-night-2);position:relative;z-index:1}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* start */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.step{border-top:3px solid var(--ink);padding-top:14px}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em}
+.step h3{font-size:26px;margin:4px 0 8px}
+.step p{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* trust */
+.sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;background:var(--panel);padding:28px 30px;border-radius:20px}
+.sec>div{flex:1 1 420px;min-width:0}
+.sec h2{font-size:clamp(32px,4vw,46px);margin-bottom:12px}
+.sec p.t{color:var(--muted);font-size:15.5px;max-width:62ch}
+.trust-cta{display:inline-flex;flex-direction:column;gap:2px;background:var(--ink);color:var(--paper);text-decoration:none;padding:14px 22px;font-weight:700;font-size:15px;border-radius:16px}
+.trust-cta small{font-family:var(--mono);font-weight:400;font-size:11.5px;opacity:.75}
+.trust-cta:hover{background:var(--teal-ink);color:#fff}
+@media (max-width:520px){.sec{padding:22px 20px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:72px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.et,.u,.fb-row,.mc .mrow .mt i{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="qf-logo" viewBox="0 0 171 39"><path d="M40.0071 7.08887H24.9023H18.3682V12.5116H24.9023H34.7082H41.2423C44.0247 12.5116 44.7791 10.688 44.7791 10.688L46.5316 7.10998L46.5422 7.08982H40.0071V7.08887Z" fill="#56BDBC"/><path d="M28.1593 17.8663C28.1593 11.8888 23.3134 7.04297 17.336 7.04297C11.3586 7.04297 6.5127 11.8888 6.5127 17.8663C6.5127 23.8437 11.3586 28.6896 17.336 28.6896C19.1932 28.6896 20.9409 28.2212 22.4679 27.3968V30.0486V34.9204C22.4679 36.9945 24.3817 37.5569 24.3817 37.5569L28.1372 38.8631L28.1583 38.8708V33.999V22.7381L28.1593 17.8663ZM17.337 22.9991C14.5028 22.9991 12.2051 20.7014 12.2051 17.8672C12.2051 15.033 14.5028 12.7354 17.337 12.7354C20.1712 12.7354 22.4688 15.033 22.4688 17.8672C22.4688 20.7005 20.1712 22.9991 17.337 22.9991Z" fill="currentColor"/><path d="M8.37207 17.744L15.126 10.1475V15.1546H42.6483L40.9447 18.7412C40.9447 18.7412 40.0828 20.536 36.8897 20.536H15.125V25.5863L8.37207 17.744Z" fill="#56BDBC"/><path d="M22.4692 17.9087C22.4692 18.9779 22.1419 19.9703 21.5824 20.7918H28.1597V17.9096C28.1597 17.9096 28.1597 17.9096 28.1597 17.9087C28.1597 16.8117 27.9946 15.753 27.6913 14.7549H21.3799C22.0604 15.6254 22.4692 16.7186 22.4692 17.9087Z" fill="currentColor"/><path d="M14.1865 1.40625L14.4092 3.53694L13.5176 1.55501L14.1865 1.40625Z" fill="currentColor"/><path d="M8.25747 3.98242L9.29786 6.08048L7.67969 4.44503L8.25747 3.98242Z" fill="currentColor"/><path d="M10.5364 1.3291L9.88184 1.61799L12.2563 5.91967L10.5364 1.3291Z" fill="currentColor"/><path d="M14.1201 33.7479L14.3428 31.6172L13.4512 33.5991L14.1201 33.7479Z" fill="currentColor"/><path d="M8.19202 31.1713L9.23241 29.0742L7.61328 30.7087L8.19202 31.1713Z" fill="currentColor"/><path d="M10.469 33.8237L9.81445 33.5348L12.1803 28.8809L10.469 33.8237Z" fill="currentColor"/><path d="M0.93457 14.7011L3.06909 14.8758L1.06798 14.0293L0.93457 14.7011Z" fill="currentColor"/><path d="M3.37695 8.71529L5.49708 9.70865L3.82613 8.12695L3.37695 8.71529Z" fill="currentColor"/><path d="M0.775391 11.0529L1.04988 10.3926L5.75659 12.6528L0.775391 11.0529Z" fill="currentColor"/><path d="M1.16309 20.6925L3.28801 20.4219L1.32721 21.3586L1.16309 20.6925Z" fill="currentColor"/><path d="M3.87207 26.563L5.94613 25.4756L4.34812 27.1302L3.87207 26.563Z" fill="currentColor"/><path d="M1.16992 24.345L1.47321 24.9919L6.07242 22.5215L1.16992 24.345Z" fill="currentColor"/><path d="M0 17.1104L5.54938 17.3081L0.197712 18.2333L0 17.1104Z" fill="#56BDBC"/><path d="M4.75684 5.68445L8.12562 8.32669L5.48338 4.56152L4.75684 5.68445Z" fill="#56BDBC"/><path d="M4.80566 29.3649L8.17541 26.7227L5.81342 30.0751L4.80566 29.3649Z" fill="#56BDBC"/><path d="M16.252 0.0662242L17.0447 4.09629L17.705 0L16.252 0.0662242Z" fill="#56BDBC"/><path d="M17.0107 32.1064L16.4482 36.0348L17.6057 36.0693L17.0107 32.1064Z" fill="#56BDBC"/><path d="M61.3204 7.13519L58.9143 26.7557H54.7287L55.5925 19.7446C55.1731 19.9894 54.6894 20.1899 54.1404 20.3464C53.5914 20.5038 52.9503 20.5815 52.217 20.5815C50.5077 20.5815 49.3003 20.0326 48.5939 18.9336C47.8875 17.8347 47.6831 16.0821 47.9787 13.675C48.2752 11.2689 48.9116 9.51541 49.8886 8.41647C50.8657 7.31754 52.2074 6.76855 53.9177 6.76855C54.9639 6.76855 55.8017 6.90388 56.4294 7.17358C57.0571 7.44423 57.5716 7.78015 57.9727 8.18133L58.8097 7.13519H61.3204ZM56.6905 10.719C56.5504 10.6143 56.3843 10.527 56.1933 10.4579C56.0369 10.3888 55.8497 10.3226 55.6309 10.2611C55.413 10.2007 55.1731 10.17 54.9111 10.17C54.4226 10.17 54.0166 10.2487 53.6951 10.4051C53.3716 10.5625 53.1058 10.789 52.8975 11.0856C52.6883 11.3822 52.5222 11.7488 52.4003 12.1845C52.2775 12.6203 52.1825 13.1174 52.1124 13.676C52.0423 14.2346 52.0164 14.7318 52.0337 15.1675C52.051 15.6032 52.1249 15.9699 52.2564 16.2664C52.3878 16.563 52.5961 16.7895 52.8841 16.9469C53.172 17.1043 53.5607 17.182 54.0482 17.182C54.3093 17.182 54.554 17.1561 54.7805 17.1033C55.0071 17.0506 55.2076 16.9901 55.3823 16.92C55.5743 16.85 55.7653 16.754 55.9582 16.6321L56.6905 10.719Z" fill="currentColor"/><path d="M71.0794 20.2164L70.66 19.2749C69.8759 19.7289 69.0774 20.06 68.2664 20.2692C67.4554 20.4785 66.6837 20.5831 65.9514 20.5831C65.0617 20.5831 64.338 20.4737 63.7794 20.2558C63.2209 20.0379 62.789 19.7327 62.4838 19.3402C62.1786 18.9476 61.9866 18.4812 61.9079 17.9408C61.8292 17.4005 61.8254 16.816 61.8954 16.1883L63.0203 7.13672H67.2058L66.1597 15.5606C66.1078 16.0491 66.1683 16.4407 66.343 16.7373C66.5177 17.0338 66.8833 17.1826 67.4429 17.1826C67.9477 17.1826 68.4238 17.1039 68.8681 16.9475C69.3125 16.7901 69.6398 16.6423 69.849 16.5031L70.9998 7.13768H75.1863L73.5902 20.2184H71.0794V20.2164Z" fill="currentColor"/><path d="M80.7575 20.3205C80.6356 20.3378 80.5128 20.3551 80.3909 20.3733C80.2862 20.3906 80.1605 20.404 80.0118 20.4127C79.8639 20.4213 79.7113 20.4261 79.5539 20.4261C78.9963 20.4261 78.4771 20.3513 77.9972 20.2035C77.5173 20.0556 77.1171 19.833 76.7937 19.5364C76.4712 19.2398 76.2312 18.8559 76.0748 18.3847C75.9174 17.9134 75.8819 17.3645 75.9702 16.7368L77.1478 7.13525H81.3074L80.2085 16.1609C80.174 16.4056 80.2219 16.5966 80.3525 16.7358C80.484 16.8759 80.7575 16.945 81.1769 16.945L80.7575 20.3205ZM77.2255 3.34224C77.2255 2.64449 77.4616 2.05616 77.9319 1.57627C78.4032 1.09639 78.9954 0.856445 79.7113 0.856445C80.4091 0.856445 80.9974 1.09639 81.4764 1.57627C81.9562 2.05616 82.1962 2.64449 82.1962 3.34224C82.1962 4.05727 81.9562 4.65041 81.4764 5.12165C80.9965 5.5929 80.4081 5.82804 79.7113 5.82804C78.9963 5.82804 78.4032 5.5929 77.9319 5.12165C77.4616 4.65041 77.2255 4.05727 77.2255 3.34224Z" fill="currentColor"/><path d="M86.4888 13.676C86.3486 14.9151 86.5147 15.7731 86.985 16.253C87.4562 16.7329 88.1271 16.9718 88.9995 16.9718C89.5744 16.9718 90.1023 16.92 90.5822 16.8154C91.0621 16.7108 91.5285 16.563 91.9825 16.3701L91.5371 19.9279C91.0841 20.1372 90.587 20.2984 90.0457 20.4117C89.5053 20.5249 88.869 20.5815 88.1367 20.5815C86.9331 20.5815 85.9263 20.4289 85.1153 20.1237C84.3034 19.8185 83.6718 19.3741 83.2188 18.7896C82.7649 18.2052 82.4731 17.4863 82.3416 16.6311C82.2111 15.7769 82.2159 14.7913 82.355 13.675C82.4942 12.5588 82.7341 11.5741 83.0749 10.719C83.4146 9.86477 83.8859 9.14494 84.4867 8.56044C85.0885 7.9769 85.8294 7.53157 86.7114 7.22636C87.5915 6.92116 88.6348 6.76855 89.8374 6.76855C90.5697 6.76855 91.1935 6.82518 91.707 6.93843C92.2215 7.05169 92.6793 7.21293 93.0805 7.42216L92.6361 10.98C92.2339 10.7881 91.8078 10.6403 91.3538 10.5347C90.9008 10.4301 90.3864 10.3782 89.8105 10.3782C88.9381 10.3782 88.2048 10.6182 87.6126 11.0971C87.0195 11.5789 86.6452 12.4369 86.4888 13.676Z" fill="currentColor"/><path d="M98.2081 11.3211L102.08 7.13556H107.313L101.584 12.4728L106.109 20.2162H101.008L98.5748 15.2715L97.6332 16.1612L97.1361 20.2162H93.082L95.4882 0.595703H99.5422L98.2081 11.3211Z" fill="currentColor"/><path d="M117.645 3.08189C117.201 2.92545 116.651 2.82083 115.735 2.82083C114.427 2.82083 113.329 3.31799 113.146 4.80851L112.858 7.13691H116.547L116.233 9.62271H112.545L110.452 26.7575H107.522L109.615 9.62271H107.234L107.47 7.81738L109.928 7.13691L110.242 4.54746C110.583 1.74781 112.336 0.283203 115.841 0.283203C116.704 0.283203 117.463 0.413733 117.96 0.597049L117.645 3.08189Z" fill="#56BDBC"/><path d="M125.492 9.4914C125.179 9.38678 124.681 9.334 124.08 9.334C122.536 9.334 121.333 9.70063 120.626 10.1191L119.398 20.2168H116.468L118.064 7.13709H119.79L120.131 8.18323C121.203 7.39814 122.721 6.82324 124.42 6.82324C124.97 6.82324 125.442 6.90194 125.807 6.98064L125.492 9.4914Z" fill="#56BDBC"/><path d="M126.172 16.9997L127.376 7.13713H130.306L129.101 16.9738C128.998 17.7061 129.233 17.9671 130.07 17.9671L129.782 20.3474C129.782 20.3474 129.521 20.4002 129.206 20.4002C126.827 20.4011 125.885 19.2504 126.172 16.9997ZM129.311 1.35645C130.358 1.35645 131.221 2.21928 131.221 3.26542C131.221 4.31157 130.358 5.17536 129.311 5.17536C128.265 5.17536 127.402 4.31253 127.402 3.26542C127.402 2.21928 128.265 1.35645 129.311 1.35645Z" fill="#56BDBC"/><path d="M141.608 7.8439L142.497 0.597656H145.427L143.02 20.2172H141.293L140.927 19.1711C139.67 20.008 138.284 20.5311 136.532 20.5311C132.712 20.5311 131.614 17.9675 132.137 13.6774C132.661 9.41313 134.387 6.82367 138.207 6.82367C139.515 6.82367 140.717 7.24213 141.608 7.8439ZM135.094 13.6774C134.806 16.1104 134.963 18.0462 137.527 18.0462C138.914 18.0462 139.88 17.575 140.43 17.2871L141.32 10.0667C140.823 9.7788 139.986 9.30851 138.599 9.30851C136.036 9.30851 135.382 11.2703 135.094 13.6774Z" fill="#56BDBC"/><path d="M156.545 21.1324C156.152 24.3505 154.897 27.0715 149.429 27.0715C147.834 27.0715 146.056 26.7836 144.877 26.2077L145.218 23.5914C146.682 24.2978 148.252 24.5857 149.743 24.5857C152.647 24.5857 153.38 23.1988 153.563 21.4991L153.798 19.6419C152.752 20.2178 151.574 20.5316 150.188 20.5316C146.368 20.5316 145.27 17.9681 145.794 13.6779C146.318 9.38776 148.043 6.82422 151.863 6.82422C153.616 6.82422 154.898 7.34729 155.944 8.18421L156.546 7.13806H158.272L156.545 21.1324ZM154.976 10.0663C154.478 9.77838 153.642 9.3081 152.255 9.3081C149.691 9.3081 149.063 11.244 148.75 13.677C148.462 16.11 148.618 18.0458 151.183 18.0458C152.57 18.0458 153.536 17.5746 154.086 17.2867L154.976 10.0663Z" fill="#56BDBC"/><path d="M162.275 14.75C162.092 16.7117 162.641 17.994 165.309 17.994C166.958 17.994 168.343 17.7061 169.574 17.2089L169.26 19.7206C167.691 20.3483 165.963 20.5316 164.551 20.5316C160.183 20.5316 158.926 17.9163 159.449 13.6779C159.973 9.4655 161.83 6.82422 166.147 6.82422C169.992 6.82422 171.249 8.62954 170.961 10.8792C170.7 13.1289 169.025 14.7509 165.179 14.7509H162.275V14.75ZM165.388 12.7086C166.932 12.7086 167.952 12.2114 168.108 11.0347C168.24 9.85805 167.324 9.36089 165.78 9.36089C163.635 9.36089 162.877 10.7477 162.536 12.7095H165.388V12.7086Z" fill="#56BDBC"/></symbol><symbol id="qf-icon" viewBox="0 0 47 39"><path d="M40.0071 7.08887H24.9023H18.3682V12.5116H24.9023H34.7082H41.2423C44.0247 12.5116 44.7791 10.688 44.7791 10.688L46.5316 7.10998L46.5422 7.08982H40.0071V7.08887Z" fill="#56BDBC"/><path d="M28.1593 17.8663C28.1593 11.8888 23.3134 7.04297 17.336 7.04297C11.3586 7.04297 6.5127 11.8888 6.5127 17.8663C6.5127 23.8437 11.3586 28.6896 17.336 28.6896C19.1932 28.6896 20.9409 28.2212 22.4679 27.3968V30.0486V34.9204C22.4679 36.9945 24.3817 37.5569 24.3817 37.5569L28.1372 38.8631L28.1583 38.8708V33.999V22.7381L28.1593 17.8663ZM17.337 22.9991C14.5028 22.9991 12.2051 20.7014 12.2051 17.8672C12.2051 15.033 14.5028 12.7354 17.337 12.7354C20.1712 12.7354 22.4688 15.033 22.4688 17.8672C22.4688 20.7005 20.1712 22.9991 17.337 22.9991Z" fill="currentColor"/><path d="M8.37207 17.744L15.126 10.1475V15.1546H42.6483L40.9447 18.7412C40.9447 18.7412 40.0828 20.536 36.8897 20.536H15.125V25.5863L8.37207 17.744Z" fill="#56BDBC"/><path d="M22.4692 17.9087C22.4692 18.9779 22.1419 19.9703 21.5824 20.7918H28.1597V17.9096C28.1597 17.9096 28.1597 17.9096 28.1597 17.9087C28.1597 16.8117 27.9946 15.753 27.6913 14.7549H21.3799C22.0604 15.6254 22.4692 16.7186 22.4692 17.9087Z" fill="currentColor"/><path d="M14.1865 1.40625L14.4092 3.53694L13.5176 1.55501L14.1865 1.40625Z" fill="currentColor"/><path d="M8.25747 3.98242L9.29786 6.08048L7.67969 4.44503L8.25747 3.98242Z" fill="currentColor"/><path d="M10.5364 1.3291L9.88184 1.61799L12.2563 5.91967L10.5364 1.3291Z" fill="currentColor"/><path d="M14.1201 33.7479L14.3428 31.6172L13.4512 33.5991L14.1201 33.7479Z" fill="currentColor"/><path d="M8.19202 31.1713L9.23241 29.0742L7.61328 30.7087L8.19202 31.1713Z" fill="currentColor"/><path d="M10.469 33.8237L9.81445 33.5348L12.1803 28.8809L10.469 33.8237Z" fill="currentColor"/><path d="M0.93457 14.7011L3.06909 14.8758L1.06798 14.0293L0.93457 14.7011Z" fill="currentColor"/><path d="M3.37695 8.71529L5.49708 9.70865L3.82613 8.12695L3.37695 8.71529Z" fill="currentColor"/><path d="M0.775391 11.0529L1.04988 10.3926L5.75659 12.6528L0.775391 11.0529Z" fill="currentColor"/><path d="M1.16309 20.6925L3.28801 20.4219L1.32721 21.3586L1.16309 20.6925Z" fill="currentColor"/><path d="M3.87207 26.563L5.94613 25.4756L4.34812 27.1302L3.87207 26.563Z" fill="currentColor"/><path d="M1.16992 24.345L1.47321 24.9919L6.07242 22.5215L1.16992 24.345Z" fill="currentColor"/><path d="M0 17.1104L5.54938 17.3081L0.197712 18.2333L0 17.1104Z" fill="#56BDBC"/><path d="M4.75684 5.68445L8.12562 8.32669L5.48338 4.56152L4.75684 5.68445Z" fill="#56BDBC"/><path d="M4.80566 29.3649L8.17541 26.7227L5.81342 30.0751L4.80566 29.3649Z" fill="#56BDBC"/><path d="M16.252 0.0662242L17.0447 4.09629L17.705 0L16.252 0.0662242Z" fill="#56BDBC"/><path d="M17.0107 32.1064L16.4482 36.0348L17.6057 36.0693L17.0107 32.1064Z" fill="#56BDBC"/></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Quickfridge">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <svg class="lk-qf" role="img" aria-label="Quickfridge"><use href="#qf-logo"/></svg>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#ask">Ask</a>
+      <a href="#doors">Two doors</a>
+      <a href="#systems">Systems</a>
+      <a href="#proof">Proof</a>
+      <a href="#video">Video</a>
+      <a href="#start">Start</a>
+      <a href="#trust">Trust</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <svg class="mark" role="img" aria-label="The Quickfridge mark"><use href="#qf-icon"/></svg>
+        <p class="sticker label"><span class="co" aria-hidden="true"></span>Milo × Quickfridge · Overview for Lee Downham</p>
+        <p class="echo">From room to fridge in 20 minutes.</p>
+        <h1>From question to answer <span>in 20 seconds.</span></h1>
+        <p class="lede">Quickfridge turns a failed cellar, chiller or freezer room back into a fridge in 20 minutes, from 15 Quickfridge Centres across the UK and Ireland. <b>Milo joins the hires, the fleet, the enquiries and the ledger behind it</b> and answers in plain English, with the reason behind each number.</p>
+      </div>
+
+      <div class="fb-panel">
+        <div class="fb-top"><span class="fb-k label">Fleet board · 15 centres · this week</span><span class="tag">Sample data</span></div>
+        <p class="fb-q" id="fb-q"></p>
+        <div class="fb-head" aria-hidden="true"><span>Centre</span><span>Units</span><span id="fb-col"></span></div>
+        <div class="fb" id="fb" role="img" aria-label="Fifteen Quickfridge Centres from Glasgow to Southampton, each with its units shown as small boxes, coloured by whether they are on hire or on the shelf"></div>
+        <div class="lg" id="fb-lg"></div>
+        <div class="et-row" id="fb-tabs" role="group" aria-label="Add a layer of data"></div>
+        <div id="fb-read" aria-live="polite"></div>
+        <p class="fb-hint">Centres run north to south. Each box is one unit. Invented figures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="refs">
+          <span>Our ref</span><b>MILO / QF / 01</b>
+          <span>Re</span><b>Milo across Quickfridge's hires, fleet and enquiries</b>
+          <span>For</span><b>Lee Downham, Innovation Director</b>
+        </div>
+        <p class="sal">Dear Lee,</p>
+        <p>Congratulations on Refrigeration Product of the Year at the National ACR &amp; Heat Pump Awards in June. Quickfridge sells time: a failed room back to temperature in 20 minutes, so the repair can happen when it suits.</p>
+        <p>The business behind it runs on time too. A unit on the shelf in Glasgow doesn't help a pub cellar in Southampton during a heatwave. Knowing where the fleet should be means joining hire records, the centres' stock, website enquiries, support calls and the ledger, usually by hand.</p>
+        <p>Milo connects them. Anyone at Quickfridge asks a question in plain English and gets the answer in seconds, with its sources. A question can keep running, so the Monday fleet plan and the monthly figures build themselves.</p>
+        <p>Those same records are also the best brief for the next version of the unit, so the demo below starts at the innovation seat. Everything runs on sample data, so click around.</p>
+        <div class="sign">
+          <p class="nm">Liam James Rabone</p>
+          <p class="ml">Milo · liam@milo.ai</p>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow"><span class="co" aria-hidden="true"></span>Quickfridge, in its own numbers</p>
+        <ul class="glance">
+          <li><b>20 min</b><span>from room temperature to fridge, and installed in under 20 minutes</span></li>
+          <li><b>15</b><span>Beijer Ref Quickfridge Centres, from Belfast and Glasgow to Southampton</span></li>
+          <li><b>70m³</b><span>the largest beer cellar one unit holds at +10°C. Chillers to 50m³ at +2°C, freezers to 10m³ at −20°C</span></li>
+          <li><b>13A</b><span>a standard plug, a tap and a drain. No engineer required</span></li>
+          <li><b>2026</b><span>Refrigeration Product of the Year, National ACR &amp; Heat Pump Awards</span></li>
+        </ul>
+        <p class="glance-src">From quickfridgecooling.co.uk, the Quickfridge brochure (Issue 6, 2026) and the ACR Journal's 2026 winners list.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Ask Milo</p>
+      <h2 id="ask-h">A seat for <em>every job</em>.</h2>
+      <p>Pick a seat and a question, or type your own. Each seat shows the records it reads, every answer shows its sources, and any answer can become an alert.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · Quickfridge workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Illustrative. The units, contractors, enquiries and figures in these answers are invented to show the shape of an answer. None of it is Quickfridge data, and the contractors are deliberately unnamed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band dark" id="doors" aria-labelledby="dr-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Two doors</p>
+      <h2 id="dr-h">Two doors. <em>One set of numbers.</em></h2>
+      <p>Your homepage asks every visitor the same thing first: end user or engineer. Milo asks the same four questions of each door's own records and lets the answers differ. Pick a door.</p>
+    </div>
+    <div class="dr-tabs" id="dr-tabs" role="group" aria-label="Choose a door"></div>
+    <div class="dr-grid" id="dr-grid" aria-live="polite"></div>
+    <p class="dr-rule"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>The same question reads different records for each door: enquiry forms, quotes and your own deliveries for end users, branch hires and collections for engineers. Nobody has to line them up by hand.</span></p>
+    <p class="note">Illustrative. Every figure is invented. The lead lines come from your own site: "Keep your stock cool" for end users, and time to "source the part" for engineers.</p>
+  </div>
+</section>
+
+<section class="band first" id="systems" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Systems</p>
+      <h2 id="int-h">Your records, <em>as they are</em>.</h2>
+      <p>What Milo connects for a business that rents a fleet the way Quickfridge does. It shows what Milo reads, not a guess at your stack, and nothing gets replaced.</p>
+    </div>
+    <div class="three">
+      <div class="card"><p class="k label"><span class="co" aria-hidden="true"></span>The connections</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including branch reports and the spreadsheets that arrive by email, and fix them when a system changes.</p></div>
+      <div class="card"><p class="k label"><span class="co" aria-hidden="true"></span>The dashboards</p><h3>Anyone can build one</h3><p>Pin an answer and it becomes a live dashboard. A centre, the service lead or the directors can make their own, and each sees only what they should.</p></div>
+      <div class="card"><p class="k label"><span class="co" aria-hidden="true"></span>The automations</p><h3>Questions keep running</h3><p>Any question can become the Monday fleet plan, or an alert when an urgent enquiry waits too long. Nobody has to build a pipeline for it.</p></div>
+    </div>
+    <div class="intg">
+      <div>
+        <div class="ig-h" style="--c:var(--teal)"><h3>The hires</h3><span class="label">Four desks</span></div>
+        <div class="desk"><div><b>Enquiries</b><small>Forms, email, the phone</small></div><div class="pills"><span class="v">WordPress</span><span class="v">Gravity Forms</span><span>Outlook or Gmail</span><span>Out-of-hours call log</span><span>Live chat</span></div></div>
+        <div class="desk"><div><b>Branch hires</b><small>The Quickfridge Centres</small></div><div class="pills"><span>Branch hire reports</span><span>Hire and rental software</span><span>Collections and returns</span><span>Spreadsheets by email</span></div></div>
+        <div class="desk"><div><b>Customers</b><small>Accounts, quotes, contractors</small></div><div class="pills"><span>HubSpot</span><span>Salesforce</span><span>Pipedrive</span><span>Quotes</span><span>Contractor accounts</span></div></div>
+        <div class="desk"><div><b>Money</b><small>Ledger, invoices, deposits</small></div><div class="pills"><span>Xero</span><span>Sage</span><span>QuickBooks</span><span>Card payments</span><span>Bank feeds</span></div></div>
+      </div>
+      <div>
+        <div class="ig-h" style="--c:var(--sun-ink)"><h3>The unit and the fleet</h3><span class="label">Four desks</span></div>
+        <div class="desk"><div><b>Fleet</b><small>Every unit, and where it is</small></div><div class="pills"><span>Unit register</span><span>Serial and QR scans</span><span>GPS trackers</span><span>Courier and delivery</span></div></div>
+        <div class="desk"><div><b>Service</b><small>Faults, parts, servicing</small></div><div class="pills"><span>Support call log</span><span>Fault and repair log</span><span>Service schedule</span><span>Parts orders</span></div></div>
+        <div class="desk"><div><b>Design</b><small>Testing and the next unit</small></div><div class="pills"><span>Test results</span><span>Product specs</span><span>Bills of materials</span><span>SharePoint</span><span>Google Drive</span></div></div>
+        <div class="desk"><div><b>Outside data</b><small>The reasons behind the numbers</small></div><div class="pills"><span>Met Office forecasts</span><span>Bank holidays</span><span>Events calendar</span><span>Excel</span></div></div>
+      </div>
+    </div>
+    <p class="seen"><i aria-hidden="true"></i>Seen running on quickfridgecooling.co.uk</p>
+    <div class="outs"><b class="label">Answers arrive in</b><span>Microsoft Teams</span><span>WhatsApp</span><span>Slack</span><span>Email</span><span>The browser</span><span>PDF for the directors</span></div>
+    <p class="build">Most of these connect in minutes. Anything without a ready connector, including a branch report that only arrives as a spreadsheet, our engineers build and keep running.</p>
+  </div>
+</section>
+
+<section class="band" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Proof</p>
+      <h2 id="proof-h">The hire giants have fleet planners. <em>Now so does Quickfridge.</em></h2>
+      <p>National equipment hire companies read utilisation, returns and demand by depot every week, with teams to do it. Milo gives Quickfridge the same view of its fleet without the team.</p>
+    </div>
+    <div class="vs">
+      <div class="them">
+        <h3>A national hire company has</h3>
+        <ul>
+          <li>Fleet planners moving kit ahead of the weather</li>
+          <li>A utilisation report for every depot, every week</li>
+          <li>Service analysts flagging the units that keep coming back</li>
+          <li>Data engineers joining hires, finance and the CRM</li>
+        </ul>
+      </div>
+      <div class="us">
+        <h3>Quickfridge <em>with Milo</em> has</h3>
+        <ul>
+          <li>The fleet plan in the hero, every Monday from May</li>
+          <li>Utilisation by centre, from one question</li>
+          <li>Our engineers building and maintaining every connection</li>
+          <li>Anyone at Quickfridge pinning an answer to make a dashboard</li>
+        </ul>
+      </div>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k label">Two Tribes Brewing · London · Case study</p>
+        <h3>A drinks business with no data team.</h3>
+        <p>Wholesale to pubs and bars, Tesco shelves, a King's Cross taproom and a distribution arm, run by <b>35 people on seven systems</b> that had never spoken to each other. No analysts and no implementation project.</p>
+        <p>Breww, two Xero accounts, Toast, BrightHR, Bowimi and SharePoint were connected in two weeks. The team has built twenty live dashboards of its own. <a href="https://hey.milo.ai/two-tribes-case-study/" target="_blank" rel="noopener">Read the case study</a></p>
+        <p class="why"><b>Why it's here.</b> A business selling into the pubs and bars that keep beer cellars, with several systems and nobody whose job was joining them.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at Two Tribes">
+        <li><span class="t">Connected</span><b>All seven systems in two weeks</b></li>
+        <li><span class="t">Adopted</span><b>1 to 12 active users in six weeks, across six departments</b></li>
+        <li class="end"><span class="t">Watching</span><b>831 Tesco stores in one view, with anomalies flagged</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard" style="--c:var(--teal-ink)">
+        <p class="k label">BetGames · Risk and integrity</p>
+        <p class="big">60+</p>
+        <p class="body">partner reports a month, built and sent by Milo, with no new hires on the team.</p>
+        <p class="why"><b>Why it's here.</b> Fifteen centres each want their own numbers. One report per partner, built automatically, is the same job.</p>
+      </div>
+      <div class="pcard" style="--c:var(--blue)">
+        <p class="k label">Kellogg's · Commercial finance</p>
+        <p class="big">The cause</p>
+        <p class="body">When sales fell across the Middle East and North Africa, Milo traced the decline to a shortage of Coco Pops rather than a drop in demand.</p>
+        <p class="why"><b>Why it's here.</b> A centre that hires less can look like a quiet area. Often it ran out of units, which is the Canning Town story in the hero.</p>
+      </div>
+      <div class="pcard" style="--c:var(--sun-ink)">
+        <p class="k label">Coolr · Social agency, London</p>
+        <p class="big">30 minutes</p>
+        <p class="body">for a year-end board report the COO was about to build by hand from every tool the agency runs on. Then the rest of the company started asking Milo too.</p>
+        <p class="why"><b>Why it's here.</b> The directors' monthly figures are the same job: a report pulled from every system by people with other work to do.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="co" aria-hidden="true"></span>See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working</em>.</h2>
+        <p class="s">The question box, the answers and the dashboards, without anyone describing them.</p>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="start" aria-labelledby="start-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Getting started</p>
+      <h2 id="start-h">Ready before the <em>Christmas bank holidays</em>.</h2>
+      <p>Your site says a breakdown never picks a good time: the summer rush, big events, bank holidays. Connect this summer's hires now and the Christmas fleet plan is a question, not a ring-round. By May, Milo has a full year to plan the summer from. Four steps, borrowed from your own set-up guide.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n">STEP 1</p><h3>Plug it in</h3><p>Connect the enquiry forms, hire records, the unit register and the ledger, on read-only access. This summer's data works fine.</p></div>
+      <div class="step"><p class="n">STEP 2</p><h3>Set the temperature</h3><p>We teach Milo Quickfridge's terms: hire weeks, room volume in m³, cellar, chiller and freezer modes, centres, deposits and install kits.</p></div>
+      <div class="step"><p class="n">STEP 3</p><h3>Leave the right space</h3><p>A centre sees its own units, a contractor its own hires, the service lead every unit, and the directors everything.</p></div>
+      <div class="step"><p class="n">STEP 4</p><h3>Leave it alone</h3><p>Answers start the day the connections are live. The questions that matter keep running, in Teams, WhatsApp, email or the browser.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <p class="eyebrow"><span class="co" aria-hidden="true"></span>Trust and security</p>
+        <h2 id="sec-h">Your team <em>signs off first</em>.</h2>
+        <p class="t">Connections are read-only, access is set by role, and a centre or a contractor only ever sees their own hires. Our certificates, policies and how we handle data are all in the Milo Trust Centre.</p>
+      </div>
+      <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Lee Downham, Innovation Director at Quickfridge, by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
+    <p>Quickfridge facts are from quickfridgecooling.co.uk, the Quickfridge brochure and the ACR Journal. Every centre figure, unit, contractor and enquiry in the demos is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* fleet board: [centre, units, on hire, out 4+ weeks, overdue, Friday forecast °C, move] north to south */
+  var CENTRES=[
+    ["Glasgow",6,1,0,0,21,-3],["Newcastle",6,2,0,0,23,-2],["Belfast",5,1,1,0,20,0],["Leeds",7,4,1,1,26,0],
+    ["Preston",6,2,1,0,24,-2],["Manchester",7,4,1,0,25,0],["Nottingham",6,4,0,0,28,0],["Norwich",5,3,1,0,28,0],
+    ["Birmingham",7,5,1,1,29,0],["Cambridge",5,4,0,0,30,0],["Greenford",6,5,1,1,32,2],["Canning Town",7,7,1,1,32,3],
+    ["Bristol",6,5,1,0,30,0],["Leatherhead",6,5,0,0,31,0],["Southampton",6,5,1,0,31,2]
+  ];
+  var LAYERS=[
+    {name:"Fleet",short:"Where the units are",col:"Free",q:"",
+     stats:[["57","units out on hire today"],["34","on the shelf across 15 centres"],["?","whether they're in the right place"]],
+     say:"The unit register shows 57 of 91 units out on hire. It can't show whether the 34 on the shelf are where the next breakdown will be."},
+    {name:"+ Hires",short:"How long they've been out",col:"Free",q:"",
+     stats:[["10","units out four weeks or more"],["4","overdue back, two of them in London"],["6","centres down to one free unit or none"]],
+     say:"Hire records fill in the detail. Ten units have been out a month or more, mostly waiting on parts, and four are overdue back. Six centres, all south of Birmingham, are down to one free unit or none."},
+    {name:"+ Weather",short:"Who's about to get hot",col:"Fri °C",q:"",
+     stats:[["32°C","forecast for London on Friday"],["2.4×","call-outs on days above 28°C, last summer"],["6","centres forecast 30°C or more"]],
+     say:"The forecast is why it matters this week. Last summer, days above 28°C brought 2.4 times the usual call-outs, and the six tightest centres are the six forecast to reach 30°C or more."},
+    {name:"Milo's answer",short:"Before Friday",col:"Move",q:"Asked: where will we run short this weekend, and what should move?",
+     stats:[["7","idle units to move south by Thursday"],["3","centres that ran out most last summer"],["4","overdue units to chase first"]],
+     say:"Move seven idle units south by Thursday: three from Glasgow and two each from Newcastle and Preston, to Canning Town, Greenford and Southampton, the three centres that ran out most often last summer. Chase the four overdue units first. Milo can send this plan every Monday from May to September."}
+  ];
+  var layer=0;
+  function drawFB(){
+    var h="";
+    CENTRES.forEach(function(c){
+      var name=c[0],tot=c[1],on=c[2],lng=c[3],late=c[4],t=c[5],mv=c[6],free=tot-on;
+      var chips="",i;
+      for(i=0;i<on;i++){
+        var cls="on";
+        if(layer>=1){if(i<late)cls="late";else if(i<late+lng)cls="long"}
+        chips+='<i class="u '+cls+'"></i>';
+      }
+      for(i=0;i<free;i++){
+        var fc="u";
+        if(layer===3&&mv<0&&i>=free+mv)fc+=" out";
+        chips+='<i class="'+fc+'"></i>';
+      }
+      if(layer===3&&mv>0)for(i=0;i<mv;i++)chips+='<i class="u in"></i>';
+      var v="",vc="fb-v",rc="fb-row";
+      if(layer<=1){v=free+" free";if(layer===1){if(free===0)vc+=" bad";else if(free===1)vc+=" tight"}}
+      if(layer===2){v=t+"°C";if(t>=30){vc+=" bad";rc+=" hot"}else if(t>=28)vc+=" tight"}
+      if(layer===3){if(mv){v=(mv>0?"+":"−")+Math.abs(mv)+(mv>0?" in":" out");vc+=" mv"}else rc+=" dim"}
+      h+='<div class="'+rc+'"><span class="fb-n">'+esc(name)+'</span><span class="fb-u">'+chips+'</span><span class="'+vc+'">'+esc(v)+'</span></div>';
+    });
+    $("fb").innerHTML=h;
+    $("fb-col").textContent=LAYERS[layer].col;
+    var lg='<span><i class="u on"></i>On hire</span>';
+    if(layer>=1)lg+='<span><i class="u long"></i>Out 4+ weeks</span><span><i class="u late"></i>Overdue back</span>';
+    lg+='<span><i class="u"></i>On the shelf</span>';
+    if(layer===3)lg+='<span><i class="u in"></i>Moving in</span>';
+    $("fb-lg").innerHTML=lg;
+  }
+  function renderFB(){
+    $("fb-tabs").innerHTML=LAYERS.map(function(l,i){
+      return '<button type="button" class="et" data-layer="'+i+'" aria-pressed="'+(i===layer)+'"><b>'+esc(l.name)+'</b><small>'+esc(l.short)+'</small></button>';
+    }).join("");
+    var l=LAYERS[layer];
+    $("fb-q").textContent=l.q;
+    $("fb-read").innerHTML='<div class="r-stats">'+l.stats.map(function(s){return '<div><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join("")+'</div><p class="r-say">'+esc(l.say)+'</p>';
+    drawFB();
+  }
+  $("fb-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-layer]");if(!b)return;
+    layer=+b.dataset.layer;renderFB();
+    var nb=$("fb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
+  });
+
+  /* seats */
+  var CU="var(--sun-ink)",CH="var(--teal-ink)";
+  var SEATS=[
+    {g:"The unit and the fleet",c:CU,name:"Innovation",sub:"What the next unit should do",sys:["Hire records","Support calls","Fault log","Enquiry forms","Unit register"],qs:[
+      {q:"Which jobs push one unit to its limit?",kw:["jobs","push","limit","limits","second","two","units","bigger","size","room","rooms","maximum","max","capacity","design","next","model"],type:"bars",unit:"%",hi:"high",
+       cap:"Hires that needed a second unit, by room type, last 12 months",
+       rows:[["Freezer rooms",22],["Beer cellars",13],["Chiller rooms",8]],
+       say:"Freezer rooms, by a distance. 22% of freezer hires needed a second unit, nearly all of them rooms between 10 and 15m³. A unit that held −20°C in 15m³ would have covered nine in ten of those on its own.",
+       src:["Hire records","Enquiry forms","Unit register"],alert:"Each month, Milo will send you the rooms that needed two units, by type and size."},
+      {q:"What do support calls tell us about the next design?",kw:["support","calls","call","troubleshooting","faults","fault","problems","problem","issues","customers","ring","design","improve","hose","water","tap"],type:"list",
+       rows:[["Water connection · 38% of calls","Unsure which tap connector fits. Most calls end with a Universal Hose Kit","Design","warn"],["Position in the room · 21%","Placed too close to stock or a wall, inside the 1m and 1.5m clearances","Guide","over"],["Freezer mode · 17%","Missed the extra step to switch the unit to freezer mode","Design","warn"],["Drip tray and drain · 9%","Tray not placed, or the drain more than 15m away","Guide","over"]],
+       say:"Two in five support calls are about the water connection, not the refrigeration. A universal connector as standard would take most of them away. Freezer mode is the other one worth designing out.",
+       src:["Support calls","Fault log","Hire records"],alert:"Milo will flag any fault that comes up three times in a month, with the unit numbers."}
+    ]},
+    {g:"The unit and the fleet",c:CU,name:"Fleet & centres",sub:"15 centres, one fleet",sys:["Unit register","Hire records","Centre stock","Met Office forecasts"],qs:[
+      {q:"Where will we run short this weekend?",kw:["short","run","out","weekend","heatwave","heat","hot","weather","forecast","move","plan","where","centres","centre","shortage","stock"],type:"list",
+       rows:[["Canning Town","All 7 units out. 32°C forecast for Friday","Short","bad"],["Greenford","1 free, 1 overdue back. 32°C forecast","Short","bad"],["Southampton","1 free. Ran out three times last summer","Tight","warn"],["Glasgow","5 on the shelf. 21°C forecast","Spare","ok"]],
+       say:"Canning Town and Greenford run short first, then Southampton. Glasgow, Newcastle and Preston have seven idle units between them and a cool weekend ahead, so moving those south by Thursday covers it.",
+       src:["Unit register","Hire records","Met Office forecasts"],alert:"Every Monday from May to September, Milo will send the fleet plan with the week's forecast."},
+      {q:"How busy is each centre?",kw:["busy","utilisation","utilization","each","centre","centres","branch","branches","use","used","idle","compare","summer","earn"],type:"bars",unit:"%",hi:"high",
+       cap:"Share of unit-weeks on hire, June to August",
+       rows:[["Canning Town",91],["Greenford",84],["Southampton",82],["Birmingham",70],["Glasgow",24]],
+       say:"Canning Town's units were out 91% of the summer, Glasgow's 24%. Two or three Glasgow units would earn more in London from June to August and go back north for the winter.",
+       src:["Unit register","Hire records"],alert:null}
+    ]},
+    {g:"The unit and the fleet",c:CU,name:"Returns & service",sub:"Units back, kits back",sys:["Hire records","Deposits","Unit register","Service log"],qs:[
+      {q:"Which units are overdue back?",kw:["overdue","back","returns","return","late","chase","missing","kit","kits","hoses","hose","due","collect","collection"],type:"list",
+       rows:[["Unit 0412 · Canning Town","Due back nine days ago. The customer's repair finished last week","Chase","bad"],["Unit 0377 · Leeds","Returned without its two 15m hoses","Kit","warn"],["Unit 0291 · Birmingham","Out 11 weeks. Customer waiting on a compressor","Long-term","over"],["Unit 0158 · Greenford","Back today. Service due","Service","ok"]],
+       say:"Unit 0412 is the one to chase today: nine days overdue, and the repair it was covering is done. Unit 0291 has been out 11 weeks waiting on a compressor, which makes it a long-term rental conversation.",
+       src:["Hire records","Deposits","Unit register"],alert:"Each morning, Milo will send the units due back yesterday that haven't been scanned in."},
+      {q:"Which units are due a service?",kw:["service","servicing","maintenance","due","check","checks","repair","worn","units","schedule","winter"],type:"summary",
+       kpis:[["6","units due a service before next summer"],["2","of them with three or more support calls this year"],["41","units that spent 20+ weeks on hire this year"],["January","the quietest month for hires last year"]],
+       say:"Six units are due a service before next summer, and the two with three or more support calls this year go first. January was the quietest month for hires last year, which makes it the month to do it.",
+       src:["Service log","Unit register","Support calls"],alert:"On the first of each month, Milo will email the service list, worst units first."}
+    ]},
+    {g:"The hires",c:CH,name:"Direct hire",sub:"Pubs, kitchens and shops",sys:["Enquiry forms","Email inbox","Out-of-hours log","Quotes","Invoices"],qs:[
+      {q:"How fast do we answer an urgent enquiry?",kw:["fast","quick","quickly","answer","urgent","enquiry","enquiries","response","respond","call","back","callback","time","weekend","night"],type:"summary",
+       kpis:[["14 min","median call back on an urgent enquiry, in working hours"],["3 h 40","after 6pm and at weekends"],["71%","of urgent enquiries became a hire"],["38%","when the call back took over an hour"]],
+       say:"In working hours an urgent enquiry gets a call back in 14 minutes, and 71% become a hire. After 6pm and at weekends the wait is nearly four hours, and once it passes an hour only 38% convert. Most of the lost hires are Friday and Saturday nights.",
+       src:["Enquiry forms","Email inbox","Out-of-hours log","Invoices"],alert:"Milo will send any urgent enquiry still unanswered after 30 minutes to the on-call phone."},
+      {q:"Which enquiries didn't turn into a hire?",kw:["didn't","lost","enquiries","enquiry","convert","conversion","why","reasons","reason","quote","quotes","lose","won"],type:"bars",unit:"%",hi:"high",
+       cap:"Enquiries that didn't become a hire, by reason, last six months",
+       rows:[["Room bigger than one unit",31],["Hired a cold store trailer",22],["Fixed before we called back",19],["No water within 15m",16],["Price",12]],
+       say:"Size is the biggest reason: 31% of lost enquiries were rooms bigger than one unit covers. Your form already asks for width, length and height, so Milo can work out the volume and suggest two units before anyone calls back.",
+       src:["Enquiry forms","Quotes","Invoices"],alert:null}
+    ]},
+    {g:"The hires",c:CH,name:"Engineers",sub:"Contractors hiring through the centres",sys:["Branch hires","Collections","Contractor accounts","Invoices"],qs:[
+      {q:"Which contractors hire again and again?",kw:["contractors","contractor","engineers","engineer","again","repeat","regular","best","customers","accounts","loyal","who"],type:"list",
+       rows:[["Contractor A · Midlands","14 hires this year, all chiller rooms, usually two to three weeks","Key","ok"],["Contractor B · London","9 hires, six of them in July","Summer","over"],["Contractor C · North West","Hired twice in spring, nothing since","Call","bad"],["Contractor D · Scotland","First hire last month","New","warn"]],
+       say:"Contractor A has hired 14 times this year and Contractor B nine, mostly in July. Contractor C hired twice in spring and hasn't since, which is worth a call before next summer.",
+       src:["Branch hires","Contractor accounts"],alert:"By June each year, Milo will flag any contractor who hired last summer and hasn't hired yet."},
+      {q:"How long do engineer hires last?",kw:["long","length","weeks","week","duration","last","hires","parts","part","compressor","waiting","wait"],type:"bars",dec:1,unit:" wk",hi:"high",
+       cap:"Average weeks on hire, by the part the engineer was waiting for",
+       rows:[["Compressor",4.6],["Condensing unit",3.9],["Scheduled replacement",2.2],["Fan motor",1.8],["Leak repair",1.4]],
+       say:"Hires waiting on a compressor last 4.6 weeks on average, more than twice a fan motor. When an engineer books for a compressor, Milo can quote the likely length up front and flag the hire for a long-term rate at week four.",
+       src:["Branch hires","Collections"],alert:"Milo will flag every hire that reaches week four, for a long-term rental conversation."}
+    ]},
+    {g:"The hires",c:CH,name:"Centre login",sub:"Their own centre only",sys:["Their units","Their hires","Collections"],qs:[
+      {q:"What's out on hire from Manchester?",kw:["manchester","my","our","out","hire","hired","units","week","this","centre","due","back"],type:"list",
+       rows:[["Unit 0233 · beer cellar, Salford","Week 2, waiting on a fan motor","Out","ok"],["Unit 0251 · chiller room, Stockport","Week 5, waiting on a compressor","Long","warn"],["Unit 0268 · freezer room, Bolton","Due back tomorrow","Due","over"],["Unit 0219 · beer cellar, Oldham","Week 1","Out","ok"]],
+       say:"Four of Manchester's seven units are out and three are on the shelf. One has been out five weeks waiting on a compressor, and one is due back tomorrow.",
+       src:["Their units","Their hires"],alert:"Every Monday, Milo will send the centre its units, what's due back and what's been out longest."},
+      {q:"How do the other centres compare?",kw:["other","others","compare","comparison","centres","branches","everyone","league","national","rest","versus","vs"],type:"refuse",
+       say:"Your login covers Manchester's units and hires, so I can't show other centres' figures. The Quickfridge team can share a regional summary if it helps.",
+       src:["Access policy"],alert:null}
+    ]},
+    {g:"The hires",c:CH,name:"Finance & directors",sub:"Hire income, deposits, the month",sys:["Ledger","Invoices","Deposits","Hire records"],qs:[
+      {q:"How hard does each unit work?",kw:["unit","units","earn","earns","work","hard","weeks","year","average","return","pay","payback","revenue","income"],type:"summary",
+       kpis:[["31 wks","on hire per unit on average, last 12 months"],["38 vs 19","weeks per unit, the south against Scotland"],["2.6×","hire weeks in July against January"],["4","units that never left the shelf after March"]],
+       say:"A unit spent 31 weeks on hire on average over the last year, but where it sits matters: 38 weeks in the south against 19 in Scotland. July had 2.6 times January's hire weeks, and four units, all in the north, never went out after March.",
+       src:["Hire records","Unit register","Ledger"],alert:null},
+      {q:"Build the month's figures for the directors",kw:["build","month","monthly","figures","directors","board","pack","report","management","accounts","deposits","deposit"],type:"summary",
+       kpis:[["Ready","September's figures, centre by centre"],["+23%","hire weeks on last September"],["9","deposits held more than 30 days"],["3","items flagged for the directors"]],
+       say:"September's figures are ready, centre by centre. Hire weeks are up 23% on last September, helped by a hot first fortnight. Three items are flagged: nine deposits held more than 30 days, four overdue units, and Canning Town turning hires away for lack of units.",
+       src:["Ledger","Invoices","Deposits","Hire records"],alert:"The figures will build themselves on the third working day of each month, for you to check before they go round."}
+    ]}
+  ];
+
+  var seat=0,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg label">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'" style="--c:'+s.c+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var x=Math.abs(v);
+    var n=a.dec?x.toFixed(a.dec):x.toLocaleString("en-GB");
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;else if(a.signed&&v>0)n="+"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var raw=a.rows.map(function(r){return r[1]});
+      var pick=a.hi==="low"?Math.min.apply(null,raw):Math.max.apply(null,raw);
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        var cls=r[1]===pick?"hl":(r[1]<0?"neg":"");
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf '+cls+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<span id="alert-slot"><button type="button" class="ghost" data-alert="1">Turn into an alert</button></span>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#qf-icon"/></svg>Checking hires, the fleet, enquiries and the ledger</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,many:1,all:1,is:1,we:1,me:1,each:1,than:1,one:1,do:1,did:1,by:1,in:1,of:1,to:1,it:1,its:1,"it's":1,quickfridge:1,fridge:1,"what's":1,last:1,on:1,at:1,be:1,will:1,into:1,i:1,am:1,should:1,was:1,were:1,get:1,tell:1,us:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9&%'-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(!b)return;
+    var a=SEATS[seat].qs[qi];
+    $("alert-slot").innerHTML='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg><span>Alert set. '+esc(a.alert)+'</span></span>';
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+
+  /* two doors */
+  var DOORS=[
+    {lbl:"I'm an end user",name:"End users",sub:"Pubs, kitchens, shops",cards:[
+      {q:"Rooms hired for, share of hires",rows:[["Beer cellars",58],["Chiller rooms",33],["Freezer rooms",9]]},
+      {q:"How they reach you",rows:[["Urgent email",46],["Website form",37],["Phone",17]]},
+      {q:"Weeks on hire",rows:[["One week",52],["Two to three",34],["Four or more",14]]},
+      {q:"What to lead with",line:"Keep trading tonight.",why:"End users ask about this weekend's trade and the stock in the room. Lead with the 20 minutes, and size the quote from the room's measurements."}
+    ]},
+    {lbl:"I'm an engineer",name:"Engineers",sub:"Contractors through the centres",cards:[
+      {q:"Rooms hired for, share of hires",rows:[["Chiller rooms",47],["Beer cellars",38],["Freezer rooms",15]]},
+      {q:"How the unit gets there",rows:[["Collected from a centre",63],["Delivered to site",37]]},
+      {q:"Weeks on hire",rows:[["Two to three",45],["Four or more",31],["One week",24]]},
+      {q:"What to lead with",line:"Buy time for the part.",why:"Engineer hires run longer because they wait on parts. Lead with the time a unit buys, and flag long hires early for a long-term rental."}
+    ]}
+  ];
+  var door=0;
+  function renderDoor(){
+    $("dr-tabs").innerHTML=DOORS.map(function(d,i){
+      return '<button type="button" class="dr" data-door="'+i+'" aria-pressed="'+(i===door)+'"><span class="lbl">'+esc(d.lbl)+'</span><b>'+esc(d.name)+'</b><small>'+esc(d.sub)+'</small></button>';
+    }).join("");
+    $("dr-grid").innerHTML=DOORS[door].cards.map(function(c){
+      var body=c.rows?c.rows.map(function(r){
+        return '<div class="mrow"><span>'+esc(r[0])+'</span><span class="mv">'+r[1]+'%</span><span class="mt"><i style="width:'+Math.min(100,Math.round(r[1]/70*100))+'%"></i></span></div>';
+      }).join(""):'<p class="line">'+esc(c.line)+'</p><p class="mw">'+esc(c.why)+'</p>';
+      return '<div class="mc"><p class="mq">'+esc(c.q)+'</p>'+body+'</div>';
+    }).join("");
+  }
+  $("dr-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-door]");if(!b)return;
+    door=+b.dataset.door;renderDoor();
+    var nb=$("dr-tabs").querySelector('[data-door="'+door+'"]');if(nb)nb.focus();
+  });
+
+  renderFB();renderSeats();renderQs();ask(null,true);renderDoor();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
