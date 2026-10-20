@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Doll Beauty</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:wght@700;800;900&family=Nunito+Sans:wght@400;600;700;800&family=Jost:wght@400;500;600&display=swap">
+<style>
+/* Layout: Doll Beauty's own system. The baby pink of their packaging and buttons as the hero band, their charcoal for type and the dark bands, the logo pink for data, and a nude for the second series. Tall heavy condensed caps echo the DOLL BEAUTY wordmark; Nunito Sans and Jost are their site fonts. The bullet is a lipstick, cut at an angle. */
+:root{
+  --paper:#FFF7FA;--panel:#FCE8F0;--card:#FFFFFF;--ink:#363435;--muted:#6E6066;--rule:#F0DAE4;
+  --hero-bg:#FFCAE0;--hero-ink:#363435;--hero-2:#5B4650;--hero-line:#F2A9C8;
+  --night:#2F2B2D;--night-deep:#262324;--night-line:#4C4448;--on-night:#FFFFFF;--on-night-2:#D3C6CC;
+  --logo:#F6A9CB;--rose:#E87DB0;--rose-ink:#AE3A70;--nude:#C99076;--nude-ink:#8C5A42;--on-bright:#363435;
+  --em:#AE3A70;--brand:#AE3A70;--short:#AE3A70;--bar:#F4D5E2;--hlbar:#E87DB0;--track:#FBE3ED;--shadow:rgba(120,40,80,.28);
+  --good:#1E6B46;--good-bg:#DDF1E6;--warn:#7A5A00;--warn-bg:#FBEFC2;--bad:#A3271B;--bad-bg:#FBDEDA;--over:#6A3FA0;--over-bg:#EEE4F8;
+  --display:"Sofia Sans Extra Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --label:"Jost","Futura","Century Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#191416;--panel:#261D22;--card:#2B2227;--ink:#F8EEF3;--muted:#C1AFB8;--rule:#3C3037;
+  --hero-bg:#3D2232;--hero-ink:#FFE6F0;--hero-2:#E8C3D4;--hero-line:#6A3C55;
+  --night:#110E10;--night-deep:#0C0A0B;--night-line:#3A3035;--on-night:#FFFFFF;--on-night-2:#CDBEC6;
+  --rose-ink:#F6A9CB;--nude-ink:#E6B69F;
+  --em:#F6A9CB;--brand:#F6A9CB;--short:#F0508C;--bar:#4A3842;--hlbar:#F6A9CB;--track:#3A2C33;--shadow:rgba(0,0,0,.5);
+  --good:#8FD9AE;--good-bg:#12301F;--warn:#F2CD55;--warn-bg:#352B0C;--bad:#FF968A;--bad-bg:#3C1712;--over:#CDB2F2;--over-bg:#2A1D3D;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#191416;--panel:#261D22;--card:#2B2227;--ink:#F8EEF3;--muted:#C1AFB8;--rule:#3C3037;
+  --hero-bg:#3D2232;--hero-ink:#FFE6F0;--hero-2:#E8C3D4;--hero-line:#6A3C55;
+  --night:#110E10;--night-deep:#0C0A0B;--night-line:#3A3035;--on-night:#FFFFFF;--on-night-2:#CDBEC6;
+  --rose-ink:#F6A9CB;--nude-ink:#E6B69F;
+  --em:#F6A9CB;--brand:#F6A9CB;--short:#F0508C;--bar:#4A3842;--hlbar:#F6A9CB;--track:#3A2C33;--shadow:rgba(0,0,0,.5);
+  --good:#8FD9AE;--good-bg:#12301F;--warn:#F2CD55;--warn-bg:#352B0C;--bad:#FF968A;--bad-bg:#3C1712;--over:#CDB2F2;--over-bg:#2A1D3D;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:400;font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance;margin:0;line-height:.9}
+h3{line-height:1}
+h2 em,h3 em{font-style:normal;color:var(--em)}
+p{margin:0}
+b,strong{font-weight:700}
+a{color:var(--brand)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:2px;border-radius:4px}
+.co{display:inline-block;flex:none;width:9px;height:15px;background:var(--rose);clip-path:polygon(0 34%,100% 0,100% 100%,0 100%);border-radius:1px}
+.label,.eyebrow{font-family:var(--label);font-weight:500;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);margin-bottom:14px}
+.sr{position:absolute;left:-9999px}
+.dl{display:block;background:currentColor;-webkit-mask:var(--doll-mask) center/contain no-repeat;mask:var(--doll-mask) center/contain no-repeat}
+:root{--doll-mask:url(data:image/png;base64,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)}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-weight:800;font-size:18px}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--muted)}
+.lk-doll{width:122px;height:26px;color:var(--rose)}
+.nav{display:flex;gap:2px}
+.nav a{font-family:var(--label);font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 11px;border-radius:999px}
+.nav a:hover{color:var(--ink);background:var(--panel)}
+@media (max-width:980px){.nav{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--hero-bg);color:var(--hero-ink);padding-block:52px 50px}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:44px;align-items:center}
+.mark{width:min(300px,78%);aspect-ratio:440/94;color:var(--hero-ink);margin-bottom:26px}
+.sticker{display:inline-flex;align-items:center;gap:10px;color:var(--hero-ink);background:var(--paper);padding:7px 14px 7px 12px;margin-bottom:22px;border-radius:999px}
+.echo{font-family:var(--label);font-size:14px;color:var(--hero-2);margin-bottom:10px;max-width:30em}
+.hero h1{font-size:clamp(58px,8vw,112px);font-weight:900;line-height:.86;margin-bottom:22px;letter-spacing:0}
+.hero h1 span{display:block;color:var(--rose-ink)}
+.lede{font-size:17px;max-width:33em;color:var(--hero-2)}
+.lede b{color:var(--hero-ink);font-weight:700}
+.btn{border:0;background:var(--ink);color:var(--paper);font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{opacity:.88}
+
+/* restock board */
+.rb-panel{background:var(--card);color:var(--ink);padding:18px 18px 16px;border-radius:22px;box-shadow:0 24px 60px -28px var(--shadow)}
+.rb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.rb-k{color:var(--muted)}
+.tag{font-family:var(--label);font-weight:500;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;background:var(--hero-bg);color:var(--hero-ink);white-space:nowrap;border-radius:999px}
+.rb-q{font-family:var(--label);font-size:13px;color:var(--rose-ink);min-height:21px;margin-bottom:4px}
+.rb-head,.rb-row{display:grid;grid-template-columns:minmax(0,158px) minmax(0,1fr) 64px;gap:10px;align-items:center}
+.rb-head{font-family:var(--label);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed var(--rule)}
+.rb-head>span:last-child{text-align:right}
+.rb-scale{position:relative;height:15px}
+.rb-scale i{position:absolute;top:0;transform:translateX(-50%);font-style:normal;white-space:nowrap;letter-spacing:.04em}
+.rb-scale .m-bf{left:45.2%;color:var(--ink)}
+.rb-scale .m-xm{left:78.6%}
+.rb-scale .s{display:none}
+.rb{display:grid;gap:8px;margin-bottom:4px}
+.rb-row{min-height:20px;transition:opacity .3s}
+.rb-row.dim{opacity:.32}
+.rb-n{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-t{position:relative;height:12px;background:var(--track);border-radius:6px}
+.rb-t::before,.rb-t::after{content:"";position:absolute;top:-5px;bottom:-5px;z-index:2}
+.rb-t::before{left:45.2%;border-left:1.5px dashed var(--ink);opacity:.6}
+.rb-t::after{left:78.6%;border-left:1.5px dotted var(--muted)}
+.rb-f{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--logo);transition:width .5s ease}
+.rb-f.short{background:var(--short)}
+.rb-x{position:absolute;top:0;bottom:0;border:1.5px dashed var(--short);border-left:0;border-radius:0 6px 6px 0;transition:left .5s ease,width .5s ease}
+.rb-v{font-family:var(--label);font-size:12.5px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-v.bad{color:var(--bad);font-weight:600}
+.rb-v.tight{color:var(--warn);font-weight:600}
+.rb-v.mv{color:var(--rose-ink);font-weight:600}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:var(--label);font-size:11.5px;color:var(--muted);margin:12px 0 12px;min-height:18px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg i{display:inline-block;width:16px;height:9px;border-radius:5px;background:var(--logo)}
+.lg i.short{background:var(--short)}
+.lg i.x{background:transparent;border:1.5px dashed var(--short)}
+.lg i.ln{width:0;height:12px;border-radius:0;background:none;border-left:1.5px dashed var(--ink)}
+.et-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.et{border:1.5px solid var(--rule);background:transparent;color:var(--ink);text-align:left;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;border-radius:14px;transition:border-color .2s,background .2s}
+.et small{font-family:var(--label);font-size:11px;color:var(--muted);line-height:1.3}
+.et b{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.05;text-transform:uppercase}
+.et:hover{border-color:var(--logo)}
+.et[aria-pressed="true"]{background:var(--panel);border-color:var(--rose)}
+.et[aria-pressed="true"] small{color:var(--rose-ink)}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.r-stats b{display:block;font-family:var(--display);font-weight:800;font-size:36px;line-height:1;font-variant-numeric:tabular-nums;color:var(--rose-ink)}
+.r-stats span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
+.r-say{font-size:14px}
+.rb-hint{font-family:var(--label);font-size:11.5px;color:var(--muted);margin-top:12px}
+@media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .et-row{grid-template-columns:repeat(2,minmax(0,1fr))}.r-stats b{font-size:28px}
+  .rb-head,.rb-row{grid-template-columns:minmax(0,104px) minmax(0,1fr) 54px;gap:7px}
+  .rb-n{font-size:11.5px}.rb-v{font-size:11.5px}
+  .rb-scale .l{display:none}.rb-scale .s{display:inline}
+  .rb-panel{padding:16px 14px 14px}
+}
+
+/* letter and glance */
+.intro{padding-block:44px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:start}
+.letter{background:var(--card);border:1px solid var(--rule);padding:28px 28px 26px;border-radius:20px}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-family:var(--label);font-size:12.5px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--rule)}
+.refs b{font-weight:500;color:var(--ink)}
+.letter p{font-size:15px;margin-bottom:11px}
+.letter .sal{font-family:var(--display);font-weight:800;font-size:30px;text-transform:uppercase;line-height:1}
+.sign{margin-top:16px}
+.sign .nm{font-weight:800;font-size:17px}
+.sign .ml{font-size:13px;color:var(--muted)}
+.glance{list-style:none;margin:0;padding:0;display:grid}
+.glance li{display:grid;grid-template-columns:minmax(0,104px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
+.glance li:first-child{border-top:3px solid var(--ink)}
+.glance b{font-family:var(--display);font-weight:800;font-size:48px;line-height:.9;font-variant-numeric:tabular-nums;color:var(--rose-ink)}
+.glance span{font-size:14px;color:var(--muted)}
+.glance-src{font-size:12px;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* sections */
+section.band{padding-block:72px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+.head{max-width:760px;margin-bottom:30px}
+.head h2{font-size:clamp(46px,6.4vw,78px);margin-bottom:14px}
+.head p{color:var(--muted);font-size:16.5px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:3px}
+.sg{color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer;border-radius:14px}
+.seat b{display:block;font-size:14.5px}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--card);border-color:var(--rule);box-shadow:inset 4px 0 0 var(--c)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--rule);background:var(--card);padding:7px 15px;font-size:13.5px;font-weight:700;cursor:pointer;text-align:left;border-radius:999px}
+.q:hover{border-color:var(--rose)}
+.q[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-family:var(--label);font-size:12px;color:var(--muted)}
+.sys .s{font-family:var(--body);font-weight:700;font-size:12.5px;color:var(--ink);background:var(--panel);padding:2px 10px;border-radius:999px}
+.console{background:var(--card);border:1px solid var(--rule);overflow:hidden;border-radius:20px}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:800}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:340px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--panel);padding:9px 15px;max-width:80%;font-size:14px;border-radius:18px 18px 4px 18px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-family:var(--label);font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;overflow:hidden;border-radius:0 7px 7px 0}
+.bf{display:block;height:100%;background:var(--bar);border-radius:0 7px 7px 0;transition:width .5s ease}
+.bf.hl{background:var(--hlbar)}
+.bv{font-family:var(--label);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);margin-bottom:16px;border-radius:14px;overflow:hidden}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-family:var(--label);font-weight:500;font-size:11.5px;padding:3px 10px;white-space:nowrap;flex:none;border-radius:999px}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden;margin-bottom:16px;border-radius:14px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-size:36px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:14px;margin-bottom:16px;font-size:14.5px;border-radius:14px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--bad);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-family:var(--label);font-size:12px;color:var(--muted)}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--good);max-width:52ch}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--card);padding:9px 14px;border-radius:999px}
+.ghost{border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;border-radius:999px}
+.ghost:hover{background:var(--ink);color:var(--paper)}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--rule)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,120px) minmax(0,1fr) 62px}
+}
+
+/* the drop (dark band) */
+section.dark{background:var(--night);color:var(--on-night);border-top:0;position:relative;overflow:hidden}
+section.dark .wrap{position:relative}
+section.dark .head p,section.dark .note{color:var(--on-night-2)}
+section.dark .eyebrow{color:var(--logo)}
+section.dark h2 em{color:var(--logo)}
+.dr-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:820px;margin-bottom:22px}
+.dr{border:1.5px solid var(--night-line);background:transparent;color:var(--on-night);padding:12px 16px;text-align:left;cursor:pointer;border-radius:16px}
+.dr .lbl{display:block;font-family:var(--label);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-night-2)}
+.dr b{display:block;font-family:var(--display);font-weight:800;font-size:28px;text-transform:uppercase;line-height:1.05}
+.dr small{display:block;font-family:var(--label);font-size:11.5px;color:var(--on-night-2)}
+.dr:hover{border-color:var(--on-night-2)}
+.dr[aria-pressed="true"]{background:var(--logo);border-color:var(--logo);color:var(--on-bright)}
+.dr[aria-pressed="true"] small,.dr[aria-pressed="true"] .lbl{color:var(--on-bright)}
+.dr-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.mc{background:var(--card);color:var(--ink);border-radius:18px;padding:18px;display:flex;flex-direction:column;min-width:0}
+.mc .mq{font-family:var(--label);font-size:12px;color:var(--muted);margin-bottom:12px;min-height:34px}
+.mc .mrow{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:4px 10px;align-items:center;margin-bottom:9px;font-size:13.5px}
+.mc .mrow .mt{grid-column:1/-1;height:8px;background:var(--panel);border-radius:4px;overflow:hidden}
+.mc .mrow .mt i{display:block;height:100%;background:var(--bar);border-radius:4px;transition:width .5s ease}
+.mc .mrow:first-of-type .mt i{background:var(--hlbar)}
+.mc .mrow .mv{font-family:var(--label);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+.mc .line{font-family:var(--display);font-weight:800;font-size:34px;line-height:.95;text-transform:uppercase;color:var(--rose-ink);margin-bottom:10px}
+.mc .mw{font-size:13.5px;color:var(--muted)}
+.dr-rule{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14.5px;color:var(--on-night-2);max-width:80ch}
+.dr-rule svg{width:24px;height:20px;flex:none;margin-top:2px}
+@media (max-width:980px){.dr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.dr-grid,.dr-tabs{grid-template-columns:minmax(0,1fr)}.dr b{font-size:24px}}
+
+/* systems */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:44px}
+.card{background:var(--card);border:1px solid var(--rule);padding:22px;border-radius:20px}
+.card .k{display:flex;align-items:center;gap:10px;color:var(--muted);margin-bottom:10px}
+.card h3{font-size:30px;margin-bottom:8px}
+.card p{font-size:14px;color:var(--muted)}
+.intg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px}
+.ig-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:3px solid var(--c)}
+.ig-h h3{font-size:34px}
+.ig-h span{color:var(--muted)}
+.desk{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.desk b{display:block;font-size:15px}
+.desk small{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;border:1px solid var(--rule);background:var(--card);padding:4px 11px;border-radius:999px}
+.pills span.v::before,.seen i{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);flex:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:14px}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:16px 18px;background:var(--panel);font-size:14px;border-radius:16px}
+.outs b{color:var(--muted)}
+.build{margin-top:18px;font-size:15.5px;max-width:72ch}
+@media (max-width:860px){.intg,.three{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}}
+
+/* proof */
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-bottom:28px}
+.vs>div{padding:22px 24px;border-radius:20px}
+.vs .them{background:var(--panel)}
+.vs .us{background:var(--hero-bg);color:var(--hero-ink)}
+.vs h3{font-size:32px;margin-bottom:12px}
+.vs .us h3 em{color:var(--rose-ink)}
+.vs ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.vs li{display:flex;gap:10px;font-size:14.5px;align-items:flex-start}
+.vs li::before{content:"";width:8px;height:13px;margin-top:5px;flex:none;background:currentColor;opacity:.35;clip-path:polygon(0 34%,100% 0,100% 100%,0 100%)}
+.vs .them li{color:var(--muted)}
+.vs .us li::before{background:var(--rose-ink);opacity:1}
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--night);color:var(--on-night);padding:32px;margin-bottom:20px;border-radius:24px;position:relative;overflow:hidden}
+.feature::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,var(--logo) 0 50%,var(--nude) 50% 100%)}
+.feature .k{color:var(--logo);margin-bottom:10px}
+.feature h3{font-size:clamp(38px,4.4vw,56px);line-height:.9;margin-bottom:14px}
+.feature p{font-size:15px;color:var(--on-night-2);margin-bottom:10px}
+.feature p b{color:var(--on-night)}
+.feature .why{margin-top:14px;padding-top:14px;border-top:1px dashed var(--night-line);font-size:14px}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid var(--night-line);padding:14px 16px;position:relative;border-radius:16px}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:var(--night-line)}
+.chain .t{font-family:var(--label);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-night-2)}
+.chain b{display:block;font-size:16px}
+.chain li.end{background:var(--logo);color:var(--on-bright);border-color:var(--logo)}
+.chain li.end .t{color:var(--on-bright)}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pcard{background:var(--card);border:1px solid var(--rule);padding:22px;display:flex;flex-direction:column;border-radius:20px}
+.pcard .k{color:var(--muted);margin-bottom:8px}
+.pcard .big{font-family:var(--display);font-weight:900;font-size:60px;line-height:.88;text-transform:uppercase;color:var(--c);margin-bottom:10px}
+.pcard .body{font-size:14px;margin-bottom:12px}
+.pcard .why{margin-top:auto;padding-top:12px;border-top:1px dashed var(--rule);font-size:13.5px;color:var(--muted)}
+.pcard .why b{color:var(--ink)}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid,.vs{grid-template-columns:minmax(0,1fr)}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.vid-grid h2{font-size:clamp(42px,5vw,62px);margin-bottom:12px}
+.vid-grid p.s{color:var(--muted)}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--hero-bg);border-radius:24px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:var(--hero-ink);background:var(--hero-bg);overflow:hidden}
+.poster::before{content:"";position:absolute;left:-4%;right:-4%;bottom:-10%;height:46%;background:currentColor;opacity:.06;-webkit-mask:var(--doll-mask) center/contain no-repeat;mask:var(--doll-mask) center/contain no-repeat}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:800}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-family:var(--display);font-size:clamp(32px,4.4vw,56px);font-weight:900;text-transform:uppercase;line-height:.95;position:relative;z-index:1;text-align:center;padding-inline:12px}
+.p-play{width:72px;height:72px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-family:var(--label);font-size:12.5px;color:var(--hero-2);position:relative;z-index:1}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* start */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.step{border-top:3px solid var(--ink);padding-top:14px}
+.step .n{font-family:var(--label);font-size:12px;color:var(--muted);letter-spacing:.1em}
+.step h3{font-size:36px;margin:4px 0 8px}
+.step p{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* trust */
+.sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;background:var(--panel);padding:28px 30px;border-radius:24px}
+.sec>div{flex:1 1 420px;min-width:0}
+.sec h2{font-size:clamp(40px,4.8vw,56px);margin-bottom:12px}
+.sec p.t{color:var(--muted);font-size:15.5px;max-width:62ch}
+.trust-cta{display:inline-flex;flex-direction:column;gap:2px;background:var(--ink);color:var(--paper);text-decoration:none;padding:14px 22px;font-weight:700;font-size:15px;border-radius:18px}
+.trust-cta small{font-family:var(--label);font-weight:400;font-size:12px;opacity:.75}
+.trust-cta:hover{opacity:.9}
+@media (max-width:520px){.sec{padding:22px 20px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:72px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.et,.rb-f,.rb-x,.rb-row,.mc .mrow .mt i{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Doll Beauty">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <span class="dl lk-doll" role="img" aria-label="Doll Beauty"></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#ask">Ask</a>
+      <a href="#drop">The drop</a>
+      <a href="#systems">Systems</a>
+      <a href="#proof">Proof</a>
+      <a href="#video">Video</a>
+      <a href="#start">Start</a>
+      <a href="#trust">Trust</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="dl mark" role="img" aria-label="Doll Beauty"></span>
+        <p class="sticker label"><span class="co" aria-hidden="true"></span>Milo × Doll Beauty · Overview for Dani Gregory</p>
+        <p class="echo">“Our sell-out Solid Start brush collection is FINALLY back in stock!”</p>
+        <h1>Next time, know <span>before it sells out.</span></h1>
+        <p class="lede">Doll Beauty sells 54 products through dollbeauty.com, retailers and creator codes, and every launch goes out through Mailchimp, Instagram and TikTok. <b>Milo joins the shop, the warehouse, the retailers, the marketing and the accounts</b> and answers in plain English, with the reason behind each number.</p>
+      </div>
+
+      <div class="rb-panel">
+        <div class="rb-top"><span class="rb-k label">Restock board · ten bestsellers</span><span class="tag">Sample data</span></div>
+        <p class="rb-q" id="rb-q"></p>
+        <div class="rb-head" aria-hidden="true"><span>Product</span><span class="rb-scale"><i class="m-bf"><span class="l">Black Friday</span><span class="s">27 Nov</span></i><i class="m-xm"><span class="l">Christmas</span><span class="s">25 Dec</span></i></span><span id="rb-col"></span></div>
+        <div class="rb" id="rb" role="img" aria-label="Ten Doll Beauty bestsellers, each with a bar showing how many weeks of stock are left, against lines for Black Friday and Christmas"></div>
+        <div class="lg" id="rb-lg"></div>
+        <div class="et-row" id="rb-tabs" role="group" aria-label="Add a layer of data"></div>
+        <div id="rb-read" aria-live="polite"></div>
+        <p class="rb-hint">Each bar is weeks of stock left from today. Real product names, invented figures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="refs">
+          <span>Our ref</span><b>MILO / DOLL / 01</b>
+          <span>Re</span><b>Milo across Doll Beauty's shop, stock and marketing</b>
+          <span>For</span><b>Dani Gregory, Co-founder</b>
+        </div>
+        <p class="sal">Dear Dani,</p>
+        <p>Doll Beauty started in 2016 with lashes, because you and Sam saw a gap for an affordable, high-quality one. Ten years on, dollbeauty.com carries 54 products, from the Danielle lash to 17 nudes and the Solid Start brushes that sold out and came back.</p>
+        <p>Each of those products now sells in several places at once: your own shop, the retailers, creator codes and the inbox. A simple question, like how many weeks of Gripping Primer are left, has its answer spread across Shopify, the warehouse, retailer orders and next week's email. Usually someone joins that up by hand.</p>
+        <p>Milo connects it all. Anyone at Doll asks in plain English and gets the answer in seconds, with its sources. A question can keep running, so the Monday restock list and the month's figures build themselves.</p>
+        <p>Black Friday is five weeks away, so the board above starts there. Everything on this page runs on sample data, so click around.</p>
+        <div class="sign">
+          <p class="nm">Liam James Rabone</p>
+          <p class="ml">Milo · liam@milo.ai</p>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow"><span class="co" aria-hidden="true"></span>Doll Beauty, in its own numbers</p>
+        <ul class="glance">
+          <li><b>2016</b><span>the first Doll lashes, launched by Dani Gregory and Sam Allen in Chester</span></li>
+          <li><b>54</b><span>products on dollbeauty.com today, in 118 shades, styles and sizes</span></li>
+          <li><b>17</b><span>nudes in the Doll Lipstick, vegan and cruelty-free</span></li>
+          <li><b>4.4</b><span>on Trustpilot, from 2,658 reviews</span></li>
+          <li><b>£45</b><span>the free delivery line every basket is trying to reach</span></li>
+        </ul>
+        <p class="glance-src">From dollbeauty.com, Trustpilot, LOOKFANTASTIC and the Chester Standard, October 2026.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Ask Milo</p>
+      <h2 id="ask-h">A seat for <em>every desk</em>.</h2>
+      <p>Pick a seat and a question, or type your own. Each seat shows the records it reads, every answer shows its sources, and any answer can become an alert.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · Doll Beauty workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Illustrative. The figures, orders, reviews and campaigns in these answers are invented to show the shape of an answer. None of it is Doll Beauty data, and retailers and creators are deliberately unnamed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band dark" id="drop" aria-labelledby="dr-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>The drop</p>
+      <h2 id="dr-h">Every drop, <em>three moments</em>.</h2>
+      <p>A Doll launch has a shape: the waitlist, the email and the posts, the sell-out, then the restock. Each moment leaves its records in a different system. Pick one.</p>
+    </div>
+    <div class="dr-tabs" id="dr-tabs" role="group" aria-label="Choose a moment"></div>
+    <div class="dr-grid" id="dr-grid" aria-live="polite"></div>
+    <p class="dr-rule"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>Each moment reads different records: the back-in-stock list and the warehouse before, Shopify and Mailchimp on the day, then Trustpilot, returns and repeat orders after. Nobody has to line them up by hand.</span></p>
+    <p class="note">Illustrative. Every figure is invented.</p>
+  </div>
+</section>
+
+<section class="band first" id="systems" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Systems</p>
+      <h2 id="int-h">Every system, <em>as it is</em>.</h2>
+      <p>What Milo connects for a beauty brand that sells the way Doll does: your own shop, the retailers, creators and a warehouse in the middle. Nothing gets replaced.</p>
+    </div>
+    <div class="three">
+      <div class="card"><p class="k label"><span class="co" aria-hidden="true"></span>The connections</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including retailer reports that arrive as spreadsheets, and fix them when a system changes.</p></div>
+      <div class="card"><p class="k label"><span class="co" aria-hidden="true"></span>The dashboards</p><h3>Anyone can build one</h3><p>Pin an answer and it becomes a live dashboard. Marketing, the warehouse or the directors can make their own, and each sees only what they should.</p></div>
+      <div class="card"><p class="k label"><span class="co" aria-hidden="true"></span>The automations</p><h3>Questions keep running</h3><p>Any question can become the Monday restock board, or an alert when a 1-star review lands. Nobody has to build a pipeline for it.</p></div>
+    </div>
+    <div class="intg">
+      <div>
+        <div class="ig-h" style="--c:var(--rose)"><h3>The shop and the brand</h3><span class="label">Four desks</span></div>
+        <div class="desk"><div><b>Shop</b><small>dollbeauty.com and checkout</small></div><div class="pills"><span class="v">Shopify</span><span>Shopify Payments</span><span class="v">Clearpay</span><span class="v">Klarna</span><span class="v">PayPal</span><span class="v">Searchanise</span><span class="v">Back-in-stock list</span></div></div>
+        <div class="desk"><div><b>Email</b><small>Every send and sign-up</small></div><div class="pills"><span class="v">Mailchimp</span><span>Klaviyo</span><span>SMS</span><span>Pop-up sign-ups</span></div></div>
+        <div class="desk"><div><b>Marketing</b><small>Paid, organic and creators</small></div><div class="pills"><span>Meta Ads</span><span>Instagram</span><span>TikTok</span><span>TikTok Shop</span><span>Google Ads</span><span>Google Analytics</span><span>Creator codes</span></div></div>
+        <div class="desk"><div><b>Reviews</b><small>What customers say</small></div><div class="pills"><span class="v">Trustpilot</span><span>Product reviews</span><span>Gorgias</span><span>Zendesk</span><span>Customer inbox</span></div></div>
+      </div>
+      <div>
+        <div class="ig-h" style="--c:var(--nude)"><h3>The stock and the money</h3><span class="label">Four desks</span></div>
+        <div class="desk"><div><b>Warehouse</b><small>Pick, pack and ship</small></div><div class="pills"><span>Linnworks</span><span>Mintsoft</span><span>ShipBob</span><span>Veeqo</span><span>Royal Mail</span><span>Evri</span><span>DPD</span></div></div>
+        <div class="desk"><div><b>Retail stock</b><small>The retailers' shelves</small></div><div class="pills"><span>LOOKFANTASTIC</span><span>ASOS</span><span>Sell-through reports</span><span>EDI orders</span><span>Retailer portals</span></div></div>
+        <div class="desk"><div><b>Accounts</b><small>Ledger, fees and payouts</small></div><div class="pills"><span>Xero</span><span>Sage</span><span>QuickBooks</span><span>A2X</span><span>Bank feeds</span></div></div>
+        <div class="desk"><div><b>Planning</b><small>Launches and suppliers</small></div><div class="pills"><span>Supplier orders</span><span>Launch calendar</span><span>Google Sheets</span><span>Excel</span></div></div>
+      </div>
+    </div>
+    <p class="seen"><i aria-hidden="true"></i>Seen running on dollbeauty.com</p>
+    <div class="outs"><b class="label">Answers arrive in</b><span>WhatsApp</span><span>Slack</span><span>Microsoft Teams</span><span>Email</span><span>The browser</span><span>PDF for the board</span></div>
+    <p class="build">Most of these connect in minutes. Anything without a ready connector, like a retailer report that only arrives as a spreadsheet, our engineers build and keep running.</p>
+  </div>
+</section>
+
+<section class="band" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Proof</p>
+      <h2 id="proof-h">The beauty giants have planners. <em>Now so does Doll.</em></h2>
+      <p>The big beauty groups size every launch, score every email and read each retailer's sell-through every week, with whole teams to do it. Milo gives Doll Beauty the same view without the team.</p>
+    </div>
+    <div class="vs">
+      <div class="them">
+        <h3>A global beauty group has</h3>
+        <ul>
+          <li>Demand planners sizing every launch</li>
+          <li>A CRM team scoring every email and creator</li>
+          <li>Account analysts on every retailer, every week</li>
+          <li>Data engineers joining it all up</li>
+        </ul>
+      </div>
+      <div class="us">
+        <h3>Doll Beauty <em>with Milo</em> has</h3>
+        <ul>
+          <li>The restock board in the hero, every Monday</li>
+          <li>Every email and creator code scored on sales</li>
+          <li>Each retailer's sell-through next to your own shop</li>
+          <li>Our engineers building and maintaining every connection</li>
+        </ul>
+      </div>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k label">Built Different · Manchester · Milo customer</p>
+        <h3>A DTC brand with no data team.</h3>
+        <p>Built Different sells fitted T-shirts for big and tall men, sizes L to 6XL, from its own Shopify store. <b>A lean team, no data department</b>, and founders who want a straight answer at 7am.</p>
+        <p>In the first week Milo connected Shopify, Xero, Klaviyo, Google Ads, analytics and their returns platform. The founders now get a 7am trading email and check a live profit dashboard every day. It replaced a month-end pack that had been overstating profit three times over.</p>
+        <p class="why"><b>Why it's here.</b> A Shopify brand up the road in Manchester, selling direct, driven by paid social and email, with nobody whose job is reporting.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at Built Different">
+        <li><span class="t">Week one</span><b>Store, accounts, email and ads all connected</b></li>
+        <li><span class="t">Every morning</span><b>A 7am email with revenue, profit and returns</b></li>
+        <li class="end"><span class="t">Month one</span><b>Six figures of ad invoices found missing from the ledger</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard" style="--c:var(--rose-ink)">
+        <p class="k label">Kellogg's · Commercial finance</p>
+        <p class="big">The cause</p>
+        <p class="body">When sales fell across the Middle East and North Africa, Milo traced the decline to a shortage of Coco Pops rather than a drop in demand.</p>
+        <p class="why"><b>Why it's here.</b> A sold-out lash looks like a quiet week in the sales report. Milo reads the stock next to the sales, which is the Wispy XL story in the demo.</p>
+      </div>
+      <div class="pcard" style="--c:var(--nude-ink)">
+        <p class="k label">Two Tribes Brewing · London</p>
+        <p class="big">831</p>
+        <p class="body">Tesco stores in one view with anomalies flagged, for a 35-person drinks business that connected seven systems in two weeks. <a href="https://hey.milo.ai/two-tribes-case-study/" target="_blank" rel="noopener">Read the case study</a></p>
+        <p class="why"><b>Why it's here.</b> Retailer sell-through, store by store, next to the brand's own channels. It's the same job as reading the retailers' reports next to dollbeauty.com.</p>
+      </div>
+      <div class="pcard" style="--c:var(--rose-ink)">
+        <p class="k label">Coolr · Social agency, London</p>
+        <p class="big">30 min</p>
+        <p class="body">for a year-end board report the COO was about to build by hand from every tool the agency runs on. Then the rest of the company started asking Milo too.</p>
+        <p class="why"><b>Why it's here.</b> A business built on creators and content. The month's figures for the board are the same job.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="co" aria-hidden="true"></span>See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working</em>.</h2>
+        <p class="s">The question box, the answers and the dashboards, without anyone describing them.</p>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="start" aria-labelledby="start-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="co" aria-hidden="true"></span>Getting started</p>
+      <h2 id="start-h">Connected before <em>Black Friday</em>.</h2>
+      <p>Black Friday is 27 November. Connect the shop, the warehouse and Mailchimp in the next fortnight, and the Black Friday stock list becomes a question you ask. By January, Milo has a full peak season to plan the next one from. Four steps, in make-up order.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n">STEP 1</p><h3>Prime</h3><p>Connect Shopify, Mailchimp, Trustpilot, the warehouse and the accounts, all on read-only access.</p></div>
+      <div class="step"><p class="n">STEP 2</p><h3>Sculpt</h3><p>We teach Milo Doll's terms: shades and lash styles, bundles and gift sets, retailer accounts, creator codes and the £45 delivery line.</p></div>
+      <div class="step"><p class="n">STEP 3</p><h3>Set</h3><p>A creator sees their own code, the retail team its own accounts, the warehouse the stock, and the directors everything.</p></div>
+      <div class="step"><p class="n">STEP 4</p><h3>Wear it</h3><p>Answers start the day the connections are live. The questions that matter keep running, in WhatsApp, Slack, email or the browser.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <p class="eyebrow"><span class="co" aria-hidden="true"></span>Trust and security</p>
+        <h2 id="sec-h">Your team <em>signs off first</em>.</h2>
+        <p class="t">Connections are read-only, access is set by role, and a creator or a retailer account only ever sees its own numbers. Our certificates, policies and how we handle data are all in the Milo Trust Centre.</p>
+      </div>
+      <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Dani Gregory, co-founder of Doll Beauty, by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
+    <p>Doll Beauty facts are from dollbeauty.com, Trustpilot, LOOKFANTASTIC and the Chester Standard. Every figure, order, review, retailer and creator in the demos is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* restock board: [product, weeks of cover on shop sales, + retailer orders, + Black Friday marketing, action, cover once the reorder lands] */
+  var MAXW=12,BF=5.43,XM=9.43;
+  var SKUS=[
+    ["Solid Start Foundation Brush",9.0,6.8,4.1,"Reorder",10.5],
+    ["Gripping Primer",7.6,5.6,4.6,"Reorder",10.0],
+    ["Superfix Spritzer",8.4,6.6,5.9,"Reorder",10.2],
+    ["Doll Lash Glue",6.0,4.4,3.2,"Reorder",9.8],
+    ["Danielle Lash",15,12.4,9.8,"OK",0],
+    ["Wispy XL Lash",5.2,4.0,3.6,"Reorder",9.6],
+    ["Full 02 Cluster Lash",10.4,7.6,5.0,"Reorder",10.4],
+    ["Doll Lipstick, 17 nudes",16,13.5,10.2,"OK",0],
+    ["Liquid Light Highlighter",9.4,7.9,4.8,"Reorder",9.9],
+    ["Fragrance Mist, St Kitts",24,22,19,"Bundle",0]
+  ];
+  var LAYERS=[
+    {name:"Warehouse",short:"On the shop's own sales",col:"Cover",q:"",
+     stats:[["1","bestseller runs out before Black Friday"],["11 wks","average cover, on the shop's sales alone"],["?","what retailers and Black Friday will take"]],
+     say:"On dollbeauty.com's own sales the warehouse looks comfortable. Cover averages eleven weeks, and only Wispy XL runs out before Black Friday on 27 November."},
+    {name:"+ Retailers",short:"Their orders, same stock",col:"Cover",q:"",
+     stats:[["2","run out before Black Friday"],["31%","of warehouse stock already promised to retailer orders"],["1","more with only days to spare"]],
+     say:"Retailers draw on the same stock. Open orders from three retailers already take 31% of it, which brings Lash Glue and Wispy XL in before Black Friday and leaves Gripping Primer with days to spare."},
+    {name:"+ Marketing",short:"The Black Friday push",col:"Cover",q:"",
+     stats:[["6","of the ten run out before Black Friday"],["6,400","people on the brush back-in-stock list"],["2.3×","last Black Friday week against an average week"]],
+     say:"Then Black Friday itself. The email goes to the whole Mailchimp list, 6,400 people are waiting on the Solid Start brushes, and last year's Black Friday week sold 2.3 times an average week. Six of the ten run out before the day."},
+    {name:"Milo's answer",short:"This week",col:"Do",q:"Asked: what runs out before Black Friday, and what should we do?",
+     stats:[["7","lines to reorder this week, glue first"],["1","overstocked line to bundle, not discount"],["2","lines safe through Christmas"]],
+     say:"Reorder seven lines this week, starting with Lash Glue, because it goes out with almost every lash order. Fill the retailer with the fastest sell-through first. St Kitts has 19 weeks of cover, so it goes into the Christmas gift sets instead of a discount. Milo can send this board every Monday until Christmas."}
+  ];
+  var layer=0;
+  function pct(w){return Math.min(w,MAXW)/MAXW*100}
+  function drawRB(){
+    var h="";
+    SKUS.forEach(function(s){
+      var w=layer===3?s[3]:s[1+layer],act=s[4],after=s[5];
+      var short=w<BF,rc="rb-row",vc="rb-v",v;
+      var bar='<span class="rb-f'+(short?" short":"")+'" style="width:'+pct(w).toFixed(1)+'%"></span>';
+      if(layer===3){
+        v=act;vc+=act==="OK"?"":" mv";
+        if(act==="OK")rc+=" dim";
+        if(after>w)bar+='<span class="rb-x" style="left:'+pct(w).toFixed(1)+'%;width:'+(pct(after)-pct(w)).toFixed(1)+'%"></span>';
+      }else{
+        v=(w>MAXW?"12+":w.toFixed(1))+" wk";
+        if(short)vc+=" bad";else if(w<BF+1)vc+=" tight";
+      }
+      h+='<div class="'+rc+'"><span class="rb-n" title="'+esc(s[0])+'">'+esc(s[0])+'</span><span class="rb-t">'+bar+'</span><span class="'+vc+'">'+esc(v)+'</span></div>';
+    });
+    $("rb").innerHTML=h;
+    $("rb-col").textContent=LAYERS[layer].col;
+    var lg='<span><i></i>Weeks of cover</span><span><i class="short"></i>Runs out before Black Friday</span>';
+    if(layer===3)lg+='<span><i class="x"></i>Once the reorder lands</span>';
+    lg+='<span><i class="ln"></i>Black Friday</span>';
+    $("rb-lg").innerHTML=lg;
+  }
+  function renderRB(){
+    $("rb-tabs").innerHTML=LAYERS.map(function(l,i){
+      return '<button type="button" class="et" data-layer="'+i+'" aria-pressed="'+(i===layer)+'"><b>'+esc(l.name)+'</b><small>'+esc(l.short)+'</small></button>';
+    }).join("");
+    var l=LAYERS[layer];
+    $("rb-q").textContent=l.q;
+    $("rb-read").innerHTML='<div class="r-stats">'+l.stats.map(function(s){return '<div><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join("")+'</div><p class="r-say">'+esc(l.say)+'</p>';
+    drawRB();
+  }
+  $("rb-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-layer]");if(!b)return;
+    layer=+b.dataset.layer;renderRB();
+    var nb=$("rb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
+  });
+
+  /* seats */
+  var CB="var(--rose)",CS="var(--nude)";
+  var SEATS=[
+    {g:"The shop and the brand",c:CB,name:"Founder",sub:"The whole business, one question",sys:["Shopify","Retailer reports","Mailchimp","Warehouse","Xero"],qs:[
+      {q:"What drove October so far?",kw:["drove","driving","october","month","sales","so","far","growth","up","down","overall","business","how","doing","week","trading"],type:"summary",
+       kpis:[["£212k","sales across every channel, 1 to 19 October"],["+14%","on the same days last year"],["38%","from retailers, up from 31%"],["9 days","Wispy XL out of stock on the shop"]],
+       say:"October is up 14% on last year across every channel, and retailers are a bigger share than they were. The biggest drag was Wispy XL sitting out of stock on dollbeauty.com for nine days while the retailers still had it.",
+       src:["Shopify","Retailer reports","Warehouse"],alert:"Every Monday at 8am, Milo will send last week's sales by channel, with anything that held them back."},
+      {q:"Which launches earned their place?",kw:["launch","launches","launched","new","product","products","earned","worked","best","worst","place","drop","drops","range"],type:"bars",hi:"high",
+       cap:"Sales in the first 30 days, against the Wispy Lash launch (100)",
+       rows:[["Lip Blush Crayon",164],["Fragrance Mist, St Kitts",121],["Wispy XL Lash",118],["Kimberley Lash",86],["Fragrance Mist, Desire",64]],
+       say:"The Lip Blush Crayon was the strongest launch of the year, mostly because the set sold to people who already owned the lipstick. Desire sold at about half the pace of St Kitts, so it's the one to fold into gift sets.",
+       src:["Shopify","Retailer reports","Mailchimp"],alert:"After every launch, Milo will send its first 30 days against your last five launches."}
+    ]},
+    {g:"The shop and the brand",c:CB,name:"Online shop",sub:"dollbeauty.com",sys:["Shopify","Clearpay & Klarna","Searchanise","Back-in-stock list"],qs:[
+      {q:"What gets a basket over £45?",kw:["basket","baskets","£45","45","free","delivery","shipping","threshold","aov","average","order","value","add","add-on","checkout","upsell"],type:"bars",unit:"%",hi:"high",
+       cap:"The add-on in orders that crossed the £45 free delivery line, share",
+       rows:[["Doll Lash Glue",27],["Doll Lipstick",19],["DB8 Brush",14],["Cluster lashes",12],["Brush Cleaner",9]],
+       say:"The average basket is £38, just short of free delivery. When a basket does cross £45 it's usually Lash Glue that tips it, so offering glue at checkout on any lash order under £45 is the cheapest win here.",
+       src:["Shopify","Clearpay & Klarna"],alert:"Each week, Milo will send the share of baskets that stopped between £35 and £45."},
+      {q:"What do people search for that we don't sell?",kw:["search","searches","searched","looking","find","don't","sell","missing","gap","gaps","demand","want","wanted","tan","mascara"],type:"list",
+       rows:[["“tan” · 1,860 searches","Returns no product","Gap","bad"],["“mascara” · 1,240","Returns no product","Gap","bad"],["“brow” · 760","Returns the brushes, not a brow product","Near","warn"],["“gift” · 2,900","Lands on gift sets. 9% go on to buy","Fine","ok"]],
+       say:"Tan and mascara are the two biggest searches that return nothing, about 3,100 searches between them last month. Both are worth a look before the next launch is planned.",
+       src:["Searchanise","Shopify"],alert:null}
+    ]},
+    {g:"The shop and the brand",c:CB,name:"Marketing",sub:"Email, social, creators",sys:["Mailchimp","Meta Ads","TikTok","Instagram","Creator codes","Shopify"],qs:[
+      {q:"Which emails made money, not just opens?",kw:["email","emails","campaign","campaigns","mailchimp","send","sends","newsletter","money","revenue","opens","open","clicks","made","best"],type:"bars",pre:"£",hi:"high",
+       cap:"Revenue per 1,000 emails sent, after returns, last five campaigns",
+       rows:[["Back in stock: Solid Start",412],["Lipstick shade quiz",188],["Payday weekend",164],["New: Liquid Light",121],["Spring sale, 20% off",96]],
+       say:"Back-in-stock emails earn twice anything else per email sent, and they don't need a discount. The 20% sale had the most opens of the five and the lowest revenue per send once returns came off.",
+       src:["Mailchimp","Shopify"],alert:"After every send, Milo will post revenue per 1,000 emails, after returns, to the marketing chat."},
+      {q:"Which creators actually sell?",kw:["creator","creators","influencer","influencers","code","codes","affiliate","affiliates","sell","sales","tiktok","instagram","ambassador","ambassadors","posts"],type:"list",
+       rows:[["Creator A","1,120 orders on their code. 61% new to Doll","Grow","ok"],["Creator B","Big reach, 140 orders, mostly existing customers","Review","warn"],["Creator C","Strong in lashes, quiet in lips","Lashes","over"],["Creator D","Code posted on a voucher site last week","Leak","bad"]],
+       say:"Creator A brings in new customers at the best rate. Creator D's code turned up on a voucher site last week, so most of those orders would have happened anyway.",
+       src:["Creator codes","Shopify","Meta Ads"],alert:"Milo will flag any creator code that suddenly gets used by people who never clicked their link."}
+    ]},
+    {g:"The shop and the brand",c:CB,name:"Reviews & service",sub:"Trustpilot and the inbox",sys:["Trustpilot","Customer inbox","Shopify orders","Courier tracking"],qs:[
+      {q:"What are customers unhappy about this month?",kw:["unhappy","complaints","complaint","complain","reviews","review","trustpilot","bad","negative","stars","star","why","customers","issues","problems","service"],type:"bars",unit:"%",hi:"high",
+       cap:"1 and 2 star reviews and complaints, by cause, last 30 days",
+       rows:[["Missing item in the parcel",34],["Late delivery",26],["Waiting on an email reply",21],["Shade not as pictured",11],["Lashes damaged",8]],
+       say:"A third of complaints are a missing item, and most of those orders were packed on two afternoons, so the courier isn't the main problem. Waiting on an email reply comes third, which is the cheapest one to fix.",
+       src:["Trustpilot","Customer inbox","Shopify orders"],alert:null},
+      {q:"Which reviews need a reply today?",kw:["reply","replies","respond","today","need","reviews","review","trustpilot","answer","new","star","stars"],type:"list",
+       rows:[["★ · Order 48213","Missing Lash Glue. The order shows it was packed short","Resend","bad"],["★★ · Order 48177","Late. Out with the courier, due tomorrow","Reply","warn"],["★★★★★ · Order 48102","First order, on the Creator A code","Thank","ok"],["★ · Order 47950","Already refunded on the 14th","Note","over"]],
+       say:"Two reviews need a reply today, and Milo has already matched each one to its order, so the reply can say what happened. Order 47950 was refunded on the 14th, so that reply is a short note.",
+       src:["Trustpilot","Shopify orders","Courier tracking"],alert:"Every morning, Milo will send new 1 and 2 star reviews with the order already found."}
+    ]},
+    {g:"The shop and the brand",c:CB,name:"Creator login",sub:"Their own code only",sys:["Their code","Their orders","Their commission"],qs:[
+      {q:"How did my code do this month?",kw:["my","code","month","did","how","orders","sales","commission","followers","earn","earned","mine"],type:"summary",
+       kpis:[["384","orders on your code in October"],["£11.2k","in sales"],["58%","first-time Doll customers"],["Danielle","the lash your followers bought most"]],
+       say:"Your code brought in 384 orders this month, more than half of them from people who'd never ordered from Doll before. Your followers bought the Danielle lash most, usually with the glue.",
+       src:["Their code","Their orders"],alert:"Every Monday, Milo will send you your code's week."},
+      {q:"What do other creators earn?",kw:["other","others","creators","creator","earn","earns","compare","comparison","everyone","rest","league","versus","vs","commission"],type:"refuse",
+       say:"Your login covers your own code, orders and commission, so I can't show other creators' figures. The Doll team can tell you how your code compares.",
+       src:["Access policy"],alert:null}
+    ]},
+    {g:"The stock and the money",c:CS,name:"Stock & warehouse",sub:"What's on the shelf",sys:["Warehouse","Shopify","Retailer orders","Supplier orders"],qs:[
+      {q:"What sells out before Black Friday?",kw:["sell","sells","sold","out","stock","black","friday","before","run","runs","short","reorder","cover","weeks","left","restock"],type:"list",
+       rows:[["Doll Lash Glue","3.2 weeks left once the Black Friday email goes","Reorder","bad"],["Solid Start Foundation Brush","4.1 weeks. 6,400 on the back-in-stock list","Reorder","bad"],["Gripping Primer","4.6 weeks, with retailer orders counted","Reorder","bad"],["Superfix Spritzer","5.9 weeks, a few days past Black Friday","Watch","warn"]],
+       say:"Six lines run out before 27 November once retailer orders and the Black Friday email are counted. Lash Glue goes first and rides along with every lash order, so it's the one to reorder today.",
+       src:["Warehouse","Shopify","Retailer orders"],alert:"Every Monday until Christmas, Milo will send the lines with under six weeks of cover."},
+      {q:"Which orders went out short?",kw:["short","missing","orders","order","packed","packing","pick","wrong","went","items","item","errors","mistakes"],type:"summary",
+       kpis:[["212","orders went out short this month, of 9,400"],["71%","packed on Tuesday and Thursday afternoons"],["Glue","the item most often left out"],["£3.1k","in resends and refunds"]],
+       say:"212 orders went out with an item missing this month. Most were packed on Tuesday and Thursday afternoons, when the bundles go out, and Lash Glue is the item most often left out.",
+       src:["Warehouse","Shopify","Trustpilot"],alert:"Milo will flag any packing shift where short orders pass 1%."}
+    ]},
+    {g:"The stock and the money",c:CS,name:"Retail & wholesale",sub:"The retailers' shelves",sys:["Sell-through reports","EDI orders","Invoices","Warehouse"],qs:[
+      {q:"Which retailer sells through fastest?",kw:["retailer","retailers","sell","through","sell-through","fastest","slowest","quick","accounts","stockist","stockists","wholesale","compare"],type:"bars",dec:1,unit:" wk",hi:"low",
+       cap:"Weeks for a retailer to sell an order of lashes through, average",
+       rows:[["Retailer A",3.1],["Retailer C",4.2],["Retailer B",5.8]],
+       say:"Retailer A sells an order of lashes through in about three weeks, Retailer B takes nearly six. With stock tight before Black Friday, Retailer A's reorder is the one to fill first.",
+       src:["Sell-through reports","EDI orders"],alert:null},
+      {q:"Where are retailers about to run out?",kw:["run","out","running","low","retailers","retailer","shelves","stockists","about","soon","empty","reorder","gap"],type:"list",
+       rows:[["Retailer A · Danielle Lash","Two weeks of stock at their sell-through","Call","warn"],["Retailer C · Gripping Primer","80% sold through in three weeks","Reorder","bad"],["Retailer B · Lip Blush Crayon","22% sold through after six weeks","Promo","over"],["Retailer A · Wispy XL","Out of stock in their report since Friday","Out","bad"]],
+       say:"Retailer C will run out of Gripping Primer first, and Retailer A is already out of Wispy XL. Retailer B is sitting on Lip Blush Crayons, which makes it the account to talk to about a promotion.",
+       src:["Sell-through reports","Warehouse"],alert:"Each Monday, Milo will send every retailer line with under three weeks of stock."}
+    ]},
+    {g:"The stock and the money",c:CS,name:"Finance",sub:"Margin, fees and the month",sys:["Xero","Shopify Payments","Clearpay","Klarna","PayPal","Retailer invoices"],qs:[
+      {q:"What do we really make on each channel?",kw:["make","margin","margins","profit","channel","channels","really","fees","each","earn","net","after","costs","retailers","shop"],type:"bars",unit:"%",hi:"high",
+       cap:"Margin after discounts, fees, delivery and returns, share of sales",
+       rows:[["dollbeauty.com",46],["Creator code orders",38],["Retailer A",31],["Retailer C",29],["Retailer B",27]],
+       say:"dollbeauty.com keeps 46p in the pound after fees, delivery and returns, against 27p to 31p through the retailers. Creator code orders sit in between once commission comes off.",
+       src:["Xero","Shopify Payments","Retailer invoices"],alert:null},
+      {q:"Build the month's figures for the board",kw:["build","month","monthly","figures","board","pack","report","management","accounts","directors","investors","september"],type:"summary",
+       kpis:[["Ready","September, by channel and by range"],["+9%","sales on last September"],["+22%","Clearpay and Klarna fees, faster than sales"],["3","items flagged for the board"]],
+       say:"September is ready, by channel and by range. Sales are up 9%. Three items are flagged: payment fees growing faster than sales, two retailer invoices past 60 days, and Wispy XL's nine days out of stock.",
+       src:["Xero","Shopify","Retailer invoices"],alert:"The figures will build themselves on the third working day of each month, for you to check before they go round."}
+    ]}
+  ];
+
+  var seat=0,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg label">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'" style="--c:'+s.c+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var x=Math.abs(v);
+    var n=a.dec?x.toFixed(a.dec):x.toLocaleString("en-GB");
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var raw=a.rows.map(function(r){return r[1]});
+      var pick=a.hi==="low"?Math.min.apply(null,raw):Math.max.apply(null,raw);
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf'+(r[1]===pick?" hl":"")+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<span id="alert-slot"><button type="button" class="ghost" data-alert="1">Turn into an alert</button></span>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Checking the shop, the warehouse, the retailers and Mailchimp</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,many:1,all:1,is:1,we:1,me:1,each:1,than:1,one:1,do:1,did:1,by:1,in:1,of:1,to:1,it:1,its:1,"it's":1,doll:1,beauty:1,"what's":1,last:1,on:1,at:1,be:1,will:1,into:1,i:1,am:1,should:1,was:1,were:1,get:1,tell:1,us:1,not:1,just:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9£&%'-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(!b)return;
+    var a=SEATS[seat].qs[qi];
+    $("alert-slot").innerHTML='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg><span>Alert set. '+esc(a.alert)+'</span></span>';
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+
+  /* the drop */
+  var DROPS=[
+    {lbl:"Before",name:"The waitlist",sub:"The weeks before",cards:[
+      {q:"Where the waitlist came from",rows:[["Instagram",44],["TikTok",31],["Email",17],["Search",8]]},
+      {q:"Expected first week, by channel",rows:[["dollbeauty.com",58],["Retailers",30],["Creator codes",12]]},
+      {q:"Last drop's waitlist, and when they bought",rows:[["Within 24 hours",46],["Never bought",33],["Within a week",21]]},
+      {q:"What to do",line:"Order for the waitlist.",why:"Last time, 67% of the waitlist bought within a week. Size the batch for that, not for an average week."}
+    ]},
+    {lbl:"On the day",name:"The drop",sub:"Email, posts, checkout",cards:[
+      {q:"First-day sales, by when they came in",rows:[["Hour after the email",31],["After the creator posts",27],["7pm to 10pm",24],["Rest of the day",18]]},
+      {q:"Where first-day buyers came from",rows:[["Instagram",38],["Email",33],["TikTok",19],["Search",10]]},
+      {q:"First-day baskets",rows:[["Drop item only",57],["With Lash Glue",29],["With a brush",14]]},
+      {q:"What to do",line:"Post when the email lands.",why:"Most first-day sales arrive in the hour after the email or after the creator posts. Lined up, they make one peak instead of two."}
+    ]},
+    {lbl:"After",name:"The week after",sub:"Reviews, returns, restock",cards:[
+      {q:"First-week reviews, by stars",rows:[["Five stars",78],["One to three stars",13],["Four stars",9]]},
+      {q:"Returns and complaints, by cause",rows:[["Shade not as pictured",41],["Missing item",37],["Damaged",22]]},
+      {q:"Bought again within 60 days, by first item",rows:[["Lash with glue",34],["Lipstick",26],["Brush",18]]},
+      {q:"What to do",line:"Restock before it's gone.",why:"If week one says the batch lasts three weeks, the reorder goes in now, before the back-in-stock list switches on."}
+    ]}
+  ];
+  var drop=0;
+  function renderDrop(){
+    $("dr-tabs").innerHTML=DROPS.map(function(d,i){
+      return '<button type="button" class="dr" data-drop="'+i+'" aria-pressed="'+(i===drop)+'"><span class="lbl">'+esc(d.lbl)+'</span><b>'+esc(d.name)+'</b><small>'+esc(d.sub)+'</small></button>';
+    }).join("");
+    $("dr-grid").innerHTML=DROPS[drop].cards.map(function(c){
+      var body;
+      if(c.rows){
+        var max=Math.max.apply(null,c.rows.map(function(r){return r[1]}));
+        body=c.rows.map(function(r){
+          return '<div class="mrow"><span>'+esc(r[0])+'</span><span class="mv">'+r[1]+'%</span><span class="mt"><i style="width:'+Math.round(r[1]/max*100)+'%"></i></span></div>';
+        }).join("");
+      }else body='<p class="line">'+esc(c.line)+'</p><p class="mw">'+esc(c.why)+'</p>';
+      return '<div class="mc"><p class="mq">'+esc(c.q)+'</p>'+body+'</div>';
+    }).join("");
+  }
+  $("dr-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-drop]");if(!b)return;
+    drop=+b.dataset.drop;renderDrop();
+    var nb=$("dr-tabs").querySelector('[data-drop="'+drop+'"]');if(nb)nb.focus();
+  });
+
+  renderRB();renderSeats();renderQs();ask(null,true);renderDrop();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
