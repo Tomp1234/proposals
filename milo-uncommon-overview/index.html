@@ -147,8 +147,9 @@ a{color:var(--rose-ink)}
 .way ol{margin:0;padding-left:1.3em;display:grid;gap:8px;color:var(--band-2);font-size:15px}
 .way .ask{font:300 italic 24px/1.3 var(--serif);color:var(--band-ink)}
 .way p{color:var(--band-2);font-size:15px}
+.vs-t{margin-top:40px;font:400 20px/1.2 var(--head);letter-spacing:.07em;color:var(--band-2)}
 .vs{margin-top:14px;border-top:1px solid var(--band-line)}
-.vs-row{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr) minmax(0,1.25fr);gap:20px;padding-block:14px;border-bottom:1px solid var(--band-line);font-size:14.5px;line-height:1.5}
+.vs-row{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1fr) minmax(0,1fr);gap:20px;padding-block:14px;border-bottom:1px solid var(--band-line);font-size:14.5px;line-height:1.5}
 .vs-row [role="rowheader"]{font-weight:600;color:var(--band-ink)}
 .vs-row [role="cell"]{color:var(--band-2)}
 .vs-row .m{color:var(--band-ink)}
@@ -352,15 +353,15 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
         <p>The answer comes back in seconds with the invoices behind it. Pin it and it's a dashboard. Schedule it and it recalculates after every canning run.</p>
       </div>
     </div>
-    <div class="vs" role="table" aria-label="Claude and Milo compared">
-      <div class="vs-row vs-head" role="row"><span role="columnheader"></span><span role="columnheader">Claude</span><span role="columnheader" class="m">Milo</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Your data</span><span role="cell" data-k="Claude">What you upload, paste or connect yourself</span><span role="cell" class="m" data-k="Milo">Shopify, Xero, Tesco, Waitrose, Ocado and the rest, built and kept running by our engineers. Nothing for you to maintain</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Models</span><span role="cell" data-k="Claude">Anthropic's models only</span><span role="cell" class="m" data-k="Milo">Several LLMs, not just Anthropic's</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Where your data goes</span><span role="cell" data-k="Claude">Into the chat, where the model reads it</span><span role="cell" class="m" data-k="Milo">Stays on our AWS server in Frankfurt. Never passed to an LLM, and deleted if you leave</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">House rules</span><span role="cell" data-k="Claude">Set up per chat or per project, by each person</span><span role="cell" class="m" data-k="Milo">Taught once for the business: how bulk wine splits across runs, what counts as on-trade, what a case holds</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Everyone's number</span><span role="cell" data-k="Claude">Two people asking can get two answers</span><span role="cell" class="m" data-k="Milo">One set of numbers for the whole team</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Dashboards and alerts</span><span role="cell" data-k="Claude">Yours to build and keep running</span><span role="cell" class="m" data-k="Milo">Pin an answer and it refreshes itself. Any question can run on a schedule</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Who sees what</span><span role="cell" data-k="Claude">Whoever has the file sees all of it</span><span role="cell" class="m" data-k="Milo">A workspace each for sales, finance and production. Customer details can be hidden from everyone</span></div>
+    <p class="vs-t">At a glance</p>
+    <div class="vs" role="table" aria-label="Milo and Claude at a glance">
+      <div class="vs-row vs-head" role="row"><span role="columnheader"></span><span role="columnheader" class="m">Milo</span><span role="columnheader">Claude</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Built for</span><span role="cell" class="m" data-k="Milo">Analysing and acting on business data</span><span role="cell" data-k="Claude">General thinking, writing and coding</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Data access</span><span role="cell" class="m" data-k="Milo">Managed syncs into one central place</span><span role="cell" data-k="Claude">Live connectors, set up by each person</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Accuracy on numbers</span><span role="cell" class="m" data-k="Milo">Checks the data and asks when a definition is unclear</span><span role="cell" data-k="Claude">Depends on what you paste in or connect</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Output</span><span role="cell" class="m" data-k="Milo">Dashboards, automations, apps, files</span><span role="cell" data-k="Claude">Chat answers, one-off files</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Team setup</span><span role="cell" class="m" data-k="Milo">Shared connections, roles, company definitions</span><span role="cell" data-k="Claude">Mostly individual</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Maintenance</span><span role="cell" class="m" data-k="Milo">Handled for you</span><span role="cell" data-k="Claude">Largely on you</span></div>
     </div>
     <p class="keep">Keep Claude for writing, planning and thinking things through. Milo is the one that knows your numbers.</p>
   </div>
