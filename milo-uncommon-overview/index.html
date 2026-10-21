@@ -115,8 +115,11 @@ a{color:var(--rose-ink)}
 .row{display:grid;grid-template-columns:minmax(0,12.5em) minmax(0,1fr) 4.2em;gap:12px;align-items:center;font-size:13.5px}
 .lab{color:var(--ink-2);line-height:1.3}
 .lab b{display:block;font-size:11.5px;font-weight:600;color:var(--rose-ink)}
-.bar{height:10px;border-radius:0 4px 4px 0;background:var(--track)}
+.bar{position:relative;height:10px;border-radius:0 4px 4px 0;background:var(--track)}
 .bar i{display:block;height:100%;border-radius:inherit;background:var(--sage-ink)}
+.bar s{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;background:var(--ink);opacity:.55}
+.mk{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.mk::before{content:"";width:2px;height:14px;background:var(--ink);opacity:.55}
 .row.flag .bar i{background:var(--rose-ink)}
 .val{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
 .src{font-size:12.5px;color:var(--muted);line-height:1.5}
@@ -162,6 +165,7 @@ a{color:var(--rose-ink)}
 .fam ul{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .fam li{font-size:13.5px;font-weight:500;padding:4px 10px;border-radius:3px;background:var(--surface);border:1px solid var(--line)}
 .fam li.chk{border-style:dashed;color:var(--muted)}
+.fam li.poc{border-color:var(--rose-ink);color:var(--rose-ink)}
 .also{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:32px}
 .also p{background:var(--butter);border-radius:4px;padding:16px 18px;font-size:15px;color:var(--ink-2)}
 .also b{color:var(--ink)}
@@ -224,6 +228,7 @@ a{color:var(--rose-ink)}
 /* trust */
 .trust{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px 40px;align-items:center;padding:clamp(24px,4vw,40px);border-radius:4px;background:var(--sage)}
 .trust h2{font-size:clamp(26px,2.8vw,34px)}
+.trust .tl{font-size:15px;color:var(--ink-2);margin-top:12px;max-width:46ch}
 .chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
 .chips li{font-size:14px;font-weight:500;padding:7px 14px;border-radius:999px;background:var(--surface)}
 footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
@@ -269,26 +274,26 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
       <span class="x" aria-hidden="true">×</span>
       <svg class="ulogo" role="img" aria-label="The Uncommon, Wine of England"><use href="#unc-logo"/></svg>
     </div>
-    <p class="for">Prepared for Ben · The Uncommon</p>
+    <p class="for">Prepared for Ben and Henry · The Uncommon</p>
   </div>
 </div>
 
 <header class="wrap sec hero">
   <div class="hero-grid">
     <div>
-      <p class="eyebrow">Milo × The Uncommon · After our call</p>
+      <p class="eyebrow">Milo × The Uncommon · Updated after our latest call</p>
       <h1>What does a can of <em>Gerald</em> cost to make?</h1>
-      <p class="lede">Today that answer takes two people a long time, working through invoices by hand. With Milo, anyone on the team types the question and gets the answer in seconds, with the invoices behind it. Stock on hand and sales by channel work the same way.</p>
+      <p class="lede">Today that answer takes two people a long time, working through invoices by hand. With Milo, anyone on the team types the question and gets the answer in seconds, with the invoices behind it. Canning runs, retailer sales and the board pack work the same way.</p>
       <dl class="facts">
         <div><dt>Seconds</dt><dd>from a typed question to cost per can, with its sources</dd></div>
         <div><dt>1,500+</dt><dd>integrations, and our engineers build any missing ones at no extra cost</dd></div>
-        <div><dt>6 weeks</dt><dd>from the first connection to a go or no go</dd></div>
+        <div><dt>Frankfurt</dt><dd>where your data stays, on our AWS server. It's never passed to an LLM</dd></div>
       </dl>
     </div>
     <aside class="letter frame" aria-label="A note from Liam James Rabone">
-      <p class="to">Ben,</p>
-      <p>Thanks for the time on our call. I said I'd put together something more tangible than the demo, so this page is built around The Uncommon: cost per can, stock on hand and sales reporting, and what Milo does with each.</p>
-      <p>One section is written with Henry in mind. The team already uses Claude a lot, so the first question from Henry is likely to be what Milo can do that Claude can't. <a href="#claude">It's answered below.</a></p>
+      <p class="to">Ben and Henry,</p>
+      <p>I've updated this page after our latest call. It now has the integrations in the order you gave them, the use cases we talked through, and the terms.</p>
+      <p>Henry asked why Milo over Claude. <a href="#claude">That's answered below</a>, with the cost side by side.</p>
       <p class="sig">Liam James Rabone<span>Milo · liam@milo.ai</span></p>
     </aside>
   </div>
@@ -298,30 +303,30 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
   <div class="wrap">
     <p class="eyebrow">Meet the locals, by the numbers</p>
     <h2 id="try-h">Not another spreadsheet of <em>the usual</em>.</h2>
-    <p class="intro">Five questions from our call, typed the way you'd ask them. Pick one to see what comes back, which systems it joined, and how it keeps running without anyone asking again.</p>
+    <p class="intro">Five questions from our calls, typed the way you'd ask them. Pick one to see what comes back, which systems it joined, and how it keeps running without anyone asking again.</p>
     <div class="demo">
       <div class="tabs" id="tabs" role="tablist" aria-label="Choose a question"></div>
       <div class="panel">
         <div class="ph">
           <span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
-          <span class="live">Xero · Shopify · invoices · sheets</span>
+          <span class="live">Shopify · Xero · retailers · sheets</span>
         </div>
         <div class="pb" id="pbody" role="tabpanel" aria-live="polite"></div>
       </div>
     </div>
-    <p class="note">Illustrative. The questions come from our call. The figures are invented to show the shape of an answer and are not The Uncommon's numbers. Week two of the pilot is where they get asked of the real ones.</p>
+    <p class="note">Illustrative. The questions come from our calls. The figures are invented to show the shape of an answer and are not The Uncommon's numbers. They get asked of the real ones once your data is connected.</p>
   </div>
 </section>
 
 <section class="wrap sec" aria-labelledby="auto-h">
   <p class="eyebrow">Automations</p>
   <h2 id="auto-h">Ask once. After that, <em>it just arrives</em>.</h2>
-  <p class="intro">Any answer can run on a schedule or fire when something changes. These are the four we'd set up first.</p>
+  <p class="intro">Any answer can run on a schedule or fire when something happens. These are the four we'd set up first.</p>
   <div class="inbox">
-    <article class="msg"><p class="when">Monday · 8am</p><h3>Last week's sales by channel</h3><p>Volume through retailers, distributors, venues, the online shop and on-trade, with any distributor ordering less than usual.</p><p class="who">To the whole team</p></article>
-    <article class="msg"><p class="when">After every canning run</p><h3>Cost per can, updated</h3><p>Each wine's cost per can with the new run's invoices in, and what moved since the last run.</p><p class="who">To Ben and Henry</p></article>
-    <article class="msg"><p class="when">When cover drops</p><h3>Stock alert</h3><p>Any wine whose stock won't last until its next canning run, with the weeks of cover left across every location.</p><p class="who">To Ben</p></article>
-    <article class="msg"><p class="when">1st of the month</p><h3>Who's gone quiet</h3><p>Venues and independents that haven't reordered in 60 days, and distributors ordering less than last quarter.</p><p class="who">To whoever sells</p></article>
+    <article class="msg"><p class="when">Monday · 8am</p><h3>Last week's sales by channel</h3><p>The rolling Shopify view plus Tesco, Waitrose, Ocado, distributors and venues, with anyone ordering less than usual.</p><p class="who">To the whole team</p></article>
+    <article class="msg"><p class="when">When an invoice goes overdue</p><h3>Who owes what</h3><p>Overdue invoices by customer and by age, with the total outstanding, sent the moment one tips over.</p><p class="who">To Ben, on Slack, WhatsApp or email</p></article>
+    <article class="msg"><p class="when">When cover gets close</p><h3>Book a canning run</h3><p>The blend, its weeks of cover against target, the lead time, and whether its bulk wine is released.</p><p class="who">To production</p></article>
+    <article class="msg"><p class="when">End of each quarter</p><h3>Board and shareholder pack</h3><p>Sales, margin, stock and cash pulled into one pack, without a week of manual work.</p><p class="who">To Ben and Henry</p></article>
   </div>
   <p class="via">Delivered by email, Slack, Teams or WhatsApp.</p>
 </section>
@@ -329,8 +334,8 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
 <section class="scl c-band sec" id="claude" aria-labelledby="claude-h">
   <div class="wrap">
     <p class="eyebrow">For Henry</p>
-    <h2 id="claude-h">What can Milo do that <em>Claude can't?</em></h2>
-    <p class="intro">A fair question when the team uses Claude every day. Claude works with whatever you bring to the conversation. Milo is already connected to the business, so every conversation starts with all of it.</p>
+    <h2 id="claude-h">Why Milo, <em>when you have Claude?</em></h2>
+    <p class="intro">Claude costs the team about £18 a user a month. Milo is £1,500 a month. The difference pays for the work Claude leaves with you. Our engineers build the integrations and keep them running, and nobody spends hours exporting, uploading and checking.</p>
     <div class="ways">
       <div class="way">
         <h3>Cost per can, with Claude</h3>
@@ -349,12 +354,13 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
     </div>
     <div class="vs" role="table" aria-label="Claude and Milo compared">
       <div class="vs-row vs-head" role="row"><span role="columnheader"></span><span role="columnheader">Claude</span><span role="columnheader" class="m">Milo</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Your data</span><span role="cell" data-k="Claude">What you upload, paste or connect yourself</span><span role="cell" class="m" data-k="Milo">Xero, Shopify, invoices, sheets and distributor files, connected and kept connected by our engineers</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">History</span><span role="cell" data-k="Claude">Whatever you bring to that conversation</span><span role="cell" class="m" data-k="Milo">Every order, invoice and canning run, kept in one place</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Your data</span><span role="cell" data-k="Claude">What you upload, paste or connect yourself</span><span role="cell" class="m" data-k="Milo">Shopify, Xero, Tesco, Waitrose, Ocado and the rest, built and kept running by our engineers. Nothing for you to maintain</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Models</span><span role="cell" data-k="Claude">Anthropic's models only</span><span role="cell" class="m" data-k="Milo">Several LLMs, not just Anthropic's</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Where your data goes</span><span role="cell" data-k="Claude">Into the chat, where the model reads it</span><span role="cell" class="m" data-k="Milo">Stays on our AWS server in Frankfurt. Never passed to an LLM, and deleted if you leave</span></div>
       <div class="vs-row" role="row"><span role="rowheader">House rules</span><span role="cell" data-k="Claude">Set up per chat or per project, by each person</span><span role="cell" class="m" data-k="Milo">Taught once for the business: how bulk wine splits across runs, what counts as on-trade, what a case holds</span></div>
       <div class="vs-row" role="row"><span role="rowheader">Everyone's number</span><span role="cell" data-k="Claude">Two people asking can get two answers</span><span role="cell" class="m" data-k="Milo">One set of numbers for the whole team</span></div>
       <div class="vs-row" role="row"><span role="rowheader">Dashboards and alerts</span><span role="cell" data-k="Claude">Yours to build and keep running</span><span role="cell" class="m" data-k="Milo">Pin an answer and it refreshes itself. Any question can run on a schedule</span></div>
-      <div class="vs-row" role="row"><span role="rowheader">Who sees what</span><span role="cell" data-k="Claude">Whoever has the file sees all of it</span><span role="cell" class="m" data-k="Milo">Set by role. Margins for Ben and Henry, sales for everyone</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Who sees what</span><span role="cell" data-k="Claude">Whoever has the file sees all of it</span><span role="cell" class="m" data-k="Milo">A workspace each for sales, finance and production. Customer details can be hidden from everyone</span></div>
     </div>
     <p class="keep">Keep Claude for writing, planning and thinking things through. Milo is the one that knows your numbers.</p>
   </div>
@@ -363,18 +369,18 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
 <section class="wrap sec" aria-labelledby="con-h">
   <p class="eyebrow">What we connect</p>
   <h2 id="con-h">From the North Kent Downs <em>to Wimbledon</em>.</h2>
-  <p class="intro">Every can leaves a record somewhere different on its way from the vineyard to the glass. Everything here came up on our call or runs on your online shop today, apart from Ferovinum, which we flagged as one to check.</p>
+  <p class="intro">Every can leaves a record somewhere different on its way from the vineyard to the glass. Five connect first. Tesco has an open API, so it's a quick build. Waitrose Connect, Ocado Beads and one other get built first as the proof of concept.</p>
   <div class="wall">
+    <div class="fam"><h3>Connect first</h3><p class="sub">The five you put at the top</p><ul><li>Shopify</li><li>Klaviyo</li><li>GA4</li><li>Xero</li><li>Google Sheets</li></ul></div>
+    <div class="fam"><h3>Retailers</h3><p class="sub">Sales data, retailer by retailer</p><ul><li>Tesco, open API</li><li class="poc">Waitrose Connect, proof of concept</li><li class="poc">Ocado Beads, proof of concept</li><li>Fortnum &amp; Mason</li></ul></div>
     <div class="fam"><h3>Made and stored</h3><p class="sub">The cost of every can starts here</p><ul><li>Canning runs</li><li>Bulk wine purchases</li><li>Supplier invoices</li><li>Stock by location</li><li class="chk">Ferovinum, to check</li></ul></div>
-    <div class="fam"><h3>Retailers</h3><p class="sub">Orders, plus sales data where the retailer shares it</p><ul><li>Waitrose</li><li>Tesco</li><li>Ocado</li><li>Fortnum &amp; Mason</li></ul></div>
-    <div class="fam"><h3>Distributors</h3><p class="sub">Delis and farm shops, through five partners</p><ul><li>Cotswold Fayre</li><li>Four more national distributors</li></ul></div>
-    <div class="fam"><h3>Venues and events</h3><p class="sub">Where people meet the locals</p><ul><li>Wimbledon</li><li>Tottenham Hotspur Stadium</li><li>Harlequins</li><li>Compass Group</li><li>Independents</li><li>Bottles in pubs and restaurants</li></ul></div>
-    <div class="fam"><h3>Online shop</h3><p class="sub">Running on wearetheuncommon.co.uk today</p><ul><li>Shopify</li><li>Klaviyo</li><li>GA4</li></ul></div>
-    <div class="fam"><h3>Money and files</h3><p class="sub">Where the reporting happens now</p><ul><li>Xero</li><li>Google Sheets</li><li>Excel</li></ul></div>
+    <div class="fam"><h3>Distributors and venues</h3><p class="sub">Delis, farm shops and where people meet the locals</p><ul><li>Cotswold Fayre</li><li>Four more distributors</li><li>Wimbledon</li><li>Tottenham Hotspur Stadium</li><li>Harlequins</li><li>Compass Group</li><li>Independents</li></ul></div>
+    <div class="fam"><h3>Marketing and inbox</h3><p class="sub">Spend, campaigns and email</p><ul><li>Meta</li><li>Gmail</li></ul></div>
+    <div class="fam"><h3>Files and Microsoft</h3><p class="sub">Everything that lives in a document</p><ul><li>PDFs</li><li>PowerPoints</li><li>Legacy spreadsheets</li><li>SharePoint</li><li>Excel</li><li>Word</li></ul></div>
   </div>
   <div class="also">
+    <p><b>It acts as well as answers.</b> Create an invoice in Xero or push to Meta from inside Milo.</p>
     <p><b>No stock system yet?</b> You don't need one to start. Milo reads the stock sheets you keep today and joins them to sales.</p>
-    <p><b>Plug and play, then custom.</b> Most of these connect in minutes. Anything without a ready connector, our engineers build at no extra cost.</p>
   </div>
 </section>
 
@@ -440,41 +446,40 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
 
 <section class="wrap sec" id="pilot" aria-labelledby="pilot-h" style="padding-top:0">
   <p class="eyebrow">How it starts</p>
-  <h2 id="pilot-h">Six weeks, on <em>your real numbers</em>.</h2>
-  <p class="intro">You're deciding on tooling before Christmas, and six weeks fits inside that. We come to you, we do the building, and you finish with dashboards and automations already running.</p>
+  <h2 id="pilot-h">Start with Shopify. Prove <em>the retailers</em>.</h2>
+  <p class="intro">You're deciding on tooling before Christmas. This is the order we'd build in, and what it costs.</p>
   <div class="pilot">
     <ol class="weeks">
-      <li class="wk"><p class="n">Week 1</p><div><h3>We come to you</h3><p>We visit, meet Henry and the team, and connect Xero, Shopify and the sheets on read-only access.</p></div></li>
-      <li class="wk key"><p class="n">Week 2</p><div><h3>The cost of a can</h3><p>Milo learns how invoices, bulk wine and canning runs add up to a cost per can. You check it against the figures worked out by hand.</p></div></li>
-      <li class="wk"><p class="n">Weeks 3–4</p><div><h3>Stock and sales</h3><p>Stock across every location in one view, and sales by channel from the invoices and trackers, including which distributors are growing or slipping.</p></div></li>
-      <li class="wk"><p class="n">Week 5</p><div><h3>Running on its own</h3><p>The Monday sales pack, stock alerts and cost per can after each run, scheduled and landing.</p></div></li>
-      <li class="wk"><p class="n">Week 6</p><div><h3>Go or no go</h3><p>A straight review of what it answered well and what it didn't. If it hasn't shown its value, you get the pilot fee back.</p></div></li>
+      <li class="wk"><p class="n">On signing</p><div><h3>Billing waits two weeks</h3><p>Billing starts about two weeks after you sign, so setup is under way before the first invoice. We come to you and meet the team.</p></div></li>
+      <li class="wk"><p class="n">First</p><div><h3>The priority five</h3><p>Shopify, Klaviyo, GA4, Xero and Google Sheets. A rolling Shopify dashboard is the starting point.</p></div></li>
+      <li class="wk key"><p class="n">Proof of concept</p><div><h3>Waitrose, Ocado and one more</h3><p>Tesco's open API is a quick build. Waitrose Connect, Ocado Beads and one other integration get built first, to prove the retailer data works.</p></div></li>
+      <li class="wk"><p class="n">Then</p><div><h3>Put it to work</h3><p>The canning run tracker, debt reports, retailer pitches and the board pack, with a workspace each for sales, finance and production.</p></div></li>
     </ol>
     <div class="price frame">
-      <div><p class="lbl">The pilot</p><p class="amt">£1,500<small>six weeks</small></p></div>
-      <p>Onboarding, the office visit, every integration, dashboards and automations.</p>
+      <div><p class="lbl">Milo</p><p class="amt">£1,500<small>a month</small></p></div>
+      <p>Every integration built and managed by our engineers, onboarding and the office visit, dashboards, automations and a workspace for each team.</p>
       <hr>
-      <div><p class="lbl">After the pilot, from</p><p class="amt">£1,500<small>a month</small></p></div>
-      <p class="nb"><strong>Money back if it doesn't pay off.</strong> If the six weeks don't show a return or clear value, we refund the £1,500 pilot fee in full.</p>
+      <div><p class="lbl">Billing starts about</p><p class="amt">2 weeks<small>after signing</small></p></div>
+      <p class="nb"><strong>Money-back guarantee.</strong> If the proof of concept doesn't work out, you get up to 50% back.</p>
     </div>
   </div>
 </section>
 
 <section class="wrap" aria-labelledby="trust-h" style="padding-bottom:clamp(40px,6vw,72px)">
   <div class="trust">
-    <h2 id="trust-h">Your numbers, handled properly.</h2>
+    <div><h2 id="trust-h">Your numbers, handled properly.</h2><p class="tl">Your data stays on our AWS server in Frankfurt. It's never passed to an LLM, and it's deleted if you leave.</p></div>
     <ul class="chips">
-      <li>SOC 2 Type II</li><li>ISO 27001</li><li>GDPR</li><li>Hosted in the EU</li><li>Read-only connections</li><li>Access set by role</li><li>A record of who asked what</li>
+      <li>SOC 2 Type II</li><li>ISO 27001</li><li>GDPR</li><li>A workspace each for sales, finance and production</li><li>Customer details hidden from everyone if you choose</li><li>Access set by role</li><li>A record of who asked what</li>
     </ul>
   </div>
 </section>
 
-<footer class="wrap">Prepared for Ben, The Uncommon · October 2026 · Milo is an Autonomous Minds product · SOC 2 · ISO 27001 · GDPR</footer>
+<footer class="wrap">Prepared for Ben and Henry, The Uncommon · October 2026 · Milo is an Autonomous Minds product · SOC 2 · ISO 27001 · GDPR</footer>
 
 <script>
 (function(){
   var seats=[
-    {seat:'Ben · cost per can',
+    {seat:'Finance · cost per can',
      reading:'Xero bills, supplier invoices and the canning run log',
      q:'What did each wine cost per can to make last quarter?',
      a:'Eleanor and Gerald cost the most last quarter, at £1.95 and £1.92 a can including duty. Both rose 9p on the quarter before, because their latest runs used the bulk wine bought in March. Alfie and Peggy cost least, at around £1.20 even in a larger 250ml can, because they\u2019re blended with sparkling water and sit in a lower duty band.',
@@ -482,43 +487,44 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
      rows:[['Eleanor · bubbly rosé',1.95,'£1.95','▲ 9p on last quarter'],['Gerald · bubbly white',1.92,'£1.92','▲ 9p on last quarter'],['Percival · smooth red',1.88,'£1.88'],['Penelope · pale rosé',1.74,'£1.74'],['Clarence · crisp white',1.71,'£1.71'],['Peggy · rosé spritzer, 250ml',1.24,'£1.24'],['Alfie · white spritzer, 250ml',1.21,'£1.21']],
      src:'Xero bills · supplier invoices (PDF) · canning run log · bulk wine purchases',
      auto:'Recalculates after every canning run and lands with Ben and Henry.',
-     access:'Ben and Henry only'},
-    {seat:'Ben · stock',
-     reading:'stock sheets for every location, sales and the canning schedule',
-     q:'How many weeks of stock have we got of each wine, and will anything run out before its next canning run?',
-     a:'Gerald is the one to watch. At the last eight weeks’ pace there are four weeks of cans left across every location, and its next canning run is six weeks away. Everything else lasts until its next run. Penelope has the most cover, at fourteen weeks.',
-     t:'Weeks of cover at the current sales pace',
-     rows:[['Gerald',4,'4 wks','▲ Runs out before its next run'],['Eleanor',7,'7 wks'],['Clarence',9,'9 wks'],['Percival',11,'11 wks'],['Penelope',14,'14 wks']],
-     src:'Stock sheets by location · Shopify · invoices · canning schedule',
-     auto:'Alerts Ben the day any wine’s cover drops below the time to its next run.',
-     access:'Ops'},
-    {seat:'Ben and Henry · sales',
-     reading:'Excel invoices, the Google Sheets trackers and Shopify',
+     access:'Finance workspace'},
+    {seat:'Production · canning runs',
+     reading:'stock sheets, sales, the canning schedule and bulk wine releases',
+     q:'Which blends need a canning run next, given our target cover, lead times and bulk wine release?',
+     a:'Gerald needs a run booked now. It has five weeks of cover against an eight-week target, and with a three-week lead time it would be down to two weeks before new cans land. Its bulk wine is released, so nothing is holding it up. Eleanor is next at seven weeks, but its wine isn’t released until next month. Everything else is above target.',
+     t:'Weeks of cover by blend, at the current sales pace',
+     mark:[8,'Target, 8 weeks of cover'],
+     rows:[['Gerald',5,'5 wks','▲ Book now · wine released'],['Eleanor',7,'7 wks','▲ Next · wine not yet released'],['Clarence',10,'10 wks'],['Percival',11,'11 wks'],['Penelope',14,'14 wks']],
+     src:'Stock sheets by location · Shopify · Tesco · canning schedule · bulk wine releases',
+     auto:'Alerts production the day any blend would dip below target before its next run can land.',
+     access:'Production workspace'},
+    {seat:'Sales · by channel',
+     reading:'Shopify, Tesco, the Excel invoices and the Google Sheets trackers',
      q:'How did sales split by channel last month, and which distributors are growing or slipping?',
      a:'Retailers were the biggest channel at 41% of volume, then distributors at 27% and venues and events at 19%. The online shop was 9% and bottles in pubs and restaurants 4%. Two of the five distributors grew on the month. One ordered 30% less for the second month running, which is the kind of drop that usually gets noticed a quarter late.',
      t:'Share of volume last month, in 9-litre cases',
      rows:[['Retailers',41,'41%'],['Distributors',27,'27%'],['Venues and events',19,'19%'],['Online shop',9,'9%'],['On-trade bottles',4,'4%']],
-     src:'Excel invoices · Google Sheets trackers · Shopify · Xero',
+     src:'Shopify · Tesco · Excel invoices · Google Sheets trackers · Xero',
      auto:'Every Monday at 8am, to the whole team.',
      access:'Whole team'},
-    {seat:'Henry · production',
-     reading:'twelve months of sales and the canning run log',
-     q:'Going on the last twelve months, how much wine do we need for next year’s canning runs?',
-     a:'About 150,000 litres, or ten canning runs of 15,000 litres. Gerald and Eleanor need half of it between them. Against this year’s harvest estimate that leaves roughly 22,000 litres to buy in, so a bulk purchase like March’s would need agreeing by February to be blended in time.',
-     t:'Litres needed next year, by wine',
-     rows:[['Gerald',42000,'42k L'],['Eleanor',33000,'33k L'],['Clarence',21000,'21k L'],['Alfie and Peggy',21000,'21k L'],['Penelope',18000,'18k L'],['Percival',15000,'15k L']],
-     src:'Twelve months of sales · canning run log · harvest estimate · bulk wine purchases',
-     auto:'Monthly: the forecast against actual sales, so the next bulk buy is sized on real numbers.',
-     access:'Ben and Henry'},
-    {seat:'Henry · brand',
-     reading:'Shopify orders, customer addresses and distributor invoices',
-     q:'Since the bottles went into pubs and restaurants, have online orders grown near those venues?',
-     a:'Yes, and there’s no sign the bottles are taking sales from the cans. Online orders from postcodes within five miles of a venue pouring the bottles are up 22% since launch, against 7% everywhere else. Can sales through distributors in the same areas are up 3%, in line with the rest of the country.',
-     t:'Growth since the bottle launch',
-     rows:[['Online orders near a bottle venue',22,'+22%'],['Online orders everywhere else',7,'+7%'],['Distributor cans, same areas',3,'+3%']],
-     src:'Shopify orders · Xero customer addresses · distributor invoices',
-     auto:'Monthly, to Henry and the marketing team.',
-     access:'Marketing'}
+    {seat:'Sales · Waitrose pitch',
+     reading:'Shopify orders and customer postcodes',
+     q:'What do our Shopify numbers say for the Waitrose pitch on a new SKU?',
+     a:'Lead with repeat buying. 36% of people who bought the new SKU online bought it again within 90 days, against 22% for the rest of the range. And 58% of its online orders come from within three miles of a Waitrose, so the demand is already on their doorstep.',
+     t:'The new SKU on Shopify, last 12 months',
+     rows:[['New SKU · reorder within 90 days',36,'36%','The headline for the buyer'],['Rest of range · reorder within 90 days',22,'22%'],['New SKU · orders near a Waitrose',58,'58%'],['Rest of range · orders near a Waitrose',41,'41%']],
+     src:'Shopify orders · customer postcodes · Waitrose store list',
+     auto:'Pinned for the pitch, and refreshed daily until the meeting.',
+     access:'Sales workspace'},
+    {seat:'Marketing · Meta to retail',
+     reading:'Meta spend, Tesco, Waitrose Connect and Ocado Beads',
+     q:'When we spend on Meta, does it show up in retailer sales?',
+     a:'It does, about a week later. In the four weeks after each of the last three Meta pushes, sales of the promoted wine rose 18% at Tesco and 11% at Waitrose, against 2% for the wines that weren’t promoted. Ocado barely moved, at 3%.',
+     t:'Sales lift in the four weeks after a Meta push',
+     rows:[['Tesco · promoted wine',18,'+18%'],['Waitrose · promoted wine',11,'+11%'],['Ocado · promoted wine',3,'+3%'],['All retailers · not promoted',2,'+2%']],
+     src:'Meta Ads · Tesco · Waitrose Connect · Ocado Beads',
+     auto:'After every campaign, the retailer lift at two and four weeks, to Henry.',
+     access:'Sales workspace'}
   ];
   var tabs=document.getElementById('tabs'),body=document.getElementById('pbody');
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -527,9 +533,11 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function answer(d){
     var max=Math.max.apply(null,d.rows.map(function(r){return r[1]}));
+    var mk=d.mark?'<s style="left:'+(d.mark[0]/max*100).toFixed(1)+'%"></s>':'';
     var rows=d.rows.map(function(r){
-      return '<div class="row'+(r[3]?' flag':'')+'"><span class="lab">'+esc(r[0])+(r[3]?'<b>'+esc(r[3])+'</b>':'')+'</span><span class="bar"><i style="width:'+(r[1]/max*100).toFixed(1)+'%"></i></span><span class="val">'+esc(r[2])+'</span></div>';
+      return '<div class="row'+(r[3]?' flag':'')+'"><span class="lab">'+esc(r[0])+(r[3]?'<b>'+esc(r[3])+'</b>':'')+'</span><span class="bar"><i style="width:'+(r[1]/max*100).toFixed(1)+'%"></i>'+mk+'</span><span class="val">'+esc(r[2])+'</span></div>';
     }).join('');
+    if(d.mark)rows+='<p class="mk">'+esc(d.mark[1])+'</p>';
     return '<div class="ans"><p>'+esc(d.a)+'</p><div class="chart"><p class="ct">'+esc(d.t)+'</p>'+rows+'</div><p class="src">Sources · '+esc(d.src)+'</p><div class="auto"><strong>Automate it</strong><span>'+esc(d.auto)+'</span><span class="pill">'+esc(d.access)+'</span></div></div>';
   }
   function show(i,animate){
