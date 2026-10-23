@@ -1,2 +1,13 @@
 site-worker/
 .git
+/index.html
+/README.md
+/Valerie-LinkedIn-Plan.md
+/wrangler.jsonc
+/CNAME
+/.gitmodules
+/.gitignore
+/.assetsignore
+.claude
+.wrangler
+.DS_Store
