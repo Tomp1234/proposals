@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × R4 Advertising</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: R4's own system. Their near-black (#07080C) for the hero and the control loop band, their acid lime (#DBF903) as the one accent: a fill behind dark text on light, a text colour on dark. Futura PT Condensed, Acid Grotesk and Corporate A are licensed, so Barlow Condensed, Hanken Grotesk and Instrument Serif stand in, with Space Mono for labels (both of those were on R4's earlier site). Eyebrows copy their "01 // Featured Showreel" numbering. */
+:root{
+  --paper:#F4F4F0;--panel:#E9EAE4;--card:#FFFFFF;--ink:#07080C;--muted:#56585D;--rule:#D9DAD3;
+  --lime:#DBF903;--lime-ink:#4E5A00;--acc:#07080C;--em-ink:#07080C;--em-bg:#DBF903;
+  --bar:#CFD1C8;--hlbar:#07080C;--track:#ECEDE7;--shadow:rgba(0,0,0,.18);
+  --good:#2F6B00;--good-bg:#E4F5B4;--warn:#7A5300;--warn-bg:#FAEBC4;--bad:#B4321A;--bad-bg:#FBE1DA;--over:#3C3E44;--over-bg:#E2E3DE;
+  --night:#07080C;--night-2:#0F1015;--night-card:#15161C;--night-line:#2A2C33;--on-night:#F2F2EE;--on-night-2:#A6A8AC;--night-bar:#3A3C35;--short:#FF6A45;--short-t:#FF8A6E;--tight-t:#F2C14E;
+  --display:"Barlow Condensed","Futura PT Condensed","Futura Condensed",Impact,sans-serif;
+  --body:"Hanken Grotesk","Acid Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif","Corporate A",Georgia,serif;
+  --label:"Space Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#07080C;--panel:#111217;--card:#15161C;--ink:#F2F2EE;--muted:#A3A5AA;--rule:#25272D;
+  --lime-ink:#DBF903;--acc:#DBF903;--em-ink:#DBF903;--em-bg:transparent;
+  --bar:#3A3D36;--hlbar:#DBF903;--track:#1D1F24;--shadow:rgba(0,0,0,.6);
+  --good:#C8E85A;--good-bg:#232B0C;--warn:#F2C14E;--warn-bg:#2E250C;--bad:#FF8A6E;--bad-bg:#35160F;--over:#C9CBD0;--over-bg:#26282E;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#07080C;--panel:#111217;--card:#15161C;--ink:#F2F2EE;--muted:#A3A5AA;--rule:#25272D;
+  --lime-ink:#DBF903;--acc:#DBF903;--em-ink:#DBF903;--em-bg:transparent;
+  --bar:#3A3D36;--hlbar:#DBF903;--track:#1D1F24;--shadow:rgba(0,0,0,.6);
+  --good:#C8E85A;--good-bg:#232B0C;--warn:#F2C14E;--warn-bg:#2E250C;--bad:#FF8A6E;--bad-bg:#35160F;--over:#C9CBD0;--over-bg:#26282E;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:400;font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:0;text-wrap:balance;margin:0;line-height:.92}
+h2 em,h3 em{font-style:normal;color:var(--em-ink);background:var(--em-bg);padding:0 .1em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+p{margin:0}
+b,strong{font-weight:700}
+a{color:var(--ink)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:2px}
+.label{font-family:var(--label);font-weight:400;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.eyebrow{display:flex;align-items:baseline;gap:8px;font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.2;color:var(--muted);margin-bottom:14px}
+.eyebrow .sl{color:var(--acc);font-style:normal;font-family:var(--label);font-size:13px}
+.sr{position:absolute;left:-9999px}
+.btn{border:0;background:var(--lime);color:#07080C;font-weight:800;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;padding:10px 18px;border-radius:3px;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(.94)}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-weight:800;font-size:18px}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--muted)}
+.lk-r4{width:36px;height:26px;color:var(--ink)}
+.nav{display:flex;gap:2px}
+.nav a{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 11px;border-radius:3px}
+.nav a:hover{color:var(--ink);background:var(--panel)}
+@media (max-width:980px){.nav{display:none}}
+
+/* hero (always dark, like r4advertising.agency) */
+.hero{position:relative;overflow:hidden;color:var(--on-night);padding-block:56px 64px;border-bottom:1px solid var(--night-line);
+  background:radial-gradient(48% 60% at 92% 0%,rgba(219,249,3,.13),transparent 62%),var(--night)}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center}
+.hero .eyebrow{color:var(--on-night-2)}
+.hero .eyebrow .sl{color:var(--lime)}
+.pills-top{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.pt{font-family:var(--label);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--lime);border:1px solid rgba(219,249,3,.55);padding:3px 10px;border-radius:999px}
+.hero h1{font-size:clamp(60px,8.6vw,118px);line-height:.86;margin-bottom:26px}
+.hero h1 span{display:block}
+.hero h1 span.ask{color:var(--lime)}
+.lede{font-size:16.5px;max-width:34em;color:var(--on-night-2)}
+.lede b{color:var(--on-night);font-weight:700}
+
+/* control loop board (hero) */
+.rb-panel{background:var(--night-2);color:var(--on-night);border:1px solid var(--night-line);padding:18px 18px 16px;border-radius:6px;box-shadow:0 30px 70px -30px rgba(0,0,0,.8)}
+.rb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.rb-k{color:var(--on-night-2)}
+.tag{font-family:var(--label);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border:1px solid currentColor;color:var(--lime-ink);white-space:nowrap;border-radius:999px}
+.rb-panel .tag,.dark .tag{color:var(--lime)}
+.rb-q{font-size:13px;font-weight:600;color:var(--lime);min-height:21px;margin-bottom:4px}
+.rb-head,.rb-row{display:grid;grid-template-columns:minmax(0,142px) minmax(0,1fr) 80px;gap:10px;align-items:center}
+.rb-head{font-family:var(--label);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-night-2);padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed var(--night-line)}
+.rb-head>span:last-child{text-align:right}
+.rb-scale{position:relative;height:15px}
+.rb-scale i{position:absolute;top:0;transform:translateX(-50%);font-style:normal;white-space:nowrap;color:var(--on-night)}
+.rb-scale .m-plan{left:90.91%}
+.rb{display:grid;gap:9px;margin-bottom:4px}
+.rb-row{min-height:20px;transition:opacity .3s}
+.rb-row.dim{opacity:.32}
+.rb-n{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-t{position:relative;height:12px;background:#24262C;border-radius:2px}
+.rb-t::before{content:"";position:absolute;top:-5px;bottom:-5px;left:90.91%;border-left:1.5px dashed var(--on-night);opacity:.6;z-index:2}
+.rb-f{position:absolute;left:0;top:0;bottom:0;border-radius:2px;background:var(--lime);transition:width .5s ease}
+.rb-f.short{background:var(--short)}
+.rb-x{position:absolute;top:0;bottom:0;border:1.5px dashed var(--short);border-left:0;border-radius:0 2px 2px 0;transition:left .5s ease,width .5s ease}
+.rb-v{font-family:var(--label);font-size:12px;text-align:right;color:var(--on-night-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-v.bad{color:var(--short-t);font-weight:700}
+.rb-v.tight{color:var(--tight-t);font-weight:700}
+.rb-v.mv{color:var(--lime);font-weight:700}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--on-night-2);margin:12px 0 12px;min-height:18px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg i{display:inline-block;width:16px;height:9px;border-radius:2px;background:var(--lime)}
+.lg i.short{background:var(--short)}
+.lg i.x{background:transparent;border:1.5px dashed var(--short)}
+.lg i.ln{width:0;height:12px;border-radius:0;background:none;border-left:1.5px dashed var(--on-night)}
+.et-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.et{border:1px solid var(--night-line);background:transparent;color:var(--on-night);text-align:left;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;border-radius:4px;transition:border-color .2s,background .2s}
+.et small{font-size:11.5px;color:var(--on-night-2);line-height:1.3}
+.et b{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:19px;line-height:1.05}
+.et:hover{border-color:var(--on-night-2)}
+.et[aria-pressed="true"]{background:rgba(219,249,3,.08);border-color:var(--lime)}
+.et[aria-pressed="true"] small{color:var(--lime)}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.r-stats b{display:block;font-family:var(--display);font-weight:800;font-size:36px;line-height:1;font-variant-numeric:tabular-nums;color:var(--lime)}
+.r-stats span{display:block;font-size:12px;line-height:1.35;color:var(--on-night-2)}
+.r-say{font-size:14px;color:#D6D7D3}
+.rb-hint{font-size:12px;color:var(--on-night-2);margin-top:12px}
+@media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .et-row{grid-template-columns:repeat(2,minmax(0,1fr))}.r-stats b{font-size:28px}
+  .rb-head,.rb-row{grid-template-columns:minmax(0,104px) minmax(0,1fr) 66px;gap:7px}
+  .rb-n{font-size:12px}.rb-v{font-size:11px}
+  .rb-panel{padding:16px 14px 14px}
+}
+
+/* letter and glance */
+.intro{padding-block:48px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:start}
+.letter{background:var(--card);border:1px solid var(--rule);padding:28px 28px 26px;border-radius:6px}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-family:var(--label);font-size:11.5px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--rule)}
+.refs b{font-weight:400;color:var(--ink)}
+.letter p{font-size:15px;margin-bottom:11px}
+.letter .sal{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:32px;line-height:1}
+.letter q{font-style:italic}
+.sign{margin-top:16px}
+.sign .nm{font-weight:800;font-size:17px}
+.sign .ml{font-size:13px;color:var(--muted)}
+.glance{list-style:none;margin:0;padding:0;display:grid}
+.glance li{display:grid;grid-template-columns:minmax(0,104px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
+.glance li:first-child{border-top:3px solid var(--ink)}
+.glance b{font-family:var(--display);font-weight:800;font-size:50px;line-height:.9;font-variant-numeric:tabular-nums}
+.glance span{font-size:14px;color:var(--muted)}
+.glance-src{font-size:12px;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* sections */
+section.band{padding-block:72px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+.head{max-width:780px;margin-bottom:30px}
+.head h2{font-size:clamp(42px,5.8vw,72px);margin-bottom:16px}
+.head p{color:var(--muted);font-size:16.5px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:3px}
+.sg{color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer;border-radius:4px}
+.seat b{display:block;font-size:14.5px}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--card);border-color:var(--rule);box-shadow:inset 4px 0 0 var(--acc)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--rule);background:var(--card);padding:7px 15px;font-size:13.5px;font-weight:700;cursor:pointer;text-align:left;border-radius:999px}
+.q:hover{border-color:var(--ink)}
+.q[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-size:12.5px;color:var(--muted)}
+.sys .s{font-weight:700;font-size:12.5px;color:var(--ink);background:var(--panel);padding:2px 10px;border-radius:999px}
+.console{background:var(--card);border:1px solid var(--rule);overflow:hidden;border-radius:6px}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:800}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:340px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--panel);padding:9px 15px;max-width:80%;font-size:14px;border-radius:14px 14px 3px 14px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;overflow:hidden;border-radius:0 2px 2px 0}
+.bf{display:block;height:100%;background:var(--bar);border-radius:0 2px 2px 0;transition:width .5s ease}
+.bf.hl{background:var(--hlbar)}
+.bv{font-family:var(--label);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);margin-bottom:16px;border-radius:4px;overflow:hidden}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-family:var(--label);font-size:10.5px;letter-spacing:.03em;padding:3px 10px;white-space:nowrap;flex:none;border-radius:999px}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden;margin-bottom:16px;border-radius:4px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-size:36px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:14px;margin-bottom:16px;font-size:14.5px;border-radius:4px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--bad);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-size:12px;color:var(--muted)}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--good);max-width:52ch}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--card);padding:9px 14px;border-radius:3px}
+.ghost{border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;border-radius:3px}
+.ghost:hover{background:var(--ink);color:var(--paper)}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--rule)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,118px) minmax(0,1fr) 62px}
+}
+
+/* the control loop (always dark) */
+section.dark{background:var(--night);color:var(--on-night);border-top:0;position:relative;overflow:hidden}
+section.dark::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 55% at 100% 0%,rgba(219,249,3,.09),transparent 65%)}
+section.dark .wrap{position:relative}
+section.dark .head p,section.dark .note{color:var(--on-night-2)}
+section.dark .eyebrow{color:var(--on-night-2)}
+section.dark .eyebrow .sl{color:var(--lime)}
+section.dark h2 em{color:var(--lime);background:transparent;padding:0}
+.lp-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-bottom:12px;border:1px solid var(--night-line);border-radius:4px;overflow:hidden}
+.lp{border:0;border-right:1px solid var(--night-line);background:transparent;color:var(--on-night);padding:12px 14px;text-align:left;cursor:pointer;position:relative}
+.lp:last-child{border-right:0}
+.lp .n{display:block;font-family:var(--label);font-size:10.5px;letter-spacing:.06em;color:var(--on-night-2)}
+.lp b{display:block;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:26px;line-height:1.05}
+.lp small{display:block;font-size:12px;color:var(--on-night-2);line-height:1.35}
+.lp:hover{background:rgba(255,255,255,.04)}
+.lp[aria-pressed="true"]{background:var(--lime);color:#07080C}
+.lp[aria-pressed="true"] small,.lp[aria-pressed="true"] .n{color:#07080C}
+.lp-reads{font-size:13px;color:var(--on-night-2);margin-bottom:18px;min-height:20px}
+.lp-reads b{color:var(--on-night);font-weight:600}
+.lp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.mc{background:var(--night-card);border:1px solid var(--night-line);color:var(--on-night);border-radius:6px;padding:18px;display:flex;flex-direction:column;min-width:0}
+.mc .mq{font-size:12.5px;color:var(--on-night-2);margin-bottom:12px;min-height:36px}
+.mc .mrow{display:grid;grid-template-columns:minmax(0,1fr) 52px;gap:4px 10px;align-items:center;margin-bottom:9px;font-size:13.5px}
+.mc .mrow .mt{grid-column:1/-1;height:8px;background:#24262C;border-radius:2px;overflow:hidden}
+.mc .mrow .mt i{display:block;height:100%;background:var(--night-bar);border-radius:2px;transition:width .5s ease}
+.mc .mrow .mt i.hl{background:var(--lime)}
+.mc .mrow .mv{font-family:var(--label);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.mc .line{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:34px;line-height:.95;color:var(--lime);margin-bottom:10px}
+.mc .mw{font-size:13.5px;color:var(--on-night-2)}
+.lp-rule{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14.5px;color:var(--on-night-2);max-width:80ch}
+.lp-rule svg{width:24px;height:20px;flex:none;margin-top:2px}
+@media (max-width:860px){
+  .lp-tabs{display:flex;overflow-x:auto;scrollbar-width:thin}
+  .lp{flex:none;min-width:150px}
+  .lp-grid{grid-template-columns:minmax(0,1fr)}
+}
+
+/* systems */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--rule);padding:22px;border-radius:6px}
+.card .k{color:var(--muted);margin-bottom:10px}
+.card h3{font-size:30px;margin-bottom:8px}
+.card p{font-size:14px;color:var(--muted)}
+.boardbox{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:20px 32px;align-items:start;background:var(--panel);border-left:4px solid var(--acc);padding:24px 26px;border-radius:0 6px 6px 0;margin-bottom:44px}
+.boardbox h3{font-size:36px}
+.boardbox blockquote{margin:0 0 12px;font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.3}
+.boardbox blockquote cite{display:block;font-family:var(--label);font-style:normal;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.boardbox p{font-size:15px}
+.boardbox ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.boardbox li{display:flex;gap:10px;font-size:14.5px;align-items:baseline}
+.boardbox li::before{content:"";flex:none;width:8px;height:8px;background:var(--acc);transform:translateY(-1px)}
+.intg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px}
+.ig-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:3px solid var(--ink)}
+.ig-h h3{font-size:34px}
+.ig-h span{color:var(--muted)}
+.desk{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.desk b{display:block;font-size:15px}
+.desk small{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;border:1px solid var(--rule);background:var(--card);padding:4px 11px;border-radius:999px}
+.pills span.v::before,.seen i{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);flex:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:14px}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:16px 18px;background:var(--panel);font-size:14px;border-radius:6px}
+.outs b{color:var(--muted)}
+.build{margin-top:18px;font-size:15.5px;max-width:72ch}
+@media (max-width:860px){.intg,.three,.boardbox{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}.boardbox{padding:20px}}
+
+/* proof */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--night);color:var(--on-night);padding:32px;margin-bottom:20px;border-radius:6px;position:relative;overflow:hidden;border:1px solid var(--night-line)}
+.feature::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--lime)}
+.feature .k{color:var(--lime);margin-bottom:10px}
+.feature h3{font-size:clamp(38px,4.4vw,56px);line-height:.92;margin-bottom:14px}
+.feature p{font-size:15px;color:var(--on-night-2);margin-bottom:10px}
+.feature p b{color:var(--on-night)}
+.feature .why{margin-top:14px;padding-top:14px;border-top:1px dashed var(--night-line);font-size:14px}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid var(--night-line);padding:14px 16px;position:relative;border-radius:4px}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:var(--night-line)}
+.chain .t{font-family:var(--label);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-night-2)}
+.chain b{display:block;font-size:16px}
+.chain li.end{background:var(--lime);color:#07080C;border-color:var(--lime)}
+.chain li.end .t{color:#07080C}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pcard{background:var(--card);border:1px solid var(--rule);padding:22px;display:flex;flex-direction:column;border-radius:6px}
+.pcard .k{color:var(--muted);margin-bottom:8px}
+.pcard .big{font-family:var(--display);font-weight:800;font-size:66px;line-height:.9;margin-bottom:10px}
+.pcard .body{font-size:14px;margin-bottom:12px}
+.pcard .why{margin-top:auto;padding-top:12px;border-top:1px dashed var(--rule);font-size:13.5px;color:var(--muted)}
+.pcard .why b{color:var(--ink)}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.vid-grid h2{font-size:clamp(40px,4.8vw,60px);margin-bottom:12px}
+.vid-grid p.s{color:var(--muted)}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--night);border-radius:6px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:#fff;overflow:hidden;
+  background:radial-gradient(55% 75% at 90% 0%,rgba(219,249,3,.16),transparent 60%),#07080C}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:800}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(34px,4.6vw,60px);line-height:.95;position:relative;z-index:1;text-align:center;padding-inline:12px}
+.p-play{width:72px;height:72px;border-radius:50%;background:var(--lime);color:#07080C;display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-family:var(--label);font-size:11.5px;color:#A6A8AC;position:relative;z-index:1}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* start */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.step{border-top:3px solid var(--ink);padding-top:14px}
+.step .n{font-family:var(--label);font-size:11px;color:var(--lime-ink);letter-spacing:.06em}
+.step h3{font-size:38px;margin:4px 0 8px}
+.step p{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* trust */
+.sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;background:var(--panel);padding:28px 30px;border-radius:6px}
+.sec>div{flex:1 1 420px;min-width:0}
+.sec h2{font-size:clamp(38px,4.6vw,56px);margin-bottom:12px}
+.sec p.t{color:var(--muted);font-size:15.5px;max-width:62ch}
+.trust-cta{display:inline-flex;flex-direction:column;gap:2px;background:var(--ink);color:var(--paper);text-decoration:none;padding:14px 22px;font-weight:800;font-size:14px;letter-spacing:.03em;text-transform:uppercase;border-radius:3px}
+.trust-cta small{font-family:var(--label);font-weight:400;font-size:11px;letter-spacing:0;text-transform:none;opacity:.75}
+.trust-cta:hover{opacity:.9}
+@media (max-width:520px){.sec{padding:22px 20px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:72px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.et,.rb-f,.rb-x,.rb-row,.mc .mrow .mt i{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="r4-logo" viewBox="0 0 67 48"><g fill="currentColor"><path d="m34.29 48h-14.084l-6.4334-17.098c-0.0624-0.2899-0.1715-0.6734-0.3278-1.1502-0.1563-0.4764-0.3491-1.0462-0.578-1.7099l0.0939 3.1708v16.788h-12.96v-48h13.335c5.8711 0 10.264 1.1502 13.179 3.4507 3.7054 2.943 5.559 7.1297 5.559 12.56 0 5.8032-2.488 9.8135-7.464 12.031l9.6806 19.958zm-21.267-25.772h0.8743c1.499 0 2.7484-0.5699 3.7475-1.71 0.9992-1.1396 1.499-2.5904 1.499-4.3523 0-3.5851-1.8846-5.3784-5.6524-5.3784h-0.4684v11.441z"/><path d="m62.878 48h-12.991v-9.7307h-17.52v-10.135l14.552-28.134h15.958v27.948h4.1225v10.321h-4.1225v9.7307zm-12.398-20.052v-8.9846c0-0.4142 0.0259-1.0775 0.0781-1.9898 0.0518-0.9118 0.1299-2.0827 0.2344-3.5128l-1.9364 4.1038c-0.958 2.0105-1.9156 3.8811-2.8731 5.6113-0.958 1.7306-1.9156 3.3213-2.8732 4.7721h7.3702z"/></g></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and R4 Advertising">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <svg class="lk-r4" role="img" aria-label="R4 Advertising"><use href="#r4-logo"/></svg>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#ask">Ask</a>
+      <a href="#loop">The loop</a>
+      <a href="#systems">Systems</a>
+      <a href="#proof">Proof</a>
+      <a href="#video">Video</a>
+      <a href="#start">Start</a>
+      <a href="#trust">Trust</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">01 <span class="sl">//</span> Milo × R4 · for Yenna Stockwood and Georgia Easton</p>
+        <div class="pills-top" aria-hidden="true"><span class="pt">Leadership</span><span class="pt">Operations</span><span class="pt">Finance</span><span class="pt">New business</span></div>
+        <h1><span>Trade.</span><span>Plan.</span><span>Activate.</span><span class="ask">Ask.</span></h1>
+        <p class="lede">R4 promises clients that what is traded is shown. The proof sits in a dozen places: the plan, the bookings, each media owner's delivery report, the ledger, HubSpot. <b>Milo joins them</b>, so the people who run the agency can ask its numbers in plain English and get the answer in seconds, with the source behind every figure.</p>
+      </div>
+
+      <div class="rb-panel">
+        <div class="rb-top"><span class="rb-k label">The control loop · eight live campaigns</span><span class="tag">Sample data</span></div>
+        <p class="rb-q" id="rb-q"></p>
+        <div class="rb-head" aria-hidden="true"><span>Campaign</span><span class="rb-scale"><i class="m-plan">100%</i></span><span id="rb-col"></span></div>
+        <div class="rb" id="rb" role="img" aria-label="Eight live campaigns, each with a bar showing delivery as a share of what was booked, against a line at 100 percent"></div>
+        <div class="lg" id="rb-lg"></div>
+        <div class="et-row" id="rb-tabs" role="group" aria-label="Add a layer of data"></div>
+        <div id="rb-read" aria-live="polite"></div>
+        <p class="rb-hint">Each bar is a live campaign's delivery against its booking. Invented campaigns and figures, built on R4's own approved-to-reconciled loop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="refs">
+          <span>Our ref</span><b>MILO / R4 / 01</b>
+          <span>Re</span><b>Running the agency from one set of numbers</b>
+          <span>For</span><b>Yenna Stockwood and Georgia Easton</b>
+        </div>
+        <p class="sal">Dear Yenna and Georgia,</p>
+        <p>Thank you for the conversation. R4 makes clients a promise most agencies don't: what is traded is shown, and what is returned is agreed up front. Your own piece on agency trading puts the pressure behind it plainly: <q>Procurement teams are asking sharper questions. Boards want cleaner audit trails.</q></p>
+        <p>Keeping that promise means joining things that live apart: the approved position, the booking, each media owner's delivery report, the verification and the invoice. Then the leadership team wants billings, cash, capacity and pipeline on top. With new trading desks, three offices and twenty new roles planned by the end of the year, that work grows faster than the team doing it.</p>
+        <p>Milo connects to the systems R4 already runs. Anyone, from the leadership team to a planner, asks a question in plain English and gets the answer in seconds with its sources. Any answer can become a dashboard or a scheduled report, and our engineers build and maintain the connections.</p>
+        <p>This page is for the people who run the agency as much as the people who run campaigns: leadership, operations, finance and new business, with planning alongside. Everything on it runs on sample data, so click around.</p>
+        <div class="sign">
+          <p class="nm">Liam James Rabone</p>
+          <p class="ml">Milo · liam@milo.ai</p>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow">R4 <span class="sl">//</span> in its own numbers</p>
+        <ul class="glance">
+          <li><b>3</b><span>offices: Cardiff, where R4 was born, London at Battersea Power Station, and New York</span></li>
+          <li><b>15%</b><span>fixed agency commission, declared, from media owners only</span></li>
+          <li><b>100%</b><span>of volume-based discount passed back to clients</span></li>
+          <li><b>5</b><span>steps in the control loop: approved, activated, delivered, verified, reconciled</span></li>
+          <li><b>20</b><span>new roles planned by the end of 2026</span></li>
+        </ul>
+        <p class="glance-src">From r4advertising.agency, October 2026.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">02 <span class="sl">//</span> Ask Milo</p>
+      <h2 id="ask-h">Run the agency. <em>Not the spreadsheet.</em></h2>
+      <p>Pick a seat and a question, or type your own. Each seat shows the systems it reads, every answer shows its sources, and any answer can become an alert.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · R4 workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Illustrative. Every client, campaign, figure and pipeline deal in these answers is invented to show the shape of an answer. None of it is R4 data, and clients are described by sector rather than named.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band dark" id="loop" aria-labelledby="lp-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">03 <span class="sl">//</span> The control loop</p>
+      <h2 id="lp-h">Approved to reconciled, <em>without the chasing</em>.</h2>
+      <p>R4's own five steps. Each one lives in a different system: the plan, the booking, the delivery report, the verification, the invoice. Pick a step.</p>
+    </div>
+    <div class="lp-tabs" id="lp-tabs" role="group" aria-label="Choose a step"></div>
+    <p class="lp-reads" id="lp-reads"></p>
+    <div class="lp-grid" id="lp-grid" aria-live="polite"></div>
+    <p class="lp-rule"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>Milo reads each step from the system it lives in and checks it against the approved position, so seeing a campaign end to end becomes a question rather than a spreadsheet.</span></p>
+    <p class="note">Illustrative. Every figure is invented.</p>
+  </div>
+</section>
+
+<section class="band first" id="systems" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">04 <span class="sl">//</span> What Milo connects</p>
+      <h2 id="int-h">Every desk. <em>One set of numbers.</em></h2>
+      <p>The agency runs on one set of systems and the media on another. Milo reads both as they are and joins them. Nothing gets replaced.</p>
+    </div>
+    <div class="three">
+      <div class="card"><p class="k label">The connections</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, from the ledger and HubSpot to a media owner's delivery file, and fix them when a system changes.</p></div>
+      <div class="card"><p class="k label">The dashboards</p><h3>Anyone can build one</h3><p>Pin an answer and it becomes a live dashboard. Finance, operations or new business make their own, and each sees only what they should.</p></div>
+      <div class="card"><p class="k label">The automations</p><h3>Questions keep running</h3><p>Any question can become Monday's control loop check, the post-flight pack or the board pack. Nobody has to build a pipeline for it.</p></div>
+    </div>
+    <div class="boardbox">
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">For <span class="sl">//</span> the leadership team</p>
+        <h3>The whole agency, <em>on one page</em>.</h3>
+      </div>
+      <div>
+        <blockquote>“Boards want cleaner audit trails.”<cite>R4, on agency trading economics</cite></blockquote>
+        <ul>
+          <li>Billings, margin and cash by client, office and channel, read from the ledger rather than a copy of it.</li>
+          <li>Approved, delivered and invoiced side by side for every campaign, so the audit trail a client's procurement team asks for already exists.</li>
+          <li>Volume-based discount shown client by client, the way the model promises.</li>
+          <li>Cardiff, London and New York in one view, in pounds and dollars.</li>
+          <li>Every figure in the board pack links back to the record it came from.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="intg">
+      <div>
+        <div class="ig-h"><h3>Running the agency</h3><span class="label">Four desks</span></div>
+        <div class="desk"><div><b>Finance</b><small>Ledger, bank and billing</small></div><div class="pills"><span>Xero</span><span>Sage</span><span>QuickBooks</span><span>NetSuite</span><span>Bank feeds</span><span>Media owner invoices</span></div></div>
+        <div class="desk"><div><b>New business</b><small>Pipeline and inbound</small></div><div class="pills"><span class="v">HubSpot</span><span class="v">Leadfeeder</span><span>LinkedIn</span><span>Outlook</span><span>Gmail</span></div></div>
+        <div class="desk"><div><b>People and operations</b><small>Time, capacity and hiring</small></div><div class="pills"><span>Timesheets</span><span>HR system</span><span>Recruitment</span><span>Microsoft Teams</span><span>SharePoint</span></div></div>
+        <div class="desk"><div><b>The website</b><small>Briefs and visitors</small></div><div class="pills"><span class="v">GA4</span><span class="v">Google Tag Manager</span><span>Brief form</span><span>Search Console</span></div></div>
+      </div>
+      <div>
+        <div class="ig-h"><h3>Running the media</h3><span class="label">Four desks</span></div>
+        <div class="desk"><div><b>Planning</b><small>Audiences and places</small></div><div class="pills"><span class="v">Experian</span><span class="v">TGI</span><span class="v">CACI</span><span class="v">AudienceIQ</span><span>Route</span><span>Plans in Excel</span></div></div>
+        <div class="desk"><div><b>Trading</b><small>Positions and bookings</small></div><div class="pills"><span>Approved positions</span><span>Annual media commitments</span><span>Booking confirmations</span><span>Rate cards</span></div></div>
+        <div class="desk"><div><b>Activation</b><small>What ran, and where</small></div><div class="pills"><span>Proof of play</span><span>Broadcaster post-campaign data</span><span>Google Ads</span><span>DV360</span><span>The Trade Desk</span><span>Meta</span><span>TikTok</span></div></div>
+        <div class="desk"><div><b>Verification</b><small>Evidence and audit</small></div><div class="pills"><span>IAS</span><span>DoubleVerify</span><span>Panel photos</span><span>Post-flight audits</span></div></div>
+      </div>
+    </div>
+    <p class="seen"><i aria-hidden="true"></i>Seen on r4advertising.agency</p>
+    <div class="outs"><b class="label">Answers arrive in</b><span>Slack</span><span>Microsoft Teams</span><span>Email</span><span>WhatsApp</span><span>The browser</span><span>PDF for the board</span></div>
+    <p class="build">Most of these connect in minutes. Anything without a ready connector, like a media owner's delivery report or a broadcaster's post-campaign file, our engineers build and keep running.</p>
+  </div>
+</section>
+
+<section class="band" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">05 <span class="sl">//</span> Proof</p>
+      <h2 id="proof-h">It starts with the board. <em>Then everyone asks.</em></h2>
+      <p>The closest example is another London agency, where the first job was the board report.</p>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k label">Coolr · Social and influencer agency, London</p>
+        <h3>A year-end board report in thirty minutes.</h3>
+        <p>Coolr's COO was about to start the end-of-year finance report for the board. The numbers sat across every tool the agency runs on. <b>We connected them to Milo and gave her the report in thirty minutes.</b> Our engineers built the connections, so nobody at Coolr had to become a data team first.</p>
+        <p>The report was the first thing Milo did at Coolr. The whole team now works from the same connected numbers.</p>
+        <p class="why"><b>Why it's here.</b> An agency with big-brand clients and a board to answer to. It's the CEO and finance seats in the demo above.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at Coolr">
+        <li><span class="t">Before</span><b>The board report, about to be built by hand</b></li>
+        <li><span class="t">Half an hour</span><b>Every tool connected, report delivered</b></li>
+        <li class="end"><span class="t">Since then</span><b>The whole agency works from the same numbers</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="k label">Two Tribes Brewing · London</p>
+        <p class="big">1 → 12</p>
+        <p class="body">active users in six weeks, across every department, once all seven of its systems were connected in two weeks. Twenty dashboards are live and the board pack builds itself.</p>
+        <p class="why"><b>Why it's here.</b> Nobody rolled it out. It spread desk to desk, the way it would move from finance to operations to new business at R4.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">BetGames · iGaming</p>
+        <p class="big">60+</p>
+        <p class="body">partner reports a month for a live-dealer games provider with a 300+ table data warehouse and around 2,000 brands, built by Milo with no new hires.</p>
+        <p class="why"><b>Why it's here.</b> A report for every partner, every month. At R4 that's a post-flight report for every client, days after the campaign ends.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">Nikki Beach Global · Hospitality</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants on four continents, with reservations and payments in different systems, read as one view of how each venue trades.</p>
+        <p class="why"><b>Why it's here.</b> Different offices, systems and currencies, read as one. Cardiff, London and New York is the same job.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow">06 <span class="sl">//</span> See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working</em>.</h2>
+        <p class="s">The question box, the answers and the dashboards, without anyone describing them.</p>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="start" aria-labelledby="start-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">07 <span class="sl">//</span> Getting started</p>
+      <h2 id="start-h">Run it like a campaign. <em>Approved first.</em></h2>
+      <p>The same order R4 runs media in. Start with the ledger, HubSpot and the booking and delivery files, and the next board pack could be the first one Milo builds.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n">STEP 1</p><h3>Approve</h3><p>Your team signs off read-only access: the ledger and HubSpot first, then bookings, delivery reports and timesheets.</p></div>
+      <div class="step"><p class="n">STEP 2</p><h3>Activate</h3><p>We build the integrations and teach Milo R4's terms: approved position, VBD, make-good, post-flight, as you define them.</p></div>
+      <div class="step"><p class="n">STEP 3</p><h3>Deliver</h3><p>Leadership, operations, finance and new business ask from the day the connections are live. Each person sees what their role allows.</p></div>
+      <div class="step"><p class="n">STEP 4</p><h3>Verify</h3><p>The questions that matter keep running: Monday's control loop, each post-flight report, the monthly board pack.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <p class="eyebrow">08 <span class="sl">//</span> Trust and security</p>
+        <h2 id="sec-h">Your team <em>signs off first</em>.</h2>
+        <p class="t">Connections are read-only, access is set by role, and a client login only ever sees its own campaigns. Milo is hosted in the EU, in Frankfurt. Our certificates, policies and how we handle data are all in the Milo Trust Centre.</p>
+      </div>
+      <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Yenna Stockwood and Georgia Easton of R4 Advertising by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
+    <p>R4 facts are from r4advertising.agency. Every client, campaign, figure and deal in the demos is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* control loop board: [campaign, booked %, delivered %, billed % (null = no invoice yet), £k billed above delivery, action] */
+  var MAXV=110,PLAN=100,SHORT=95;
+  var CAMPS=[
+    ["Wellness · DOOH",100,104,100,0,"OK"],
+    ["Arena tour · DOOH",100,91,100,6.5,"Make-good"],
+    ["Rugby · OOH",100,99,99,0,"OK"],
+    ["FMCG · Underground",100,100,100,0,"OK"],
+    ["Car dealers · Radio",100,94,100,3.3,"Credit"],
+    ["Panto · TV",100,102,null,0,"Chase"],
+    ["Retail · 48-sheet",100,98,98,0,"OK"],
+    ["B2B summit · DOOH",100,100,100,0,"OK"]
+  ];
+  var LAYERS=[
+    {name:"Booked",short:"The plan",col:"Booked",q:"",
+     stats:[["8","live campaigns across out of home, TV and radio"],["£1.24m","approved media"],["100%","booked against the approved position"]],
+     say:"On the plan, every campaign is fully booked and on track. The plan can't see what the media owners actually delivered."},
+    {name:"+ Delivered",short:"Media owner reports",col:"Delivered",q:"",
+     stats:[["2","campaigns under 95% of booked delivery"],["91%","delivered on the arena tour's screens"],["+4%","bonus delivery on the wellness launch"]],
+     say:"Delivery lives in media owner reports, proof of play and broadcaster data, each in its own format. Joined up, two campaigns come in short: the arena tour's digital screens at 91% and the dealer group's radio at 94%."},
+    {name:"+ Invoiced",short:"The ledger",col:"Billed",q:"",
+     stats:[["£9.8k","billed for media that wasn't delivered"],["2","media owner invoices billed in full"],["1","invoice not in yet, for the TV spots"]],
+     say:"The invoices sit in the ledger. Both short campaigns were billed in full, £9.8k between them, and the TV invoice for the panto campaign hasn't arrived, so it can't be reconciled yet."},
+    {name:"Milo's answer",short:"This week",col:"Do",q:"Asked: which live campaigns won't reconcile against the approved position, and what do we do?",
+     stats:[["£9.8k","to claim back or make good"],["3","actions, the arena tour first"],["5 of 8","reconcile with nobody touching them"]],
+     say:"Three actions. Ask for a make-good on the arena tour while it still has dates left, claim a radio credit for the dealer group, and chase the TV invoice. The other five reconcile on their own. Milo can send this every Monday."}
+  ];
+  var layer=0;
+  function pct(v){return Math.min(v,MAXV)/MAXV*100}
+  function drawRB(){
+    var h="";
+    CAMPS.forEach(function(c){
+      var v=layer===0?c[1]:c[2],billed=c[3],over=c[4],act=c[5];
+      var short=v<SHORT,rc="rb-row",vc="rb-v",t;
+      var bar='<span class="rb-f'+(short?" short":"")+'" style="width:'+pct(v).toFixed(1)+'%"></span>';
+      if(layer>=2&&billed!==null&&billed>v)bar+='<span class="rb-x" style="left:'+pct(v).toFixed(1)+'%;width:'+(pct(billed)-pct(v)).toFixed(1)+'%"></span>';
+      if(layer===3){
+        t=act;
+        if(act==="OK"){rc+=" dim"}else vc+=" mv";
+      }else if(layer===2){
+        if(billed===null){t="No invoice";vc+=" tight"}
+        else if(over>0){t="+£"+over.toFixed(1)+"k";vc+=" bad"}
+        else t="Matches";
+      }else{
+        t=v+"%";
+        if(short)vc+=" bad";else if(v<SHORT+4&&layer===1)vc+=" tight";
+      }
+      h+='<div class="'+rc+'"><span class="rb-n" title="'+esc(c[0])+'">'+esc(c[0])+'</span><span class="rb-t">'+bar+'</span><span class="'+vc+'">'+esc(t)+'</span></div>';
+    });
+    $("rb").innerHTML=h;
+    $("rb-col").textContent=LAYERS[layer].col;
+    var lg=layer===0?'<span><i></i>Booked, share of approved</span>':'<span><i></i>Delivered, share of booked</span><span><i class="short"></i>Under 95%</span>';
+    if(layer>=2)lg+='<span><i class="x"></i>Billed, not delivered</span>';
+    lg+='<span><i class="ln"></i>100% of booking</span>';
+    $("rb-lg").innerHTML=lg;
+  }
+  function renderRB(){
+    $("rb-tabs").innerHTML=LAYERS.map(function(l,i){
+      return '<button type="button" class="et" data-layer="'+i+'" aria-pressed="'+(i===layer)+'"><b>'+esc(l.name)+'</b><small>'+esc(l.short)+'</small></button>';
+    }).join("");
+    var l=LAYERS[layer];
+    $("rb-q").textContent=l.q;
+    $("rb-read").innerHTML='<div class="r-stats">'+l.stats.map(function(s){return '<div><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join("")+'</div><p class="r-say">'+esc(l.say)+'</p>';
+    drawRB();
+  }
+  $("rb-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-layer]");if(!b)return;
+    layer=+b.dataset.layer;renderRB();
+    var nb=$("rb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
+  });
+
+  /* seats */
+  var SEATS=[
+    {g:"Leadership",name:"CEO",sub:"The whole agency, one question",sys:["Ledger","HubSpot","Media bookings","Bank"],qs:[
+      {q:"How is the agency trading this quarter?",kw:["trading","quarter","agency","doing","performance","billings","growth","overall","business","results","revenue","income","going"],type:"summary",
+       kpis:[["+38%","media billings on the same quarter last year"],["£1.1m","in new annual media commitments signed"],["31%","of billings from the two largest clients"],["94%","of campaigns reconciled within ten days of ending"]],
+       say:"Billings are up 38% on the same quarter last year, with London growing fastest, and two new annual media commitments were signed. The one to watch is concentration: the two largest clients now make up 31% of billings.",
+       src:["Ledger","HubSpot","Media bookings"],alert:"On the first working day of each month, Milo will send billings by office and client, with anything that moved."},
+      {q:"Build the board pack for October",kw:["build","board","pack","report","deck","directors","monthly","october","investors","figures","summary","shareholders"],type:"summary",
+       kpis:[["Ready","October, by client, office and channel"],["+38%","billings on last year"],["£212k","volume-based discount returned to clients this year"],["3","items flagged for the board"]],
+       say:"October is ready, by client, office and channel. Three items are flagged: client concentration, cash days creeping up, and planning in London running over capacity into January. Every figure links to the record it came from.",
+       src:["Ledger","HubSpot","Media bookings","Timesheets"],alert:"The pack will build itself on the fifth working day of each month, for you to check before it goes out."}
+    ]},
+    {g:"Leadership",name:"COO and operations",sub:"Delivery, people and the loop",sys:["Media bookings","Delivery reports","Timesheets","HR"],qs:[
+      {q:"Which campaigns are stuck in the control loop?",kw:["stuck","campaigns","campaign","control","loop","delivery","delivered","live","late","behind","outstanding","issues","problems","operations","reconcile"],type:"list",
+       rows:[["Arena tour · digital screens","Delivered 91% of booked impacts, billed in full","Make-good","bad"],["Car dealer group · radio","Delivered 94%, billed in full","Credit","warn"],["Panto season · TV","Spots aired, broadcaster invoice not in yet","Chase","over"],["Five other campaigns","Approved to reconciled, nothing outstanding","Clear","ok"]],
+       say:"Three of eight live campaigns need a person. The arena tour is short on its digital screens and still has dates left, so a make-good is the fix. The dealer group's radio has a credit to claim, and the TV campaign is waiting on its invoice.",
+       src:["Media bookings","Delivery reports","Ledger"],alert:"Every Monday at 8am, Milo will send each campaign's place in the control loop, and anything stuck."},
+      {q:"Do we have the people for Q1?",kw:["people","capacity","hire","hiring","team","teams","resource","resourcing","q1","workload","hours","staff","roles","recruit","busy"],type:"bars",unit:"%",hi:"high",
+       cap:"Q1 work already signed, as a share of each team's capacity",
+       rows:[["Planning, London",112],["Trading",104],["Activation",97],["Creative, Cardiff",86],["New business",78]],
+       say:"On work already signed, planning in London runs at 112% of capacity through Q1 and trading at 104%. That's where the next two hires go. Creative in Cardiff has room for one more launch.",
+       src:["Timesheets","HubSpot","HR"],alert:"On the first of each month, Milo will send capacity against signed work, by team and office."}
+    ]},
+    {g:"Finance",name:"Finance director",sub:"Billings, margin and cash",sys:["Ledger","Bank","Media owner invoices","Timesheets"],qs:[
+      {q:"Where is our cash tied up?",kw:["cash","tied","owed","owe","debtors","creditors","collect","paid","pay","payment","payments","overdue","flow","working","capital","bank"],type:"summary",
+       kpis:[["£486k","owed by clients, £61k of it over 60 days"],["£512k","due to media owners this month"],["19 days","from paying a media owner to being paid by the client"],["3","clients to chase this week"]],
+       say:"Clients owe £486k, and £61k of it is over 60 days, mostly from three clients. £512k is due to media owners this month. On average R4 pays a media owner 19 days before the client pays R4, up from 14 in the spring.",
+       src:["Ledger","Bank","Media owner invoices"],alert:"Every Monday, Milo will send what's owed both ways, and which clients to chase."},
+      {q:"Which clients cost the most to serve?",kw:["clients","client","cost","serve","margin","margins","profitable","profit","profitability","earn","worth","hours","income","account","accounts"],type:"bars",unit:"%",hi:"low",
+       cap:"Margin by client this year, commission and fees less team time",
+       rows:[["Retail chain",41],["Sports club",36],["Live promoter",29],["Drinks brand",24],["Wellness brand",18]],
+       say:"The wellness brand earns the least for the time it takes: many small bookings and frequent creative changes. The retail chain earns the most, on one annual media commitment. Same commission, very different hours.",
+       src:["Ledger","Timesheets","Media bookings"],alert:null}
+    ]},
+    {g:"Finance",name:"Reconciliation",sub:"Post-flight, invoice by invoice",sys:["Approved positions","Delivery reports","Media owner invoices","Ledger"],qs:[
+      {q:"Does October reconcile?",kw:["reconcile","reconciliation","reconciled","october","match","matched","invoices","invoice","billed","post-flight","postflight","audit","month","close"],type:"summary",
+       kpis:[["91%","of media owner invoices matched to delivery on their own"],["£9.8k","billed for media that wasn't delivered"],["1","invoice not in yet"],["0","differences left unexplained"]],
+       say:"91% of October's media owner invoices matched delivery on their own. Two were billed in full for campaigns that came in short, £9.8k between them, and one broadcaster invoice hasn't arrived. Each is listed with its booking reference.",
+       src:["Approved positions","Delivery reports","Media owner invoices"],alert:"Every morning, Milo will match yesterday's invoices to delivery and list anything left over."},
+      {q:"How much VBD has each client had back?",kw:["vbd","volume","discount","discounts","rebate","rebates","back","returned","traded","trade","value","each"],type:"bars",pre:"£",unit:"k",hi:"high",
+       cap:"Volume-based discount returned this year, by client",
+       rows:[["Retail chain",68],["Live promoter",51],["Sports club",39],["Drinks brand",31],["Wellness brand",23]],
+       say:"£212k has gone back to clients this year. The retail chain took its share as more media under its annual commitment, and most of the others retained it against cost. Each client can see its own line.",
+       src:["Approved positions","Ledger"],alert:null}
+    ]},
+    {g:"Sales",name:"New business",sub:"Pipeline, pitches and who to call",sys:["HubSpot","Leadfeeder","Website"],qs:[
+      {q:"Where will this quarter's new business come from?",kw:["new","business","pipeline","quarter","pitches","pitch","deals","deal","prospects","forecast","win","wins","sales","target"],type:"list",
+       rows:[["Retail group","Brief in, pitch on the 4th, annual commitment","Pitch","warn"],["Drinks challenger","Proposal sent, asked about trading up VBD","Proposal","over"],["Football club","Matchday out of home, verbal yes","Close","ok"],["Theatre producer","Panto season, quiet for three weeks","Chase","bad"]],
+       say:"Weighted, the pipeline covers 1.4 times this quarter's new business target, and the retail group is the biggest single pitch. The theatre producer has gone quiet for three weeks, which is worth a call before it's lost.",
+       src:["HubSpot"],alert:"Every Monday, Milo will send the pipeline by stage, and any deal that's gone quiet."},
+      {q:"Which website visitors should we call this week?",kw:["website","visitors","visitor","call","leads","lead","inbound","companies","who","brief","site","leadfeeder","calculator"],type:"list",
+       rows:[["Drinks brand","Read Services and used the VBD calculator twice","Call","ok"],["Automotive group","Read three case studies, already in HubSpot","Warm","over"],["Wellness start-up","Opened the brief form, didn't send it","Nudge","warn"],["Media agency","Only read the careers page","Skip","bad"]],
+       say:"Four companies stood out on the site this week. The drinks brand used the VBD calculator twice, the strongest signal, and nobody has contacted them yet. The media agency only read the careers page, so that's a hiring signal, not a lead.",
+       src:["Leadfeeder","HubSpot","Website"],alert:"Each morning, Milo will list yesterday's company visitors worth a call, matched to HubSpot."}
+    ]},
+    {g:"Planning",name:"Planning",sub:"Past campaigns, formats, audiences",sys:["Past campaigns","Delivery reports","Audience data"],qs:[
+      {q:"Which formats delivered the cheapest impacts?",kw:["formats","format","cheapest","cost","cpt","impacts","efficient","value","channels","channel","delivered","best","cheaper"],type:"bars",pre:"£",dec:2,hi:"low",
+       cap:"Cost per thousand delivered impacts, by format, last 12 months",
+       rows:[["Roadside 48-sheet",2.85],["Digital 6-sheet",4.10],["Rail digital",5.40],["Underground digital 12-sheet",6.20],["Large-format spectacular",9.80]],
+       say:"Roadside 48-sheets delivered the cheapest impacts at £2.85 per thousand, measured on what was delivered rather than what was booked. Spectaculars cost the most per impact, though they also earned the most press, which this view doesn't count.",
+       src:["Past campaigns","Delivery reports"],alert:null},
+      {q:"Which past campaigns are closest to this brief?",kw:["past","campaigns","closest","similar","brief","like","compare","previous","before","benchmark","examples","history"],type:"list",
+       rows:[["Wellness launch, London · 2026","Retail-proximity screens, two weeks, 104% delivered","Closest","ok"],["Supplement launch, London · 2025","Roadside and rail, sales up near stores","Similar","over"],["Drinks launch, Cardiff · 2025","Same audience, different region","Partial","warn"],["Arena tour · 2026","Same screens, delivered 91%","Caution","bad"]],
+       say:"The closest match is this year's wellness launch: same audience, retail-proximity screens, two weeks, and it over-delivered. The arena tour used some of the same screens and came in at 91%, so it's worth a make-good clause in the booking.",
+       src:["Past campaigns","Delivery reports","Audience data"],alert:null}
+    ]},
+    {g:"Clients",name:"Client login",sub:"Their own campaigns only",sys:["Their campaigns","Their delivery","Their invoices"],qs:[
+      {q:"How did my launch deliver?",kw:["my","launch","deliver","delivered","campaign","results","reach","impacts","screens","performance","mine","report"],type:"summary",
+       kpis:[["104%","of booked impacts delivered"],["3.1M","impacts across 58 screens"],["£7.4k","VBD traded up into an extra week on 12 screens"],["Day 3","when the post-flight report was ready"]],
+       say:"Your launch delivered 104% of booked impacts across 58 screens, and your volume-based discount bought an extra week on 12 of them. The post-flight report, with proof of play for every screen, was ready three days after the campaign ended.",
+       src:["Their campaigns","Their delivery"],alert:"After each campaign ends, Milo will send you its post-flight summary."},
+      {q:"Show me what another client paid for the same screens",kw:["another","other","client","clients","paid","competitor","competitors","rates","rate","else","someone","compare","theirs"],type:"refuse",
+       say:"Your login covers your own campaigns, so I can't show another client's rates. Your account lead can show you how your rates were benchmarked.",
+       src:["Access policy"],alert:null}
+    ]}
+  ];
+
+  var seat=0,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg label">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var x=Math.abs(v);
+    var n=a.dec?x.toFixed(a.dec):x.toLocaleString("en-GB");
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var raw=a.rows.map(function(r){return r[1]});
+      var pick=a.hi==="low"?Math.min.apply(null,raw):Math.max.apply(null,raw);
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf'+(r[1]===pick?" hl":"")+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<span id="alert-slot"><button type="button" class="ghost" data-alert="1">Turn into an alert</button></span>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Checking '+esc(SEATS[seat].sys.slice(0,3).join(", "))+'</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,many:1,all:1,is:1,we:1,me:1,than:1,one:1,do:1,did:1,by:1,in:1,of:1,to:1,it:1,its:1,"it's":1,r4:1,"what's":1,last:1,on:1,at:1,be:1,will:1,into:1,i:1,am:1,should:1,was:1,were:1,get:1,tell:1,us:1,not:1,just:1,much:1,where:1,come:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9£&%'-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(!b)return;
+    var a=SEATS[seat].qs[qi];
+    $("alert-slot").innerHTML='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg><span>Alert set. '+esc(a.alert)+'</span></span>';
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+
+  /* the control loop: R4's five steps */
+  var STEPS=[
+    {n:"01",name:"Approved",sub:"The position, agreed up front",reads:["The plan","Annual media commitments","HubSpot"],cards:[
+      {q:"Approved media this quarter, by channel",rows:[["Out of home",46],["TV and video",22],["Radio and audio",14],["Digital and programmatic",12],["Cinema and print",6]]},
+      {q:"Volume-based discount on approved positions, by how clients use it",rows:[["Traded up into more media",64],["Retained against cost",36]]},
+      {q:"What Milo does",line:"Sets the baseline.",why:"Every approved position, VBD included, becomes the line that bookings, delivery and invoices are checked against."}
+    ]},
+    {n:"02",name:"Activated",sub:"Booked with media owners",reads:["Booking confirmations","Media owner portals","DSPs"],cards:[
+      {q:"Bookings confirmed by media owners",rows:[["Confirmed as approved",94],["Awaiting confirmation",5],["Changed since approval",1]]},
+      {q:"Live this week, by channel",rows:[["Out of home",52],["TV and video",21],["Radio and audio",15],["Digital and programmatic",12]]},
+      {q:"What to do",line:"One booking changed.",why:"A media owner swapped a roadside panel after approval. Milo flags it before go-live, so the client hears it from R4 first."}
+    ]},
+    {n:"03",name:"Delivered",sub:"What actually ran",reads:["Proof of play","Broadcaster post-campaign data","DSP logs"],cards:[
+      {q:"Delivery against booking, by channel",hl:3,rows:[["TV and video",102],["Digital and programmatic",101],["Out of home",98],["Radio and audio",94]]},
+      {q:"Proof received from media owners",rows:[["In and matched",88],["Photos only",9],["Missing",3]]},
+      {q:"What to do",line:"Two campaigns are short.",why:"The arena tour's digital screens at 91% and the dealer group's radio at 94%. Both media owners are listed with the booking reference."}
+    ]},
+    {n:"04",name:"Verified",sub:"Evidence the client can see",reads:["Verification","Panel photos","Ad servers"],cards:[
+      {q:"Delivery verified at panel or placement level",rows:[["Verified",96],["Awaiting media owner data",4]]},
+      {q:"Digital impressions, by verification check",hl:2,rows:[["Brand safe",99],["In the right geography",97],["Viewable",78]]},
+      {q:"What to do",line:"Post-flight reports are ready.",why:"Each client's post-flight report builds from the same evidence, days after the campaign ends rather than weeks."}
+    ]},
+    {n:"05",name:"Reconciled",sub:"Invoice against approval",reads:["Media owner invoices","The ledger","Client billing"],cards:[
+      {q:"Media owner invoices, matched to delivery",rows:[["Matched on their own",91],["Billed above delivery",6],["Not invoiced yet",3]]},
+      {q:"Client billing against the approved position",rows:[["Billed as approved",97],["Credit due to the client",3]]},
+      {q:"What to do",line:"£9.8k to claim back.",why:"Two media owners billed in full for campaigns that came in short. Both are listed with the delivery evidence attached."}
+    ]}
+  ];
+  var step=0;
+  function renderStep(){
+    $("lp-tabs").innerHTML=STEPS.map(function(s,i){
+      return '<button type="button" class="lp" data-step="'+i+'" aria-pressed="'+(i===step)+'"><span class="n">'+esc(s.n)+' //</span><b>'+esc(s.name)+'</b><small>'+esc(s.sub)+'</small></button>';
+    }).join("");
+    var s=STEPS[step];
+    $("lp-reads").innerHTML='Reads from '+s.reads.map(function(r){return '<b>'+esc(r)+'</b>'}).join(", ");
+    $("lp-grid").innerHTML=s.cards.map(function(c){
+      var body;
+      if(c.rows){
+        var max=Math.max.apply(null,c.rows.map(function(r){return r[1]}));
+        var hl=c.hl||0;
+        body=c.rows.map(function(r,i){
+          return '<div class="mrow"><span>'+esc(r[0])+'</span><span class="mv">'+r[1]+'%</span><span class="mt"><i'+(i===hl?' class="hl"':'')+' style="width:'+Math.round(r[1]/max*100)+'%"></i></span></div>';
+        }).join("");
+      }else body='<p class="line">'+esc(c.line)+'</p><p class="mw">'+esc(c.why)+'</p>';
+      return '<div class="mc"><p class="mq">'+esc(c.q)+'</p>'+body+'</div>';
+    }).join("");
+  }
+  $("lp-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-step]");if(!b)return;
+    step=+b.dataset.step;renderStep();
+    var nb=$("lp-tabs").querySelector('[data-step="'+step+'"]');if(nb)nb.focus();
+  });
+
+  renderRB();renderSeats();renderQs();ask(null,true);renderStep();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
