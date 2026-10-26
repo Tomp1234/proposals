@@ -274,6 +274,35 @@ section.tint{background:var(--panel);border-top:0}
   .lp-grid{grid-template-columns:minmax(0,1fr)}
 }
 
+/* delivery app data */
+.dd-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+.mx-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.mx{width:100%;min-width:560px;border-collapse:collapse;font-size:13.5px}
+.mx th,.mx td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+.mx thead th{background:var(--topbar);color:var(--on-topbar);font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:.03em;border-bottom:0}
+.mx tbody th{font-weight:600}
+.mx tbody tr:last-child>*{border-bottom:0;background:var(--green-soft)}
+.mx .chip{display:inline-block}
+.mx small{display:block;font-size:11.5px;color:var(--muted);line-height:1.35;margin-top:3px}
+.hist{background:var(--topbar);color:var(--on-topbar);border-radius:14px;padding:22px}
+.hist .k{color:var(--topbar-muted);margin-bottom:8px}
+.hist h3{font-size:22px;margin-bottom:16px}
+.hb{display:grid;grid-template-columns:76px minmax(0,1fr) 78px;gap:10px;align-items:center;margin-bottom:12px;font-size:13.5px}
+.hb .t{height:12px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden}
+.hb .t i{display:block;height:100%;background:var(--green);border-radius:6px}
+.hb .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.hb .v.none{color:var(--red)}
+.hist p{font-size:14px;color:var(--topbar-muted);margin-top:14px}
+.hist p b{color:var(--green);font-weight:700}
+.gaps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:24px}
+.gp{background:var(--panel);border-radius:14px;padding:18px}
+.gp .k{color:var(--red-ink);margin-bottom:6px}
+.gp b{display:block;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:15px;line-height:1.2;margin-bottom:8px}
+.gp p{font-size:13.5px;color:var(--muted)}
+@media (max-width:1000px){.gaps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:860px){.dd-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.gaps{grid-template-columns:minmax(0,1fr)}}
+
 /* systems */
 .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:24px}
 .card{background:var(--panel);padding:22px;border-radius:14px}
@@ -375,6 +404,7 @@ footer p+p{margin-top:6px}
     <nav class="nav" aria-label="Sections">
       <a href="#ask">Ask</a>
       <a href="#chain">Order to reorder</a>
+      <a href="#apps">Delivery apps</a>
       <a href="#systems">Systems</a>
       <a href="#proof">Proof</a>
       <a href="#video">Video</a>
@@ -488,10 +518,53 @@ footer p+p{margin-top:6px}
   </div>
 </section>
 
-<section class="band first" id="systems" aria-labelledby="int-h">
+<section class="band first" id="apps" aria-labelledby="dd-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">04</span> What Milo connects</p>
+      <p class="eyebrow"><span class="n">04</span> Delivery app data</p>
+      <h2 id="dd-h">What the delivery apps <em>will and won't share.</em></h2>
+      <p>Our engineers have been through all three developer platforms. This is what each one gives per store, and where the gaps are.</p>
+    </div>
+    <div class="dd-grid">
+      <div class="mx-wrap">
+        <table class="mx">
+          <thead><tr><th scope="col">Per store</th><th scope="col">Deliveroo</th><th scope="col">Uber Eats</th><th scope="col">Just Eat</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Orders and items</th><td><span class="chip ok">Yes</span><small>Real time</small></td><td><span class="chip ok">Yes</span><small>Real time</small></td><td><span class="chip ok">Yes</span><small>Real time, push only</small></td></tr>
+            <tr><th scope="row">Prep and delivery times</th><td><span class="chip ok">Yes</span><small>Rider events</small></td><td><span class="chip ok">Yes</span><small>Order history</small></td><td><span class="chip ok">Yes</span><small>Driver events</small></td></tr>
+            <tr><th scope="row">Refunds</th><td><span class="chip ok">Yes</span><small>Item level</small></td><td><span class="chip warn">Partial</span><small>Reports only</small></td><td><span class="chip warn">To confirm</span></td></tr>
+            <tr><th scope="row">Commission and payouts</th><td><span class="chip bad">No</span><small>Restaurant Hub exports</small></td><td><span class="chip ok">Yes</span><small>Finance reports</small></td><td><span class="chip warn">Partial</span><small>Fees, no commission</small></td></tr>
+            <tr><th scope="row">Ratings</th><td><span class="chip bad">No</span></td><td><span class="chip ok">Yes</span><small>Feedback reports</small></td><td><span class="chip bad">No</span></td></tr>
+            <tr><th scope="row">Online or offline</th><td><span class="chip warn">Partial</span><small>Open or closed</small></td><td><span class="chip ok">Yes</span><small>Minutes by the hour</small></td><td><span class="chip warn">Partial</span><small>Online events</small></td></tr>
+            <tr><th scope="row">Menu and promotions</th><td><span class="chip ok">Yes</span></td><td><span class="chip ok">Yes</span></td><td><span class="chip warn">Partial</span><small>Deals in the menu</small></td></tr>
+            <tr><th scope="row">Customer details</th><td><span class="chip over">Minimal</span></td><td><span class="chip over">Minimal</span></td><td><span class="chip over">Minimal</span></td></tr>
+            <tr><th scope="row">History via the API</th><td><b>30 days</b></td><td><b>About 6 months</b></td><td><b>None</b><small>Starts when we connect</small></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="hist">
+        <p class="k label">History you can still get</p>
+        <h3>The clock is already running.</h3>
+        <div class="hb"><span>Uber Eats</span><span class="t"><i style="width:100%"></i></span><span class="v">~6 months</span></div>
+        <div class="hb"><span>Deliveroo</span><span class="t"><i style="width:16%"></i></span><span class="v">30 days</span></div>
+        <div class="hb"><span>Just Eat</span><span class="t"></span><span class="v none">None</span></div>
+        <p><b>Every week before we connect is a week of history you can't get back.</b> Uber Eats access takes about two to four weeks, so we apply to all three on day one.</p>
+      </div>
+    </div>
+    <div class="gaps">
+      <div class="gp"><p class="k label">Gap</p><b>Commission is missing on two of three</b><p>We take finance from Deliveroo's Restaurant Hub and Just Eat's Partner Hub and match it to the order feed, so margin by store and channel still works.</p></div>
+      <div class="gp"><p class="k label">Gap</p><b>No history until we capture it</b><p>Order feeds go live on day one, with a daily Deliveroo sweep as a safety net.</p></div>
+      <div class="gp"><p class="k label">Gap</p><b>Every app names the same pizza differently</b><p>We map each app's items to your own product codes, so Hot Honey Pesto is one product everywhere.</p></div>
+      <div class="gp"><p class="k label">Gap</p><b>Live and settled numbers disagree</b><p>Uber Eats figures settle over 72 hours. Live orders run operations, settled figures run finance, and each number shows its source.</p></div>
+    </div>
+    <p class="note">Deliveroo and Uber Eats come from their developer portals. Just Eat follows its JET Connect documentation and integrators' guides, so treat that column as provisional. Data comes only for stores that authorise us, franchise stores included, and none of the three shares competitor data.</p>
+  </div>
+</section>
+
+<section class="band" id="systems" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">05</span> What Milo connects</p>
       <h2 id="int-h">Every system. <em>One set of numbers.</em></h2>
       <p>Milo reads your systems as they are. Nothing gets replaced.</p>
     </div>
@@ -528,7 +601,7 @@ footer p+p{margin-top:6px}
         <div class="ig-h"><h3>The business</h3></div>
         <div class="desk"><div><b>Marketing</b></div><div class="pills"><span class="v">GA4</span><span class="v">Meta Ads</span><span class="v">TikTok Ads</span><span>Google Ads</span></div></div>
         <div class="desk"><div><b>Social</b></div><div class="pills"><span class="v">Instagram</span><span class="v">Facebook</span><span class="v">TikTok</span><span class="v">YouTube</span></div></div>
-        <div class="desk"><div><b>Reviews</b></div><div class="pills"><span>App ratings</span><span>Google reviews</span><span>Trustpilot</span></div></div>
+        <div class="desk"><div><b>Reviews</b></div><div class="pills"><span>Uber Eats ratings</span><span>Google reviews</span><span>Trustpilot</span></div></div>
         <div class="desk"><div><b>Finance and franchise</b></div><div class="pills"><span>Xero</span><span>Sage</span><span>Franchise fees</span><span>Store P&amp;Ls</span></div></div>
         <div class="desk"><div><b>Your own data</b></div><div class="pills"><span>SQL databases</span><span>Excel</span><span>SharePoint</span><span>Power BI</span></div></div>
       </div>
@@ -541,7 +614,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="proof" aria-labelledby="proof-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">05</span> Proof</p>
+      <p class="eyebrow"><span class="n">06</span> Proof</p>
       <h2 id="proof-h">Restaurants, platforms and brands <em>already run on it.</em></h2>
       <p>The closest example runs tills, rotas and stock across several sites.</p>
     </div>
@@ -581,7 +654,7 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="vid-grid">
       <div>
-        <p class="eyebrow"><span class="n">06</span> See it</p>
+        <p class="eyebrow"><span class="n">07</span> See it</p>
         <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
       </div>
       <div>
@@ -604,7 +677,7 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="sec">
       <div>
-        <p class="eyebrow"><span class="n">07</span> Trust and security</p>
+        <p class="eyebrow"><span class="n">08</span> Trust and security</p>
         <h2 id="sec-h">Your team <em>signs off first.</em></h2>
         <p class="t">Read-only connections, access by role, hosted in the EU. Customer details stay where they are. The rest is in the Trust Centre.</p>
       </div>
@@ -652,11 +725,11 @@ footer p+p{margin-top:6px}
      lg:'<span><i></i>Half or less</span><span><i class="tight"></i>50 to 60%</span><span><i class="bad"></i>Over 60%</span><span><i class="ln"></i>Half of orders</span>',
      stats:[["52%","of orders via the apps"],["4","stores over 60%"],["£4.1k","commission in one night"]],
      say:"Just over half of Friday's orders came through Just Eat, Deliveroo and Uber Eats, and every one paid commission."},
-    {name:"+ Ratings",short:"App ratings",col:"Rating",max:2,line:1.5,ll:"4.5",
+    {name:"+ Ratings",short:"Uber Eats ratings",col:"Rating",max:2,line:1.5,ll:"4.5",
      v:function(c){return c[3]-3},t:function(c){return c[3].toFixed(1)},k:function(c){return c[3]<4.2?"bad":(c[3]<4.5?"tight":"")},
      lg:'<span><i></i>4.5 or more</span><span><i class="tight"></i>4.2 to 4.4</span><span><i class="bad"></i>Under 4.2</span><span><i class="ln"></i>4.5</span>',
-     stats:[["4.4","average rating"],["3","stores under 4.2"],["3 of 3","are the late stores"]],
-     say:"The three lowest ratings belong to the three late stores. Late deliveries show up in the ratings first."},
+     stats:[["4.4","average Uber Eats rating"],["3","stores under 4.2"],["3 of 3","are the late stores"]],
+     say:"The three lowest Uber Eats ratings belong to the three late stores. Late deliveries show up in the ratings first."},
     {name:"Milo's answer",short:"Before tonight",col:"Do",max:60,line:50,ll:"50 min",q:"Asked: what needs doing before Friday night?",
      v:function(c){return c[1]},t:act,k:function(c){return act(c)==="Add a driver"?"bad":""},
      lg:'<span><i></i>Delivery time</span><span><i class="bad"></i>Running late</span><span>Faded: nothing to do</span>',
@@ -722,7 +795,7 @@ footer p+p{margin-top:6px}
        cap:"Commission paid last month, by platform",
        rows:[["Just Eat",142],["Deliveroo",96],["Uber Eats",71]],
        say:"£309k in commission last month. Moving one app order in ten to the Caprinos app would save about £31k a month.",
-       src:["Just Eat","Deliveroo","Uber Eats","Finance"],alert:"First of the month: commission by platform and store."},
+       src:["Uber Eats reports","Deliveroo Restaurant Hub","Just Eat Partner Hub"],alert:"First of the month: commission by platform and store."},
       {q:"Which franchisees are behind on fees?",kw:["franchisee","franchisees","fees","fee","royalty","royalties","behind","late","owe","owed","outstanding","debt","paid","unpaid"],type:"list",
        rows:[["4 stores","Over 30 days late · £18.6k","Call","bad"],["7 stores","Under 30 days late · £12.2k","Remind","warn"],["109 stores","Paid on time","Fine","ok"]],
        say:"Eleven stores owe £30.8k between them. Three of the four furthest behind are also behind on sales.",
@@ -749,7 +822,7 @@ footer p+p{margin-top:6px}
        cap:"Orders from first-time customers, launch month",
        rows:[["Hot Honey Pesto",31],["Chorizo Legend",26],["Rest of the menu",14]],
        say:"Both new pizzas drew first-timers at about twice the rate of the rest of the menu. Hot Honey Pesto did best.",
-       src:["EPOS","Caprinos app","Delivery apps"],alert:null}
+       src:["EPOS","Caprinos app","LivePepper"],alert:null}
     ]},
     {g:"Growth",name:"New stores",sub:"Where the next 20 go",sys:["Caprinos app","LivePepper","GA4","Store list"],qs:[
       {q:"Where should the next stores open?",kw:["where","next","open","opening","new","stores","store","site","sites","location","locations","expand","expansion","demand","area","areas"],type:"bars",
@@ -765,7 +838,7 @@ footer p+p{margin-top:6px}
     ]},
     {g:"Franchisees",name:"Franchisee login",sub:"Their own stores only",sys:["Their EPOS","Their delivery apps","Their reviews"],qs:[
       {q:"How did my store do this week?",kw:["my","store","week","doing","how","going","results","sales","mine","did"],type:"summary",
-       kpis:[["+9%","sales on last year"],["46 min","average delivery"],["4.5","app rating"],["2nd","in your area"]],
+       kpis:[["+9%","sales on last year"],["46 min","average delivery"],["4.5","Uber Eats rating"],["2nd","in your area"]],
        say:"Up 9% on last year and second in your area. Thursday was your slowest night, so that's the one to fill.",
        src:["Their EPOS","Their delivery apps","Their reviews"],alert:"Every Monday: your week at Caprinos."},
       {q:"What does the store next to me make?",kw:["other","store","stores","next","near","nearby","make","makes","takings","competitor","compare","theirs","neighbour"],type:"refuse",
@@ -878,15 +951,15 @@ footer p+p{margin-top:6px}
       {q:"Late deliveries, by cause",rows:[["A driver short",52],["Kitchen backed up",29],["Long distance",19]]},
       {q:"What Milo does",line:"Staff to the forecast.",why:"By 3pm, Milo checks each store's rota against tonight's expected orders."}
     ]},
-    {n:"04",name:"Rate",sub:"Reviews and refunds",reads:["Just Eat","Deliveroo","Uber Eats","Google reviews"],cards:[
-      {q:"Average rating, by delivery time",unit:"",hl:2,rows:[["Under 40 min",4.7],["40 to 50 min",4.5],["Over 50 min",3.8]]},
+    {n:"04",name:"Rate",sub:"Reviews and refunds",reads:["Uber Eats","Deliveroo","Google reviews"],cards:[
+      {q:"Uber Eats rating, by delivery time",unit:"",hl:2,rows:[["Under 40 min",4.7],["40 to 50 min",4.5],["Over 50 min",3.8]]},
       {q:"Refunds, by reason",rows:[["Late",41],["Missing item",33],["Cold",18],["Wrong order",8]]},
       {q:"What Milo does",line:"Fix lateness first.",why:"Late orders cause the most refunds and the lowest ratings."}
     ]},
-    {n:"05",name:"Return",sub:"The next order",reads:["Caprinos app","LivePepper","Meta Ads","TikTok Ads"],cards:[
-      {q:"New customers, by first channel",rows:[["Delivery apps",54],["Website",21],["Caprinos app",17],["Phone and walk-in",8]]},
-      {q:"Customers who order again within 30 days",rows:[["Caprinos app",46],["Website",38],["Delivery apps",21]]},
-      {q:"What Milo does",line:"Win them on the apps. Keep them on yours.",why:"Most new customers find Caprinos on a delivery app. App regulars come back twice as often."}
+    {n:"05",name:"Return",sub:"The next order",reads:["Caprinos app","LivePepper","EPOS","Meta Ads"],cards:[
+      {q:"Customers who order again within 30 days",rows:[["Caprinos app",46],["Website",38],["Phone and walk-in",29]]},
+      {q:"App sign-ups from offers in delivery bags, last month",unit:"",rows:[["Student town",312],["High street",204],["City centre",188]]},
+      {q:"What Milo does",line:"Bring them onto your app.",why:"The delivery apps keep the customer's details. An offer in the bag moves them to the Caprinos app, where you can reach them again."}
     ]}
   ];
   var step=0;
