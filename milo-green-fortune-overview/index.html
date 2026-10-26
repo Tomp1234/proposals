@@ -1,0 +1,989 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Green &amp; Fortune</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Oooh+Baby&family=Work+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Green & Fortune's own system, written for their IT lead. Cream paper and their brown ink, a brown top bar with the cream wordmark, olive for anything you press, sage for what is switched on, orange only for a refusal or a gap. Wide uppercase Josefin Sans stands in for their TAY Birdie, Newsreader for their Ivy Ora serif, Work Sans is their real body face and Oooh Baby their real handwriting face, used twice. */
+:root{
+  color-scheme:light;
+  --paper:#FFF6EE;--panel:#F7ECDF;--card:#FFFBF6;--ink:#27180A;--muted:#6B5846;--rule:#EBDCCA;--line:#DDCAB3;
+  --olive-ink:#54552D;--fill:#54552D;--on-fill:#FFF6EE;--sage:#CDCDA3;--on-sage:#27180A;--sage-soft:#EEEDD8;
+  --orange:#F1824B;--orange-ink:#A9481A;--peach:#F4D2B8;
+  --top:#27180A;--on-top:#FFF6EE;--top-muted:#BCA892;
+  --track:#F0E4D5;--bar:#DCCAB2;--hlbar:#54552D;
+  --good:#45461F;--good-bg:#E3E3C4;--warn:#8A4612;--warn-bg:#FBE4D1;--bad:#A23B0C;--bad-bg:#F8D5C1;--over:#6B5846;--over-bg:#F0E4D5;
+  --shadow:0 1px 2px rgba(39,24,10,.06),0 12px 32px rgba(39,24,10,.08);
+  --display:"Josefin Sans","Futura","Century Gothic","Trebuchet MS",sans-serif;
+  --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --body:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:"Oooh Baby","Bradley Hand","Segoe Script",cursive;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#1A1108;--panel:#241910;--card:#20160D;--ink:#F7EBDD;--muted:#BCA994;--rule:#35271A;--line:#46351F;
+  --olive-ink:#D3D3AA;--fill:#CDCDA3;--on-fill:#1A1108;--sage:#5A5B33;--on-sage:#F7EBDD;--sage-soft:#2B2B18;
+  --orange:#F39A6A;--orange-ink:#F6AC82;--peach:#5A3A26;
+  --top:#0F0904;--top-muted:#A8957F;
+  --track:#2E2216;--bar:#4A3926;--hlbar:#CDCDA3;
+  --good:#D7D8A8;--good-bg:#33341C;--warn:#F4B887;--warn-bg:#3D2414;--bad:#FF9D73;--bad-bg:#45200F;--over:#BCA994;--over-bg:#2E2216;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#1A1108;--panel:#241910;--card:#20160D;--ink:#F7EBDD;--muted:#BCA994;--rule:#35271A;--line:#46351F;
+  --olive-ink:#D3D3AA;--fill:#CDCDA3;--on-fill:#1A1108;--sage:#5A5B33;--on-sage:#F7EBDD;--sage-soft:#2B2B18;
+  --orange:#F39A6A;--orange-ink:#F6AC82;--peach:#5A3A26;
+  --top:#0F0904;--top-muted:#A8957F;
+  --track:#2E2216;--bar:#4A3926;--hlbar:#CDCDA3;
+  --good:#D7D8A8;--good-bg:#33341C;--warn:#F4B887;--warn-bg:#3D2414;--bad:#FF9D73;--bad-bg:#45200F;--over:#BCA994;--over-bg:#2E2216;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--top)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.03em;line-height:1.02;text-wrap:balance;margin:0}
+h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.08;text-wrap:balance;margin:0}
+h1 em{font-style:normal;color:var(--olive-ink)}
+h2 em,h3 em{font-style:italic;color:var(--olive-ink)}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--ink)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:2px}
+.label{font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+.eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.eyebrow .n{color:var(--on-fill);background:var(--fill);border-radius:4px;padding:3px 7px 1px}
+.hand{font-family:var(--hand);font-weight:400;letter-spacing:0;text-transform:none}
+.sr{position:absolute;left:-9999px}
+.btn{border:0;background:var(--fill);color:var(--on-fill);font-family:var(--display);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:10px 20px 8px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.1)}
+.strip{height:4px;background:linear-gradient(90deg,var(--olive-ink) 0 40%,var(--sage) 40% 70%,var(--peach) 70% 88%,var(--orange) 88%)}
+.tag{font-family:var(--display);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px 1px;border-radius:4px;background:var(--sage);color:var(--on-sage);white-space:nowrap}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--top);color:var(--on-top)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--on-top)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.02em;padding-top:3px}
+.lk-milo svg{width:28px;height:22px;margin-top:-3px}
+.lk-x{color:var(--top-muted)}
+.lk-gf{width:96px;height:31px;color:var(--on-top)}
+.nav{display:flex;gap:2px}
+.nav a{font-family:var(--display);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--on-top);text-decoration:none;padding:8px 11px 5px;border-radius:999px}
+.nav a:hover{background:rgba(255,246,238,.1)}
+@media (max-width:1040px){.nav{display:none}}
+
+/* hero */
+.hero{padding-block:56px 64px;background:radial-gradient(55% 70% at 100% 0%,var(--sage-soft),transparent 70%),var(--paper)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:52px;align-items:center}
+.pills-top{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.pt{font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:1px solid var(--rule);padding:5px 12px 3px;border-radius:999px}
+.hero h1{font-size:clamp(36px,5vw,62px);margin-bottom:24px}
+.hero h1 span{display:block}
+.lede{font-size:18.5px;line-height:1.55;max-width:31em;color:var(--muted)}
+.lede b{color:var(--ink);font-weight:600}
+
+/* IT card (hero) */
+.itcard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.it-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 18px;background:var(--top);color:var(--on-top)}
+.it-top .hand{font-size:28px;line-height:1.1}
+.it-list{margin:0;padding:6px 18px 4px}
+.it-list div{display:grid;grid-template-columns:minmax(0,132px) minmax(0,1fr);gap:14px;padding:11px 0;border-bottom:1px dashed var(--line)}
+.it-list div:last-child{border-bottom:0}
+.it-list dt{font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.it-list dd{margin:0;font-size:14.5px;line-height:1.5}
+.it-certs{display:flex;flex-wrap:wrap;gap:6px;padding:12px 18px 16px;background:var(--panel);border-top:1px solid var(--rule)}
+.it-certs span{font-size:12px;font-weight:600;background:var(--card);border:1px solid var(--line);padding:3px 10px;border-radius:999px}
+@media (max-width:940px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:440px){.it-list div{grid-template-columns:minmax(0,1fr);gap:2px}}
+
+/* letter and estate */
+.intro{padding-block:56px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:44px;align-items:start}
+.letter{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.letter-in{padding:24px 28px 26px}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:14px;margin-bottom:18px;border-bottom:1px dashed var(--line)}
+.refs b{color:var(--ink);font-weight:600}
+.letter p{font-size:15.5px;margin-bottom:11px}
+.letter .sal{font-family:var(--serif);font-style:italic;font-size:28px;line-height:1.15;margin-bottom:12px}
+.sign{margin-top:18px}
+.sign .nm{font-family:var(--serif);font-size:19px}
+.sign .ml{font-size:13px;color:var(--muted)}
+.est{list-style:none;margin:0 0 22px;padding:0;border-top:3px solid var(--ink)}
+.est li{display:grid;grid-template-columns:minmax(0,128px) minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.est .label{color:var(--muted)}
+.est b{font-size:14.5px;line-height:1.5}
+.est li.new .label{color:var(--orange-ink)}
+.kq{margin:0;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.3}
+.kq cite{display:block;font-family:var(--display);font-style:normal;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.src-line{font-size:12px;color:var(--muted);margin-top:12px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:440px){.est li{grid-template-columns:minmax(0,1fr);gap:2px}.letter-in{padding:20px 18px 22px}}
+
+/* sections */
+section.band{padding-block:76px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+section.tint{background:var(--panel);border-top:0}
+.head{max-width:780px;margin-bottom:30px}
+.head h2{font-size:clamp(32px,4.4vw,54px);margin-bottom:14px}
+.head p{color:var(--muted);font-size:18px;line-height:1.5}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:3px}
+.sg{color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer;border-radius:10px}
+.seat b{display:block;font-size:14.5px}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--fill);border-color:var(--fill);color:var(--on-fill)}
+.seat[aria-pressed="true"] span{color:var(--on-fill)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--line);background:var(--card);padding:7px 15px;font-size:13.5px;font-weight:500;cursor:pointer;text-align:left;border-radius:999px}
+.q:hover{border-color:var(--ink)}
+.q[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-size:12.5px;color:var(--muted)}
+.sys .s{font-weight:600;color:var(--ink);background:var(--panel);padding:2px 10px;border-radius:999px}
+.console{background:var(--card);border:1px solid var(--line);overflow:hidden;border-radius:16px;box-shadow:var(--shadow)}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:var(--top);color:var(--on-top);font-size:13px}
+.c-head .who{display:flex;align-items:center;gap:8px;font-weight:600}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:340px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--panel);padding:9px 15px;max-width:80%;font-size:14px;border-radius:16px 16px 4px 16px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15.5px;max-width:64ch;margin-bottom:16px}
+.cap{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;overflow:hidden;border-radius:7px;background:var(--track)}
+.bf{display:block;height:100%;background:var(--bar);border-radius:7px;transition:width .5s ease}
+.bf.hl{background:var(--hlbar)}
+.bv{font-size:12.5px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);margin-bottom:16px;border-radius:12px;overflow:hidden}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-size:11px;font-weight:600;letter-spacing:.02em;padding:3px 10px;white-space:nowrap;flex:none;border-radius:999px}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.chip.own{background:var(--sage);color:var(--on-sage)}
+.chip.none{background:transparent;color:var(--muted);border:1px dashed var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden;margin-bottom:16px;border-radius:12px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--serif);font-size:30px;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums lining-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--bad-bg);padding:14px;margin-bottom:16px;font-size:14.5px;border-radius:12px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--bad);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--line)}
+.a-meta{display:grid;gap:3px;min-width:0}
+.src{font-size:11.5px;color:var(--muted)}
+.acc{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--olive-ink)}
+.acc svg{width:13px;height:13px;flex:none}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--good);max-width:52ch}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);padding:9px 14px;border-radius:999px}
+.ghost{border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;border-radius:999px}
+.ghost:hover{background:var(--ink);color:var(--paper)}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--line)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,118px) minmax(0,1fr) 62px}
+}
+
+/* how it connects */
+.st-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:22px}
+.st{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:12px 14px;text-align:left;cursor:pointer;border-radius:12px}
+.st .n{display:block;font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.1em;color:var(--muted)}
+.st b{display:block;font-family:var(--serif);font-weight:500;font-size:21px;line-height:1.2}
+.st small{display:block;font-size:12px;color:var(--muted);line-height:1.35}
+.st:hover{border-color:var(--muted)}
+.st[aria-pressed="true"]{background:var(--fill);border-color:var(--fill);color:var(--on-fill)}
+.st[aria-pressed="true"] small,.st[aria-pressed="true"] .n{color:var(--on-fill)}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px;margin-bottom:12px}
+.fn{position:relative;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 14px 15px;min-width:0;transition:opacity .3s,border-color .3s,background .3s}
+.fn::after{content:"";position:absolute;top:50%;right:-23px;width:18px;height:2px;background:var(--line)}
+.fn::before{content:"";position:absolute;top:calc(50% - 4px);right:-24px;border:5px solid transparent;border-left-color:var(--line);border-right:0}
+.fn:last-child::after,.fn:last-child::before{display:none}
+.fn .k{color:var(--muted);margin-bottom:6px}
+.fn h3{font-size:19px;margin-bottom:8px}
+.fn p{font-size:13px;color:var(--muted);line-height:1.45}
+.fn .mini{display:flex;flex-wrap:wrap;gap:4px}
+.fn .mini span{font-size:11.5px;font-weight:600;background:var(--panel);padding:1px 8px;border-radius:999px}
+.fn.on{background:var(--sage-soft);border-color:var(--olive-ink)}
+.fn.off{opacity:.45}
+.logbar{display:flex;align-items:center;gap:10px;border:1.5px dashed var(--line);border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--muted);margin-left:calc(60% + 17px);transition:opacity .3s,border-color .3s,background .3s}
+.logbar b{color:var(--ink)}
+.logbar svg{width:16px;height:16px;flex:none}
+.logbar.on{background:var(--sage-soft);border-color:var(--olive-ink);border-style:solid}
+.logbar.off{opacity:.45}
+.st-detail{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;margin-top:22px}
+.sd{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.sd .k{color:var(--muted);margin-bottom:8px}
+.sd p{font-size:15.5px}
+.sd.it{background:var(--top);border-color:var(--top);color:var(--on-top)}
+.sd.it .k{color:var(--top-muted)}
+@media (max-width:900px){
+  .st-tabs{display:flex;overflow-x:auto;scrollbar-width:thin}
+  .st{flex:none;min-width:132px}
+  .flow{grid-template-columns:minmax(0,1fr);gap:22px}
+  .fn::after{top:auto;bottom:-19px;right:auto;left:28px;width:2px;height:14px}
+  .fn::before{top:auto;bottom:-23px;right:auto;left:24px;border:5px solid transparent;border-top-color:var(--line);border-bottom:0}
+  .logbar{margin-left:0}
+  .st-detail{grid-template-columns:minmax(0,1fr)}
+}
+
+/* who sees what */
+.mx-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+.mx-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.mx{width:100%;min-width:640px;border-collapse:collapse;font-size:13px}
+.mx th,.mx td{padding:9px 10px;text-align:left;vertical-align:middle;border-bottom:1px solid var(--rule)}
+.mx thead th{background:var(--top);color:var(--on-top);font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:10.5px;letter-spacing:.08em;line-height:1.3;border-bottom:0;padding-top:11px}
+.mx tbody tr{cursor:pointer;transition:background .2s}
+.mx tbody tr:hover{background:var(--panel)}
+.mx tbody tr[aria-selected="true"]{background:var(--sage-soft)}
+.mx tbody tr[aria-selected="true"] th{box-shadow:inset 3px 0 0 var(--olive-ink)}
+.mx tbody tr:last-child>*{border-bottom:0}
+.mx tbody th{font-weight:600;white-space:nowrap}
+.mx tbody th button{all:unset;cursor:pointer}
+.mx tbody th button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.mx .chip{display:inline-block}
+.mx-say{display:flex;gap:10px;align-items:baseline;margin-top:12px;font-size:15px;min-height:24px}
+.mx-say b{white-space:nowrap}
+.mx-note{display:flex;align-items:center;gap:10px;margin-top:6px}
+.mx-note .hand{font-size:24px;color:var(--olive-ink);line-height:1.1}
+.log{background:var(--top);color:var(--on-top);border-radius:14px;padding:20px}
+.log .k{color:var(--top-muted);margin-bottom:6px}
+.log h3{font-size:24px;margin-bottom:14px}
+.log ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+.log li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px solid rgba(255,246,238,.12);font-size:13px}
+.log time{font-variant-numeric:tabular-nums;color:var(--top-muted)}
+.log .who{display:block;font-size:11.5px;color:var(--top-muted)}
+.log .r{display:inline-block;margin-top:4px;font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:1px 8px;border-radius:999px;background:rgba(205,205,163,.2);color:#E2E2C2}
+.log .r.no{background:rgba(241,130,75,.22);color:#F7B48F}
+@media (max-width:760px){.log ol{grid-template-columns:minmax(0,1fr)}}
+
+/* systems */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:34px}
+.card{background:var(--panel);padding:22px;border-radius:14px}
+.card .k{color:var(--muted);margin-bottom:10px}
+.card h3{font-size:24px;margin-bottom:6px}
+.card p{font-size:14px;color:var(--muted)}
+.intg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px}
+.ig-h{padding-bottom:10px;border-bottom:3px solid var(--ink)}
+.ig-h h3{font-size:26px}
+.desk{display:grid;grid-template-columns:minmax(0,140px) minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.desk b{display:block;font-size:15px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;border:1px solid var(--line);background:var(--card);padding:4px 11px;border-radius:999px}
+.pills span.v{font-weight:600}
+.pills span.v::before,.seen i{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--olive-ink);flex:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:14px}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:16px 18px;background:var(--panel);font-size:14px;border-radius:12px}
+.outs b{color:var(--muted)}
+@media (max-width:860px){.intg,.three{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}}
+
+/* pilot plan */
+.plan{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.pl-row{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--rule)}
+.pl-row>span{padding:14px 16px;font-size:14.5px;min-width:0}
+.pl-row>span+span{border-left:1px solid var(--rule)}
+.pl-head{background:var(--top);color:var(--on-top);border-top:0}
+.pl-head>span{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-block:12px 9px}
+.pl-head>span+span{border-left-color:rgba(255,246,238,.12)}
+.pl-wk b{display:block;font-family:var(--serif);font-size:22px;font-weight:500;line-height:1.1}
+.pl-wk small{display:block;font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pl-it{background:var(--sage-soft)}
+.plan-foot{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:15px;color:var(--muted);max-width:80ch}
+.plan-foot svg{width:24px;height:20px;flex:none;margin-top:2px}
+@media (max-width:760px){
+  .pl-head{display:none}
+  .pl-row{grid-template-columns:minmax(0,1fr)}
+  .pl-row>span+span{border-left:0;border-top:1px dashed var(--rule)}
+  .pl-row>span[data-l]::before{content:attr(data-l);display:block;font-family:var(--display);font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .pl-row:first-of-type{border-top:0}
+}
+
+/* proof */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--card);padding:32px;margin-bottom:24px;border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.feature .k{color:var(--olive-ink);margin-bottom:10px}
+.feature h3{font-size:clamp(28px,3.4vw,40px);margin-bottom:14px}
+.feature p{font-size:15px;color:var(--muted);margin-bottom:10px}
+.feature p b{color:var(--ink)}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid var(--line);padding:14px 16px;position:relative;border-radius:12px}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:var(--line)}
+.chain .t{font-family:var(--display);font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.chain b{display:block;font-size:16px}
+.chain li.end{background:var(--fill);color:var(--on-fill);border-color:var(--fill)}
+.chain li.end .t{color:var(--on-fill)}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+@media (max-width:1040px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pcard{background:var(--panel);padding:22px;display:flex;flex-direction:column;border-radius:14px}
+.pcard .k{color:var(--muted);margin-bottom:8px}
+.pcard .big{font-family:var(--serif);font-weight:500;font-size:46px;line-height:1;margin-bottom:10px;color:var(--olive-ink);font-variant-numeric:lining-nums}
+.pcard .body{font-size:14px}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.vid-grid h2{font-size:clamp(32px,4vw,48px)}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--top);border-radius:16px;box-shadow:var(--shadow)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:#FFF6EE;overflow:hidden;
+  background:radial-gradient(60% 80% at 100% 0%,rgba(205,205,163,.35),transparent 65%),radial-gradient(50% 70% at 0% 100%,rgba(241,130,75,.28),transparent 65%),#27180A}
+.poster .strip{position:absolute;left:0;right:0;bottom:0}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:700;padding-top:3px}
+.p-mark svg{width:26px;height:20px;margin-top:-3px}
+.p-ttl{font-family:var(--serif);font-size:clamp(26px,3.6vw,44px);line-height:1;text-align:center;padding-inline:12px}
+.p-play{width:68px;height:68px;border-radius:50%;background:#CDCDA3;color:#27180A;display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#BCA892}
+.vid-note{font-size:13px;color:var(--muted);margin-top:16px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* trust */
+.tgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:18px}
+.tt{background:var(--card);padding:18px 20px;min-width:0}
+.tt .k{color:var(--olive-ink);margin-bottom:6px}
+.tt p{font-size:14.5px}
+.docs{font-size:14px;color:var(--muted);margin-bottom:30px;max-width:80ch}
+.trust-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:start}
+.faq h3{font-size:26px;margin-bottom:10px}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:13px 0;font-weight:600;font-size:15.5px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--display);font-weight:600;font-size:20px;line-height:1;color:var(--olive-ink)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 0 14px;color:var(--muted);font-size:14.5px;max-width:62ch}
+.tbox{background:var(--top);color:var(--on-top);border-radius:16px;padding:24px}
+.tbox .k{color:var(--top-muted);margin-bottom:8px}
+.tbox p{font-size:15px;margin-bottom:16px}
+.trust-cta{display:inline-flex;flex-direction:column;gap:2px;background:#CDCDA3;color:#27180A;text-decoration:none;padding:13px 22px 11px;font-weight:600;font-size:14.5px;border-radius:999px}
+.trust-cta small{font-weight:400;font-size:11.5px;opacity:.8}
+.trust-cta:hover{filter:brightness(1.05)}
+@media (max-width:900px){.tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.trust-row{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.tgrid{grid-template-columns:minmax(0,1fr)}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:76px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.fn,.logbar,.mx tbody tr{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="gf-logo" viewBox="0 0 176 57"><g fill="currentColor"><path d="M30.5459 5.39624C28.419 3.51814 25.4686 2.94639 22.7713 2.94639C17.4409 2.94639 13.5045 6.95626 13.5045 11.9809C13.5045 17.0056 17.5996 21.0155 22.93 21.0155C24.7697 21.0155 26.8966 20.5686 28.5777 19.5842V13.3819H23.5646L23.406 13.2229V11.0608L23.5646 10.9018H30.8632L31.0219 11.0608V21.0495C28.6419 22.7989 25.7859 23.594 22.93 23.594C16.1074 23.594 10.709 18.505 10.709 11.9809C10.709 5.45682 15.9487 0.371582 22.7713 0.371582C25.7859 0.371582 28.6419 0.87897 30.7046 2.439V5.23721L30.5459 5.39624Z"/>
+    <path d="M47.6516 0.848511C51.9998 0.848511 54.7613 3.36273 54.7613 7.02047C54.7613 10.0421 52.54 12.0792 50.0958 12.7456L57.6173 22.9578L57.4586 23.1168H54.6026L54.444 22.9578L47.1454 13.2227H44.2894V22.9578L44.1307 23.1168H42.0039L41.8452 22.9578V1.00754L42.0039 0.848511H47.6516ZM44.2894 10.7426H47.4627C50.0354 10.7426 51.9393 9.47032 51.9393 7.02047C51.9393 4.69936 50.3829 3.29836 47.6554 3.29836H44.2894V10.7426Z"/>
+    <path d="M79.4866 0.848511L79.6452 1.00754V3.13933L79.4866 3.29836H69.1733V9.62935H76.9479L77.1066 9.78838V11.9505L76.9479 12.1095H69.1733V20.6669H80.4423L80.601 20.826V22.9578L80.4423 23.1168H66.8916L66.7329 22.9578V1.00754L66.8916 0.848511H79.4903H79.4866Z"/>
+    <path d="M103.256 0.848511L103.415 1.00754V3.13933L103.256 3.29836H92.9394V9.62935H100.714L100.873 9.78838V11.9505L100.714 12.1095H92.9394V20.6669H104.208L104.367 20.826V22.9578L104.208 23.1168H90.6577L90.499 22.9578V1.00754L90.6577 0.848511H103.256Z"/>
+    <path d="M116.682 0.848511L117 1.00754L130.773 19.2054V1.00754L130.932 0.848511H133.059L133.217 1.00754V22.9578L133.059 23.1168H130.807L130.49 22.9578L116.716 4.75994V22.9578L116.558 23.1168H114.431L114.272 22.9578V1.00754L114.431 0.848511H116.686H116.682Z"/>
+    <path d="M12.9303 33.2988L13.0889 33.4579V35.5896L12.9303 35.7487H2.61705V42.0797H10.3916L10.5503 42.2387V44.4008L10.3916 44.5598H2.61705V55.4081L2.45838 55.5671H0.331517L0.172852 55.4081V33.4579L0.331517 33.2988H12.9303Z"/>
+    <path d="M43.4319 44.4348C43.4319 50.8301 38.1619 56.0479 31.6869 56.0479C25.2118 56.0479 19.9419 50.8301 19.9419 44.4348C19.9419 38.0394 25.2118 32.8217 31.6869 32.8217C38.1619 32.8217 43.4319 38.0394 43.4319 44.4348ZM22.7374 44.4348C22.7374 49.4291 26.7683 53.4693 31.6869 53.4693C36.6055 53.4693 40.6061 49.4291 40.6061 44.4348C40.6061 39.4404 36.6055 35.4002 31.6869 35.4002C26.7683 35.4002 22.7374 39.4404 22.7374 44.4348Z"/>
+    <path d="M59.4265 33.2988C63.7747 33.2988 66.5362 35.8131 66.5362 39.4708C66.5362 42.4924 64.3149 44.5295 61.8707 45.1959L69.3922 55.4081L69.2335 55.5671H66.3775L66.2189 55.4081L58.9203 45.673H56.0643V55.4081L55.9057 55.5671H53.7788L53.6201 55.4081V33.4579L53.7788 33.2988H59.4265ZM56.0643 43.1929H59.2376C61.8103 43.1929 63.7142 41.9206 63.7142 39.4708C63.7142 37.1497 62.1578 35.7487 59.4303 35.7487H56.0643V43.1929Z"/>
+    <path d="M91.515 33.2988L91.6737 33.4579V35.5896L91.515 35.7487H84.0238V55.4081L83.8651 55.5671H81.708L81.5493 55.4081V35.7487H74.0581L73.8994 35.5896V33.4579L74.0581 33.2988H91.515Z"/>
+    <path d="M103.35 33.2988L103.509 33.4579V45.2603C103.509 50.5424 106.524 53.4694 110.524 53.4694C114.525 53.4694 117.57 50.5424 117.57 45.2603V33.4579L117.729 33.2988H119.855L120.014 33.4579V45.7071C120.014 52.2274 115.919 56.0442 110.524 56.0442C105.13 56.0442 101.065 52.2274 101.065 45.7071V33.4579L101.224 33.2988H103.35Z"/>
+    <path d="M133.599 33.2988L133.916 33.4579L147.69 51.6557V33.4579L147.849 33.2988H149.976L150.134 33.4579V55.4081L149.976 55.5671H147.724L147.407 55.4081L133.633 37.2103V55.4081L133.474 55.5671H131.348L131.189 55.4081V33.4579L131.348 33.2988H133.603H133.599Z"/>
+    <path d="M174.063 33.2988L174.221 33.4579V35.5896L174.063 35.7487H163.746V42.0797H171.52L171.679 42.2387V44.4008L171.52 44.5598H163.746V53.1173H175.015L175.173 53.2763V55.4081L175.015 55.5671H161.464L161.305 55.4081V33.4579L161.464 33.2988H174.063Z"/>
+    <path d="M159.953 11.1216C160.474 11.5002 160.871 12.0038 161.15 12.6324C161.43 13.261 161.57 13.9615 161.57 14.7339C161.57 15.4268 161.441 16.1122 161.181 16.7862C160.92 17.4602 160.542 18.1039 160.047 18.7097C159.409 19.4973 158.57 20.0993 157.531 20.5158C156.492 20.9286 155.299 21.1368 153.954 21.1368C151.513 21.1368 149.553 20.5386 148.072 19.3383C146.591 18.1379 145.851 16.5628 145.851 14.6165C145.851 13.5449 146.058 12.6135 146.478 11.8297C146.893 11.0459 147.517 10.4135 148.344 9.94022C148.117 9.554 147.943 9.16777 147.823 8.78534C147.705 8.40291 147.645 8.01669 147.645 7.63046C147.645 6.6119 148.011 5.72965 148.748 4.97993C149.485 4.23021 150.339 3.85535 151.317 3.85535C151.906 3.85535 152.405 3.97651 152.809 4.21506C153.213 4.4574 153.417 4.74517 153.417 5.08595C153.417 5.3245 153.346 5.51761 153.206 5.66528C153.062 5.81674 152.877 5.88868 152.651 5.88868C152.477 5.88868 152.156 5.73723 151.687 5.43809C151.219 5.13896 150.773 4.9875 150.346 4.9875C149.764 4.9875 149.277 5.21469 148.88 5.66907C148.487 6.12345 148.291 6.68763 148.291 7.3692C148.291 7.68348 148.37 8.02047 148.529 8.38019C148.688 8.7399 148.907 9.08826 149.19 9.42904C149.322 9.34195 149.492 9.2738 149.693 9.22836C149.893 9.17913 150.112 9.15642 150.346 9.15642C150.739 9.15642 151.071 9.27001 151.343 9.49341C151.615 9.71681 151.751 9.98565 151.751 10.2924C151.751 10.6331 151.638 10.8944 151.408 11.0799C151.177 11.2655 150.856 11.3564 150.441 11.3564C150.119 11.3564 149.817 11.2768 149.541 11.1178C149.266 10.9588 148.986 10.7089 148.703 10.3605C148.159 10.6218 147.732 11.0345 147.422 11.5987C147.112 12.1629 146.957 12.8028 146.957 13.5222C146.957 14.3174 147.18 15.0898 147.63 15.8358C148.079 16.5817 148.722 17.2481 149.557 17.8312C150.233 18.297 150.973 18.6453 151.778 18.8725C152.583 19.0997 153.467 19.2171 154.434 19.2171C156.315 19.2171 157.83 18.7627 158.978 17.8502C160.127 16.9376 160.701 15.7449 160.701 14.2682C160.701 13.1701 160.402 12.3143 159.809 11.7009C159.216 11.0837 158.389 10.777 157.335 10.777C156.508 10.777 155.854 10.9361 155.374 11.2579C154.894 11.576 154.653 12.0076 154.653 12.5529C154.653 12.7574 154.713 12.9315 154.834 13.0678C154.955 13.2042 155.11 13.2761 155.299 13.2761C155.393 13.2761 155.574 13.2193 155.846 13.1095C156.118 12.9997 156.356 12.9429 156.56 12.9429C156.859 12.9429 157.104 13.0413 157.293 13.2382C157.482 13.4351 157.577 13.6926 157.577 14.0069C157.577 14.3628 157.46 14.6392 157.222 14.8399C156.987 15.0406 156.659 15.1428 156.243 15.1428C155.627 15.1428 155.114 14.9043 154.694 14.4272C154.279 13.9501 154.067 13.3556 154.067 12.6475C154.067 11.6706 154.415 10.8755 155.114 10.2621C155.809 9.64866 156.734 9.34574 157.883 9.34574H158.049L160.093 9.40632H160.493C161.8 9.40632 162.786 9.19049 163.459 8.75505C164.127 8.3196 164.464 7.68726 164.464 6.85045C164.464 6.3052 164.32 5.83946 164.033 5.45324C163.746 5.06702 163.413 4.87391 163.036 4.87391C162.775 4.87391 162.571 5.05945 162.42 5.43052C162.405 5.46839 162.393 5.50246 162.386 5.52518C162.276 5.78645 162.125 5.98335 161.936 6.11587C161.747 6.2484 161.528 6.31656 161.275 6.31656C160.969 6.31656 160.72 6.23704 160.527 6.07422C160.334 5.9114 160.236 5.70693 160.236 5.45324C160.236 4.97993 160.414 4.59371 160.769 4.29836C161.124 4.00302 161.592 3.85535 162.174 3.85535C163.024 3.85535 163.742 4.16962 164.324 4.79818C164.905 5.42673 165.196 6.20675 165.196 7.1458C165.196 8.40669 164.781 9.39118 163.95 10.0917C163.119 10.7922 161.951 11.1443 160.448 11.1443C160.391 11.1443 160.308 11.1443 160.195 11.133C160.081 11.1254 159.994 11.1216 159.942 11.1216H159.953Z"/></g></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="logi" viewBox="0 0 16 16"><path d="M3 2.5h10M3 6h10M3 9.5h10M3 13h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Green &amp; Fortune">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <svg class="lk-gf" role="img" aria-label="Green &amp; Fortune"><use href="#gf-logo"/></svg>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#ask">Ask</a>
+      <a href="#connect">How it connects</a>
+      <a href="#access">Who sees what</a>
+      <a href="#systems">Systems</a>
+      <a href="#pilot">Pilot</a>
+      <a href="#proof">Proof</a>
+      <a href="#trust">Security</a>
+    </nav>
+  </div>
+  <div class="strip" aria-hidden="true"></div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><span class="n">01</span> Milo <span style="font-family:var(--body)">×</span> Green &amp; Fortune</p>
+        <div class="pills-top" aria-hidden="true"><span class="pt">Read-only</span><span class="pt">Access by role</span><span class="pt">EU hosted</span><span class="pt">ISO 27001</span></div>
+        <h1><span>Powered by people.</span><span><em>Signed off by IT.</em></span></h1>
+        <p class="lede">Anyone at Green &amp; Fortune asks in plain English, and <b>Milo answers in seconds</b> from rotas, payroll, recruitment, tills and events. IT decides what it can read and who sees what.</p>
+      </div>
+
+      <aside class="itcard" aria-labelledby="it-h">
+        <div class="it-top"><p class="hand" id="it-h">For IT, in one minute</p><span class="tag">Read-only</span></div>
+        <dl class="it-list">
+          <div><dt>What it is</dt><dd>An analyst anyone can ask in plain English. Every answer shows its sources.</dd></div>
+          <div><dt>What it reads</dt><dd>Only the systems you approve, through read-only logins. Nothing is written back.</dd></div>
+          <div><dt>Who sees what</dt><dd>Access by role and venue, checked before an answer is written. Individual pay stays with People and Payroll.</dd></div>
+          <div><dt>Where data lives</dt><dd>AWS in Frankfurt, or on your own servers.</dd></div>
+          <div><dt>Who builds it</dt><dd>Our engineers build and maintain every connection.</dd></div>
+          <div><dt>What IT does</dt><dd>Approves the systems, creates a read-only login for each, and signs off the roles.</dd></div>
+        </dl>
+        <div class="it-certs"><span>ISO 27001</span><span>SOC 2 Type I</span><span>SOC 2 Type II in progress</span><span>GDPR</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="strip" aria-hidden="true"></div>
+        <div class="letter-in">
+          <div class="refs">
+            <span>For</span><b>IT and systems, Green &amp; Fortune</b>
+            <span>Via</span><b>Kasia Koziel, People Director</b>
+          </div>
+          <p class="sal">Hello,</p>
+          <p>I've been speaking with Kasia about Milo. Anything that reads rotas, payroll and HR records should go past IT first, so this page is written for you.</p>
+          <p>Milo is an analyst anyone at Green &amp; Fortune can ask in plain English, from the people team to a venue manager. It reads the systems you already run and answers in seconds, with the source under every number. Nothing gets replaced.</p>
+          <p>Our engineers build and run the connections. Your part is deciding what Milo can read and who sees what. Every figure on this page is sample data.</p>
+          <div class="sign">
+            <p class="nm">Liam James Rabone</p>
+            <p class="ml">Milo · liam@milo.ai</p>
+          </div>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow">Green &amp; Fortune today</p>
+        <ul class="est">
+          <li><span class="label">Event venues</span><b>Kings Place · Sea Containers · Rose Court · Central Hall Westminster · 20 Cavendish Square · London Museum Docklands</b></li>
+          <li><span class="label">Restaurants and cafés</span><b>Rotunda Bar &amp; Restaurant · Green &amp; Fortune Café · Wesley's Café</b></li>
+          <li><span class="label">Workplace dining</span><b>Cafés and client events in clients' own buildings</b></li>
+          <li class="new"><span class="label">Opens 28 November</span><b>London Museum Smithfield: Clerks House, Bartholomew's, Temperance Cocoa Rooms and The Roost</b></li>
+        </ul>
+        <blockquote class="kq">“Great hospitality starts by empowering our people to thrive.”<cite>Kasia Koziel, People Director</cite></blockquote>
+        <p class="src-line">From greenandfortune.co.uk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">02</span> Ask Milo</p>
+      <h2 id="ask-h">Every team asks. <em>Each sees its own.</em></h2>
+      <p>Pick a seat and a question, or type your own. The venue manager seat shows a refusal.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · Green &amp; Fortune</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Sample data. Venue names are real and every figure is invented.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band tint" id="connect" aria-labelledby="cn-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">03</span> How it connects</p>
+      <h2 id="cn-h">From your systems <em>to an answer.</em></h2>
+      <p>Five steps. Pick one to see what happens and what IT controls.</p>
+    </div>
+    <div class="st-tabs" id="st-tabs" role="group" aria-label="Choose a step"></div>
+    <div class="flow" id="flow">
+      <div class="fn" data-node="0"><p class="k label">Your systems</p><h3>As they are</h3><div class="mini"><span>HR</span><span>Payroll</span><span>Rotas</span><span>Talos360</span><span>Tills</span><span>Events</span><span>Finance</span></div></div>
+      <div class="fn" data-node="1"><p class="k label">Connections</p><h3>Read-only</h3><p>An API login per system, or a small agent on your server for anything on-premise.</p></div>
+      <div class="fn" data-node="2"><p class="k label">Warehouse</p><h3>Yours</h3><p>AWS, Frankfurt. Encrypted in transit and at rest.</p></div>
+      <div class="fn" data-node="3"><p class="k label">Access check</p><h3>Role and venue</h3><p>Checked before any answer is written.</p></div>
+      <div class="fn" data-node="4"><p class="k label">Your people</p><h3>Ask anywhere</h3><p>Milo, Teams or Slack. Answers with sources.</p></div>
+    </div>
+    <div class="logbar" id="logbar"><svg aria-hidden="true"><use href="#logi"/></svg><span><b>Audit log.</b> Every question, answer and refusal.</span></div>
+    <div class="st-detail" id="st-detail" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="band first" id="access" aria-labelledby="ac-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">04</span> Who sees what</p>
+      <h2 id="ac-h">Pay stays <em>with payroll.</em></h2>
+      <p>Access is set by role and venue, and checked before any answer is written. Pick a role.</p>
+    </div>
+    <div class="mx-grid">
+      <div>
+        <div class="mx-wrap">
+          <table class="mx">
+            <thead><tr id="mx-head"></tr></thead>
+            <tbody id="mx-body"></tbody>
+          </table>
+        </div>
+        <p class="mx-say" id="mx-say" aria-live="polite"></p>
+        <p class="mx-note"><span class="hand">a sample matrix. You and the people team set the real one.</span></p>
+      </div>
+      <div class="log" aria-labelledby="log-h">
+        <p class="k label">Audit log · this morning</p>
+        <h3 id="log-h">Every question, on the record.</h3>
+        <ol>
+          <li><time>09:12</time><span>Labour against target this week<span class="who">Venue manager · Kings Place</span><span class="r">Answered</span></span></li>
+          <li><time>09:15</time><span>What do the chefs at Rotunda earn?<span class="who">Venue manager · Kings Place</span><span class="r no">Refused · pay is outside this role</span></span></li>
+          <li><time>10:02</time><span>New starters gone within 90 days<span class="who">People director</span><span class="r">Answered</span></span></li>
+          <li><time>10:40</time><span>Agency spend by venue, last month<span class="who">Finance</span><span class="r">Answered</span></span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="systems" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">05</span> What Milo connects</p>
+      <h2 id="int-h">Your systems stay. <em>Milo reads them.</em></h2>
+      <p>We connect what you already run, and build anything that's missing.</p>
+    </div>
+    <div class="three">
+      <div class="card"><p class="k label">The connections</p><h3>We build them</h3><p>Our engineers build and maintain every one.</p></div>
+      <div class="card"><p class="k label">The dashboards</p><h3>Anyone builds one</h3><p>Pin an answer and it's a live dashboard.</p></div>
+      <div class="card"><p class="k label">The automations</p><h3>Questions keep running</h3><p>Any question can arrive on a schedule.</p></div>
+    </div>
+    <div class="intg">
+      <div>
+        <div class="ig-h"><h3>People</h3></div>
+        <div class="desk"><div><b>HR</b></div><div class="pills"><span>Fourth</span><span>Harri</span><span>Access PeopleHR</span><span>CIPHR</span><span>Breathe</span></div></div>
+        <div class="desk"><div><b>Payroll</b></div><div class="pills"><span>Sage Payroll</span><span>ADP</span><span>Moorepay</span><span>IRIS</span></div></div>
+        <div class="desk"><div><b>Rotas and time</b></div><div class="pills"><span>Planday</span><span>Rotaready</span><span>Deputy</span><span>Fourth</span></div></div>
+        <div class="desk"><div><b>Recruitment</b></div><div class="pills"><span class="v">Talos360</span><span>Indeed</span><span>Caterer.com</span></div></div>
+        <div class="desk"><div><b>Training</b></div><div class="pills"><span>Flow</span><span>Kallidus</span><span>Certificate trackers</span></div></div>
+      </div>
+      <div>
+        <div class="ig-h"><h3>Venues and business</h3></div>
+        <div class="desk"><div><b>Tills</b></div><div class="pills"><span>Zonal</span><span>Tevalis</span><span>Lightspeed</span><span>Square</span></div></div>
+        <div class="desk"><div><b>Events and bookings</b></div><div class="pills"><span>Tripleseat</span><span>Priava</span><span>Event Temple</span><span>SevenRooms</span></div></div>
+        <div class="desk"><div><b>Finance</b></div><div class="pills"><span>Sage</span><span>Xero</span><span>Business Central</span></div></div>
+        <div class="desk"><div><b>Purchasing</b></div><div class="pills"><span>Procure Wizard</span><span>Nutritics</span></div></div>
+        <div class="desk"><div><b>Microsoft 365</b></div><div class="pills"><span>Excel</span><span>SharePoint</span><span>Teams</span><span>Power BI</span></div></div>
+      </div>
+    </div>
+    <p class="seen"><i aria-hidden="true"></i>Seen on Green &amp; Fortune's careers site. The rest are examples of what we connect, not a guess at your stack.</p>
+    <div class="outs"><b class="label">Answers arrive in</b><span>Milo</span><span>Teams</span><span>Slack</span><span>Email</span><span>PDF</span></div>
+  </div>
+</section>
+
+<section class="band tint" id="pilot" aria-labelledby="pl-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">06</span> The pilot</p>
+      <h2 id="pl-h">Four weeks. <em>Most of the work is ours.</em></h2>
+      <p>What a pilot asks of IT, week by week.</p>
+    </div>
+    <div class="plan" role="table" aria-label="Pilot plan">
+      <div class="pl-row pl-head" role="row"><span role="columnheader">Week</span><span role="columnheader">What happens</span><span role="columnheader">IT</span><span role="columnheader">Milo</span></div>
+      <div class="pl-row" role="row"><span class="pl-wk" role="cell"><small>Week 1</small><b>Scope</b></span><span role="cell" data-l="What happens">Agree the systems, venues and roles in scope.</span><span class="pl-it" role="cell" data-l="IT">Approve the list.</span><span role="cell" data-l="Milo">Map each system and field.</span></div>
+      <div class="pl-row" role="row"><span class="pl-wk" role="cell"><small>Week 2</small><b>Connect</b></span><span role="cell" data-l="What happens">Data starts flowing into your warehouse.</span><span class="pl-it" role="cell" data-l="IT">Create a read-only login for each system.</span><span role="cell" data-l="Milo">Build the connections and load history.</span></div>
+      <div class="pl-row" role="row"><span class="pl-wk" role="cell"><small>Week 3</small><b>Roles</b></span><span role="cell" data-l="What happens">Access by role goes live.</span><span class="pl-it" role="cell" data-l="IT">Sign off the roles with the people team.</span><span role="cell" data-l="Milo">Set up the roles and test the refusals.</span></div>
+      <div class="pl-row" role="row"><span class="pl-wk" role="cell"><small>Week 4</small><b>Rollout</b></span><span role="cell" data-l="What happens">The people team and one venue start asking.</span><span class="pl-it" role="cell" data-l="IT">Approve who gets a login.</span><span role="cell" data-l="Milo">Train them and set up the first reports.</span></div>
+    </div>
+    <p class="plan-foot"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>IT's part is approvals and logins. Building, testing and training are ours.</span></p>
+  </div>
+</section>
+
+<section class="band first" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">07</span> Proof</p>
+      <h2 id="proof-h">Venues, platforms and brands <em>already run on it.</em></h2>
+      <p>BetGames, Snapchat, ElevenLabs and loto.lt are listed in our Trust Centre. The closest example to you runs staff, tills and bookings across London venues.</p>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k label">Urban Leisure Group · London bars and restaurants</p>
+        <h3>Five systems. <em>One Monday pack.</em></h3>
+        <p>Toast, Harri, Marketman, DesignMyNight and QuickBooks, rebuilt by hand every Monday. <b>All five connected in under two weeks</b>, with no data team.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at Urban Leisure Group">
+        <li><span class="t">Connected</span><b>Five systems in under two weeks</b></li>
+        <li><span class="t">Adopted</span><b>1 to 6 users in two months</b></li>
+        <li class="end"><span class="t">Running</span><b>Full value within six weeks</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="k label">Nikki Beach Global · Hospitality</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants on four continents. SevenRooms, OpenTable, Square and SumUp, read as one view of how each venue is trading.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">BetGames · Platform for ~2,000 brands</p>
+        <p class="big">60+</p>
+        <p class="body">partner reports a month, built and sent by Milo, with no new hires.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">Kellogg's · Commercial finance</p>
+        <p class="big">The cause</p>
+        <p class="body">Sales fell across the Middle East. Milo traced it to a Coco Pops shortage rather than demand.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">Two Tribes Brewing · London</p>
+        <p class="big">1 → 12</p>
+        <p class="body">users in six weeks, from the founders to the taproom.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="n">08</span> See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+            <span class="strip" aria-hidden="true"></span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="sec-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">09</span> Security</p>
+      <h2 id="sec-h">The detail <em>IT will ask for.</em></h2>
+      <p>From the Milo Trust Centre, where the full reports and policies are available on request.</p>
+    </div>
+    <div class="tgrid">
+      <div class="tt"><p class="k label">Certified</p><p>ISO 27001 and SOC 2 Type I. SOC 2 Type II is in progress. GDPR.</p></div>
+      <div class="tt"><p class="k label">Hosted</p><p>AWS in Frankfurt, across several availability zones, with database backups. Or on your own servers.</p></div>
+      <div class="tt"><p class="k label">Encrypted</p><p>In transit and at rest, with managed production keys.</p></div>
+      <div class="tt"><p class="k label">Tested</p><p>Penetration tests, code scanning, a web application firewall and intrusion detection.</p></div>
+      <div class="tt"><p class="k label">Separated</p><p>Each customer's data is kept apart, and our access to production is least-privilege.</p></div>
+      <div class="tt"><p class="k label">Subprocessors</p><p>Amazon Web Services, ClickHouse, Fivetran, Cloudflare and Clerk.</p></div>
+    </div>
+    <p class="docs">On request: our SOC 2 Type I report, ISO 27001 certificate, and incident response, vendor management and network security policies, plus 23 more documents.</p>
+    <div class="trust-row">
+      <div class="faq">
+        <h3>Questions IT usually asks</h3>
+        <details><summary>Does Milo change anything in our systems?</summary><p>No. Every connection is read-only, and nothing is written back.</p></details>
+        <details><summary>Can we switch it off?</summary><p>Yes. Revoke the read-only logins and the feeds stop. We delete your data under our retention and deletion policy.</p></details>
+        <details><summary>Who owns the data?</summary><p>You do. The warehouse is yours, with full access, and Power BI can read it too.</p></details>
+        <details><summary>Do we have to replace anything?</summary><p>No. Milo reads the systems you already run.</p></details>
+        <details><summary>Who keeps the connections working?</summary><p>We do. When a system changes, our engineers fix the connection.</p></details>
+      </div>
+      <div class="tbox">
+        <p class="k label">Trust Centre</p>
+        <p>Certifications, controls, subprocessors and policies, all in one place.</p>
+        <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Kasia Koziel at Green &amp; Fortune, to share with IT, by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 Type I · GDPR</p>
+    <p>Company and venue facts from greenandfortune.co.uk. Security facts from trust.milo.ai. Every figure in the demos is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* seats */
+  var SEATS=[
+    {g:"People",name:"People director",sub:"Turnover, hiring, wellbeing",acc:"People director · all venues",sys:["HR system","Rotas","Payroll","Talos360"],qs:[
+      {q:"Where are we losing new starters?",kw:["where","losing","lose","lost","new","starters","starter","leavers","leaving","left","turnover","retention","quit","90","days","churn"],type:"bars",unit:"%",
+       cap:"New starters who left within 90 days, last six months",
+       rows:[["Rose Court",31],["Sea Containers",24],["Rotunda",19],["Kings Place",15],["Central Hall Westminster",12],["All venues",18]],
+       say:"Rose Court loses almost a third of new starters within 90 days. Most of them worked every weekend in their first month.",
+       src:["HR system","Rotas","Talos360"],alert:"Monthly: new starters lost within 90 days, by venue."},
+      {q:"Are we staffed for Smithfield on 28 November?",kw:["smithfield","museum","london","opening","open","28","november","staffed","staff","ready","hired","hiring","roles","clerks","bartholomew's","temperance","roost"],type:"list",
+       rows:[["Clerks House","38 of 52 roles filled","14 open","bad"],["Bartholomew's","20 of 24 roles filled","4 open","warn"],["Temperance Cocoa Rooms","14 of 16 roles filled","2 open","warn"],["The Roost","6 of 6 roles filled","Ready","ok"]],
+       say:"78 of 98 roles are filled, with 33 days to go. Clerks House needs 14 more, mostly chefs.",
+       src:["Talos360","HR system","Training records"],alert:"Every Monday until opening: Smithfield roles filled, by concept."}
+    ]},
+    {g:"People",name:"Recruitment",sub:"Where good hires come from",acc:"Recruitment · all venues",sys:["Talos360","HR system"],qs:[
+      {q:"Which sources bring hires who stay?",kw:["which","sources","source","bring","hires","hire","stay","stayed","job","boards","board","referral","referrals","open","day","indeed","caterer"],type:"bars",unit:"%",
+       cap:"Hires still with us after six months, by source",
+       rows:[["Staff referral",81],["Open recruitment day",74],["Caterer.com",58],["Indeed",49]],
+       say:"Referrals and open days bring the people who stay. Indeed brings the most applicants and the fewest who last.",
+       src:["Talos360","HR system"],alert:"Quarterly: six-month retention by hiring source."},
+      {q:"How long does it take to hire a chef?",kw:["how","long","take","takes","time","hire","hiring","chef","chefs","kitchen","days","fill","vacancy","vacancies"],type:"summary",
+       kpis:[["23 days","to hire a chef de partie"],["11 days","to hire front of house"],["6 days","from offer to first shift"],["4","chef roles open now"]],
+       say:"Chefs take twice as long as front of house. Most of the wait is between interview and offer.",
+       src:["Talos360","HR system"],alert:null}
+    ]},
+    {g:"Venues",name:"Venue manager",sub:"Their own venue only",acc:"Venue manager · Kings Place only",sys:["Kings Place rotas","Kings Place tills","Kings Place events"],qs:[
+      {q:"Am I over on labour this week?",kw:["am","over","labour","labor","week","budget","target","wage","wages","cost","hours","my","venue"],type:"summary",
+       kpis:[["31%","labour as a share of sales"],["28%","your target"],["62","agency hours booked"],["Saturday","the day running over"]],
+       say:"Three points over target, and Saturday is why: 62 agency hours booked for a dinner of 400 that sold 280 places.",
+       src:["Rotas","Tills","Events"],alert:"Every Thursday: next week's labour against target."},
+      {q:"What do the chefs at Rotunda earn?",kw:["what","chefs","chef","rotunda","earn","earns","pay","paid","salary","salaries","wage","rate","another","other"],type:"refuse",
+       say:"Your login covers Kings Place rotas, hours, training and sales. Individual pay is limited to People and Payroll.",
+       src:["Access policy"],alert:null}
+    ]},
+    {g:"Business",name:"Finance",sub:"Labour cost and agency",acc:"Finance · all venues",sys:["Payroll","Rotas","Agency invoices","Tills"],qs:[
+      {q:"What did agency staff cost us last month?",kw:["what","agency","staff","temps","temp","cost","costs","spend","spent","month","last","invoices"],type:"bars",pre:"£",unit:"k",
+       cap:"Agency spend last month, by venue",
+       rows:[["Kings Place",38],["Central Hall Westminster",31],["Sea Containers",24],["Rose Court",19],["London Museum Docklands",11]],
+       say:"£123k on agency staff last month. Kings Place and Central Hall made up more than half, mostly for events over 500 guests.",
+       src:["Agency invoices","Rotas","Events"],alert:"First of the month: agency spend by venue."},
+      {q:"What would a 4% rise in hourly rates cost us?",kw:["what","rise","increase","4","4%","hourly","rates","rate","living","wage","minimum","nlw","april","budget","cost"],type:"bars",pre:"£",unit:"k",
+       cap:"Extra cost a year if hourly rates rise 4%",
+       rows:[["Kings Place",96],["Central Hall Westminster",81],["Sea Containers",64],["Rose Court",52],["Rotunda",38]],
+       say:"£331k a year across five venues, before employer's National Insurance. Kings Place has the most hourly staff, so it carries the most.",
+       src:["Payroll","Rotas"],alert:null}
+    ]},
+    {g:"Business",name:"Operations",sub:"Cover, training, events",acc:"Operations · all venues",sys:["Rotas","Events","Training records"],qs:[
+      {q:"Who is short for Saturday's events?",kw:["who","short","saturday","weekend","events","event","cover","staffed","staff","rota","rotas","shifts","wedding","dinner"],type:"list",
+       rows:[["Sea Containers · wedding, 180 guests","Needs 22 staff · 17 booked","Short 5","bad"],["Kings Place · conference dinner, 400 guests","Needs 41 · 38 booked","Short 3","warn"],["Rose Court · private dinner, 60 guests","Needs 9 · 9 booked","Covered","ok"]],
+       say:"Eight shifts to fill for Saturday. Sea Containers is five short for a wedding of 180.",
+       src:["Events","Rotas"],alert:"Every Wednesday: weekend events against staff booked."},
+      {q:"Whose food safety training runs out this month?",kw:["whose","food","safety","hygiene","allergen","allergens","training","certificate","certificates","expire","expiring","runs","due","compliance","level"],type:"list",
+       rows:[["Central Hall Westminster","7 people · Level 2 food safety","7 due","bad"],["Rotunda","4 people · allergen awareness","4 due","warn"],["Kings Place","2 people · Level 2 food safety","2 due","warn"]],
+       say:"13 certificates expire this month, seven of them at Central Hall. Milo can remind each manager a month ahead.",
+       src:["Training records","HR system"],alert:"Monthly: certificates due in the next 30 days."}
+    ]},
+    {g:"Business",name:"Leadership",sub:"The whole business",acc:"Leadership · all venues",sys:["HR system","Payroll","Rotas","Tills"],qs:[
+      {q:"How are we doing on people this quarter?",kw:["how","doing","people","quarter","overall","summary","board","report","headcount","business","team"],type:"summary",
+       kpis:[["+64","people hired this quarter"],["18%","new starters gone within 90 days"],["29%","labour as a share of sales"],["9%","of hours from agency"]],
+       say:"Labour is on target. Early leavers are the problem, and two venues account for most of them.",
+       src:["HR system","Payroll","Rotas","Tills"],alert:"Monthly: a one-page people report for the board."},
+      {q:"Which venues take the most per hour worked?",kw:["which","venues","venue","most","per","hour","worked","productivity","productive","sales","efficient","labour"],type:"bars",pre:"£",
+       cap:"Sales per hour worked, last month",
+       rows:[["Rotunda",64],["Kings Place",58],["Sea Containers",55],["Central Hall Westminster",49],["Rose Court",47]],
+       say:"Rotunda takes £64 for every hour worked. Rose Court takes £47, and loses the most new starters.",
+       src:["Tills","Rotas","Events"],alert:null}
+    ]}
+  ];
+
+  var seat=0,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg label">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var x=Math.abs(v);
+    var n=a.dec?x.toFixed(a.dec):x.toLocaleString("en-GB");
+    return (a.pre||"")+n+(a.unit||"");
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var pick=a.hl!=null?a.hl:0;
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r,i){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf'+(i===pick?" hl":"")+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<span id="alert-slot"><button type="button" class="ghost" data-alert="1">Turn into an alert</button></span>':"";
+    var acc='<span class="acc"><svg aria-hidden="true"><use href="#lock"/></svg>Checked: '+esc(SEATS[seat].acc)+(a.type==="refuse"?" · refused":"")+'</span>';
+    return body+'<div class="a-foot"><span class="a-meta">'+acc+'<span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span></span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Checking access, then '+esc(SEATS[seat].sys.slice(0,3).join(", "))+'</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,many:1,all:1,is:1,we:1,me:1,than:1,one:1,"do":1,did:1,by:1,"in":1,of:1,to:1,it:1,its:1,"it's":1,green:1,fortune:1,"g&f":1,"what's":1,on:1,at:1,be:1,will:1,into:1,i:1,am:1,should:1,was:1,were:1,get:1,tell:1,us:1,not:1,just:1,much:1,a:1,an:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9£&%'#.-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(!b)return;
+    var a=SEATS[seat].qs[qi];
+    $("alert-slot").innerHTML='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg><span>Alert set. '+esc(a.alert)+'</span></span>';
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+
+  /* how it connects: nodes 0 systems, 1 connections, 2 warehouse, 3 access check, 4 people; log is the bar underneath */
+  var STEPS=[
+    {n:"01",name:"Connect",sub:"Read-only",on:[0,1],log:false,
+     what:"Our engineers connect each system you approve through its own API, with a read-only login. Anything on-premise uses a small agent on your server that sends data out.",
+     you:"Which systems, and the logins. Revoke one and that feed stops."},
+    {n:"02",name:"Store",sub:"Your warehouse",on:[1,2],log:false,
+     what:"Data lands in a warehouse on AWS in Frankfurt, encrypted in transit and at rest, and refreshes on a schedule you agree.",
+     you:"The warehouse is yours, with full access. Power BI can read it too."},
+    {n:"03",name:"Ask",sub:"Plain English",on:[4],log:false,
+     what:"Someone signs in and asks a question in Milo, Teams or Slack.",
+     you:"Who gets a login."},
+    {n:"04",name:"Check",sub:"Before the answer",on:[3],log:false,
+     what:"Milo checks the person's role and venue before it writes a word. A venue manager's question cannot reach payroll.",
+     you:"The roles, signed off by IT and the people team."},
+    {n:"05",name:"Answer",sub:"With sources",on:[3,4],log:true,
+     what:"The answer arrives with its sources. Every question, answer and refusal is logged with a name and a time.",
+     you:"The audit log, open to IT."}
+  ];
+  var step=0;
+  function renderStep(){
+    $("st-tabs").innerHTML=STEPS.map(function(s,i){
+      return '<button type="button" class="st" data-step="'+i+'" aria-pressed="'+(i===step)+'"><span class="n">'+esc(s.n)+'</span><b>'+esc(s.name)+'</b><small>'+esc(s.sub)+'</small></button>';
+    }).join("");
+    var s=STEPS[step];
+    Array.prototype.forEach.call($("flow").querySelectorAll(".fn"),function(el){
+      var on=s.on.indexOf(+el.dataset.node)>-1;
+      el.classList.toggle("on",on);el.classList.toggle("off",!on);
+    });
+    $("logbar").classList.toggle("on",s.log);$("logbar").classList.toggle("off",!s.log);
+    $("st-detail").innerHTML='<div class="sd"><p class="k label">What happens</p><p>'+esc(s.what)+'</p></div><div class="sd it"><p class="k label">What IT controls</p><p>'+esc(s.you)+'</p></div>';
+  }
+  $("st-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-step]");if(!b)return;
+    step=+b.dataset.step;renderStep();
+    var nb=$("st-tabs").querySelector('[data-step="'+step+'"]');if(nb)nb.focus();
+  });
+
+  /* who sees what: A all venues, O own venue, T totals only, N none */
+  var COLS=["Rotas and hours","Pay","Personal details","Recruitment","Training","Sales and events","Agency costs"];
+  var CELL={A:["ok","All"],O:["own","Own venue"],T:["over","Totals"],N:["none","None"]};
+  var ROLES=[
+    ["People director","AAAAATA","Everything about people, across every venue. Sales as totals."],
+    ["HR and payroll","AAANANA","Pay, personal details, hours and training. No sales or recruitment."],
+    ["Recruitment","TNNANNT","Candidates and hiring in full. Hours and agency as totals."],
+    ["Venue manager","ONOOOOO","Their own venue only. Never pay, never another venue."],
+    ["Finance","TTNNNAA","Costs and sales in full. Pay as totals, with no names."],
+    ["Operations","ANNTAAA","Rotas, training and events everywhere. No pay."],
+    ["Leadership","TTNTTAA","The whole business, with people data as totals."]
+  ];
+  var role=3;
+  $("mx-head").innerHTML='<th scope="col">Role</th>'+COLS.map(function(c){return '<th scope="col">'+esc(c)+'</th>'}).join("");
+  function renderMx(){
+    $("mx-body").innerHTML=ROLES.map(function(r,i){
+      return '<tr data-role="'+i+'" aria-selected="'+(i===role)+'"><th scope="row"><button type="button" data-role="'+i+'">'+esc(r[0])+'</button></th>'+r[1].split("").map(function(k){
+        return '<td><span class="chip '+CELL[k][0]+'">'+esc(CELL[k][1])+'</span></td>';
+      }).join("")+'</tr>';
+    }).join("");
+    $("mx-say").innerHTML='<b>'+esc(ROLES[role][0])+'.</b><span>'+esc(ROLES[role][2])+'</span>';
+  }
+  $("mx-body").addEventListener("click",function(e){
+    var r=e.target.closest("[data-role]");if(!r)return;
+    role=+r.dataset.role;renderMx();
+    var nb=$("mx-body").querySelector('button[data-role="'+role+'"]');if(nb)nb.focus();
+  });
+
+  renderSeats();renderQs();ask(null,true);renderStep();renderMx();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
