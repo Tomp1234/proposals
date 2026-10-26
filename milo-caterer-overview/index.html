@@ -299,7 +299,6 @@ section.tint{background:var(--lilac-soft);border-top:0}
 .pcard .k{color:var(--muted);margin-bottom:8px}
 .pcard .big{font-weight:900;font-size:50px;line-height:1;letter-spacing:-.03em;margin-bottom:10px;color:var(--plum)}
 .pcard .body{font-size:14px}
-.pcard .yours{margin-top:12px;align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;background:var(--sun);color:var(--ink);padding:2px 8px;border-radius:4px}
 @media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
 
 /* video */
@@ -425,8 +424,8 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="head">
       <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">02</span> Ask Milo</p>
-      <h2 id="ask-h">Three teams. <em>One place to ask.</em></h2>
-      <p>Pick a seat and a question, or type your own.</p>
+      <h2 id="ask-h">Every team. <em>One place to ask.</em></h2>
+      <p>Pick a team and a question, or type your own.</p>
     </div>
     <div class="demo">
       <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
@@ -532,10 +531,9 @@ footer p+p{margin-top:6px}
     </div>
     <div class="pgrid">
       <div class="pcard">
-        <p class="k label">ETM Group · Pubs, bars and restaurants</p>
-        <p class="big">3 → 1</p>
-        <p class="body">Bookings, events and tills read together in Milo, and the board deck built from them.</p>
-        <span class="yours">One of your clients</span>
+        <p class="k label">Nikki Beach Global · Hospitality</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants on four continents. SevenRooms, OpenTable, Square and SumUp, read as one view of how each venue is trading.</p>
       </div>
       <div class="pcard">
         <p class="k label">Kellogg's · Commercial finance</p>
@@ -729,7 +727,7 @@ footer p+p{margin-top:6px}
        say:"Job adverts and e-shots are up. CV database revenue is down 9%, mostly from agencies.",
        src:["Invoices","Salesforce"],alert:null}
     ]},
-    {g:"Operations",name:"Operations",sub:"The platform and client feeds",sys:["Platform","ATS feeds","Salesforce"],qs:[
+    {g:"Operations and service",name:"Operations",sub:"The platform and client feeds",sys:["Platform","ATS feeds","Salesforce"],qs:[
       {q:"Are clients posting as much since 1 October?",kw:["posting","posted","adverts","october","since","platform","new","move","switch","migration","volume","volumes","searches","activity"],type:"bars",unit:"%",hl:2,
        cap:"Change per week, October vs September",
        rows:[["Job adverts",-1],["E-shots",3],["CV database searches",-12]],
@@ -739,6 +737,61 @@ footer p+p{margin-top:6px}
        rows:[["Contract caterer","Applications not reaching their ATS since Thursday","Fix","bad"],["Hotel group","Adverts duplicated by the feed","Check","warn"],["Pub group","Healthy again after reconnecting","OK","ok"]],
        say:"One client hasn't received applications in their ATS since Thursday, and their account director doesn't know yet.",
        src:["ATS feeds","Platform"],alert:"Every morning: feeds with problems, sent to the client's account director."}
+    ]},
+    {g:"Operations and service",name:"Client support",sub:"Queries and tickets",sys:["Support tickets","Salesforce","Platform"],qs:[
+      {q:"What are clients contacting us about this week?",kw:["contacting","contact","contacts","queries","query","tickets","ticket","support","calls","complaints","topics","asking","help"],type:"bars",
+       cap:"Client contacts this week, by topic",
+       rows:[["Invoices",142],["Logging in",118],["Posting adverts",76],["CV database access",54],["E-shots",21]],
+       say:"Invoices are the biggest topic, mostly questions about the separate invoice for each product. One short note to every client would cut them.",
+       src:["Support tickets","Salesforce"],alert:"Every Monday: top contact reasons, against last week."},
+      {q:"Which clients have waited longest for an answer?",kw:["waited","waiting","longest","open","oldest","answer","reply","response","sla","escalate","overdue","backlog"],type:"list",
+       rows:[["Hotel group","Advert credits missing · open 4 days","Escalate","bad"],["Restaurant group","CV database login · open 3 days","Chase","warn"],["Pub group","E-shot not sent · answered today","OK","ok"]],
+       say:"Two clients have waited three days or more, and the restaurant group renews in 48 days.",
+       src:["Support tickets","Salesforce"],alert:"Every morning: tickets open more than two days, with renewal dates."}
+    ]},
+    {g:"Product and partnerships",name:"Product management",sub:"The platform and roadmap",sys:["Platform","Amplitude","Support tickets"],qs:[
+      {q:"Which features are clients using on the new platform?",kw:["features","feature","using","use","usage","adoption","adopt","platform","product","reports","tools"],type:"bars",unit:"%",hl:4,
+       cap:"Clients who used each feature this month",
+       rows:[["Post an advert",94],["Search the CV database",61],["Track applicants",48],["Send an e-shot",23],["Reports",17]],
+       say:"Almost every client posts adverts. Fewer than one in five use reports, the lowest of any feature.",
+       src:["Platform","Amplitude"],alert:"Monthly: feature use by client size."},
+      {q:"What should we fix first?",kw:["fix","fixes","first","priority","prioritise","prioritize","roadmap","bugs","bug","backlog","issues","next"],type:"list",
+       rows:[["Separate invoices per product","142 contacts this week · 38 clients","First","bad"],["Logging in","118 contacts · mostly agencies","Next","warn"],["Duplicate adverts from ATS feeds","9 clients affected","Then","warn"]],
+       say:"Ranked by client contacts and the revenue of the clients affected.",
+       src:["Support tickets","Salesforce","Platform"],alert:"Every Friday: the fix list, re-ranked."}
+    ]},
+    {g:"Product and partnerships",name:"ATS partnerships",sub:"Connect and Appcast",sys:["ATS feeds","Appcast","Salesforce"],qs:[
+      {q:"Where do our adverts come from?",kw:["adverts","come","from","source","sources","multiposter","multiposters","feeds","partners","partner","integrations","manual"],type:"bars",unit:"%",
+       cap:"This month's adverts, by how they arrived",
+       rows:[["Multiposters",38],["Enterprise ATS",27],["Agency CRMs",19],["Posted by hand",16]],
+       say:"More than eight in ten adverts arrive through a feed, so a broken feed costs adverts quickly.",
+       src:["ATS feeds","Platform"],alert:null},
+      {q:"Which partners haven't moved to the new platform yet?",kw:["partners","partner","moved","move","migrated","migration","briefed","new","platform","yet","old"],type:"list",
+       rows:[["Agency CRM partner","Still posting to the old setup · 41 clients","Brief now","bad"],["Multiposter partner","Moved, but job categories map wrongly","Fix","warn"],["Enterprise ATS partner","Moved and healthy","OK","ok"]],
+       say:"One partner still posts to the old setup for 41 clients.",
+       src:["ATS feeds","Salesforce"],alert:"Every Monday: partners by migration status and clients affected."}
+    ]},
+    {g:"Marketing",name:"Marketing",sub:"Recruiters and jobseekers",sys:["GA4","Amplitude","Salesforce"],qs:[
+      {q:"Which campaigns bring recruiters who buy?",kw:["campaigns","campaign","marketing","recruiters","leads","buy","revenue","events","search","linkedin","acquisition"],type:"bars",pre:"£",unit:"k",
+       cap:"New business revenue by first campaign, this quarter",
+       rows:[["Hospitality trade events",84],["Paid search",61],["Email to lapsed clients",47],["LinkedIn",22],["Display",9]],
+       say:"Trade events and paid search bring the recruiters who spend. Display brings clicks but little revenue.",
+       src:["GA4","Salesforce"],alert:"Monthly: revenue by campaign."},
+      {q:"Where are chefs hardest to find?",kw:["chefs","chef","scarce","shortage","hardest","find","jobseekers","candidates","supply","demand","region","regions","where"],type:"bars",dec:1,
+       cap:"Chef adverts per active chef jobseeker, by region",
+       rows:[["London",3.4],["South West",2.9],["Scotland",2.2],["North West",1.6],["Midlands",1.4]],
+       say:"London and the South West have the most chef adverts per jobseeker. Clients there need featured adverts and e-shots most.",
+       src:["Platform","Amplitude"],alert:"Monthly: supply and demand by role and region, for the sales team."}
+    ]},
+    {g:"Leadership",name:"Stepstone UK leadership",sub:"Caterer.com in the group",sys:["Salesforce","Platform","Support tickets"],qs:[
+      {q:"How is the move to the new platform going?",kw:["move","platform","migration","going","new","rollout","launch","switch","progress","october"],type:"summary",
+       kpis:[["94%","of clients live on it"],["−1%","adverts per week vs September"],["+38%","support contacts"],["3","fixes to prioritise"]],
+       say:"Nearly every client has moved and adverts are level. Support contacts are up 38%, led by invoices and logins.",
+       src:["Platform","Support tickets","Salesforce"],alert:"Every Friday: the platform move on one page."},
+      {q:"Which clients buy from more than one Stepstone brand?",kw:["stepstone","totaljobs","group","brands","brand","more","than","both","cross","cross-sell","bundle","clients"],type:"list",
+       rows:[["Contract caterer","Caterer.com and Totaljobs · two account teams","Join up","warn"],["Care home caterer","Caterer.com and Totaljobs · renewing on different dates","Align","warn"],["Hotel group","Caterer.com only · head-office roles posted by hand","Cross-sell","ok"]],
+       say:"Some clients buy from two Stepstone brands through two account teams. One conversation would be simpler for them.",
+       src:["Salesforce"],alert:"Monthly: clients across group brands."}
     ]}
   ];
 
