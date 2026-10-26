@@ -116,25 +116,14 @@ button,input{font:inherit;color:inherit}
   .rb-panel{padding:16px 14px 14px}
 }
 
-/* letter and glance */
-.intro{padding-block:60px 8px}
-.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
-.letter{background:var(--panel);padding:28px 28px 26px;border-radius:16px}
-.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:12px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--line)}
-.refs b{font-weight:600;color:var(--ink)}
-.letter p{font-size:15px;margin-bottom:11px}
-.letter .sal{font-family:var(--display);font-weight:500;font-size:24px;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
-.sign{margin-top:16px}
-.sign .nm{font-weight:800;font-size:17px}
-.sign .ml{font-size:13px;color:var(--muted)}
-.glance{list-style:none;margin:0;padding:0;display:grid}
-.glance li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
-.glance li:first-child{border-top:3px solid var(--ink)}
-.glance b{font-family:var(--display);font-weight:600;font-size:36px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+/* at a glance */
+.intro{padding-block:56px 8px}
+.glance{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 28px}
+.glance li{display:flex;flex-direction:column;gap:6px;padding:14px 0 12px;border-top:3px solid var(--ink);min-width:0}
+.glance b{font-family:var(--display);font-weight:600;font-size:40px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .glance span{font-size:14px;color:var(--muted)}
 .glance-src{font-size:12px;color:var(--muted);margin-top:10px}
-@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:420px){.glance li{grid-template-columns:minmax(0,112px) minmax(0,1fr)}.glance b{font-size:28px}.letter{padding:22px 20px}}
+@media (max-width:760px){.glance{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px}.glance b{font-size:32px}}
 
 /* sections */
 section.band{padding-block:72px;border-top:1px solid var(--rule)}
@@ -330,33 +319,14 @@ footer p+p{margin-top:6px}
 
 <section class="intro">
   <div class="wrap">
-    <div class="intro-grid">
-      <article class="letter" aria-label="A note from Liam">
-        <div class="refs">
-          <span>Our ref</span><b>MILO / COMPASS / 01</b>
-          <span>For</span><b>Dan, Head of Digital Attraction and Workforce Management Solutions</b>
-        </div>
-        <p class="sal">Dear Dan,</p>
-        <p>Nathan Ward at Caterer.com offered to introduce us. He tells me Compass fills around 22,000 roles a year across 14 or 15 brands.</p>
-        <p>Attraction spend, applications, hires and rotas each sit in a different system. So questions like cost per hire by brand, or what an open role costs in agency cover, take days to answer.</p>
-        <p>Milo joins them. Anyone asks in plain English and gets the answer in seconds, with sources, and we build and run the connections. Everything here is sample data, so click around.</p>
-        <div class="sign">
-          <p class="nm">Liam James Rabone</p>
-          <p class="ml">Milo · liam@milo.ai</p>
-        </div>
-      </article>
-
-      <div>
-        <p class="eyebrow">Compass Group UK &amp; Ireland, at a glance</p>
-        <ul class="glance">
-          <li><b>5,000+</b><span>locations across the UK and Ireland</span></li>
-          <li><b>~22,000</b><span>roles filled a year</span></li>
-          <li><b>14–15</b><span>brands hiring</span></li>
-          <li><b>5</b><span>sectors, from schools and hospitals to stadiums</span></li>
-        </ul>
-        <p class="glance-src">Locations and sectors from compass-group.co.uk. Hiring figures as Nathan described them.</p>
-      </div>
-    </div>
+    <p class="eyebrow">Compass Group UK &amp; Ireland, at a glance</p>
+    <ul class="glance">
+      <li><b>5,000+</b><span>locations across the UK and Ireland</span></li>
+      <li><b>~22,000</b><span>roles filled a year</span></li>
+      <li><b>14–15</b><span>brands hiring</span></li>
+      <li><b>5</b><span>sectors, from schools and hospitals to stadiums</span></li>
+    </ul>
+    <p class="glance-src">Locations and sectors from compass-group.co.uk. Hiring figures as Nathan Ward at Caterer.com described them.</p>
   </div>
 </section>
 
@@ -440,10 +410,10 @@ footer p+p{margin-top:6px}
         <p class="why">The same job as a monthly report for every brand.</p>
       </div>
       <div class="pcard">
-        <p class="k label">ETM Group · Pubs, bars and restaurants</p>
-        <p class="big">3 → 1</p>
-        <p class="body">Bookings, events and tills read together in Milo, and the board deck built from them.</p>
-        <p class="why">Hospitality run by operators, not analysts.</p>
+        <p class="k label">Nikki Beach Global · Hospitality</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants on four continents. SevenRooms, OpenTable, Square and SumUp, read as one view of how each venue is trading.</p>
+        <p class="why">Venues in many countries, each on its own systems.</p>
       </div>
     </div>
   </div>
