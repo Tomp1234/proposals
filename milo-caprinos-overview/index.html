@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Caprinos</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: Caprinos' own system. A black header like caprinospizza.co.uk with the white horn-heart logo, a green / white / red strip under it, white paper, their green (#67AA40) for bars and buttons, their red (#D9230B) for anything late or at risk. Montserrat is their real heading face and Open Sans their body face; IBM Plex Mono dresses the order-docket details (refs, labels, sources). */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--panel:#F3F5F0;--card:#FFFFFF;--ink:#1C1F1A;--muted:#596055;--rule:#E2E6DD;--line:#D6DBD0;
+  --green:#67AA40;--green-ink:#3A7A1E;--green-fill:#3E7F22;--on-green:#FFFFFF;--green-soft:#EEF6E7;
+  --red:#D9230B;--red-ink:#B81D08;--amber:#E0A21B;--white:#FFFFFF;
+  --topbar:#1C1F1A;--on-topbar:#FFFFFF;--topbar-muted:#A9B0A4;
+  --track:#ECEFE8;--bar:#D3D9CD;--hlbar:#3E7F22;
+  --good:#2F6B1C;--good-bg:#E3F1D8;--warn:#7A5600;--warn-bg:#F8ECC7;--bad:#B81D08;--bad-bg:#FBE2DC;--over:#4F554B;--over-bg:#ECEFE8;
+  --shadow:0 1px 2px rgba(28,31,26,.06),0 10px 30px rgba(28,31,26,.08);
+  --display:"Montserrat","Arial Black","Helvetica Neue",Arial,sans-serif;
+  --body:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#111410;--panel:#1A1E18;--card:#161A15;--ink:#EEF1EA;--muted:#A2AA9C;--rule:#2A3027;--line:#363D33;
+  --green:#74B84B;--green-ink:#94CF6E;--green-fill:#67AA40;--on-green:#0D120B;--green-soft:#1B2815;
+  --red:#EE4A2F;--red-ink:#FF8A73;--amber:#E7AE33;
+  --topbar:#0A0C09;--topbar-muted:#9AA294;
+  --track:#232821;--bar:#3A4237;--hlbar:#74B84B;
+  --good:#9BD67A;--good-bg:#1E3317;--warn:#F0C25E;--warn-bg:#3A2F12;--bad:#FF8A73;--bad-bg:#3D1C16;--over:#B4BBAE;--over-bg:#262B24;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#111410;--panel:#1A1E18;--card:#161A15;--ink:#EEF1EA;--muted:#A2AA9C;--rule:#2A3027;--line:#363D33;
+  --green:#74B84B;--green-ink:#94CF6E;--green-fill:#67AA40;--on-green:#0D120B;--green-soft:#1B2815;
+  --red:#EE4A2F;--red-ink:#FF8A73;--amber:#E7AE33;
+  --topbar:#0A0C09;--topbar-muted:#9AA294;
+  --track:#232821;--bar:#3A4237;--hlbar:#74B84B;
+  --good:#9BD67A;--good-bg:#1E3317;--warn:#F0C25E;--warn-bg:#3A2F12;--bad:#FF8A73;--bad-bg:#3D1C16;--over:#B4BBAE;--over-bg:#262B24;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--topbar)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;text-wrap:balance;margin:0;line-height:1.02}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--green-ink)}
+p{margin:0}
+b,strong{font-weight:700}
+a{color:var(--ink)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:2px}
+.label{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.eyebrow .n{color:var(--on-green);background:var(--green-fill);border-radius:4px;padding:1px 7px}
+.sr{position:absolute;left:-9999px}
+.btn{border:0;background:var(--green-fill);color:var(--on-green);font-family:var(--display);font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:.03em;padding:9px 20px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.cap-logo{display:block;aspect-ratio:224/40;background:currentColor;-webkit-mask:var(--cap-logo) center/contain no-repeat;mask:var(--cap-logo) center/contain no-repeat}
+.tri{height:4px;background:linear-gradient(90deg,var(--green) 0 33.34%,var(--white) 33.34% 66.67%,var(--red) 66.67%)}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--topbar);color:var(--on-topbar)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--on-topbar)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:800;font-size:18px}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--topbar-muted)}
+.lk-cap{height:24px;width:auto;color:var(--on-topbar)}
+.nav{display:flex;gap:2px}
+.nav a{font-family:var(--display);font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--on-topbar);text-decoration:none;padding:6px 12px;border-radius:999px}
+.nav a:hover{background:rgba(255,255,255,.1)}
+@media (max-width:1000px){.nav{display:none}}
+
+/* hero */
+.hero{padding-block:52px 64px;background:radial-gradient(60% 80% at 100% 0%,var(--green-soft),transparent 70%),var(--paper)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:48px;align-items:center}
+.pills-top{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.pt{font-size:12.5px;font-weight:600;color:var(--ink);background:var(--panel);border:1px solid var(--rule);padding:3px 12px;border-radius:999px}
+.hero h1{font-size:clamp(40px,5.4vw,70px);margin-bottom:24px}
+.hero h1 span{display:block}
+.lede{font-size:18px;line-height:1.55;max-width:31em;color:var(--muted)}
+.lede b{color:var(--ink)}
+
+/* store board (hero) */
+.rb-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.rb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 16px;background:var(--topbar);color:var(--on-topbar)}
+.rb-k{color:var(--on-topbar)}
+.tag{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:2px 9px;border-radius:4px;background:var(--green-fill);color:var(--on-green);white-space:nowrap}
+.rb-body{padding:14px 16px 16px}
+.rb-q{font-size:13px;font-weight:700;color:var(--green-ink);min-height:21px;margin-bottom:4px}
+.rb-head,.rb-row{display:grid;grid-template-columns:minmax(0,124px) minmax(0,1fr) 96px;gap:10px;align-items:center}
+.rb-head{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed var(--line)}
+.rb-head>span:last-child{text-align:right}
+.rb-scale{position:relative;height:15px}
+.rb-scale i{position:absolute;top:0;left:var(--ln);transform:translateX(-50%);font-style:normal;white-space:nowrap;color:var(--ink)}
+.rb{display:grid;gap:8px;margin-bottom:4px}
+.rb-row{min-height:19px;transition:opacity .3s}
+.rb-row.dim{opacity:.32}
+.rb-n{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-t{position:relative;height:11px;background:var(--track);border-radius:6px}
+.rb-t::before{content:"";position:absolute;top:-5px;bottom:-5px;left:var(--ln);border-left:1.5px dashed var(--ink);opacity:.6;z-index:2}
+.rb-f{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--green);transition:width .5s ease}
+.rb-f.tight{background:var(--amber)}
+.rb-f.bad{background:var(--red)}
+.rb-v{font-size:12.5px;font-weight:600;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-v.bad{color:var(--red-ink)}
+.rb-v.tight{color:var(--warn)}
+.rb-v.mv{justify-self:end;color:var(--on-green);background:var(--green-fill);border-radius:999px;padding:0 8px}
+.rb-v.go{justify-self:end;color:var(--white);background:var(--red);border-radius:999px;padding:0 8px}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);margin:12px 0;min-height:18px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg i{display:inline-block;width:16px;height:9px;border-radius:5px;background:var(--green)}
+.lg i.tight{background:var(--amber)}
+.lg i.bad{background:var(--red)}
+.lg i.ln{width:0;height:12px;border-radius:0;background:none;border-left:1.5px dashed var(--ink)}
+.et-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.et{border:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;border-radius:10px;transition:border-color .2s,background .2s}
+.et small{font-size:11.5px;color:var(--muted);line-height:1.3}
+.et b{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:13px;line-height:1.2}
+.et:hover{border-color:var(--muted)}
+.et[aria-pressed="true"]{background:var(--green-fill);border-color:var(--green-fill);color:var(--on-green)}
+.et[aria-pressed="true"] small{color:var(--on-green)}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.r-stats b{display:block;font-family:var(--display);font-weight:800;font-size:26px;line-height:1.05;font-variant-numeric:tabular-nums}
+.r-stats span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
+.r-say{font-size:14px}
+.rb-hint{font-size:12px;color:var(--muted);margin-top:12px}
+@media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .et-row{grid-template-columns:repeat(2,minmax(0,1fr))}.r-stats b{font-size:22px}
+  .rb-head,.rb-row{grid-template-columns:minmax(0,92px) minmax(0,1fr) 90px;gap:7px}
+  .rb-n{font-size:12px}.rb-v{font-size:11.5px}
+  .rb-body{padding:12px 12px 14px}
+}
+
+/* letter and glance */
+.intro{padding-block:56px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
+.letter{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.letter-in{padding:24px 28px 26px}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding-bottom:14px;margin-bottom:18px;border-bottom:1px dashed var(--line)}
+.refs b{font-weight:500;color:var(--ink)}
+.letter p{font-size:15px;margin-bottom:11px}
+.letter .sal{font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;line-height:1.15;margin-bottom:14px}
+.sign{margin-top:16px}
+.sign .nm{font-family:var(--display);font-weight:800;font-size:16px}
+.sign .ml{font-size:13px;color:var(--muted)}
+.glance{list-style:none;margin:0;padding:0;display:grid}
+.glance li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
+.glance li:first-child{border-top:3px solid var(--ink)}
+.glance b{font-family:var(--display);font-weight:800;font-size:36px;line-height:1;font-variant-numeric:tabular-nums;color:var(--green-ink)}
+.glance span{font-size:14px;color:var(--muted)}
+.glance-src{font-size:12px;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.glance li{grid-template-columns:minmax(0,112px) minmax(0,1fr)}.glance b{font-size:28px}.letter-in{padding:20px 18px 22px}}
+
+/* sections */
+section.band{padding-block:76px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+.head{max-width:780px;margin-bottom:30px}
+.head h2{font-size:clamp(30px,4.2vw,52px);margin-bottom:14px}
+.head p{color:var(--muted);font-size:18px;line-height:1.5}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:3px}
+.sg{color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer;border-radius:10px}
+.seat b{display:block;font-size:14.5px}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--green-fill);border-color:var(--green-fill);color:var(--on-green)}
+.seat[aria-pressed="true"] span{color:var(--on-green)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--line);background:var(--card);padding:7px 15px;font-size:13.5px;font-weight:600;cursor:pointer;text-align:left;border-radius:999px}
+.q:hover{border-color:var(--ink)}
+.q[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-size:12.5px;color:var(--muted)}
+.sys .s{font-weight:600;color:var(--ink);background:var(--panel);padding:2px 10px;border-radius:999px}
+.console{background:var(--card);border:1px solid var(--line);overflow:hidden;border-radius:16px;box-shadow:var(--shadow)}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:var(--topbar);color:var(--on-topbar);font-size:13px}
+.c-head .who{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:340px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--panel);padding:9px 15px;max-width:80%;font-size:14px;border-radius:16px 16px 4px 16px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;overflow:hidden;border-radius:7px}
+.bf{display:block;height:100%;background:var(--bar);border-radius:7px;transition:width .5s ease}
+.bf.hl{background:var(--hlbar)}
+.bv{font-size:12.5px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);margin-bottom:16px;border-radius:12px;overflow:hidden}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-size:11px;font-weight:700;letter-spacing:.02em;padding:3px 10px;white-space:nowrap;flex:none;border-radius:999px}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden;margin-bottom:16px;border-radius:12px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-size:26px;font-weight:800;line-height:1.15;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:14px;margin-bottom:16px;font-size:14.5px;border-radius:12px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--bad);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--line)}
+.src{font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--muted)}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--good);max-width:52ch}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);padding:9px 14px;border-radius:999px}
+.ghost{border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer;border-radius:999px}
+.ghost:hover{background:var(--ink);color:var(--paper)}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--line)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,112px) minmax(0,1fr) 62px}
+}
+
+/* order to reorder (tinted band) */
+section.tint{background:var(--panel);border-top:0}
+.lp-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:12px}
+.lp{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:12px 14px;text-align:left;cursor:pointer;border-radius:12px}
+.lp .n{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--muted)}
+.lp b{display:block;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:19px;line-height:1.2}
+.lp small{display:block;font-size:12px;color:var(--muted);line-height:1.35}
+.lp:hover{border-color:var(--muted)}
+.lp[aria-pressed="true"]{background:var(--green-fill);border-color:var(--green-fill);color:var(--on-green)}
+.lp[aria-pressed="true"] small,.lp[aria-pressed="true"] .n{color:var(--on-green)}
+.lp-reads{font-size:13px;color:var(--muted);margin-bottom:18px;min-height:20px}
+.lp-reads b{color:var(--ink);font-weight:600}
+.lp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;min-width:0}
+.mc .mq{font-size:12.5px;color:var(--muted);margin-bottom:12px;min-height:36px}
+.mc .mrow{display:grid;grid-template-columns:minmax(0,1fr) 62px;gap:4px 10px;align-items:center;margin-bottom:9px;font-size:13.5px}
+.mc .mrow .mt{grid-column:1/-1;height:8px;background:var(--track);border-radius:4px;overflow:hidden}
+.mc .mrow .mt i{display:block;height:100%;background:var(--bar);border-radius:4px;transition:width .5s ease}
+.mc .mrow .mt i.hl{background:var(--hlbar)}
+.mc .mrow .mv{font-size:12.5px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.mc.do{background:var(--topbar);border-color:var(--topbar);color:var(--on-topbar)}
+.mc.do .mq{color:var(--topbar-muted);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;min-height:0}
+.mc .line{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:24px;line-height:1.1;margin-bottom:10px}
+.mc.do .line{color:var(--green)}
+.mc .mw{font-size:14px}
+.lp-rule{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14.5px;color:var(--muted);max-width:80ch}
+.lp-rule svg{width:24px;height:20px;flex:none;margin-top:2px}
+@media (max-width:860px){
+  .lp-tabs{display:flex;overflow-x:auto;scrollbar-width:thin}
+  .lp{flex:none;min-width:140px}
+  .lp-grid{grid-template-columns:minmax(0,1fr)}
+}
+
+/* systems */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:24px}
+.card{background:var(--panel);padding:22px;border-radius:14px}
+.card .k{color:var(--muted);margin-bottom:10px}
+.card h3{font-size:20px;margin-bottom:8px}
+.card p{font-size:14px;color:var(--muted)}
+.boardbox{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:20px 32px;align-items:start;background:var(--green-soft);border:1px solid var(--line);padding:24px 26px;border-radius:16px;margin-bottom:44px}
+.boardbox h3{font-size:26px}
+.boardbox blockquote{margin:0 0 12px;font-size:17px;line-height:1.45;font-style:italic}
+.boardbox blockquote cite{display:block;font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.boardbox ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.boardbox li{display:flex;gap:10px;font-size:14.5px;align-items:baseline}
+.boardbox li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--red);transform:translateY(-1px)}
+.intg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px}
+.ig-h{padding-bottom:10px;border-bottom:3px solid var(--ink)}
+.ig-h h3{font-size:22px}
+.desk{display:grid;grid-template-columns:minmax(0,140px) minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.desk b{display:block;font-size:15px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:var(--card);padding:4px 11px;border-radius:999px}
+.pills span.v::before,.seen i{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);flex:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:14px}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:16px 18px;background:var(--panel);font-size:14px;border-radius:12px}
+.outs b{color:var(--muted)}
+@media (max-width:860px){.intg,.three,.boardbox{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}.boardbox{padding:20px}}
+
+/* proof */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--card);padding:32px;margin-bottom:24px;border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.feature .k{color:var(--green-ink);margin-bottom:10px}
+.feature h3{font-size:clamp(26px,3.2vw,38px);margin-bottom:14px}
+.feature p{font-size:15px;color:var(--muted);margin-bottom:10px}
+.feature p b{color:var(--ink)}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid var(--line);padding:14px 16px;position:relative;border-radius:12px}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:var(--line)}
+.chain .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.chain b{display:block;font-size:16px}
+.chain li.end{background:var(--green-fill);color:var(--on-green);border-color:var(--green-fill)}
+.chain li.end .t{color:var(--on-green)}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pcard{background:var(--panel);padding:22px;display:flex;flex-direction:column;border-radius:14px}
+.pcard .k{color:var(--muted);margin-bottom:8px}
+.pcard .big{font-family:var(--display);font-weight:800;font-size:44px;line-height:1;margin-bottom:10px;color:var(--green-ink)}
+.pcard .body{font-size:14px}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.vid-grid h2{font-size:clamp(30px,3.8vw,46px)}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--topbar);border-radius:16px;box-shadow:var(--shadow)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:var(--on-topbar);overflow:hidden;
+  background:radial-gradient(60% 80% at 100% 0%,rgba(103,170,64,.45),transparent 65%),radial-gradient(50% 70% at 0% 100%,rgba(217,35,11,.30),transparent 65%),var(--topbar)}
+.poster .tri{position:absolute;left:0;right:0;bottom:0}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:800}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(22px,3.2vw,40px);line-height:1;text-align:center;padding-inline:12px}
+.p-play{width:68px;height:68px;border-radius:50%;background:var(--green-fill);color:var(--on-green);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--topbar-muted)}
+.vid-note{font-size:13px;color:var(--muted);margin-top:16px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* trust */
+.sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;background:var(--panel);padding:28px 30px;border-radius:18px}
+.sec>div{flex:1 1 420px;min-width:0}
+.sec h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:12px}
+.sec p.t{color:var(--muted);font-size:15.5px;max-width:62ch}
+.trust-cta{display:inline-flex;flex-direction:column;gap:2px;background:var(--ink);color:var(--paper);text-decoration:none;padding:14px 22px;font-weight:700;font-size:14.5px;border-radius:999px}
+.trust-cta small{font-weight:400;font-size:11.5px;opacity:.75}
+.trust-cta:hover{opacity:.9}
+@media (max-width:520px){.sec{padding:22px 20px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:76px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.et,.rb-f,.rb-row,.mc .mrow .mt i{transition:none}}
+</style>
+<style>:root{--cap-logo:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAoCAMAAADQSAYKAAAApVBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+4/eNVAAAANnRSTlMADyD7cMHxsNGAYPb0GAWq1xwHEuijUz+4Q+7r5N0Mnkw5MMeYJYt4bFo0zJL4tIVmR30pvCw9MgbcAAAGoUlEQVRo3tTW2ZKaQBQG4KOtQGRfBdxQFHUc1zj/+z9aij4FaTJOcqGVSr6LqZqD0v3TfRqp9rbwULMOlU0tuzpYqHmLN/qfBWcNrVnRlIsZWto5oL9j78F0bXqluQsIzdIEJOvC5QuvXnPJndNj37e6lwsz99IqmdOzEtQMh16ogoi0uFiOB3fU8lFdHeWo3QfjZRFrkUD1eEIHKHR6VgppSa+zEiKaJoHcq4VsReON6M2QzVdwPZlGQqzoE/sOvDZgCelKz3Nu95OeEb0jMtv79Q8Ajq7juEcAh35Tv5oR3ulXbxO8OuA3bpOQnrcYZOONnlFqHmNqfUwAYX18WAKYfFArPprpp3waXh4wOAEwE3re93VSnqfzO6UaCqV+AyzzdjMt4KaUC2i/BrQjgFnp4n1x1zjgs5aXvU0vMEoSY13SiU6A+pbbaLDy4TC3oG3U1QJO1HUCMxKHC5mr078juSRxvKUTud2W7pUQxzw/CpQ9pXwFXGJtha0d5cv07+jdi1uvTNZ0E1irTaAjB4AceqCU1xA36hhCiumzMKlSbxJ57sAmthzUCiL/fIgiY5ERCwZSj8JbeojrzpH/7+UM+VpAzl6f5TN976gv7/26nOXTg7uz1ckn63KqRYb+bUxU3K8fu3tIvgcr63T5DABmOCkBMwueT6oNpOmcfjVOBRrmVj0cddodwdKQHzOkvjyPtbpzUDPkiQ6p1zfAypCIOdscDfHe7ptLBMb3sgeVfCg7YDKaO+GKhzyYJqIIpnngL65CZz6aADvqGKDG1a4FVO9qwBtaxlwJuIrwZcDvUzROxOwSqtmGy++AElDxTQOi0kj4dLWmAmkKMbW+c7MaZQRo36jLhWT/KSCuPwNOoVgrAV18HVANk/EaGOiaylns8SAgG1fpML6StDVNYLcDzGZ7XeNhWo3pFx5qHj0MqJ1ul1E1QW3IARsTC0z4PwOKrwKyyRFsQbUYTETthq/LHDuqLpfzXWjUFcyJ9T0N0Dab+q/XJzYP6BOT7/wooDfiu/kRN5ES0O0TLT1I3zggM9N4OHkcMO1TsIU04zcWpx4F5BSzdmnnHJrnbKsnYn9FrVC3AMT8lCw9pNaqTx1fn6FLh4idm8GbgC6PnqNWKgGHdj34w4BeoKxa0LaA4Fn7WnPjPpdD+sTXkzaFLgBob/wzDEJvsye6/yigS1/zxzyVEQfkXSlVvGhOG3DC03oYcES1DFL9uYhbuPMQtWYFYWT0yUC4mR+GdrbmrtnKXuSR15kdhn7migE9CjikR4KkOnlHgA04oPLpApLdBjzT1wE3vOqQ+kR+synZGJJP5IHNzn3qcty64TwNLKZOK/MV16GuKV98FO9sQaEEXBBbQdq0AbPfBOy+MImWbVlNviK6oKWvqKP3ox2z204UBgLwKCCsIBorxh9QUSmg6LqlzPs/2ipxVILUXdqLHk+/O0LOIR8zQyYIGcGqcenZrjgNkNCqTqaNLWKFYFIUTC/rDj4QbBQFKWQ2wO0NLkJCKPL+HBsKCixOY9yi2UYMJV6lIpQ3yJ7zq/1aIcjlFG3+h6BPw4UI+tTJEAs5TYeJNhF1UgzSREuGNpQZ4/2zdyr0MlotCV6Tn5JJ6dcRpB4xgxzyZaI62u8UKANKvIxMlxpvarBdUzSNZWwXcyab20GA6Eb7TRLsgUCnJdQR7CuFHjEUqwCiEw6oSEuoaA5MHS7ox0tUoQIVBaZKAWa/HZG6tOJtUZA+JplY4rqWIFV/zxYx8+RKoW02gBLMQ2xt2eVy20L0GFTQ7+GZqRPFw0Ny1NGp4z2IVyALutkpian7qCdIX8u8C2l0L4XCEoqZRxVeIlYQrZCuQgtRiaGSjYkyOqWM+TZeOFgSRGW/HilUJPUEKWjY0tfdyXU7buKuG6cvHS6cXZChtmDqQ44/FTtwNQvljuAGZYSgjMLrCgKXn9sKaPqVECoNV3l22yvyq2Z877fhOxLmXBJ0pQXUFIRYKfr5UBLUbLhLfuRWzwW0i+ABnXnxUXNRyYLdQpUE9QNNV1T4hCBw79YlgJLgfFaddy4OAoBggO4CHsNCzTz7bM+Hxpe1lTfqGQy1E8OrIHANj1hOCoKZltMB4k9+Pc/fnrg3uzfRbo8ssT90aSPuR6NzRXpJCh+wNDABSNBYwr9hsw33l+x2JOObwiskwZO+z1MbvgK25D6TMuo4lM3gAU3DYswymvBlkOB3+W0aTKNoGsDzCkJ7v2/DMwtCtwvPLRjHTy4I8CP4I/hdBP8CgXP62w7UpUAAAAAASUVORK5CYII=)}</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Caprinos">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <span class="cap-logo lk-cap" role="img" aria-label="Caprinos"></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#ask">Ask</a>
+      <a href="#chain">Order to reorder</a>
+      <a href="#systems">Systems</a>
+      <a href="#proof">Proof</a>
+      <a href="#video">Video</a>
+      <a href="#trust">Trust</a>
+    </nav>
+  </div>
+  <div class="tri" aria-hidden="true"></div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><span class="n">01</span> Milo × Caprinos</p>
+        <div class="pills-top" aria-hidden="true"><span class="pt">Stores</span><span class="pt">App and web</span><span class="pt">Delivery apps</span><span class="pt">Franchisees</span></div>
+        <h1><span>Joy in each slice.</span><span><em>Answers in each store.</em></span></h1>
+        <p class="lede">Orders arrive through the app, the website, the phone, Just Eat, Deliveroo and Uber Eats, at 120+ stores. <b>Milo joins them</b>, so anyone at Caprinos can ask in plain English and get the answer in seconds.</p>
+      </div>
+
+      <div class="rb-panel">
+        <div class="rb-top"><span class="rb-k label">Ten stores · last Friday</span><span class="tag">Sample data</span></div>
+        <div class="rb-body">
+          <p class="rb-q" id="rb-q"></p>
+          <div class="rb-head" aria-hidden="true"><span>Store</span><span class="rb-scale"><i id="rb-ll"></i></span><span id="rb-col"></span></div>
+          <div class="rb" id="rb" role="img" aria-label="Ten stores, each with a bar measured against a reference line"></div>
+          <div class="lg" id="rb-lg"></div>
+          <div class="et-row" id="rb-tabs" role="group" aria-label="Add a layer of data"></div>
+          <div id="rb-read" aria-live="polite"></div>
+          <p class="rb-hint">Stores shown by type, with invented figures. Add a layer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="tri" aria-hidden="true"></div>
+        <div class="letter-in">
+          <div class="refs">
+            <span>Our ref</span><b>MILO / CAPRINOS / 01</b>
+            <span>For</span><b>Ashok Nimmala, Data Analyst</b>
+          </div>
+          <p class="sal">Dear Ashok,</p>
+          <p>Caprinos grew like-for-like sales 14% last year, opened 17 new stores, and has now signed deals for Spain and Riyadh. Every new store adds more numbers to join: tills, the app, three delivery platforms, marketing and franchise fees.</p>
+          <p>Joining them tends to land on the data team, one report at a time. Milo does the joining. We build and run the connections, and anyone at Caprinos, from the founders to a franchisee, can ask in plain English and get an answer in seconds, with sources.</p>
+          <p>That leaves your time for the harder questions. Everything here is sample data, so click around.</p>
+          <div class="sign">
+            <p class="nm">Liam James Rabone</p>
+            <p class="ml">Milo · liam@milo.ai</p>
+          </div>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow">Caprinos, in its own numbers</p>
+        <ul class="glance">
+          <li><b>120+</b><span>stores in the UK</span></li>
+          <li><b>14%</b><span>like-for-like sales growth in 2025</span></li>
+          <li><b>10m+</b><span>customers in 2025</span></li>
+          <li><b>17</b><span>new UK stores in 2025</span></li>
+          <li><b>200</b><span>stores, the target for 2030</span></li>
+        </ul>
+        <p class="glance-src">From Eastern Eye (January 2026) and Hospitality &amp; Catering News (October 2026).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">02</span> Ask Milo</p>
+      <h2 id="ask-h">Real questions. <em>Real answers.</em></h2>
+      <p>Pick a seat and a question, or type your own.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · Caprinos workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Sample data. Every figure is invented.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band tint" id="chain" aria-labelledby="ch-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">03</span> Order to reorder</p>
+      <h2 id="ch-h">From the order <em>to the next one.</em></h2>
+      <p>Every order runs through five steps, each in its own system. Pick one.</p>
+    </div>
+    <div class="lp-tabs" id="lp-tabs" role="group" aria-label="Choose a step"></div>
+    <p class="lp-reads" id="lp-reads"></p>
+    <div class="lp-grid" id="lp-grid" aria-live="polite"></div>
+    <p class="lp-rule"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>Milo joins every step, so a late Friday delivery can be traced from the rota to the rating to whether that customer ever ordered again.</span></p>
+  </div>
+</section>
+
+<section class="band first" id="systems" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">04</span> What Milo connects</p>
+      <h2 id="int-h">Every system. <em>One set of numbers.</em></h2>
+      <p>Milo reads your systems as they are. Nothing gets replaced.</p>
+    </div>
+    <div class="three">
+      <div class="card"><p class="k label">The connections</p><h3>We build them</h3><p>Our engineers build and maintain every one.</p></div>
+      <div class="card"><p class="k label">The dashboards</p><h3>Anyone builds one</h3><p>Pin an answer and it's a live dashboard.</p></div>
+      <div class="card"><p class="k label">The automations</p><h3>Questions keep running</h3><p>Any question can arrive on a schedule.</p></div>
+    </div>
+    <div class="boardbox">
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">For head office and every franchisee</p>
+        <h3>120 stores. <em>One set of numbers.</em></h3>
+      </div>
+      <div>
+        <blockquote>“It is our goal to exceed our customers' expectations for quality and service while paying close attention to our customer's individual needs.”<cite>Caprinos mission statement</cite></blockquote>
+        <ul>
+          <li>Every store and every channel, side by side</li>
+          <li>Each franchisee sees their own stores and nothing else</li>
+          <li>New stores tracked against plan from week one</li>
+          <li>Ready for Spain and Riyadh as they open</li>
+        </ul>
+      </div>
+    </div>
+    <div class="intg">
+      <div>
+        <div class="ig-h"><h3>The stores</h3></div>
+        <div class="desk"><div><b>Ordering</b></div><div class="pills"><span class="v">LivePepper</span><span class="v">Caprinos app</span><span>Phone orders</span></div></div>
+        <div class="desk"><div><b>Delivery apps</b></div><div class="pills"><span class="v">Just Eat</span><span class="v">Deliveroo</span><span class="v">Uber Eats</span></div></div>
+        <div class="desk"><div><b>Tills</b></div><div class="pills"><span>EPOS</span><span>Card payments</span><span>Cash-up sheets</span></div></div>
+        <div class="desk"><div><b>Kitchen and stock</b></div><div class="pills"><span>Stock counts</span><span>Supplier invoices</span><span>Waste logs</span></div></div>
+        <div class="desk"><div><b>Staff</b></div><div class="pills"><span>Rotas</span><span>Timesheets</span><span>Driver logs</span></div></div>
+      </div>
+      <div>
+        <div class="ig-h"><h3>The business</h3></div>
+        <div class="desk"><div><b>Marketing</b></div><div class="pills"><span class="v">GA4</span><span class="v">Meta Ads</span><span class="v">TikTok Ads</span><span>Google Ads</span></div></div>
+        <div class="desk"><div><b>Social</b></div><div class="pills"><span class="v">Instagram</span><span class="v">Facebook</span><span class="v">TikTok</span><span class="v">YouTube</span></div></div>
+        <div class="desk"><div><b>Reviews</b></div><div class="pills"><span>App ratings</span><span>Google reviews</span><span>Trustpilot</span></div></div>
+        <div class="desk"><div><b>Finance and franchise</b></div><div class="pills"><span>Xero</span><span>Sage</span><span>Franchise fees</span><span>Store P&amp;Ls</span></div></div>
+        <div class="desk"><div><b>Your own data</b></div><div class="pills"><span>SQL databases</span><span>Excel</span><span>SharePoint</span><span>Power BI</span></div></div>
+      </div>
+    </div>
+    <p class="seen"><i aria-hidden="true"></i>Seen on Caprinos' own website and app. The rest are examples.</p>
+    <div class="outs"><b class="label">Answers arrive in</b><span>Slack</span><span>Teams</span><span>Email</span><span>WhatsApp</span><span>PDF</span></div>
+  </div>
+</section>
+
+<section class="band" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">05</span> Proof</p>
+      <h2 id="proof-h">Restaurants, platforms and brands <em>already run on it.</em></h2>
+      <p>The closest example runs tills, rotas and stock across several sites.</p>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k label">Urban Leisure Group · London bars and restaurants</p>
+        <h3>Five systems. One Monday pack.</h3>
+        <p>Toast, Harri, Marketman, DesignMyNight and QuickBooks, rebuilt by hand every Monday. <b>All five connected in under two weeks</b>, with no data team.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at Urban Leisure Group">
+        <li><span class="t">Connected</span><b>Five systems in under two weeks</b></li>
+        <li><span class="t">Adopted</span><b>1 to 6 users in two months</b></li>
+        <li class="end"><span class="t">Running</span><b>Full value within six weeks</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="k label">BetGames · Platform for ~2,000 brands</p>
+        <p class="big">60+</p>
+        <p class="body">partner reports a month, built and sent by Milo, with no new hires. The same job as a Monday report for every franchisee.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">Kellogg's · Commercial finance</p>
+        <p class="big">The cause</p>
+        <p class="body">Sales fell across the Middle East. Milo traced it to a Coco Pops shortage rather than demand.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">Two Tribes Brewing · London</p>
+        <p class="big">1 → 12</p>
+        <p class="body">users in six weeks, from the founders to the taproom.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="n">06</span> See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+            <span class="tri" aria-hidden="true"></span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <p class="eyebrow"><span class="n">07</span> Trust and security</p>
+        <h2 id="sec-h">Your team <em>signs off first.</em></h2>
+        <p class="t">Read-only connections, access by role, hosted in the EU. Customer details stay where they are. The rest is in the Trust Centre.</p>
+      </div>
+      <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Ashok Nimmala at Caprinos Pizza by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
+    <p>Facts from caprinospizza.co.uk, Eastern Eye and Hospitality &amp; Catering News. Stores in the demos are described by type, and every figure in them is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* store board: [store type, average delivery minutes, % of orders via delivery apps, app rating] */
+  var STORES=[
+    ["City centre",44,61,4.5],
+    ["Student town",53,71,4.0],
+    ["London suburb",47,49,4.4],
+    ["Market town",39,34,4.7],
+    ["Retail park",42,41,4.6],
+    ["Seaside town",56,52,3.9],
+    ["Commuter town",41,38,4.6],
+    ["New this year",52,66,4.1],
+    ["Out of town",45,44,4.5],
+    ["High street",48,63,4.3]
+  ];
+  function act(c){return c[1]>50?"Add a driver":(c[2]>60?"Push the app":"OK")}
+  var LAYERS=[
+    {name:"Delivery",short:"Minutes to the door",col:"Average",max:60,line:50,ll:"50 min",
+     v:function(c){return c[1]},t:function(c){return c[1]+" min"},k:function(c){return c[1]>50?"bad":(c[1]>45?"tight":"")},
+     lg:'<span><i></i>45 min or less</span><span><i class="tight"></i>45 to 50</span><span><i class="bad"></i>Over 50</span><span><i class="ln"></i>The 50-minute promise</span>',
+     stats:[["47 min","average delivery"],["3","stores over 50 min"],["56 min","the slowest"]],
+     say:"Seven stores kept to the 40 to 50 minute promise. Three ran late."},
+    {name:"+ Apps",short:"Delivery app share",col:"Apps",max:100,line:50,ll:"50%",
+     v:function(c){return c[2]},t:function(c){return c[2]+"%"},k:function(c){return c[2]>60?"bad":(c[2]>50?"tight":"")},
+     lg:'<span><i></i>Half or less</span><span><i class="tight"></i>50 to 60%</span><span><i class="bad"></i>Over 60%</span><span><i class="ln"></i>Half of orders</span>',
+     stats:[["52%","of orders via the apps"],["4","stores over 60%"],["£4.1k","commission in one night"]],
+     say:"Just over half of Friday's orders came through Just Eat, Deliveroo and Uber Eats, and every one paid commission."},
+    {name:"+ Ratings",short:"App ratings",col:"Rating",max:2,line:1.5,ll:"4.5",
+     v:function(c){return c[3]-3},t:function(c){return c[3].toFixed(1)},k:function(c){return c[3]<4.2?"bad":(c[3]<4.5?"tight":"")},
+     lg:'<span><i></i>4.5 or more</span><span><i class="tight"></i>4.2 to 4.4</span><span><i class="bad"></i>Under 4.2</span><span><i class="ln"></i>4.5</span>',
+     stats:[["4.4","average rating"],["3","stores under 4.2"],["3 of 3","are the late stores"]],
+     say:"The three lowest ratings belong to the three late stores. Late deliveries show up in the ratings first."},
+    {name:"Milo's answer",short:"Before tonight",col:"Do",max:60,line:50,ll:"50 min",q:"Asked: what needs doing before Friday night?",
+     v:function(c){return c[1]},t:act,k:function(c){return act(c)==="Add a driver"?"bad":""},
+     lg:'<span><i></i>Delivery time</span><span><i class="bad"></i>Running late</span><span>Faded: nothing to do</span>',
+     stats:[["3","stores need a Friday driver"],["2","should push the app"],["5 of 10","need nothing"]],
+     say:"Add a driver from 6 to 9pm at the three late stores. At the two app-heavy stores, put a Caprinos app offer in every delivery bag. Milo can send this every Friday morning."}
+  ];
+  var layer=0;
+  function drawRB(){
+    var L=LAYERS[layer],h="";
+    function pct(v){return Math.max(0,Math.min(v,L.max))/L.max*100}
+    $("rb").style.setProperty("--ln",pct(L.line).toFixed(1)+"%");
+    $("rb-ll").parentNode.style.setProperty("--ln",pct(L.line).toFixed(1)+"%");
+    $("rb-ll").textContent=L.ll;
+    STORES.forEach(function(c){
+      var k=L.k(c),rc="rb-row",vc="rb-v",t=L.t(c);
+      if(layer===3){if(t==="OK")rc+=" dim";else vc+=k==="bad"?" go":" mv"}
+      else if(k)vc+=" "+k;
+      h+='<div class="'+rc+'"><span class="rb-n" title="'+esc(c[0])+'">'+esc(c[0])+'</span><span class="rb-t"><span class="rb-f'+(k?" "+k:"")+'" style="width:'+pct(L.v(c)).toFixed(1)+'%"></span></span><span class="'+vc+'">'+esc(t)+'</span></div>';
+    });
+    $("rb").innerHTML=h;
+    $("rb-col").textContent=L.col;
+    $("rb-lg").innerHTML=L.lg;
+  }
+  function renderRB(){
+    $("rb-tabs").innerHTML=LAYERS.map(function(l,i){
+      return '<button type="button" class="et" data-layer="'+i+'" aria-pressed="'+(i===layer)+'"><b>'+esc(l.name)+'</b><small>'+esc(l.short)+'</small></button>';
+    }).join("");
+    var l=LAYERS[layer];
+    $("rb-q").textContent=l.q||"";
+    $("rb-read").innerHTML='<div class="r-stats">'+l.stats.map(function(s){return '<div><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join("")+'</div><p class="r-say">'+esc(l.say)+'</p>';
+    drawRB();
+  }
+  $("rb-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-layer]");if(!b)return;
+    layer=+b.dataset.layer;renderRB();
+    var nb=$("rb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
+  });
+
+  /* seats */
+  var SEATS=[
+    {g:"Data",name:"Data and insight",sub:"Reports, causes, checks",sys:["EPOS","Caprinos app","Delivery apps","GA4"],qs:[
+      {q:"Why did one area's sales drop on Saturday?",kw:["why","drop","dropped","fall","fell","down","area","region","saturday","sales","cause","explain","happened","dip"],type:"list",
+       rows:[["Deliveroo","Five stores offline, 6.10pm to 8.40pm","The cause","bad"],["Weather","Dry and mild, as usual","Ruled out","over"],["Local football","No home game","Ruled out","over"]],
+       say:"Five stores dropped off Deliveroo for two and a half hours on Saturday evening. That accounts for almost all of the fall.",
+       src:["EPOS","Deliveroo","Store list"],alert:"When a store takes no app orders for 30 minutes at peak."},
+      {q:"Build every franchisee a Monday report",kw:["build","report","reports","franchisee","franchisees","monday","weekly","every","store","stores","send","pack","automate","automation"],type:"summary",
+       kpis:[["120","reports, one per store"],["8am","every Monday"],["0","built by hand"],["1","template, set up once"]],
+       say:"Each franchisee gets their own sales, channels, delivery times and ratings, against their area. You set it up once.",
+       src:["EPOS","Delivery apps","Caprinos app","Reviews"],alert:"Every Monday at 8am: one report per store."}
+    ]},
+    {g:"Leadership",name:"Founders",sub:"The whole network",sys:["EPOS","Caprinos app","Delivery apps","Finance"],qs:[
+      {q:"How did we do last week?",kw:["did","do","doing","week","last","trade","trading","overall","business","going","performance","results","summary","sales","growth"],type:"summary",
+       kpis:[["+12%","like-for-like sales"],["46%","via the Caprinos app and website"],["4","stores behind last year"],["44 min","average delivery"]],
+       say:"Like-for-like sales rose 12%, led by the app. Four stores trailed last year, and three of them are near a university in reading week.",
+       src:["EPOS","Caprinos app","Delivery apps"],alert:"Every Monday at 8am: last week by store, area and channel."},
+      {q:"Are this year's new stores on plan?",kw:["new","stores","store","openings","opened","plan","target","ramp","behind","ahead","year","this"],type:"list",
+       rows:[["Opened in March","Week 30 · 8% ahead of plan","On plan","ok"],["Opened in June","Week 18 · 4% behind","Watch","warn"],["Opened in September","Week 6 · 22% behind","Act","bad"]],
+       say:"Two are on or near plan. September's store is 22% behind, and almost all of its orders come through the apps.",
+       src:["EPOS","Delivery apps","Store plans"],alert:"Every Monday: new stores against plan, week by week."}
+    ]},
+    {g:"Leadership",name:"Finance",sub:"Margins, fees and cash",sys:["Finance","Delivery apps","EPOS","Franchise fees"],qs:[
+      {q:"What are the delivery apps costing us?",kw:["delivery","apps","app","costing","cost","costs","commission","commissions","fees","just","eat","deliveroo","uber","eats","aggregators"],type:"bars",pre:"£",unit:"k",
+       cap:"Commission paid last month, by platform",
+       rows:[["Just Eat",142],["Deliveroo",96],["Uber Eats",71]],
+       say:"£309k in commission last month. Moving one app order in ten to the Caprinos app would save about £31k a month.",
+       src:["Just Eat","Deliveroo","Uber Eats","Finance"],alert:"First of the month: commission by platform and store."},
+      {q:"Which franchisees are behind on fees?",kw:["franchisee","franchisees","fees","fee","royalty","royalties","behind","late","owe","owed","outstanding","debt","paid","unpaid"],type:"list",
+       rows:[["4 stores","Over 30 days late · £18.6k","Call","bad"],["7 stores","Under 30 days late · £12.2k","Remind","warn"],["109 stores","Paid on time","Fine","ok"]],
+       say:"Eleven stores owe £30.8k between them. Three of the four furthest behind are also behind on sales.",
+       src:["Franchise fees","Finance","EPOS"],alert:"On the 5th of each month: fees outstanding by store."}
+    ]},
+    {g:"Stores",name:"Operations",sub:"Kitchens, drivers, delivery",sys:["EPOS","Delivery apps","Rotas","Driver logs"],qs:[
+      {q:"Which stores miss the 50-minute promise?",kw:["miss","missed","late","50","minute","minutes","promise","delivery","deliveries","slow","slowest","time","times"],type:"bars",unit:"%",
+       cap:"Deliveries over 50 minutes, last Friday",
+       rows:[["Seaside town",34],["Student town",27],["New this year",24],["High street",12],["Network average",9]],
+       say:"Three stores were late on more than a quarter of Friday's deliveries. All three were a driver short from 7pm.",
+       src:["EPOS","Delivery apps","Rotas"],alert:"Every Monday: stores that missed 50 minutes last week."},
+      {q:"Who's short of drivers tonight?",kw:["short","drivers","driver","tonight","rota","rotas","staff","staffing","shift","shifts","cover","busy","forecast"],type:"list",
+       rows:[["Seaside town","Needs 6 from 7pm · 4 on the rota","Short 2","bad"],["Student town","Needs 5 · 4 on the rota","Short 1","warn"],["New this year","Needs 4 · 3 on the rota","Short 1","warn"]],
+       say:"Three stores are short of drivers for tonight's forecast. Seaside town needs two more.",
+       src:["Rotas","EPOS","Delivery apps"],alert:"Every Friday at 3pm: stores short of drivers for tonight."}
+    ]},
+    {g:"Growth",name:"Marketing",sub:"Deals, app and campaigns",sys:["Caprinos app","LivePepper","GA4","Meta Ads"],qs:[
+      {q:"Which deal brings customers back?",kw:["deal","deals","back","return","repeat","again","loyal","loyalty","retention","mega","saver","offer","offers","customers"],type:"bars",unit:"%",
+       cap:"Customers who order again within 30 days, by first deal",
+       rows:[["Mega Saver Deal",41],["Deal 3",34],["Loaded 'N' Wrap Deal",29],["No deal",22]],
+       say:"Customers whose first order is the Mega Saver Deal come back most. Lead with it for new customers.",
+       src:["Caprinos app","LivePepper","EPOS"],alert:"Monthly: repeat rate by deal."},
+      {q:"Did Hot Honey Pesto bring in new customers?",kw:["hot","honey","pesto","chorizo","legend","new","flavour","flavours","pizza","launch","product","products","menu","customers","first"],type:"bars",unit:"%",
+       cap:"Orders from first-time customers, launch month",
+       rows:[["Hot Honey Pesto",31],["Chorizo Legend",26],["Rest of the menu",14]],
+       say:"Both new pizzas drew first-timers at about twice the rate of the rest of the menu. Hot Honey Pesto did best.",
+       src:["EPOS","Caprinos app","Delivery apps"],alert:null}
+    ]},
+    {g:"Growth",name:"New stores",sub:"Where the next 20 go",sys:["Caprinos app","LivePepper","GA4","Store list"],qs:[
+      {q:"Where should the next stores open?",kw:["where","next","open","opening","new","stores","store","site","sites","location","locations","expand","expansion","demand","area","areas"],type:"bars",
+       cap:"People who tried to order last month from outside every delivery area",
+       rows:[["Area A · 6 miles out",1240],["Area B · 9 miles out",980],["Area C · 7 miles out",860],["Area D · 12 miles out",640]],
+       say:"1,240 people in Area A tried to order last month and couldn't. That's demand waiting for a store.",
+       src:["Caprinos app","LivePepper","GA4","Store list"],alert:"Monthly: postcodes trying to order that no store reaches."},
+      {q:"How fast do new stores ramp up?",kw:["fast","ramp","ramps","new","stores","mature","maturity","quick","quickly","grow","weeks","opening"],type:"bars",unit:"%",
+       cap:"Sales in week 12 as a share of a mature store's",
+       rows:[["Opened in 2024",78],["Opened in 2025",84],["Opened in 2026",88]],
+       say:"Each year's new stores get to full speed faster. The ones with app offers before opening ramp quickest.",
+       src:["EPOS","Caprinos app","Store plans"],alert:null}
+    ]},
+    {g:"Franchisees",name:"Franchisee login",sub:"Their own stores only",sys:["Their EPOS","Their delivery apps","Their reviews"],qs:[
+      {q:"How did my store do this week?",kw:["my","store","week","doing","how","going","results","sales","mine","did"],type:"summary",
+       kpis:[["+9%","sales on last year"],["46 min","average delivery"],["4.5","app rating"],["2nd","in your area"]],
+       say:"Up 9% on last year and second in your area. Thursday was your slowest night, so that's the one to fill.",
+       src:["Their EPOS","Their delivery apps","Their reviews"],alert:"Every Monday: your week at Caprinos."},
+      {q:"What does the store next to me make?",kw:["other","store","stores","next","near","nearby","make","makes","takings","competitor","compare","theirs","neighbour"],type:"refuse",
+       say:"Your login covers your own stores only. Head office can show how you compare with your area, without names.",
+       src:["Access policy"],alert:null}
+    ]}
+  ];
+
+  var seat=0,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg label">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var x=Math.abs(v);
+    var n=a.dec?x.toFixed(a.dec):x.toLocaleString("en-GB");
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var pick=a.hl!=null?a.hl:0;
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r,i){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf'+(i===pick?" hl":"")+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<span id="alert-slot"><button type="button" class="ghost" data-alert="1">Turn into an alert</button></span>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Checking '+esc(SEATS[seat].sys.slice(0,3).join(", "))+'</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,many:1,all:1,is:1,we:1,me:1,than:1,one:1,"do":1,did:1,by:1,"in":1,of:1,to:1,it:1,its:1,"it's":1,caprinos:1,pizza:1,"what's":1,on:1,at:1,be:1,will:1,into:1,i:1,am:1,should:1,was:1,were:1,get:1,tell:1,us:1,not:1,just:1,much:1,a:1,an:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9£&%'#.-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(!b)return;
+    var a=SEATS[seat].qs[qi];
+    $("alert-slot").innerHTML='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg><span>Alert set. '+esc(a.alert)+'</span></span>';
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+
+  /* order to reorder: five steps */
+  var STEPS=[
+    {n:"01",name:"Order",sub:"Six ways in",reads:["Caprinos app","LivePepper","Just Eat","Deliveroo","Uber Eats","Phone"],cards:[
+      {q:"Orders by channel, last week",rows:[["Caprinos app",27],["Just Eat",21],["Website",19],["Deliveroo",14],["Uber Eats",11],["Phone and walk-in",8]]},
+      {q:"Average order, by channel",pre:"£",unit:"",dec:2,rows:[["Caprinos app",24.6],["Website",23.1],["Just Eat",21.4],["Deliveroo",20.8],["Uber Eats",20.2]]},
+      {q:"What Milo does",line:"Grow the app.",why:"App orders are the biggest, and none of them pay a delivery app's commission."}
+    ]},
+    {n:"02",name:"Make",sub:"The kitchen",reads:["EPOS","Stock counts","Waste logs"],cards:[
+      {q:"Minutes from order to oven, Friday 7 to 9pm",unit:" min",rows:[["Seaside town",14],["Student town",12],["Network average",8]]},
+      {q:"Dough thrown away, last week",unit:"%",rows:[["Retail park",11],["Market town",9],["Network average",5]]},
+      {q:"What Milo does",line:"Make to the forecast.",why:"Milo forecasts tomorrow's dough for each store from the last eight weeks of orders."}
+    ]},
+    {n:"03",name:"Deliver",sub:"The 50-minute promise",reads:["EPOS","Delivery apps","Rotas","Driver logs"],cards:[
+      {q:"Deliveries inside 50 minutes, by night",hl:3,rows:[["Monday",96],["Wednesday",94],["Friday",84],["Saturday",81]]},
+      {q:"Late deliveries, by cause",rows:[["A driver short",52],["Kitchen backed up",29],["Long distance",19]]},
+      {q:"What Milo does",line:"Staff to the forecast.",why:"By 3pm, Milo checks each store's rota against tonight's expected orders."}
+    ]},
+    {n:"04",name:"Rate",sub:"Reviews and refunds",reads:["Just Eat","Deliveroo","Uber Eats","Google reviews"],cards:[
+      {q:"Average rating, by delivery time",unit:"",hl:2,rows:[["Under 40 min",4.7],["40 to 50 min",4.5],["Over 50 min",3.8]]},
+      {q:"Refunds, by reason",rows:[["Late",41],["Missing item",33],["Cold",18],["Wrong order",8]]},
+      {q:"What Milo does",line:"Fix lateness first.",why:"Late orders cause the most refunds and the lowest ratings."}
+    ]},
+    {n:"05",name:"Return",sub:"The next order",reads:["Caprinos app","LivePepper","Meta Ads","TikTok Ads"],cards:[
+      {q:"New customers, by first channel",rows:[["Delivery apps",54],["Website",21],["Caprinos app",17],["Phone and walk-in",8]]},
+      {q:"Customers who order again within 30 days",rows:[["Caprinos app",46],["Website",38],["Delivery apps",21]]},
+      {q:"What Milo does",line:"Win them on the apps. Keep them on yours.",why:"Most new customers find Caprinos on a delivery app. App regulars come back twice as often."}
+    ]}
+  ];
+  var step=0;
+  function renderStep(){
+    $("lp-tabs").innerHTML=STEPS.map(function(s,i){
+      return '<button type="button" class="lp" data-step="'+i+'" aria-pressed="'+(i===step)+'"><span class="n">'+esc(s.n)+'</span><b>'+esc(s.name)+'</b><small>'+esc(s.sub)+'</small></button>';
+    }).join("");
+    var s=STEPS[step];
+    $("lp-reads").innerHTML='Reads from '+s.reads.map(function(r){return '<b>'+esc(r)+'</b>'}).join(", ");
+    $("lp-grid").innerHTML=s.cards.map(function(c){
+      if(c.rows){
+        var max=Math.max.apply(null,c.rows.map(function(r){return r[1]}));
+        var hl=c.hl||0,u=c.unit!=null?c.unit:"%",p=c.pre||"";
+        var body=c.rows.map(function(r,i){
+          return '<div class="mrow"><span>'+esc(r[0])+'</span><span class="mv">'+esc(p+(c.dec?r[1].toFixed(c.dec):r[1])+u)+'</span><span class="mt"><i'+(i===hl?' class="hl"':'')+' style="width:'+Math.round(r[1]/max*100)+'%"></i></span></div>';
+        }).join("");
+        return '<div class="mc"><p class="mq">'+esc(c.q)+'</p>'+body+'</div>';
+      }
+      return '<div class="mc do"><p class="mq">'+esc(c.q)+'</p><p class="line">'+esc(c.line)+'</p><p class="mw">'+esc(c.why)+'</p></div>';
+    }).join("");
+  }
+  $("lp-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-step]");if(!b)return;
+    step=+b.dataset.step;renderStep();
+    var nb=$("lp-tabs").querySelector('[data-step="'+step+'"]');if(nb)nb.focus();
+  });
+
+  renderRB();renderSeats();renderQs();ask(null,true);renderStep();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
