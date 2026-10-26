@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Compass Group</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: Compass Group UK & Ireland's own system. A midnight hero band with their yellow as the only loud colour, porcelain panels below, white paper. Lexend Deca (their heading face) and Hanken Grotesk (their body face) from compass-group.co.uk. A short page: hero board, note, demo, systems, proof, trust. Light only, by choice, like their site. */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--panel:#F9F9F5;--porcelain:#F0F0E6;--card:#FFFFFF;--ink:#292D43;--muted:#5D6173;--rule:#E4E4DA;
+  --mid:#292D43;--mid-2:#353A55;--on-mid:#FFFFFF;--on-mid-m:#C8CAD6;
+  --yellow:#F6B831;--teal:#128973;--orange:#ED6842;--orange-t:#B23F1C;
+  --bar:#DADAD0;--hlbar:#292D43;--track:#EEEEE6;--line:#DCDCD2;
+  --good:#0F6E5C;--good-bg:#DDF0EA;--warn:#7A5300;--warn-bg:#FCEFCB;--bad:#A8381A;--bad-bg:#FCE3DA;
+  --display:"Lexend Deca","Helvetica Neue",Arial,sans-serif;
+  --body:"Hanken Grotesk",Helvetica,Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:400;font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.03em;text-wrap:balance;margin:0;line-height:1.06}
+h2 em,h3 em{font-style:normal;background:linear-gradient(transparent 64%,var(--yellow) 64%,var(--yellow) 92%,transparent 92%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+p{margin:0}
+b,strong{font-weight:700}
+a{color:var(--ink)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:2px}
+.label{font-weight:700;font-size:11px;letter-spacing:.09em;text-transform:uppercase}
+.eyebrow{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;color:var(--muted);margin-bottom:14px}
+.eyebrow .n{font-family:var(--display);font-weight:500;font-size:12px;color:var(--ink);background:var(--yellow);border-radius:999px;padding:1px 9px}
+.sr{position:absolute;left:-9999px}
+.btn{border:0;background:var(--yellow);color:var(--ink);font-weight:700;font-size:14px;padding:9px 20px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(.96)}
+.cg-logo{display:block;aspect-ratio:212/53}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:600;font-size:18px}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--muted)}
+.lk-cg{height:30px;width:auto}
+.nav{display:flex;gap:2px}
+.nav a{font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;padding:6px 13px;border-radius:999px}
+.nav a:hover{background:var(--porcelain)}
+@media (max-width:860px){.nav{display:none}}
+
+/* hero */
+.hero{padding-block:56px 72px;color:var(--on-mid);background:radial-gradient(50% 70% at 100% 0%,var(--mid-2),transparent 70%),var(--mid)}
+.hero .eyebrow{color:var(--on-mid-m)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:52px;align-items:center}
+.hero h1{font-size:clamp(44px,6vw,78px);margin-bottom:24px;color:var(--on-mid)}
+.hero h1 span{display:block}
+.hero h1 em{font-style:normal;color:var(--yellow)}
+.lede{font-size:19px;line-height:1.5;max-width:30em;color:var(--on-mid-m)}
+.lede b{color:var(--on-mid);font-weight:600}
+
+/* brand board (hero) */
+.rb-panel{background:var(--card);color:var(--ink);padding:18px 18px 16px;border-radius:14px;border-top:6px solid var(--yellow)}
+.rb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.rb-k{color:var(--muted)}
+.tag{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 10px;border-radius:999px;background:var(--porcelain);color:var(--ink);white-space:nowrap}
+.rb-q{font-size:13px;font-weight:600;color:var(--teal);min-height:21px;margin-bottom:4px}
+.rb-head,.rb-row{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr) 72px;gap:10px;align-items:center}
+.rb-head{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed var(--line)}
+.rb-head>span:last-child{text-align:right}
+.rb-scale{position:relative;height:15px}
+.rb-scale i{position:absolute;top:0;left:var(--ln);transform:translateX(-50%);font-style:normal;white-space:nowrap;color:var(--ink)}
+.rb{display:grid;gap:8px;margin-bottom:4px}
+.rb-row{min-height:19px;transition:opacity .3s}
+.rb-row.dim{opacity:.32}
+.rb-n{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-t{position:relative;height:11px;background:var(--track);border-radius:6px}
+.rb-t::before{content:"";position:absolute;top:-5px;bottom:-5px;left:var(--ln);border-left:1.5px dashed var(--ink);opacity:.7;z-index:2}
+.rb-f{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--mid);transition:width .5s ease}
+.rb-f.tight{background:var(--yellow)}
+.rb-f.bad{background:var(--orange)}
+.rb-v{font-size:12.5px;font-weight:600;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-v.bad{color:var(--orange-t)}
+.rb-v.pill{justify-self:end;border-radius:999px;padding:0 8px}
+.rb-v.pill.bad{background:var(--orange);color:var(--ink)}
+.rb-v.pill.tight{background:var(--yellow);color:var(--ink)}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);margin:12px 0;min-height:18px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg i{display:inline-block;width:16px;height:9px;border-radius:5px;background:var(--mid)}
+.lg i.tight{background:var(--yellow)}
+.lg i.bad{background:var(--orange)}
+.lg i.ln{width:0;height:12px;border-radius:0;background:none;border-left:1.5px dashed var(--ink)}
+.et-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.et{border:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;border-radius:10px;transition:border-color .2s,background .2s}
+.et small{font-size:11.5px;color:var(--muted);line-height:1.3}
+.et b{font-family:var(--display);font-weight:600;font-size:14.5px;line-height:1.2;letter-spacing:-.02em}
+.et:hover{border-color:var(--muted)}
+.et[aria-pressed="true"]{background:var(--mid);border-color:var(--mid);color:var(--on-mid)}
+.et[aria-pressed="true"] small{color:var(--on-mid-m)}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.r-stats b{display:block;font-family:var(--display);font-weight:600;font-size:27px;line-height:1.05;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.r-stats span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
+.r-say{font-size:14px}
+.rb-hint{font-size:12px;color:var(--muted);margin-top:12px}
+@media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .et-row{grid-template-columns:repeat(2,minmax(0,1fr))}.r-stats b{font-size:22px}
+  .rb-head,.rb-row{grid-template-columns:minmax(0,108px) minmax(0,1fr) 62px;gap:7px}
+  .rb-n{font-size:12px}.rb-v{font-size:11.5px}
+  .rb-panel{padding:16px 14px 14px}
+}
+
+/* letter and glance */
+.intro{padding-block:60px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
+.letter{background:var(--panel);padding:28px 28px 26px;border-radius:16px}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:12px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--line)}
+.refs b{font-weight:600;color:var(--ink)}
+.letter p{font-size:15px;margin-bottom:11px}
+.letter .sal{font-family:var(--display);font-weight:500;font-size:24px;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
+.sign{margin-top:16px}
+.sign .nm{font-weight:800;font-size:17px}
+.sign .ml{font-size:13px;color:var(--muted)}
+.glance{list-style:none;margin:0;padding:0;display:grid}
+.glance li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
+.glance li:first-child{border-top:3px solid var(--ink)}
+.glance b{font-family:var(--display);font-weight:600;font-size:36px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.glance span{font-size:14px;color:var(--muted)}
+.glance-src{font-size:12px;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.glance li{grid-template-columns:minmax(0,112px) minmax(0,1fr)}.glance b{font-size:28px}.letter{padding:22px 20px}}
+
+/* sections */
+section.band{padding-block:72px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+.head{max-width:820px;margin-bottom:28px}
+.head h2{font-size:clamp(32px,4.4vw,52px);margin-bottom:14px}
+.head p{color:var(--muted);font-size:18px;line-height:1.45}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
+
+/* demo */
+.demo{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:3px}
+.sg{color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer;border-radius:10px}
+.seat b{display:block;font-size:14.5px}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+.seat[aria-pressed="true"] span{color:var(--ink)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--rule);background:var(--card);padding:7px 15px;font-size:13.5px;font-weight:600;cursor:pointer;text-align:left;border-radius:999px}
+.q:hover{border-color:var(--ink)}
+.q[aria-pressed="true"]{background:var(--mid);border-color:var(--mid);color:var(--on-mid)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-size:12.5px;color:var(--muted)}
+.sys .s{font-weight:600;font-size:12.5px;color:var(--ink);background:var(--porcelain);padding:2px 10px;border-radius:999px}
+.console{background:var(--card);border:1px solid var(--line);overflow:hidden;border-radius:16px}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:700}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:320px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--porcelain);padding:9px 15px;max-width:80%;font-size:14px;border-radius:16px 16px 4px 16px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;overflow:hidden;border-radius:7px}
+.bf{display:block;height:100%;background:var(--bar);border-radius:7px;transition:width .5s ease}
+.bf.hl{background:var(--hlbar)}
+.bv{font-size:12.5px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);margin-bottom:16px;border-radius:12px;overflow:hidden}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-size:11px;font-weight:700;letter-spacing:.02em;padding:3px 10px;white-space:nowrap;flex:none;border-radius:999px}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden;margin-bottom:16px;border-radius:12px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-size:27px;font-weight:600;line-height:1.15;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:14px;margin-bottom:16px;font-size:14.5px;border-radius:12px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--bad);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-size:12px;color:var(--muted)}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--good);max-width:52ch}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--card);padding:9px 14px;border-radius:999px}
+.ghost{border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer;border-radius:999px}
+.ghost:hover{background:var(--mid);color:var(--on-mid)}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--rule)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,118px) minmax(0,1fr) 58px}
+}
+
+/* systems */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:32px}
+.card{background:var(--porcelain);padding:22px;border-radius:14px}
+.card .k{color:var(--teal);margin-bottom:10px}
+.card h3{font-size:23px;margin-bottom:8px}
+.card p{font-size:14px;color:var(--muted)}
+.intg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px}
+.ig-h{padding-bottom:10px;border-bottom:3px solid var(--ink)}
+.ig-h h3{font-size:24px}
+.desk{display:grid;grid-template-columns:minmax(0,140px) minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.desk b{display:block;font-size:15px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border:1px solid var(--rule);background:var(--card);padding:4px 11px;border-radius:999px}
+.pills span.v::before,.seen i{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);flex:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:14px}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:24px;padding:16px 18px;background:var(--panel);font-size:14px;border-radius:12px}
+.outs b{color:var(--muted)}
+@media (max-width:860px){.intg,.three{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}}
+
+/* proof */
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pcard{background:var(--card);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;border-radius:16px}
+.pcard .k{color:var(--muted);margin-bottom:8px}
+.pcard .big{font-family:var(--display);font-weight:600;font-size:48px;line-height:1;letter-spacing:-.04em;margin-bottom:10px}
+.pcard .body{font-size:14px}
+.pcard .why{font-size:13px;color:var(--muted);margin-top:auto;padding-top:12px}
+@media (max-width:860px){.pgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.vid-grid h2{font-size:clamp(30px,3.8vw,46px);margin-bottom:12px}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--mid);border-radius:16px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:var(--on-mid);overflow:hidden;
+  background:radial-gradient(55% 75% at 90% 0%,var(--mid-2),transparent 64%),var(--mid)}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:600}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-family:var(--display);font-weight:600;letter-spacing:-.03em;font-size:clamp(24px,3.4vw,42px);line-height:1.05;text-align:center;padding-inline:12px}
+.p-play{width:72px;height:72px;border-radius:50%;background:var(--yellow);color:var(--ink);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-size:12px;font-weight:600;color:var(--on-mid-m)}
+.vid-note{font-size:13px;color:var(--muted);margin-top:16px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* trust */
+.sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;background:var(--porcelain);padding:28px 30px;border-radius:20px}
+.sec>div{flex:1 1 420px;min-width:0}
+.sec h2{font-size:clamp(30px,3.8vw,46px);margin-bottom:12px}
+.sec p.t{color:var(--muted);font-size:15.5px;max-width:62ch}
+.trust-cta{display:inline-flex;flex-direction:column;gap:2px;background:var(--mid);color:var(--on-mid);text-decoration:none;padding:14px 22px;font-weight:700;font-size:14.5px;border-radius:999px}
+.trust-cta small{font-weight:400;font-size:11.5px;color:var(--on-mid-m)}
+.trust-cta:hover{background:var(--mid-2)}
+@media (max-width:520px){.sec{padding:22px 20px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:72px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.et,.rb-f,.rb-row{transition:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="cg-logo" viewBox="0 0 212 53"><path d="M31.8919 0.771661C32.5855 1.50069 32.7523 2.43436 33.1791 3.27637C31.9386 4.75789 30.0555 5.44002 28.4347 6.39714C27.8878 6.51012 27.6944 6.89808 27.1697 7.10272C26.3582 6.78297 25.0977 6.44191 25.0977 5.37181C24.6441 4.62146 24.095 3.93719 24.095 3.02697C25.4311 1.59235 27.6477 1.88866 29.0795 0.498807C29.842 0.498807 30.3445 -0.0937974 31.0826 0.341063C31.2983 0.569152 31.5362 0.818557 31.8919 0.773792" fill="#292D43"/> <path d="M26.7199 9.79076C28.0561 9.60956 29.6524 9.03828 30.7262 10.134C31.1308 10.362 31.0375 10.7713 31.1797 11.0911C31.0619 11.317 30.9663 11.8883 30.4416 11.9544C29.8703 11.8862 29.2944 12.3637 28.7231 12.5705C29.0343 12.7069 29.6301 12.9797 29.7257 13.4359C30.1326 13.9603 29.7257 14.6893 29.7257 15.1668C29.3433 16.3286 27.5803 16.2135 27.7226 17.6715C25.8151 18.3558 24.6456 20.1528 22.5491 20.383C21.3308 21.3828 19.8523 22.1353 18.8986 23.4121C18.4717 19.9716 21.0929 16.6483 24.1699 15.0773C23.9787 14.2801 22.7159 13.8921 22.7159 13.0032C22.189 12.434 21.7621 11.592 21.8088 10.8395C23.0493 9.92932 24.3121 8.69934 26.0063 9.17684C26.1285 9.42624 26.5332 9.47314 26.7221 9.79076" fill="#292D43"/> <path d="M38.4536 19.4916C38.4536 19.3552 38.2624 19.2635 38.1668 19.1484C37.7599 19.2401 37.4998 18.9673 37.1641 19.2401C37.044 18.5794 35.8057 19.1015 35.6145 18.4643C36.7106 18.1915 37.8311 18.784 38.4514 19.4894" fill="#F7AD1D"/> <path d="M36.9012 19.7662L36.8079 19.2422L36.9968 19.4233L36.9012 19.7662Z" fill="#F7AD1D"/> <path d="M38.9072 19.8576C38.8138 20.3816 38.4537 20.5861 38.0735 20.7224L38.4559 20.0152C38.4292 20.1068 38.4803 20.1516 38.527 20.1984C38.7649 20.1984 38.7894 19.9023 38.9094 19.8555" fill="#F7AD1D"/> <path d="M37.4517 19.9484C37.4272 20.1062 37.1649 20.2213 37.2605 20.4494C37.4517 20.3343 37.8319 20.6306 37.8074 20.8821C37.8319 20.9738 37.7607 21.0207 37.7118 21.0633C37.6651 20.8821 37.4984 20.7435 37.2583 20.8139L37.1627 20.8821C37.1404 21.3148 37.2338 20.6775 37.0671 20.6327C36.0888 20.7457 36.8047 21.7476 35.8043 21.771C35.851 21.4981 36.0666 21.4278 36.2578 21.3148C35.9955 20.6775 35.6375 21.4278 35.2551 21.3148L35.6153 20.9738L35.5441 20.8821C35.6375 20.8608 36.3067 20.9972 36.3556 20.541C36.618 20.9972 36.9515 20.4494 37.1671 20.2916C37.1449 20.1083 37.1893 19.8354 37.4517 19.9484Z" fill="#F7AD1D"/> <path d="M34.5423 21.6783C34.4245 21.5207 34.4467 21.3376 34.6379 21.2461C34.5912 21.3611 34.5156 21.4973 34.5423 21.6783Z" fill="#F7AD1D"/> <path d="M27.2681 24.0935C26.7901 24.0935 26.3365 24.0487 26.0053 24.4582L25.9097 24.3665C25.9808 23.9335 26.8634 24.1383 27.2681 23.8418V24.0935Z" fill="#F7AD1D"/> <path d="M24.5485 26.4393C24.4307 26.5987 24.2639 26.6433 24.095 26.6199C24.1906 26.4626 24.3573 26.4159 24.5485 26.4393Z" fill="#F7AD1D"/> <path d="M19.5402 27.1452C19.349 27.124 19.0623 27.2133 18.8955 27.0538C19.0623 26.8497 19.3735 27.0751 19.5402 26.873V27.1452Z" fill="#F7AD1D"/> <path d="M17.8223 17.7617C17.2532 19.7207 15.3634 19.1473 13.8361 20.0362C13.8828 20.1961 13.3047 20.2536 12.9001 20.3218L12.431 20.5201C10.7591 20.7247 9.76087 21.7714 8.28019 22.4535C8.30686 23.0461 7.44647 22.7264 7.08853 23.0696C6.89733 23.5918 5.92132 23.3659 6.18367 24.0245C5.49224 24.4807 4.53847 24.89 4.27612 25.6638C5.06315 26.3246 6.15921 26.1882 7.08853 26.4376C10.0699 26.6891 12.6222 26.3694 15.3657 26.3459C16.1771 26.2095 16.9619 25.9367 17.8223 25.9132V26.0049C18.4693 26.1861 18.8739 25.5039 19.5409 25.7533C20.0189 25.2524 20.9015 25.6851 21.3551 25.1394C22.2355 24.8431 23.476 25.0477 24.1675 24.615V24.7962C23.8562 24.6832 23.9763 25.0243 23.8095 25.1394C23.9763 25.2971 24.2386 25.2076 24.4543 25.2311C25.4058 24.2292 26.244 25.5039 27.1711 24.3656C27.529 23.886 28.1248 23.6153 28.7229 23.5001L28.9141 23.7496C29.2009 22.9075 30.1769 23.2486 30.726 22.7924C30.3436 22.8606 30.297 23.4533 29.7234 23.2252C30.0813 23.886 29.1275 23.9094 28.9119 24.2718C28.7207 24.3166 28.196 24.2931 28.2671 23.9307C28.0048 24.1567 28.0537 24.9092 27.5268 24.6129C26.931 24.7941 26.0728 24.9561 25.4525 25.3206C24.7144 25.4123 23.7362 25.8215 22.9025 25.6617C22.2355 26.0049 21.5418 25.9132 20.8037 26.1861C19.8499 26.4141 18.4671 26.3672 17.6311 26.8703C17.3443 26.8469 17.4644 27.2348 17.1776 27.2348C17.4399 27.2562 17.391 28.0321 17.8201 27.6676C17.6289 27.7123 17.4889 27.9404 17.3666 27.6676C16.9864 27.7592 16.5551 28.2602 16.1749 27.8274C15.5791 28.1472 14.7921 27.9404 14.1006 28.0086V27.8274C14.6031 28.2133 14.4119 27.5077 14.8165 27.3947V27.1453C13.6493 27.5311 12.3843 27.3947 11.1904 27.9191C11.5484 28.6034 10.5234 28.0768 10.2833 28.3518C10.2366 28.2154 10.3789 28.1706 10.4501 28.1024C8.9227 27.6463 8.16013 28.6034 6.46602 28.2602L6.27482 28.6034C5.51002 28.1941 4.53402 29.0595 3.81814 28.5352C2.95996 28.3987 1.88614 28.1706 1.55265 27.3968C1.2414 27.512 1.19471 27.2391 1.09911 27.0558C1.26586 26.282 -0.188144 25.9857 0.454373 25.1437C-0.0236242 24.6193 0.574425 24.097 0.645568 23.5939C0.7634 23.5023 0.7634 23.3659 0.812312 23.2294L1.00351 23.4106C1.36368 23.1378 1.41036 22.7264 1.55265 22.364L2.64871 21.247C2.62648 21.3152 2.67539 21.3621 2.72208 21.4069C2.88882 21.4069 2.9822 21.247 3.10225 21.1574C2.95996 20.746 3.269 20.6331 3.5558 20.4497C3.76923 20.405 4.08048 20.5627 4.17386 20.292C3.93597 19.7441 4.93865 20.3133 4.9142 19.6759C5.70122 19.7441 5.89242 18.8105 6.72614 18.9917C7.77773 17.9216 9.39625 17.8299 10.6368 16.9879C12.76 16.3036 16.504 14.756 17.8157 17.7617M15.5591 27.1453H15.2723L15.5591 27.3031V27.1453ZM14.8187 27.8296H15.0811C15.2478 27.7379 15.2478 27.6015 15.3679 27.4864C15.13 27.4864 14.8921 27.6462 14.821 27.8296H14.8187Z" fill="#F7AD1D"/> <path d="M10.0975 28.2586C10.0486 28.373 9.90635 28.3497 9.83521 28.3497V28.1696C9.90635 28.1696 10.0486 28.1484 10.0975 28.2607" fill="#F7AD1D"/> <path d="M33.8915 21.642C33.7493 21.7781 33.5091 22.0503 33.3446 21.8227H33.249C33.3913 21.7547 33.6047 21.574 33.8915 21.642Z" fill="#F7AD1D"/> <path d="M19.8276 33.1351C20.1633 34.8873 19.2807 36.3688 18.278 37.7118L17.8222 37.8034L17.9201 37.7118L17.8222 37.6436C17.0374 38.622 16.057 39.4192 15.8191 40.6727C15.6768 40.7174 15.559 40.7409 15.4612 40.8539C15.2233 40.1014 14.7208 39.1912 15.1744 38.509C15.0076 36.3454 16.0325 34.8191 17.0819 33.0434C17.7489 32.632 18.4403 31.5171 19.1784 32.0863L19.8254 33.1351" fill="#292D43"/> <path d="M15.5582 47.0058C15.845 47.5984 15.7494 48.1228 15.6294 48.7367C15.1514 48.7601 14.7223 48.6919 14.3643 48.4873L14.2687 48.5768C13.7907 48.2805 13.3372 47.9394 13.2661 47.349C13.0504 46.5517 14.1242 46.7116 14.2687 46.0508C14.7223 46.2107 15.1958 46.6668 15.556 47.0079" fill="#292D43"/> <path d="M43.5544 38.7364V42.0768C42.6651 42.5287 39.148 42.8314 38.2987 42.8314C33.4965 42.8314 31.8958 40.4162 31.8958 36.0377C31.8958 31.6593 33.93 29.3379 38.7144 29.3379C40.5308 29.3379 41.7981 29.583 43.5567 30.0755V33.1152H42.4895L42.4295 32.5674C42.1538 30.4549 41.1645 30.0392 38.7144 30.0392C35.0572 30.0392 33.9523 32.5866 33.9523 35.718C33.9523 39.1521 34.6059 42.1919 38.8123 42.1919C41.8559 42.1919 42.1716 41.3797 42.4272 38.7386H43.5544" fill="#292D43"/> <path d="M48.8723 36.2185C48.8723 31.4457 50.4931 29.4824 55.631 29.4824C60.7689 29.4824 62.3896 31.4457 62.3896 36.2185C62.3896 40.9913 61.0068 42.9738 55.631 42.9738C50.2552 42.9738 48.8723 40.9743 48.8723 36.2185ZM50.8888 36.2185C50.8888 39.3883 51.658 42.3151 55.631 42.3151C59.6039 42.3151 60.3731 39.3904 60.3731 36.2185C60.3731 33.0466 59.6017 30.1432 55.631 30.1432C51.6603 30.1432 50.8888 33.0487 50.8888 36.2185Z" fill="#292D43"/> <path d="M79.6191 31.6908H79.5836L74.7658 42.6177C74.6791 42.8266 74.4634 42.8266 74.3545 42.6369L69.5367 31.8997H69.5034V40.7483C69.5034 41.9569 69.8213 42.0315 71.1375 42.0315V42.6732C70.446 42.654 69.7524 42.654 69.0587 42.6348C68.3629 42.654 67.6692 42.654 66.9778 42.6732V42.0315C68.2939 42.0315 68.6141 41.9569 68.6141 40.7483V31.5011C68.6141 30.2754 68.2406 30.2178 66.9778 30.2178V29.5762C67.5136 29.5954 68.0294 29.5954 68.5607 29.6145C69.0943 29.5954 69.6101 29.5954 70.1437 29.5762L74.9792 40.0874L79.7281 29.5762C80.2617 29.5954 80.7952 29.5954 81.3288 29.6145C81.8624 29.5954 82.396 29.5954 82.9295 29.5762V30.2178C81.6134 30.2178 81.2243 30.2562 81.2243 31.5011V40.7483C81.2243 41.9761 81.5445 42.0315 82.9295 42.0315V42.6732C82.0936 42.654 81.2577 42.654 80.424 42.6348C79.588 42.654 78.7498 42.654 77.9161 42.6732V42.0315C79.3012 42.0315 79.6214 41.9761 79.6214 40.7483V31.6887" fill="#292D43"/> <path d="M92.1665 40.7355C92.1665 41.7544 92.1442 42.0188 94.0629 42.0188V42.6604C93.1358 42.6412 92.2065 42.6412 91.2772 42.622C90.3501 42.6412 89.4208 42.6412 88.4915 42.6604V42.0188C90.4079 42.0188 90.3879 41.7544 90.3879 40.7355V31.4883C90.3879 30.4694 90.4079 30.205 88.4915 30.205V29.5634C89.4185 29.5826 90.3479 29.5826 91.2772 29.6018C92.6423 29.5826 94.0051 29.5826 95.3679 29.5634C97.8758 29.508 99.2809 30.2434 99.2809 32.8654C99.2809 36.4125 97.1666 36.8281 93.9851 36.8281H92.1665V40.7334M92.1665 36.1695H93.1336C95.6036 36.1695 97.3044 36.0565 97.3044 33.2064C97.3044 30.3564 96.3351 30.2434 94.1029 30.2434H92.1687V36.1695H92.1665Z" fill="#292D43"/> <path d="M110.427 29.623L114.577 39.983C114.793 40.5308 115.307 42.153 116.87 42.04V42.6817C115.96 42.6625 115.071 42.6625 114.164 42.6433C113.255 42.6625 112.345 42.6625 111.436 42.6817V42.0017C111.436 42.0017 113.155 42.04 113.155 41.2641C113.155 40.8868 112.977 40.567 112.839 40.226L111.556 37.0732H106.814L105.589 40.339C105.509 40.5841 105.411 40.923 105.411 41.1703C105.411 42.0187 106.398 42.0017 107.052 42.0017V42.6817C106.28 42.6625 105.491 42.6625 104.72 42.6433C103.95 42.6625 103.159 42.6625 102.39 42.6817V42.0017C103.059 41.927 103.417 42.0017 103.89 41.4538C104.146 41.1511 104.702 39.8508 104.877 39.4735L109.126 29.623H110.427ZM111.218 36.1694L109.242 31.3199L107.067 36.357H111.298L111.218 36.1673V36.1694Z" fill="#292D43"/> <path d="M126.691 35.3648C128.568 36.0064 130.228 36.8165 130.228 39.0057C130.228 42.0817 127.543 42.8939 124.815 42.8939C123.39 42.8939 121.909 42.6679 120.546 42.0838V38.6668H121.869C122.067 40.5171 121.573 42.2522 125.07 42.2522C126.809 42.2522 128.45 41.4976 128.45 39.6111C128.45 37.5157 126.313 37.0446 124.617 36.4775C122.76 35.8359 121.1 35.1943 121.1 33.005C121.1 30.4961 123.234 29.4004 125.606 29.4004C126.949 29.4004 128.234 29.6072 129.675 30.1166V33.2118H128.568C128.37 31.758 128.728 30.1166 125.684 30.1166C124.103 30.1166 122.816 30.7775 122.816 32.438C122.816 33.5529 123.37 34.1732 124.419 34.5889L126.691 35.3627" fill="#292D43"/> <path d="M141.703 35.142C143.582 35.7836 145.24 36.5958 145.24 38.785C145.24 41.861 142.552 42.6732 139.826 42.6732C138.401 42.6732 136.921 42.4472 135.558 41.861V38.4461H136.881C137.079 40.2964 136.585 42.0315 140.082 42.0315C141.821 42.0315 143.461 41.2769 143.461 39.3904C143.461 37.295 141.329 36.8239 139.629 36.2568C137.77 35.6152 136.111 34.9736 136.111 32.7843C136.111 30.2732 138.244 29.1797 140.616 29.1797C141.959 29.1797 143.244 29.3886 144.686 29.8959V32.9911H143.579C143.381 31.5394 143.737 29.8959 140.694 29.8959C139.111 29.8959 137.828 30.5567 137.828 32.2173C137.828 33.3301 138.381 33.9525 139.429 34.3682L141.701 35.142" fill="#292D43"/> <path d="M67.1673 51.4935C67.1673 51.0139 67.1584 50.9777 66.2291 50.9777V50.7219C66.7938 50.7304 67.1606 50.7304 67.5297 50.7368C67.8987 50.7283 68.2678 50.7283 68.4857 50.7219V50.9691C67.8899 50.9968 67.8743 51.1034 67.8743 51.4935V52.1885C67.8743 52.3377 67.881 52.4144 67.9032 52.4869C67.1829 52.7107 66.4692 52.8152 65.7578 52.8152C63.868 52.8152 63.2122 51.8943 63.2122 50.174C63.2122 48.4538 63.9858 47.503 65.9534 47.4668C66.6737 47.4668 67.1762 47.5627 67.8743 47.7588V48.9632H67.4119C67.3252 47.923 67.0428 47.7418 65.9556 47.7418C64.366 47.697 64.0281 48.9249 64.0281 50.2039C64.0281 51.5873 64.3971 52.5444 65.9868 52.5444C66.3225 52.5444 66.7782 52.4698 67.1673 52.2524V51.4914" fill="#292D43"/> <path d="M76.4638 51.9942C76.4638 52.3971 76.4549 52.5016 77.2153 52.5016V52.7574C76.8462 52.7489 76.4816 52.7489 76.1103 52.7425C75.7413 52.7489 75.3722 52.7489 75.0032 52.7574V52.5016C75.7657 52.5016 75.7568 52.3971 75.7568 51.9942V48.3278C75.7568 47.9228 75.7657 47.8183 75.0032 47.8183V47.5625C75.3722 47.571 75.7413 47.571 76.1103 47.5774C76.2815 47.5774 77.2153 47.5625 77.591 47.5625C78.5715 47.5625 79.2829 47.6222 79.2829 48.7307C79.2829 49.6068 78.7493 49.9585 77.8978 50.048C78.1313 50.4147 79.0561 51.7299 79.2829 52.0156C79.4941 52.2692 79.6275 52.4717 80.0433 52.5016V52.7574C79.8543 52.7489 79.6675 52.7489 79.4786 52.7425C79.2896 52.7489 79.0962 52.7489 78.9072 52.7574C78.3736 51.941 77.2775 50.2889 77.0352 50.2058C76.8462 50.1461 76.6595 50.1546 76.4638 50.1546V51.9942ZM76.4638 49.8988C76.5883 49.9201 76.7151 49.9137 76.8396 49.9137C77.6933 49.9137 78.4937 49.8839 78.4937 48.85C78.4937 48.0357 78.158 47.8332 77.3509 47.8332C77.0508 47.8332 76.764 47.8481 76.4661 47.8567V49.8988H76.4638Z" fill="#292D43"/> <path d="M86.6868 50.1358C86.6868 48.2429 87.3315 47.4648 89.368 47.4648C91.4045 47.4648 92.047 48.2408 92.047 50.1358C92.047 52.0309 91.4979 52.8132 89.368 52.8132C87.2381 52.8132 86.6868 52.0202 86.6868 50.1358ZM87.4871 50.1358C87.4871 51.3935 87.7939 52.5531 89.3702 52.5531C90.9465 52.5531 91.2489 51.3935 91.2489 50.1358C91.2489 48.8781 90.9421 47.727 89.3702 47.727C87.7984 47.727 87.4871 48.8781 87.4871 50.1358Z" fill="#292D43"/> <path d="M100.354 51.0584C100.338 52.0539 100.776 52.5463 101.85 52.5463C103.001 52.5463 103.551 52.0966 103.551 50.9455V48.3278C103.551 47.8844 103.542 47.8183 102.703 47.8183V47.5625C103.026 47.571 103.355 47.571 103.673 47.5774C103.995 47.5689 104.326 47.5689 104.644 47.5625V47.8183C103.926 47.8183 103.94 47.9462 103.94 48.3278V50.9391C103.94 52.3971 103.11 52.8171 101.605 52.8171C100.382 52.8171 99.6465 52.346 99.6465 51.1416V48.3299C99.6465 47.9398 99.6621 47.8204 98.9329 47.8204V47.5646C99.2619 47.5732 99.6287 47.5732 99.9978 47.5796C100.367 47.571 100.734 47.571 101.103 47.5646V47.8204C100.342 47.8204 100.351 47.9249 100.351 48.3299V51.0606" fill="#292D43"/> <path d="M112.679 51.9934C112.679 52.3963 112.67 52.5007 113.43 52.5007V52.7565C113.061 52.748 112.692 52.748 112.325 52.7416C111.956 52.748 111.589 52.748 111.218 52.7565V52.5007C111.981 52.5007 111.972 52.3963 111.972 51.9934V48.3269C111.972 47.9219 111.981 47.8174 111.218 47.8174V47.5616C111.587 47.5702 111.956 47.5702 112.325 47.5765C112.865 47.568 113.406 47.568 113.946 47.5616C114.94 47.5403 115.5 47.8302 115.5 48.8726C115.5 50.2774 114.66 50.4436 113.399 50.4436H112.679V51.9934ZM112.679 50.1836H113.063C114.042 50.1836 114.715 50.1388 114.715 49.009C114.715 47.8792 114.333 47.8345 113.446 47.8345H112.679V50.1857V50.1836Z" fill="#292D43"/> <path d="M31.382 23.6433C31.1908 23.6199 30.904 23.7113 30.7395 23.5518C30.9062 23.3477 31.2175 23.5731 31.382 23.3711V23.6433Z" fill="#F7AD1D"/> <path d="M32.7444 22.3962C32.2664 22.3962 31.8151 22.3514 31.4816 22.7609L31.386 22.6692C31.4571 22.2362 32.3398 22.441 32.7444 22.1445V22.3962Z" fill="#F7AD1D"/> <path d="M34.4504 22.3405C34.2592 22.3171 33.9724 22.4086 33.8079 22.2491C33.9746 22.045 34.2859 22.2704 34.4504 22.0684V22.3405Z" fill="#F7AD1D"/> <path d="M33.2547 22.7992L33.1614 22.2773L33.3526 22.4584L33.2547 22.7992Z" fill="#F7AD1D"/> <path d="M165.562 37.012L165.544 29.5234H166.253V36.9928C166.253 40.7254 167.852 42.0619 170.684 42.0619C173.516 42.0619 175.113 40.6145 175.113 36.9928V29.5234H175.806L175.811 37.012C175.846 41.1368 173.808 42.6801 170.684 42.6801C167.56 42.6801 165.428 41.0792 165.562 37.012Z" fill="#292D43"/> <path d="M182.691 35.3484L179.803 37.8915L179.795 42.4661H179.099V29.5247H179.799L179.795 37.0218L188.401 29.5098L189.359 29.5226L183.263 34.8389L189.855 42.4597L188.901 42.4639L182.689 35.3463L182.691 35.3484Z" fill="#292D43"/> <path d="M211.104 29.5234H211.729V42.4648H211.104V29.5234Z" fill="#292D43"/> <path d="M204.267 42.4368L202.537 40.4992C201.577 41.8528 200.241 42.6138 198.44 42.6138C196.394 42.6138 194.667 41.241 194.667 39.5996C194.667 38.2268 194.98 37.1098 198.182 35.2766L198.091 35.1657C196.93 33.6672 196.377 32.9808 196.357 31.9725C196.33 30.4377 197.997 29.6895 199.194 29.6895C200.605 29.6895 202.03 30.4206 202.03 31.8979C202.03 33.0213 201.172 34.134 199.169 35.4258L202.526 39.3267C202.704 38.6617 203.029 37.1354 203.029 37.1396H203.616L202.986 39.8788L205.121 42.4134L204.269 42.4368H204.267ZM202.09 39.9193L198.571 35.7285C195.934 37.1929 195.316 38.1138 195.316 39.4077C195.316 40.7017 196.663 42.0404 198.722 42.0404C200.172 42.0404 201.297 41.1323 202.09 39.9193ZM198.736 34.8971L198.798 34.9739C200.385 33.8569 201.375 33.0021 201.375 31.8936C201.375 30.7851 200.029 30.2224 199.207 30.2224C198.264 30.2224 197.01 30.7894 197.01 32.0087C197.01 32.8592 197.637 33.4327 198.736 34.8971Z" fill="#292D43"/> <path d="M154.466 25.9004H153.903V44.9682H154.466V25.9004Z" fill="#292D43"/> </symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Compass Group UK and Ireland">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <svg class="cg-logo lk-cg" role="img" aria-label="Compass Group UK and Ireland"><use href="#cg-logo"/></svg>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#ask">Ask</a>
+      <a href="#systems">Systems</a>
+      <a href="#proof">Proof</a>
+      <a href="#video">Video</a>
+      <a href="#trust">Trust</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><span class="n">01</span> Milo × Compass Group UK &amp; Ireland</p>
+        <h1><span>From the first click</span><span><em>to the first shift.</em></span></h1>
+        <p class="lede">Job boards, the careers site, the ATS and the rota each hold part of the story. <b>Milo joins them</b>, so anyone can ask in plain English and get the answer in seconds.</p>
+      </div>
+
+      <div class="rb-panel">
+        <div class="rb-top"><span class="rb-k label">Ten brands · open roles this month</span><span class="tag">Sample data</span></div>
+        <p class="rb-q" id="rb-q"></p>
+        <div class="rb-head" aria-hidden="true"><span>Brand</span><span class="rb-scale"><i id="rb-ll"></i></span><span id="rb-col"></span></div>
+        <div class="rb" id="rb" role="img" aria-label="Ten brands, each with a bar measured against a reference line"></div>
+        <div class="lg" id="rb-lg"></div>
+        <div class="et-row" id="rb-tabs" role="group" aria-label="Add a layer of data"></div>
+        <div id="rb-read" aria-live="polite"></div>
+        <p class="rb-hint">Real brand names, invented figures. Add a layer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="refs">
+          <span>Our ref</span><b>MILO / COMPASS / 01</b>
+          <span>For</span><b>Dan, Head of Digital Attraction and Workforce Management Solutions</b>
+        </div>
+        <p class="sal">Dear Dan,</p>
+        <p>Nathan Ward at Caterer.com offered to introduce us. He tells me Compass fills around 22,000 roles a year across 14 or 15 brands.</p>
+        <p>Attraction spend, applications, hires and rotas each sit in a different system. So questions like cost per hire by brand, or what an open role costs in agency cover, take days to answer.</p>
+        <p>Milo joins them. Anyone asks in plain English and gets the answer in seconds, with sources, and we build and run the connections. Everything here is sample data, so click around.</p>
+        <div class="sign">
+          <p class="nm">Liam James Rabone</p>
+          <p class="ml">Milo · liam@milo.ai</p>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow">Compass Group UK &amp; Ireland, at a glance</p>
+        <ul class="glance">
+          <li><b>5,000+</b><span>locations across the UK and Ireland</span></li>
+          <li><b>~22,000</b><span>roles filled a year</span></li>
+          <li><b>14–15</b><span>brands hiring</span></li>
+          <li><b>5</b><span>sectors, from schools and hospitals to stadiums</span></li>
+        </ul>
+        <p class="glance-src">Locations and sectors from compass-group.co.uk. Hiring figures as Nathan described them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">02</span> Ask Milo</p>
+      <h2 id="ask-h">Real questions. <em>Real answers.</em></h2>
+      <p>Pick a seat and a question, or type your own.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · Compass workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Sample data. Every figure is invented.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="systems" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">03</span> What Milo connects</p>
+      <h2 id="int-h">Every system. <em>One set of numbers.</em></h2>
+      <p>Milo reads your systems as they are. Nothing gets replaced.</p>
+    </div>
+    <div class="three">
+      <div class="card"><p class="k label">The connections</p><h3>We build them</h3><p>Our engineers build and maintain every one.</p></div>
+      <div class="card"><p class="k label">The dashboards</p><h3>Anyone builds one</h3><p>Pin an answer and it's a live dashboard, for one brand or all of them.</p></div>
+      <div class="card"><p class="k label">The automations</p><h3>Questions keep running</h3><p>Any question can arrive on a schedule.</p></div>
+    </div>
+    <div class="intg">
+      <div>
+        <div class="ig-h"><h3>Attraction</h3></div>
+        <div class="desk"><div><b>Careers site</b></div><div class="pills"><span class="v">inploi</span></div></div>
+        <div class="desk"><div><b>Job boards</b></div><div class="pills"><span>Caterer.com</span><span>Indeed</span><span>Totaljobs</span><span>CV-Library</span></div></div>
+        <div class="desk"><div><b>Programmatic</b></div><div class="pills"><span>Appcast</span><span>Joveo</span></div></div>
+        <div class="desk"><div><b>Social</b></div><div class="pills"><span>LinkedIn</span><span>Meta</span><span>TikTok</span></div></div>
+      </div>
+      <div>
+        <div class="ig-h"><h3>Hiring and workforce</h3></div>
+        <div class="desk"><div><b>ATS</b></div><div class="pills"><span>Tribepad</span><span>Workday</span><span>SuccessFactors</span></div></div>
+        <div class="desk"><div><b>Rota and time</b></div><div class="pills"><span>Fourth</span><span>Quinyx</span><span>UKG</span></div></div>
+        <div class="desk"><div><b>HR and payroll</b></div><div class="pills"><span>SAP</span><span>Workday</span><span>ADP</span></div></div>
+        <div class="desk"><div><b>Agency</b></div><div class="pills"><span>Timesheets</span><span>Agency invoices</span></div></div>
+      </div>
+    </div>
+    <p class="seen"><i aria-hidden="true"></i>Seen on Compass's careers site. The rest are examples.</p>
+    <div class="outs"><b class="label">Answers arrive in</b><span>Teams</span><span>Email</span><span>PowerPoint</span><span>PDF</span><span>Slack</span></div>
+  </div>
+</section>
+
+<section class="band" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">04</span> Proof</p>
+      <h2 id="proof-h">Big brands and busy operators <em>already run on it.</em></h2>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="k label">Kellogg's · Commercial finance</p>
+        <p class="big">The cause</p>
+        <p class="body">Sales fell across the Middle East. Milo traced it to a Coco Pops shortage rather than demand.</p>
+        <p class="why">Many markets, many systems, one answer.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">BetGames · Platform for ~2,000 brands</p>
+        <p class="big">60+</p>
+        <p class="body">partner reports a month, built and sent by Milo, with no new hires.</p>
+        <p class="why">The same job as a monthly report for every brand.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">ETM Group · Pubs, bars and restaurants</p>
+        <p class="big">3 → 1</p>
+        <p class="body">Bookings, events and tills read together in Milo, and the board deck built from them.</p>
+        <p class="why">Hospitality run by operators, not analysts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="n">05</span> See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <p class="eyebrow"><span class="n">06</span> Trust and security</p>
+        <h2 id="sec-h">Your team <em>signs off first.</em></h2>
+        <p class="t">Read-only connections, with access by brand and by role. Candidate and colleague data stays where it is. Hosted in Frankfurt on AWS, or on your own servers. ISO 27001, SOC 2 and GDPR.</p>
+      </div>
+      <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Dan at Compass Group UK &amp; Ireland by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
+    <p>Locations and sectors from compass-group.co.uk. Brand names in the demos are real; every figure in them is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* brand board: [brand, days to fill, cost per hire £, agency spend on open roles £k] */
+  var BRANDS=[
+    ["Eurest",24,380,14],
+    ["Medirest",41,520,46],
+    ["Chartwells",19,310,9],
+    ["Levy",36,290,38],
+    ["Restaurant Associates",28,610,12],
+    ["ESS",47,690,52],
+    ["CH&CO",26,450,15],
+    ["14forty",22,340,8],
+    ["Company of Cooks",31,300,17],
+    ["Vacherin",21,560,6]
+  ];
+  function act(b){return (b[1]>30&&b[3]>20)?"Boost":((b[2]>500&&b[1]<=30)?"Review":"OK")}
+  var LAYERS=[
+    {name:"Time to fill",short:"Days to hire",col:"Days",max:50,line:30,ll:"30 days",
+     v:function(b){return b[1]},t:function(b){return b[1]+"d"},k:function(b){return b[1]>30?"bad":""},
+     lg:'<span><i></i>30 days or less</span><span><i class="bad"></i>Over 30 days</span><span><i class="ln"></i>30 days</span>',
+     stats:[["29.5","days on average"],["4","brands over 30 days"],["19","days at the fastest"]],
+     say:"Four brands take over a month to fill a role. ESS and Medirest take longest."},
+    {name:"+ Cost per hire",short:"Spend per hire",col:"Per hire",max:700,line:445,ll:"£445 average",
+     v:function(b){return b[2]},t:function(b){return "£"+b[2]},k:function(b){return b[2]>500?"bad":(b[2]>445?"tight":"")},
+     lg:'<span><i></i>Below average</span><span><i class="tight"></i>£445 to £500</span><span><i class="bad"></i>Over £500</span><span><i class="ln"></i>£445 average</span>',
+     stats:[["£445","average cost per hire"],["4","brands over £500"],["£290","at Levy, the lowest"]],
+     say:"Slow and expensive aren't the same brands. Levy fills slowly but cheaply. Restaurant Associates fills fast but pays the most per hire."},
+    {name:"+ Agency cover",short:"Agency on open roles",col:"Agency",max:60,line:20,ll:"£20k",
+     v:function(b){return b[3]},t:function(b){return "£"+b[3]+"k"},k:function(b){return b[3]>20?"bad":""},
+     lg:'<span><i></i>Agency spend this month</span><span><i class="bad"></i>Over £20k</span><span><i class="ln"></i>£20k</span>',
+     stats:[["£217k","agency spend on open roles"],["63%","of it at three brands"],["3 of 3","are the slowest to fill"]],
+     say:"Open roles get covered by agency staff. The three slowest brands account for 63% of that spend this month."},
+    {name:"Milo's answer",short:"This month",col:"Do",max:50,line:30,ll:"30 days",q:"Asked: where should attraction spend go this month?",
+     v:function(b){return b[1]},t:act,k:function(b){var a=act(b);return a==="Boost"?"bad":(a==="Review"?"tight":"")},
+     lg:'<span><i class="bad"></i>Boost attraction</span><span><i class="tight"></i>Review the source mix</span><span>Faded: nothing to do</span>',
+     stats:[["3","brands to boost"],["2","source mixes to review"],["5 of 10","need nothing"]],
+     say:"Move attraction spend to Medirest, Levy and ESS, where every slow week is paid for in agency hours. Check which sources push up cost per hire at Restaurant Associates and Vacherin. Milo can send this every Monday."}
+  ];
+  var layer=0;
+  function drawRB(){
+    var L=LAYERS[layer],h="";
+    function pct(v){return Math.min(v,L.max)/L.max*100}
+    var ln=pct(L.line).toFixed(1)+"%";
+    $("rb").style.setProperty("--ln",ln);
+    $("rb-ll").parentNode.style.setProperty("--ln",ln);
+    $("rb-ll").textContent=L.ll;
+    BRANDS.forEach(function(b){
+      var k=L.k(b),rc="rb-row",vc="rb-v",t=L.t(b);
+      if(layer===3){if(t==="OK")rc+=" dim";else vc+=" pill "+k}
+      else if(k==="bad")vc+=" bad";
+      h+='<div class="'+rc+'"><span class="rb-n" title="'+esc(b[0])+'">'+esc(b[0])+'</span><span class="rb-t"><span class="rb-f'+(k?" "+k:"")+'" style="width:'+pct(L.v(b)).toFixed(1)+'%"></span></span><span class="'+vc+'">'+esc(t)+'</span></div>';
+    });
+    $("rb").innerHTML=h;
+    $("rb-col").textContent=L.col;
+    $("rb-lg").innerHTML=L.lg;
+  }
+  function renderRB(){
+    $("rb-tabs").innerHTML=LAYERS.map(function(l,i){
+      return '<button type="button" class="et" data-layer="'+i+'" aria-pressed="'+(i===layer)+'"><b>'+esc(l.name)+'</b><small>'+esc(l.short)+'</small></button>';
+    }).join("");
+    var l=LAYERS[layer];
+    $("rb-q").textContent=l.q||"";
+    $("rb-read").innerHTML='<div class="r-stats">'+l.stats.map(function(s){return '<div><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join("")+'</div><p class="r-say">'+esc(l.say)+'</p>';
+    drawRB();
+  }
+  $("rb-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-layer]");if(!b)return;
+    layer=+b.dataset.layer;renderRB();
+    var nb=$("rb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
+  });
+
+  /* seats */
+  var SEATS=[
+    {g:"Attraction",name:"Digital attraction",sub:"Job boards, careers site, social",sys:["Job boards","Careers site","ATS"],qs:[
+      {q:"Which sources bring hires, not just applications?",kw:["sources","source","hires","applications","boards","board","job","channel","channels","roi","spend","best","indeed","programmatic","referrals"],type:"bars",dec:1,
+       cap:"Hires per £1,000 of attraction spend, last 90 days",
+       rows:[["Referrals",4.8],["Hospitality job board",3.6],["Careers site",3.1],["Social",1.9],["General job board",1.2],["Programmatic",0.9]],
+       say:"Referrals and the hospitality job board bring the most hires for the money. Programmatic brings plenty of applications but few hires.",
+       src:["Job boards","Careers site","ATS"],alert:"Every Monday: hires per £1,000 by source and brand."},
+      {q:"Where do applicants drop out?",kw:["drop","dropout","drop-off","funnel","applicants","apply","application","complete","finish","mobile","conversion","abandon"],type:"bars",unit:"%",hl:2,
+       cap:"Last month's applicants, furthest step reached",
+       rows:[["Viewed the advert",100],["Started applying",31],["Finished applying",17],["Interviewed",8],["Hired",4]],
+       say:"Almost half of those who start an application don't finish it, and on a phone it's worse.",
+       src:["Careers site","ATS"],alert:"Weekly: drop-off by brand and device."}
+    ]},
+    {g:"Workforce",name:"Workforce management",sub:"Rotas, agency and cover",sys:["Rota","Timesheets","ATS","Payroll"],qs:[
+      {q:"Where are we paying agency for roles we're still hiring?",kw:["agency","agencies","paying","cover","temp","temps","open","vacancies","vacancy","still","hiring","cost","spend"],type:"list",
+       rows:[["ESS · remote sites","9 open roles · £52k agency this month","Act","bad"],["Medirest · hospital sites","14 open roles · £46k agency","Act","bad"],["Levy · stadiums and venues","Event-day cover · £38k agency","Plan","warn"]],
+       say:"Three brands spend £136k a month on agency cover for roles that are still open. Filling them faster pays for the extra attraction spend.",
+       src:["Rota","Timesheets","ATS"],alert:"Every Monday: agency spend against open roles, by site."},
+      {q:"Which sites will be short next month?",kw:["short","shortage","next","month","sites","site","shifts","uncovered","gaps","christmas","rota","rotas","cover"],type:"list",
+       rows:[["Levy · 3 venues","Christmas events · 22 shifts uncovered","Hire now","bad"],["Eurest · 4 offices","Two leavers · roles not posted yet","Post","warn"],["Chartwells · 6 schools","Covered after half-term hiring","OK","ok"]],
+       say:"Three Levy venues have 22 uncovered shifts for Christmas events, and the roles aren't posted yet.",
+       src:["Rota","ATS"],alert:"Every Monday: shifts uncovered in the next four weeks, by site."}
+    ]},
+    {g:"Brands",name:"Brand recruiter",sub:"Their own brand only",sys:["ATS","Careers site","Rota"],qs:[
+      {q:"How are my open roles doing?",kw:["my","open","roles","doing","how","offers","applications","week","brand","going","status"],type:"summary",
+       kpis:[["38","open roles"],["19 days","average to fill"],["412","applications this week"],["6","offers out"]],
+       say:"Ahead of last month. Kitchen roles fill fastest; site managers take three times as long.",
+       src:["ATS","Careers site"],alert:"Every Monday: your open roles and what's stuck."},
+      {q:"What does Levy pay its chefs?",kw:["pay","paid","salary","salaries","rates","rate","wage","wages","other","levy","compare","chefs"],type:"refuse",
+       say:"Your login covers Chartwells. Pay for other brands sits with the reward team.",
+       src:["Access policy"],alert:null}
+    ]},
+    {g:"Leadership",name:"Leadership",sub:"Across every brand",sys:["ATS","Job boards","Rota","Payroll"],qs:[
+      {q:"Build the quarterly attraction report",kw:["build","report","quarterly","quarter","board","pack","summary","deck","leadership","exec","update"],type:"summary",
+       kpis:[["Ready","every brand"],["5,480","hires this quarter"],["£445","average cost per hire"],["3","items flagged"]],
+       say:"Ready, with three items flagged: rising agency spend at ESS, the drop-off on mobile and programmatic cost per hire. Every figure links to its source.",
+       src:["ATS","Job boards","Rota","Payroll"],alert:"Builds itself on the fifth working day of each quarter."},
+      {q:"Which new starters leave in the first 90 days?",kw:["leave","leavers","leaving","90","days","starters","new","retention","attrition","turnover","quit","early"],type:"bars",unit:"%",
+       cap:"Leavers within 90 days, by source of hire",
+       rows:[["Programmatic",34],["General job board",29],["Social",24],["Hospitality job board",18],["Referrals",11]],
+       say:"Programmatic hires leave soonest and referrals stay longest. Cost per hire looks different once early leavers are counted.",
+       src:["ATS","Payroll"],alert:"Monthly: 90-day leavers by source and brand."}
+    ]}
+  ];
+
+  var seat=0,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg label">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var x=Math.abs(v);
+    var n=a.dec?x.toFixed(a.dec):x.toLocaleString("en-GB");
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var pick=a.hl!=null?a.hl:0;
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r,i){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf'+(i===pick?" hl":"")+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<span id="alert-slot"><button type="button" class="ghost" data-alert="1">Turn into an alert</button></span>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Checking '+esc(SEATS[seat].sys.slice(0,3).join(", "))+'</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,many:1,all:1,is:1,we:1,me:1,than:1,"do":1,did:1,by:1,"in":1,of:1,to:1,it:1,its:1,"it's":1,compass:1,"what's":1,on:1,at:1,be:1,will:1,into:1,i:1,am:1,should:1,was:1,were:1,get:1,tell:1,us:1,not:1,just:1,much:1,where:1,a:1,an:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9£&%'#.-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(!b)return;
+    var a=SEATS[seat].qs[qi];
+    $("alert-slot").innerHTML='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg><span>Alert set. '+esc(a.alert)+'</span></span>';
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+
+  renderRB();renderSeats();renderQs();ask(null,true);
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
