@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Gaucho</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: Gaucho's own world after dark. Espresso ground, cream type and gold accents as on gauchorestaurants.com; wide-tracked uppercase sans headings (Outfit, their own fallback for Colfax and Trust) answered by Libertinus Serif italics, which is their real serif. Cream "paper" is kept for things addressed to a person: the letter and the two reserved-table cards. Ember marks anything below its mark. One deliberate dark theme. */
+:root{
+  color-scheme:dark;
+  --bg:#140B07;--band:#1B100B;--card:#22140E;--card-2:#2A1912;
+  --ink:#ECE4D3;--muted:#B8AB94;--faint:#8E816C;--rule:#36251B;--line:#4A3426;
+  --gold:#BD9C42;--gold-hi:#D9BB62;--on-gold:#1A0F09;
+  --ember:#D9673A;--ember-hi:#F2926A;--tan:#9C7A4E;
+  --paper:#ECE4D3;--paper-ink:#241510;--paper-muted:#6E5D4A;--paper-rule:#CDBFA6;
+  --track:#33231A;--bar:#5C4535;--hlbar:#BD9C42;
+  --good:#E3CB86;--good-bg:#3A2F15;--warn:#E7C27A;--warn-bg:#3B2C14;--bad:#F2A584;--bad-bg:#45200F;--over:#B8AB94;--over-bg:#2E2018;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px rgba(0,0,0,.35);
+  --display:"Outfit","Helvetica Neue",Arial,sans-serif;
+  --serif:"Libertinus Serif",Georgia,"Times New Roman",serif;
+  --body:"Outfit","Helvetica Neue",Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:400;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-wrap:balance;margin:0;line-height:1.08}
+h1 em,h2 em,h3 em{display:inline-block;font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;color:var(--gold-hi);font-size:1.12em;line-height:1}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--ink)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:2px;border-radius:2px}
+.label{font-family:var(--display);font-weight:600;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase}
+.eyebrow{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.eyebrow .n{color:var(--faint);letter-spacing:.12em}
+.sr{position:absolute;left:-9999px}
+.btn{border:1px solid var(--gold);background:var(--gold);color:var(--on-gold);font-family:var(--display);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.2em;padding:10px 20px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--gold-hi)}
+.ga-word{display:block;color:var(--gold)}
+.ga-crest{display:block;color:var(--gold)}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(20,11,7,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}
+.lockup{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:.02em}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--faint)}
+.lk-ga{width:118px;height:16px}
+.nav{display:flex;gap:2px}
+.nav a{font-family:var(--display);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);text-decoration:none;padding:6px 10px}
+.nav a:hover{color:var(--gold-hi)}
+@media (max-width:1040px){.nav{display:none}}
+
+/* hero */
+.hero{padding-block:56px 68px;background:radial-gradient(55% 70% at 88% 8%,rgba(217,103,58,.16),transparent 70%),radial-gradient(45% 60% at 10% 100%,rgba(189,156,66,.10),transparent 70%),var(--bg)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:52px;align-items:center}
+.event{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 12px;border:1px solid var(--line);padding:7px 14px;margin-bottom:26px;font-size:12.5px;color:var(--muted)}
+.event b{font-family:var(--display);font-weight:600;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:clamp(34px,4.6vw,58px);letter-spacing:.1em;margin-bottom:26px}
+.hero h1 span{display:block}
+.hero h1 em{font-size:1.06em;margin-top:.12em}
+.lede{font-size:18px;line-height:1.55;max-width:31em;color:var(--muted)}
+.lede b{color:var(--ink);font-weight:500}
+
+/* league board (hero) */
+.rb-panel{background:var(--card);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow)}
+.rb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.rb-k{color:var(--ink)}
+.tag{font-family:var(--display);font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--gold);color:var(--gold-hi);white-space:nowrap}
+.rb-body{padding:14px 16px 16px}
+.rb-q{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--gold-hi);min-height:22px;margin-bottom:4px}
+.rb-head,.rb-row{display:grid;grid-template-columns:minmax(0,118px) minmax(0,1fr) 76px;gap:10px;align-items:center}
+.rb-head{font-family:var(--display);font-weight:600;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed var(--line)}
+.rb-head>span:last-child{text-align:right}
+.rb-scale{position:relative;height:15px}
+.rb-scale i{position:absolute;top:0;left:var(--ln);transform:translateX(-50%);font-style:normal;white-space:nowrap;color:var(--ink);letter-spacing:.08em}
+.rb{display:grid;gap:7px;margin-bottom:4px}
+.rb-row{min-height:19px;transition:opacity .3s}
+.rb-row.dim{opacity:.34}
+.rb-n{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-t{position:relative;height:10px;background:var(--track)}
+.rb-t::before{content:"";position:absolute;top:-5px;bottom:-5px;left:var(--ln);border-left:1.5px dashed var(--ink);opacity:.55;z-index:2}
+.rb-f{position:absolute;left:0;top:0;bottom:0;background:var(--gold);transition:width .5s ease}
+.rb-f.tight{background:var(--tan)}
+.rb-f.bad{background:var(--ember)}
+.rb-v{font-size:12.5px;font-weight:500;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-v.bad{color:var(--ember-hi)}
+.rb-v.tight{color:var(--muted)}
+.rb-v.mv{justify-self:end;color:var(--on-gold);background:var(--gold);padding:0 8px;font-weight:600}
+.rb-v.go{justify-self:end;color:var(--bg);background:var(--ember);padding:0 8px;font-weight:600}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);margin:12px 0;min-height:18px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg i{display:inline-block;width:16px;height:8px;background:var(--gold)}
+.lg i.tight{background:var(--tan)}
+.lg i.bad{background:var(--ember)}
+.lg i.ln{width:0;height:12px;background:none;border-left:1.5px dashed var(--ink)}
+.et-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.et{border:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:2px;transition:border-color .2s,background .2s}
+.et small{font-size:11.5px;color:var(--muted);line-height:1.3}
+.et b{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:10.5px;line-height:1.3}
+.et:hover{border-color:var(--gold)}
+.et[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.et[aria-pressed="true"] small{color:var(--on-gold)}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.r-stats b{display:block;font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--ink)}
+.r-stats span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
+.r-say{font-size:14px;color:var(--ink)}
+.rb-hint{font-size:12px;color:var(--faint);margin-top:12px}
+@media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .et-row{grid-template-columns:repeat(2,minmax(0,1fr))}.r-stats b{font-size:21px}
+  .rb-head,.rb-row{grid-template-columns:minmax(0,100px) minmax(0,1fr) 70px;gap:7px}
+  .rb-n{font-size:12px}.rb-v{font-size:11.5px}
+  .rb-body{padding:12px 12px 14px}
+}
+
+/* letter and glance */
+.intro{padding-block:60px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:start}
+.letter{background:var(--paper);color:var(--paper-ink);box-shadow:var(--shadow);position:relative}
+.letter::after{content:"";position:absolute;inset:8px;border:1px solid var(--paper-rule);pointer-events:none}
+.letter-in{position:relative;padding:28px 34px 30px}
+.letter .crest{width:150px;height:76px;margin:0 auto 18px;color:#9A7A2A}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-family:var(--display);font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--paper-muted);padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--paper-rule)}
+.refs b{font-weight:600;color:var(--paper-ink)}
+.letter p{font-size:15.5px;margin-bottom:11px}
+.letter .sal{font-family:var(--serif);font-style:italic;font-size:26px;line-height:1.15;margin-bottom:14px}
+.sign{margin-top:18px}
+.sign .nm{font-family:var(--serif);font-size:19px;font-weight:600}
+.sign .ml{font-size:13px;color:var(--paper-muted)}
+.glance{list-style:none;margin:0;padding:0;display:grid}
+.glance li{display:grid;grid-template-columns:minmax(0,130px) minmax(0,1fr);gap:16px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--rule)}
+.glance li:first-child{border-top:1px solid var(--gold)}
+.glance b{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold-hi)}
+.glance span{font-size:14px;color:var(--muted)}
+.glance-src{font-size:12px;color:var(--faint);margin-top:12px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:440px){.glance li{grid-template-columns:minmax(0,100px) minmax(0,1fr)}.glance b{font-size:32px}.letter-in{padding:24px 22px 26px}}
+
+/* sections */
+section.band{padding-block:80px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+section.tint{background:var(--band)}
+.head{max-width:800px;margin-bottom:34px}
+.head h2{font-size:clamp(26px,3.6vw,42px);margin-bottom:16px}
+.head p{color:var(--muted);font-size:17.5px;line-height:1.5}
+.note{font-size:12.5px;color:var(--faint);margin-top:16px;max-width:80ch}
+
+/* reserved cards */
+.seats2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.rsv{background:var(--paper);color:var(--paper-ink);position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.rsv::after{content:"";position:absolute;inset:8px;border:1px solid var(--paper-rule);pointer-events:none}
+.rsv-in{position:relative;padding:26px 30px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
+.rsv .res{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C22}
+.rsv .res span:last-child{letter-spacing:.14em;color:var(--paper-muted)}
+.rsv h3{font-family:var(--serif);font-weight:400;text-transform:none;letter-spacing:0;font-size:34px;line-height:1}
+.rsv .role{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--paper-muted);margin-top:-6px}
+.rsv .ask{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.3;padding-top:14px;border-top:1px solid var(--paper-rule)}
+.rsv .k3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.rsv .k3 b{display:block;font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.05;font-variant-numeric:tabular-nums}
+.rsv .k3 span{display:block;font-size:12px;line-height:1.35;color:var(--paper-muted)}
+.rsv .why{font-size:14.5px}
+.rsv .from{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--paper-muted);margin-top:auto}
+.rsv .from span{font-weight:500;color:var(--paper-ink);border:1px solid var(--paper-rule);padding:1px 9px}
+@media (max-width:860px){.seats2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:440px){.rsv-in{padding:22px 22px 24px}.rsv .k3 b{font-size:21px}}
+
+/* demo */
+.demo{display:grid;grid-template-columns:240px minmax(0,1fr);gap:26px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:2px}
+.sg{color:var(--gold);margin:16px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer}
+.seat b{display:block;font-size:14.5px;font-weight:500}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{border-color:var(--line)}
+.seat[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.seat[aria-pressed="true"] span{color:var(--on-gold)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--line);background:transparent;padding:7px 15px;font-size:13.5px;cursor:pointer;text-align:left}
+.q:hover{border-color:var(--gold)}
+.q[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-size:12.5px;color:var(--muted)}
+.sys .s{font-weight:500;color:var(--ink);border:1px solid var(--line);padding:1px 9px}
+.console{background:var(--card);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow)}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);font-size:13px}
+.c-head .who{display:flex;align-items:center;gap:8px;font-weight:500}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:340px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--card-2);border:1px solid var(--line);padding:9px 15px;max-width:80%;font-size:14px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:12px;overflow:hidden;background:var(--track)}
+.bf{display:block;height:100%;background:var(--bar);transition:width .5s ease}
+.bf.hl{background:var(--hlbar)}
+.bv{font-size:12.5px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--line);margin-bottom:16px}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px;font-weight:500}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;white-space:nowrap;flex:none}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.over{background:var(--over-bg);color:var(--over)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);overflow:hidden;margin-bottom:16px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--serif);font-size:28px;font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--card-2);border:1px solid var(--line);padding:14px;margin-bottom:16px;font-size:14.5px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--ember-hi);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--line)}
+.src{font-size:11.5px;letter-spacing:.04em;color:var(--faint)}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--gold-hi);max-width:52ch}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:var(--card-2)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);padding:9px 14px}
+.ghost{border:1px solid var(--gold);background:transparent;color:var(--gold-hi);padding:6px 14px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+.ghost:hover{background:var(--gold);color:var(--on-gold)}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--line)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,112px) minmax(0,1fr) 62px}
+}
+
+/* ask, automate, build */
+.aab{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.ly{background:var(--card);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ly .n{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold)}
+.ly h3{font-size:19px;letter-spacing:.16em}
+.ly .d{font-size:14px;color:var(--muted)}
+.ly .ex{margin-top:auto;border-top:1px dashed var(--line);padding-top:14px;display:grid;gap:10px}
+.bub{justify-self:end;background:var(--card-2);border:1px solid var(--line);padding:8px 13px;font-size:13.5px;max-width:92%}
+.ans{font-size:13.5px}
+.ans small{display:block;font-size:11.5px;color:var(--faint);margin-top:6px}
+.sched{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sched li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;font-size:13.5px;align-items:baseline}
+.sched li b{font-family:var(--display);font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.phone{justify-self:center;width:min(100%,230px);border:1px solid var(--line);border-radius:22px;padding:14px 12px 16px;background:var(--bg)}
+.phone .pt{font-family:var(--display);font-weight:600;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:10px}
+.phone ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.phone li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:12.5px;padding:6px 8px;background:var(--card)}
+.phone li i{font-style:normal;font-family:var(--serif);color:var(--gold-hi)}
+.phone li:first-child{background:var(--gold);color:var(--on-gold)}
+.phone li:first-child i{color:var(--on-gold)}
+.phone li span:last-child{font-variant-numeric:tabular-nums}
+@media (max-width:900px){.aab{grid-template-columns:minmax(0,1fr)}}
+
+/* systems */
+.intg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 40px}
+.ig-h{padding-bottom:10px;border-bottom:1px solid var(--gold)}
+.ig-h h3{font-size:16px;letter-spacing:.2em}
+.desk{display:grid;grid-template-columns:minmax(0,130px) minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.desk b{display:block;font-size:14.5px;font-weight:500}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;border:1px solid var(--line);padding:3px 10px}
+.pills span.v{border-color:var(--gold);color:var(--ink)}
+.pills span.v::before,.seen i{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:16px}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:26px;padding:16px 18px;border:1px solid var(--line);font-size:14px}
+.outs b{color:var(--gold)}
+@media (max-width:860px){.intg{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}}
+
+/* proof */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:34px;background:var(--card);padding:34px;margin-bottom:24px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.feature .k{color:var(--gold);margin-bottom:12px}
+.feature h3{font-size:clamp(22px,2.8vw,32px);margin-bottom:14px}
+.feature p{font-size:15px;color:var(--muted);margin-bottom:10px}
+.feature p b{color:var(--ink);font-weight:500}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid var(--line);padding:14px 16px;position:relative}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:1px;height:10px;background:var(--line)}
+.chain .t{font-family:var(--display);font-weight:600;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.chain b{display:block;font-size:16px;font-weight:500}
+.chain li.end{background:var(--gold);color:var(--on-gold);border-color:var(--gold)}
+.chain li.end .t{color:var(--on-gold)}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.pcard{border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:10px}
+.pcard .k{color:var(--gold)}
+.pcard .big{font-family:var(--serif);font-size:52px;line-height:1;color:var(--gold-hi)}
+.pcard .body{font-size:15px;color:var(--muted)}
+.pcard .why{font-size:14px;margin-top:auto;padding-top:12px;border-top:1px dashed var(--line)}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:44px;align-items:center}
+.vid-grid h2{font-size:clamp(26px,3.4vw,40px)}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;text-decoration:none;color:var(--ink);overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(55% 75% at 85% 15%,rgba(217,103,58,.30),transparent 65%),radial-gradient(50% 70% at 10% 100%,rgba(189,156,66,.22),transparent 65%),var(--card)}
+.poster .crest{position:absolute;right:-30px;bottom:-14px;width:260px;height:131px;color:var(--gold);opacity:.10}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:600}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:clamp(18px,2.6vw,30px);line-height:1.1;text-align:center;padding-inline:12px}
+.p-play{width:66px;height:66px;border-radius:50%;background:var(--gold);color:var(--on-gold);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-family:var(--display);font-weight:600;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.vid-note{font-size:13px;color:var(--muted);margin-top:16px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* trust */
+.sec{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px 40px;align-items:center;border:1px solid var(--gold);padding:32px 34px}
+.sec h2{font-size:clamp(24px,3.2vw,38px);margin-bottom:14px}
+.sec p.t{color:var(--muted);font-size:15.5px;max-width:58ch}
+.facts{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:8px}
+.facts li{display:flex;gap:10px;font-size:14.5px;align-items:baseline}
+.facts li::before{content:"";flex:none;width:6px;height:6px;background:var(--gold);transform:translateY(-2px) rotate(45deg)}
+.trust-cta{display:inline-flex;flex-direction:column;gap:2px;background:var(--gold);color:var(--on-gold);text-decoration:none;padding:14px 22px;font-weight:600;font-size:14px}
+.trust-cta small{font-weight:400;font-size:11.5px;opacity:.8}
+.trust-cta:hover{background:var(--gold-hi)}
+@media (max-width:860px){.sec{grid-template-columns:minmax(0,1fr);padding:24px 22px}}
+
+footer{padding-block:28px 44px;font-size:12.5px;color:var(--faint);border-top:1px solid var(--rule);margin-top:80px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.et,.rb-f,.rb-row{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ga-word" viewBox="0 0 553 74"><path d="M10.3025 13.3246C3.47275 20.2122 0 28.7204 0 38.6178C0 48.5151 3.4004 56.7195 10.1144 63.636C16.9152 70.5236 25.2064 74.0253 34.7564 74.0253C44.3065 74.0253 52.7424 70.3934 59.0946 63.2453C61.9018 60.033 63.942 56.5458 65.1141 52.856C66.3151 48.9202 66.9228 44.3478 66.9228 39.2544V35.9843H33.6423V47.6035H53.654C52.9739 51.4959 50.9916 54.8963 47.6924 57.7034C43.9882 60.8289 39.7485 62.4061 35.0892 62.4061C29.5907 62.4061 24.4105 60.2646 19.6644 56.0249C14.6145 51.4814 12.0678 45.6067 12.0678 38.5599C12.0678 31.5131 14.3685 25.9712 18.8976 21.4421C23.4411 16.8407 29.1277 14.4966 35.8272 14.4966C43.2647 14.4966 49.6748 18.0128 54.8984 24.9583L55.6219 25.9278L64.3761 17.5498L63.7105 16.7828C59.4708 11.9355 55.0865 8.3759 50.6877 6.19096C46.0429 4.00602 40.9929 2.89185 35.668 2.89185C25.7562 2.89185 17.2191 6.39352 10.3025 13.3246Z" fill="currentColor"/><path d="M137.404 0.535375L136.666 2.12706L103.096 74.1866H116.249C116.249 74.1866 121.747 62.741 121.892 62.4371C122.225 62.4371 152.206 62.5384 152.539 62.5384C152.669 62.8423 157.69 74.1866 157.69 74.1866H171.003L137.664 0L137.418 0.535375H137.404ZM134.77 33.512C134.77 33.512 137.013 28.491 137.433 27.565C137.881 28.6213 147.229 50.3404 147.489 50.9337C146.722 50.9337 127.781 50.8468 127.014 50.8468C127.333 50.1234 134.77 33.512 134.77 33.512Z" fill="currentColor"/><path d="M259.605 4.34058H251.312V45.3335C251.312 50.861 250.444 54.8401 248.722 57.1842C246.06 60.8017 239.881 62.4657 235.265 62.4657C230.65 62.4657 224.399 60.657 221.866 57.1842C220.145 54.7533 219.262 50.7741 219.262 45.3335V4.34058H207.18V48.1551C207.18 55.4045 209.48 61.4673 214.009 66.1845C218.64 70.9884 226.974 74.085 235.265 74.085C243.557 74.085 251.906 70.9884 256.565 66.1989C261.094 61.4818 263.395 55.4189 263.395 48.1696V4.35504L256.806 4.35504L259.605 4.34058Z" fill="currentColor"/><path d="M308.06 15.4661C302.417 22.2669 299.566 30.124 299.566 38.8059C299.566 48.5006 302.981 56.8931 309.738 63.7518C316.626 70.5671 325.062 74.0253 334.8 74.0253C341.268 74.0253 347.533 72.3324 353.394 68.9754L353.929 68.6715V53.7676L347.591 58.5571C346.188 59.4832 344.813 60.2356 343.511 60.771C341.167 61.8562 338.287 62.4061 334.93 62.4061C328.433 62.4061 322.862 60.0909 318.391 55.5474C313.92 50.9894 311.648 45.3173 311.648 38.6756C311.648 32.034 313.92 26.1737 318.406 21.5289C322.848 16.8697 328.404 14.5111 334.887 14.5111C340.79 14.5111 346.622 16.8697 352.193 21.5289L353.944 22.9904V8.20226L353.408 7.89838C347.693 4.57033 341.702 2.89185 335.567 2.89185C324.367 2.89185 315.107 7.11701 308.06 15.4516" fill="currentColor"/><path d="M445.596 5.78735H433.789V27.8104H402.201V5.78735H390.119V74.2729H402.201V39.4296H433.789V74.2729H445.871V5.78735H445.596Z" fill="currentColor"/><path d="M492.625 13.2811C485.607 20.1832 482.047 28.5613 482.047 38.1837C482.047 49.1084 485.954 58.0796 493.666 64.837C500.641 70.9288 508.643 74.0253 517.426 74.0253C527.352 74.0253 535.933 70.5381 542.95 63.6794C549.939 56.8352 553.484 48.3849 553.484 38.5599C553.484 28.7349 549.954 20.3279 542.994 13.368C536.063 6.40799 527.627 2.89185 517.932 2.89185C508.237 2.89185 499.613 6.39352 492.625 13.2811ZM501.22 55.6198C496.502 51.1197 494.115 45.2883 494.115 38.2994C494.115 31.3105 496.416 25.9567 500.974 21.4276C505.532 16.8407 511.189 14.5111 517.802 14.5111C524.415 14.5111 530.087 16.8263 534.572 21.4132C539.102 25.9712 541.402 31.7157 541.402 38.4586C541.402 45.2015 539.073 50.8592 534.5 55.504C529.928 60.0765 524.227 62.4061 517.556 62.4061C511.421 62.4061 505.922 60.1199 501.234 55.6053" fill="currentColor"/></symbol><symbol id="ga-crest" viewBox="0 0 498 251"><path d="M273.756 105.568C279.141 105.278 284.486 105.989 289.568 107.78C312.608 115.929 327.288 142.564 313.438 165.156C306.578 176.36 301.312 179.823 298.153 185.985C298.982 186.274 299.838 186.564 300.746 186.854C311.805 190.448 306.447 193.437 311.029 200.743C312.714 203.442 319.205 210.065 321.733 212.435C322.444 213.106 326.446 215.503 326.604 215.78C326.84 216.176 326.459 219.334 326.064 219.769C325.721 220.123 325.05 218.702 324.958 220.058C324.787 222.322 329.343 223.034 330.225 223.705L330.211 223.679C331.225 224.456 330.632 229.366 330.356 230.577C330.132 231.551 327.593 239.183 327.276 239.543C327.197 239.635 326.63 239.978 326.577 239.636C326.196 238.333 322.128 232.855 322.141 232.105C322.18 230.525 324.049 226.668 323.602 224.416L321.351 230.999C319.968 226.76 316.295 223.152 314.254 219.544C313.543 218.293 313.306 215.752 312.2 213.83C308.461 207.3 302.181 202.179 295.072 198.058C294.808 201.033 294.703 204.535 294.769 208.775C294.966 220.413 290.397 216.306 284.973 223.007C282.972 225.482 278.812 233.763 277.39 236.923C276.995 237.805 276.02 242.375 275.81 242.612C275.506 242.967 272.399 243.639 271.86 243.402C271.412 243.204 272.544 242.111 271.228 242.453C269.03 243.033 269.846 247.56 269.49 248.614C269.096 249.826 264.251 250.853 263.013 250.985C262.013 251.09 253.972 251.169 253.533 250.985C253.415 250.932 252.914 250.511 253.217 250.353C254.336 249.576 258.18 243.941 258.905 243.717C260.405 243.243 264.659 243.757 266.647 242.612H259.695C263.262 239.926 265.474 235.278 268.226 232.184C269.174 231.117 271.505 230.064 272.966 228.392C283.341 216.569 284.341 196.201 284.341 180.968C284.341 177.203 284.091 173.2 283.077 169.593L282.919 177.019C281.629 175.018 280.457 173.003 280.549 170.541C280.799 163.603 288.014 157.362 289.397 151.569C291.319 143.524 287.725 134.558 283.236 128.015C289.516 141.931 290.898 156.111 275.652 164.366C274.664 164.09 272.953 155.032 269.964 160.258L269.174 159.469L266.962 141.445C268.832 140.918 278.561 140.615 278.97 138.601C279.088 138.048 277.39 129.176 277.073 127.858C276.323 124.645 272.123 115.125 272.018 112.992C271.86 109.978 277.323 109.122 273.44 106.199L273.756 105.568ZM181.29 169.908L181.304 169.921C170.284 174.003 164.49 184.285 170.56 195.213C164.781 195.727 164.398 203.875 161.397 206.272C160.659 206.864 158.921 206.944 158.395 207.378C156.341 209.05 152.22 215.712 151.285 218.28C150.482 220.465 150.403 224.31 149.705 225.864C148.901 227.641 142.689 230.51 142.754 231.866C142.767 232.117 145.308 234.737 144.966 236.29C144.36 238.963 134.248 240.53 131.839 239.924L129.154 238.502C132.959 242.755 141.319 241.056 144.808 237.08C145.729 244.756 127.837 243.426 128.205 239.134C130.654 236.554 132.787 236.198 134.841 232.815C137.237 228.865 137 223.651 138.633 220.807C139.792 218.792 146.48 213.329 148.113 210.696C149.705 208.128 149.824 203.362 151.588 199.952C154.616 194.081 161.001 190.605 163.595 186.036C168.282 177.755 165.268 166.67 172.601 159.639L181.29 169.908ZM213.349 84.093C213.783 85.1064 212.493 85.0145 211.927 85.3567C210.268 86.3704 208.319 87.0287 206.713 88.2004L190.901 102.116L212.242 85.6731C214.731 85.9627 213.165 86.8442 214.139 88.0422C216.245 90.649 220.09 92.0317 222.038 94.678C227.766 102.433 226.66 119.153 230.254 128.501C230.939 130.265 237.245 140.588 238.944 140.351C241.339 140.021 235.692 134.781 235.31 134.189C229.214 124.815 230.267 117.192 228.042 107.001C226.686 100.787 224.513 92.2427 217.615 90.2414C225.158 87.898 229.2 99.8123 230.899 105.421C232.623 111.122 233.045 117.165 235.27 122.708C236.376 125.46 237.917 127.632 239.957 129.752C242.05 131.925 241.629 135.44 241.511 138.35C241.458 139.679 241.353 141.101 240.497 142.114C240.023 142.667 239.378 143.024 238.812 143.485C236.771 145.13 237.271 149.791 236.297 152.213H236.257C233.4 159.336 226.646 169.408 220.919 174.503C218.879 176.32 214.823 179.23 212.23 178.137C211.887 177.689 220.365 171.818 220.761 170.869C221.656 168.71 220.748 161.93 220.129 159.494C217.72 150.081 208.122 146.841 209.07 136.414C206.147 146.275 215.495 150.594 217.917 158.862C218.602 161.205 219.761 168.157 218.865 170.238C218.443 171.212 207.596 179.453 206.055 180.191C193.653 186.142 177.287 176.11 178.393 196.793C178.472 198.386 178.999 201.796 179.973 203.113C180.881 204.324 182.948 204.377 183.448 205.324C183.883 206.154 183.436 209.339 184.239 209.59C184.318 209.616 185.055 208.84 185.819 208.958C186.227 209.024 186.938 209.959 187.399 209.906C187.833 209.854 188.939 207.51 190.874 208.01C192.573 208.431 197.062 216.318 195.298 218.438C195.178 218.583 192.328 220.291 192.139 220.333C188.584 221.136 188.083 217.134 185.187 216.226C182.33 215.331 176.563 217.634 174.917 213.856C173.351 210.274 173.891 201.453 173.022 197.411C172.363 194.357 169.849 191.592 169.546 188.248C168.282 174.358 180.605 173.094 189.623 167.854C191.058 167.024 202.853 159.021 202.75 158.217C198.59 155.544 193.785 153.398 192.797 147.947C191.428 153.319 196.22 155.821 199.59 158.849L190.585 164.695C189.084 164.247 182.474 145.327 182.843 144.3C183.225 143.221 184.884 144.445 185.371 143.668L189.795 131.345C199.591 122.379 210.123 113.821 216.983 102.262C212.335 107.081 207.767 112.03 202.908 116.652C198.682 120.667 188.123 128.422 185.358 132.622C184.66 133.689 182.83 139.613 181.724 139.732C180.052 139.928 180.513 132.017 180.302 130.41C179.433 123.564 177.971 116.639 175.088 110.332L178.88 137.204C168.716 131.938 175.523 120.259 172.561 111.596C163.595 113.755 154.313 115.243 145.057 114.124C150.02 111.86 151.285 107.304 152.009 102.433L150.903 104.487L151.061 101.801C149.27 103.486 150.271 106.093 149.639 108.279C148.586 111.939 143.438 115.177 139.686 113.808C138.962 111.083 135.051 107.015 134.472 104.803C133.248 100.169 139.633 90.031 140.159 84.883C141.094 84.0009 153.536 88.3194 155.34 89.3069C150.429 92.8485 151.969 97.9567 157.236 100.05C154.076 103.434 153.51 108.686 152.496 113.018C153.049 113.333 153.128 112.257 153.285 112.229C157.986 111.57 162.805 111.807 167.518 110.964C182.461 108.265 190.914 100.313 201.657 90.4123C192.125 96.2053 184.555 106.238 172.732 107.015L171.942 100.853C169.677 101.735 157.894 103.841 156.446 103.065C153.721 101.603 162.659 101.248 163.081 101.169C180.71 98.1015 196.497 89.5305 213.349 84.093ZM193.454 206.432C194.613 205.879 199.92 209.908 200.565 211.014C202.934 215.055 200.195 216.201 197.246 218.439C196.693 218.372 196.193 214.674 195.824 213.858C195.206 212.488 191.098 207.564 193.454 206.432ZM197.565 204.534C199.487 204.653 202.989 209.748 202.304 211.802C200.448 208.734 197.96 206.812 194.563 205.64C194.551 205.297 197.407 204.534 197.565 204.534ZM281.036 163.102C279.206 168.789 277.429 173.726 282.458 178.44L281.984 193.779C271.096 190.671 262.419 184.22 253.374 177.808C263.025 173.766 272.742 169.619 281.036 163.102ZM245.962 143.196C247.568 144.394 252.716 143.644 253.862 144.144C254.796 144.552 261.497 161.969 261.287 163.274C261.169 164.037 257.719 165.697 257.495 166.434C256.429 170.028 261.88 167.698 263.657 167.224C264.594 166.973 274.558 162.485 274.242 165.17C274.133 165.988 261.3 172.937 259.22 171.331L256.707 169.76C257.2 171.924 259.973 172.095 261.761 171.963C254.441 175.623 243.948 180.179 235.522 181.127C231.506 181.575 227.016 181.825 223.067 180.851C221.171 180.39 219.327 179.574 217.826 178.31C220.407 178.415 223.198 178.454 225.37 176.966C226.884 175.926 228.847 175.15 229.992 173.701C242.316 158.1 244.817 143.591 245.962 143.196ZM207.99 166.287C208.451 167.38 208.161 168.341 207.398 169.21C207.266 169.368 207.108 169.526 206.937 169.671C206.515 170.053 206.002 170.409 205.409 170.751C205.173 170.883 204.922 171.014 204.672 171.146L204.278 171.343C203.619 171.672 202.895 171.962 202.145 172.251C201.987 172.304 201.842 172.37 201.684 172.423C201.236 172.594 200.762 172.752 200.288 172.91C200.13 172.963 199.972 173.015 199.814 173.068C199.498 173.173 199.169 173.278 198.853 173.37C198.695 173.423 198.537 173.463 198.379 173.516C198.05 173.608 197.734 173.7 197.418 173.792C197.102 173.884 196.786 173.976 196.47 174.069C194.903 174.516 193.428 174.911 192.217 175.28C191.967 175.358 191.743 175.437 191.52 175.503C191.191 175.608 190.888 175.714 190.624 175.82C190.532 175.859 190.44 175.886 190.361 175.925C190.203 175.991 190.045 176.057 189.913 176.122C189.716 176.214 189.545 176.32 189.426 176.412C189.308 176.504 189.229 176.609 189.19 176.701C189.177 176.754 189.163 176.82 189.19 176.886C189.506 176.794 189.887 176.701 190.322 176.596C190.493 176.543 190.677 176.505 190.874 176.465C190.966 176.439 191.059 176.425 191.164 176.399C191.862 176.241 192.665 176.069 193.521 175.885C194.139 175.753 194.785 175.609 195.443 175.451C195.969 175.333 196.51 175.201 197.063 175.07C201.052 174.082 205.317 172.725 207.437 170.79C207.582 170.659 207.727 170.527 207.845 170.382C207.911 170.316 207.977 170.237 208.03 170.171C208.201 169.96 208.346 169.737 208.464 169.513C208.662 169.131 208.767 168.736 208.793 168.328C208.793 168.289 208.781 168.236 208.781 168.17L208.767 168.184C208.727 167.907 208.583 167.393 208.411 166.972C208.28 166.656 208.135 166.38 207.99 166.287ZM171.023 134.662C173.695 137.453 176.263 140.389 178.922 143.194C179.422 143.72 181.068 143.971 181.292 144.3C182.135 145.605 184.056 155.228 185.083 157.901C186.137 160.639 187.677 163.483 189.507 165.8C186.677 167.196 184.491 170.131 181.449 168.169C174.221 163.508 165.901 142.957 171.023 134.662ZM257.968 167.224H257.955C257.96 167.222 257.964 167.219 257.968 167.217C257.968 167.219 257.968 167.222 257.968 167.224ZM262.076 157.744C265.104 156.507 268.567 162.628 270.291 161.852C271.028 161.523 270.581 160.522 270.923 160.272C271.502 159.824 272.688 161.497 272.661 161.695C272.423 163.337 259.818 166.262 257.968 167.217C258.004 165.313 262.089 164.628 262.55 162.958C262.998 161.365 261.102 158.166 262.076 157.744ZM329.511 105.28C330.026 105.121 333.961 104.016 333.895 105.188C330.287 107.518 325.719 109.361 324.494 113.93C332.025 108.269 344.124 103.608 352.287 110.335C350.905 110.401 349.615 109.861 348.272 109.651C347.798 109.571 346.811 109.045 346.916 109.888C351.366 111.099 356.185 113.562 358.937 117.366C363.571 123.752 361.873 135.443 372.471 137.246C371.944 138.773 369.64 137.734 368.534 137.365C357.883 133.85 360.411 121.988 351.616 116.629C352.551 118.604 353.946 120.382 354.749 122.448C357.633 129.9 357.357 139.866 367.982 140.827C368.311 142.842 364.98 141.539 364.401 142.618C371.128 145.409 376.328 142.039 376.96 134.995C378.395 135.64 377.895 138.103 377.645 139.498C376.618 145.37 371.194 147.555 365.743 147.319C372.197 151.751 380.22 146.857 380.532 139.382L380.541 139.037C382.411 140.96 381.779 144.606 381.016 146.91C377.738 156.864 366.204 158.602 357.225 156.087C357.659 156.89 359.502 157.457 360.345 157.667C366.428 159.221 371.405 157.522 376.948 155.192C374.328 161.669 365.454 162.42 359.437 161.275C356.488 160.709 353.749 159.312 350.945 158.338C352.998 162.209 357.449 164.763 361.701 165.514C363.083 166.817 358.081 166.382 357.554 166.29C349.483 164.987 345.152 157.192 343.756 149.82C342.993 149.701 343.282 150.873 343.322 151.373C343.651 155.705 345.217 159.339 346.903 163.262C346.06 164.183 341.953 158.261 341.597 157.588C340.149 154.85 338.977 150.426 338.832 147.345C338.661 143.777 339.741 140.354 339.161 136.694C338.411 131.954 332.842 127.201 328.063 126.95L333.448 131.191C336.028 134.114 337.317 139.669 334.342 142.631C334.553 138.537 332.894 134.495 329.668 131.914C326.64 129.479 319.689 126.701 318.07 132.138C317.964 132.52 317.938 132.915 317.82 133.283C317.346 132.954 317.108 131.665 316.871 131.112C316.529 130.295 316.134 129.492 315.713 128.715C314.871 127.148 313.896 125.648 312.856 124.199C310.749 121.264 308.34 118.578 305.931 115.892C309.63 116.827 312.948 118.643 316.529 116.365C318.78 114.944 320.624 112.429 322.191 110.493C324.152 108.071 326.496 106.214 329.511 105.28ZM218.024 82.7502C221.973 81.4205 226.411 80.9731 230.255 82.6057C231.493 83.1192 232.664 83.8305 233.796 84.6203C236.008 86.1608 238.089 88.0565 240.182 89.5969C242.236 91.1109 244.592 92.2698 246.883 93.3625C247.765 93.7838 254.889 96.2852 254.954 96.8909C255.52 102.723 255.454 111.491 256.85 117.126C257.943 121.537 262.445 123.196 259.694 128.818C259.114 130.002 256.956 130.753 256.376 131.82C266.566 131.846 259.799 117.97 260.957 114.27C261.049 113.954 265.183 110.992 266.013 109.846C266.552 109.096 267.263 106.308 267.435 106.212C268.383 105.699 274.097 105.988 274.229 108.266V108.28C273.451 110.808 262.116 116.705 261.906 117.443C261.655 118.311 263.077 121.049 263.169 122.182C263.459 125.789 261.813 129.766 261.906 131.346C261.945 132.005 264.671 138.481 265.066 140.509C266.185 146.223 266.04 152.333 267.119 158.06C266.093 155.993 261.867 156.953 261.432 156.795C260.8 156.571 256.995 146.001 256.218 144.315C255.231 142.169 248.292 129.081 248.319 128.186C248.358 126.593 252.755 124.973 254.006 124.394C251.992 123.235 248.463 126.843 247.37 125.658C246.936 125.171 244.829 114.85 244.21 113.006C242.762 108.635 240.051 101.934 237.575 98.1418C236.285 96.1801 233.401 91.4137 230.623 92.7698C234.323 93.8757 237.773 99.748 239.471 103.197C242.473 109.319 244.197 116.837 245.79 123.433C242.209 120.378 240.761 115.534 237.575 112.058C234.323 108.516 231.032 108.134 230.308 102.262C231.914 100.854 236.232 102.736 235.679 99.7346C235.6 99.287 229.941 93.127 229.518 92.9407C227.833 92.1771 225.699 93.0068 224.251 91.6116C222.526 89.9658 221.684 88.3326 219.064 87.885C218.327 87.7665 217.563 87.7537 216.839 87.5432C216.115 87.3457 215.417 86.8977 215.154 86.1868C214.864 85.397 215.219 84.4887 215.824 83.9094C216.43 83.3301 217.234 83.0135 218.024 82.7502ZM179.87 145.735C179.475 146.682 179.067 147.71 178.751 148.763C178.685 148.987 178.619 149.224 178.553 149.461C178.435 149.922 178.33 150.396 178.264 150.869C178.224 151.106 178.198 151.343 178.185 151.58H178.198C178.184 151.699 178.185 151.817 178.185 151.936C178.172 152.291 178.184 152.634 178.224 152.976C178.237 153.094 178.263 153.2 178.277 153.319C178.382 154.003 178.606 154.662 178.961 155.281C179.198 155.702 179.501 156.096 179.883 156.478C179.37 155.214 179.278 153.99 179.357 152.779C179.37 152.555 179.383 152.344 179.409 152.12C179.423 152.015 179.435 151.897 179.448 151.791C179.606 150.475 179.896 149.158 179.962 147.802C179.975 147.565 179.975 147.341 179.975 147.117C179.975 146.894 179.962 146.657 179.948 146.433C179.935 146.196 179.91 145.972 179.87 145.735ZM173.853 139.086C172.628 144.471 173.261 150.382 177.013 154.582L173.853 139.086ZM228.477 135.322C228.358 135.203 227.199 135.874 226.698 137.507C226.33 138.666 225.896 140.246 225.461 141.931L225.448 141.917C224.79 144.643 224.711 147.816 224.289 150.291C224.276 151.238 225.619 147.264 225.725 146.96C226.554 144.538 227.45 141.351 228.016 138.771C228.2 137.678 228.635 136.335 228.477 135.322ZM171.338 126.447C171.812 129.081 171.891 131.885 173.392 134.189C173.813 134.821 180.923 140.943 181.449 140.983C184.122 141.219 186.058 132.214 187.295 134.189C187.769 134.926 184.346 141.323 183.977 142.562C182.844 141.917 180.462 142.417 179.869 142.246C179.29 142.075 171.788 134.086 171.496 133.557C170.404 131.529 170.364 128.541 171.338 126.447ZM246.884 136.874C247.043 136.795 250.199 137.124 250.36 137.19C250.978 137.453 253.269 142.114 253.045 142.404L245.936 141.614C245.555 141.243 246.673 136.993 246.884 136.874ZM247.832 131.186C248.859 133.727 252.046 137.4 247.043 135.768L247.832 131.186ZM287.989 116.323C294.137 121.853 296.968 126.791 300.641 135.612C298.982 120.708 295.559 120.01 287.989 116.323ZM183.659 107.462C182.317 111.241 181.539 115.217 181.289 119.219C181.065 122.734 181.264 126.263 181.817 129.712C181.896 130.212 181.987 130.7 182.079 131.187V131.174L183.659 107.462ZM255.744 97.0334C255.943 96.8761 258.297 97.6913 258.43 98.1389L259.536 120.114C257.917 118.033 254.823 97.7707 255.744 97.0334ZM263.484 98.1545C264.142 96.6802 265.945 100.814 266.011 101.315C266.63 105.725 263.655 108.174 260.798 110.952L260.166 97.9953C265.958 96.9823 263.786 104.461 262.062 107.476C264.432 105.159 265.485 100.88 263.484 98.1545ZM171.01 107.158L154.092 108.897C154.408 108.37 154.408 107.001 154.724 106.685C155.422 105.974 168.877 105.446 171.01 103.998V107.158ZM148.085 106.369C148.651 102.472 144.886 99.0493 140.976 99.8918C137.658 100.603 138.053 105.448 138.922 107.949C137.829 100.063 146.045 98.7596 146.822 106.369C146.163 107.699 144.426 105.975 143.346 107.949C145.518 107.476 147.585 109.806 148.085 106.369ZM234.559 99.5764C234.767 100.432 229.858 100.642 229.66 100.365L229.502 94.2043L234.559 99.5764ZM311.318 0.317612C321.574 -0.85415 332.173 1.23937 341.165 6.21605C346.313 9.05983 351.777 13.9972 353.712 20.0139C356.385 23.2922 358.268 27.1632 358.926 31.0207C359.729 35.7605 358.728 40.2367 356.042 43.9758C356.03 43.9763 356.019 43.9988 356.017 44.0022C354.384 46.1482 352.435 47.7284 350.316 48.9133C351.514 50.6379 352.593 52.4022 353.528 54.1926C353.528 54.2189 353.554 54.259 353.554 54.259L353.58 54.3118C356.029 59.4331 356.214 64.2909 354.12 67.9905C352.106 71.5584 348.077 73.7967 342.772 74.2971C341.89 74.3761 340.994 74.4153 340.073 74.4153C335.715 74.4153 330.922 73.4943 325.524 71.6116C319.625 69.5181 310.186 65.1464 296.375 51.4016C293.742 48.6895 288.581 43.3971 285.789 37.6174C284.816 38.7233 286.25 40.2108 285.907 41.3166C285.775 41.7251 283.709 44.1993 283.248 44.6868C280.879 47.1881 273.441 53.9945 270.557 55.259C267.002 56.8258 263.012 54.1802 259.286 53.2717C259.01 53.2059 258.391 53.0606 257.627 52.9026C255.271 56.7337 252.441 63.6587 252.559 66.845C252.572 66.924 251.874 68.1488 251.874 68.2278C251.993 69.3995 255.429 70.0842 255.323 74.4289C255.31 74.5346 254.284 76.0475 254.283 76.1535C254.283 76.3246 254.336 76.4825 254.428 76.6535C253.651 76.9563 252.862 77.233 252.059 77.4436C251.822 77.5094 251.702 77.6808 251.702 77.8782L237.22 80.1164C236.588 80.1428 235.614 80.1432 234.508 80.1037C236.009 80.9594 237.497 80.8146 239.379 80.7356C243.711 80.5776 248.003 79.7614 252.084 78.3264C252.835 78.0631 253.638 77.7867 254.402 78.0237C255.297 78.3133 255.837 79.2871 255.89 80.2219C255.982 81.7096 255.27 83.1053 255.415 84.6194C255.586 86.3441 256.851 87.8712 256.824 89.5959C256.824 89.8724 254.046 96.2839 256.508 93.7034C258.193 91.9524 257.944 87.806 256.983 85.6467C259.747 88.4115 259.708 92.1902 258.878 95.758C257.732 96.6132 253.731 94.2831 252.717 93.8352C249.465 92.3869 246.278 90.7807 243.118 89.135C241.986 88.5426 240.815 87.9895 239.722 87.3313C238.01 86.2912 236.878 84.6191 235.272 83.3684C231.533 80.4588 226.687 78.9451 221.948 79.3137C217.142 79.6956 212.087 81.7231 207.558 83.3293C202.463 85.1331 197.472 87.187 192.469 89.2014C182.647 93.1511 172.615 97.0219 162.03 98.2727C161.911 98.2856 161.832 98.1797 161.859 98.0744C162.768 94.8099 172.313 97.5217 172.721 94.3489C172.734 94.2032 172.05 91.6499 172.089 91.5051C172.156 91.2545 175.274 88.8986 175.88 88.0295C180.883 80.9726 178.013 68.6359 172.115 62.4084C171.983 62.2772 171.773 62.4478 171.878 62.6057C180.726 76.0086 177.091 94.5463 158.093 93.2561C158.054 93.2561 158.001 93.2694 157.975 93.3088C157.488 93.9145 158.159 96.6266 158.897 97.2981C158.949 97.3374 159.015 97.3371 159.068 97.3108C160.371 96.5864 160.476 93.2826 161.938 94.6252C161.964 94.6516 161.99 94.6912 161.99 94.7307C162.135 97.0478 160.542 98.7856 158.107 98.3118C158.067 98.2986 158.028 98.2721 158.001 98.2327C154.473 91.9131 160.489 86.6861 162.899 81.1565C162.912 81.1044 163.028 81.0655 163.031 81.0647H163.399C163.491 81.0647 163.557 81.1435 163.557 81.2356C163.201 84.9482 160.173 86.9231 158.909 90.0432C158.883 90.1352 158.936 90.2407 159.028 90.2541C160.344 90.5175 162.491 93.7957 163.268 92.7688C164.162 91.5969 160.108 89.3849 160.108 88.9768C160.122 88.542 162.056 87.4761 162.32 87.0813C165.94 81.5911 167.204 57.4854 166.112 50.7307L166.085 50.6379C165.624 47.7415 164.413 44.7794 162.438 42.5676C162.372 42.4887 162.398 42.3699 162.49 42.3303C164.979 41.2507 167.125 40.3559 169.824 39.803C173.09 39.1315 176.381 38.6042 179.698 38.2356C179.843 38.2224 179.922 38.3939 179.817 38.4993C179.172 39.118 178.829 40.0401 178.803 40.9485C178.777 42.0279 179.159 43.0808 179.633 44.0549C179.831 44.4499 180.054 44.8448 180.423 45.0686C180.739 45.2528 181.108 45.3064 181.463 45.3196C184.333 45.4643 187.44 44.2786 190.021 45.3713C190.139 45.424 190.139 45.5828 190.021 45.6487C189.244 46.07 188.546 47.9778 188.532 48.3996C188.44 50.9407 191.798 50.5193 193.496 50.177C195.063 49.861 196.709 49.4267 198.223 49.8743C198.328 49.9006 198.367 50.0453 198.288 50.1243C196.748 51.7041 194.116 55.1008 196.458 56.6545C198.499 58.0106 203.094 55.5754 205.003 54.1008C205.122 54.0087 205.293 54.127 205.24 54.2717C205.056 54.8378 204.832 55.417 204.595 55.97C204.792 55.891 205.003 55.799 205.214 55.72C206.109 55.3645 206.978 54.9825 207.834 54.5217C209.638 53.5606 211.455 52.6127 213.272 51.6516C215.444 49.3208 219.485 38.5783 220.855 37.1692C222.184 35.8132 224.37 36.4584 225.687 35.1028C224.225 34.4445 223.62 33.1407 223.369 31.6399C223.251 30.9158 223.238 30.1648 223.107 29.4407C222.909 28.3878 222.356 28.6904 221.988 27.9006C221.895 27.7032 221.908 27.4794 221.921 27.2688C222.04 25.7284 222.698 23.1479 221.592 21.8313C220.341 20.3306 216.814 20.9492 214.957 20.8703C213.588 20.8177 212.126 20.7379 211.007 19.9348C210.678 19.6978 210.375 19.2639 210.599 18.9348C210.691 18.8031 210.836 18.737 210.981 18.6711C213.166 17.7232 215.918 18.0524 218.262 17.6047C218.959 17.46 219.683 17.3022 220.276 16.9075C221.974 15.8016 221.448 11.7728 221.606 9.94261C221.764 8.09939 222.751 7.21737 224.581 6.74339C225.7 6.4406 226.872 6.41429 228.031 6.41429H231.849C232.626 6.42746 233.429 6.44002 234.179 6.65062C236.759 7.37469 236.759 10.1395 237.167 12.3118C237.76 15.4847 240.21 16.4464 243.343 16.3938C244.594 16.3804 248.161 15.525 249.149 16.4465C250.531 17.7366 248.583 18.7765 247.503 19.1321C245.462 19.8035 241.683 19.1584 240.169 20.9885C240.09 21.0963 239.762 23.4247 239.827 23.7405C239.909 24.1377 244.91 29.0599 246.963 31.258C248.596 31.574 250.189 31.9166 251.572 32.509C256.337 34.5629 261.17 38.4991 266.107 40.5002C266.976 40.7765 267.62 40.2102 268.331 39.8811C270.148 39.0515 279.18 32.4431 279.628 30.9289C280.392 28.388 279.036 23.9117 280.563 20.9231C281.405 20.2121 282.34 19.6326 283.406 19.3166C284.183 19.0665 284.987 19.014 285.777 19.0666C286.185 17.829 286.672 16.6962 287.172 15.7219C288.989 12.1541 291.832 8.6651 294.808 6.40062C299.1 3.12238 304.656 1.08127 311.318 0.317612ZM155.84 91.3489C156.13 92.56 155.525 93.8763 155.683 95.2981C155.749 95.9169 156.67 97.0231 156.788 97.6682C153.537 96.6544 153.273 93.1922 155.84 91.3489ZM226.647 93.5588C229.477 93.006 228.753 95.4155 228.542 97.3508L226.647 93.5588ZM156.458 33.4963C157.327 32.786 159.039 39.4872 159.46 40.2903C160.434 42.173 162.331 43.5026 163.252 45.9778C167.557 57.5109 165.24 78.0494 157.406 87.8713C159.302 79.3532 164.872 71.8879 164.674 62.8957C162.963 71.3219 159.828 79.1825 156.142 86.9241L143.977 82.6584C145.609 79.3012 146.399 75.5093 146.031 71.7571L142.871 82.8157V82.7893L141.133 82.0002C141.857 79.433 143.556 75.0618 143.661 72.5207C143.754 70.1377 142.239 66.8985 142.713 64.9368C142.792 64.6335 145.82 60.0518 146.189 59.5647C147.821 57.3792 153.522 54.1277 151.561 50.718C150.929 49.6254 149.389 49.2958 148.717 47.8743C148.177 46.742 146.295 38.5396 146.505 37.4465C146.531 37.328 147.018 35.854 147.452 36.1828C146.676 38.5136 151.917 45.2147 153.931 44.2405C154.207 44.1086 153.483 43.3841 153.773 43.134C156.537 40.7513 156.037 45.2534 156.458 45.1877V33.4963ZM169.166 48.3078C168.982 48.2683 168.916 48.5311 169.087 48.5969C180.436 52.9548 190.337 60.2625 198.381 69.3733C199.961 71.1774 207.229 82.0258 208.019 82.1838C208.335 82.249 209.23 81.5781 209.849 81.4202C209.941 81.3937 209.993 81.2885 209.941 81.1965C200.83 66.2797 186.966 51.6785 169.14 48.3078H169.166ZM222.079 59.4729C221.683 59.5544 218.985 64.3828 216.221 64.9885C214.72 65.3045 213.298 64.7122 211.757 65.094C210.981 65.2783 210.204 65.5157 209.441 65.7395C209.085 66.2134 208.677 66.6479 208.322 67.135C207.953 67.6353 207.65 68.2013 207.597 68.8332C207.544 69.4652 207.808 70.1368 208.361 70.4397C208.729 70.6503 209.19 70.6632 209.612 70.6106C211.758 70.3736 213.785 68.9782 214.891 67.135C214.957 67.0165 215.141 67.0561 215.167 67.1877C215.72 69.7419 214.694 72.4934 215.286 75.0608C215.589 76.3379 216.432 75.7319 217.011 75.1526C217.432 74.7445 217.814 74.2969 218.196 73.8625L218.222 73.8762C220.552 74.337 222.948 74.4819 225.252 74.9953C225.463 73.7842 225.818 72.5069 225.713 71.3616C225.674 71.0324 224.371 69.6497 224.331 69.2942C224.318 69.1757 225.187 67.8198 225.016 66.885C224.792 65.6737 223.343 59.2491 222.079 59.4729ZM240.683 26.0705C240.433 30.7708 236.943 34.1674 234.653 37.9592L241.026 41.9221C242.039 39.7894 243.869 37.1827 244.607 34.6946C244.251 36.2216 243.896 37.7486 243.672 39.302C243.606 39.776 243.54 40.2636 243.488 40.7639C238.998 46.7149 232.085 53.3108 231.888 55.5227C231.783 56.7076 233.613 57.59 233.613 58.2746C233.612 58.7357 231.81 60.1045 232.757 61.2102L237.76 61.3811L232.586 62.0657L232.928 65.8577L234.995 65.1731C230.927 67.9379 233.6 72.0456 237.747 73.0989C237.129 74.323 234.049 72.0604 233.784 72.2434C233.258 72.8227 233.969 74.4551 234.469 74.6526C236.431 75.4291 248.148 72.7305 249.636 71.2034V70.5188C247.003 71.7827 242.013 71.4795 239.986 69.136C241.789 69.0967 245.251 70.3868 246.529 68.7942L236.023 66.8977C239.275 64.9365 243.08 67.9646 246.358 66.5559L240.157 64.8313C240.183 64.331 247.266 62.3425 246.884 60.5256C243.79 62.3951 239.749 64.8833 236.023 64.4885C237.879 62.9879 241.631 63.4614 242.75 61.2102L240.512 61.7239L244.646 59.3147L237.405 58.6301L244.132 57.4182L238.274 58.1028L243.277 55.5227L238.445 56.2073L246.37 52.4153C246.17 51.9171 238.523 56.1413 237.405 55.1672C237.313 54.9959 238.839 53.4834 239.129 53.2717C240.064 52.574 244.316 50.6251 246.726 49.0979C245.725 48.2421 244.896 47.2672 244.33 46.135C244.317 46.1086 244.29 46.0432 244.29 46.0432L244.422 43.8577C244.423 43.8496 244.726 40.895 245.568 40.9739C245.7 38.5646 249.412 35.9973 247.832 34.2463C246.516 32.7981 245.172 34.1936 245.172 34.1936C245.185 34.1147 245.198 34.0357 245.198 33.97C245.185 34.0358 245.16 34.0887 245.147 34.1545C245.489 32.2981 244.764 30.1785 242.763 28.7961C243.526 30.4815 238.156 38.7876 237.589 38.7883C234.192 38.7488 244.197 28.1387 240.697 26.0315L240.683 26.0705ZM228.807 73.7707C230.676 74.9688 233.968 75.6007 232.428 72.5598L228.807 73.7707ZM227.596 68.7678C227.241 68.7152 226.648 68.6755 226.385 68.9387C226.056 69.3732 228.07 70.7033 228.11 71.0061C228.228 71.8221 226.451 72.1381 227.596 72.9016H230.348L230.005 72.217C235.719 73.0333 228.676 68.9258 227.596 68.7678ZM163.423 65.1077C163.305 65.3576 163.173 65.5685 163.029 65.7659L163.015 65.7532C162.923 65.8848 162.817 66.0033 162.712 66.1086L162.554 66.2668C162.449 66.3588 162.33 66.4506 162.212 66.5295C162.146 66.569 162.093 66.6092 162.028 66.6487C160.922 67.2937 159.579 67.3327 158.526 67.6223C158.236 67.7013 157.973 67.7939 157.736 67.9387C157.551 68.044 157.393 68.2022 157.248 68.3996C157.169 68.5049 157.103 68.6098 157.037 68.7151C157.011 68.7677 156.972 68.8343 156.946 68.8869C156.88 69.0054 156.814 69.124 156.761 69.2424C156.735 69.308 156.708 69.3604 156.682 69.426C156.524 69.7945 156.379 70.1633 156.235 70.466C156.221 70.5187 156.195 70.5589 156.168 70.6116C156.063 70.7957 155.971 70.954 155.879 71.0461C155.616 71.3093 155.326 71.1506 154.905 70.1633L154.746 71.2698C154.891 71.4804 155.089 71.6645 155.313 71.8225C155.984 72.2833 156.933 72.468 157.894 72.4416C158.539 72.4284 159.184 72.31 159.763 72.1389C160.342 71.9677 160.856 71.7176 161.225 71.428C161.435 71.2568 161.62 71.059 161.778 70.8352C161.936 70.6114 162.054 70.3744 162.159 70.1243C162.252 69.8741 162.344 69.6107 162.409 69.3342C162.515 68.9261 162.594 68.4786 162.659 68.0442C162.673 67.8994 162.699 67.7544 162.725 67.6096C162.791 67.162 162.871 66.7272 162.976 66.3059C163.081 65.8847 163.226 65.4762 163.423 65.1077ZM156.315 71.2698C156.789 69.7031 159.224 67.123 160.896 67.636C163.832 68.5444 158.619 73.7446 156.315 71.2698ZM288.818 35.0764C288.726 35.1553 288.62 35.2338 288.515 35.3127C290.937 40.9082 296.467 46.5958 298.837 49.0315C305.209 55.3643 315.018 64.2782 326.683 68.4123C332.726 70.5188 337.9 71.3346 342.469 70.9133C346.682 70.5183 349.684 68.9258 351.158 66.3323C352.686 63.6202 352.449 59.894 350.5 55.8127H350.474V55.7864C349.526 53.9432 348.407 52.1521 347.143 50.3879C342.851 51.9283 338.163 52.2307 334.042 52.2307H334.003C315.373 51.7699 301.641 47.3073 292.017 38.5784C290.74 37.3934 289.686 36.2213 288.83 35.0627L288.818 35.0764ZM227.249 35.0071C224.95 39.8749 222.392 51.6753 226.227 55.6545C226.505 55.9449 233.27 60.0515 230.019 59.7883L225.371 56.51C225.121 57.4182 226.792 59.5109 226.753 59.9592C226.648 60.9993 225.542 60.6706 225.713 61.342C225.832 61.8028 229.19 62.5537 229.848 62.7248C229.111 64.1992 227.293 63.6067 226.227 62.8957C225.463 65.0022 228.281 66.7535 230.19 66.6877C230.4 66.6877 230.742 66.7402 230.874 66.6877L231.388 68.0696C222.909 64.765 227.675 68.6494 232.243 69.966C231.993 68.215 232.178 65.7392 231.902 64.1067C231.744 63.1851 230.466 62.1578 230.519 62.0393C230.638 61.7634 231.665 62.0259 231.902 61.3547C232.085 60.8231 231.085 51.4826 230.862 50.3225C230.467 48.2686 228.438 45.2532 228.451 42.7385L225.7 44.1213L227.249 35.0071ZM162.633 64.634C161.237 64.2522 159.499 63.8971 158.051 64.1604C155.695 64.582 153.798 67.6098 153.627 69.8479C156.221 66.122 158.407 65.6609 162.633 64.634ZM208.98 55.6672C206.992 61.1159 209.057 58.3948 209.322 58.4192C209.638 58.4455 213.562 61.6709 214.496 61.8684L208.98 55.6672ZM215.881 49.8205C213.597 52.6928 212.504 53.1948 209.862 55.1535L214.167 58.7746C214.391 57.1158 212.127 55.7595 213.127 53.9426L217.775 57.9055C217.34 57.4052 213.298 50.9804 215.536 52.218L217.09 53.7717L215.881 49.8205ZM235.865 40.843C234.824 42.4233 230.796 52.2448 232.415 53.2453L240.512 43.0813L235.865 40.843ZM219.328 43.9631C219.183 45.1218 215.655 48.005 215.707 48.6106C215.734 48.8608 218.537 51.5728 218.643 52.5735L218.986 46.7151L221.224 51.3625C221.026 50.3358 220.079 43.8865 219.328 43.9494V43.9631ZM339.006 41.4221C335.912 42.3305 332.713 42.8304 329.632 43.2649C325.34 43.8573 320.679 44.424 315.913 44.4241C312.609 44.4241 309.251 44.1477 305.933 43.4368C313.543 46.7545 322.851 48.5313 334.069 48.8078C337.492 48.7947 341.35 48.5715 344.905 47.5051C343.14 45.3986 341.165 43.3575 339.006 41.4221ZM222.764 37.4065C218.301 39.5262 220.895 44.3579 221.382 48.0969L222.764 37.4065ZM258.957 39.7629C257.772 39.0782 250.742 35.0237 250.136 35.3791C248.912 37.3671 248.135 39.3682 247.832 41.6985L250.65 38.3284L250.083 42.4485L253.823 39.8293L252.322 43.5813L257.193 40.9612L254.573 45.2795L259.445 42.844L257.206 46.5959L261.327 44.345L260.208 47.3469C260.526 47.7398 264.184 43.7389 264.316 43.3967C264.579 42.7517 264.052 42.897 263.855 42.7522C262.446 41.7384 260.498 40.6846 258.957 39.7893V39.7629ZM279.535 36.0764C279.193 35.6554 279.035 35.7607 278.601 35.9055C277.798 36.182 275.257 38.657 274.203 39.4075V39.4338C271.386 41.435 267.107 42.8439 267.712 47.0041C270.043 47.0041 269.266 45.8191 270.517 44.384C271.649 44.9501 270.385 46.9117 271.833 46.6223L272.387 43.2385L274.072 44.3713L275.006 41.3821L276.323 44.3713V40.6184L277.824 41.7375V38.7366L279.325 39.1184L279.523 37.9856L280.825 38.7366L279.535 36.0764ZM354.187 27.2287C353.252 32.0738 349.618 36.5639 344.391 39.2893C343.825 39.5921 343.245 39.8683 342.653 40.1184C344.693 42.0537 346.563 44.0681 348.248 46.1614C350.157 45.1739 351.896 43.8317 353.291 41.9885C355.424 39.013 356.201 35.4312 355.556 31.6262C355.306 30.1517 354.832 28.6769 354.187 27.2287ZM228.979 35.3391C228.637 35.4181 229.61 41.4463 230.361 41.1985L228.979 35.3391ZM314.886 27.1243C305.222 23.7538 297.836 22.6869 293.057 23.9114C293.228 24.5695 293.228 25.2278 293.504 25.8596C293.715 26.3204 294.018 26.7679 294.387 27.2024L294.373 27.1897C294.531 27.7558 294.571 28.3487 294.426 28.9543C294.281 29.5203 294.031 30.0469 293.702 30.5471C293.4 30.7183 292.214 31.9298 292.135 32.2327V32.3108C295.413 35.7734 300.246 38.3275 304.446 39.5256C312.674 41.8692 321.522 40.9221 329.171 39.8557C331.357 39.5529 333.595 39.1968 335.793 38.6965C329.79 33.9701 322.654 29.9812 314.886 27.1243ZM228.281 35.6682C227.82 36.4187 226.727 40.6718 227.939 40.843C229.611 39.6054 228.504 37.3403 228.281 35.6682ZM238.274 29.467C237.273 30.0068 230.994 34.378 230.862 34.8127C230.783 35.0892 232.165 38.3804 232.033 40.4475C233.403 36.0766 236.141 33.2324 238.274 29.467ZM329.145 10.2844C320.139 8.07258 312.135 7.92769 305.341 9.82347L305.275 9.84984V9.83714C298.323 11.7726 292.636 15.9329 290.213 20.6594C290.371 20.7911 290.529 20.9096 290.7 21.0412C296.27 19.0006 304.735 19.9484 316.031 23.885C324.971 27.1765 333.121 31.9033 339.782 37.5383C340.823 37.1697 341.824 36.7349 342.798 36.2346C347.169 33.9437 350.184 30.2703 350.856 26.3733C351.132 24.7672 351.026 23.1875 350.631 21.6868C349.42 20.3043 348.064 19.053 346.563 18.0129C346.549 17.9999 346.524 17.9866 346.524 17.9866C341.942 14.6161 336.254 12.0881 329.145 10.2844ZM282.34 36.1028C281.932 35.6946 281.918 33.1008 281.036 33.4827C279.378 34.2068 281.853 36.5899 282.34 36.1028ZM236.088 23.4768C234.587 23.4241 235.535 21.6466 234.534 21.9231C233.626 22.1733 232.77 23.0952 232.125 23.3059C230.914 23.7009 229.518 23.0293 228.478 23.9377C228.267 24.1351 228.096 24.359 227.886 24.5432C227.307 25.0698 226.464 25.2938 225.7 25.1096C225.214 24.9912 224.253 23.8465 223.976 23.885C223.686 23.9245 223.383 24.8586 223.251 25.0959C223.08 25.3987 221.869 27.1629 222.461 27.4397C223.014 27.703 223.87 25.8867 224.529 26.0578C224.884 26.1505 224.503 27.506 226.767 27.7825L227.109 28.8225C226.949 28.7701 224.215 28.9408 224.002 29.3352L225.713 30.3098V30.3235C225.739 30.3629 225.753 30.4022 225.78 30.4416V30.468C225.793 30.5074 225.818 30.5468 225.819 30.5862V30.7444C225.819 30.7707 225.792 30.8103 225.792 30.8498C225.766 30.8893 225.753 30.9158 225.727 30.9553L225.648 31.0344C225.174 31.2714 224.857 31.4946 224.673 31.6789C224.581 31.7448 224.502 31.8373 224.476 31.969C224.436 32.0611 224.436 32.14 224.476 32.219L224.529 32.2453C224.687 33.4696 226.424 33.549 227.385 33.5227C228.425 33.4964 229.532 33.2199 230.322 32.5618C230.335 32.5486 230.347 32.5348 230.361 32.5217C230.676 32.2453 230.94 31.9164 231.124 31.4953C231.151 31.4428 231.177 31.3897 231.177 31.3371C231.941 30.139 233.073 28.5199 234.39 28.5989C234.824 28.7041 235.312 28.7428 235.785 28.677C235.904 28.7428 236.062 28.7962 236.259 28.8225C237.273 28.9673 239.09 25.188 238.326 24.6877C238.142 25.109 236.233 26.6101 235.654 27.6897H235.39C235.258 27.6897 235.127 27.677 234.995 27.677H234.916C234.864 27.677 234.811 27.6506 234.758 27.6506C234.706 27.6375 234.653 27.6237 234.601 27.6106C234.127 26.6891 232.625 26.6364 232.296 25.2014C232.889 24.1482 233.732 25.7151 234.193 25.7151C234.759 25.7273 235.548 23.7532 236.088 23.4768ZM285.118 21.8703C283.907 21.9362 283.354 21.5679 282.525 23.345H282.537C281.313 25.9648 282.024 29.4012 283.116 31.9553L283.973 31.5998C283.828 30.1386 283.92 28.6906 284.355 27.2952C283.67 25.8996 281.906 23.4508 284.026 23.3323C284.341 23.3191 284.658 23.3455 284.96 23.385C284.987 22.8715 285.039 22.3707 285.118 21.8703ZM291.332 28.9797C290.727 28.8744 290.227 28.9806 289.792 29.2307C289.963 29.5201 290.134 29.7962 290.319 30.0725C290.753 29.8092 291.122 29.4404 291.332 28.9797ZM289.068 27.2424C289.094 27.4135 289.12 27.585 289.159 27.7561L290.582 26.7287L289.068 27.2424ZM235.18 13.2737C234.627 13.0367 223.593 14.2737 223.119 14.6555H223.107C222.738 14.9451 222.396 16.4855 222.593 16.8938C223.317 18.3947 234.324 16.6305 236.035 15.8537C236.246 15.4852 235.641 13.4721 235.18 13.2737ZM316.94 3.4514C315.189 3.45141 313.451 3.55666 311.713 3.75414C305.67 4.45193 300.68 6.26924 296.888 9.15257L296.902 9.16527C296.335 9.59974 295.743 10.1001 295.163 10.6662C297.836 8.91519 300.957 7.49357 304.366 6.53246H304.432C311.805 4.46542 320.402 4.61038 330 6.96703C335.398 8.33628 340.046 10.1136 344.062 12.3518C342.6 11.1405 341.033 10.087 339.506 9.24437C332.66 5.4395 324.8 3.4514 316.94 3.4514Z" fill="currentColor"/><path d="M53.2441 134.182V119.472H47.4296L47.852 116.788H62.3634L62.8107 119.472H56.9713V134.182H53.2441Z" fill="currentColor"/><path d="M36.1343 134.406C34.0719 134.406 32.0094 133.859 30.4937 132.94L29.8973 129.461C32.1088 131.176 34.37 131.921 36.0597 131.921C37.4761 131.921 38.5197 131.126 38.5197 129.859C38.5197 126.604 30.2701 127.2 30.2701 121.46C30.2701 118.776 32.4319 116.565 35.9852 116.565C37.7246 116.565 39.5633 117.037 40.8306 117.832L41.3773 121.236C39.5633 119.87 37.65 119.124 36.1591 119.124C34.7179 119.124 33.7985 119.895 33.7985 121.038C33.7985 124.442 42.0482 123.721 42.0482 129.287C42.0482 132.244 39.5385 134.406 36.1343 134.406Z" fill="currentColor"/><path d="M11.9999 134.182V116.788H22.9828L23.4301 119.472H15.7023V124.019H20.4731L20.9701 126.653H15.7023V131.598H23.8525L23.4798 134.182H11.9999Z" fill="currentColor"/><path d="M491.465 134.183V130.306H482.669L487.216 120.715C487.663 119.771 488.632 117.659 489.03 116.789H492.832C492.21 117.932 490.446 121.162 489.875 122.206L486.967 127.498H491.465V123.895L494.919 123.051V127.498H497.876L497.478 130.306H494.919V134.183H491.465Z" fill="currentColor"/><path d="M469.704 116.516C474.052 116.516 476.835 119.92 476.835 125.014C476.835 130.431 473.854 134.506 468.884 134.506C467.641 134.506 466.225 134.233 465.132 133.711L464.784 130.63C465.952 131.4 467.368 131.848 468.635 131.848C471.94 131.848 473.257 128.891 473.257 125.064C472.363 126.803 470.748 127.946 468.859 127.946C465.952 127.946 463.715 125.735 463.715 122.604C463.715 119.125 466.2 116.516 469.704 116.516ZM467.145 122.43C467.145 124.393 468.288 125.536 469.977 125.536C471.22 125.536 472.487 124.716 473.183 123.474C472.934 120.616 471.766 119.075 469.878 119.075C468.288 119.075 467.145 120.417 467.145 122.43Z" fill="currentColor"/><path d="M449.98 116.516C454.329 116.516 457.112 119.92 457.112 125.014C457.112 130.431 454.13 134.506 449.16 134.506C447.918 134.506 446.501 134.233 445.408 133.711L445.06 130.63C446.228 131.4 447.644 131.848 448.912 131.848C452.216 131.848 453.533 128.891 453.533 125.064C452.639 126.803 451.024 127.946 449.135 127.946C446.228 127.946 443.992 125.735 443.992 122.604C443.992 119.125 446.477 116.516 449.98 116.516ZM447.421 122.43C447.421 124.393 448.564 125.536 450.253 125.536C451.496 125.536 452.763 124.716 453.459 123.474C453.21 120.616 452.043 119.075 450.154 119.075C448.564 119.075 447.421 120.417 447.421 122.43Z" fill="currentColor"/><path d="M433.204 134.184V119.697L430.843 120.07L431.141 117.61L436.732 116.666V134.184H433.204Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Gaucho">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <svg class="ga-word lk-ga" role="img" aria-label="Gaucho"><use href="#ga-word"/></svg>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#hamyard">Ham Yard</a>
+      <a href="#ask">Ask</a>
+      <a href="#layers">Ask · Automate · Build</a>
+      <a href="#systems">Systems</a>
+      <a href="#proof">Proof</a>
+      <a href="#video">Video</a>
+      <a href="#trust">Trust</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="event"><b>MCA Restaurant Conference</b><span>Ham Yard Hotel · Thursday 5 November</span></p>
+        <h1><span>The art of open fire.</span><em>The science of spend per head.</em></h1>
+        <p class="lede">Lightspeed, Salesforce, OpenTable and Fourth each hold part of the picture. <b>Milo joins them</b>, so anyone at Gaucho can ask in plain English and get the answer in seconds, across all 19 restaurants.</p>
+      </div>
+
+      <div class="rb-panel">
+        <div class="rb-top"><span class="rb-k label">London · last week</span><span class="tag">Sample data</span></div>
+        <div class="rb-body">
+          <p class="rb-q" id="rb-q"></p>
+          <div class="rb-head" aria-hidden="true"><span>Restaurant</span><span class="rb-scale"><i id="rb-ll"></i></span><span id="rb-col"></span></div>
+          <div class="rb" id="rb" role="img" aria-label="Eleven London restaurants, each with a bar measured against a reference line"></div>
+          <div class="lg" id="rb-lg"></div>
+          <div class="et-row" id="rb-tabs" role="group" aria-label="Add a layer of data"></div>
+          <div id="rb-read" aria-live="polite"></div>
+          <p class="rb-hint">Your eleven London restaurants, with invented figures. Add a layer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="letter-in">
+          <svg class="crest" aria-hidden="true"><use href="#ga-crest"/></svg>
+          <div class="refs">
+            <span>Our ref</span><b>MILO / GAUCHO / 01</b>
+            <span>For</span><b>Borja Longo</b>
+          </div>
+          <p class="sal">Dear Borja,</p>
+          <p>Thank you for the time on our call. You're about to set eleven London restaurants competing on spend per head, and the plan was to run it by hand through ChatGPT or Claude. Milo can run it live from Lightspeed instead, with a league table every general manager can open.</p>
+          <p>The same connections take on the admin. Lightspeed, Salesforce, OpenTable and Fourth feed one place, so the weekly report stops being a spreadsheet job and any question gets an answer in seconds, with sources.</p>
+          <p>Pedro and Baton will both be at Ham Yard on 5 November, and so will I. Section 02 is written for them, if it helps to pass this on. Everything here is sample data, so click around.</p>
+          <div class="sign">
+            <p class="nm">Liam James Rabone</p>
+            <p class="ml">Milo · liam@milo.ai</p>
+          </div>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow">Gaucho, in its own numbers</p>
+        <ul class="glance">
+          <li><b>1994</b><span>the first Gaucho opens, on Piccadilly</span></li>
+          <li><b>19</b><span>restaurants across the UK</span></li>
+          <li><b>11</b><span>of them in London</span></li>
+          <li><b>+40%</b><span>Christmas bookings last year, on the year before</span></li>
+          <li><b>+5.5%</b><span>trading year on year, autumn 2025</span></li>
+        </ul>
+        <p class="glance-src">From gauchorestaurants.com, The Caterer (July 2025) and Restaurant Online (November 2025), quoting Baton's own figures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="hamyard" aria-labelledby="hy-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">02</span> Before Ham Yard</p>
+      <h2 id="hy-h">Two seats <em>at Ham Yard.</em></h2>
+      <p>Pedro and Baton will both be at the MCA Restaurant Conference on Thursday 5 November. So will we. This is what Milo would put in front of each of them.</p>
+    </div>
+    <div class="seats2">
+      <article class="rsv">
+        <div class="rsv-in">
+          <p class="res"><span>Reserved</span><span>Ham Yard · 5.11</span></p>
+          <h3>Pedro Nunes</h3>
+          <p class="role">Operations Director</p>
+          <p class="ask">“How did London trade against labour last week?”</p>
+          <div class="k3">
+            <div><b>£1.42m</b><span>net sales, eleven restaurants</span></div>
+            <div><b>29.6%</b><span>labour as a share of sales</span></div>
+            <div><b>3</b><span>restaurants above 32%</span></div>
+          </div>
+          <p class="why">Sales against labour for every London restaurant, each Monday before 9am. The spend-per-head league table lands alongside it.</p>
+          <p class="from">Reads from <span>Lightspeed</span><span>Fourth</span><span>OpenTable</span></p>
+        </div>
+      </article>
+      <article class="rsv">
+        <div class="rsv-in">
+          <p class="res"><span>Reserved</span><span>Ham Yard · 5.11</span></p>
+          <h3>Baton Berisha</h3>
+          <p class="role">CEO</p>
+          <p class="ask">“Is Christmas ahead of last year, and where?”</p>
+          <div class="k3">
+            <div><b>£2.1m</b><span>festive revenue booked</span></div>
+            <div><b>+18%</b><span>on this point last year</span></div>
+            <div><b>+22%</b><span>London, against +11% regionally</span></div>
+          </div>
+          <p class="why">Last Christmas, bookings rose 40%. With Milo, this year's figure is there every morning, by restaurant and by party size.</p>
+          <p class="from">Reads from <span>OpenTable</span><span>Salesforce</span><span>Lightspeed</span></p>
+        </div>
+      </article>
+    </div>
+    <p class="note">Sample data. Every figure on these cards is invented.</p>
+  </div>
+</section>
+
+<section class="band" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">03</span> Ask Milo</p>
+      <h2 id="ask-h">Every team. <em>One place to ask.</em></h2>
+      <p>Operations, sales and marketing. Pick a seat and a question, or type your own.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · Gaucho workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Sample data. Every figure is invented.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band tint" id="layers" aria-labelledby="ly-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">04</span> Your competition, three ways</p>
+      <h2 id="ly-h">Ask. Automate. <em>Build.</em></h2>
+      <p>The three layers from the demo, applied to spend per head.</p>
+    </div>
+    <div class="aab">
+      <div class="ly">
+        <p class="n">One</p>
+        <h3>Ask</h3>
+        <p class="d">Any manager types a question and gets the answer in seconds, with the source.</p>
+        <div class="ex">
+          <p class="bub">Who's top on spend per head this week?</p>
+          <p class="ans">The O2, up 8.3% on its own eight-week average. Covent Garden and Richmond follow.<small>Sources · Lightspeed · 11 restaurants</small></p>
+        </div>
+      </div>
+      <div class="ly">
+        <p class="n">Two</p>
+        <h3>Automate</h3>
+        <p class="d">Ask once, then let it run. No spreadsheet to rebuild each week.</p>
+        <div class="ex">
+          <ul class="sched">
+            <li><b>Mon 9am</b><span>League table to all eleven general managers</span></li>
+            <li><b>Daily</b><span>Alert when a restaurant drops 5% below its average</span></li>
+            <li><b>Month end</b><span>The winner, and what they did differently</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ly">
+        <p class="n">Three</p>
+        <h3>Build</h3>
+        <p class="d">Turn it into a small app the whole team opens on their phone.</p>
+        <div class="ex">
+          <div class="phone" aria-label="Sample leaderboard app">
+            <p class="pt">Spend per head · London</p>
+            <ol>
+              <li><i>1</i><span>The O2</span><span>+8.3%</span></li>
+              <li><i>2</i><span>Covent Garden</span><span>+6.4%</span></li>
+              <li><i>3</i><span>Richmond</span><span>+5.7%</span></li>
+              <li><i>4</i><span>Tower Bridge</span><span>+4.9%</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Ranking each restaurant against its own average keeps it fair: a pre-show table at the O2 and a client lunch on Chancery Lane were never going to spend the same.</p>
+  </div>
+</section>
+
+<section class="band first" id="systems" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">05</span> What Milo connects</p>
+      <h2 id="int-h">Every system. <em>One set of numbers.</em></h2>
+      <p>We build and run the connections. Nothing gets replaced.</p>
+    </div>
+    <div class="intg">
+      <div>
+        <div class="ig-h"><h3>The restaurants</h3></div>
+        <div class="desk"><div><b>Tills</b></div><div class="pills"><span class="v">Lightspeed</span><span>SumUp</span><span>Square</span></div></div>
+        <div class="desk"><div><b>Bookings</b></div><div class="pills"><span class="v">OpenTable</span><span>SevenRooms</span><span>DesignMyNight</span></div></div>
+        <div class="desk"><div><b>People</b></div><div class="pills"><span class="v">Fourth</span><span>Rotas</span><span>Timesheets</span></div></div>
+        <div class="desk"><div><b>Menus and stock</b></div><div class="pills"><span class="v">viewthe.menu</span><span>Stock counts</span><span>Supplier invoices</span></div></div>
+      </div>
+      <div>
+        <div class="ig-h"><h3>The business</h3></div>
+        <div class="desk"><div><b>Sales and CRM</b></div><div class="pills"><span class="v">Salesforce</span><span class="v">Giftpro gift cards</span><span>Event enquiries</span></div></div>
+        <div class="desk"><div><b>Marketing</b></div><div class="pills"><span class="v">GA4</span><span class="v">Meta Ads</span><span class="v">Instagram</span><span class="v">TikTok</span><span class="v">Facebook</span></div></div>
+        <div class="desk"><div><b>Finance</b></div><div class="pills"><span>Xero</span><span>Sage</span><span>Excel</span></div></div>
+        <div class="desk"><div><b>Your own data</b></div><div class="pills"><span class="v">Weekly report spreadsheets</span><span>Google Sheets</span><span>SharePoint</span></div></div>
+      </div>
+    </div>
+    <p class="seen"><i aria-hidden="true"></i>Named on our call or seen on gauchorestaurants.com. The rest are examples.</p>
+    <div class="outs"><b class="label">Answers arrive in</b><span>Teams</span><span>Email</span><span>Slack</span><span>WhatsApp</span><span>PDF</span></div>
+  </div>
+</section>
+
+<section class="band" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">06</span> Proof</p>
+      <h2 id="proof-h">Restaurant groups <em>already run on it.</em></h2>
+      <p>Three operators close to Gaucho.</p>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k label">Urban Leisure Group · London bars and restaurants</p>
+        <h3>Five systems. <em>One Monday pack.</em></h3>
+        <p>Toast, Harri, Marketman, DesignMyNight and QuickBooks, rebuilt by hand every Monday. <b>All five connected in under two weeks</b>, with no data team.</p>
+        <p>The same job as Gaucho's weekly spreadsheet report.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at Urban Leisure Group">
+        <li><span class="t">Connected</span><b>Five systems in under two weeks</b></li>
+        <li><span class="t">Adopted</span><b>1 to 6 users in two months</b></li>
+        <li class="end"><span class="t">Running</span><b>Full value within six weeks</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="k label">Nikki Beach Global · Hospitality</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants on four continents. SevenRooms, OpenTable, Square and SumUp, read as one view of how each venue is trading.</p>
+        <p class="why">Premium dining across many sites, one view of the group.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">ETM Group · Pubs, bars and restaurants, London</p>
+        <p class="big">3 → 1</p>
+        <p class="body">London pubs, bars and restaurants, including Aviary and Wagtail. Bookings in OpenTable, events in Collins and tills in Zonal, read together in Milo.</p>
+        <p class="why">The OpenTable connection Gaucho would use is the one built for ETM.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="n">07</span> See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <svg class="crest" aria-hidden="true"><use href="#ga-crest"/></svg>
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <p class="eyebrow"><span class="n">08</span> Trust and security</p>
+        <h2 id="sec-h">Your numbers <em>stay yours.</em></h2>
+        <p class="t">Safer than pasting sales figures into a chatbot. The full pack is in the Trust Centre.</p>
+      </div>
+      <div>
+        <ul class="facts">
+          <li>Hosted in Frankfurt, inside the EU</li>
+          <li>Never sent to ChatGPT, Claude or Gemini</li>
+          <li>Read-only connections, with access by role</li>
+          <li>ISO 27001 and SOC 2 Type I, with Type II in progress</li>
+        </ul>
+        <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Borja Longo at Gaucho by Liam James Rabone · October 2026 · Milo · ISO 27001 · SOC 2 Type I · GDPR</p>
+    <p>Facts from gauchorestaurants.com, The Caterer and Restaurant Online. Every figure in the demos is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* league board: [restaurant, spend per head £, drinks per head £, % change on its own 8-week average] */
+  var REST=[
+    ["Chancery Lane",96,38,-1.2],
+    ["City",92,37,0.8],
+    ["Canary Wharf",90,34,-2.6],
+    ["Broadgate",89,35,2.2],
+    ["Sloane Avenue",88,33,1.5],
+    ["Piccadilly",84,31,3.1],
+    ["Tower Bridge",81,29,4.9],
+    ["Covent Garden",78,27,6.4],
+    ["Richmond",76,26,5.7],
+    ["Hampstead",74,25,-0.4],
+    ["The O2",62,19,8.3]
+  ];
+  var RANKED=REST.slice().sort(function(a,b){return b[3]-a[3]});
+  function rank(c){return RANKED.indexOf(c)+1}
+  function ord(n){return n+(n===1?"st":n===2?"nd":n===3?"rd":"th")}
+  function sg(v){return (v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(1)+"%"}
+  var LAYERS=[
+    {name:"Spend",short:"Per head",col:"Per head",max:110,line:82.7,ll:"£82.70",
+     v:function(c){return c[1]},t:function(c){return "£"+c[1]},k:function(c){return c[1]<74.7?"bad":(c[1]<82.7?"tight":"")},
+     lg:'<span><i></i>Above average</span><span><i class="tight"></i>Up to £8 below</span><span><i class="bad"></i>More than £8 below</span><span><i class="ln"></i>London average</span>',
+     stats:[["£82.70","London average per head"],["£96","the highest, Chancery Lane"],["£62","the lowest, the O2"]],
+     say:"On raw spend per head the City restaurants lead and the O2 trails. That says more about each site's guests than its team."},
+    {name:"+ Drinks",short:"Per head",col:"Drinks",max:45,line:30.4,ll:"£30.40",
+     v:function(c){return c[2]},t:function(c){return "£"+c[2]},k:function(c){return c[2]<26.4?"bad":(c[2]<30.4?"tight":"")},
+     lg:'<span><i></i>Above average</span><span><i class="tight"></i>Up to £4 below</span><span><i class="bad"></i>More than £4 below</span><span><i class="ln"></i>London average</span>',
+     stats:[["£30.40","drinks per head"],["37%","of spend is drinks"],["£38","the highest, Chancery Lane"]],
+     say:"Wine and cocktails are where a table's spend moves most, so they're the thing to coach."},
+    {name:"+ Climb",short:"On own average",col:"Change",max:14,line:4,ll:"0%",
+     v:function(c){return c[3]+4},t:function(c){return sg(c[3])},k:function(c){return c[3]<0?"bad":(c[3]<2?"tight":"")},
+     lg:'<span><i></i>Up 2% or more</span><span><i class="tight"></i>Up to 2%</span><span><i class="bad"></i>Below its own average</span><span><i class="ln"></i>Its own 8-week average</span>',
+     stats:[["+2.6%","average climb"],["8 of 11","restaurants up"],["+8.3%","the O2, most improved"]],
+     say:"Against its own eight-week average, the O2 climbed most. Ranking the climb gives every restaurant a fair shot."},
+    {name:"Milo's answer",short:"The table",col:"Place",max:14,line:4,ll:"0%",q:"Asked: who's winning the spend-per-head competition?",sort:true,
+     v:function(c){return c[3]+4},t:function(c){return ord(rank(c))},k:function(c){return c[3]<0?"bad":""},
+     lg:'<span><i></i>Climb on own average</span><span><i class="bad"></i>Below its own average</span><span>Faded: mid-table</span>',
+     stats:[["The O2","top of the table"],["3","below their own average"],["Mon 9am","table to every GM"]],
+     say:"The O2, Covent Garden and Richmond take the top three. Milo can send this table to every general manager each Monday at 9am, straight from Lightspeed."}
+  ];
+  var layer=0;
+  function drawRB(){
+    var L=LAYERS[layer],h="";
+    function pct(v){return Math.max(0,Math.min(v,L.max))/L.max*100}
+    $("rb").style.setProperty("--ln",pct(L.line).toFixed(1)+"%");
+    $("rb-ll").parentNode.style.setProperty("--ln",pct(L.line).toFixed(1)+"%");
+    $("rb-ll").textContent=L.ll;
+    (L.sort?RANKED:REST).forEach(function(c){
+      var k=L.k(c),rc="rb-row",vc="rb-v",t=L.t(c);
+      if(L.sort){var r=rank(c);if(r<=3)vc+=" mv";else if(k==="bad")vc+=" go";else rc+=" dim"}
+      else if(k)vc+=" "+k;
+      h+='<div class="'+rc+'"><span class="rb-n" title="'+esc(c[0])+'">'+esc(c[0])+'</span><span class="rb-t"><span class="rb-f'+(k?" "+k:"")+'" style="width:'+pct(L.v(c)).toFixed(1)+'%"></span></span><span class="'+vc+'">'+esc(t)+'</span></div>';
+    });
+    $("rb").innerHTML=h;
+    $("rb-col").textContent=L.col;
+    $("rb-lg").innerHTML=L.lg;
+  }
+  function renderRB(){
+    $("rb-tabs").innerHTML=LAYERS.map(function(l,i){
+      return '<button type="button" class="et" data-layer="'+i+'" aria-pressed="'+(i===layer)+'"><b>'+esc(l.name)+'</b><small>'+esc(l.short)+'</small></button>';
+    }).join("");
+    var l=LAYERS[layer];
+    $("rb-q").textContent=l.q||"";
+    $("rb-read").innerHTML='<div class="r-stats">'+l.stats.map(function(s){return '<div><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join("")+'</div><p class="r-say">'+esc(l.say)+'</p>';
+    drawRB();
+  }
+  $("rb-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-layer]");if(!b)return;
+    layer=+b.dataset.layer;renderRB();
+    var nb=$("rb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
+  });
+
+  /* seats */
+  var SEATS=[
+    {g:"Leadership",name:"CEO",sub:"All 19 restaurants",sys:["Lightspeed","OpenTable","Salesforce","Fourth"],qs:[
+      {q:"How did the group trade last week?",kw:["group","trade","traded","trading","week","last","overall","business","going","performance","results","summary","sales","growth","did"],type:"summary",
+       kpis:[["+4.2%","like-for-like sales"],["£79","spend per head, group"],["11 of 19","restaurants ahead of last year"],["29.8%","labour as a share of sales"]],
+       say:"Sales rose 4.2% like for like. London led, and three regional restaurants trailed on Tuesday and Wednesday covers.",
+       src:["Lightspeed","OpenTable","Fourth"],alert:"Every Monday at 8am: last week by restaurant, London and the regions."},
+      {q:"Is Christmas ahead of last year?",kw:["christmas","festive","december","ahead","behind","last","year","bookings","booked","season","party","parties"],type:"summary",
+       kpis:[["£2.1m","festive revenue booked"],["+18%","on this point last year"],["+22%","London"],["+11%","outside London"]],
+       say:"£2.1m is booked so far, 18% ahead of this point last year. London is running ahead of the regions.",
+       src:["OpenTable","Salesforce","Lightspeed"],alert:"Every morning until Christmas: festive bookings against last year."}
+    ]},
+    {g:"Operations",name:"Operations director",sub:"London, eleven restaurants",sys:["Lightspeed","Fourth","OpenTable"],qs:[
+      {q:"Net sales against labour, by restaurant",kw:["labour","labor","staff","wage","wages","cost","costs","net","sales","against","rota","payroll","percentage","share"],type:"bars",unit:"%",dec:1,
+       cap:"Labour as a share of net sales, last week",
+       rows:[["Canary Wharf",33.8],["Hampstead",32.6],["Richmond",32.1],["London average",29.6],["Chancery Lane",26.9]],
+       say:"Canary Wharf ran the highest labour share. Friday covers came in 14% under forecast against a full rota.",
+       src:["Lightspeed","Fourth"],alert:"Every Monday: labour against sales, by restaurant."},
+      {q:"Who's short on the rota for Saturday?",kw:["short","rota","rotas","saturday","weekend","staff","staffing","shift","shifts","cover","covers","servers","busy","forecast"],type:"list",
+       rows:[["Tower Bridge","312 covers booked · rota built for 260","Add 2 servers","bad"],["Covent Garden","Pre-theatre bookings up 30%","Add 1 at 5pm","warn"],["Broadgate","Bookings match the rota","Fine","ok"]],
+       say:"Tower Bridge has 52 more covers booked than its rota allows for. Covent Garden needs one more server for pre-theatre.",
+       src:["OpenTable","Fourth"],alert:"Every Thursday: Saturday bookings against the rota."}
+    ]},
+    {g:"Operations",name:"General manager",sub:"One restaurant",sys:["Lightspeed","OpenTable","Fourth"],qs:[
+      {q:"Where are we in the spend-per-head table?",kw:["where","table","league","competition","rank","position","place","spend","head","per","winning","we"],type:"summary",
+       kpis:[["4th","of 11 this week"],["£81","spend per head"],["+4.9%","on your own average"],["0.8 pts","behind Richmond in 3rd"]],
+       say:"Fourth this week, just behind Richmond. Dessert and wine by the glass are where your tables trail the London average.",
+       src:["Lightspeed"],alert:"Every Monday at 9am: your place in the table."},
+      {q:"What does Piccadilly spend on staff?",kw:["piccadilly","other","restaurant","restaurants","spend","staff","wages","payroll","pay","paid","salary","salaries","labour"],type:"refuse",
+       say:"Your login covers your own restaurant's costs. The league table shows spend per head for all eleven, and nothing more.",
+       src:["Access policy"],alert:null}
+    ]},
+    {g:"Sales",name:"Events and private dining",sub:"Christmas, parties, hire",sys:["Salesforce","OpenTable","Lightspeed"],qs:[
+      {q:"How is Christmas booking by party size?",kw:["christmas","festive","party","parties","size","group","groups","booking","bookings","booked","guests","hire","exclusive"],type:"bars",pre:"£",unit:"k",
+       cap:"Festive revenue booked so far, by party size",
+       rows:[["11 to 20 guests",877],["21 to 40 guests",538],["2 to 10 guests",412],["Exclusive hire",296]],
+       say:"£2.1m booked so far. Parties of 11 to 20 bring in the most, at £877k.",
+       src:["Salesforce","OpenTable"],alert:"Every Monday: festive revenue booked against last year."},
+      {q:"Which enquiries should we chase today?",kw:["enquiries","enquiry","chase","follow","quote","quotes","deposit","deposits","open","leads","lead","today","pipeline"],type:"list",
+       rows:[["Corporate party, 40 guests","Broadgate · 12 December · quote sent 9 days ago","Chase","bad"],["Exclusive hire, 120 guests","Canary Wharf · 18 December · deposit due Friday","Chase","warn"],["Team lunch, 16 guests","Chancery Lane · 4 December · asked for the wine list","Call","ok"]],
+       say:"Three open enquiries are worth £38k between them. The Broadgate quote has gone nine days without a reply.",
+       src:["Salesforce"],alert:"Every morning: enquiries with no reply after five days."}
+    ]},
+    {g:"Sales",name:"Reservations",sub:"Covers and no-shows",sys:["OpenTable","Lightspeed"],qs:[
+      {q:"Where are the gaps in next week's bookings?",kw:["gaps","gap","next","week","quiet","soft","empty","capacity","full","fill","bookings","covers","tuesday"],type:"bars",unit:"%",
+       cap:"Tuesday covers booked, as a share of capacity",
+       rows:[["Hampstead",38],["Richmond",44],["Canary Wharf",51],["London average",63]],
+       say:"Tuesday is the softest night across London. Hampstead and Richmond are under half full.",
+       src:["OpenTable"],alert:"Every Thursday: next week's soft nights, by restaurant."},
+      {q:"What did no-shows cost us last month?",kw:["no-show","no-shows","noshow","noshows","shows","cost","lost","cancel","cancellations","cancelled","deposit","card"],type:"summary",
+       kpis:[["3.1%","of covers didn't show"],["£41k","in lost sales"],["64%","on Fridays and Saturdays"],["0.9%","where a card was held"]],
+       say:"No-shows cost about £41k last month. Bookings with a card held rarely miss, so that's the fix for bigger tables.",
+       src:["OpenTable","Lightspeed"],alert:"First of the month: no-shows by restaurant."}
+    ]},
+    {g:"Marketing",name:"Campaigns",sub:"Social, web and offers",sys:["GA4","Meta Ads","Instagram","OpenTable"],qs:[
+      {q:"Which campaign filled the most tables?",kw:["campaign","campaigns","filled","tables","offer","offers","pre-theatre","theatre","promotion","marketing","menu","bookings"],type:"bars",
+       cap:"Covers booked from each campaign, last month",
+       rows:[["Pre-theatre menu",1180],["Christmas, The Gift of Gaucho",960],["Winemaker dinners",210],["Dog-friendly Sundays",140]],
+       say:"The pre-theatre menu booked the most tables, almost all at Piccadilly and Covent Garden.",
+       src:["GA4","OpenTable","Meta Ads"],alert:"Monthly: covers booked by campaign."},
+      {q:"Did Instagram bring in bookings?",kw:["instagram","social","tiktok","facebook","meta","ads","bring","bookings","return","roas","spend","worth"],type:"summary",
+       kpis:[["2,340","bookings from social"],["61%","of them from Instagram"],["£79","spend per head"],["4.1×","return on ad spend"]],
+       say:"Instagram drove most social bookings, and those guests spent close to the group average.",
+       src:["Meta Ads","GA4","OpenTable","Lightspeed"],alert:null}
+    ]},
+    {g:"Marketing",name:"Guests and gifting",sub:"CRM and gift cards",sys:["Salesforce","Gift cards","OpenTable"],qs:[
+      {q:"How much sits on unspent gift cards?",kw:["gift","cards","card","vouchers","voucher","unspent","unredeemed","balance","redeem","redeemed"],type:"summary",
+       kpis:[["£612k","unredeemed balance"],["38%","bought last Christmas"],["£96","average card"],["£44","spent above the card, per visit"]],
+       say:"£612k sits on unspent gift cards. A reminder before Christmas brings the oldest ones back in.",
+       src:["Gift cards","Lightspeed"],alert:"Monthly: gift cards close to expiry."},
+      {q:"Who are our biggest corporate bookers?",kw:["corporate","biggest","top","accounts","account","companies","clients","bookers","customers","quiet","lapsed","best"],type:"list",
+       rows:[["Law firm, EC4","14 bookings this year · £62k","Invite","ok"],["Bank, E14","9 bookings · £48k","Invite","ok"],["Agency, WC2","Quiet since June","Win back","warn"]],
+       say:"Your top ten corporate accounts spent £410k this year. Two have gone quiet since the summer.",
+       src:["Salesforce","OpenTable"],alert:"Monthly: corporate accounts gone quiet for 60 days."}
+    ]}
+  ];
+
+  var seat=2,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg label">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var x=Math.abs(v);
+    var n=a.dec?x.toFixed(a.dec):x.toLocaleString("en-GB");
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var pick=a.hl!=null?a.hl:0;
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r,i){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf'+(i===pick?" hl":"")+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<span id="alert-slot"><button type="button" class="ghost" data-alert="1">Turn into an alert</button></span>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Checking '+esc(SEATS[seat].sys.slice(0,3).join(", "))+'</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,who:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,many:1,all:1,is:1,me:1,than:1,one:1,"do":1,by:1,"in":1,of:1,to:1,it:1,its:1,"it's":1,gaucho:1,"what's":1,on:1,at:1,be:1,will:1,into:1,i:1,am:1,should:1,was:1,were:1,get:1,tell:1,us:1,not:1,just:1,much:1,a:1,an:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9£&%'#.-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(!b)return;
+    var a=SEATS[seat].qs[qi];
+    $("alert-slot").innerHTML='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg><span>Alert set. '+esc(a.alert)+'</span></span>';
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+
+  renderRB();renderSeats();renderQs();ask(null,true);
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
