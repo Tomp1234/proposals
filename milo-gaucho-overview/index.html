@@ -155,25 +155,6 @@ section.tint{background:var(--band)}
 .head p{color:var(--muted);font-size:17.5px;line-height:1.5}
 .note{font-size:12.5px;color:var(--faint);margin-top:16px;max-width:80ch}
 
-/* reserved cards */
-.seats2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-.rsv{background:var(--paper);color:var(--paper-ink);position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column}
-.rsv::after{content:"";position:absolute;inset:8px;border:1px solid var(--paper-rule);pointer-events:none}
-.rsv-in{position:relative;padding:26px 30px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
-.rsv .res{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:#8A6C22}
-.rsv .res span:last-child{letter-spacing:.14em;color:var(--paper-muted)}
-.rsv h3{font-family:var(--serif);font-weight:400;text-transform:none;letter-spacing:0;font-size:34px;line-height:1}
-.rsv .role{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--paper-muted);margin-top:-6px}
-.rsv .ask{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.3;padding-top:14px;border-top:1px solid var(--paper-rule)}
-.rsv .k3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.rsv .k3 b{display:block;font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.05;font-variant-numeric:tabular-nums}
-.rsv .k3 span{display:block;font-size:12px;line-height:1.35;color:var(--paper-muted)}
-.rsv .why{font-size:14.5px}
-.rsv .from{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--paper-muted);margin-top:auto}
-.rsv .from span{font-weight:500;color:var(--paper-ink);border:1px solid var(--paper-rule);padding:1px 9px}
-@media (max-width:860px){.seats2{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:440px){.rsv-in{padding:22px 22px 24px}.rsv .k3 b{font-size:21px}}
-
 /* demo */
 .demo{display:grid;grid-template-columns:240px minmax(0,1fr);gap:26px;align-items:start}
 .seats{display:flex;flex-direction:column;gap:2px}
@@ -359,7 +340,6 @@ footer p+p{margin-top:6px}
       <svg class="ga-word lk-ga" role="img" aria-label="Gaucho"><use href="#ga-word"/></svg>
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#hamyard">Ham Yard</a>
       <a href="#ask">Ask</a>
       <a href="#layers">Ask · Automate · Build</a>
       <a href="#systems">Systems</a>
@@ -409,7 +389,7 @@ footer p+p{margin-top:6px}
           <p class="sal">Dear Borja,</p>
           <p>Thank you for the time on our call. You're about to set eleven London restaurants competing on spend per head, and the plan was to run it by hand through ChatGPT or Claude. Milo can run it live from Lightspeed instead, with a league table every general manager can open.</p>
           <p>The same connections take on the admin. Lightspeed, Salesforce, OpenTable and Fourth feed one place, so the weekly report stops being a spreadsheet job and any question gets an answer in seconds, with sources.</p>
-          <p>Pedro and Baton will both be at Ham Yard on 5 November, and so will I. Section 02 is written for them, if it helps to pass this on. Everything here is sample data, so click around.</p>
+          <p>Baton will be at the MCA Restaurant Conference at Ham Yard on 5 November, and so will I. Feel free to pass this on before then. Everything here is sample data, so click around.</p>
           <div class="sign">
             <p class="nm">Liam James Rabone</p>
             <p class="ml">Milo · liam@milo.ai</p>
@@ -432,53 +412,10 @@ footer p+p{margin-top:6px}
   </div>
 </section>
 
-<section class="band first" id="hamyard" aria-labelledby="hy-h">
+<section class="band first" id="ask" aria-labelledby="ask-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">02</span> Before Ham Yard</p>
-      <h2 id="hy-h">Two seats <em>at Ham Yard.</em></h2>
-      <p>Pedro and Baton will both be at the MCA Restaurant Conference on Thursday 5 November. So will we. This is what Milo would put in front of each of them.</p>
-    </div>
-    <div class="seats2">
-      <article class="rsv">
-        <div class="rsv-in">
-          <p class="res"><span>Reserved</span><span>Ham Yard · 5.11</span></p>
-          <h3>Pedro Nunes</h3>
-          <p class="role">Operations Director</p>
-          <p class="ask">“How did London trade against labour last week?”</p>
-          <div class="k3">
-            <div><b>£1.42m</b><span>net sales, eleven restaurants</span></div>
-            <div><b>29.6%</b><span>labour as a share of sales</span></div>
-            <div><b>3</b><span>restaurants above 32%</span></div>
-          </div>
-          <p class="why">Sales against labour for every London restaurant, each Monday before 9am. The spend-per-head league table lands alongside it.</p>
-          <p class="from">Reads from <span>Lightspeed</span><span>Fourth</span><span>OpenTable</span></p>
-        </div>
-      </article>
-      <article class="rsv">
-        <div class="rsv-in">
-          <p class="res"><span>Reserved</span><span>Ham Yard · 5.11</span></p>
-          <h3>Baton Berisha</h3>
-          <p class="role">CEO</p>
-          <p class="ask">“Is Christmas ahead of last year, and where?”</p>
-          <div class="k3">
-            <div><b>£2.1m</b><span>festive revenue booked</span></div>
-            <div><b>+18%</b><span>on this point last year</span></div>
-            <div><b>+22%</b><span>London, against +11% regionally</span></div>
-          </div>
-          <p class="why">Last Christmas, bookings rose 40%. With Milo, this year's figure is there every morning, by restaurant and by party size.</p>
-          <p class="from">Reads from <span>OpenTable</span><span>Salesforce</span><span>Lightspeed</span></p>
-        </div>
-      </article>
-    </div>
-    <p class="note">Sample data. Every figure on these cards is invented.</p>
-  </div>
-</section>
-
-<section class="band" id="ask" aria-labelledby="ask-h">
-  <div class="wrap">
-    <div class="head">
-      <p class="eyebrow"><span class="n">03</span> Ask Milo</p>
+      <p class="eyebrow"><span class="n">02</span> Ask Milo</p>
       <h2 id="ask-h">Every team. <em>One place to ask.</em></h2>
       <p>Operations, sales and marketing. Pick a seat and a question, or type your own.</p>
     </div>
@@ -505,7 +442,7 @@ footer p+p{margin-top:6px}
 <section class="band tint" id="layers" aria-labelledby="ly-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">04</span> Your competition, three ways</p>
+      <p class="eyebrow"><span class="n">03</span> Your competition, three ways</p>
       <h2 id="ly-h">Ask. Automate. <em>Build.</em></h2>
       <p>The three layers from the demo, applied to spend per head.</p>
     </div>
@@ -555,7 +492,7 @@ footer p+p{margin-top:6px}
 <section class="band first" id="systems" aria-labelledby="int-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">05</span> What Milo connects</p>
+      <p class="eyebrow"><span class="n">04</span> What Milo connects</p>
       <h2 id="int-h">Every system. <em>One set of numbers.</em></h2>
       <p>We build and run the connections. Nothing gets replaced.</p>
     </div>
@@ -583,7 +520,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="proof" aria-labelledby="proof-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">06</span> Proof</p>
+      <p class="eyebrow"><span class="n">05</span> Proof</p>
       <h2 id="proof-h">Restaurant groups <em>already run on it.</em></h2>
       <p>Three operators close to Gaucho.</p>
     </div>
@@ -621,7 +558,7 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="vid-grid">
       <div>
-        <p class="eyebrow"><span class="n">07</span> See it</p>
+        <p class="eyebrow"><span class="n">06</span> See it</p>
         <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
       </div>
       <div>
@@ -644,7 +581,7 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="sec">
       <div>
-        <p class="eyebrow"><span class="n">08</span> Trust and security</p>
+        <p class="eyebrow"><span class="n">07</span> Trust and security</p>
         <h2 id="sec-h">Your numbers <em>stay yours.</em></h2>
         <p class="t">Safer than pasting sales figures into a chatbot. The full pack is in the Trust Centre.</p>
       </div>
