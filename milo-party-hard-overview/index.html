@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Party Hard Travel</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a night-club hero and season band (always dark) bracket a bright ticket-stub page; orange-to-pink is the only accent, used like a wristband. */
+:root{
+  --paper:#FFFFFF; --paper-2:#FBF7F3; --ink:#252525; --ink-2:#5E5753; --line:#EDE5DE; --tint:#FFEEDA;
+  --orange:#FF7700; --pink:#FF0077; --o-ink:#B84A00; --green:#13803B; --red:#D92B3A;
+  --night:#151113; --night-2:#1F191C; --night-3:#2A2226; --night-line:#3A3035; --night-ink:#F8F2EE; --night-mute:#B9ACA6;
+  --hot:linear-gradient(90deg,#FF7E00 0%,#FF4A32 45%,#FF0077 100%);
+  --display:"Archivo","Arial Black",Impact,sans-serif;
+  --body:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --wrap:1160px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#141012; --paper-2:#1B1518; --ink:#F4EEEA; --ink-2:#BBAFA9; --line:#2F272B; --tint:#3A2316;
+  --o-ink:#FF9A45; --green:#4ADE80; --red:#FF6470; --night:#0C090A; --night-2:#1A1416; --night-3:#251D21; --night-line:#3A3035;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#141012; --paper-2:#1B1518; --ink:#F4EEEA; --ink-2:#BBAFA9; --line:#2F272B; --tint:#3A2316;
+  --o-ink:#FF9A45; --green:#4ADE80; --red:#FF6470; --night:#0C090A; --night-2:#1A1416; --night-3:#251D21; --night-line:#3A3035;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--night)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.disp{font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.98}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+.label{font:700 .72rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.hot-text{background:var(--hot);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--night);color:var(--night-ink);border-bottom:1px solid var(--night-line)}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.lock{display:flex;align-items:center;gap:12px;flex:none}
+.pht-logo{height:15px;width:auto;display:block;color:var(--night-ink)}
+.lock .x{color:var(--night-mute);font:500 .9rem var(--mono)}
+.milo{display:flex;align-items:center;gap:6px;font:700 1.05rem var(--body);letter-spacing:-.01em}
+.milo svg{width:26px;height:21px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font:500 .8rem var(--body);color:var(--night-mute);text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.nav a:hover{color:var(--night-ink);background:var(--night-3)}
+@media (max-width:860px){.nav{display:none}.top .for{margin-left:auto}}
+.top .for{font:500 .72rem var(--mono);color:var(--night-mute);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+@media (min-width:861px){.top .for{display:none}}
+@media (max-width:420px){.top .for{display:none}}
+
+/* hero */
+.hero{position:relative;background:var(--night);color:var(--night-ink);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:90%;background:radial-gradient(closest-side,rgba(255,0,119,.32),transparent 70%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:auto auto -30% -15%;width:65%;height:80%;background:radial-gradient(closest-side,rgba(255,119,0,.26),transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1;padding-block:56px 72px}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--night-mute)}
+.stub{flex:none;width:22px;height:14px;border-radius:3px;background:var(--hot);-webkit-mask:radial-gradient(circle at 0 50%,transparent 3.5px,#000 4px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 3.5px,#000 4px) right/51% 100% no-repeat;mask:radial-gradient(circle at 0 50%,transparent 3.5px,#000 4px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 3.5px,#000 4px) right/51% 100% no-repeat}
+.hero h1{font-size:clamp(2.1rem,6.1vw,4.4rem);margin-top:18px}
+.hero h1 span{display:block}
+.lede{font-size:clamp(1.02rem,1.6vw,1.2rem);color:var(--night-mute);max-width:46ch;margin-top:20px}
+.lede b{color:var(--night-ink);font-weight:600}
+
+/* board */
+.board{margin-top:40px;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);background:rgba(31,25,28,.86);border:1px solid var(--night-line);border-radius:22px;overflow:hidden;backdrop-filter:blur(6px)}
+.rb-main{padding:22px 22px 18px;min-width:0}
+.rb-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.rb-title{font:600 .95rem var(--body)}
+.chip{font:700 .66rem var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--night-line);color:var(--night-mute)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tab{font:600 .8rem var(--body);color:var(--night-mute);background:var(--night-3);border:1px solid var(--night-line);border-radius:999px;padding:7px 13px;cursor:pointer}
+.tab:hover{color:var(--night-ink)}
+.tab[aria-selected="true"]{color:#fff;background:var(--hot);border-color:transparent}
+.rb-rows{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:7px}
+.rb-row{display:grid;grid-template-columns:86px minmax(0,1fr) 64px;align-items:center;gap:12px;transition:opacity .35s}
+.rb-n{font:500 .84rem var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-t{position:relative;height:14px;border-radius:999px;background:rgba(255,255,255,.07)}
+.rb-f{position:absolute;inset:0 auto 0 0;border-radius:999px;background:var(--hot);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.rb-ly{position:absolute;top:-4px;bottom:-4px;width:3px;margin-left:-1px;border-radius:2px;background:var(--night-ink)}
+.rb-th{position:absolute;top:-5px;bottom:-5px;left:90%;width:0;border-left:2px dotted rgba(255,255,255,.55)}
+.rb-v{font:700 .8rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.rb-row.behind .rb-f{background:linear-gradient(90deg,#8a2a38,#d92b3a)}
+.rb-row.behind .rb-v{color:#ff8a94}
+.rb-row.hot .rb-v{color:#ffb070}
+.rb-row.dim{opacity:.32}
+.rb-row[class*="tag-"] .rb-v{font:700 .66rem var(--mono);letter-spacing:.08em;text-transform:uppercase;text-align:center;border-radius:999px;padding:4px 0}
+.rb-row.tag-extend .rb-v{background:var(--hot);color:#fff}
+.rb-row.tag-watch .rb-v{border:1px solid #ffb070;color:#ffb070}
+.rb-row.tag-push .rb-v{border:1px solid #ff6fae;color:#ff8cc0}
+.rb-axis{display:flex;justify-content:space-between;margin:10px 0 0 98px;padding-right:76px;font:500 .68rem var(--mono);color:var(--night-mute)}
+.rb-side{padding:22px;background:rgba(42,34,38,.7);border-left:1px solid var(--night-line);display:flex;flex-direction:column;gap:16px;min-width:0}
+.rb-side .label{color:var(--night-mute)}
+.rb-note{color:var(--night-mute);font-size:.9rem}
+.rb-ans{font:600 1.08rem/1.45 var(--body);color:var(--night-ink)}
+.rb-ans-box{margin-top:auto;padding:16px;border-radius:14px;background:var(--night);border:1px solid var(--night-line)}
+.rb-ans-box .who{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rb-ans-box .who svg{width:22px;height:18px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font:500 .74rem var(--body);color:var(--night-mute)}
+.legend i{display:inline-block;vertical-align:-2px;margin-right:6px}
+.lg-bar{width:16px;height:8px;border-radius:9px;background:var(--hot)}
+.lg-ly{width:3px;height:13px;background:var(--night-ink);border-radius:2px}
+.lg-th{width:0;height:13px;border-left:2px dotted rgba(255,255,255,.7)}
+@media (max-width:880px){.board{grid-template-columns:1fr}.rb-side{border-left:0;border-top:1px solid var(--night-line)}}
+@media (max-width:420px){.rb-row{grid-template-columns:74px minmax(0,1fr) 56px;gap:8px}.rb-axis{margin-left:82px;padding-right:64px}.rb-main,.rb-side{padding:18px 16px}}
+.perf{height:14px;background:radial-gradient(circle at 50% 100%,var(--paper) 6px,transparent 6.5px) repeat-x;background-size:22px 14px;position:absolute;left:0;right:0;bottom:0;z-index:2}
+
+/* sections */
+.sec .wrap{padding-block:84px}
+.sec.alt{background:var(--paper-2)}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--o-ink);margin-bottom:14px}
+.eyebrow .stub{width:20px;height:12px}
+h2.disp{font-size:clamp(1.65rem,3.6vw,2.7rem)}
+.sub{color:var(--ink-2);max-width:60ch;margin-top:14px;font-size:1.02rem}
+
+/* letter */
+.letter-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:28px;align-items:start}
+.letter{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px clamp(20px,4vw,40px);position:relative;box-shadow:0 1px 0 var(--line),0 18px 40px -28px rgba(80,30,10,.35)}
+.letter::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;border-radius:18px 18px 0 0;background:var(--hot)}
+.ref{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font:500 .76rem var(--mono);color:var(--ink-2);padding-bottom:18px;margin-bottom:22px;border-bottom:1px dashed var(--line)}
+.ref b{font-weight:700;color:var(--ink);letter-spacing:.06em;text-transform:uppercase;font-size:.7rem}
+.letter p{max-width:62ch}
+.letter p+p{margin-top:14px}
+.sig{margin-top:24px;display:flex;flex-direction:column;gap:2px}
+.sig b{font-weight:600}
+.sig span{color:var(--ink-2);font-size:.9rem}
+.glance{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gl{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px}
+.gl .n{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(1.5rem,3vw,2rem);line-height:1;font-variant-numeric:tabular-nums}
+.gl .n.hot-text{display:inline-block}
+.gl p:last-child{margin-top:8px;font-size:.84rem;color:var(--ink-2);line-height:1.4}
+.glance .src{grid-column:1/-1;font:500 .72rem var(--mono);color:var(--ink-2)}
+@media (max-width:880px){.letter-grid{grid-template-columns:1fr}}
+
+/* four worlds: ticket stubs */
+.worlds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:36px}
+.ticket{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.ticket::before,.ticket::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:var(--paper-2);border:1px solid var(--line);top:calc(100% - 64px)}
+.ticket::before{left:-10px;clip-path:inset(0 0 0 50%)}
+.ticket::after{right:-10px;clip-path:inset(0 50% 0 0)}
+.ticket h3{font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:1.25rem;letter-spacing:-.005em}
+.ticket .ic{width:38px;height:38px;border-radius:11px;background:var(--hot);display:grid;place-items:center;color:#fff}
+.ticket .ic svg{width:20px;height:20px}
+.ticket p{font-size:.92rem;color:var(--ink-2);line-height:1.5}
+.ticket .done{margin-top:auto;padding-top:16px;border-top:2px dashed var(--line);font:500 .74rem var(--mono);color:var(--ink-2)}
+.ticket .done b{color:var(--ink);font-weight:700}
+@media (max-width:980px){.worlds{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.worlds{grid-template-columns:1fr}}
+
+/* twelve summers */
+.hist{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:40px;align-items:start}
+.years{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.yr{position:relative;border-radius:10px;border:1px solid var(--line);background:var(--paper);padding:10px 8px 9px;text-align:center}
+.yr b{display:block;font:700 .9rem var(--mono);font-variant-numeric:tabular-nums}
+.yr span{display:block;font-size:.66rem;color:var(--ink-2);line-height:1.25;margin-top:2px;min-height:1.6em}
+.yr.k{background:var(--tint);border-color:transparent}
+.yr.k b{color:var(--o-ink)}
+.yr::after{content:"";position:absolute;left:50%;bottom:-5px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--paper)}
+.yr-note{display:flex;align-items:center;gap:8px;margin-top:18px;font:500 .74rem var(--mono);color:var(--ink-2)}
+.yr-note i{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.hq{display:flex;flex-direction:column;gap:10px}
+.hq button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--paper);font:500 .95rem var(--body)}
+.hq button::after{content:"Ask";font:700 .66rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--o-ink);flex:none}
+.hq button:hover{border-color:var(--orange)}
+.hq button[aria-pressed="true"]{border-color:transparent;background:var(--ink);color:var(--paper)}
+.hq button[aria-pressed="true"]::after{content:"Asked";color:#ffb070}
+.hq button:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.hq-ans{margin-top:6px;padding:18px;border-radius:14px;background:var(--tint);display:flex;gap:12px;align-items:flex-start}
+.hq-ans svg{width:26px;height:21px;flex:none;margin-top:2px}
+.hq-ans p{font-weight:500}
+@media (max-width:880px){.hist{grid-template-columns:1fr;gap:10px}}
+@media (max-width:460px){.years{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ask demo */
+.ask{display:grid;grid-template-columns:240px minmax(0,1fr);gap:22px;margin-top:36px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:6px}
+.seat{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 14px;border-radius:12px;font:500 .92rem var(--body);color:var(--ink);border:1px solid transparent}
+.seat:hover{background:var(--paper-2);border-color:var(--line)}
+.seat[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.seat:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.seat svg{width:14px;height:14px;opacity:.7}
+.chat{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;min-width:0;box-shadow:0 20px 50px -36px rgba(80,30,10,.45)}
+.chat-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 18px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.chat-h .milo{font-size:.95rem}
+.chat-h .as{font:500 .72rem var(--mono);color:var(--ink-2);text-align:right}
+.chat-b{padding:22px clamp(16px,3vw,26px) 24px;display:flex;flex-direction:column;gap:16px;min-height:430px}
+.q{align-self:flex-end;max-width:85%;background:var(--hot);color:#fff;padding:11px 16px;border-radius:16px 16px 4px 16px;font-weight:500}
+.a{display:flex;gap:12px;align-items:flex-start}
+.a>svg{width:28px;height:22px;flex:none;margin-top:3px}
+.a-body{min-width:0;flex:1;display:flex;flex-direction:column;gap:14px}
+.a-txt{font-size:1.02rem}
+.a-txt.refuse{display:flex;gap:10px;padding:12px 14px;border-radius:12px;border:1px dashed var(--line);background:var(--paper-2)}
+.a-txt.refuse svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--o-ink)}
+.thinking{display:flex;gap:5px;padding:8px 0}
+.thinking i{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:bob 1s infinite ease-in-out}
+.thinking i:nth-child(2){animation-delay:.15s;background:#FF4A32}
+.thinking i:nth-child(3){animation-delay:.3s;background:var(--pink)}
+@keyframes bob{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-5px);opacity:1}}
+.chart{border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:9px}
+.chart .cap{font:500 .72rem var(--mono);color:var(--ink-2);margin-bottom:2px}
+.cr{display:grid;grid-template-columns:minmax(80px,150px) minmax(0,1fr) 70px;gap:10px;align-items:center}
+.cr span{font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr .tr{position:relative;height:12px;border-radius:999px;background:var(--paper-2)}
+.cr .tr i{position:absolute;top:0;bottom:0;border-radius:999px;background:var(--hot);transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.cr .tr i.neg{background:linear-gradient(270deg,#ff6b78,var(--red))}
+.cr .tr .zero{position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:var(--ink-2);opacity:.5}
+.cr b{font:700 .78rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.cr b.neg{color:var(--red)}
+.srcs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:500 .72rem var(--mono);color:var(--ink-2)}
+.srcs span{padding:3px 8px;border-radius:999px;background:var(--paper-2);border:1px solid var(--line)}
+.auto{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:12px;background:var(--tint)}
+.auto p{font-size:.88rem}
+.auto p b{font-weight:600}
+.auto button{all:unset;cursor:pointer;font:700 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:999px;background:var(--ink);color:var(--paper)}
+.auto button[aria-pressed="true"]{background:var(--green);color:#fff}
+.auto button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+@media (max-width:880px){
+  .ask{grid-template-columns:1fr}
+  .seats{flex-direction:row;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+  .seat{flex:none;border-color:var(--line)}
+  .chat-b{min-height:0}
+}
+@media (max-width:460px){.cr{grid-template-columns:82px minmax(0,1fr) 58px;gap:8px}}
+
+/* season band */
+.band{background:var(--night);color:var(--night-ink);position:relative;overflow:hidden}
+.band::before{content:"";position:absolute;inset:auto -10% -40% auto;width:60%;height:90%;background:radial-gradient(closest-side,rgba(255,0,119,.22),transparent 70%);pointer-events:none}
+.band .wrap{position:relative;padding-block:84px}
+.band .eyebrow{color:#ffb070}
+.band .sub{color:var(--night-mute)}
+.wb{margin-top:40px;display:flex;align-items:stretch;height:74px;border-radius:999px;background:var(--hot);padding:6px;gap:4px;box-shadow:0 20px 50px -20px rgba(255,0,119,.55)}
+.wb button{all:unset;cursor:pointer;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:999px;color:rgba(255,255,255,.88);text-align:center;transition:background .25s,color .25s}
+.wb button b{font:700 .66rem var(--mono);letter-spacing:.1em;opacity:.85}
+.wb button span{font-family:var(--display);font-stretch:112%;font-weight:800;text-transform:uppercase;font-size:clamp(.66rem,1.6vw,.95rem);white-space:nowrap}
+.wb button:hover{background:rgba(255,255,255,.14)}
+.wb button[aria-selected="true"]{background:var(--night);color:#fff}
+.wb button:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+.wb-d{margin-top:22px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px}
+.wb-card{background:var(--night-2);border:1px solid var(--night-line);border-radius:18px;padding:24px}
+.wb-card .label{color:var(--night-mute)}
+.wb-card h3{font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(1.2rem,2.4vw,1.6rem);margin-top:8px}
+.wb-card p{margin-top:12px;color:var(--night-mute);max-width:52ch}
+.wb-card p b{color:var(--night-ink);font-weight:600}
+.wb-m{display:flex;flex-direction:column;justify-content:center}
+.wb-m .big{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.05;margin-top:10px}
+.wb-m small{display:block;margin-top:10px;color:var(--night-mute);font-size:.8rem}
+@media (max-width:760px){.wb-d{grid-template-columns:1fr}.wb{height:62px;padding:5px}.wb button b{display:none}}
+
+/* systems */
+.desks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:36px}
+.desk{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--paper);min-width:0}
+.desk h3{font:600 .98rem var(--body)}
+.desk .why{font-size:.8rem;color:var(--ink-2);margin-top:2px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.pills span{display:inline-flex;align-items:center;gap:6px;font:500 .8rem var(--body);padding:5px 10px;border-radius:999px;background:var(--paper-2);border:1px solid var(--line)}
+.pills span.seen::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green)}
+.key{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font:500 .74rem var(--mono);color:var(--ink-2)}
+.key i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px}
+@media (max-width:900px){.desks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.desks{grid-template-columns:1fr}}
+
+/* proof */
+.feature{margin-top:36px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;padding:30px clamp(20px,3.4vw,36px);border-radius:22px;background:var(--tint)}
+.feature .label,.pcard .label{color:var(--o-ink)}
+.feature h3{font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(1.3rem,2.6vw,1.85rem);margin-top:10px}
+.feature p{margin-top:12px;max-width:56ch}
+.chain{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;align-self:center}
+.chain li{background:var(--paper);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;border:1px solid var(--line)}
+.chain .t{font:700 .66rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.chain li.end{background:var(--ink);color:var(--paper);border-color:transparent}
+.chain li.end .t{color:#ffb070}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.pcard{border:1px solid var(--line);border-radius:20px;padding:24px;background:var(--paper)}
+.pcard .big{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(2rem,4.4vw,3rem);line-height:1;margin-top:12px}
+.pcard .body{margin-top:12px;color:var(--ink-2)}
+@media (max-width:820px){.feature,.pgrid{grid-template-columns:1fr}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:36px;align-items:center}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:20px;overflow:hidden;background:var(--night)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-decoration:none;color:var(--night-ink);background:radial-gradient(60% 80% at 80% 10%,rgba(255,0,119,.35),transparent 70%),radial-gradient(60% 80% at 10% 100%,rgba(255,119,0,.3),transparent 70%),var(--night)}
+.p-mark{position:absolute;top:18px;left:20px;display:flex;align-items:center;gap:6px;font:700 1rem var(--body)}
+.p-mark svg{width:26px;height:21px}
+.p-ttl{font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(1rem,2.4vw,1.5rem)}
+.p-play{width:72px;height:72px;border-radius:50%;background:var(--hot);display:grid;place-items:center;color:#fff;box-shadow:0 14px 40px -10px rgba(255,0,119,.7);transition:transform .25s}
+.p-play svg{margin-left:4px}
+.poster:hover .p-play{transform:scale(1.07)}
+.p-sub{font:500 .74rem var(--mono);color:var(--night-mute);letter-spacing:.06em}
+.vid-note{margin-top:10px;font-size:.84rem;color:var(--ink-2)}
+@media (max-width:820px){.vid-grid{grid-template-columns:1fr;gap:20px}}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:32px}
+.tr-i{display:flex;gap:12px;align-items:flex-start;padding:18px;border-radius:16px;border:1px solid var(--line);background:var(--paper)}
+.tr-i svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--green)}
+.tr-i b{display:block;font-weight:600}
+.tr-i span{display:block;font-size:.86rem;color:var(--ink-2);margin-top:2px}
+@media (max-width:860px){.trust{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.trust{grid-template-columns:1fr}}
+
+footer{background:var(--night);color:var(--night-mute)}
+footer .wrap{padding-block:34px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;font-size:.84rem}
+footer b{color:var(--night-ink);font-weight:600}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking i{animation:none;opacity:1}.rb-f,.cr .tr i,.p-play,.wb button,.rb-row{transition:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-events" viewBox="0 0 24 24"><path d="M12 3v10.5a3 3 0 1 1-2-2.83V5l8-2v8.5a3 3 0 1 1-2-2.83V5.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M14 7v2m0 3v2m0 3v1" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+    <symbol id="i-hotel" viewBox="0 0 24 24"><path d="M3 20V9l9-5 9 5v11M8 20v-5h8v5M3 20h18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-drink" viewBox="0 0 24 24"><path d="M5 4h14l-7 8zM12 12v7M8 20h8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <div class="lock"><svg class="pht-logo" role="img" aria-label="Party Hard Travel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 23"><defs><polygon id="pht-c" points="0 0 22.448 0 22.448 22.531 0 22.531"/><polygon id="pht-e" points="0 0 26.82 0 26.82 22.531 0 22.531"/><polygon id="pht-g" points="0 0 23.274 0 23.274 22.531 0 22.531"/><polygon id="pht-i" points="0 0 23.487 0 23.487 22.531 0 22.531"/><polygon id="pht-k" points="0 0 25.7 0 25.7 22.531 0 22.531"/><polygon id="pht-m" points="0 0 23.461 0 23.461 22.531 0 22.531"/><polygon id="pht-o" points="0 0 26.82 0 26.82 22.531 0 22.531"/><polygon id="pht-q" points="0 0 23.274 0 23.274 22.531 0 22.531"/><polygon id="pht-s" points="0 0 23.567 0 23.567 22.531 0 22.531"/><linearGradient id="pht-b" x1="103.987%" x2="-1.184%" y1="39.993%" y2="63.614%"><stop offset="0%" stop-color="#F07"/><stop offset="17%" stop-color="#FF2257"/><stop offset="40%" stop-color="#FF4A32"/><stop offset="62%" stop-color="#FF6616"/><stop offset="80%" stop-color="#FF7806"/><stop offset="100%" stop-color="#FF7E00"/></linearGradient><path id="pht-a" d="M18.1406458,0 C19.7907657,1.50176116 21.0237693,3.41008849 21.7180738,5.53721991 L21.7180738,5.53721991 L26.8315445,22.4844687 L30.6874949,22.4844687 L30.6874949,14.0526252 C29.6594638,13.4965541 29.0185288,12.4166284 29.0196963,11.2420666 L29.0196963,11.2420666 C29.0185288,10.0678404 29.6594638,8.98791469 30.6874949,8.43150799 L30.6874949,8.43150799 L30.6874949,0 L18.1406458,0 Z M0,0 L0,8.43486388 C0.546204054,8.73068566 0.994174767,9.18154959 1.28820767,9.73107672 L1.28820767,9.73107672 C2.11777071,11.2813305 1.54087916,13.214827 0,14.0492693 L0,14.0492693 L0,22.4844687 L23.3491809,22.4844687 L18.5475886,6.58744596 C17.2952386,2.73622561 13.7665103,0.0968174512 9.73994404,0 L9.73994404,0 L0,0 Z"/></defs><g fill="none" fill-rule="evenodd"><use href="#pht-a" fill="url(#pht-b)" transform="translate(0 .018)"/><g transform="translate(35.378)"><mask id="pht-d" fill="#fff"><use href="#pht-c"/></mask><path fill="currentColor" d="M12.0768635,11.4262714 C13.8630758,11.4262714 15.0095206,10.541323 15.0095206,8.79776991 C15.0095206,7.05421682 13.8630758,6.1692684 12.1035483,6.1692684 L7.3846788,6.1692684 L7.3846788,11.4262714 L12.0768635,11.4262714 Z M0,-3.35589086e-05 L12.7167978,-3.35589086e-05 C18.8217747,-3.35589086e-05 22.4477358,2.73602426 22.4477358,8.79776991 C22.4477358,14.8595156 18.8217747,17.5954056 12.7433158,17.5954056 L7.3846788,17.5954056 L7.3846788,22.5305787 L0,22.5305787 L0,-3.35589086e-05 Z" mask="url(#pht-d)"/><g transform="translate(19.824)"><mask id="pht-f" fill="#fff"><use href="#pht-e"/></mask><path fill="currentColor" d="M16.3957948,14.0549743 L14.0498693,6.973709 L12.7701674,6.973709 L10.4239083,14.0549743 L16.3957948,14.0549743 Z M18.208692,19.5536015 L8.61117792,19.5536015 L7.62467503,22.5306122 L0,22.5306122 L8.23792459,0 L18.5819453,0 L26.8198699,22.5306122 L19.1951949,22.5306122 L18.208692,19.5536015 Z" mask="url(#pht-f)"/></g><g transform="translate(47.709)"><mask id="pht-h" fill="#fff"><use href="#pht-g"/></mask><path fill="currentColor" d="M7.38484558,11.1580015 L12.3168597,11.1580015 C14.1831264,11.1580015 15.1429445,10.2460382 15.1429445,8.66373563 C15.1429445,7.0810975 14.1831264,6.16930196 12.3168597,6.16930196 L7.38484558,6.16930196 L7.38484558,11.1580015 Z M16.0227083,22.5306122 L12.9834788,16.7101551 L7.38484558,16.7101551 L7.38484558,22.5306122 L0,22.5306122 L0,0 L12.8235369,0 C19.035253,0 22.5276233,2.68219577 22.5276233,8.60987358 C22.5276233,11.6409142 21.1680339,13.7866708 19.2750824,15.1276848 L23.27413,22.5306122 L16.0227083,22.5306122 Z" mask="url(#pht-h)"/></g><g transform="translate(71.132)"><mask id="pht-j" fill="#fff"><use href="#pht-i"/></mask><polygon fill="currentColor" points="23.487 6.196 15.436 6.196 15.436 22.531 8.051 22.531 8.051 6.196 0 6.196 0 0 23.487 0" mask="url(#pht-j)"/></g><g transform="translate(95.164)"><mask id="pht-l" fill="#fff"><use href="#pht-k"/></mask><polygon fill="currentColor" points="16.529 15.53 16.529 22.531 9.144 22.531 9.144 15.503 0 0 7.758 0 12.557 8.476 13.143 8.476 17.942 0 25.7 0" mask="url(#pht-l)"/></g><g transform="translate(128.46)"><mask id="pht-n" fill="#fff"><use href="#pht-m"/></mask><polygon fill="currentColor" points="23.461 0 23.461 22.531 16.076 22.531 16.076 14.377 7.385 14.377 7.385 22.531 0 22.531 0 0 7.385 0 7.385 8.154 16.076 8.154 16.076 0" mask="url(#pht-n)"/></g><g transform="translate(152.987)"><mask id="pht-p" fill="#fff"><use href="#pht-o"/></mask><path fill="currentColor" d="M16.3959616,14.0549743 L14.0500361,6.973709 L12.7703342,6.973709 L10.424075,14.0549743 L16.3959616,14.0549743 Z M18.2088587,19.5536015 L8.6113447,19.5536015 L7.62484181,22.5306122 L0,22.5306122 L8.23809137,0 L18.5819453,0 L26.8200367,22.5306122 L19.1953616,22.5306122 L18.2088587,19.5536015 Z" mask="url(#pht-p)"/></g><g transform="translate(180.873)"><mask id="pht-r" fill="#fff"><use href="#pht-q"/></mask><path fill="currentColor" d="M7.3846788,11.1580015 L12.3166929,11.1580015 C14.1831264,11.1580015 15.1429445,10.2460382 15.1429445,8.66373563 C15.1429445,7.0810975 14.1831264,6.16930196 12.3166929,6.16930196 L7.3846788,6.16930196 L7.3846788,11.1580015 Z M16.0225415,22.5306122 L12.983312,16.7101551 L7.3846788,16.7101551 L7.3846788,22.5306122 L0,22.5306122 L0,0 L12.8233702,0 C19.0350862,0 22.5276233,2.68219577 22.5276233,8.60987358 C22.5276233,11.6409142 21.1680339,13.7866708 19.2750824,15.1276848 L23.2739632,22.5306122 L16.0225415,22.5306122 Z" mask="url(#pht-r)"/></g><g transform="translate(205.612)"><mask id="pht-t" fill="#fff"><use href="#pht-s"/></mask><path fill="currentColor" d="M16.1559654,11.2653565 C16.1559654,7.64435023 14.1299236,6.22279486 11.2504693,6.22279486 L7.41153036,6.22279486 L7.41153036,16.3077503 L11.2504693,16.3077503 C14.1299236,16.3077503 16.1559654,14.8595156 16.1559654,11.2653565 M23.567329,11.2653565 C23.567329,17.7294734 20.3683244,22.5305787 11.2504693,22.5305787 L0,22.5305787 L0,-3.35589086e-05 L11.2504693,-3.35589086e-05 C20.3683244,-3.35589086e-05 23.567329,4.77439236 23.567329,11.2653565" mask="url(#pht-t)"/></g></g></g></svg><span class="x">×</span><span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span></div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#board">Board</a><a href="#letter">Letter</a><a href="#history">History</a><a href="#ask">Ask</a><a href="#season">Season</a><a href="#systems">Systems</a><a href="#proof">Proof</a><a href="#trust">Trust</a>
+    </nav>
+    <span class="for">For the Party Hard team</span>
+  </div>
+</header>
+
+<section class="hero" id="board" aria-labelledby="h1">
+  <div class="wrap">
+    <p class="kicker label"><span class="stub" aria-hidden="true"></span>Party Hard Travel × Milo · October 2026</p>
+    <h1 id="h1" class="disp"><span>88,000 Party Harders.</span><span class="hot-text">One place to ask.</span></h1>
+    <p class="lede"><b>Twelve years</b> of bookings, deposits, wristbands and reviews across eleven resorts, answered in plain English.</p>
+
+    <div class="board" id="rb-board" data-layer="s">
+      <div class="rb-main">
+        <div class="rb-head">
+          <p class="rb-title">Summer 2027 · early bird pacing</p>
+          <span class="chip">Sample data</span>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Board layers">
+          <button class="tab" role="tab" id="t-s" data-l="s" aria-selected="true">Sign-ups</button>
+          <button class="tab" role="tab" id="t-d" data-l="d" aria-selected="false">+ Deposits</button>
+          <button class="tab" role="tab" id="t-a" data-l="a" aria-selected="false">+ Allocation</button>
+          <button class="tab" role="tab" id="t-m" data-l="m" aria-selected="false">Milo’s answer</button>
+        </div>
+        <ul class="rb-rows" id="rb-rows" aria-live="polite"></ul>
+        <div class="rb-axis" id="rb-axis" aria-hidden="true"><span>0</span><span>10k</span></div>
+      </div>
+      <div class="rb-side">
+        <p class="label" id="rb-lt">Sign-ups</p>
+        <p class="rb-note" id="rb-note"></p>
+        <div class="legend" id="rb-legend"></div>
+        <div class="rb-ans-box">
+          <p class="who label"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</p>
+          <p class="rb-ans" id="rb-ans"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="perf" aria-hidden="true"></div>
+</section>
+
+<section class="sec" id="letter" aria-labelledby="letter-h">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>A note from Liam</p>
+    <h2 id="letter-h" class="disp">From the door to the data.</h2>
+    <div class="letter-grid" style="margin-top:32px">
+      <article class="letter">
+        <div class="ref">
+          <b>Our ref</b><span>MILO / PHT / 01</span>
+          <b>Re</b><span>Milo for Party Hard Travel</span>
+          <b>For</b><span>The Party Hard Travel team</span>
+        </div>
+        <p>Dear Party Hard Travel team,</p>
+        <p>I came to Milo from event production, with time at TicketArena, The Warehouse Project and Ibiza Rocks. I know a season from the inside: a year of selling, then a summer where every night is decided on the door.</p>
+        <p>Milo is an AI data company built by people who have run businesses themselves. We understand events, ticketing, hospitality and F&amp;B, and we’ve done this for See Tickets, Nikki Beach Global and Two Tribes.</p>
+        <p>Party Hard is more than twelve years old, and all of that history can sit in Milo. Anyone on the team asks in plain English and gets the answer in seconds, and any answer can become a dashboard or an alert. Everything on this page runs on sample data, so click around.</p>
+        <div class="sig"><b>Liam James Rabone</b><span>Milo · liam@milo.ai</span></div>
+      </article>
+      <aside class="glance" aria-label="Party Hard at a glance">
+        <div class="gl"><p class="n">2014</p><p>Founded by Nathan Cable and Barry Moore</p></div>
+        <div class="gl"><p class="n">11</p><p>Destinations for summer 2027</p></div>
+        <div class="gl"><p class="n hot-text">88,000+</p><p>Party Harders booked in 2026</p></div>
+        <div class="gl"><p class="n">#35</p><p>Sunday Times 100, 2026</p></div>
+        <p class="src">From partyhardtravel.com</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="worlds" aria-labelledby="worlds-h">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>Why Milo</p>
+    <h2 id="worlds-h" class="disp">You sit where four industries meet. So do we.</h2>
+    <div class="worlds">
+      <div class="ticket">
+        <span class="ic"><svg aria-hidden="true"><use href="#i-events"/></svg></span>
+        <h3>Events</h3>
+        <p>Your own Agenda nights, plus boat, pool and club nights run with partners.</p>
+        <p class="done">Done it for <b>See Tickets</b></p>
+      </div>
+      <div class="ticket">
+        <span class="ic"><svg aria-hidden="true"><use href="#i-ticket"/></svg></span>
+        <h3>Ticketing</h3>
+        <p>£30 deposits, Pay in 3 and one wristband for every event in the package.</p>
+        <p class="done">Done it for <b>See Tickets</b></p>
+      </div>
+      <div class="ticket">
+        <span class="ic"><svg aria-hidden="true"><use href="#i-hotel"/></svg></span>
+        <h3>Hospitality</h3>
+        <p>Party hotels, reps on the ground and a 24/7 team across eleven resorts.</p>
+        <p class="done">Done it for <b>Nikki Beach Global</b></p>
+      </div>
+      <div class="ticket">
+        <span class="ic"><svg aria-hidden="true"><use href="#i-drink"/></svg></span>
+        <h3>F&amp;B</h3>
+        <p>Discount wristband partners, pre-drink passes and the bars your guests spend in.</p>
+        <p class="done">Done it for <b>Two Tribes</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="history" aria-labelledby="hist-h">
+  <div class="wrap hist">
+    <div>
+      <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>History</p>
+      <h2 id="hist-h" class="disp">Twelve summers of data. Ask any of them.</h2>
+      <p class="sub">Party Hard launched in October 2014. Every season since is data you already own. Milo connects all of it, so this summer can be asked against any summer before it.</p>
+      <ol class="years" aria-label="Summers since launch">
+        <li class="yr"><b>2015</b><span>First summer</span></li>
+        <li class="yr"><b>2016</b><span></span></li>
+        <li class="yr"><b>2017</b><span></span></li>
+        <li class="yr"><b>2018</b><span></span></li>
+        <li class="yr"><b>2019</b><span></span></li>
+        <li class="yr"><b>2020</b><span></span></li>
+        <li class="yr"><b>2021</b><span></span></li>
+        <li class="yr"><b>2022</b><span></span></li>
+        <li class="yr"><b>2023</b><span></span></li>
+        <li class="yr"><b>2024</b><span></span></li>
+        <li class="yr k"><b>2025</b><span>57,000 bookings</span></li>
+        <li class="yr k"><b>2026</b><span>88,000+</span></li>
+      </ol>
+      <p class="yr-note"><i aria-hidden="true"></i>Every summer connected, side by side</p>
+    </div>
+    <div>
+      <p class="label" style="color:var(--ink-2);margin-bottom:12px">Questions only history answers</p>
+      <div class="hq" id="hq">
+        <button type="button" id="hq-0" aria-pressed="true">Is this the fastest early bird we’ve ever had?</button>
+        <button type="button" id="hq-1" aria-pressed="false">Which resort has grown most since it joined?</button>
+        <button type="button" id="hq-2" aria-pressed="false">Which events have been in every package, and do they still sell?</button>
+        <div class="hq-ans" aria-live="polite"><svg aria-hidden="true"><use href="#milo-icon"/></svg><p id="hq-a"></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>Ask Milo</p>
+    <h2 id="ask-h" class="disp">Every desk. One place to ask.</h2>
+    <p class="sub">Pick a seat. Each login sees what that role should see.</p>
+    <div class="ask">
+      <div class="seats" id="seats" role="tablist" aria-label="Seats" aria-orientation="vertical"></div>
+      <div class="chat" role="tabpanel" aria-labelledby="ask-h">
+        <div class="chat-h"><span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span><span class="as" id="as"></span></div>
+        <div class="chat-b" id="chat" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="season" aria-labelledby="season-h">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>The season</p>
+    <h2 id="season-h" class="disp">Your five steps. What Milo watches at each.</h2>
+    <p class="sub">The same five steps your guests follow, from first click to the best week of their lives.</p>
+    <div class="wb" id="wb" role="tablist" aria-label="Season steps"></div>
+    <div class="wb-d">
+      <div class="wb-card"><p class="label" id="wb-n"></p><h3 id="wb-t"></h3><p id="wb-p"></p></div>
+      <div class="wb-card wb-m"><p class="label">Sample, this week</p><p class="big hot-text" id="wb-big"></p><small id="wb-s"></small></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="systems" aria-labelledby="sys-h">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>Systems</p>
+    <h2 id="sys-h" class="disp">Connects what you already run.</h2>
+    <p class="sub">If there’s no connector for a system yet, we build it. That’s our job, not your team’s.</p>
+    <div class="desks">
+      <div class="desk"><h3>Bookings and payments</h3><p class="why">Deposits, Pay in 3, balances</p><div class="pills"><span>Your booking system</span><span>Stripe</span><span>Adyen</span><span>PayPal</span><span>Klarna</span></div></div>
+      <div class="desk"><h3>Tickets and venues</h3><p class="why">Allocations, scans, partner sales</p><div class="pills"><span class="seen">Prioticket</span><span>See Tickets</span><span>Fatsoma</span><span>Skiddle</span><span>SevenRooms</span><span>Square</span></div></div>
+      <div class="desk"><h3>App and website</h3><p class="why">Sign-ups, journeys, meeting points</p><div class="pills"><span class="seen">Party Hard app</span><span class="seen">Google Analytics</span><span class="seen">Microsoft Clarity</span><span class="seen">WordPress</span></div></div>
+      <div class="desk"><h3>Social and creators</h3><p class="why">Views, reveals, creator codes</p><div class="pills"><span class="seen">Instagram</span><span class="seen">TikTok</span><span class="seen">YouTube</span><span class="seen">Facebook</span></div></div>
+      <div class="desk"><h3>Reviews and service</h3><p class="why">What guests say, and ask</p><div class="pills"><span class="seen">Reviews.io</span><span>WhatsApp</span><span>Zendesk</span><span>Gmail</span><span>Outlook</span></div></div>
+      <div class="desk"><h3>Finance and people</h3><p class="why">Ledger, rotas, rep pay</p><div class="pills"><span>Xero</span><span>QuickBooks</span><span>Sage</span><span>BrightHR</span><span>Deputy</span><span>Google Sheets</span></div></div>
+    </div>
+    <p class="key"><span><i aria-hidden="true"></i>Seen on your site or listings</span><span>Everything else is an example</span></p>
+  </div>
+</section>
+
+<section class="sec alt" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>Proof</p>
+    <h2 id="proof-h" class="disp">Events, ticketing and hospitality already run on it.</h2>
+    <div class="feature">
+      <div>
+        <p class="label">See Tickets · Festivals, arenas, theatre</p>
+        <h3>Twenty years of history. One place to ask.</h3>
+        <p>One of Europe’s largest ticket agencies, and the first proof of concept Milo ran after going to market. <b>Almost twenty years of ticketing history now sits in one place</b>, covering shows, ticket types and the marketing behind each launch.</p>
+        <p>Milo traces launch revenue to the activity that actually drove it.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at See Tickets">
+        <li><span class="t">History</span><b>Almost twenty years of ticketing data</b></li>
+        <li><span class="t">Joined</span><b>Shows, ticket types and launch marketing in one place</b></li>
+        <li class="end"><span class="t">Answered</span><b>Launch revenue traced to what drove it</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="label">Nikki Beach Global · Beach clubs and hotels</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants on four continents. SevenRooms, OpenTable, Square and SumUp, read as one view of how each venue trades.</p>
+      </div>
+      <div class="pcard">
+        <p class="label">Two Tribes · Brewery and taproom</p>
+        <p class="big hot-text">1 → 12</p>
+        <p class="body">Seven systems connected in two weeks, with no data team. Within six weeks, twelve people across sales, finance and production were building their own dashboards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="video" aria-labelledby="vid-h">
+  <div class="wrap vid-grid">
+    <div>
+      <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>See it</p>
+      <h2 id="vid-h" class="disp">Ninety seconds of Milo working.</h2>
+      <p class="sub">The question box, the answers and the dashboards, without anyone describing them.</p>
+    </div>
+    <div>
+      <div class="video" id="vidframe" data-vid="1196983997">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+          <span class="p-ttl">Milo product overview</span>
+          <span class="p-sub">Press play · 1 min 29 sec</span>
+        </a>
+      </div>
+      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="trust" aria-labelledby="trust-h">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>Trust</p>
+    <h2 id="trust-h" class="disp">Your guests’ data stays yours.</h2>
+    <div class="trust">
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>ISO 27001</b><span>Certified information security</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>SOC 2 Type I</b><span>Type II in progress</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>Encrypted</b><span>In transit and at rest</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>Access by role</b><span>A rep sees their resort, not payroll</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>No model training</b><span>Your data never trains a model</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>Hosted on AWS</b><span>Frankfurt, inside the EU</span></p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared by <b>Liam James Rabone</b> · Milo · liam@milo.ai · October 2026</p>
+    <p>Figures on this page are illustrative sample data, not Party Hard Travel’s.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* hero board */
+  var R=[
+    {n:"Magaluf",s:9400,d:41,ly:36,a:78},
+    {n:"Malia",s:8100,d:44,ly:38,a:92,t:"Extend"},
+    {n:"Zante",s:7600,d:46,ly:39,a:96,t:"Extend"},
+    {n:"Ayia Napa",s:6900,d:38,ly:37,a:71},
+    {n:"Kavos",s:6200,d:43,ly:35,a:88,t:"Watch"},
+    {n:"Albufeira",s:5800,d:39,ly:31,a:74},
+    {n:"Ibiza",s:4300,d:33,ly:32,a:52},
+    {n:"Tenerife",s:3900,d:22,ly:30,a:34,t:"Push"},
+    {n:"Malta",s:3400,d:40,ly:37,a:61},
+    {n:"Barcelona",s:2100,d:27,ly:25,a:39},
+    {n:"Croatia",s:1900,d:24,ly:29,a:30,t:"Push"}
+  ];
+  var L={
+    s:{t:"Sign-ups",note:"Members signed up for 2027 packages, by resort.",axis:["0","10k"],lg:'<span><i class="lg-bar"></i>Sign-ups</span>',ans:"Magaluf, Malia and Zante lead on sign-ups. That’s interest, not cash yet."},
+    d:{t:"+ Deposits",note:"Share of sign-ups who have paid the £30 deposit.",axis:["0%","60%"],lg:'<span><i class="lg-bar"></i>Deposit rate</span><span><i class="lg-ly"></i>Same week last year</span>',ans:"Nine resorts are ahead of last year. Tenerife and Croatia are behind."},
+    a:{t:"+ Allocation",note:"Peak-week event places already sold, against what you’ve bought from venues.",axis:["0%","100%"],lg:'<span><i class="lg-bar"></i>Places sold</span><span><i class="lg-th"></i>90%: sell-out risk</span>',ans:"Zante and Malia have sold over 90% of their peak-week places already."},
+    m:{t:"Milo’s answer",note:"What to do this week, from all three layers.",axis:["0%","100%"],lg:'<span><i class="lg-th"></i>90%: sell-out risk</span>',ans:"Extend the Zante and Malia boat allocations before Christmas. Push Tenerife and Croatia with a group offer to their open enquiries."}
+  };
+  var layer="s",rows=$("rb-rows");
+  R.forEach(function(r){
+    var li=document.createElement("li");li.className="rb-row";
+    li.innerHTML='<span class="rb-n">'+esc(r.n)+'</span><span class="rb-t"><i class="rb-f"></i><i class="rb-ly" hidden></i><i class="rb-th" hidden></i></span><span class="rb-v"></span>';
+    rows.appendChild(li);
+  });
+  function renderBoard(){
+    Array.prototype.forEach.call(rows.children,function(li,i){
+      var r=R[i],f=li.querySelector(".rb-f"),ly=li.querySelector(".rb-ly"),th=li.querySelector(".rb-th"),v=li.querySelector(".rb-v"),w,txt,cls="";
+      ly.hidden=layer!=="d";th.hidden=!(layer==="a"||layer==="m");
+      if(layer==="s"){w=r.s/100;txt=(r.s/1000).toFixed(1)+"k"}
+      else if(layer==="d"){w=r.d/60*100;txt=r.d+"%";ly.style.left=(r.ly/60*100)+"%";if(r.d<r.ly)cls=" behind"}
+      else{w=r.a;txt=r.a+"%";if(r.a>=90)cls=" hot"}
+      if(layer==="m"){if(r.t){cls=" tag-"+r.t.toLowerCase();txt=r.t}else cls=" dim"}
+      li.className="rb-row"+cls;f.style.width=w+"%";v.textContent=txt;
+    });
+    var l=L[layer];
+    $("rb-lt").textContent=l.t;$("rb-note").textContent=l.note;$("rb-legend").innerHTML=l.lg;$("rb-ans").textContent=l.ans;
+    $("rb-axis").innerHTML="<span>"+l.axis[0]+"</span><span>"+l.axis[1]+"</span>";
+    document.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-selected",b.dataset.l===layer?"true":"false")});
+  }
+  document.querySelectorAll(".tab").forEach(function(b){b.addEventListener("click",function(){layer=b.dataset.l;renderBoard()})});
+
+  /* history questions */
+  var H=[
+    "Yes. At this point in the year, 2027 has more deposits than any summer since 2015, and 11% more than 2026.",
+    "Zante, at four times its first summer. Ibiza has grown slowest but still earns the most per guest.",
+    "Boat parties, in every package so far. Turn-up still tops 90%, while themed nights have slipped since 2022."
+  ];
+  function hq(i){
+    for(var k=0;k<3;k++)$("hq-"+k).setAttribute("aria-pressed",k===i?"true":"false");
+    $("hq-a").textContent=H[i];
+  }
+  for(var k=0;k<3;k++)(function(k){$("hq-"+k).addEventListener("click",function(){hq(k)})})(k);
+  hq(0);
+
+  /* seats */
+  var S=[
+    {n:"Founders",q:"How is summer 2027 pacing against last year?",
+     a:"Deposit conversion is up on last year in nine of eleven resorts. Kavos, Albufeira and Zante lead. Tenerife and Croatia are the two behind.",
+     cap:"Deposit rate vs same week last year, points",kind:"div",f:function(v){return(v>0?"+":"−")+Math.abs(v)+" pts"},
+     rows:[["Kavos",8],["Albufeira",8],["Zante",7],["Malia",6],["Magaluf",5],["Croatia",-5],["Tenerife",-8]],
+     src:["Bookings","Payments","Summer 2026"],auto:"Monday 8am pacing report to the founders"},
+    {n:"Finance",q:"What do we keep per £100 package once the events are paid for?",
+     a:"Malia and Kavos keep the most. Ibiza keeps the least, because its club nights cost close to twice as much per head.",
+     cap:"Kept per £100 package after event costs",f:function(v){return"£"+v},
+     rows:[["Malia",46],["Kavos",44],["Zante",41],["Magaluf",36],["Ayia Napa",33],["Ibiza",19]],
+     src:["Bookings","Event invoices","Ledger"],auto:"Margin per package dashboard, by resort and week"},
+    {n:"Payments",q:"Which Pay in 3 balances are behind?",
+     a:"1,240 bookings have missed an instalment, £74,000 in all. Two thirds are groups, so one message to each lead booker covers most of it.",
+     cap:"Bookings with a missed instalment, by days overdue",f:function(v){return v.toLocaleString("en-GB")},
+     rows:[["1–7 days",610],["8–14 days",380],["15–30 days",170],["30+ days",80]],
+     src:["Payments","My Account","Bookings"],auto:"Daily missed-instalment list to the payments team"},
+    {n:"Events and artists",q:"Which line-up reveals sold the most packages in 48 hours?",
+     a:"Beach club headliners sold three times a normal two days. Boat party reveals barely moved sales.",
+     cap:"Packages sold in the 48 hours after a reveal",f:function(v){return v.toLocaleString("en-GB")},
+     rows:[["Beach club headliner",1140],["Club night line-up",720],["Pool party",460],["Boat party",410],["Normal 48 hours",380]],
+     src:["Bookings","Announcements","Instagram"],auto:"Sales alert 48 hours after every reveal"},
+    {n:"Resorts and reps",q:"Where are we short of reps in peak weeks?",
+     a:"Zante and Kavos run at one rep to 140 guests in weeks 30 and 31. Malta sits at one to 70, so two reps could move.",
+     cap:"Guests per rep, weeks 30–31",f:function(v){return"1:"+v},
+     rows:[["Zante",140],["Kavos",138],["Magaluf",112],["Malia",104],["Ayia Napa",96],["Malta",70]],
+     src:["Bookings","Rota","Arrivals"],auto:"Guests-per-rep dashboard, by resort and week"},
+    {n:"Marketing and creators",q:"Which creators drive deposits, not just views?",
+     a:"Three creators drive half of all creator-led deposits, and none of them is in your top three by views.",
+     cap:"Deposits per 100,000 views",f:function(v){return String(v)},
+     rows:[["Creator A",62],["Creator B",55],["Creator C",49],["Creator D",21],["Creator E",14],["Creator F",9]],
+     src:["TikTok","Instagram","Bookings"],auto:"Weekly creator league to the marketing team"},
+    {n:"Groups",q:"Which group enquiries haven’t had a reply in 24 hours?",
+     a:"38 groups of six or more, 412 people in all. Tenerife has the most waiting.",
+     cap:"Groups of 6+ waiting over 24 hours",f:function(v){return String(v)},
+     rows:[["Tenerife",11],["Magaluf",8],["Ayia Napa",6],["Zante",5],["Croatia",4],["Malia",4]],
+     src:["Group form","Inbox","Bookings"],auto:"Alert when any group waits over 24 hours"},
+    {n:"Rep login · Malia",lock:true,q:"What did the Magaluf reps get paid last month?",
+     a:"Pay is outside what a rep login can see. Here are tomorrow’s Malia arrivals instead: 214 guests, with 31 landing late and going on the guestlist.",
+     cap:"Tomorrow’s Malia arrivals, by landing time",f:function(v){return String(v)},
+     rows:[["Before 12:00",62],["12:00–18:00",88],["18:00–22:00",33],["After 22:00",31]],
+     src:["Arrivals","App"],auto:"Late-flight guestlist to the rep team, 6pm daily"}
+  ];
+  var seatsEl=$("seats"),chat=$("chat"),cur=-1,timer=null;
+  S.forEach(function(s,i){
+    var b=document.createElement("button");b.className="seat";b.setAttribute("role","tab");b.id="seat-"+i;
+    b.innerHTML="<span>"+esc(s.n)+"</span>"+(s.lock?'<svg aria-hidden="true"><use href="#lock"/></svg>':"");
+    b.addEventListener("click",function(){ask(i)});seatsEl.appendChild(b);
+  });
+  function chartHTML(s){
+    var max=0;s.rows.forEach(function(r){max=Math.max(max,Math.abs(r[1]))});
+    var h='<div class="chart"><p class="cap">'+esc(s.cap)+"</p>";
+    s.rows.forEach(function(r){
+      var v=r[1],neg=v<0,bar;
+      if(s.kind==="div"){var w=Math.abs(v)/max*50;bar='<span class="zero"></span><i class="'+(neg?"neg":"")+'" data-w="'+w+'" style="width:0;'+(neg?"right:50%":"left:50%")+'"></i>'}
+      else bar='<i data-w="'+(v/max*100)+'" style="width:0;left:0"></i>';
+      h+='<div class="cr"><span>'+esc(r[0])+'</span><span class="tr">'+bar+'</span><b class="'+(neg?"neg":"")+'">'+esc(s.f(v))+"</b></div>";
+    });
+    return h+"</div>";
+  }
+  function ask(i,instant){
+    if(i===cur)return;cur=i;clearTimeout(timer);
+    var s=S[i];
+    Array.prototype.forEach.call(seatsEl.children,function(b,k){b.setAttribute("aria-selected",k===i?"true":"false")});
+    $("as").textContent="Signed in as "+s.n;
+    chat.innerHTML='<p class="q">'+esc(s.q)+'</p><div class="a"><svg aria-hidden="true"><use href="#milo-icon"/></svg><div class="a-body" id="a-body"><div class="thinking" aria-label="Milo is thinking"><i></i><i></i><i></i></div></div></div>';
+    function fill(){
+      var txt=s.lock?'<p class="a-txt refuse"><svg aria-hidden="true"><use href="#lock"/></svg><span>'+esc(s.a)+"</span></p>":'<p class="a-txt">'+esc(s.a)+"</p>";
+      $("a-body").innerHTML=txt+chartHTML(s)+'<p class="srcs">Sources '+s.src.map(function(x){return"<span>"+esc(x)+"</span>"}).join("")+'</p><div class="auto"><p><b>Make it automatic:</b> '+esc(s.auto)+'</p><button type="button" aria-pressed="false" id="auto-btn">Turn on</button></div>';
+      requestAnimationFrame(function(){requestAnimationFrame(function(){
+        chat.querySelectorAll(".tr i").forEach(function(el){el.style.width=el.dataset.w+"%"});
+      })});
+      $("auto-btn").addEventListener("click",function(){var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on?"true":"false");this.textContent=on?"On":"Turn on"});
+    }
+    if(instant||reduce)fill();else timer=setTimeout(fill,650);
+  }
+  ask(0,true);
+
+  /* wristband steps */
+  var W=[
+    {s:"Select",t:"Select your events",p:"Which resorts and packages are pacing, <b>against last year and against the allocation you’ve bought</b>.",big:"9 of 11",sm:"resorts ahead of last year"},
+    {s:"Secure",t:"Secure your events",p:"Deposits in, <b>Pay in 3 balances behind</b> and cash due by month, by resort.",big:"£74,000",sm:"in missed instalments"},
+    {s:"App",t:"Download our app",p:"Who <b>hasn’t opened the app</b> or seen their meeting point a week before they fly.",big:"1 in 6",sm:"Saturday flyers yet to open the app"},
+    {s:"Reps",t:"Meet your reps",p:"<b>Wristbands collected against arrivals</b>, and who’s on tonight’s guestlist after a late flight.",big:"31",sm:"late arrivals on tonight’s guestlist"},
+    {s:"Party",t:"Have the best week",p:"Turn-up at every event, <b>reviews by resort</b> and who’s likely to book again next summer.",big:"91%",sm:"turn-up at pool parties this week"}
+  ];
+  var wb=$("wb");
+  W.forEach(function(w,i){
+    var b=document.createElement("button");b.setAttribute("role","tab");b.id="wb-"+i;
+    b.innerHTML="<b>0"+(i+1)+"</b><span>"+esc(w.s)+"</span>";
+    b.addEventListener("click",function(){step(i)});wb.appendChild(b);
+  });
+  function step(i){
+    var w=W[i];
+    Array.prototype.forEach.call(wb.children,function(b,k){b.setAttribute("aria-selected",k===i?"true":"false")});
+    $("wb-n").textContent="Step "+(i+1)+" of 5";$("wb-t").textContent=w.t;$("wb-p").innerHTML="Milo watches: "+w.p;
+    $("wb-big").textContent=w.big;$("wb-s").textContent=w.sm;
+  }
+  step(0);
+  renderBoard();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
