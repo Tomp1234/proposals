@@ -369,22 +369,33 @@ section.tint{background:var(--lilac-soft);border-top:0}
 @media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
 
 /* video */
-.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
-.vid-grid h2{font-size:clamp(32px,4vw,50px);margin-bottom:12px}
-.vid-grid .vp{color:var(--muted);font-size:16px}
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.vcard{margin:0;min-width:0}
+.vcap{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+.vtag{align-self:flex-start;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:6px;background:var(--lilac);color:var(--plum-dd);margin-bottom:6px}
+.vtag.cs{background:var(--sun);color:var(--ink)}
+.vcap b{font-weight:900;font-size:21px;letter-spacing:-.02em;line-height:1.2}
+.vlen{font-size:13px;color:var(--muted)}
 .video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--plum-dd);border-radius:14px}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:var(--on-plum);overflow:hidden;
   background:radial-gradient(55% 75% at 90% 0%,var(--plum),transparent 64%),var(--plum-dd)}
-.poster::after{content:"";position:absolute;right:22px;bottom:22px;width:44px;height:44px;background:linear-gradient(var(--plum),var(--plum)) 0 0/22px 22px no-repeat,linear-gradient(var(--sun),var(--sun)) 22px 0/22px 22px no-repeat,linear-gradient(var(--orange),var(--orange)) 0 22px/22px 22px no-repeat;opacity:.9}
-.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:900}
+.poster::after{content:"";position:absolute;right:20px;bottom:20px;width:36px;height:36px;background:linear-gradient(var(--plum),var(--plum)) 0 0/18px 18px no-repeat,linear-gradient(var(--sun),var(--sun)) 18px 0/18px 18px no-repeat,linear-gradient(var(--orange),var(--orange)) 0 18px/18px 18px no-repeat;opacity:.9}
+.p-mark{position:absolute;top:14px;left:16px;display:flex;align-items:center;gap:6px;font-weight:900}
 .p-mark svg{width:26px;height:20px}
-.p-ttl{font-weight:900;letter-spacing:-.025em;font-size:clamp(26px,3.6vw,46px);line-height:1;position:relative;z-index:1;text-align:center;padding-inline:12px}
-.p-play{width:72px;height:72px;border-radius:50%;background:var(--sun);color:var(--ink);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
+.p-kick{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;position:relative;z-index:1}
+.p-ttl{font-weight:900;letter-spacing:-.025em;font-size:clamp(22px,2.6vw,32px);line-height:1.05;position:relative;z-index:1;text-align:center;padding-inline:16px;max-width:16em;text-wrap:balance}
+.p-play{width:64px;height:64px;border-radius:50%;background:var(--sun);color:var(--ink);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
 .poster:hover .p-play{transform:scale(1.08)}
 .p-sub{font-family:var(--mono);font-size:12px;color:var(--on-plum-m);position:relative;z-index:1}
-.vid-note{font-size:13px;color:var(--muted);margin-top:16px}
-@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+.poster.cs{color:var(--ink);background:radial-gradient(60% 80% at 100% 100%,var(--orange),transparent 70%),var(--sun)}
+.poster.cs::after{display:none}
+.poster.cs .p-kick{background:var(--ink);color:var(--sun);padding:2px 10px;border-radius:6px}
+.poster.cs .p-play{background:var(--ink);color:var(--sun)}
+.poster.cs .p-sub{color:var(--ink)}
+.vid-note{font-size:13px;color:var(--muted);margin-top:12px}
+.fl-link{display:inline-block;margin-top:6px;color:var(--sun);font-weight:800;font-size:14.5px}
+@media (max-width:860px){.vids{grid-template-columns:minmax(0,1fr)}}
 
 /* pilot and pricing */
 .weeks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 32px;padding:0;list-style:none}
@@ -714,6 +725,7 @@ footer p+p{margin-top:6px}
         <h3>Reports that took days now take minutes.</h3>
         <p>Account teams on Salesforce, with the numbers spread across Power BI and SQL. <b>Commercial reports went from 5–10 days to minutes.</b></p>
         <p>Milo now sends more than 60 partner reports a month, with no new hires.</p>
+        <a class="fl-link" href="#video">Watch the BetGames case study</a>
       </div>
       <ol class="chain" aria-label="What happened at BetGames">
         <li><span class="t">Before</span><b>5–10 days for a commercial report</b></li>
@@ -743,15 +755,16 @@ footer p+p{margin-top:6px}
 
 <section class="band" id="video" aria-labelledby="vid-h">
   <div class="wrap">
-    <div class="vid-grid">
-      <div>
-        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> See it</p>
-        <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
-        <p class="vp">For anyone you share this with.</p>
-      </div>
-      <div>
-        <div class="video" id="vidframe" data-vid="1196983997">
-          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> See it</p>
+      <h2 id="vid-h">Two short films. <em>Under three minutes.</em></h2>
+      <p>What Milo is, then what it did for one commercial team. For anyone you share this with.</p>
+    </div>
+    <div class="vids">
+      <figure class="vcard">
+        <figcaption class="vcap"><span class="vtag">Milo explainer</span><b>What Milo is and how it works</b><span class="vlen">Product overview · 1 min 29 sec</span></figcaption>
+        <div class="video" data-src="https://player.vimeo.com/video/1196983997?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1&amp;autoplay=1" data-title="Milo product overview">
+          <a class="poster" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
             <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
             <span class="p-ttl">Milo product overview</span>
             <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
@@ -759,7 +772,20 @@ footer p+p{margin-top:6px}
           </a>
         </div>
         <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
-      </div>
+      </figure>
+      <figure class="vcard">
+        <figcaption class="vcap"><span class="vtag cs">Customer case study</span><b>BetGames' commercial team</b><span class="vlen">Milo x BetGames · 1 min 8 sec</span></figcaption>
+        <div class="video" data-src="https://www.youtube-nocookie.com/embed/lR4gm57I5a4?autoplay=1&amp;rel=0" data-title="Milo x BetGames: Empowering Commercial Teams with AI Analytics">
+          <a class="poster cs" href="https://www.youtube.com/watch?v=lR4gm57I5a4" target="_blank" rel="noopener" aria-label="Play the BetGames commercial team case study, 1 minute 8 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo × BetGames</span>
+            <span class="p-kick">Case study</span>
+            <span class="p-ttl">Commercial teams, with AI analytics</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 8 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://www.youtube.com/watch?v=lR4gm57I5a4" target="_blank" rel="noopener">Watch it on YouTube</a></p>
+      </figure>
     </div>
   </div>
 </section>
@@ -1194,18 +1220,21 @@ footer p+p{margin-top:6px}
 
   renderRB();renderWave();renderSeats();renderQs();ask(null,true);renderRule();
 
-  /* video */
-  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  /* videos: embed inline only where the host allows frames */
+  var host=location.hostname;
   var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
-  if(f&&p&&inline){p.addEventListener("click",function(e){
-    e.preventDefault();
-    var fr=document.createElement("iframe");
-    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
-    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
-    fr.setAttribute("allowfullscreen","");
-    fr.setAttribute("title","Milo product overview");
-    f.appendChild(fr);p.remove();
-  })}
+  if(inline)Array.prototype.forEach.call(document.querySelectorAll(".video[data-src]"),function(f){
+    var p=f.querySelector(".poster");if(!p)return;
+    p.addEventListener("click",function(e){
+      e.preventDefault();
+      var fr=document.createElement("iframe");
+      fr.src=f.dataset.src;
+      fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture; encrypted-media");
+      fr.setAttribute("allowfullscreen","");
+      fr.setAttribute("title",f.dataset.title);
+      f.appendChild(fr);p.remove();
+    });
+  });
 })();
 </script>
 </body>
