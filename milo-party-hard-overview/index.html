@@ -73,7 +73,7 @@ p{margin:0}
 .lede b{color:var(--night-ink);font-weight:600}
 
 /* board */
-.board{margin-top:40px;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);background:rgba(31,25,28,.86);border:1px solid var(--night-line);border-radius:22px;overflow:hidden;backdrop-filter:blur(6px)}
+.board{color:var(--night-ink);margin-top:40px;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);background:rgba(31,25,28,.86);border:1px solid var(--night-line);border-radius:22px;overflow:hidden;backdrop-filter:blur(6px)}
 .rb-main{padding:22px 22px 18px;min-width:0}
 .rb-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
 .rb-title{font:600 .95rem var(--body)}
@@ -165,7 +165,7 @@ h2.disp{font-size:clamp(1.65rem,3.6vw,2.7rem)}
 .yr span{display:block;font-size:.66rem;color:var(--ink-2);line-height:1.25;margin-top:2px;min-height:1.6em}
 .yr.k{background:var(--tint);border-color:transparent}
 .yr.k b{color:var(--o-ink)}
-.yr::after{content:"";position:absolute;left:50%;bottom:-5px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--paper)}
+.yr::after{content:"";position:absolute;left:50%;bottom:-5px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--paper-2)}
 .yr-note{display:flex;align-items:center;gap:8px;margin-top:18px;font:500 .74rem var(--mono);color:var(--ink-2)}
 .yr-note i{width:8px;height:8px;border-radius:50%;background:var(--green)}
 .hq{display:flex;flex-direction:column;gap:10px}
@@ -313,7 +313,52 @@ footer{background:var(--night);color:var(--night-mute)}
 footer .wrap{padding-block:34px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;font-size:.84rem}
 footer b{color:var(--night-ink);font-weight:600}
 
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking i{animation:none;opacity:1}.rb-f,.cr .tr i,.p-play,.wb button,.rb-row{transition:none}}
+.rb-n small{display:block;font:500 .62rem/1.3 var(--mono);color:var(--night-mute);white-space:normal}
+.rb-row.tag-rebook .rb-v{background:var(--hot);color:#fff}
+.rb-row.tag-rethink .rb-v{border:1px solid #ffb070;color:#ffb070}
+.rb-row.tag-drop .rb-v{border:1px solid #8f7f86;color:#cbbcc2}
+.lg-red{background:linear-gradient(90deg,#8a2a38,#d92b3a)!important}
+.board.cb{margin-top:18px}
+.board.cb .rb-row{grid-template-columns:118px minmax(0,1fr) 70px}
+.board.cb .rb-axis{margin-left:130px;padding-right:82px}
+@media (max-width:420px){.board.cb .rb-row{grid-template-columns:96px minmax(0,1fr) 60px}.board.cb .rb-axis{margin-left:104px;padding-right:68px}}
+
+/* marketing */
+.mfacts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:32px}
+.mf{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--paper)}
+.mf .n{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(1.1rem,1.8vw,1.35rem);line-height:1.05;text-transform:uppercase}
+.mf p:last-child{margin-top:8px;font-size:.84rem;color:var(--ink-2);line-height:1.4}
+.msrc{margin-top:10px;font:500 .72rem var(--mono);color:var(--ink-2)}
+.mk-part{margin-top:56px}
+.mk-part h3{font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(1.15rem,2.2vw,1.45rem)}
+.mk-part>p{color:var(--ink-2);margin-top:6px;max-width:62ch}
+.ltabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.ltab{font:600 .82rem var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.ltab:hover{border-color:var(--orange)}
+.ltab[aria-selected="true"]{color:#fff;background:var(--hot);border-color:transparent}
+.funnel{margin-top:14px;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.4fr);gap:18px;padding:24px;border:1px solid var(--line);border-radius:20px;background:var(--paper)}
+.fn-big{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(2rem,4.4vw,3rem);line-height:1;font-variant-numeric:tabular-nums}
+.fn-lbl{font:500 .74rem var(--mono);color:var(--ink-2);margin-top:6px;letter-spacing:.04em}
+.fn-note{margin-top:16px;font-weight:500}
+.fn-head .srcs{margin-top:16px}
+.fn-bars{display:grid;gap:12px;align-content:center}
+.fn-bars .cap{font:500 .72rem var(--mono);color:var(--ink-2)}
+.fn-r{display:grid;grid-template-columns:150px minmax(0,1fr) 44px;gap:12px;align-items:center}
+.fn-r span{font-size:.88rem}
+.fn-r .tr{position:relative;height:18px;border-radius:6px;background:var(--paper-2)}
+.fn-r .tr i{position:absolute;inset:0 auto 0 0;border-radius:6px;background:var(--hot);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.fn-r b{font:700 .84rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.myear{list-style:none;padding:0;margin:18px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.myear li{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--paper);display:flex;flex-direction:column;gap:8px}
+.myear .label{color:var(--o-ink)}
+.myear b{font-weight:600}
+.myear p{font-size:.92rem;color:var(--ink-2)}
+.myear p::before{content:"Ask: ";font-weight:600;color:var(--ink)}
+@media (max-width:900px){.mfacts{grid-template-columns:1fr 1fr}.funnel{grid-template-columns:1fr}.myear{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.myear{grid-template-columns:1fr}.fn-r{grid-template-columns:104px minmax(0,1fr) 36px;gap:8px}.funnel{padding:18px 16px}}
+@media (max-width:380px){.mfacts{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fn-r .tr i{transition:none}.thinking i{animation:none;opacity:1}.rb-f,.cr .tr i,.p-play,.wb button,.rb-row{transition:none}}
 </style>
 </head>
 <body>
@@ -335,7 +380,7 @@ footer b{color:var(--night-ink);font-weight:600}
   <div class="wrap">
     <div class="lock"><svg class="pht-logo" role="img" aria-label="Party Hard Travel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 23"><defs><polygon id="pht-c" points="0 0 22.448 0 22.448 22.531 0 22.531"/><polygon id="pht-e" points="0 0 26.82 0 26.82 22.531 0 22.531"/><polygon id="pht-g" points="0 0 23.274 0 23.274 22.531 0 22.531"/><polygon id="pht-i" points="0 0 23.487 0 23.487 22.531 0 22.531"/><polygon id="pht-k" points="0 0 25.7 0 25.7 22.531 0 22.531"/><polygon id="pht-m" points="0 0 23.461 0 23.461 22.531 0 22.531"/><polygon id="pht-o" points="0 0 26.82 0 26.82 22.531 0 22.531"/><polygon id="pht-q" points="0 0 23.274 0 23.274 22.531 0 22.531"/><polygon id="pht-s" points="0 0 23.567 0 23.567 22.531 0 22.531"/><linearGradient id="pht-b" x1="103.987%" x2="-1.184%" y1="39.993%" y2="63.614%"><stop offset="0%" stop-color="#F07"/><stop offset="17%" stop-color="#FF2257"/><stop offset="40%" stop-color="#FF4A32"/><stop offset="62%" stop-color="#FF6616"/><stop offset="80%" stop-color="#FF7806"/><stop offset="100%" stop-color="#FF7E00"/></linearGradient><path id="pht-a" d="M18.1406458,0 C19.7907657,1.50176116 21.0237693,3.41008849 21.7180738,5.53721991 L21.7180738,5.53721991 L26.8315445,22.4844687 L30.6874949,22.4844687 L30.6874949,14.0526252 C29.6594638,13.4965541 29.0185288,12.4166284 29.0196963,11.2420666 L29.0196963,11.2420666 C29.0185288,10.0678404 29.6594638,8.98791469 30.6874949,8.43150799 L30.6874949,8.43150799 L30.6874949,0 L18.1406458,0 Z M0,0 L0,8.43486388 C0.546204054,8.73068566 0.994174767,9.18154959 1.28820767,9.73107672 L1.28820767,9.73107672 C2.11777071,11.2813305 1.54087916,13.214827 0,14.0492693 L0,14.0492693 L0,22.4844687 L23.3491809,22.4844687 L18.5475886,6.58744596 C17.2952386,2.73622561 13.7665103,0.0968174512 9.73994404,0 L9.73994404,0 L0,0 Z"/></defs><g fill="none" fill-rule="evenodd"><use href="#pht-a" fill="url(#pht-b)" transform="translate(0 .018)"/><g transform="translate(35.378)"><mask id="pht-d" fill="#fff"><use href="#pht-c"/></mask><path fill="currentColor" d="M12.0768635,11.4262714 C13.8630758,11.4262714 15.0095206,10.541323 15.0095206,8.79776991 C15.0095206,7.05421682 13.8630758,6.1692684 12.1035483,6.1692684 L7.3846788,6.1692684 L7.3846788,11.4262714 L12.0768635,11.4262714 Z M0,-3.35589086e-05 L12.7167978,-3.35589086e-05 C18.8217747,-3.35589086e-05 22.4477358,2.73602426 22.4477358,8.79776991 C22.4477358,14.8595156 18.8217747,17.5954056 12.7433158,17.5954056 L7.3846788,17.5954056 L7.3846788,22.5305787 L0,22.5305787 L0,-3.35589086e-05 Z" mask="url(#pht-d)"/><g transform="translate(19.824)"><mask id="pht-f" fill="#fff"><use href="#pht-e"/></mask><path fill="currentColor" d="M16.3957948,14.0549743 L14.0498693,6.973709 L12.7701674,6.973709 L10.4239083,14.0549743 L16.3957948,14.0549743 Z M18.208692,19.5536015 L8.61117792,19.5536015 L7.62467503,22.5306122 L0,22.5306122 L8.23792459,0 L18.5819453,0 L26.8198699,22.5306122 L19.1951949,22.5306122 L18.208692,19.5536015 Z" mask="url(#pht-f)"/></g><g transform="translate(47.709)"><mask id="pht-h" fill="#fff"><use href="#pht-g"/></mask><path fill="currentColor" d="M7.38484558,11.1580015 L12.3168597,11.1580015 C14.1831264,11.1580015 15.1429445,10.2460382 15.1429445,8.66373563 C15.1429445,7.0810975 14.1831264,6.16930196 12.3168597,6.16930196 L7.38484558,6.16930196 L7.38484558,11.1580015 Z M16.0227083,22.5306122 L12.9834788,16.7101551 L7.38484558,16.7101551 L7.38484558,22.5306122 L0,22.5306122 L0,0 L12.8235369,0 C19.035253,0 22.5276233,2.68219577 22.5276233,8.60987358 C22.5276233,11.6409142 21.1680339,13.7866708 19.2750824,15.1276848 L23.27413,22.5306122 L16.0227083,22.5306122 Z" mask="url(#pht-h)"/></g><g transform="translate(71.132)"><mask id="pht-j" fill="#fff"><use href="#pht-i"/></mask><polygon fill="currentColor" points="23.487 6.196 15.436 6.196 15.436 22.531 8.051 22.531 8.051 6.196 0 6.196 0 0 23.487 0" mask="url(#pht-j)"/></g><g transform="translate(95.164)"><mask id="pht-l" fill="#fff"><use href="#pht-k"/></mask><polygon fill="currentColor" points="16.529 15.53 16.529 22.531 9.144 22.531 9.144 15.503 0 0 7.758 0 12.557 8.476 13.143 8.476 17.942 0 25.7 0" mask="url(#pht-l)"/></g><g transform="translate(128.46)"><mask id="pht-n" fill="#fff"><use href="#pht-m"/></mask><polygon fill="currentColor" points="23.461 0 23.461 22.531 16.076 22.531 16.076 14.377 7.385 14.377 7.385 22.531 0 22.531 0 0 7.385 0 7.385 8.154 16.076 8.154 16.076 0" mask="url(#pht-n)"/></g><g transform="translate(152.987)"><mask id="pht-p" fill="#fff"><use href="#pht-o"/></mask><path fill="currentColor" d="M16.3959616,14.0549743 L14.0500361,6.973709 L12.7703342,6.973709 L10.424075,14.0549743 L16.3959616,14.0549743 Z M18.2088587,19.5536015 L8.6113447,19.5536015 L7.62484181,22.5306122 L0,22.5306122 L8.23809137,0 L18.5819453,0 L26.8200367,22.5306122 L19.1953616,22.5306122 L18.2088587,19.5536015 Z" mask="url(#pht-p)"/></g><g transform="translate(180.873)"><mask id="pht-r" fill="#fff"><use href="#pht-q"/></mask><path fill="currentColor" d="M7.3846788,11.1580015 L12.3166929,11.1580015 C14.1831264,11.1580015 15.1429445,10.2460382 15.1429445,8.66373563 C15.1429445,7.0810975 14.1831264,6.16930196 12.3166929,6.16930196 L7.3846788,6.16930196 L7.3846788,11.1580015 Z M16.0225415,22.5306122 L12.983312,16.7101551 L7.3846788,16.7101551 L7.3846788,22.5306122 L0,22.5306122 L0,0 L12.8233702,0 C19.0350862,0 22.5276233,2.68219577 22.5276233,8.60987358 C22.5276233,11.6409142 21.1680339,13.7866708 19.2750824,15.1276848 L23.2739632,22.5306122 L16.0225415,22.5306122 Z" mask="url(#pht-r)"/></g><g transform="translate(205.612)"><mask id="pht-t" fill="#fff"><use href="#pht-s"/></mask><path fill="currentColor" d="M16.1559654,11.2653565 C16.1559654,7.64435023 14.1299236,6.22279486 11.2504693,6.22279486 L7.41153036,6.22279486 L7.41153036,16.3077503 L11.2504693,16.3077503 C14.1299236,16.3077503 16.1559654,14.8595156 16.1559654,11.2653565 M23.567329,11.2653565 C23.567329,17.7294734 20.3683244,22.5305787 11.2504693,22.5305787 L0,22.5305787 L0,-3.35589086e-05 L11.2504693,-3.35589086e-05 C20.3683244,-3.35589086e-05 23.567329,4.77439236 23.567329,11.2653565" mask="url(#pht-t)"/></g></g></g></svg><span class="x">×</span><span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span></div>
     <nav class="nav" aria-label="Sections">
-      <a href="#board">Board</a><a href="#letter">Letter</a><a href="#history">History</a><a href="#ask">Ask</a><a href="#season">Season</a><a href="#systems">Systems</a><a href="#proof">Proof</a><a href="#trust">Trust</a>
+      <a href="#board">Board</a><a href="#letter">Letter</a><a href="#marketing">Marketing</a><a href="#history">History</a><a href="#ask">Ask</a><a href="#season">Season</a><a href="#systems">Systems</a><a href="#proof">Proof</a><a href="#trust">Trust</a>
     </nav>
     <span class="for">For the Party Hard team</span>
   </div>
@@ -345,7 +390,7 @@ footer b{color:var(--night-ink);font-weight:600}
   <div class="wrap">
     <p class="kicker label"><span class="stub" aria-hidden="true"></span>Party Hard Travel × Milo · October 2026</p>
     <h1 id="h1" class="disp"><span>88,000 Party Harders.</span><span class="hot-text">One place to ask.</span></h1>
-    <p class="lede"><b>Twelve years</b> of bookings, deposits, wristbands and reviews across eleven resorts, answered in plain English.</p>
+    <p class="lede"><b>Twelve years</b> of bookings, deposits, creators, campaigns, wristbands and reviews across eleven resorts, answered in plain English.</p>
 
     <div class="board" id="rb-board" data-layer="s">
       <div class="rb-main">
@@ -363,7 +408,7 @@ footer b{color:var(--night-ink);font-weight:600}
         <div class="rb-axis" id="rb-axis" aria-hidden="true"><span>0</span><span>10k</span></div>
       </div>
       <div class="rb-side">
-        <p class="label" id="rb-lt">Sign-ups</p>
+        <p class="label rb-lt" id="rb-lt">Sign-ups</p>
         <p class="rb-note" id="rb-note"></p>
         <div class="legend" id="rb-legend"></div>
         <div class="rb-ans-box">
@@ -390,7 +435,7 @@ footer b{color:var(--night-ink);font-weight:600}
         <p>Dear Party Hard Travel team,</p>
         <p>I came to Milo from event production, with time at TicketArena, The Warehouse Project and Ibiza Rocks. I know a season from the inside: a year of selling, then a summer where every night is decided on the door.</p>
         <p>Milo is an AI data company built by people who have run businesses themselves. We understand events, ticketing, hospitality and F&amp;B, and we’ve done this for See Tickets, Nikki Beach Global and Two Tribes.</p>
-        <p>Party Hard is more than twelve years old, and all of that history can sit in Milo. Anyone on the team asks in plain English and gets the answer in seconds, and any answer can become a dashboard or an alert. Everything on this page runs on sample data, so click around.</p>
+        <p>Party Hard is more than twelve years old, and all of that history can sit in Milo, next to every creator, campaign and post. Anyone on the team asks in plain English and gets the answer in seconds, and any answer can become a dashboard or an alert. Everything on this page runs on sample data, so click around.</p>
         <div class="sig"><b>Liam James Rabone</b><span>Milo · liam@milo.ai</span></div>
       </article>
       <aside class="glance" aria-label="Party Hard at a glance">
@@ -437,7 +482,78 @@ footer b{color:var(--night-ink);font-weight:600}
   </div>
 </section>
 
-<section class="sec" id="history" aria-labelledby="hist-h">
+<section class="sec" id="marketing" aria-labelledby="mk-h">
+  <div class="wrap">
+    <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>Marketing and creators</p>
+    <h2 id="mk-h" class="disp">Every creator, post and campaign. Traced to the deposit.</h2>
+    <p class="sub">Trendr creators, YouTubers every summer, your media team in resort, TV sponsorships and partners like Boohoo all feed the same sign-up form. Milo shows which of them turn into deposits, wristbands and next year’s booking.</p>
+    <div class="mfacts">
+      <div class="mf"><p class="n hot-text">50 creators</p><p>On one Ayia Napa trip in 2023, 30 of them from your own programme</p></div>
+      <div class="mf"><p class="n">2016</p><p>First TV sponsorship, on Geordie Shore. Ibiza Weekender followed in 2024</p></div>
+      <div class="mf"><p class="n">Love Island</p><p>Competition sponsor in 2017, and again in 2026</p></div>
+      <div class="mf"><p class="n">Travolution</p><p>Best Social and Influencer Campaign, 2025</p></div>
+    </div>
+    <p class="msrc">From partyhardtravel.com and TTG</p>
+
+    <div class="mk-part">
+      <h3>The creator board</h3>
+      <p>Ten creators, four layers. Views are where most reporting stops.</p>
+      <div class="board cb" id="cb-board">
+        <div class="rb-main">
+          <div class="rb-head"><p class="rb-title">Summer 2026 · creator season</p><span class="chip">Sample data</span></div>
+          <div class="tabs" role="tablist" aria-label="Creator board layers">
+            <button class="tab" role="tab" id="c-v" data-l="v" aria-selected="true">Views</button>
+            <button class="tab" role="tab" id="c-s" data-l="s" aria-selected="false">+ Sign-ups</button>
+            <button class="tab" role="tab" id="c-d" data-l="d" aria-selected="false">+ Deposits</button>
+            <button class="tab" role="tab" id="c-c" data-l="c" aria-selected="false">+ Cost</button>
+            <button class="tab" role="tab" id="c-m" data-l="m" aria-selected="false">Milo’s answer</button>
+          </div>
+          <ul class="rb-rows" aria-live="polite"></ul>
+          <div class="rb-axis" aria-hidden="true"></div>
+        </div>
+        <div class="rb-side">
+          <p class="label rb-lt"></p>
+          <p class="rb-note"></p>
+          <div class="legend"></div>
+          <div class="rb-ans-box">
+            <p class="who label"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</p>
+            <p class="rb-ans"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mk-part">
+      <h3>From first view to wristband</h3>
+      <p>Pick a source. Milo follows its sign-ups all the way to the resort, and into next summer.</p>
+      <div class="ltabs" role="tablist" aria-label="Sign-up sources" id="fn-tabs"></div>
+      <div class="funnel" role="tabpanel" aria-labelledby="mk-h">
+        <div class="fn-head">
+          <p class="fn-big hot-text" id="fn-big"></p>
+          <p class="fn-lbl">Sign-ups this season · sample</p>
+          <p class="fn-note" id="fn-note"></p>
+          <p class="srcs" id="fn-src"></p>
+        </div>
+        <div class="fn-bars" id="fn-bars"></div>
+      </div>
+    </div>
+
+    <div class="mk-part">
+      <h3>Your marketing year</h3>
+      <p>One question for each moment, answered in seconds.</p>
+      <ol class="myear">
+        <li><span class="label">01 · Early bird opens</span><p>Which channel signs up members who go on to deposit?</p></li>
+        <li><span class="label">02 · Line-up reveals</span><p>Which artist reveal sold the most packages in 48 hours?</p></li>
+        <li><span class="label">03 · TV and partners</span><p>Did the competition bring buyers, or just entrants?</p></li>
+        <li><span class="label">04 · Creator trips</span><p>Did followers book the resort their creator posted from?</p></li>
+        <li><span class="label">05 · In resort</span><p>Which guests posted from resort, and did their friends sign up?</p></li>
+        <li><span class="label">06 · Season recap</span><p>Who travelled this year but hasn’t signed up for the next?</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="history" aria-labelledby="hist-h">
   <div class="wrap hist">
     <div>
       <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>History</p>
@@ -471,7 +587,7 @@ footer b{color:var(--night-ink);font-weight:600}
   </div>
 </section>
 
-<section class="sec alt" id="ask" aria-labelledby="ask-h">
+<section class="sec" id="ask" aria-labelledby="ask-h">
   <div class="wrap">
     <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>Ask Milo</p>
     <h2 id="ask-h" class="disp">Every desk. One place to ask.</h2>
@@ -507,9 +623,9 @@ footer b{color:var(--night-ink);font-weight:600}
     <div class="desks">
       <div class="desk"><h3>Bookings and payments</h3><p class="why">Deposits, Pay in 3, balances</p><div class="pills"><span>Your booking system</span><span>Stripe</span><span>Adyen</span><span>PayPal</span><span>Klarna</span></div></div>
       <div class="desk"><h3>Tickets and venues</h3><p class="why">Allocations, scans, partner sales</p><div class="pills"><span class="seen">Prioticket</span><span>See Tickets</span><span>Fatsoma</span><span>Skiddle</span><span>SevenRooms</span><span>Square</span></div></div>
-      <div class="desk"><h3>App and website</h3><p class="why">Sign-ups, journeys, meeting points</p><div class="pills"><span class="seen">Party Hard app</span><span class="seen">Google Analytics</span><span class="seen">Microsoft Clarity</span><span class="seen">WordPress</span></div></div>
-      <div class="desk"><h3>Social and creators</h3><p class="why">Views, reveals, creator codes</p><div class="pills"><span class="seen">Instagram</span><span class="seen">TikTok</span><span class="seen">YouTube</span><span class="seen">Facebook</span></div></div>
-      <div class="desk"><h3>Reviews and service</h3><p class="why">What guests say, and ask</p><div class="pills"><span class="seen">Reviews.io</span><span>WhatsApp</span><span>Zendesk</span><span>Gmail</span><span>Outlook</span></div></div>
+      <div class="desk"><h3>Social and creators</h3><p class="why">Views, reveals, creator codes</p><div class="pills"><span class="seen">Instagram</span><span class="seen">TikTok</span><span class="seen">YouTube</span><span class="seen">Facebook</span><span class="seen">Trendr sign-ups</span><span>Creator codes</span></div></div>
+      <div class="desk"><h3>Ads, email and SMS</h3><p class="why">Spend, clicks, member messages</p><div class="pills"><span>Meta Ads</span><span>TikTok Ads</span><span>Google Ads</span><span>Snapchat Ads</span><span>Klaviyo</span><span>Twilio</span></div></div>
+      <div class="desk"><h3>App, web and reviews</h3><p class="why">Sign-ups, journeys, what guests say</p><div class="pills"><span class="seen">Party Hard app</span><span class="seen">Google Analytics</span><span class="seen">Microsoft Clarity</span><span class="seen">Reviews.io</span><span class="seen">WordPress</span></div></div>
       <div class="desk"><h3>Finance and people</h3><p class="why">Ledger, rotas, rep pay</p><div class="pills"><span>Xero</span><span>QuickBooks</span><span>Sage</span><span>BrightHR</span><span>Deputy</span><span>Google Sheets</span></div></div>
     </div>
     <p class="key"><span><i aria-hidden="true"></i>Seen on your site or listings</span><span>Everything else is an example</span></p>
@@ -597,8 +713,33 @@ footer b{color:var(--night-ink);font-weight:600}
   var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 
-  /* hero board */
-  var R=[
+  /* boards: hero resorts and creators */
+  function makeBoard(root,R,L){
+    var rows=root.querySelector(".rb-rows"),layer=root.querySelector('.tab[aria-selected="true"]').dataset.l;
+    R.forEach(function(r){
+      var li=document.createElement("li");li.className="rb-row";
+      li.innerHTML='<span class="rb-n">'+esc(r.n)+(r.sub?"<small>"+esc(r.sub)+"</small>":"")+'</span><span class="rb-t"><i class="rb-f"></i><i class="rb-ly" hidden></i><i class="rb-th" hidden></i></span><span class="rb-v"></span>';
+      rows.appendChild(li);
+    });
+    function render(){
+      var l=L[layer];
+      Array.prototype.forEach.call(rows.children,function(li,i){
+        var r=R[i],o=l.v(r),f=li.querySelector(".rb-f"),ly=li.querySelector(".rb-ly"),th=li.querySelector(".rb-th"),v=li.querySelector(".rb-v"),cls=o.cls?" "+o.cls:"",txt=o.txt;
+        ly.hidden=o.ly==null;if(o.ly!=null)ly.style.left=o.ly+"%";
+        th.hidden=l.th==null;if(l.th!=null)th.style.left=l.th+"%";
+        if(l.tags){if(r.t){cls=" tag-"+r.t.toLowerCase();txt=r.t}else cls=" dim"}
+        li.className="rb-row"+cls;f.style.width=Math.min(o.w,100)+"%";v.textContent=txt;
+      });
+      root.querySelector(".rb-lt").textContent=l.t;root.querySelector(".rb-note").textContent=l.note;
+      root.querySelector(".legend").innerHTML=l.lg;root.querySelector(".rb-ans").textContent=l.ans;
+      root.querySelector(".rb-axis").innerHTML="<span>"+l.axis[0]+"</span><span>"+l.axis[1]+"</span>";
+      root.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-selected",b.dataset.l===layer?"true":"false")});
+    }
+    root.querySelectorAll(".tab").forEach(function(b){b.addEventListener("click",function(){layer=b.dataset.l;render()})});
+    render();
+  }
+  var BAR='<span><i class="lg-bar"></i>',TH='<span><i class="lg-th"></i>';
+  makeBoard($("rb-board"),[
     {n:"Magaluf",s:9400,d:41,ly:36,a:78},
     {n:"Malia",s:8100,d:44,ly:38,a:92,t:"Extend"},
     {n:"Zante",s:7600,d:46,ly:39,a:96,t:"Extend"},
@@ -610,35 +751,62 @@ footer b{color:var(--night-ink);font-weight:600}
     {n:"Malta",s:3400,d:40,ly:37,a:61},
     {n:"Barcelona",s:2100,d:27,ly:25,a:39},
     {n:"Croatia",s:1900,d:24,ly:29,a:30,t:"Push"}
-  ];
-  var L={
-    s:{t:"Sign-ups",note:"Members signed up for 2027 packages, by resort.",axis:["0","10k"],lg:'<span><i class="lg-bar"></i>Sign-ups</span>',ans:"Magaluf, Malia and Zante lead on sign-ups. That’s interest, not cash yet."},
-    d:{t:"+ Deposits",note:"Share of sign-ups who have paid the £30 deposit.",axis:["0%","60%"],lg:'<span><i class="lg-bar"></i>Deposit rate</span><span><i class="lg-ly"></i>Same week last year</span>',ans:"Nine resorts are ahead of last year. Tenerife and Croatia are behind."},
-    a:{t:"+ Allocation",note:"Peak-week event places already sold, against what you’ve bought from venues.",axis:["0%","100%"],lg:'<span><i class="lg-bar"></i>Places sold</span><span><i class="lg-th"></i>90%: sell-out risk</span>',ans:"Zante and Malia have sold over 90% of their peak-week places already."},
-    m:{t:"Milo’s answer",note:"What to do this week, from all three layers.",axis:["0%","100%"],lg:'<span><i class="lg-th"></i>90%: sell-out risk</span>',ans:"Extend the Zante and Malia boat allocations before Christmas. Push Tenerife and Croatia with a group offer to their open enquiries."}
-  };
-  var layer="s",rows=$("rb-rows");
-  R.forEach(function(r){
-    var li=document.createElement("li");li.className="rb-row";
-    li.innerHTML='<span class="rb-n">'+esc(r.n)+'</span><span class="rb-t"><i class="rb-f"></i><i class="rb-ly" hidden></i><i class="rb-th" hidden></i></span><span class="rb-v"></span>';
-    rows.appendChild(li);
+  ],{
+    s:{t:"Sign-ups",note:"Members signed up for 2027 packages, by resort.",axis:["0","10k"],lg:BAR+"Sign-ups</span>",ans:"Magaluf, Malia and Zante lead on sign-ups. That’s interest, not cash yet.",
+       v:function(r){return{w:r.s/100,txt:(r.s/1000).toFixed(1)+"k"}}},
+    d:{t:"+ Deposits",note:"Share of sign-ups who have paid the £30 deposit.",axis:["0%","60%"],lg:BAR+'Deposit rate</span><span><i class="lg-ly"></i>Same week last year</span>',ans:"Nine resorts are ahead of last year. Tenerife and Croatia are behind.",
+       v:function(r){return{w:r.d/60*100,txt:r.d+"%",ly:r.ly/60*100,cls:r.d<r.ly?"behind":""}}},
+    a:{t:"+ Allocation",note:"Peak-week event places already sold, against what you’ve bought from venues.",axis:["0%","100%"],th:90,lg:BAR+"Places sold</span>"+TH+"90%: sell-out risk</span>",ans:"Zante and Malia have sold over 90% of their peak-week places already.",
+       v:function(r){return{w:r.a,txt:r.a+"%",cls:r.a>=90?"hot":""}}},
+    m:{t:"Milo’s answer",note:"What to do this week, from all three layers.",axis:["0%","100%"],th:90,tags:true,lg:TH+"90%: sell-out risk</span>",ans:"Extend the Zante and Malia boat allocations before Christmas. Push Tenerife and Croatia with a group offer to their open enquiries.",
+       v:function(r){return{w:r.a,txt:""}}}
   });
-  function renderBoard(){
-    Array.prototype.forEach.call(rows.children,function(li,i){
-      var r=R[i],f=li.querySelector(".rb-f"),ly=li.querySelector(".rb-ly"),th=li.querySelector(".rb-th"),v=li.querySelector(".rb-v"),w,txt,cls="";
-      ly.hidden=layer!=="d";th.hidden=!(layer==="a"||layer==="m");
-      if(layer==="s"){w=r.s/100;txt=(r.s/1000).toFixed(1)+"k"}
-      else if(layer==="d"){w=r.d/60*100;txt=r.d+"%";ly.style.left=(r.ly/60*100)+"%";if(r.d<r.ly)cls=" behind"}
-      else{w=r.a;txt=r.a+"%";if(r.a>=90)cls=" hot"}
-      if(layer==="m"){if(r.t){cls=" tag-"+r.t.toLowerCase();txt=r.t}else cls=" dim"}
-      li.className="rb-row"+cls;f.style.width=w+"%";v.textContent=txt;
-    });
-    var l=L[layer];
-    $("rb-lt").textContent=l.t;$("rb-note").textContent=l.note;$("rb-legend").innerHTML=l.lg;$("rb-ans").textContent=l.ans;
-    $("rb-axis").innerHTML="<span>"+l.axis[0]+"</span><span>"+l.axis[1]+"</span>";
-    document.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-selected",b.dataset.l===layer?"true":"false")});
+  makeBoard($("cb-board"),[
+    {n:"Creator A",sub:"TikTok · 1.4m",v:2.9,s:3100,d:610,c:9},
+    {n:"Creator B",sub:"Instagram · 860k",v:1.6,s:2400,d:820,c:6,t:"Rebook"},
+    {n:"Creator C",sub:"YouTube · 520k",v:0.9,s:1900,d:760,c:5,t:"Rebook"},
+    {n:"Creator D",sub:"TikTok · 2.1m",v:4.8,s:2600,d:290,c:31,t:"Rethink"},
+    {n:"Creator E",sub:"Instagram · 210k",v:0.4,s:1100,d:520,c:4,t:"Rebook"},
+    {n:"Creator F",sub:"TikTok · 640k",v:1.1,s:900,d:240,c:12},
+    {n:"Creator G",sub:"Instagram · 95k",v:0.2,s:640,d:330,c:3,t:"Rebook"},
+    {n:"Creator H",sub:"TikTok · 1.1m",v:2.2,s:700,d:70,c:44,t:"Drop"},
+    {n:"Creator I",sub:"YouTube · 300k",v:0.5,s:820,d:300,c:8},
+    {n:"Creator J",sub:"Instagram · 450k",v:0.7,s:450,d:60,c:38,t:"Drop"}
+  ],{
+    v:{t:"Views",note:"Views of each creator’s Party Hard posts this season, across platforms.",axis:["0","5m"],lg:BAR+"Views</span>",ans:"D and A have the biggest reach. Reach alone doesn’t fill a boat party.",
+       v:function(r){return{w:r.v/5*100,txt:r.v+"m"}}},
+    s:{t:"+ Sign-ups",note:"Free member sign-ups through each creator’s link or code.",axis:["0","3.2k"],lg:BAR+"Sign-ups</span>",ans:"A, D and B bring the most sign-ups.",
+       v:function(r){return{w:r.s/3200*100,txt:(r.s/1000).toFixed(1)+"k"}}},
+    d:{t:"+ Deposits",note:"Sign-ups who went on to pay the £30 deposit.",axis:["0","900"],lg:BAR+'Deposits</span><span><i class="lg-bar lg-red"></i>Under 15% of sign-ups</span>',ans:"B and C turn the most sign-ups into deposits. D, second for sign-ups, falls to 290.",
+       v:function(r){return{w:r.d/900*100,txt:String(r.d),cls:r.d/r.s<.15?"behind":""}}},
+    c:{t:"+ Cost",note:"Creator fee plus free package, divided by deposits.",axis:["£0","£45"],th:15/45*100,lg:BAR+"Cost per deposit</span>"+TH+"£15 target</span>",ans:"G, E, C and B cost £6 or less per deposit. H and J cost over £35.",
+       v:function(r){return{w:r.c/45*100,txt:"£"+r.c,cls:r.c>15?"behind":""}}},
+    m:{t:"Milo’s answer",note:"Who to book for summer 2027, from all four layers.",axis:["0","900"],tags:true,lg:BAR+"Deposits</span>",ans:"Rebook B, C, E and G: six in ten creator deposits, at £6 or less each. Rethink D: the most views, but one deposit for every nine sign-ups. Drop H and J.",
+       v:function(r){return{w:r.d/900*100,txt:""}}}
+  });
+
+  /* sign-up sources */
+  var F=[
+    {k:"Creators",n:"14,200",r:[100,28,25,24,9],note:"Creators bring fewer sign-ups than your own social, but more of them pay in full, turn up and book again.",src:["Creator codes","Bookings","Payments","Wristband scans"]},
+    {k:"Own social",n:"22,600",r:[100,24,21,20,7],note:"Your biggest steady source of sign-ups, a little behind creators at every step.",src:["Instagram","TikTok","Bookings","Payments"]},
+    {k:"TV and partners",n:"31,000",r:[100,9,8,7,2],note:"TV and partner reach fills the member list fastest. Fewer deposit, so it needs its own follow-up.",src:["Competition entries","Bookings","Payments"]},
+    {k:"Students",n:"6,800",r:[100,38,30,29,12],note:"Students deposit fastest but miss the most instalments. A reminder before each due date pays for itself.",src:["Student sign-ups","Pay in 3","Bookings"]},
+    {k:"Groups of 6+",n:"4,100",r:[100,52,49,48,19],note:"Your best customers at every step. A reply within 24 hours matters most.",src:["Group form","Bookings","Wristband scans"]}
+  ];
+  var FS=["Signed up","Paid deposit","Paid in full","Collected wristband","Booked again"],fnTabs=$("fn-tabs");
+  $("fn-bars").innerHTML='<p class="cap">Out of every 100 sign-ups</p>'+FS.map(function(x){return'<div class="fn-r"><span>'+x+'</span><span class="tr"><i style="width:0"></i></span><b></b></div>'}).join("");
+  F.forEach(function(x,i){
+    var b=document.createElement("button");b.className="ltab";b.setAttribute("role","tab");b.id="fn-"+i;b.textContent=x.k;
+    b.addEventListener("click",function(){fn(i)});fnTabs.appendChild(b);
+  });
+  function fn(i){
+    var x=F[i];
+    Array.prototype.forEach.call(fnTabs.children,function(b,k){b.setAttribute("aria-selected",k===i?"true":"false")});
+    $("fn-big").textContent=x.n;$("fn-note").textContent=x.note;
+    $("fn-src").innerHTML="Joined from "+x.src.map(function(y){return"<span>"+esc(y)+"</span>"}).join("");
+    $("fn-bars").querySelectorAll(".fn-r").forEach(function(row,k){row.querySelector("i").style.width=x.r[k]+"%";row.querySelector("b").textContent=x.r[k]});
   }
-  document.querySelectorAll(".tab").forEach(function(b){b.addEventListener("click",function(){layer=b.dataset.l;renderBoard()})});
+  fn(0);
 
   /* history questions */
   var H=[
@@ -660,6 +828,16 @@ footer b{color:var(--night-ink);font-weight:600}
      cap:"Deposit rate vs same week last year, points",kind:"div",f:function(v){return(v>0?"+":"−")+Math.abs(v)+" pts"},
      rows:[["Kavos",8],["Albufeira",8],["Zante",7],["Malia",6],["Magaluf",5],["Croatia",-5],["Tenerife",-8]],
      src:["Bookings","Payments","Summer 2026"],auto:"Monday 8am pacing report to the founders"},
+    {n:"Marketing",q:"What does a deposit cost us, by channel?",
+     a:"Email to members is the cheapest deposit you buy, then organic social and creators. Paid TikTok costs the most, at £22.",
+     cap:"Cost per £30 deposit, summer 2027 so far",f:function(v){return"£"+v},
+     rows:[["Email and members",2],["Organic social",4],["Creators",9],["Paid Meta",14],["TV and partners",18],["Paid TikTok",22]],
+     src:["Meta Ads","TikTok Ads","Creator fees","Bookings"],auto:"Monday cost-per-deposit report to marketing"},
+    {n:"Social and content",q:"Which in-resort videos brought in sign-ups for next summer?",
+     a:"Boat party highlight reels, at more than twice the sign-ups of pool party clips. Most came within 48 hours of posting.",
+     cap:"Sign-ups per 100,000 views, by content type",f:function(v){return String(v)},
+     rows:[["Boat party reels",48],["Artist sets",41],["Welcome meetings",30],["Pool party clips",20],["Hotel tours",12]],
+     src:["Instagram","TikTok","Sign-ups"],auto:"Daily top-posts digest to the social team"},
     {n:"Finance",q:"What do we keep per £100 package once the events are paid for?",
      a:"Malia and Kavos keep the most. Ibiza keeps the least, because its club nights cost close to twice as much per head.",
      cap:"Kept per £100 package after event costs",f:function(v){return"£"+v},
@@ -680,11 +858,6 @@ footer b{color:var(--night-ink);font-weight:600}
      cap:"Guests per rep, weeks 30–31",f:function(v){return"1:"+v},
      rows:[["Zante",140],["Kavos",138],["Magaluf",112],["Malia",104],["Ayia Napa",96],["Malta",70]],
      src:["Bookings","Rota","Arrivals"],auto:"Guests-per-rep dashboard, by resort and week"},
-    {n:"Marketing and creators",q:"Which creators drive deposits, not just views?",
-     a:"Three creators drive half of all creator-led deposits, and none of them is in your top three by views.",
-     cap:"Deposits per 100,000 views",f:function(v){return String(v)},
-     rows:[["Creator A",62],["Creator B",55],["Creator C",49],["Creator D",21],["Creator E",14],["Creator F",9]],
-     src:["TikTok","Instagram","Bookings"],auto:"Weekly creator league to the marketing team"},
     {n:"Groups",q:"Which group enquiries haven’t had a reply in 24 hours?",
      a:"38 groups of six or more, 412 people in all. Tenerife has the most waiting.",
      cap:"Groups of 6+ waiting over 24 hours",f:function(v){return String(v)},
@@ -752,7 +925,6 @@ footer b{color:var(--night-ink);font-weight:600}
     $("wb-big").textContent=w.big;$("wb-s").textContent=w.sm;
   }
   step(0);
-  renderBoard();
 
   /* video */
   var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
