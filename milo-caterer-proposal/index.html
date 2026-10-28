@@ -330,6 +330,24 @@ section.tint{background:var(--lilac-soft);border-top:0}
 .punch{font-weight:900;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;line-height:1.2;margin-top:28px;max-width:30em}
 @media (max-width:860px){.three{grid-template-columns:minmax(0,1fr)}}
 
+/* connects */
+.cx-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.cx-stats div{background:var(--card);padding:16px 20px;min-width:0}
+.cx-stats b{display:block;font-weight:900;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:var(--plum-dd)}
+.cx-stats span{font-size:13px;color:var(--muted)}
+.cx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.fam{background:var(--panel);border-radius:12px;padding:18px 20px;min-width:0}
+.fam h3{font-size:21px;margin-bottom:2px}
+.fam .fs{font-size:13px;color:var(--muted);margin-bottom:12px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pills span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;border:1px solid var(--rule);background:var(--card);padding:3px 10px;border-radius:6px}
+.pills span.v::before,.seen i{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);flex:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:14px}
+.outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:20px;padding:16px 18px;background:var(--panel);font-size:14px;border-radius:10px}
+.outs b{color:var(--muted)}
+@media (max-width:960px){.cx{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.cx{grid-template-columns:minmax(0,1fr)}.cx-stats div{padding:12px 12px}.cx-stats b{font-size:22px}.cx-stats span{font-size:12px}}
+
 /* proof */
 .feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--plum-dd);color:var(--on-plum);padding:32px;margin-bottom:24px;border-radius:16px}
 .feature .k{color:var(--sun);margin-bottom:10px}
@@ -434,7 +452,7 @@ footer p+p{margin-top:6px}
       <a href="#rollout">Rollout</a>
       <a href="#ask">Ask</a>
       <a href="#alerts">Alerts</a>
-      <a href="#answer">One answer</a>
+      <a href="#connect">Connects</a>
       <a href="#proof">Proof</a>
       <a href="#pilot">Pilot</a>
       <a href="#trust">Trust</a>
@@ -634,10 +652,59 @@ footer p+p{margin-top:6px}
   </div>
 </section>
 
+<section class="band" id="connect" aria-labelledby="cx-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">07</span> What Milo connects to</p>
+      <h2 id="cx-h">The tools sales runs on. <em>All in one place.</em></h2>
+      <p>Today it's Salesforce and Power BI. As more teams join, so do their tools.</p>
+    </div>
+    <div class="cx-stats">
+      <div><b>700+</b><span>connectors ready to use</span></div>
+      <div><b>£0</b><span>to build one that's missing</span></div>
+      <div><b>Read-only</b><span>by default, on every connection</span></div>
+    </div>
+    <div class="cx">
+      <div class="fam">
+        <h3>CRM and sales</h3>
+        <p class="fs">Where the pipeline lives</p>
+        <div class="pills"><span class="v">Salesforce</span><span>HubSpot</span><span>Microsoft Dynamics 365</span><span>Pipedrive</span><span>Zoho CRM</span><span>Close</span></div>
+      </div>
+      <div class="fam">
+        <h3>Prospecting</h3>
+        <p class="fs">Finding and reaching new clients</p>
+        <div class="pills"><span>LinkedIn Sales Navigator</span><span>Cognism</span><span>Apollo.io</span><span>ZoomInfo</span><span>Lusha</span><span>Outreach</span><span>Salesloft</span><span>Clay</span></div>
+      </div>
+      <div class="fam">
+        <h3>Phone and calls</h3>
+        <p class="fs">Diallers, calls and recordings</p>
+        <div class="pills"><span class="v">RingCentral</span><span class="v">Microsoft Teams</span><span>Natterbox</span><span>Aircall</span><span>Dialpad</span><span>JustCall</span><span>CloudCall</span><span>8x8</span><span>Gong</span></div>
+      </div>
+      <div class="fam">
+        <h3>Finance and billing</h3>
+        <p class="fs">Invoices, payments and the ledger</p>
+        <div class="pills"><span>Xero</span><span>Sage Intacct</span><span>Sage 200</span><span>QuickBooks</span><span>NetSuite</span><span>SAP</span><span>Business Central</span><span>Stripe</span><span>GoCardless</span><span>Chaser</span></div>
+      </div>
+      <div class="fam">
+        <h3>Recruitment tech</h3>
+        <p class="fs">The systems your clients post from</p>
+        <div class="pills"><span class="v">Appcast</span><span>Bullhorn</span><span>Broadbean</span><span>idibu</span><span>JobAdder</span><span>Vincere</span><span>Workday</span><span>SAP SuccessFactors</span><span>iCIMS</span><span>Tribepad</span></div>
+      </div>
+      <div class="fam">
+        <h3>Data and reporting</h3>
+        <p class="fs">Reports, files and warehouses</p>
+        <div class="pills"><span class="v">Power BI</span><span class="v">SharePoint</span><span class="v">Your global data platform</span><span>Excel</span><span>Google Sheets</span><span>Tableau</span><span>Snowflake</span><span>BigQuery</span><span>Databricks</span><span>GA4</span></div>
+      </div>
+    </div>
+    <p class="seen"><i aria-hidden="true"></i>In use today, from our conversations. The rest are examples of what Milo connects to.</p>
+    <div class="outs"><b class="label">Answers arrive in</b><span>Teams</span><span>Slack</span><span>WhatsApp</span><span>Email</span><span>Excel</span><span>PowerPoint</span><span>PDF</span></div>
+  </div>
+</section>
+
 <section class="band" id="proof" aria-labelledby="proof-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">07</span> Proof</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">08</span> Proof</p>
       <h2 id="proof-h">Sales teams on Salesforce <em>already run on it.</em></h2>
       <p>The closest example is a B2B platform whose account teams work in Salesforce and Power BI.</p>
     </div>
@@ -678,7 +745,7 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="vid-grid">
       <div>
-        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">08</span> See it</p>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> See it</p>
         <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
         <p class="vp">For anyone you share this with.</p>
       </div>
@@ -700,7 +767,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="pilot" aria-labelledby="pi-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> The pilot</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">10</span> The pilot</p>
       <h2 id="pi-h">Four weeks. <em>One team.</em></h2>
       <p>We do the heavy lifting. Your team asks the questions.</p>
     </div>
@@ -740,7 +807,7 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="sec">
       <div>
-        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">10</span> Trust and security</p>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">11</span> Trust and security</p>
         <h2 id="sec-h">Hosted in Frankfurt. <em>Access by role.</em></h2>
         <p class="t">Each person sees only what their role allows. The pilot reads sales data only, with no HR or payment data, and stays read-only until you switch on write-back. Hosted in Frankfurt on AWS, or on your own servers. ISO 27001, SOC 2 and GDPR.</p>
       </div>
