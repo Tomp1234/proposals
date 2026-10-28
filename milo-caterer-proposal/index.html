@@ -62,10 +62,10 @@ button,input{font:inherit;color:inherit}
 /* hero */
 .hero{position:relative;overflow:hidden;padding-block:56px 72px;color:var(--on-plum);background:radial-gradient(60% 80% at 100% 0%,var(--plum),transparent 70%),var(--plum-dd)}
 .hero .eyebrow{color:var(--on-plum-m)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:52px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
 .pills-top{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
 .pt{font-size:12.5px;font-weight:700;color:var(--on-plum);border:1px solid var(--on-plum-m);padding:3px 12px;border-radius:999px}
-.hero h1{font-size:clamp(44px,5.6vw,72px);margin-bottom:24px;color:var(--on-plum)}
+.hero h1{font-size:clamp(40px,4.9vw,62px);margin-bottom:24px;color:var(--on-plum)}
 .hero h1 span{display:block}
 .lede{font-size:19px;line-height:1.5;max-width:30em;color:var(--on-plum-m)}
 .lede b{color:var(--on-plum)}
@@ -82,6 +82,7 @@ button,input{font:inherit;color:inherit}
 .rb-scale{position:relative;height:15px}
 .rb-scale i{position:absolute;top:0;left:var(--ln);transform:translateX(-50%);font-style:normal;white-space:nowrap;color:var(--ink)}
 .rb{display:grid;gap:8px;margin-bottom:4px}
+.rb.noline .rb-t::before{display:none}
 .rb-row{min-height:19px;transition:opacity .3s}
 .rb-row.dim{opacity:.32}
 .rb-n{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -188,6 +189,20 @@ section.tint{background:var(--lilac-soft);border-top:0}
 @media (max-width:900px){.lp-tabs{display:flex;overflow-x:auto;scrollbar-width:thin}.lp{flex:none;min-width:150px}.wv,.boardbox{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:520px){.teams{grid-template-columns:repeat(2,minmax(0,1fr))}.tm{min-height:70px}.boardbox{padding:20px}}
 
+/* everyone's team */
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.tri{background:var(--panel);border-top:6px solid var(--plum);border-radius:4px 4px 14px 14px;padding:22px;display:flex;flex-direction:column;min-width:0}
+.tri.t2{border-top-color:var(--sun)}
+.tri.t3{border-top-color:var(--orange)}
+.tri .k{color:var(--plum-dd);font-size:12px;margin-bottom:8px}
+.tri h3{font-size:26px;margin-bottom:8px}
+.tri p{font-size:14.5px;color:var(--muted)}
+.tri .inst{margin-top:auto;padding-top:14px;font-size:13px;font-weight:700;color:var(--ink)}
+.tri .inst::before{content:"";display:inline-block;width:14px;height:2px;background:var(--plum);vertical-align:middle;margin-right:8px}
+.tri a{margin-top:10px;font-size:13.5px;font-weight:800;text-decoration:none}
+.tri a:hover{text-decoration:underline}
+@media (max-width:860px){.trio{grid-template-columns:minmax(0,1fr)}}
+
 /* demo */
 .demo{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
 .seats{display:flex;flex-direction:column;gap:3px}
@@ -225,6 +240,18 @@ section.tint{background:var(--lilac-soft);border-top:0}
 .bf{display:block;height:100%;background:var(--bar);border-radius:3px;transition:width .5s ease}
 .bf.hl{background:var(--hlbar)}
 .bv{font-family:var(--mono);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.cmp-lg{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px;color:var(--muted);margin-bottom:10px}
+.cmp-lg span{display:inline-flex;align-items:center;gap:6px}
+.cmp-lg i{display:inline-block;width:16px;height:9px;border-radius:2px;background:var(--bar)}
+.cmp-lg i.you{background:var(--hlbar)}
+.cmp{display:grid;gap:12px;margin-bottom:16px}
+.cmp-row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.cmp-row .bl{overflow-wrap:anywhere}
+.cmp-bars{display:grid;gap:3px}
+.cmp-bars .bt{height:9px}
+.cmp-v{display:grid;font-family:var(--mono);font-size:11.5px;line-height:1.25;text-align:right;font-variant-numeric:tabular-nums}
+.cmp-v b{font-weight:500;color:var(--plum-dd)}
+.cmp-v span{color:var(--muted)}
 .wl{display:grid;border:1px solid var(--rule);margin-bottom:16px;border-radius:10px;overflow:hidden}
 .wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
 .wl-row+.wl-row{border-top:1px solid var(--rule)}
@@ -255,7 +282,7 @@ section.tint{background:var(--lilac-soft);border-top:0}
   .sg{display:none}
   .seat{flex:none;border-color:var(--rule)}
   .seat span{display:none}
-  .bar-row{grid-template-columns:minmax(0,118px) minmax(0,1fr) 62px}
+  .bar-row,.cmp-row{grid-template-columns:minmax(0,118px) minmax(0,1fr) 62px}
 }
 
 /* alerts */
@@ -418,9 +445,9 @@ footer p+p{margin-top:6px}
     <div class="hero-grid">
       <div>
         <p class="eyebrow"><span class="sq" aria-hidden="true"></span>Milo × Caterer.com · Stepstone UK</p>
-        <div class="pills-top" aria-hidden="true"><span class="pt">SMB sales</span><span class="pt">Enterprise sales</span><span class="pt">Four-week pilot</span></div>
-        <h1><span>Start where</span><span>the deals are.</span><span><em>Grow team by team.</em></span></h1>
-        <p class="lede">A four-week pilot for <b>one agile sales team</b>, on Salesforce and Power BI. When it earns its place, the next team joins. <b>The price stays the same.</b></p>
+        <div class="pills-top" aria-hidden="true"><span class="pt">Sales team pilot</span><span class="pt">SDRs to revenue ops</span><span class="pt">Salesforce + Power BI</span></div>
+        <h1><span>Your personal AI analyst, operations and finance team.</span><span><em>For everyone on the team.</em></span></h1>
+        <p class="lede">A four-week pilot for <b>one agile sales team</b>, from SDRs to revenue ops, on Salesforce and Power BI. When it earns its place, the next team joins. <b>The price stays the same.</b></p>
       </div>
 
       <div class="rb-panel">
@@ -447,9 +474,9 @@ footer p+p{margin-top:6px}
           <span>Re</span><b>A pilot for one sales team</b>
         </div>
         <p class="sal">Dear Paul and Ollie,</p>
-        <p>Thank you for the time. This is how we would start: the way we start with most sales-led businesses, with one agile team and the data that matters most.</p>
-        <p>The team asks Salesforce and Power BI questions in plain English. Deals that go quiet arrive in Teams before anyone has to look for them. None of it needs a slot on the group roadmap.</p>
-        <p>Everything here is sample data, so click around. Feel free to pass it on to Umang.</p>
+        <p>Thank you for the time. This page shows how we would start, the way we do with most sales-led businesses: one agile team and the data that matters most.</p>
+        <p>Everyone on that team, from SDRs to revenue ops, gets their own AI analyst, operations and finance team. They ask Salesforce and Power BI questions in plain English, and deals that go quiet arrive in Teams before anyone has to look for them.</p>
+        <p>None of it needs a slot on the group roadmap. Everything here is sample data, so click around. Feel free to pass it on to Umang.</p>
         <div class="sign">
           <p class="nm">Liam James Rabone</p>
           <p class="ml">Milo · liam@milo.ai</p>
@@ -462,7 +489,7 @@ footer p+p{margin-top:6px}
           <li><b>2</b><span>UK brands: Caterer.com and Totaljobs</span></li>
           <li><b>100m+</b><span>site visits a week across the group's brands</span></li>
           <li><b>2</b><span>places sales data lives: Salesforce and Power BI</span></li>
-          <li><b>1</b><span>team to start with: SMB and enterprise sales</span></li>
+          <li><b>1</b><span>team to start with: sales, from SDRs to revenue ops</span></li>
         </ul>
         <p class="glance-src">From our conversation.</p>
       </div>
@@ -470,12 +497,45 @@ footer p+p{margin-top:6px}
   </div>
 </section>
 
-<section class="band first" id="rollout" aria-labelledby="ro-h">
+<section class="band first" id="team" aria-labelledby="tm-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">02</span> The rollout</p>
-      <h2 id="ro-h">One agile team first. <em>Then the next.</em></h2>
-      <p>We start where the most important data is. In a sales-led business, that is the sales floor. Pick a wave.</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">02</span> For everyone on the team</p>
+      <h2 id="tm-h">Everyone gets <em>their own team.</em></h2>
+      <p>From SDRs to the sales director, each person on Milo gets the same three.</p>
+    </div>
+    <div class="trio">
+      <div class="tri t1">
+        <p class="k label">Your AI analyst</p>
+        <h3>Answers in seconds</h3>
+        <p>Ask about deals, clients and targets in plain English, with the sources under every answer.</p>
+        <p class="inst">Instead of building a report</p>
+        <a href="#ask">Try it in Ask Milo</a>
+      </div>
+      <div class="tri t2">
+        <p class="k label">Your operations team</p>
+        <h3>The admin, done</h3>
+        <p>Milo watches the pipeline, flags quiet deals and adds the follow-up tasks in Salesforce.</p>
+        <p class="inst">Instead of checking the CRM by hand</p>
+        <a href="#alerts">See the alerts</a>
+      </div>
+      <div class="tri t3">
+        <p class="k label">Your finance team</p>
+        <h3>Numbers you can trust</h3>
+        <p>Target maths, forecasts and who owes what, worked out from one agreed set of numbers.</p>
+        <p class="inst">Instead of waiting for a spreadsheet</p>
+        <a href="#answer">Why the numbers match</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="rollout" aria-labelledby="ro-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">03</span> The rollout</p>
+      <h2 id="ro-h">Start where the deals are. <em>Then the next team.</em></h2>
+      <p>We start with one agile team, where the most important data is. In a sales-led business, that is the sales floor. Pick a wave.</p>
     </div>
     <div class="lp-tabs" id="wv-tabs" role="group" aria-label="Choose a wave"></div>
     <div class="wv">
@@ -498,9 +558,9 @@ footer p+p{margin-top:6px}
 <section class="band" id="ask" aria-labelledby="ask-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">03</span> Ask Milo</p>
-      <h2 id="ask-h">The questions sales asks. <em>Answered in seconds.</em></h2>
-      <p>Pick a seat and a question, or type your own.</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">04</span> Ask Milo</p>
+      <h2 id="ask-h">The whole sales team. <em>Answered in seconds.</em></h2>
+      <p>SDRs, account executives, account managers, revenue and sales ops, and their leaders. Pick a seat and a question, or type your own.</p>
     </div>
     <div class="demo">
       <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
@@ -525,7 +585,7 @@ footer p+p{margin-top:6px}
 <section class="band tint" id="alerts" aria-labelledby="al-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">04</span> Pull, then push</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">05</span> Pull, then push</p>
       <h2 id="al-h">Quiet deals arrive in Teams. <em>Before Monday's call.</em></h2>
       <p>Milo pulls from Salesforce, finds what needs doing, then pushes it back: a message to the owner and a task on the deal. Pick an alert.</p>
     </div>
@@ -543,7 +603,7 @@ footer p+p{margin-top:6px}
 <section class="band first" id="answer" aria-labelledby="an-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">05</span> One source of truth</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">06</span> One source of truth</p>
       <h2 id="an-h">Same question. <em>Same answer.</em></h2>
       <p>AI is now part of everyone's job. When each person asks on their own, the numbers drift in three ways.</p>
     </div>
@@ -574,7 +634,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="proof" aria-labelledby="proof-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">06</span> Proof</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">07</span> Proof</p>
       <h2 id="proof-h">Sales teams on Salesforce <em>already run on it.</em></h2>
       <p>The closest example is a B2B platform whose account teams work in Salesforce and Power BI.</p>
     </div>
@@ -615,7 +675,7 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="vid-grid">
       <div>
-        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">07</span> See it</p>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">08</span> See it</p>
         <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
         <p class="vp">For anyone you share this with.</p>
       </div>
@@ -637,33 +697,33 @@ footer p+p{margin-top:6px}
 <section class="band" id="pilot" aria-labelledby="pi-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">08</span> The pilot</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> The pilot</p>
       <h2 id="pi-h">Four weeks. <em>One team.</em></h2>
       <p>We do the heavy lifting. Your team asks the questions.</p>
     </div>
     <ol class="weeks">
       <li class="wk"><span class="label">Week 1 · Connect</span><b>Salesforce and Power BI</b><p>Connected read-only, in a sandbox first. We agree the definitions with you: stages, quiet deals, active clients.</p></li>
-      <li class="wk"><span class="label">Week 2 · Ask</span><b>The team goes live</b><p>SMB and enterprise reps and their managers ask every day, and build their own dashboards.</p></li>
+      <li class="wk"><span class="label">Week 2 · Ask</span><b>The team goes live</b><p>SDRs, account executives, account managers and ops ask every day, and build their own dashboards.</p></li>
       <li class="wk"><span class="label">Week 3 · Automate</span><b>Alerts and write-back</b><p>Quiet and slipped deals in Teams, a Monday pipeline digest, and tasks added in Salesforce.</p></li>
       <li class="wk"><span class="label">Week 4 · Read-out</span><b>What it changed</b><p>Who used it, what they asked, which reports nobody built by hand, which deals got chased. Then you pick the next team.</p></li>
     </ol>
     <div class="price">
       <div class="pc">
         <p class="label">The pilot · four weeks</p>
-        <p class="big">£1,000</p>
+        <p class="big">£1,500</p>
         <ul>
-          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Connections, set-up and the agile team</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>The whole sales team, SDRs to revenue ops</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Connections, set-up and agreed definitions</span></li>
           <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Alerts and Salesforce write-back</span></li>
-          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Taken off year one if you continue</span></li>
         </ul>
       </div>
       <div class="pc go">
-        <p class="label">Then, for every team</p>
+        <p class="label">Then, going forward</p>
         <p class="big">£1,500 <small>a month</small></p>
         <ul>
           <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Unlimited users</span></li>
           <li><svg aria-hidden="true"><use href="#tick"/></svg><span>The next team joins at no extra cost</span></li>
-          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Six or twelve month terms</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Every connection built and run by us</span></li>
         </ul>
       </div>
     </div>
@@ -674,7 +734,7 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="sec">
       <div>
-        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> Trust and security</p>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">10</span> Trust and security</p>
         <h2 id="sec-h">Hosted in Frankfurt. <em>Access by role.</em></h2>
         <p class="t">Each person sees only what their role allows. The pilot reads sales data only, with no HR or payment data, and stays read-only until you switch on write-back. Hosted in Frankfurt on AWS, or on your own servers. ISO 27001, SOC 2 and GDPR.</p>
       </div>
@@ -743,6 +803,7 @@ footer p+p{margin-top:6px}
     function pct(v){return Math.min(v,L.max)/L.max*100}
     var ln=L.line!=null?pct(L.line).toFixed(1)+"%":"-99%";
     $("rb").style.setProperty("--ln",ln);
+    $("rb").classList.toggle("noline",L.line==null);
     $("rb-ll").parentNode.style.setProperty("--ln",ln);
     $("rb-ll").textContent=L.ll||"";
     DEALS.forEach(function(c){
@@ -774,22 +835,22 @@ footer p+p{margin-top:6px}
 
   /* rollout: teams by wave */
   var TEAMS=[
-    ["SMB sales",1],["Enterprise sales",1],["Sales managers",1],["One seat from another team",1,"opt"],
-    ["Account management",2],["Sales ops",2],["Finance",2],["Client support",2],
-    ["Marketing",3],["Product",3],["Totaljobs",3],["Other markets",3]
+    ["SDRs",1],["SMB and enterprise sales",1],["Account managers",1],["Revenue and sales ops",1],
+    ["Finance",2],["Operations",2],["Client support",2],["Marketing",2],
+    ["Product",3],["Totaljobs",3],["Ireland",3],["Austria and South Africa",3]
   ];
   var WAVES=[
     {n:"Wave 1",name:"The pilot",when:"Weeks 1–4",
-     who:"One agile team: SMB and enterprise reps with their managers. Add someone from finance or operations if you like.",
-     reads:["Salesforce","Power BI","Teams"],asks:["Which of my deals have gone quiet?","How is each team tracking against target?"],
+     who:"The whole sales team as one agile squad: SDRs, SMB and enterprise sales, account managers, revenue and sales ops, and their managers. Add someone from finance if you like.",
+     reads:["Salesforce","Power BI","Teams"],asks:["How do I reach my target this month?","Which of my deals have gone quiet?"],
      proves:"Reps get answers without building a report, and quiet deals get chased."},
     {n:"Wave 2",name:"The whole floor",when:"Months 2–3",
-     who:"Account management, sales ops, finance and client support join, on the same numbers.",
-     reads:["Salesforce","Power BI","Invoices","Platform usage"],asks:["Which renewals are behind on usage?","What does each client owe?"],
+     who:"Finance, operations, client support and marketing join, on the same numbers.",
+     reads:["Salesforce","Power BI","Invoices","Platform usage"],asks:["What does each client owe across all three invoices?","Which campaigns bring recruiters who buy?"],
      proves:"One set of numbers from the first call to the renewal."},
     {n:"Wave 3",name:"Other teams and brands",when:"When they are ready",
-     who:"Marketing, product and Totaljobs, then the Irish, Austrian and South African brands if they want it.",
-     reads:["Global data platform","GA4","Support tickets"],asks:["Which campaigns bring recruiters who buy?","Which clients buy from more than one brand?"],
+     who:"Product and Totaljobs, then the Irish, Austrian and South African brands if they want it.",
+     reads:["Global data platform","GA4","Support tickets"],asks:["Which features do clients use most?","Which clients buy from more than one brand?"],
      proves:"Every team on one tool, each seeing only what its role allows."}
   ];
   var wave=0;
@@ -820,50 +881,110 @@ footer p+p{margin-top:6px}
   /* seats */
   var SEATS=[
     {g:"Sales leadership",name:"Sales manager",sub:"Team pipeline and targets",sys:["Salesforce","Power BI"],qs:[
-      {q:"How is each team tracking against target?",kw:["team","teams","target","targets","tracking","quota","kpi","kpis","month","performance","behind","pace"],type:"bars",unit:"%",hl:2,
+      {q:"How is each team tracking against target?",kw:["team","teams","tracking","quota","kpi","kpis","performance","pace","october"],type:"bars",unit:"%",hl:2,
        cap:"October so far, % of monthly target, three working days left",
        rows:[["SMB · new business",91],["SMB · renewals",84],["Enterprise · new business",68],["Enterprise · renewals",79]],
        say:"Enterprise new business is furthest behind. Two of its biggest deals have gone quiet.",
        src:["Salesforce"],alert:"Every morning in Teams: each team against target."},
-      {q:"Why don't Salesforce and Power BI agree on October?",kw:["agree","disagree","different","differ","power","bi","report","reports","numbers","match","mismatch","definition","definitions","why"],type:"summary",
+      {q:"Why don't Salesforce and Power BI agree on October?",kw:["agree","disagree","different","differ","power","bi","report","reports","match","mismatch","definition","definitions","why"],type:"summary",
        kpis:[["£412k","Salesforce, counted at close"],["£389k","Power BI report, counted at invoice"],["£23k","six deals closed, not yet invoiced"],["1","definition, used from now on"]],
        say:"Both are right. They count a deal at different moments. Milo uses the definition you choose and shows it under every answer.",
        src:["Salesforce","Power BI"],alert:null}
     ]},
     {g:"Sales leadership",name:"Sales director",sub:"The forecast and the quarter",sys:["Salesforce","Power BI"],qs:[
-      {q:"What will we close this quarter?",kw:["close","forecast","quarter","q4","land","commit","expect","revenue","predict","win"],type:"summary",
+      {q:"What will we close this quarter?",kw:["close","forecast","quarter","q4","land","commit","expect","predict","win"],type:"summary",
        kpis:[["£1.26m","weighted forecast"],["89%","of the £1.41m target"],["£148k","in deals moved twice"],["3","deals to call this week"]],
        say:"On course for 89% of target. Most of the gap is three deals that went quiet and slipped.",
        src:["Salesforce"],alert:"Every Friday: the forecast, and what changed this week."},
-      {q:"Where are deals stalling?",kw:["stalling","stall","stuck","stage","stages","slow","longest","wait","waiting","proposal","conversion","convert","funnel"],type:"bars",unit:" days",hl:1,
+      {q:"Where are deals stalling?",kw:["stalling","stall","stuck","stage","stages","slow","longest","wait","waiting","funnel"],type:"bars",unit:" days",hl:1,
        cap:"Average days in each stage, this quarter",
        rows:[["Discovery",9],["Proposal",21],["Negotiation",14],["Contract",6]],
        say:"Deals wait longest at proposal, more than twice as long as in discovery.",
        src:["Salesforce"],alert:"Monthly: days in each stage, by team."}
     ]},
-    {g:"Reps",name:"Enterprise sales",sub:"Fewer, bigger deals",sys:["Salesforce","Power BI","Teams"],qs:[
-      {q:"Which of my deals have gone quiet?",kw:["quiet","stale","deals","deal","gone","activity","untouched","chase","follow","my","pipeline","silent"],type:"list",
+    {g:"Sales team",name:"SDR",sub:"New business and meetings",sys:["Salesforce","Power BI"],qs:[
+      {q:"How do I hit my meetings target?",kw:["meetings","meeting","booked","book","booking","demos","demo","appointments","hit","target","sdr"],type:"summary",
+       kpis:[["19 of 22","meetings booked in October"],["3","to go, in three working days"],["1 in 16","of your calls becomes a meeting"],["16","calls a day gets you there"]],
+       say:"Three more meetings in three working days. At one meeting per 16 calls, that's 16 calls a day, and your mornings convert best.",
+       src:["Salesforce"],alert:"Every morning in Teams: where you are against target, and how many calls it takes."},
+      {q:"What do the best SDRs do that I don't?",kw:["best","top","colleagues","colleague","compare","comparison","peers","others","same","numbers","differently","performers","benchmark","sdrs","better","improve"],type:"compare",
+       cap:"You against the team's top quarter, last three months. Colleagues aren't named.",
+       rows:[["Calls a day",38,41,""],["Calls connected",18,24,"%"],["Meetings per 100 calls",6,9,""],["Follow-up within a day",52,88,"%"]],
+       say:"You make as many calls as the best SDRs. The gap is follow-up: they follow up within a day 88% of the time, you 52%.",
+       src:["Salesforce"],alert:"Monthly: your numbers against the top quarter."},
+      {q:"Which leads should I work first?",kw:["leads","lead","prospects","prospect","prospecting","work","first","prioritise","prioritize","inbound","outbound","new"],type:"list",
+       rows:[["Hotel group lead","Came in yesterday at 15:12 · not called yet","Call now","bad"],["Bar and restaurant group","Bought adverts in 2025 · nothing booked this year","Win back","warn"],["Care home caterer","Lost on price in May · asked us to call back this quarter","Reopen","warn"]],
+       say:"Call yesterday's lead first. Then a lapsed client and a prospect who asked to hear from us about now.",
+       src:["Salesforce"],alert:"Every morning in Teams: your leads, ranked."}
+    ]},
+    {g:"Sales team",name:"SMB sales",sub:"A high-volume book",sys:["Salesforce","Power BI"],qs:[
+      {q:"How do I reach my target this month?",kw:["reach","target","hit","month","quota","number","short","gap","make","revenue","line"],type:"summary",
+       kpis:[["£31k of £40k","booked in October"],["£9k","to go, in three working days"],["£19k","open and due to close this month"],["2","deals would get you there"]],
+       say:"Close the gastro pub (£8k) and the seaside hotel (£5.2k) and you're over the line. Both are on today's call list.",
+       src:["Salesforce","Power BI"],alert:"Every morning in Teams: the gap to target, and the deals that close it."},
+      {q:"Who should I call today?",kw:["call","calls","today","who","ring","phone","list","next"],type:"list",
+       rows:[["QSR franchisee","£12k deal · quiet for 26 days","Call","bad"],["Gastro pub","£8k · asked for a quote 4 days ago","Reply","warn"],["Seaside hotel","£5.2k · proposal sent 9 days ago, no reply","Chase","warn"]],
+       say:"Three calls, ranked by value at risk and how long since you last spoke.",
+       src:["Salesforce"],alert:"Every morning in Teams: your call list."},
+      {q:"What commission is the enterprise team on?",kw:["commission","pay","salary","salaries","bonus","earn","earning","wages","hr"],type:"refuse",
+       say:"Pay and commission sit outside this workspace. Your role covers your own clients, deals and team targets.",
+       src:["Access policy"],alert:null}
+    ]},
+    {g:"Sales team",name:"Enterprise sales",sub:"Fewer, bigger deals",sys:["Salesforce","Power BI","Teams"],qs:[
+      {q:"Which of my deals have gone quiet?",kw:["quiet","stale","deals","deal","gone","activity","untouched","chase","silent"],type:"list",
        rows:[["Contract caterer","£120k · no activity for 21 days · close date moved twice","Call","bad"],["Pub group","£74k · no activity for 18 days","Nudge","warn"],["Care home group","£58k · emailed 5 days ago","OK","ok"]],
        say:"Two deals worth £194k have gone quiet, and the contract caterer has slipped twice.",
        src:["Salesforce"],alert:"Every Monday in Teams: your deals quiet for 14 days, with a task added in Salesforce."},
-      {q:"Prep me for the hotel group meeting",kw:["prep","prepare","meeting","brief","briefing","hotel","account","client","before","plan","overview"],type:"summary",
+      {q:"How do I get my numbers to match the team's best?",kw:["match","best","top","colleagues","colleague","compare","comparison","peers","same","numbers","win","rate","closers","performers","benchmark","improve"],type:"compare",
+       cap:"You against the team's top quarter, last 12 months. Colleagues aren't named.",
+       rows:[["Win rate",24,35,"%"],["Days to close",62,41," days"],["Meetings before a proposal",1.4,2.6,""],["Deals with 2+ client contacts",40,78,"%"]],
+       say:"The best closers meet more people. 78% of their deals involve two or more contacts at the client, against 40% of yours, and they close three weeks sooner.",
+       src:["Salesforce"],alert:"Monthly: your numbers against the top quarter."},
+      {q:"Prep me for the hotel group meeting",kw:["prep","prepare","meeting","brief","briefing","hotel","account","before","plan","overview"],type:"summary",
        kpis:[["£96k","open opportunity"],["£210k","spent with us in two years"],["4","contacts met this year"],["2","products they don't buy yet"]],
        say:"A one-page brief: what they spend, who you've met, what's open and what they could buy next.",
        src:["Salesforce","Power BI"],alert:"Builds itself the day before each client meeting."}
     ]},
-    {g:"Reps",name:"SMB sales",sub:"A high-volume book",sys:["Salesforce","Power BI"],qs:[
-      {q:"Who should I call today?",kw:["call","calls","today","who","ring","phone","list","priority","prioritise","next"],type:"list",
-       rows:[["QSR franchisee","£12k deal · quiet for 26 days","Call","bad"],["Seaside hotel","Proposal sent 9 days ago · no reply","Chase","warn"],["Gastro pub","Asked for a quote 4 days ago","Reply","warn"]],
-       say:"Three calls, ranked by value at risk and how long since you last spoke.",
-       src:["Salesforce"],alert:"Every morning in Teams: your call list."},
-      {q:"Which clients bought last year but not this year?",kw:["lapsed","last","year","bought","buy","stopped","lost","win-back","winback","returning","churned"],type:"bars",pre:"£",unit:"k",
-       cap:"Spend last year, with nothing booked this year",
-       rows:[["Wedding venue",14],["Café chain",11],["Boutique hotel",8],["Bakery group",6]],
-       say:"Fourteen clients spent with us last year and nothing yet this year. These four spent most.",
-       src:["Salesforce","Power BI"],alert:"Monthly: lapsed clients, by last year's spend."},
-      {q:"What commission is the enterprise team on?",kw:["commission","pay","salary","salaries","bonus","earn","earning","wages","hr"],type:"refuse",
-       say:"Pay and commission sit outside this workspace. Your role covers your own clients, deals and team targets.",
-       src:["Access policy"],alert:null}
+    {g:"Sales team",name:"Account manager",sub:"Renewals and growth",sys:["Salesforce","Power BI"],qs:[
+      {q:"Which renewals are at risk this quarter?",kw:["renewal","renewals","risk","risky","churn","lose","losing","renew","due"],type:"list",
+       rows:[["Restaurant group","Renews in 48 days · spend down 30% on last year","At risk","bad"],["Hotel bar group","Renews in 62 days · no contact since August","Call","warn"],["Stadium caterer","Renews in 75 days · spending as last year","OK","ok"]],
+       say:"Two renewals need a call this month. The restaurant group is spending far less than last year with 48 days to go.",
+       src:["Salesforce","Power BI"],alert:"Every Monday: renewals due in 90 days, ranked by risk."},
+      {q:"Which clients could buy more?",kw:["upsell","cross-sell","more","grow","growth","expand","buy","products","cv","database","e-shots","eshots","credits","opportunity"],type:"list",
+       rows:[["Hotel group","15 adverts a month · never searches the CV database","CV database","ok"],["QSR chain","Ran out of advert credits twice this year","More credits","ok"],["Holiday parks","Hires every March · no e-shots","E-shots","ok"]],
+       say:"Three clients lean hard on one product and skip the others. Each has a natural next one.",
+       src:["Salesforce","Power BI"],alert:"Monthly: clients ready for another product."},
+      {q:"Which of my clients owe us money?",kw:["owe","owed","owes","paid","payment","payments","invoice","invoices","overdue","debt","outstanding","unpaid","money"],type:"list",
+       rows:[["Contract caterer","£6.8k · CV database invoice, 34 days overdue","Chase","bad"],["Holiday parks","£5.5k · adverts invoice, 21 days overdue","Chase","warn"],["Care home caterer","£3.1k · due on Friday","Remind","ok"]],
+       say:"£12.3k is overdue across two clients. Worth sorting before either renewal conversation.",
+       src:["Power BI","Salesforce"],alert:"Every Friday in Teams: what your clients owe."}
+    ]},
+    {g:"Revenue and sales ops",name:"Revenue operations",sub:"Forecast and pipeline",sys:["Salesforce","Power BI"],qs:[
+      {q:"How much pipeline do we need next quarter?",kw:["pipeline","need","coverage","cover","next","quarter","enough","generate","plan"],type:"summary",
+       kpis:[["£1.5m","next quarter's target"],["29%","win rate, last four quarters"],["£5.2m","pipeline needed at that rate"],["£3.6m","in the pipeline today"]],
+       say:"You need about £5.2m of pipeline and have £3.6m. Most of the gap is SMB new business, which is where the SDRs should point.",
+       src:["Salesforce"],alert:"Every Monday: pipeline cover for next quarter."},
+      {q:"What's our win rate by lead source?",kw:["source","sources","lead","channel","channels","inbound","outbound","events","referrals","partners","attribution","rate","win"],type:"bars",unit:"%",
+       cap:"Win rate by where the deal came from, last 12 months",
+       rows:[["Inbound",31],["Partner referrals",27],["Trade events",24],["SDR outbound",18]],
+       say:"Inbound wins most often. Outbound wins least, so it needs the most pipeline for each pound of target.",
+       src:["Salesforce"],alert:"Monthly: win rate by source."},
+      {q:"Which deals are missing data the forecast needs?",kw:["missing","data","quality","hygiene","clean","fields","amount","duplicates","duplicate","records","wrong","fix"],type:"list",
+       rows:[["14 deals","No amount or close date","Fix","bad"],["9 deals","Same stage for 60+ days","Review","warn"],["6 accounts","Duplicated in Salesforce","Merge","warn"]],
+       say:"29 records would change the forecast if they were right. Milo can send each owner their own list.",
+       src:["Salesforce"],alert:"Every Monday: each owner's records to fix."}
+    ]},
+    {g:"Revenue and sales ops",name:"Sales operations",sub:"Territories and the CRM",sys:["Salesforce","Power BI"],qs:[
+      {q:"Are territories balanced?",kw:["territories","territory","balanced","balance","regions","region","accounts","split","fair","workload","coverage"],type:"bars",
+       cap:"Accounts per rep, by territory",
+       rows:[["London",142],["Midlands",133],["South East",118],["North",96],["Scotland",61]],
+       say:"London and Midlands reps carry the most accounts. Scotland has room to take more.",
+       src:["Salesforce"],alert:null},
+      {q:"Who is logging activity in Salesforce?",kw:["logging","logged","log","activity","adoption","crm","salesforce","using","entered","updating","notes"],type:"bars",unit:"%",hl:3,
+       cap:"Deals with activity logged this week, by team",
+       rows:[["SDRs",96],["SMB sales",92],["Account management",81],["Enterprise sales",74]],
+       say:"Enterprise logs the least, so some of its deals may look quieter than they are. Worth fixing before the quiet-deal alerts go out.",
+       src:["Salesforce"],alert:"Every Friday: logging by team."}
     ]}
   ];
 
@@ -896,6 +1017,13 @@ footer p+p{margin-top:6px}
       return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r,i){
         var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
         return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf'+(i===pick?" hl":"")+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="compare"){
+      return '<p class="cap">'+esc(a.cap)+'</p><p class="cmp-lg"><span><i class="you"></i>You</span><span><i></i>Top quarter of the team</span></p><div class="cmp">'+a.rows.map(function(r){
+        var m=Math.max(r[1],r[2]);
+        function w(v){return Math.max(3,Math.round(v/m*100))}
+        return '<div class="cmp-row"><span class="bl">'+esc(r[0])+'</span><span class="cmp-bars"><span class="bt"><span class="bf hl" style="width:'+w(r[1])+'%"></span></span><span class="bt"><span class="bf" style="width:'+w(r[2])+'%"></span></span></span><span class="cmp-v"><b>'+esc(r[1]+r[3])+'</b><span>'+esc(r[2]+r[3])+'</span></span></div>';
       }).join("")+'</div>';
     }
     if(a.type==="list"){
