@@ -375,7 +375,9 @@ section.tint{background:var(--lilac-soft);border-top:0}
 .wk .label{color:var(--plum);display:block;margin-bottom:6px}
 .wk b{display:block;font-weight:900;font-size:21px;letter-spacing:-.02em;line-height:1.15;margin-bottom:8px}
 .wk p{font-size:14px;color:var(--muted)}
-.price{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.price{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.85fr);gap:20px;align-items:stretch}
+.pc.inc ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px}
+.pc li b{font-weight:800}
 .pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;min-width:0}
 .pc .label{color:var(--muted)}
 .pc .big{font-weight:900;font-size:clamp(42px,5vw,58px);letter-spacing:-.03em;line-height:1;color:var(--plum);margin:10px 0 12px;font-variant-numeric:tabular-nums}
@@ -388,6 +390,7 @@ section.tint{background:var(--lilac-soft);border-top:0}
 .pc.go .big{color:var(--on-plum)}
 .pc.go li svg{color:var(--sun)}
 @media (max-width:900px){.weeks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){.pc.inc ul{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:640px){.price{grid-template-columns:minmax(0,1fr)}.pc.go{box-shadow:7px 7px 0 var(--sun)}}
 @media (max-width:480px){.weeks{grid-template-columns:minmax(0,1fr)}}
 
@@ -702,19 +705,22 @@ footer p+p{margin-top:6px}
       <p>We do the heavy lifting. Your team asks the questions.</p>
     </div>
     <ol class="weeks">
-      <li class="wk"><span class="label">Week 1 · Connect</span><b>Salesforce and Power BI</b><p>Connected read-only, in a sandbox first. We agree the definitions with you: stages, quiet deals, active clients.</p></li>
-      <li class="wk"><span class="label">Week 2 · Ask</span><b>The team goes live</b><p>SDRs, account executives, account managers and ops ask every day, and build their own dashboards.</p></li>
-      <li class="wk"><span class="label">Week 3 · Automate</span><b>Alerts and write-back</b><p>Quiet and slipped deals in Teams, a Monday pipeline digest, and tasks added in Salesforce.</p></li>
+      <li class="wk"><span class="label">Week 1 · Connect</span><b>All of your data</b><p>Salesforce, Power BI and the rest, connected read-only. We agree the definitions with you: stages, quiet deals, active clients.</p></li>
+      <li class="wk"><span class="label">Week 2 · Onboard</span><b>In person</b><p>Our engineers and customer success team come to you, or you come to us. We're happy to show the wider sales team too.</p></li>
+      <li class="wk"><span class="label">Week 3 · Build</span><b>Dashboards, alerts and apps</b><p>Your first dashboards, automations, alerts and apps, including quiet-deal alerts in Teams and tasks in Salesforce.</p></li>
       <li class="wk"><span class="label">Week 4 · Read-out</span><b>What it changed</b><p>Who used it, what they asked, which reports nobody built by hand, which deals got chased. Then you pick the next team.</p></li>
     </ol>
     <div class="price">
-      <div class="pc">
-        <p class="label">The pilot · four weeks</p>
+      <div class="pc inc">
+        <p class="label">The pilot · four weeks · what's included</p>
         <p class="big">£1,500</p>
         <ul>
-          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>The whole sales team, SDRs to revenue ops</span></li>
-          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Connections, set-up and agreed definitions</span></li>
-          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Alerts and Salesforce write-back</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span><b>In-person onboarding</b> by our engineers and customer success team, at your office or ours, with the wider sales team if you like</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span><b>All of your data connected</b></span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span><b>Your first dashboards, automations, alerts and apps</b>, built with you</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span><b>Unlimited users</b></span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span><b>A support group</b> straight to our customer success and engineering team, on Slack, Teams or WhatsApp</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span><b>Missing a connection?</b> We build it at our cost, as standard</span></li>
         </ul>
       </div>
       <div class="pc go">
@@ -723,7 +729,7 @@ footer p+p{margin-top:6px}
         <ul>
           <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Unlimited users</span></li>
           <li><svg aria-hidden="true"><use href="#tick"/></svg><span>The next team joins at no extra cost</span></li>
-          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Every connection built and run by us</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>The same support group and team behind you</span></li>
         </ul>
       </div>
     </div>
