@@ -113,7 +113,7 @@ p{margin:0}
 .lg-th{width:0;height:13px;border-left:2px dotted rgba(255,255,255,.7)}
 @media (max-width:880px){.board{grid-template-columns:1fr}.rb-side{border-left:0;border-top:1px solid var(--night-line)}}
 @media (max-width:420px){.rb-row{grid-template-columns:74px minmax(0,1fr) 56px;gap:8px}.rb-axis{margin-left:82px;padding-right:64px}.rb-main,.rb-side{padding:18px 16px}}
-.perf{height:14px;background:radial-gradient(circle at 50% 100%,var(--paper) 6px,transparent 6.5px) repeat-x;background-size:22px 14px;position:absolute;left:0;right:0;bottom:0;z-index:2}
+.perf{height:14px;background:radial-gradient(circle at 50% 100%,var(--paper-2) 6px,transparent 6.5px) repeat-x;background-size:22px 14px;position:absolute;left:0;right:0;bottom:0;z-index:2}
 
 /* sections */
 .sec .wrap{padding-block:84px}
@@ -421,6 +421,27 @@ footer b{color:var(--night-ink);font-weight:600}
   <div class="perf" aria-hidden="true"></div>
 </section>
 
+<section class="sec alt" id="video" aria-labelledby="vid-h">
+  <div class="wrap vid-grid">
+    <div>
+      <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>See it</p>
+      <h2 id="vid-h" class="disp">Ninety seconds of Milo working.</h2>
+      <p class="sub">The question box, the answers and the dashboards, without anyone describing them.</p>
+    </div>
+    <div>
+      <div class="video" id="vidframe" data-vid="1196983997">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+          <span class="p-ttl">Milo product overview</span>
+          <span class="p-sub">Press play · 1 min 29 sec</span>
+        </a>
+      </div>
+      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="letter" aria-labelledby="letter-h">
   <div class="wrap">
     <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>A note from Liam</p>
@@ -664,28 +685,7 @@ footer b{color:var(--night-ink);font-weight:600}
   </div>
 </section>
 
-<section class="sec" id="video" aria-labelledby="vid-h">
-  <div class="wrap vid-grid">
-    <div>
-      <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>See it</p>
-      <h2 id="vid-h" class="disp">Ninety seconds of Milo working.</h2>
-      <p class="sub">The question box, the answers and the dashboards, without anyone describing them.</p>
-    </div>
-    <div>
-      <div class="video" id="vidframe" data-vid="1196983997">
-        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
-          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
-          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
-          <span class="p-ttl">Milo product overview</span>
-          <span class="p-sub">Press play · 1 min 29 sec</span>
-        </a>
-      </div>
-      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
-    </div>
-  </div>
-</section>
-
-<section class="sec alt" id="trust" aria-labelledby="trust-h">
+<section class="sec" id="trust" aria-labelledby="trust-h">
   <div class="wrap">
     <p class="eyebrow label"><span class="stub kicker-stub" aria-hidden="true"></span>Trust</p>
     <h2 id="trust-h" class="disp">Your guests’ data stays yours.</h2>
