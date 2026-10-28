@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Caterer.com · Stepstone</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the Caterer.com overview's system, turned into a plan. Plum hero band, white paper, the three logo squares (plum, sun, orange) as markers. The loud moves: the pipeline board on a sun block, and the team grid that fills in wave by wave. Nunito Sans is their face; DM Mono carries labels and figures. Light only, like their site. */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--panel:#F7F2F8;--card:#FFFFFF;--ink:#2A2230;--muted:#665B6B;--rule:#E8DFEA;
+  --plum:#924199;--plum-d:#792D80;--plum-dd:#601F66;--lilac:#F0CEF2;--lilac-soft:#FBF4FB;--on-plum:#FFFFFF;--on-plum-m:#EBD3EE;
+  --sun:#FFCF1A;--orange:#F68620;--orange-t:#A34C05;--red:#C31129;
+  --bar:#E4D8E6;--hlbar:#924199;--track:#F1EAF2;--line:#DCCFDE;
+  --good:#256B3A;--good-bg:#DFF1E3;--warn:#7A5500;--warn-bg:#FBEFC8;--bad:#A60E22;--bad-bg:#FBE0E3;
+  --display:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:400;font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.028em;text-wrap:balance;margin:0;line-height:1.02}
+h1 em,h2 em,h3 em{font-style:normal;background:linear-gradient(transparent 12%,var(--sun) 12%,var(--sun) 92%,transparent 92%);color:var(--ink);padding:0 .08em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+p{margin:0}
+b,strong{font-weight:800}
+a{color:var(--plum-d)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--plum);outline-offset:2px;border-radius:2px}
+.label{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.sq{display:inline-block;flex:none;width:14px;height:14px;background:linear-gradient(var(--plum),var(--plum)) 0 0/7px 7px no-repeat,linear-gradient(var(--sun),var(--sun)) 7px 0/7px 7px no-repeat,linear-gradient(var(--orange),var(--orange)) 0 7px/7px 7px no-repeat}
+.eyebrow{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;color:var(--muted);margin-bottom:14px}
+.eyebrow .n{font-family:var(--mono);font-weight:500;font-size:12px;color:var(--plum)}
+.sr{position:absolute;left:-9999px}
+.btn{border:0;background:var(--plum);color:var(--on-plum);font-weight:800;font-size:14px;padding:9px 20px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--plum-d)}
+.cc-logo{display:block;aspect-ratio:821/139}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-weight:900;font-size:18px;letter-spacing:-.02em}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--muted)}
+.lk-cc{height:24px;width:auto}
+.lk-sub{font-size:12.5px;font-weight:700;color:var(--muted);padding-left:12px;border-left:1px solid var(--rule)}
+.nav{display:flex;gap:2px}
+.nav a{font-size:13.5px;font-weight:700;color:var(--ink);text-decoration:none;padding:6px 11px;border-radius:8px}
+.nav a:hover{background:var(--panel)}
+@media (max-width:1060px){.nav{display:none}}
+@media (max-width:600px){.lk-sub{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-block:56px 72px;color:var(--on-plum);background:radial-gradient(60% 80% at 100% 0%,var(--plum),transparent 70%),var(--plum-dd)}
+.hero .eyebrow{color:var(--on-plum-m)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:52px;align-items:center}
+.pills-top{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.pt{font-size:12.5px;font-weight:700;color:var(--on-plum);border:1px solid var(--on-plum-m);padding:3px 12px;border-radius:999px}
+.hero h1{font-size:clamp(44px,5.6vw,72px);margin-bottom:24px;color:var(--on-plum)}
+.hero h1 span{display:block}
+.lede{font-size:19px;line-height:1.5;max-width:30em;color:var(--on-plum-m)}
+.lede b{color:var(--on-plum)}
+
+/* pipeline board (hero) */
+.rb-panel{background:var(--card);color:var(--ink);padding:18px 18px 16px;border-radius:14px;box-shadow:12px 12px 0 var(--sun)}
+.rb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.rb-k{color:var(--muted)}
+.tag{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:6px;background:var(--lilac);color:var(--plum-dd);white-space:nowrap}
+.rb-q{font-size:13px;font-weight:700;color:var(--plum);min-height:21px;margin-bottom:4px}
+.rb-head,.rb-row{display:grid;grid-template-columns:minmax(0,138px) minmax(0,1fr) 64px;gap:10px;align-items:center}
+.rb-head{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed var(--line)}
+.rb-head>span:last-child{text-align:right}
+.rb-scale{position:relative;height:15px}
+.rb-scale i{position:absolute;top:0;left:var(--ln);transform:translateX(-50%);font-style:normal;white-space:nowrap;color:var(--ink)}
+.rb{display:grid;gap:8px;margin-bottom:4px}
+.rb-row{min-height:19px;transition:opacity .3s}
+.rb-row.dim{opacity:.32}
+.rb-n{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-t{position:relative;height:11px;background:var(--track);border-radius:3px}
+.rb-t::before{content:"";position:absolute;top:-5px;bottom:-5px;left:var(--ln);border-left:2px solid var(--ink);opacity:.75;z-index:2}
+.rb-f{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--plum);transition:width .5s ease}
+.rb-f.tight{background:var(--orange)}
+.rb-f.bad{background:var(--red)}
+.rb-v{font-family:var(--mono);font-size:12px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-v.bad{color:var(--red)}
+.rb-v.tight{color:var(--orange-t)}
+.rb-v.pill{justify-self:end;border-radius:6px;padding:0 7px;font-weight:500}
+.rb-v.pill.bad{background:var(--red);color:var(--on-plum)}
+.rb-v.pill.tight{background:var(--orange);color:var(--ink)}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);margin:12px 0;min-height:18px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg i{display:inline-block;width:16px;height:9px;border-radius:2px;background:var(--plum)}
+.lg i.tight{background:var(--orange)}
+.lg i.bad{background:var(--red)}
+.lg i.ln{width:0;height:12px;border-radius:0;background:none;border-left:2px solid var(--ink)}
+.et-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.et{border:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;border-radius:8px;transition:border-color .2s,background .2s}
+.et small{font-size:11.5px;color:var(--muted);line-height:1.3}
+.et b{font-weight:900;font-size:15px;line-height:1.2;letter-spacing:-.01em}
+.et:hover{border-color:var(--plum)}
+.et[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
+.et[aria-pressed="true"] small{color:var(--on-plum-m)}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.r-stats b{display:block;font-weight:900;font-size:28px;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--plum-dd)}
+.r-stats span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
+.r-say{font-size:14px;color:var(--ink)}
+.rb-hint{font-size:12px;color:var(--muted);margin-top:12px}
+@media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .et-row{grid-template-columns:repeat(2,minmax(0,1fr))}.r-stats b{font-size:23px}
+  .rb-head,.rb-row{grid-template-columns:minmax(0,108px) minmax(0,1fr) 56px;gap:7px}
+  .rb-n{font-size:12px}.rb-v{font-size:11px}
+  .rb-panel{padding:16px 14px 14px;box-shadow:7px 7px 0 var(--sun)}
+}
+
+/* letter and glance */
+.intro{padding-block:60px 8px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
+.letter{background:var(--card);border:1px solid var(--rule);border-top:4px solid var(--plum);padding:26px 28px;border-radius:4px 4px 14px 14px}
+.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-family:var(--mono);font-size:11.5px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--rule)}
+.refs b{font-weight:500;color:var(--ink)}
+.letter p{font-size:15px;margin-bottom:11px}
+.letter .sal{font-weight:900;font-size:24px;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
+.sign{margin-top:16px}
+.sign .nm{font-weight:900;font-size:17px}
+.sign .ml{font-size:13px;color:var(--muted)}
+.glance{list-style:none;margin:0;padding:0;display:grid}
+.glance li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
+.glance li:first-child{border-top:3px solid var(--plum)}
+.glance b{font-weight:900;font-size:38px;line-height:1;letter-spacing:-.03em;color:var(--plum-dd);font-variant-numeric:tabular-nums}
+.glance span{font-size:14px;color:var(--muted)}
+.glance-src{font-size:12px;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.glance li{grid-template-columns:minmax(0,112px) minmax(0,1fr)}.glance b{font-size:30px}.letter{padding:22px 20px}}
+
+/* sections */
+section.band{padding-block:76px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+section.tint{background:var(--lilac-soft);border-top:0}
+.head{max-width:820px;margin-bottom:30px}
+.head h2{font-size:clamp(34px,4.6vw,56px);margin-bottom:14px}
+.head p{color:var(--muted);font-size:18px;line-height:1.45}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
+
+/* rollout */
+.lp-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:18px}
+.lp{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:12px 14px;text-align:left;cursor:pointer;border-radius:10px}
+.lp .n{display:block;font-family:var(--mono);font-size:11px;color:var(--plum)}
+.lp b{display:block;font-weight:900;font-size:21px;line-height:1.2;letter-spacing:-.02em}
+.lp small{display:block;font-size:12px;color:var(--muted);line-height:1.35}
+.lp:hover{border-color:var(--plum)}
+.lp[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
+.lp[aria-pressed="true"] small{color:var(--on-plum-m)}
+.lp[aria-pressed="true"] .n{color:var(--sun)}
+.wv{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:22px;align-items:start}
+.teams{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.tm{position:relative;min-height:86px;padding:10px 12px;border-radius:10px;border:1.5px dashed var(--line);background:var(--card);color:var(--muted);font-weight:800;font-size:13.5px;line-height:1.25;display:flex;flex-direction:column;gap:10px;justify-content:space-between;transition:background .3s,color .3s,border-color .3s;min-width:0;overflow-wrap:anywhere}
+.tm small{font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase}
+.tm.was{background:var(--lilac);border:1.5px solid var(--lilac);color:var(--plum-dd)}
+.tm.on{background:var(--plum);border:1.5px solid var(--plum);color:var(--on-plum)}
+.tm.on small{color:var(--on-plum-m)}
+.tm.on::after{content:"";position:absolute;top:11px;right:11px;width:8px;height:8px;background:var(--sun)}
+.tm.on.opt{background:repeating-linear-gradient(135deg,var(--plum) 0 9px,var(--plum-d) 9px 18px)}
+.wv-card{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--plum);border-radius:4px 4px 14px 14px;padding:20px 22px}
+.wv-when{color:var(--plum);margin-bottom:6px}
+.wv-card h3{font-size:28px;margin-bottom:6px}
+.wv-card .who{font-size:15px;color:var(--ink)}
+.wv-dl{display:grid;grid-template-columns:minmax(0,92px) minmax(0,1fr);gap:10px 14px;margin:16px 0 0;font-size:14px}
+.wv-dl dt{color:var(--muted);padding-top:2px}
+.wv-dl dd{margin:0;min-width:0}
+.wv-dl .s{display:inline-block;font-family:var(--mono);font-size:11.5px;color:var(--plum-dd);background:var(--lilac-soft);border:1px solid var(--lilac);padding:1px 8px;border-radius:6px;margin:0 4px 4px 0}
+.wv-dl q{display:block;quotes:none;font-weight:700}
+.wv-price{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:12px 14px;background:var(--lilac-soft);border-radius:10px;font-size:14px}
+.wv-price svg{width:24px;height:20px;flex:none;margin-top:1px}
+.boardbox{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:16px 32px;align-items:start;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--sun);padding:24px 26px;border-radius:6px 14px 14px 6px;margin-top:28px}
+.boardbox h3{font-size:28px}
+.boardbox p{font-size:15px;color:var(--muted)}
+.boardbox p+p{margin-top:8px}
+@media (max-width:900px){.lp-tabs{display:flex;overflow-x:auto;scrollbar-width:thin}.lp{flex:none;min-width:150px}.wv,.boardbox{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.teams{grid-template-columns:repeat(2,minmax(0,1fr))}.tm{min-height:70px}.boardbox{padding:20px}}
+
+/* demo */
+.demo{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:3px}
+.sg{color:var(--muted);margin:14px 0 4px 12px}
+.sg:first-child{margin-top:0}
+.seat{text-align:left;border:1px solid transparent;background:transparent;padding:8px 12px;cursor:pointer;border-radius:8px}
+.seat b{display:block;font-size:14.5px}
+.seat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
+.seat[aria-pressed="true"] span{color:var(--on-plum-m)}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--rule);background:var(--card);padding:7px 14px;font-size:13.5px;font-weight:700;cursor:pointer;text-align:left;border-radius:8px}
+.q:hover{border-color:var(--plum)}
+.q[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.sys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;font-size:12.5px;color:var(--muted)}
+.sys .s{font-family:var(--mono);font-size:11.5px;color:var(--plum-dd);background:var(--lilac-soft);border:1px solid var(--lilac);padding:1px 8px;border-radius:6px}
+.console{background:var(--card);border:1px solid var(--line);overflow:hidden;border-radius:14px}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted);background:var(--panel)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:900}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:340px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--lilac-soft);border:1px solid var(--lilac);padding:9px 15px;max-width:80%;font-size:14px;border-radius:14px 14px 4px 14px}
+.closest{font-size:12.5px;color:var(--muted);margin:-8px 0 14px;text-align:right}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15px;max-width:64ch;margin-bottom:16px}
+.cap{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bar-row .bl{overflow-wrap:anywhere}
+.bt{height:14px;overflow:hidden;border-radius:3px}
+.bf{display:block;height:100%;background:var(--bar);border-radius:3px;transition:width .5s ease}
+.bf.hl{background:var(--hlbar)}
+.bv{font-family:var(--mono);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.wl{display:grid;border:1px solid var(--rule);margin-bottom:16px;border-radius:10px;overflow:hidden}
+.wl-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--rule)}
+.wl-row div{min-width:0}
+.wl-row b{display:block;font-size:14px}
+.wl-row span.d{display:block;font-size:12.5px;color:var(--muted)}
+.chip{font-size:11px;font-weight:800;letter-spacing:.02em;padding:3px 10px;white-space:nowrap;flex:none;border-radius:6px}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden;margin-bottom:16px;border-radius:10px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.02em;color:var(--plum-dd);font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--panel);padding:14px;margin-bottom:16px;font-size:14.5px;border-radius:10px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--bad);margin-top:2px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-size:12px;color:var(--muted)}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--good);max-width:52ch}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+.c-ask{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--panel)}
+.c-ask input{flex:1;min-width:0;border:1px solid var(--rule);background:var(--card);padding:9px 14px;border-radius:8px}
+.ghost{border:1.5px solid var(--plum);background:transparent;color:var(--plum);padding:6px 14px;font-size:12.5px;font-weight:800;cursor:pointer;border-radius:8px}
+.ghost:hover{background:var(--plum);color:var(--on-plum)}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .sg{display:none}
+  .seat{flex:none;border-color:var(--rule)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,118px) minmax(0,1fr) 62px}
+}
+
+/* alerts */
+.auto{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px;align-items:start}
+.rules{display:flex;flex-direction:column;gap:6px}
+.rule{text-align:left;border:1px solid var(--line);background:var(--card);padding:10px 14px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.rule b{display:block;font-size:14.5px}
+.rule span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
+.rule em{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;background:var(--sun);color:var(--ink);padding:1px 7px;border-radius:5px;margin-top:2px}
+.rule:hover{border-color:var(--plum)}
+.rule[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
+.rule[aria-pressed="true"] span{color:var(--on-plum-m)}
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:14px;list-style:none;padding:0}
+.fl{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:0}
+.fl .label{color:var(--plum);display:block;margin-bottom:2px}
+.fl b{font-size:14px;line-height:1.35;display:block}
+.fl:not(:last-child)::after{content:"";position:absolute;right:-10px;top:50%;width:8px;height:8px;border-top:2px solid var(--plum);border-right:2px solid var(--plum);transform:translateY(-50%) rotate(45deg);z-index:1}
+.mocks{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px}
+.mock-k{color:var(--muted);margin-bottom:6px}
+.tmsg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.tmsg .hd{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.tmsg .hd b{color:var(--ink);font-size:14px}
+.tmsg .hd svg{width:22px;height:18px}
+.tmsg p{font-size:14.5px}
+.tmsg .to{font-size:12px;color:var(--muted);margin-top:10px}
+.sft{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--sun);border-radius:6px 12px 12px 6px;padding:14px 16px}
+.sft b{display:block;font-size:15px;line-height:1.3;margin-bottom:8px}
+.sft dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 12px;margin:0;font-size:13px}
+.sft dt{color:var(--muted)}
+.sft dd{margin:0}
+.sft.none{border-left-color:var(--line);color:var(--muted);font-size:14px}
+.auto-note{font-size:13px;color:var(--muted);margin-top:12px}
+@media (max-width:860px){.auto,.mocks{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.flow{grid-template-columns:minmax(0,1fr)}.fl:not(:last-child)::after{right:auto;left:24px;top:auto;bottom:-10px;transform:rotate(135deg)}}
+
+/* one answer */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);padding:22px;border-radius:12px;display:flex;flex-direction:column;min-width:0}
+.card .k{color:var(--plum);margin-bottom:10px}
+.card h3{font-size:23px;margin-bottom:10px}
+.card .alone{font-size:14px;color:var(--muted)}
+.card .milo{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:700;margin-top:auto;padding-top:14px}
+.card .alone+.milo{margin-top:14px;border-top:1px dashed var(--line)}
+.card .milo svg{width:22px;height:18px;flex:none;margin-top:2px}
+.punch{font-weight:900;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;line-height:1.2;margin-top:28px;max-width:30em}
+@media (max-width:860px){.three{grid-template-columns:minmax(0,1fr)}}
+
+/* proof */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--plum-dd);color:var(--on-plum);padding:32px;margin-bottom:24px;border-radius:16px}
+.feature .k{color:var(--sun);margin-bottom:10px}
+.feature h3{font-size:clamp(30px,3.6vw,44px);margin-bottom:14px;color:var(--on-plum)}
+.feature p{font-size:15px;color:var(--on-plum-m);margin-bottom:10px}
+.feature p b{color:var(--on-plum)}
+.chain{display:grid;gap:10px;align-content:center;list-style:none;margin:0;padding:0}
+.chain li{border:1px solid rgba(255,255,255,.22);padding:14px 16px;position:relative;border-radius:10px}
+.chain li+li::before{content:"";position:absolute;left:24px;top:-11px;width:2px;height:10px;background:rgba(255,255,255,.3)}
+.chain .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-plum-m)}
+.chain b{display:block;font-size:16px}
+.chain li.end{background:var(--sun);color:var(--ink);border-color:var(--sun)}
+.chain li.end .t{color:var(--ink)}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pcard{background:var(--card);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;border-radius:14px}
+.pcard .k{color:var(--muted);margin-bottom:8px}
+.pcard .big{font-weight:900;font-size:50px;line-height:1;letter-spacing:-.03em;margin-bottom:10px;color:var(--plum)}
+.pcard .body{font-size:14px}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.vid-grid h2{font-size:clamp(32px,4vw,50px);margin-bottom:12px}
+.vid-grid .vp{color:var(--muted);font-size:16px}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--plum-dd);border-radius:14px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:var(--on-plum);overflow:hidden;
+  background:radial-gradient(55% 75% at 90% 0%,var(--plum),transparent 64%),var(--plum-dd)}
+.poster::after{content:"";position:absolute;right:22px;bottom:22px;width:44px;height:44px;background:linear-gradient(var(--plum),var(--plum)) 0 0/22px 22px no-repeat,linear-gradient(var(--sun),var(--sun)) 22px 0/22px 22px no-repeat,linear-gradient(var(--orange),var(--orange)) 0 22px/22px 22px no-repeat;opacity:.9}
+.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:900}
+.p-mark svg{width:26px;height:20px}
+.p-ttl{font-weight:900;letter-spacing:-.025em;font-size:clamp(26px,3.6vw,46px);line-height:1;position:relative;z-index:1;text-align:center;padding-inline:12px}
+.p-play{width:72px;height:72px;border-radius:50%;background:var(--sun);color:var(--ink);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-family:var(--mono);font-size:12px;color:var(--on-plum-m);position:relative;z-index:1}
+.vid-note{font-size:13px;color:var(--muted);margin-top:16px}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* pilot and pricing */
+.weeks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 32px;padding:0;list-style:none}
+.wk{background:var(--panel);border-top:4px solid var(--plum);border-radius:4px 4px 12px 12px;padding:18px;min-width:0}
+.wk:last-child{border-top-color:var(--sun)}
+.wk .label{color:var(--plum);display:block;margin-bottom:6px}
+.wk b{display:block;font-weight:900;font-size:21px;letter-spacing:-.02em;line-height:1.15;margin-bottom:8px}
+.wk p{font-size:14px;color:var(--muted)}
+.price{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;min-width:0}
+.pc .label{color:var(--muted)}
+.pc .big{font-weight:900;font-size:clamp(42px,5vw,58px);letter-spacing:-.03em;line-height:1;color:var(--plum);margin:10px 0 12px;font-variant-numeric:tabular-nums}
+.pc .big small{font-size:18px;font-weight:700;letter-spacing:0;color:var(--muted)}
+.pc ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.pc li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.pc li svg{width:15px;height:15px;flex:none;margin-top:4px;color:var(--plum)}
+.pc.go{background:var(--plum-dd);border-color:var(--plum-dd);color:var(--on-plum);box-shadow:10px 10px 0 var(--sun)}
+.pc.go .label,.pc.go .big small{color:var(--on-plum-m)}
+.pc.go .big{color:var(--on-plum)}
+.pc.go li svg{color:var(--sun)}
+@media (max-width:900px){.weeks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.price{grid-template-columns:minmax(0,1fr)}.pc.go{box-shadow:7px 7px 0 var(--sun)}}
+@media (max-width:480px){.weeks{grid-template-columns:minmax(0,1fr)}}
+
+/* trust */
+.sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;background:var(--panel);padding:28px 30px;border-radius:16px}
+.sec>div{flex:1 1 420px;min-width:0}
+.sec h2{font-size:clamp(32px,4vw,48px);margin-bottom:12px}
+.sec p.t{color:var(--muted);font-size:15.5px;max-width:64ch}
+.trust-cta{display:inline-flex;flex-direction:column;gap:2px;background:var(--plum);color:var(--on-plum);text-decoration:none;padding:14px 22px;font-weight:800;font-size:14.5px;border-radius:10px}
+.trust-cta small{font-family:var(--mono);font-weight:400;font-size:11.5px;color:var(--on-plum-m)}
+.trust-cta:hover{background:var(--plum-d)}
+@media (max-width:520px){.sec{padding:22px 20px}}
+
+footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);margin-top:76px}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking svg{animation:none}.bf,.p-play,.et,.rb-f,.rb-row,.tm{transition:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="cc-logo" viewBox="66.26 212.33 821.39 139.08"><path fill="#333" d="M383.532 316.058c0 5.151-.468 7.962 7.493 6.088v2.811c-.937.468-2.576 1.17-3.98 1.404-7.024 1.171-12.644.234-13.814-7.727l-1.171 1.171c-5.62 5.619-11.708 8.429-19.668 8.429-9.366 0-17.795-6.321-17.795-16.156 0-15.219 12.175-17.092 24.585-19.199 10.537-1.64 14.049-2.576 14.049-8.897 0-9.834-5.62-15.454-15.454-15.454-9.6 0-14.985 6.322-15.922 9.132h-1.405v-7.492c6.322-4.449 13.581-7.259 21.307-7.259 14.049 0 21.542 7.259 21.542 22.244zm-10.771-22.009-4.683.937c-9.132 1.639-22.712 3.044-22.712 15.219 0 8.43 4.917 12.41 13.112 12.41 3.512 0 8.195-2.575 10.537-5.151.937-.937 3.512-3.278 3.512-4.215zM410.458 246.282v17.327h14.049c-.469 1.873-.469 3.746 0 5.151h-14.049v33.482c0 8.195-1.17 21.542 9.834 21.542 2.108 0 3.981-.469 6.088-.937v3.277c-3.513 1.405-7.259 2.342-11.239 2.342-10.068 0-15.922-4.683-15.22-20.839v-39.103h-8.195c.468-1.639.468-3.278 0-5.151h8.195v-13.112zM483.746 320.273c-6.556 4.684-14.751 7.961-22.946 7.961-18.264 0-31.375-12.176-31.375-32.78 0-18.497 10.536-32.78 30.438-32.78 14.751 0 28.332 10.303 26.927 32.547-9.132-.234-18.029-.469-26.927-.469h-18.731c-1.171 14.985 7.024 27.629 22.946 27.629 9.132 0 16.156-5.619 19.668-9.132zm-7.258-30.204c-.234-11.474-3.513-23.181-16.625-23.181-12.409 0-18.029 11.941-18.731 23.181zM497.093 263.61c1.639.234 3.512.469 5.386.469 1.639 0 3.277-.234 5.385-.469v13.347l.703-1.64c4.448-7.024 10.067-12.409 16.858-12.409 1.873 0 3.044.234 4.214.702l-1.873 11.239c-2.107-.469-3.98-2.107-6.321-2.107-3.044 0-6.557 1.171-8.43 3.278-4.683 5.385-4.917 9.6-4.917 16.858v34.419c-2.107-.234-3.513-.468-5.386-.468s-3.512.233-5.385.468zM586.771 320.273c-6.556 4.684-14.751 7.961-22.946 7.961-18.264 0-31.375-12.176-31.375-32.78 0-18.497 10.536-32.78 30.438-32.78 14.751 0 28.332 10.303 26.927 32.547-9.132-.234-18.029-.469-26.927-.469h-18.731c-1.171 14.985 7.024 27.629 22.946 27.629 9.132 0 16.156-5.619 19.668-9.132zm-7.259-30.204c-.233-11.474-3.512-23.181-16.624-23.181-12.409 0-18.029 11.941-18.731 23.181zM603.161 263.61c1.639.234 3.512.469 5.386.469 1.639 0 3.277-.234 5.385-.469v13.347l.702-1.64c4.449-7.024 10.068-12.409 16.858-12.409 1.874 0 2.811.234 4.215.702l-1.873 11.239c-2.107-.469-3.98-2.107-6.322-2.107-2.81 0-6.556 1.171-8.429 3.278-4.683 5.385-4.917 9.6-4.917 16.858v34.419c-2.107-.234-3.513-.468-5.386-.468s-3.512.233-5.385.468z"/><path fill="#ff8d27" d="M638.751 312.312c4.215 0 7.961 3.746 7.961 7.961 0 4.449-3.512 7.961-7.961 7.961s-8.195-3.512-8.195-7.961 3.747-7.961 8.195-7.961M710.634 276.956h-1.171c-1.17-1.405-2.106-3.278-3.512-4.449-3.044-3.512-8.663-5.385-13.112-5.385-15.453 0-22.946 13.346-22.946 27.16 0 17.093 9.6 29.034 24.117 29.034 7.727 0 12.878-3.512 18.264-8.663l.702.468-.702 6.088c-6.088 4.449-13.112 6.557-20.371 6.557-22.244 0-33.951-14.283-33.951-33.015 0-20.604 14.751-32.546 34.42-32.546 7.492 0 14.517 1.404 21.072 5.385zM753.015 262.673c18.264 0 30.907 12.644 30.907 32.547 0 16.857-11.239 33.014-33.249 33.014-18.029 0-32.546-13.112-31.375-33.482 0-18.967 14.751-32.079 33.717-32.079m-22.01 34.186c0 13.112 5.619 27.16 20.839 27.16 15.454 0 20.605-19.199 20.605-29.502 0-11.941-4.449-27.629-19.2-27.629-17.093 0-22.244 15.922-22.244 29.971M795.629 263.61c1.64.234 3.513.469 5.386.469 1.639 0 3.278-.234 5.386-.469v11.474c4.448-7.493 10.302-12.176 19.668-12.176 8.663 0 16.624 4.683 19.434 13.112 5.151-8.43 11.941-13.112 20.84-13.112 16.155 0 21.307 9.365 21.307 25.99v38.399c-2.107-.234-3.512-.468-5.385-.468s-3.513.233-5.386.468v-35.59c0-11.941-1.639-22.01-14.751-22.01-13.347 0-15.22 11.941-15.22 21.541v35.824c-2.107-.233-3.513-.468-5.386-.468s-3.512.234-5.385.468v-38.867c0-12.41-4.215-18.498-14.049-18.498-13.814 0-15.922 9.132-15.922 18.731v38.634c-2.107-.233-3.513-.468-5.386-.468s-3.512.234-5.385.468z"/><path fill="#333" d="M326.166 322.38c-3.278 2.576-14.517 7.727-28.098 7.727-28.332 0-49.171-17.561-49.171-48.233s20.839-48.234 50.576-48.234c11.473 0 22.01 2.81 29.268 6.088-1.405 2.342-2.341 7.727-2.81 10.536l-.702.234c-3.747-4.215-12.878-11.941-25.522-11.941-21.073 0-37.229 13.347-37.229 43.317s16.156 43.316 37.229 43.316c12.878 0 22.244-7.258 27.395-11.238l.468.468z"/><path fill="#f68620" d="M66.264 281.873h69.541v69.541H66.264z"/><path fill="#333" d="M135.571 281.873h69.542v69.541h-69.542z"/><path fill="#924199" d="M66.264 212.331h69.541v69.542H66.264z"/><path fill="#ffcf1a" d="M135.805 212.331h69.542v69.542h-69.542z"/><path fill="#333" d="M167.883 219.122h-.468c0 1.639.468 11.473.234 12.409-.234.703-.468.937-.703.937s-.468-.233-.702-.937c-.234-1.171-.469-11.005-.469-12.409h-.937c.234 11.473-.234 11.473-.468 12.409-.234.703-.468.937-.702.937s-.468-.233-.703-.937c-.234-1.171 0-11.005.234-12.409h-.703s-2.341 14.751-.703 16.39c.703.703 1.405.937 2.342 1.171-.234 4.917-.937 32.078-.234 35.122q.702 2.81 1.405 2.81h.234c.468-.234 1.171-.937 1.405-2.81.703-3.044-.234-30.439-.234-35.122.702-.234 1.405-.468 2.107-1.171 1.407-1.639-.935-16.39-.935-16.39M173.971 219.122v16.39c0 2.81-1.171 32.78-.234 36.059.468 1.873.937 2.81 1.639 2.81.468-.233 1.171-.937 1.639-2.81.703-3.278-.234-32.78-.234-36.059.937-.234 1.639-.702 2.576-1.171 2.575-1.404-1.64-14.049-5.386-15.219"/><path fill="#fff" d="M105.132 240.898c3.278-1.64 5.62-4.917 5.62-8.663 0-5.386-4.449-9.601-9.6-9.601-5.385 0-9.6 4.449-9.6 9.601 0 3.98 2.341 7.258 5.62 8.663l-.468 3.044-4.683 27.161h18.264l-4.683-27.161zM175.61 343.453h-10.537s-4.449-34.186-1.171-37.932c1.405-1.639 3.044-2.342 4.683-2.81v-9.834h-.234v-3.513h4.214v3.513h-.234v9.834c1.639.468 3.278 1.171 4.683 2.81 3.278 3.747-1.404 37.932-1.404 37.932m-.937-28.565c0-2.342-1.874-4.215-4.215-4.215s-4.214 1.873-4.214 4.215 1.873 4.214 4.214 4.214 4.215-1.873 4.215-4.214"/><g fill="#fff"><path d="M110.751 299.199c-1.171 0-2.107.234-3.044.703-1.171-3.044-3.747-5.151-7.024-5.151-3.044 0-5.854 2.107-7.024 5.151-.937-.469-1.639-.469-2.81-.469-3.512 0-6.556 2.81-6.556 6.088s3.044 6.088 6.556 6.088c1.874 0 3.747-.937 4.917-2.107 1.405 1.171 3.044 1.873 4.683 1.873 1.873 0 3.747-.937 5.151-2.107 1.17 1.405 3.044 2.107 4.917 2.107 3.512 0 6.556-2.81 6.556-6.088.234-3.277-2.575-6.088-6.322-6.088M92.02 335.024h17.795v4.449H92.02zM109.814 313.951c-1.405-.234-2.81-.703-3.98-1.405-1.405.937-3.278 1.405-5.151 1.405-1.639 0-3.278-.469-4.683-1.171q-1.756 1.405-4.215 1.404v18.966h17.795v-19.199z"/></g></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and Caterer.com, part of Stepstone Group">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x">×</span>
+      <svg class="cc-logo lk-cc" role="img" aria-label="Caterer.com"><use href="#cc-logo"/></svg>
+      <span class="lk-sub">Stepstone Group</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#rollout">Rollout</a>
+      <a href="#ask">Ask</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#answer">One answer</a>
+      <a href="#proof">Proof</a>
+      <a href="#pilot">Pilot</a>
+      <a href="#trust">Trust</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span>Milo × Caterer.com · Stepstone UK</p>
+        <div class="pills-top" aria-hidden="true"><span class="pt">SMB sales</span><span class="pt">Enterprise sales</span><span class="pt">Four-week pilot</span></div>
+        <h1><span>Start where</span><span>the deals are.</span><span><em>Grow team by team.</em></span></h1>
+        <p class="lede">A four-week pilot for <b>one agile sales team</b>, on Salesforce and Power BI. When it earns its place, the next team joins. <b>The price stays the same.</b></p>
+      </div>
+
+      <div class="rb-panel">
+        <div class="rb-top"><span class="rb-k label">Ten open deals · one sales team</span><span class="tag">Sample data</span></div>
+        <p class="rb-q" id="rb-q"></p>
+        <div class="rb-head" aria-hidden="true"><span>Deal</span><span class="rb-scale"><i id="rb-ll"></i></span><span id="rb-col"></span></div>
+        <div class="rb" id="rb" role="img" aria-label="Ten open deals, each with a bar measured against a reference mark"></div>
+        <div class="lg" id="rb-lg"></div>
+        <div class="et-row" id="rb-tabs" role="group" aria-label="Add a layer of data"></div>
+        <div id="rb-read" aria-live="polite"></div>
+        <p class="rb-hint">Deals shown by client type, with invented figures. Add a layer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <article class="letter" aria-label="A note from Liam">
+        <div class="refs">
+          <span>Our ref</span><b>MILO / CATERER / 02</b>
+          <span>For</span><b>Paul Rogers and Ollie Finerty</b>
+          <span>Re</span><b>A pilot for one sales team</b>
+        </div>
+        <p class="sal">Dear Paul and Ollie,</p>
+        <p>Thank you for the time. This is how we would start: the way we start with most sales-led businesses, with one agile team and the data that matters most.</p>
+        <p>The team asks Salesforce and Power BI questions in plain English. Deals that go quiet arrive in Teams before anyone has to look for them. None of it needs a slot on the group roadmap.</p>
+        <p>Everything here is sample data, so click around. Feel free to pass it on to Umang.</p>
+        <div class="sign">
+          <p class="nm">Liam James Rabone</p>
+          <p class="ml">Milo · liam@milo.ai</p>
+        </div>
+      </article>
+
+      <div>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span>Stepstone UK, as we understand it</p>
+        <ul class="glance">
+          <li><b>2</b><span>UK brands: Caterer.com and Totaljobs</span></li>
+          <li><b>100m+</b><span>site visits a week across the group's brands</span></li>
+          <li><b>2</b><span>places sales data lives: Salesforce and Power BI</span></li>
+          <li><b>1</b><span>team to start with: SMB and enterprise sales</span></li>
+        </ul>
+        <p class="glance-src">From our conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="rollout" aria-labelledby="ro-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">02</span> The rollout</p>
+      <h2 id="ro-h">One agile team first. <em>Then the next.</em></h2>
+      <p>We start where the most important data is. In a sales-led business, that is the sales floor. Pick a wave.</p>
+    </div>
+    <div class="lp-tabs" id="wv-tabs" role="group" aria-label="Choose a wave"></div>
+    <div class="wv">
+      <div class="teams" id="teams" aria-label="Teams on Milo"></div>
+      <div class="wv-card" id="wv-card" aria-live="polite"></div>
+    </div>
+    <div class="boardbox">
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">The global data platform</p>
+        <h3>It stays. <em>Milo is what the team asks.</em></h3>
+      </div>
+      <div>
+        <p>The global platform is the group's long-term home for data. Milo starts on Salesforce and Power BI today, and reads the platform once the UK team has access.</p>
+        <p>We build and run the connections. Nothing is replaced.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">03</span> Ask Milo</p>
+      <h2 id="ask-h">The questions sales asks. <em>Answered in seconds.</em></h2>
+      <p>Pick a seat and a question, or type your own.</p>
+    </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
+      <div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <p class="sys" id="sys"></p>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · UK sales workspace</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+          <form class="c-ask" id="c-ask" autocomplete="off">
+            <label for="c-q" class="sr">Type your own question</label>
+            <input id="c-q" type="text" placeholder="Or type your own question">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+        <p class="note">Sample data. Every figure is invented.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band tint" id="alerts" aria-labelledby="al-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">04</span> Pull, then push</p>
+      <h2 id="al-h">Quiet deals arrive in Teams. <em>Before Monday's call.</em></h2>
+      <p>Milo pulls from Salesforce, finds what needs doing, then pushes it back: a message to the owner and a task on the deal. Pick an alert.</p>
+    </div>
+    <div class="auto">
+      <div class="rules" id="rules" role="group" aria-label="Choose an alert"></div>
+      <div>
+        <ol class="flow" id="flow"></ol>
+        <div class="mocks" id="mocks" aria-live="polite"></div>
+        <p class="auto-note">Write-back is tested in your Salesforce sandbox before it touches a live deal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band first" id="answer" aria-labelledby="an-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">05</span> One source of truth</p>
+      <h2 id="an-h">Same question. <em>Same answer.</em></h2>
+      <p>AI is now part of everyone's job. When each person asks on their own, the numbers drift in three ways.</p>
+    </div>
+    <div class="three">
+      <div class="card">
+        <p class="k label">Silent misalignment</p>
+        <h3>Two definitions, and nobody notices</h3>
+        <p class="alone">Two reps ask how many clients are active and get different numbers. Each chat guessed what active means.</p>
+        <p class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>Definitions are agreed once with your team and used in every answer.</span></p>
+      </div>
+      <div class="card">
+        <p class="k label">Context degradation</p>
+        <h3>Long chats drift</h3>
+        <p class="alone">A long chat loses track of the export pasted in at the start, and the figures slide with it.</p>
+        <p class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>Every question goes back to the live data in Salesforce.</span></p>
+      </div>
+      <div class="card">
+        <p class="k label">Compliance bias</p>
+        <h3>Leading questions get a yes</h3>
+        <p class="alone">Ask whether the pipeline is up and a chatbot leans towards agreeing with you.</p>
+        <p class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>Answers come from the data, with the sources under every one.</span></p>
+      </div>
+    </div>
+    <p class="punch">Keep Claude for writing and thinking. <em>Use Milo when the answer is a number.</em></p>
+  </div>
+</section>
+
+<section class="band" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">06</span> Proof</p>
+      <h2 id="proof-h">Sales teams on Salesforce <em>already run on it.</em></h2>
+      <p>The closest example is a B2B platform whose account teams work in Salesforce and Power BI.</p>
+    </div>
+    <div class="feature">
+      <div>
+        <p class="k label">BetGames · B2B platform for ~2,000 brands</p>
+        <h3>Reports that took days now take minutes.</h3>
+        <p>Account teams on Salesforce, with the numbers spread across Power BI and SQL. <b>Commercial reports went from 5–10 days to minutes.</b></p>
+        <p>Milo now sends more than 60 partner reports a month, with no new hires.</p>
+      </div>
+      <ol class="chain" aria-label="What happened at BetGames">
+        <li><span class="t">Before</span><b>5–10 days for a commercial report</b></li>
+        <li><span class="t">Now</span><b>Minutes, from Salesforce, Power BI and SQL</b></li>
+        <li class="end"><span class="t">Every month</span><b>60+ partner reports, no new hires</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="k label">Two Tribes Brewing · London</p>
+        <p class="big">1 → 12</p>
+        <p class="body">users in six weeks, across sales, operations and finance, with no data team.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">Kellogg's · Commercial finance</p>
+        <p class="big">The cause</p>
+        <p class="body">Sales fell across the Middle East. Milo traced it to a Coco Pops shortage rather than demand.</p>
+      </div>
+      <div class="pcard">
+        <p class="k label">Nikki Beach Global · Hospitality</p>
+        <p class="big">4 → 1</p>
+        <p class="body">SevenRooms, OpenTable, Square and SumUp, read as one view of how each venue is trading.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">07</span> See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
+        <p class="vp">For anyone you share this with.</p>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="pilot" aria-labelledby="pi-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">08</span> The pilot</p>
+      <h2 id="pi-h">Four weeks. <em>One team.</em></h2>
+      <p>We do the heavy lifting. Your team asks the questions.</p>
+    </div>
+    <ol class="weeks">
+      <li class="wk"><span class="label">Week 1 · Connect</span><b>Salesforce and Power BI</b><p>Connected read-only, in a sandbox first. We agree the definitions with you: stages, quiet deals, active clients.</p></li>
+      <li class="wk"><span class="label">Week 2 · Ask</span><b>The team goes live</b><p>SMB and enterprise reps and their managers ask every day, and build their own dashboards.</p></li>
+      <li class="wk"><span class="label">Week 3 · Automate</span><b>Alerts and write-back</b><p>Quiet and slipped deals in Teams, a Monday pipeline digest, and tasks added in Salesforce.</p></li>
+      <li class="wk"><span class="label">Week 4 · Read-out</span><b>What it changed</b><p>Who used it, what they asked, which reports nobody built by hand, which deals got chased. Then you pick the next team.</p></li>
+    </ol>
+    <div class="price">
+      <div class="pc">
+        <p class="label">The pilot · four weeks</p>
+        <p class="big">£1,000</p>
+        <ul>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Connections, set-up and the agile team</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Alerts and Salesforce write-back</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Taken off year one if you continue</span></li>
+        </ul>
+      </div>
+      <div class="pc go">
+        <p class="label">Then, for every team</p>
+        <p class="big">£1,500 <small>a month</small></p>
+        <ul>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Unlimited users</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>The next team joins at no extra cost</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Six or twelve month terms</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="sec-h" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="sec">
+      <div>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> Trust and security</p>
+        <h2 id="sec-h">Hosted in Frankfurt. <em>Access by role.</em></h2>
+        <p class="t">Each person sees only what their role allows. The pilot reads sales data only, with no HR or payment data, and stays read-only until you switch on write-back. Hosted in Frankfurt on AWS, or on your own servers. ISO 27001, SOC 2 and GDPR.</p>
+      </div>
+      <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Paul Rogers and Ollie Finerty by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
+    <p>Deals and clients in the demos are described by type, and every figure in them is sample data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* pipeline board: [deal, £k value, days since last activity, times the close date moved] */
+  var DEALS=[
+    ["Contract caterer",120,21,2],
+    ["Hotel group",96,3,0],
+    ["Pub group",74,18,1],
+    ["Care home group",58,5,1],
+    ["Holiday parks",30,9,0],
+    ["Coffee chain",22,15,0],
+    ["Restaurant group",18,2,0],
+    ["Events caterer",16,31,3],
+    ["QSR franchisee",12,26,2],
+    ["Gastro pub",8,4,0]
+  ];
+  function act(c){
+    if(c[2]>=14&&c[3]>=2)return "Call";
+    if(c[2]>=14)return "Nudge";
+    return "OK";
+  }
+  var LAYERS=[
+    {name:"Pipeline",short:"Deal value",col:"Value",max:130,line:null,
+     v:function(c){return c[1]},t:function(c){return "£"+c[1]+"k"},k:function(){return ""},
+     lg:'<span><i></i>Open deal value</span>',
+     stats:[["£454k","open across ten deals"],["4","enterprise deals"],["6","SMB deals"]],
+     say:"Ten open deals worth £454k. Sorted by value, they all look healthy."},
+    {name:"+ Last touch",short:"Days since activity",col:"Quiet",max:35,line:14,ll:"14 days",
+     v:function(c){return c[2]},t:function(c){return c[2]+"d"},k:function(c){return c[2]>=14?"bad":""},
+     lg:'<span><i></i>Recent activity</span><span><i class="bad"></i>Quiet for 14+ days</span><span><i class="ln"></i>14 days</span>',
+     stats:[["5","quiet for 14+ days"],["£244k","of the pipeline"],["31 days","the longest gap"]],
+     say:"Five deals have had no logged activity in over two weeks. Together they are more than half the pipeline."},
+    {name:"+ Close date",short:"Times moved",col:"Moved",max:4,line:2,ll:"Twice",
+     v:function(c){return c[3]},t:function(c){return c[3]?c[3]+"×":"Never"},k:function(c){return c[3]>=2?"bad":(c[3]===1?"tight":"")},
+     lg:'<span><i class="tight"></i>Moved once</span><span><i class="bad"></i>Moved twice or more</span><span><i class="ln"></i>Twice</span>',
+     stats:[["3","moved twice or more"],["3 of 3","have also gone quiet"],["£148k","at risk this quarter"]],
+     say:"Three of the quiet deals have also had their close date moved at least twice. They are the ones to call first."},
+    {name:"Milo's answer",short:"This week",col:"Do",max:35,line:14,ll:"14 days",q:"Asked: which deals need a call before Monday?",
+     v:function(c){return c[2]},t:act,k:function(c){var a=act(c);return a==="Call"?"bad":(a==="Nudge"?"tight":"")},
+     lg:'<span><i class="bad"></i>Call this week</span><span><i class="tight"></i>Nudge the owner</span><span>Faded: on track</span>',
+     stats:[["3","deals to call"],["2","owners to nudge"],["5","tasks added in Salesforce"]],
+     say:"Call the three deals that went quiet and slipped, and nudge the owners of the other two. Milo posts this to each owner in Teams every Monday and adds a task to the deal in Salesforce."}
+  ];
+  var layer=0;
+  function drawRB(){
+    var L=LAYERS[layer],h="";
+    function pct(v){return Math.min(v,L.max)/L.max*100}
+    var ln=L.line!=null?pct(L.line).toFixed(1)+"%":"-99%";
+    $("rb").style.setProperty("--ln",ln);
+    $("rb-ll").parentNode.style.setProperty("--ln",ln);
+    $("rb-ll").textContent=L.ll||"";
+    DEALS.forEach(function(c){
+      var k=L.k(c),rc="rb-row",vc="rb-v",t=L.t(c);
+      if(layer===3){
+        if(t==="OK")rc+=" dim";
+        else vc+=" pill "+(t==="Call"?"bad":"tight");
+      }else if(k)vc+=" "+k;
+      h+='<div class="'+rc+'"><span class="rb-n" title="'+esc(c[0])+'">'+esc(c[0])+'</span><span class="rb-t"><span class="rb-f'+(k?" "+k:"")+'" style="width:'+pct(L.v(c)).toFixed(1)+'%"></span></span><span class="'+vc+'">'+esc(t)+'</span></div>';
+    });
+    $("rb").innerHTML=h;
+    $("rb-col").textContent=L.col;
+    $("rb-lg").innerHTML=L.lg;
+  }
+  function renderRB(){
+    $("rb-tabs").innerHTML=LAYERS.map(function(l,i){
+      return '<button type="button" class="et" data-layer="'+i+'" aria-pressed="'+(i===layer)+'"><b>'+esc(l.name)+'</b><small>'+esc(l.short)+'</small></button>';
+    }).join("");
+    var l=LAYERS[layer];
+    $("rb-q").textContent=l.q||"";
+    $("rb-read").innerHTML='<div class="r-stats">'+l.stats.map(function(s){return '<div><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join("")+'</div><p class="r-say">'+esc(l.say)+'</p>';
+    drawRB();
+  }
+  $("rb-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-layer]");if(!b)return;
+    layer=+b.dataset.layer;renderRB();
+    var nb=$("rb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
+  });
+
+  /* rollout: teams by wave */
+  var TEAMS=[
+    ["SMB sales",1],["Enterprise sales",1],["Sales managers",1],["One seat from another team",1,"opt"],
+    ["Account management",2],["Sales ops",2],["Finance",2],["Client support",2],
+    ["Marketing",3],["Product",3],["Totaljobs",3],["Other markets",3]
+  ];
+  var WAVES=[
+    {n:"Wave 1",name:"The pilot",when:"Weeks 1–4",
+     who:"One agile team: SMB and enterprise reps with their managers. Add someone from finance or operations if you like.",
+     reads:["Salesforce","Power BI","Teams"],asks:["Which of my deals have gone quiet?","How is each team tracking against target?"],
+     proves:"Reps get answers without building a report, and quiet deals get chased."},
+    {n:"Wave 2",name:"The whole floor",when:"Months 2–3",
+     who:"Account management, sales ops, finance and client support join, on the same numbers.",
+     reads:["Salesforce","Power BI","Invoices","Platform usage"],asks:["Which renewals are behind on usage?","What does each client owe?"],
+     proves:"One set of numbers from the first call to the renewal."},
+    {n:"Wave 3",name:"Other teams and brands",when:"When they are ready",
+     who:"Marketing, product and Totaljobs, then the Irish, Austrian and South African brands if they want it.",
+     reads:["Global data platform","GA4","Support tickets"],asks:["Which campaigns bring recruiters who buy?","Which clients buy from more than one brand?"],
+     proves:"Every team on one tool, each seeing only what its role allows."}
+  ];
+  var wave=0;
+  function renderWave(){
+    $("wv-tabs").innerHTML=WAVES.map(function(w,i){
+      return '<button type="button" class="lp" data-wave="'+i+'" aria-pressed="'+(i===wave)+'"><span class="n">'+esc(w.n)+'</span><b>'+esc(w.name)+'</b><small>'+esc(w.when)+'</small></button>';
+    }).join("");
+    $("teams").innerHTML=TEAMS.map(function(t){
+      var c="tm",w=t[1]-1;
+      if(w===wave)c+=" on";else if(w<wave)c+=" was";
+      if(t[2])c+=" "+t[2];
+      var lab=t[2]?"Optional":(w===0?"Pilot":"Wave "+t[1]);
+      return '<div class="'+c+'"><small>'+esc(lab)+'</small><span>'+esc(t[0])+'</span></div>';
+    }).join("");
+    var W=WAVES[wave];
+    $("wv-card").innerHTML='<p class="wv-when label">'+esc(W.n+" · "+W.when)+'</p><h3>'+esc(W.name)+'</h3><p class="who">'+esc(W.who)+'</p>'+
+      '<dl class="wv-dl"><dt>Reads</dt><dd>'+W.reads.map(function(r){return '<span class="s">'+esc(r)+'</span>'}).join("")+'</dd>'+
+      '<dt>Asks</dt><dd>'+W.asks.map(function(a){return '<q>'+esc(a)+'</q>'}).join("")+'</dd>'+
+      '<dt>Proves</dt><dd>'+esc(W.proves)+'</dd></dl>'+
+      '<p class="wv-price"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span><b>£1,500 a month at every wave.</b> Unlimited users, so a new team never changes the price.</span></p>';
+  }
+  $("wv-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-wave]");if(!b)return;
+    wave=+b.dataset.wave;renderWave();
+    var nb=$("wv-tabs").querySelector('[data-wave="'+wave+'"]');if(nb)nb.focus();
+  });
+
+  /* seats */
+  var SEATS=[
+    {g:"Sales leadership",name:"Sales manager",sub:"Team pipeline and targets",sys:["Salesforce","Power BI"],qs:[
+      {q:"How is each team tracking against target?",kw:["team","teams","target","targets","tracking","quota","kpi","kpis","month","performance","behind","pace"],type:"bars",unit:"%",hl:2,
+       cap:"October so far, % of monthly target, three working days left",
+       rows:[["SMB · new business",91],["SMB · renewals",84],["Enterprise · new business",68],["Enterprise · renewals",79]],
+       say:"Enterprise new business is furthest behind. Two of its biggest deals have gone quiet.",
+       src:["Salesforce"],alert:"Every morning in Teams: each team against target."},
+      {q:"Why don't Salesforce and Power BI agree on October?",kw:["agree","disagree","different","differ","power","bi","report","reports","numbers","match","mismatch","definition","definitions","why"],type:"summary",
+       kpis:[["£412k","Salesforce, counted at close"],["£389k","Power BI report, counted at invoice"],["£23k","six deals closed, not yet invoiced"],["1","definition, used from now on"]],
+       say:"Both are right. They count a deal at different moments. Milo uses the definition you choose and shows it under every answer.",
+       src:["Salesforce","Power BI"],alert:null}
+    ]},
+    {g:"Sales leadership",name:"Sales director",sub:"The forecast and the quarter",sys:["Salesforce","Power BI"],qs:[
+      {q:"What will we close this quarter?",kw:["close","forecast","quarter","q4","land","commit","expect","revenue","predict","win"],type:"summary",
+       kpis:[["£1.26m","weighted forecast"],["89%","of the £1.41m target"],["£148k","in deals moved twice"],["3","deals to call this week"]],
+       say:"On course for 89% of target. Most of the gap is three deals that went quiet and slipped.",
+       src:["Salesforce"],alert:"Every Friday: the forecast, and what changed this week."},
+      {q:"Where are deals stalling?",kw:["stalling","stall","stuck","stage","stages","slow","longest","wait","waiting","proposal","conversion","convert","funnel"],type:"bars",unit:" days",hl:1,
+       cap:"Average days in each stage, this quarter",
+       rows:[["Discovery",9],["Proposal",21],["Negotiation",14],["Contract",6]],
+       say:"Deals wait longest at proposal, more than twice as long as in discovery.",
+       src:["Salesforce"],alert:"Monthly: days in each stage, by team."}
+    ]},
+    {g:"Reps",name:"Enterprise sales",sub:"Fewer, bigger deals",sys:["Salesforce","Power BI","Teams"],qs:[
+      {q:"Which of my deals have gone quiet?",kw:["quiet","stale","deals","deal","gone","activity","untouched","chase","follow","my","pipeline","silent"],type:"list",
+       rows:[["Contract caterer","£120k · no activity for 21 days · close date moved twice","Call","bad"],["Pub group","£74k · no activity for 18 days","Nudge","warn"],["Care home group","£58k · emailed 5 days ago","OK","ok"]],
+       say:"Two deals worth £194k have gone quiet, and the contract caterer has slipped twice.",
+       src:["Salesforce"],alert:"Every Monday in Teams: your deals quiet for 14 days, with a task added in Salesforce."},
+      {q:"Prep me for the hotel group meeting",kw:["prep","prepare","meeting","brief","briefing","hotel","account","client","before","plan","overview"],type:"summary",
+       kpis:[["£96k","open opportunity"],["£210k","spent with us in two years"],["4","contacts met this year"],["2","products they don't buy yet"]],
+       say:"A one-page brief: what they spend, who you've met, what's open and what they could buy next.",
+       src:["Salesforce","Power BI"],alert:"Builds itself the day before each client meeting."}
+    ]},
+    {g:"Reps",name:"SMB sales",sub:"A high-volume book",sys:["Salesforce","Power BI"],qs:[
+      {q:"Who should I call today?",kw:["call","calls","today","who","ring","phone","list","priority","prioritise","next"],type:"list",
+       rows:[["QSR franchisee","£12k deal · quiet for 26 days","Call","bad"],["Seaside hotel","Proposal sent 9 days ago · no reply","Chase","warn"],["Gastro pub","Asked for a quote 4 days ago","Reply","warn"]],
+       say:"Three calls, ranked by value at risk and how long since you last spoke.",
+       src:["Salesforce"],alert:"Every morning in Teams: your call list."},
+      {q:"Which clients bought last year but not this year?",kw:["lapsed","last","year","bought","buy","stopped","lost","win-back","winback","returning","churned"],type:"bars",pre:"£",unit:"k",
+       cap:"Spend last year, with nothing booked this year",
+       rows:[["Wedding venue",14],["Café chain",11],["Boutique hotel",8],["Bakery group",6]],
+       say:"Fourteen clients spent with us last year and nothing yet this year. These four spent most.",
+       src:["Salesforce","Power BI"],alert:"Monthly: lapsed clients, by last year's spend."},
+      {q:"What commission is the enterprise team on?",kw:["commission","pay","salary","salaries","bonus","earn","earning","wages","hr"],type:"refuse",
+       say:"Pay and commission sit outside this workspace. Your role covers your own clients, deals and team targets.",
+       src:["Access policy"],alert:null}
+    ]}
+  ];
+
+  var seat=0,qi=0,timer=null;
+  function renderSeats(){
+    var h="",last="";
+    SEATS.forEach(function(s,i){
+      if(s.g!==last){h+='<p class="sg label">'+esc(s.g)+'</p>';last=s.g}
+      h+='<button type="button" class="seat" data-seat="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.name)+'</b><span>'+esc(s.sub)+'</span></button>';
+    });
+    $("seats").innerHTML=h;
+  }
+  function renderQs(){
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>';
+    }).join("");
+    $("sys").innerHTML='Reads from'+SEATS[seat].sys.map(function(s){return ' <span class="s">'+esc(s)+'</span>'}).join("");
+  }
+  function fmt(v,a){
+    var x=Math.abs(v);
+    var n=a.dec?x.toFixed(a.dec):x.toLocaleString("en-GB");
+    n=(a.pre||"")+n+(a.unit||"");
+    if(v<0)n="−"+n;
+    return n;
+  }
+  function chart(a){
+    if(a.type==="bars"){
+      var max=Math.max.apply(null,a.rows.map(function(r){return Math.abs(r[1])}));
+      var pick=a.hl!=null?a.hl:0;
+      return '<p class="cap">'+esc(a.cap)+'</p><div class="bars">'+a.rows.map(function(r,i){
+        var w=Math.max(3,Math.round(Math.abs(r[1])/max*100));
+        return '<div class="bar-row"><span class="bl">'+esc(r[0])+'</span><span class="bt"><span class="bf'+(i===pick?" hl":"")+'" style="width:'+w+'%"></span></span><span class="bv">'+esc(fmt(r[1],a))+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="list"){
+      return '<div class="wl">'+a.rows.map(function(r){
+        return '<div class="wl-row"><div><b>'+esc(r[0])+'</b><span class="d">'+esc(r[1])+'</span></div><span class="chip '+r[3]+'">'+esc(r[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.type==="summary"){
+      return '<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    }
+    return "";
+  }
+  function answerHTML(a){
+    var body=a.type==="refuse"
+      ?'<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><p>'+esc(a.say)+'</p></div>'
+      :'<p class="say">'+esc(a.say)+'</p>'+chart(a);
+    var btn=a.alert?'<span id="alert-slot"><button type="button" class="ghost" data-alert="1">Turn into an alert</button></span>':"";
+    return body+'<div class="a-foot"><span class="src">Sources · '+a.src.map(esc).join(" · ")+'</span>'+btn+'</div>';
+  }
+  function ask(typed,instant){
+    var a=SEATS[seat].qs[qi];
+    var head='<div class="you"><p>'+esc(typed||a.q)+'</p></div>';
+    if(typed&&typed.toLowerCase()!==a.q.toLowerCase())head+='<p class="closest">Closest sample question: '+esc(a.q)+'</p>';
+    clearTimeout(timer);
+    if(instant||reduce){$("out").innerHTML=head+answerHTML(a);return}
+    $("out").innerHTML=head+'<div class="thinking"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Checking '+esc(SEATS[seat].sys.slice(0,3).join(", "))+'</div>';
+    timer=setTimeout(function(){$("out").innerHTML=head+answerHTML(a)},650);
+  }
+  var STOP={the:1,and:1,are:1,which:1,what:1,how:1,our:1,for:1,this:1,that:1,with:1,have:1,does:1,any:1,from:1,show:1,give:1,can:1,you:1,many:1,all:1,is:1,we:1,me:1,than:1,"do":1,did:1,by:1,"in":1,of:1,to:1,it:1,its:1,"it's":1,caterer:1,"caterer.com":1,stepstone:1,"what's":1,on:1,at:1,be:1,will:1,into:1,i:1,am:1,should:1,was:1,were:1,get:1,tell:1,us:1,not:1,just:1,much:1,where:1,a:1,an:1};
+  function match(text){
+    var words=(text.toLowerCase().match(/[a-z0-9£&%'#.-]+/g)||[]).filter(function(w){return w.length>1&&!STOP[w]});
+    var best=null,score=0;
+    SEATS.forEach(function(s,si){s.qs.forEach(function(q,i){
+      var kw=" "+q.kw.join(" ")+" ";var hay=(q.q+" "+kw+" "+s.name).toLowerCase();var sc=0;
+      words.forEach(function(w){if(kw.indexOf(" "+w+" ")>-1)sc+=3;else if(kw.indexOf(w)>-1)sc+=2;else if(w.length>2&&hay.indexOf(w)>-1)sc+=1});
+      if(sc>score){score=sc;best=[si,i]}
+    })});
+    return best||[seat,0];
+  }
+  function askTyped(text){
+    text=text.trim();if(!text)return;
+    var m=match(text);seat=m[0];qi=m[1];renderSeats();renderQs();ask(text);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-seat]");if(!b)return;
+    seat=+b.dataset.seat;qi=0;renderSeats();renderQs();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();ask();
+  });
+  $("out").addEventListener("click",function(e){
+    var b=e.target.closest("[data-alert]");if(!b)return;
+    var a=SEATS[seat].qs[qi];
+    $("alert-slot").innerHTML='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg><span>Alert set. '+esc(a.alert)+'</span></span>';
+  });
+  $("c-ask").addEventListener("submit",function(e){e.preventDefault();askTyped($("c-q").value);$("c-q").value=""});
+
+  /* alerts: pull from Salesforce, push to Teams and back to the deal */
+  var RULES=[
+    {name:"Deal gone quiet",when:"No activity in 14 days",pull:"Salesforce activity",to:"The deal owner",
+     who:"Enterprise sales",msg:"2 of your deals have had no activity in 14 days: Contract caterer (21 days, £120k) and Pub group (18 days, £74k).",
+     task:["Call: no activity for 21 days","Contract caterer","Today"]},
+    {name:"Close date slipped",when:"Moved twice or more",pull:"Salesforce opportunities",to:"The sales manager",
+     who:"Sales manager",msg:"3 deals worth £148k have had their close date moved twice or more this quarter. All three have also gone quiet.",
+     task:["Review: close date moved 3 times","Events caterer","Next pipeline call"]},
+    {name:"New lead not called",when:"Untouched after 24 hours",pull:"Salesforce leads",to:"The assigned rep",
+     who:"SMB sales",msg:"A new lead from a hotel group came in yesterday at 15:12 and hasn't been called yet.",
+     task:["Call: new lead, 24 hours old","Hotel group lead","Within 2 hours"]},
+    {name:"Monday pipeline digest",when:"Every Monday at 08:00",pull:"Salesforce and Power BI",to:"The UK sales channel",
+     who:"UK sales channel",msg:"Pipeline £454k, down £18k on last week. 5 deals quiet, 3 slipped, 2 closed. The full digest is attached as a PDF.",
+     task:null},
+    {name:"Renewal at risk",when:"Renews in 90 days, usage behind",pull:"Salesforce and platform usage",to:"The account manager",w2:true,
+     who:"Account management",msg:"The restaurant group renews in 48 days and has used 38% of its credits. Worth a call this week.",
+     task:["Call: renewal in 48 days, usage behind","Restaurant group","This week"]}
+  ];
+  var rule=0;
+  function renderRule(){
+    $("rules").innerHTML=RULES.map(function(r,i){
+      return '<button type="button" class="rule" data-rule="'+i+'" aria-pressed="'+(i===rule)+'"><span><b>'+esc(r.name)+'</b><span>'+esc(r.when)+'</span></span>'+(r.w2?'<em>Wave 2</em>':'')+'</button>';
+    }).join("");
+    var R=RULES[rule];
+    $("flow").innerHTML='<li class="fl"><span class="label">Pulls</span><b>'+esc(R.pull)+'</b></li><li class="fl"><span class="label">Checks</span><b>'+esc(R.when)+'</b></li><li class="fl"><span class="label">Pushes to</span><b>'+esc(R.to)+'</b></li>';
+    var task=R.task
+      ?'<div class="sft"><b>'+esc(R.task[0])+'</b><dl><dt>Deal</dt><dd>'+esc(R.task[1])+'</dd><dt>Due</dt><dd>'+esc(R.task[2])+'</dd><dt>Added by</dt><dd>Milo</dd></dl></div>'
+      :'<div class="sft none">A digest goes to the channel, so no task is added.</div>';
+    $("mocks").innerHTML='<div><p class="mock-k label">Teams message</p><div class="tmsg"><p class="hd"><svg aria-hidden="true"><use href="#milo-icon"/></svg><b>Milo</b><span>to '+esc(R.who)+'</span></p><p>'+esc(R.msg)+'</p></div></div>'+
+      '<div><p class="mock-k label">Salesforce task</p>'+task+'</div>';
+  }
+  $("rules").addEventListener("click",function(e){
+    var b=e.target.closest("[data-rule]");if(!b)return;
+    rule=+b.dataset.rule;renderRule();
+    var nb=$("rules").querySelector('[data-rule="'+rule+'"]');if(nb)nb.focus();
+  });
+
+  renderRB();renderWave();renderSeats();renderQs();ask(null,true);renderRule();
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
