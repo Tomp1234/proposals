@@ -16,7 +16,7 @@
   --navy:#0C1F3F;--navy-2:#132A52;--navy-line:#2A426C;--on-navy:#F9F8F4;--on-navy-2:#B3BDCE;
   --copper:#D88D64;--copper-ink:#9A522D;--orange:#FFA863;--glow:#FFF1E4;
   --ok:#2B7349;--ok-bg:#E2F0E7;--hold:#8F5200;--hold-bg:#FCE9CF;
-  --wa-top:#075E54;--wa-bg:#ECE5DD;--sms:#E9E9EB;--pdf:#C8372D;
+  --gpt:#0E8A6B;--wa-top:#075E54;--wa-bg:#ECE5DD;--sms:#E9E9EB;--pdf:#C8372D;
   --f-display:"Newsreader","Iowan Old Style",Georgia,serif;
   --f-body:"Albert Sans","Helvetica Neue",Arial,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
@@ -199,14 +199,46 @@ svg.ic{width:18px;height:18px;flex:none}
 @media(max-width:640px){.cmp-row{grid-template-columns:1fr 1fr}.cmp-row .lb{grid-column:1/-1}.cmp-row.h .lb{display:none}}
 .foot-note{margin-top:18px;font-size:15px;color:var(--muted);max-width:640px}
 
-.build-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:48px;align-items:start}
-.proofs{display:grid;gap:16px}
-.proof{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;display:grid;gap:8px}
+.vtools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.vtools .mono{font-size:12px;color:var(--muted)}
+.btn.sm{padding:9px 14px;font-size:14px}
+.vt{border-top:2px solid var(--ink)}
+.vhead,.vrow>summary{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr) minmax(0,1.3fr) 40px}
+.vhead>span{padding:16px}
+.vhead small{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;font-weight:400}
+.vhead .m{background:var(--navy);color:var(--on-navy)}
+.vhead .m small{color:var(--on-navy-2)}
+.vm,.vg{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px}
+.vm svg{width:24px;height:19px}
+.gdot{width:9px;height:9px;border-radius:50%;background:var(--gpt);display:inline-block;flex:none}
+.vrow{border-bottom:1px solid var(--rule)}
+.vrow>summary{list-style:none;cursor:pointer;position:relative}
+.vrow>summary::-webkit-details-marker{display:none}
+.vrow>summary>span{padding:14px 16px;min-width:0}
+.vrow .k{font-weight:600}
+.vrow .m{background:var(--navy);color:var(--on-navy);font-weight:500;box-shadow:inset 0 -1px 0 var(--navy-line)}
+.vrow .c{color:var(--muted)}
+.vrow>summary:hover .c{color:var(--ink)}
+.vrow .pl::before,.vrow .pl::after{content:"";position:absolute;right:14px;top:25px;width:12px;height:1.6px;background:var(--muted);transition:transform .2s}
+.vrow .pl::after{transform:rotate(90deg)}
+.vrow[open] .pl::after{transform:rotate(0)}
+.vrow .more{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2.6fr) 40px;background:var(--glow)}
+.vrow .more p{grid-column:2;padding:12px 16px 16px;font-size:15px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:640px){
+  .vhead,.vrow>summary{grid-template-columns:1fr 1fr}
+  .vhead .k,.vhead .e{display:none}
+  .vrow .k{grid-column:1/-1;padding-right:44px;padding-bottom:6px}
+  .vrow .more{grid-template-columns:1fr}
+  .vrow .more p{grid-column:1}
+}
+.proofs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.proof{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;display:grid;gap:8px;align-content:start}
 .proof h3{font-size:1.4rem}
 .proof .m{font:12px var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .proof p{font-size:15px}
 .proof a{font-weight:600;font-size:14px;color:var(--navy)}
-@media(max-width:900px){.build-grid{grid-template-columns:1fr;gap:32px}}
+@media(max-width:700px){.proofs{grid-template-columns:1fr}}
 
 /* still here */
 .still{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
@@ -297,7 +329,7 @@ footer .wrap{display:grid;gap:6px}
       <svg class="lk-ed" role="img" aria-label="Edmunds"><use href="#ed-word"/></svg>
     </a>
     <nav aria-label="Sections">
-      <a href="#pass">The pass</a><a href="#heard">From our call</a><a href="#build">Build or buy</a><a href="#still">Still here?</a><a href="#cost">The cost</a><a href="#january">January</a>
+      <a href="#pass">The pass</a><a href="#heard">From our call</a><a href="#build">vs ChatGPT</a><a href="#still">Still here?</a><a href="#cost">The cost</a><a href="#january">January</a>
     </nav>
   </div>
 </header>
@@ -358,7 +390,7 @@ footer .wrap{display:grid;gap:6px}
     <div class="heard">
       <div class="hc"><p class="tg">Orders</p><p>They arrive by email, WhatsApp, PDF and text.</p><a href="#pass">See the pass →</a></div>
       <div class="hc"><p class="tg">The ideal</p><p>Every order synced into Unleashed, and the invoice raised on dispatch.</p><a href="#pass">See the pass →</a></div>
-      <div class="hc"><p class="tg">Building</p><p>OpenAI connections built in-house, Meta spend first, with Unleashed, Meta and Google in progress. No CTO, so it lands on you.</p><a href="#build">Build or buy →</a></div>
+      <div class="hc"><p class="tg">Building</p><p>OpenAI connections built in-house, Meta spend first, with Unleashed, Meta and Google in progress. No CTO, so it lands on you.</p><a href="#build">Milo vs ChatGPT →</a></div>
       <div class="hc"><p class="tg">Longevity</p><p>A platform trial you're leaning away from, partly over whether AI start-ups last.</p><a href="#still">Still here? →</a></div>
       <div class="hc"><p class="tg">Price</p><p>£1,500 a month feels like a stretch next to part-time help.</p><a href="#cost">The cost →</a></div>
       <div class="hc"><p class="tg">Timing</p><p>Q4 is heads-down trading. Pick this up in January.</p><a href="#january">January →</a></div>
@@ -369,26 +401,29 @@ footer .wrap{display:grid;gap:6px}
 <section class="band" id="build" aria-labelledby="build-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow">Build or buy</p>
-      <h2 id="build-h">You've been building the pipes. <em>We'd take them off you.</em></h2>
-      <p class="s">Calling OpenAI is the easy bit. The work is the connections, and keeping them alive when Unleashed or Meta change something.</p>
+      <p class="eyebrow">Milo vs ChatGPT</p>
+      <h2 id="build-h">ChatGPT knows a lot. <em>Milo knows Edmunds.</em></h2>
+      <p class="s">You've been building on OpenAI yourself. The model is the easy part. The work is the connectors, keeping them running when an API changes, and one set of numbers everyone trusts.</p>
     </div>
-    <div class="build-grid">
-      <div>
-        <div class="cmp" role="table" aria-label="Doing it yourself compared with Milo">
-          <div class="cmp-row h" role="row"><span class="lb" role="columnheader"></span><span class="them" role="columnheader">Doing it yourself</span><span class="us" role="columnheader">With Milo</span></div>
-          <div class="cmp-row" role="row"><span class="lb" role="rowheader">Unleashed, Prospect, Meta, Google Ads</span><span class="them" role="cell">You build each connection</span><span class="us" role="cell"><svg aria-hidden="true"><use href="#tick"/></svg><span>We build them, and any we don't have yet at our cost</span></span></div>
-          <div class="cmp-row" role="row"><span class="lb" role="rowheader">When an API changes</span><span class="them" role="cell">It breaks until you notice</span><span class="us" role="cell"><svg aria-hidden="true"><use href="#tick"/></svg><span>We watch the connections and fix them</span></span></div>
-          <div class="cmp-row" role="row"><span class="lb" role="rowheader">WhatsApp, PDF and text orders</span><span class="them" role="cell">Another build</span><span class="us" role="cell"><svg aria-hidden="true"><use href="#tick"/></svg><span>Part of the order flow above</span></span></div>
-          <div class="cmp-row" role="row"><span class="lb" role="rowheader">Who can use it</span><span class="them" role="cell">Whoever can run your scripts</span><span class="us" role="cell"><svg aria-hidden="true"><use href="#tick"/></svg><span>Anyone at Edmunds, unlimited users</span></span></div>
-          <div class="cmp-row" role="row"><span class="lb" role="rowheader">Same question, same answer</span><span class="them" role="cell">Depends how the prompt is built</span><span class="us" role="cell"><svg aria-hidden="true"><use href="#tick"/></svg><span>The model never does the arithmetic</span></span></div>
-        </div>
-        <p class="foot-note">The Meta spend queries you've built keep running. Nothing has to be switched off.</p>
-      </div>
-      <div class="proofs">
-        <div class="proof"><p class="m">London brewery and taproom</p><h3>Two Tribes</h3><p>No data team. Seven systems connected in two weeks, and twelve people building their own dashboards seven weeks later.</p><a href="https://hey.milo.ai/two-tribes-case-study/" target="_blank" rel="noopener">Read the case study</a></div>
-        <div class="proof"><p class="m">Newport brewery</p><h3>Tiny Rebel</h3><p>Signed with us in October. Their sales and stock live in Unleashed, like yours, and our Unleashed connector is already built.</p></div>
-      </div>
+    <div class="vtools"><span class="mono">Tap any row for the detail</span><button type="button" class="btn alt sm" id="vt-all">Show all details</button></div>
+    <div class="vt" id="vt">
+      <div class="vhead" aria-hidden="true"><span class="k"></span><span class="m"><span class="vm"><svg><use href="#milo-icon"/></svg>Milo</span><small>The AI data analyst</small></span><span class="c"><span class="vg"><i class="gdot"></i>ChatGPT</span><small>ChatGPT, Codex and the API, by OpenAI</small></span><span class="e"></span></div>
+      <details class="vrow"><summary><span class="k">Built for</span><span class="m"><span class="sr">Milo: </span>Ops, finance, marketing and leadership teams</span><span class="c"><span class="sr">ChatGPT: </span>Individuals (ChatGPT) or developers (the API and Codex)</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>We connect Milo once. After that anyone at Edmunds can ask, with no SQL and no prompt tricks.</p></div></details>
+      <details class="vrow"><summary><span class="k">Knows</span><span class="m"><span class="sr">Milo: </span>Your live business data, plus your definitions</span><span class="c"><span class="sr">ChatGPT: </span>General knowledge, plus whatever you upload or connect</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Milo learns what a “trade account” or “net revenue” means at Edmunds once, and every answer uses it.</p></div></details>
+      <details class="vrow"><summary><span class="k">When things break</span><span class="m"><span class="sr">Milo: </span>A dedicated engineer and account manager. We always have your back.</span><span class="c"><span class="sr">ChatGPT: </span>You set up the connectors, and you fix them when an API changes</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>APIs change and connections break. Our engineers keep every connection working, from Unleashed to Meta, and your account manager keeps you in the loop.</p></div></details>
+      <details class="vrow"><summary><span class="k">Your data</span><span class="m"><span class="sr">Milo: </span>Stays with you. We never train on it.</span><span class="c"><span class="sr">ChatGPT: </span>Sent to and stored by OpenAI. Training depends on your plan and settings</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Milo works with your data where it lives, and it’s never used to train models.</p></div></details>
+      <details class="vrow"><summary><span class="k">Getting data in</span><span class="m"><span class="sr">Milo: </span>Connected once, always current</span><span class="c"><span class="sr">ChatGPT: </span>Upload, paste, or set up connectors yourself</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Unleashed, Prospect, Shopify, Meta and Google Ads, plus orders by email, WhatsApp, PDF and text. Milo reads them live, so nobody copies, pastes or uploads anything.</p></div></details>
+      <details class="vrow"><summary><span class="k">Consistency</span><span class="m"><span class="sr">Milo: </span>One set of definitions for the whole company</span><span class="c"><span class="sr">ChatGPT: </span>Depends on who asks and how they ask</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Revenue means the same thing to finance as it does to marketing. Milo learns your definitions once and uses them for everyone.</p></div></details>
+      <details class="vrow"><summary><span class="k">Access control</span><span class="m"><span class="sr">Milo: </span>Role and row-level permissions</span><span class="c"><span class="sr">ChatGPT: </span>Based on each person’s own access</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Everyone can ask freely and only gets the numbers they’re allowed to see.</p></div></details>
+      <details class="vrow"><summary><span class="k">Output</span><span class="m"><span class="sr">Milo: </span>Answers, dashboards, reports, alerts, apps</span><span class="c"><span class="sr">ChatGPT: </span>Replies, drafts, charts, images, code</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Dashboards, scheduled reports, alerts in Slack, Teams or email, and sales orders raised in Unleashed.</p></div></details>
+      <details class="vrow"><summary><span class="k">Runs on its own</span><span class="m"><span class="sr">Milo: </span>Scheduled reports and alerts</span><span class="c"><span class="sr">ChatGPT: </span>When you prompt it, or a scheduled task you set up</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Milo watches the numbers and posts to Slack, Teams or email when something moves.</p></div></details>
+      <details class="vrow"><summary><span class="k">Lives in</span><span class="m"><span class="sr">Milo: </span>Web, Slack, Teams, WhatsApp, email</span><span class="c"><span class="sr">ChatGPT: </span>ChatGPT apps, plus the API</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Ask wherever your team already talks. The answer is the same in every channel.</p></div></details>
+      <details class="vrow"><summary><span class="k">Best for</span><span class="m"><span class="sr">Milo: </span>“What’s actually happening in the business?”</span><span class="c"><span class="sr">ChatGPT: </span>“Help me think, write or build this.”</span><span class="pl" aria-hidden="true"></span></summary><div class="more"><p>Plenty of teams use both. ChatGPT for thinking, Milo for the numbers.</p></div></details>
+    </div>
+    <p class="foot-note">The Meta spend queries you've built keep running, and nothing has to be switched off. ChatGPT features change often, so check <a href="https://openai.com" target="_blank" rel="noopener">openai.com</a> for current plans.</p>
+    <div class="proofs">
+      <div class="proof"><p class="m">London brewery and taproom</p><h3>Two Tribes</h3><p>No data team. Seven systems connected in two weeks, and twelve people building their own dashboards seven weeks later.</p><a href="https://hey.milo.ai/two-tribes-case-study/" target="_blank" rel="noopener">Read the case study</a></div>
+      <div class="proof"><p class="m">Newport brewery</p><h3>Tiny Rebel</h3><p>Signed with us in October. Their sales and stock live in Unleashed, like yours, and our Unleashed connector is already built.</p></div>
     </div>
   </div>
 </section>
@@ -610,6 +645,13 @@ footer .wrap{display:grid;gap:6px}
   });
 
   reset();renderTabs();renderPass(false);
+
+  /* comparison rows */
+  var vt=$("vt"),vall=$("vt-all");
+  function vrows(){return [].slice.call(vt.querySelectorAll("details"))}
+  function vsync(){vall.textContent=vrows().every(function(d){return d.open})?"Hide details":"Show all details"}
+  vall.addEventListener("click",function(){var open=vrows().every(function(d){return d.open});vrows().forEach(function(d){d.open=!open});vsync()});
+  vt.addEventListener("toggle",vsync,true);
 
   /* video */
   var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
