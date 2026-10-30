@@ -50,7 +50,7 @@ svg.ic{width:18px;height:18px;flex:none}
 .top nav{display:flex;gap:22px;font-size:14px}
 .top nav a{text-decoration:none;color:var(--on-navy-2)}
 .top nav a:hover{color:var(--on-navy)}
-@media(max-width:900px){.top nav{display:none}}
+@media(max-width:1080px){.top nav{display:none}}
 
 /* hero + pass */
 .hero{background:var(--navy);color:var(--on-navy);padding-block:52px 64px}
@@ -197,6 +197,16 @@ svg.ic{width:18px;height:18px;flex:none}
 .cmp-row.price .them,.cmp-row.price .us{font:500 1.7rem/1.1 var(--f-display);color:var(--ink);display:block}
 .cmp-row.price small{display:block;font:400 13.5px/1.45 var(--f-body);color:var(--muted);margin-top:6px}
 @media(max-width:640px){.cmp-row{grid-template-columns:1fr 1fr}.cmp-row .lb{grid-column:1/-1}.cmp-row.h .lb{display:none}}
+.grow{margin-top:48px;background:var(--navy);color:var(--on-navy);border-radius:16px;padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:1fr 1.5fr;gap:32px 48px}
+.grow h3{font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.15;margin:8px 0 12px}
+.grow h3 em{font-style:italic;color:var(--orange)}
+.grow-h p{color:var(--on-navy-2);font-size:15.5px}
+.grow-pts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grow-pts>div{border-top:2px solid var(--copper);padding-top:14px;display:grid;gap:6px;align-content:start}
+.grow-pts b{font:500 1.25rem/1.2 var(--f-display)}
+.grow-pts p{color:var(--on-navy-2);font-size:15px}
+@media(max-width:900px){.grow{grid-template-columns:1fr}}
+@media(max-width:600px){.grow-pts{grid-template-columns:1fr}}
 .foot-note{margin-top:18px;font-size:15px;color:var(--muted);max-width:640px}
 
 .vtools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
@@ -244,18 +254,36 @@ svg.ic{width:18px;height:18px;flex:none}
 .trust:hover{border-color:var(--copper)}
 @media(max-width:820px){.still{grid-template-columns:1fr;gap:20px}}
 
-/* systems */
-.sys{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 28px}
-.sys h3{font:500 11.5px var(--f-mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+/* connections */
+.cfind{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:28px}
+.cfind label{position:relative;flex:1 1 320px;max-width:520px}
+.cfind input{width:100%;font:16px var(--f-body);padding:13px 16px 13px 42px;border-radius:99px;border:1.5px solid var(--rule);background:var(--card);color:var(--ink)}
+.cfind input:focus{outline:none;border-color:var(--navy)}
+.cfind svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted)}
+.cfind .res{font-size:14.5px;color:var(--muted)}
+.cfind .res b{color:var(--ink)}
+.cfind .res.miss{color:var(--hold);font-weight:500}
+.cgroup+.cgroup{margin-top:34px}
+.cgroup>h3{font:500 1.35rem/1.2 var(--f-display);margin-bottom:4px}
+.cgroup>p{font-size:14.5px;color:var(--muted);margin-bottom:14px}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 28px}
+.cat h4{font:500 11.5px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 10px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:99px;background:var(--card);border:1px solid var(--rule);font-size:14.5px}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:99px;background:var(--card);border:1px solid var(--rule);font-size:14.5px;transition:opacity .15s}
+.chip small{font-size:12px;color:var(--muted)}
+.chip.yours{border-color:var(--copper);box-shadow:inset 0 0 0 1px var(--copper)}
 .dot{width:8px;height:8px;border-radius:50%;flex:none}
 .dot.call{background:var(--copper)}
 .dot.site{border:1.5px solid var(--navy)}
-.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted);margin-bottom:26px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted);margin-bottom:14px}
 .legend span{display:inline-flex;align-items:center;gap:7px}
-@media(max-width:900px){.sys{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.sys{grid-template-columns:1fr}}
+.legend .sw{width:22px;height:14px;border-radius:99px;border:2px solid var(--copper);background:var(--card)}
+.searching .chip{opacity:.28}
+.searching .chip.hit{opacity:1;border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.more-n{margin-top:26px;font-size:15px}
+.more-n b{font-weight:600}
+@media(max-width:900px){.cats{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.cats{grid-template-columns:1fr}}
 .qs-h{margin:56px 0 18px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
 .qs-h h3{font-size:1.6rem}
 .qs-h .mono{font-size:12px;color:var(--muted)}
@@ -347,7 +375,7 @@ footer .wrap{display:grid;gap:6px}
       <svg class="lk-ed" role="img" aria-label="Edmunds"><use href="#ed-word"/></svg>
     </a>
     <nav aria-label="Sections">
-      <a href="#pass">The pass</a><a href="#films">Case studies</a><a href="#heard">From our call</a><a href="#build">vs ChatGPT</a><a href="#still">Still here?</a><a href="#cost">The cost</a><a href="#january">January</a>
+      <a href="#pass">The pass</a><a href="#films">Case studies</a><a href="#heard">From our call</a><a href="#build">vs ChatGPT</a><a href="#still">Still here?</a><a href="#cost">The cost</a><a href="#systems">Connections</a><a href="#january">January</a>
     </nav>
   </div>
 </header>
@@ -538,25 +566,50 @@ footer .wrap{display:grid;gap:6px}
       <div class="cmp-row" role="row"><span class="lb" role="rowheader">The connections</span><span class="them" role="cell">Still yours to build</span><span class="us" role="cell"><svg aria-hidden="true"><use href="#tick"/></svg><span>Built and maintained by us</span></span></div>
     </div>
     <p class="foot-note">People are still the right call for relationships and judgement. Milo takes the keying, and holds anything unclear for a person to decide.</p>
+    <div class="grow">
+      <div class="grow-h">
+        <p class="eyebrow">Growing with you</p>
+        <h3>Easier to set up now <em>than at twice the size.</em></h3>
+        <p>Trade and direct are both growing, and so is the team. What you set up at this size carries you through the next stage, with fewer systems to connect, less history to untangle and fewer habits to change.</p>
+      </div>
+      <div class="grow-pts">
+        <div><b>More people</b><p>Unlimited users, so every new starter gets Milo at no extra cost.</p></div>
+        <div><b>More systems</b><p>Each new tool gets connected by us, and anything missing is built at our cost.</p></div>
+        <div><b>More orders</b><p>The hundredth order of the day is read like the first. A part-timer's hours have to grow with the orders.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="band tint" id="systems" aria-labelledby="sys-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow">What gets connected</p>
-      <h2 id="sys-h">Everything <em>an order touches.</em></h2>
-      <p class="s">Anything we don't connect yet, we build at our cost.</p>
+      <p class="eyebrow">Every connection</p>
+      <h2 id="sys-h">1,500+ connections. <em>Here's the rundown.</em></h2>
+      <p class="s">Your systems first, then what's already running for drinks makers, then the wider catalogue by department. If a tool isn't here, we build the connection at our cost.</p>
     </div>
-    <div class="legend"><span><i class="dot call"></i>From our call</span><span><i class="dot site"></i>Seen on your website</span></div>
-    <div class="sys">
-      <div><h3>Orders in</h3><div class="chips"><span class="chip"><i class="dot call"></i>Email</span><span class="chip"><i class="dot call"></i>WhatsApp</span><span class="chip"><i class="dot call"></i>PDF orders</span><span class="chip"><i class="dot call"></i>Texts</span></div></div>
-      <div><h3>Stock, orders, invoices</h3><div class="chips"><span class="chip"><i class="dot call"></i>Unleashed</span></div></div>
-      <div><h3>Trade accounts</h3><div class="chips"><span class="chip"><i class="dot call"></i>Prospect CRM</span></div></div>
-      <div><h3>Online shop</h3><div class="chips"><span class="chip"><i class="dot site"></i>Shopify</span><span class="chip"><i class="dot site"></i>Recharge</span><span class="chip"><i class="dot site"></i>Klaviyo</span><span class="chip"><i class="dot site"></i>Gorgias</span><span class="chip"><i class="dot site"></i>Reviews.io</span></div></div>
-      <div><h3>Advertising</h3><div class="chips"><span class="chip"><i class="dot call"></i>Meta Ads</span><span class="chip"><i class="dot call"></i>Google Ads</span></div></div>
-      <div><h3>Planning</h3><div class="chips"><span class="chip"><i class="dot call"></i>Notion</span></div></div>
+    <div class="cfind">
+      <label for="conn-q"><span class="sr">Search connections</span><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input id="conn-q" type="search" autocomplete="off" placeholder="Search a tool, e.g. Unleashed, Xero, Amazon"></label>
+      <p class="res" id="conn-res" aria-live="polite">73 named below, from 1,500+</p>
     </div>
+    <div id="conns">
+      <div class="cgroup">
+        <h3>Your systems</h3>
+        <div class="legend"><span><i class="dot call"></i>From our call</span><span><i class="dot site"></i>Seen on your website</span></div>
+        <div class="chips"><span class="chip" data-n="email"><i class="dot call"></i>Email</span><span class="chip" data-n="whatsapp"><i class="dot call"></i>WhatsApp</span><span class="chip" data-n="pdf orders"><i class="dot call"></i>PDF orders</span><span class="chip" data-n="texts"><i class="dot call"></i>Texts</span><span class="chip" data-n="unleashed"><i class="dot call"></i>Unleashed</span><span class="chip" data-n="prospect crm"><i class="dot call"></i>Prospect CRM</span><span class="chip" data-n="meta ads"><i class="dot call"></i>Meta Ads</span><span class="chip" data-n="google ads"><i class="dot call"></i>Google Ads</span><span class="chip" data-n="notion"><i class="dot call"></i>Notion</span><span class="chip" data-n="shopify"><i class="dot site"></i>Shopify</span><span class="chip" data-n="recharge"><i class="dot site"></i>Recharge</span><span class="chip" data-n="klaviyo"><i class="dot site"></i>Klaviyo</span><span class="chip" data-n="gorgias"><i class="dot site"></i>Gorgias</span><span class="chip" data-n="reviews.io"><i class="dot site"></i>Reviews.io</span></div>
+      </div>
+      <div class="cgroup">
+        <h3>Already running for drinks makers</h3>
+        <p>Connections we've set up for breweries on Milo, and who they're for.</p>
+        <div class="chips"><span class="chip" data-n="unleashed">Unleashed <small>Tiny Rebel</small></span><span class="chip" data-n="breww">Breww <small>Two Tribes, Prime Time</small></span><span class="chip" data-n="xero">Xero <small>Two Tribes, Prime Time</small></span><span class="chip" data-n="hubspot">HubSpot <small>Prime Time</small></span><span class="chip" data-n="bowimi">Bowimi <small>Two Tribes</small></span><span class="chip" data-n="toast">Toast <small>Two Tribes</small></span><span class="chip" data-n="brighthr">BrightHR <small>Two Tribes</small></span><span class="chip" data-n="sharepoint">SharePoint <small>Two Tribes</small></span></div>
+      </div>
+      <div class="cgroup">
+        <h3>The catalogue, by department</h3>
+        <div class="legend"><span><i class="sw"></i>Yours</span></div>
+        <div class="cats"><div class="cat"><h4>Online shop and marketplaces</h4><div class="chips"><span class="chip yours" data-n="shopify">Shopify</span><span class="chip yours" data-n="recharge">Recharge</span><span class="chip" data-n="woocommerce">WooCommerce</span><span class="chip" data-n="bigcommerce">BigCommerce</span><span class="chip" data-n="magento">Magento</span><span class="chip" data-n="amazon selling partner">Amazon Selling Partner</span></div></div><div class="cat"><h4>Stock and operations</h4><div class="chips"><span class="chip yours" data-n="unleashed">Unleashed</span><span class="chip" data-n="cin7">Cin7</span><span class="chip" data-n="brightpearl">Brightpearl</span><span class="chip" data-n="lightspeed retail">Lightspeed Retail</span><span class="chip" data-n="breww">Breww</span></div></div><div class="cat"><h4>Finance and payments</h4><div class="chips"><span class="chip" data-n="xero">Xero</span><span class="chip" data-n="sage intacct">Sage Intacct</span><span class="chip" data-n="stripe">Stripe</span><span class="chip" data-n="paypal">PayPal</span><span class="chip" data-n="square">Square</span></div></div><div class="cat"><h4>CRM and sales</h4><div class="chips"><span class="chip" data-n="hubspot">HubSpot</span><span class="chip" data-n="salesforce">Salesforce</span><span class="chip" data-n="pipedrive">Pipedrive</span><span class="chip" data-n="zoho crm">Zoho CRM</span><span class="chip" data-n="microsoft dynamics 365">Microsoft Dynamics 365</span><span class="chip" data-n="bowimi">Bowimi</span></div></div><div class="cat"><h4>Advertising</h4><div class="chips"><span class="chip yours" data-n="meta ads">Meta Ads</span><span class="chip yours" data-n="google ads">Google Ads</span><span class="chip" data-n="tiktok ads">TikTok Ads</span><span class="chip" data-n="pinterest ads">Pinterest Ads</span><span class="chip" data-n="linkedin ads">LinkedIn Ads</span><span class="chip" data-n="snapchat ads">Snapchat Ads</span><span class="chip" data-n="amazon ads">Amazon Ads</span></div></div><div class="cat"><h4>Analytics and social</h4><div class="chips"><span class="chip" data-n="google analytics 4">Google Analytics 4</span><span class="chip" data-n="google search console">Google Search Console</span><span class="chip" data-n="instagram business">Instagram Business</span></div></div><div class="cat"><h4>Email and messaging</h4><div class="chips"><span class="chip yours" data-n="klaviyo">Klaviyo</span><span class="chip" data-n="mailchimp">Mailchimp</span><span class="chip" data-n="gmail">Gmail</span><span class="chip yours" data-n="whatsapp">WhatsApp</span><span class="chip" data-n="slack">Slack</span><span class="chip" data-n="microsoft teams">Microsoft Teams</span><span class="chip" data-n="twilio">Twilio</span></div></div><div class="cat"><h4>Service, reviews and surveys</h4><div class="chips"><span class="chip yours" data-n="gorgias">Gorgias</span><span class="chip" data-n="zendesk">Zendesk</span><span class="chip" data-n="freshdesk">Freshdesk</span><span class="chip" data-n="intercom">Intercom</span><span class="chip" data-n="trustpilot">Trustpilot</span><span class="chip yours" data-n="reviews.io">Reviews.io</span><span class="chip" data-n="yotpo">Yotpo</span><span class="chip" data-n="typeform">Typeform</span><span class="chip" data-n="surveymonkey">SurveyMonkey</span><span class="chip" data-n="qualtrics">Qualtrics</span></div></div><div class="cat"><h4>Files and planning</h4><div class="chips"><span class="chip" data-n="google sheets">Google Sheets</span><span class="chip" data-n="google drive">Google Drive</span><span class="chip" data-n="sharepoint">SharePoint</span><span class="chip" data-n="onedrive">OneDrive</span><span class="chip" data-n="dropbox">Dropbox</span><span class="chip" data-n="box">Box</span><span class="chip yours" data-n="notion">Notion</span><span class="chip" data-n="airtable">Airtable</span><span class="chip" data-n="asana">Asana</span><span class="chip" data-n="monday.com">Monday.com</span><span class="chip" data-n="jira">Jira</span></div></div><div class="cat"><h4>People</h4><div class="chips"><span class="chip" data-n="deputy">Deputy</span><span class="chip" data-n="brighthr">BrightHR</span></div></div><div class="cat"><h4>Hospitality</h4><div class="chips"><span class="chip" data-n="toast">Toast</span><span class="chip" data-n="opentable">OpenTable</span></div></div><div class="cat"><h4>Databases and warehouses</h4><div class="chips"><span class="chip" data-n="bigquery">BigQuery</span><span class="chip" data-n="snowflake">Snowflake</span><span class="chip" data-n="microsoft fabric">Microsoft Fabric</span><span class="chip" data-n="microsoft sql server">Microsoft SQL Server</span><span class="chip" data-n="postgresql">PostgreSQL</span><span class="chip" data-n="mysql">MySQL</span><span class="chip" data-n="mariadb">MariaDB</span><span class="chip" data-n="clickhouse">ClickHouse</span><span class="chip" data-n="amazon s3">Amazon S3</span></div></div></div>
+      </div>
+    </div>
+    <p class="more-n"><b>Plus 1,400+ more.</b> Anything missing is built by our engineers as part of setup, at our cost.</p>
 
     <div class="qs-h"><h3>Then the questions come free.</h3><span class="mono">Sample answers, invented figures</span></div>
     <div class="qs">
@@ -710,6 +763,19 @@ footer .wrap{display:grid;gap:6px}
   function vsync(){vall.textContent=vrows().every(function(d){return d.open})?"Hide details":"Show all details"}
   vall.addEventListener("click",function(){var open=vrows().every(function(d){return d.open});vrows().forEach(function(d){d.open=!open});vsync()});
   vt.addEventListener("toggle",vsync,true);
+
+  /* connection search */
+  var cq=$("conn-q"),cres=$("conn-res"),cbox=$("conns"),cdef=cres.innerHTML;
+  cq.addEventListener("input",function(){
+    var q=cq.value.trim().toLowerCase(),seen={},n=0;
+    cbox.classList.toggle("searching",!!q);
+    [].forEach.call(cbox.querySelectorAll(".chip"),function(c){
+      var hit=!!q&&c.dataset.n.indexOf(q)>-1;c.classList.toggle("hit",hit);
+      if(hit&&!seen[c.dataset.n]){seen[c.dataset.n]=1;n++}
+    });
+    cres.classList.toggle("miss",!!q&&!n);
+    cres.innerHTML=!q?cdef:n?"<b>"+n+"</b> match"+(n>1?"es":"")+" for “"+esc(cq.value.trim())+"”":"Not on this list yet. We’d build it during setup, at our cost.";
+  });
 
   /* films: embed inline only where the host allows frames */
   var host=location.hostname;
