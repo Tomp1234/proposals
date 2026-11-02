@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Catalyst</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: Catalyst's own look. Black stage with violet and teal glows behind five faint column lines, cream type, their purple-to-teal gradient as the one accent, 16px corners, their diamond glyph as the marker. */
+:root{
+  --paper:#F5F4F8; --paper-2:#EBE9F1; --ink:#131117; --ink-2:#5D5968; --line:#DAD7E2;
+  --accent:#7B4099; --tint:#EEE6F5; --bar:#5481A9;
+  --sel-bg:#131117; --sel-ink:#F5F4F8;
+  --good:#00807A; --bad:#C2364A;
+  --deep:#000000; --deep-2:#0C0B0F; --deep-3:#16141B; --deep-line:#272430; --deep-ink:#F6F4EC; --deep-mute:#A29EAB;
+  --d-violet:#CD69FF; --d-sky:#7FC3FF; --d-teal:#00FFF2; --d-red:#FF6B7D; --d-amber:#FFC46B;
+  --grad:linear-gradient(90deg,#7B4099,#5481A9 50%,#009992);
+  --grad-hi:linear-gradient(90deg,#CD69FF,#7FC3FF 50%,#00FFF2);
+  --sans:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:16px; --wrap:1160px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0A090D; --paper-2:#121017; --ink:#F2F0F5; --ink-2:#9D99A7; --line:#262330;
+  --accent:#CD69FF; --tint:#1D1626; --bar:#7FC3FF;
+  --sel-bg:#F2F0F5; --sel-ink:#0A090D;
+  --good:#00D7CD; --bad:#FF6B7D;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0A090D; --paper-2:#121017; --ink:#F2F0F5; --ink-2:#9D99A7; --line:#262330;
+  --accent:#CD69FF; --tint:#1D1626; --bar:#7FC3FF;
+  --sel-bg:#F2F0F5; --sel-ink:#0A090D;
+  --good:#00D7CD; --bad:#FF6B7D;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--deep)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--d-sky);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+.disp{font-family:var(--sans);font-weight:600;letter-spacing:-.045em;line-height:.98}
+.label{font:500 .72rem/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.grad-t{background:var(--grad-hi);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dq{display:inline-block;width:.9em;height:.9em;flex:none}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--deep);color:var(--deep-ink);border-bottom:1px solid var(--deep-line)}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:58px}
+.lock{display:flex;align-items:center;gap:12px;flex:none}
+.lock img{height:22px;width:auto;display:block}
+.lock .x{color:var(--deep-mute);font:500 .9rem var(--mono)}
+.milo{display:flex;align-items:center;gap:6px;font:700 1.05rem var(--sans);letter-spacing:-.02em}
+.milo svg{width:26px;height:21px}
+.nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font:500 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--deep-mute);text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.nav a:hover{color:var(--deep-ink);background:var(--deep-3)}
+.top .for{font:500 .72rem var(--mono);color:var(--deep-mute);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;margin-left:auto}
+@media (max-width:1020px){.nav{display:none}}
+@media (min-width:1021px){.top .for{display:none}}
+@media (max-width:420px){.top .for{font-size:.6rem}.lock img{height:18px}.lock{gap:8px}}
+
+/* stage: the black, glowing ground shared by hero, band, poster and footer */
+.stage{position:relative;background:var(--deep);color:var(--deep-ink);overflow:hidden;isolation:isolate}
+.stage::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(55% 60% at 0% 0%,rgba(123,64,153,.5),transparent 70%),radial-gradient(45% 55% at 100% 8%,rgba(0,153,146,.38),transparent 70%)}
+.stage::after{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(90deg,rgba(246,244,236,.06) 1px,transparent 1px);background-size:20% 100%;pointer-events:none}
+
+/* hero */
+.hero .wrap{padding-block:56px 64px}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--deep-mute)}
+.kicker .dq{color:var(--deep-ink)}
+.hero h1{font-size:clamp(2.6rem,9.4vw,6.8rem);margin-top:22px}
+.hero h1 span{display:block}
+.hero h1 .grad-t{background-size:200% 100%;animation:sheen 9s ease-in-out infinite alternate}
+@keyframes sheen{to{background-position:100% 0}}
+.lede{font-size:clamp(1.04rem,1.6vw,1.22rem);color:var(--deep-mute);max-width:54ch;margin-top:24px}
+.lede b{color:var(--deep-ink);font-weight:600}
+
+/* board */
+.board{margin-top:40px;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);background:rgba(12,11,15,.86);border:1px solid var(--deep-line);border-radius:var(--r);overflow:hidden;backdrop-filter:blur(6px)}
+.rb-main{padding:22px 22px 18px;min-width:0}
+.rb-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.rb-title{font:600 1rem var(--sans)}
+.chip{font:500 .64rem var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--deep-line);border-radius:999px;color:var(--deep-mute)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tab{font:500 .74rem var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--deep-mute);background:var(--deep-3);border:1px solid var(--deep-line);border-radius:999px;padding:8px 13px;cursor:pointer}
+.tab:hover{color:var(--deep-ink)}
+.tab[aria-selected="true"]{color:var(--deep);background:var(--deep-ink);border-color:transparent}
+.rb-rows{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+.rb-row{display:grid;grid-template-columns:186px minmax(0,1fr) 78px;align-items:center;gap:12px;transition:opacity .35s}
+.rb-n{font:500 .88rem/1.2 var(--sans);min-width:0}
+.rb-n small{display:block;font:500 .62rem/1.4 var(--mono);color:var(--deep-mute)}
+.rb-t{position:relative;height:14px;background:rgba(246,244,236,.06);border-radius:4px}
+.rb-f{position:absolute;inset:0;background:var(--grad-hi);clip-path:inset(0 var(--rr,100%) 0 var(--ll,0%) round 4px);transition:clip-path .65s cubic-bezier(.2,.8,.2,1)}
+.rb-t.z::after{content:"";position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:var(--deep-mute)}
+.rb-v{font:600 .8rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.rb-row.behind .rb-f{background:var(--d-red)}
+.rb-row.behind .rb-v{color:var(--d-red)}
+.rb-row.good .rb-f{background:var(--d-teal)}
+.rb-row.dim{opacity:.3}
+.rb-row[class*="tag-"] .rb-v{font:600 .6rem var(--mono);letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:4px 0;border-radius:999px}
+.rb-row.tag-scale .rb-v{background:var(--d-teal);color:var(--deep)}
+.rb-row.tag-refresh .rb-v{border:1px solid var(--d-violet);color:var(--d-violet)}
+.rb-row.tag-pause .rb-v{background:var(--d-red);color:var(--deep)}
+.rb-axis{display:flex;justify-content:space-between;margin:10px 0 0 198px;padding-right:90px;font:500 .66rem var(--mono);color:var(--deep-mute)}
+.rb-side{padding:22px;background:var(--deep-2);border-left:1px solid var(--deep-line);display:flex;flex-direction:column;gap:16px;min-width:0}
+.rb-side .label{color:var(--deep-mute)}
+.rb-note{color:var(--deep-mute);font-size:.92rem}
+.rb-ans{font:600 1.04rem/1.45 var(--sans);color:var(--deep-ink)}
+.rb-ans-box{margin-top:auto;padding:16px;background:var(--deep);border:1px solid var(--deep-line);border-radius:12px;position:relative;overflow:hidden}
+.rb-ans-box::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--grad-hi)}
+.rb-ans-box .who{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rb-ans-box .who svg{width:22px;height:18px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font:500 .74rem var(--sans);color:var(--deep-mute)}
+.legend i{display:inline-block;vertical-align:-1px;margin-right:6px;width:16px;height:8px;border-radius:2px;background:var(--grad-hi)}
+.legend i.red{background:var(--d-red)}
+.legend i.teal{background:var(--d-teal)}
+.rb-src{font:500 .66rem/1.5 var(--mono);color:var(--deep-mute)}
+@media (max-width:880px){.board{grid-template-columns:1fr}.rb-side{border-left:0;border-top:1px solid var(--deep-line)}}
+@media (max-width:520px){.rb-row{grid-template-columns:118px minmax(0,1fr) 60px;gap:8px}.rb-axis{margin-left:126px;padding-right:68px}.rb-main,.rb-side{padding:18px 14px}}
+
+/* marquee */
+.marq{background:var(--grad);color:#FFFFFF;overflow:hidden}
+.marq-in{display:flex;width:max-content;animation:marq 55s linear infinite}
+.marq span{font:600 1.05rem var(--sans);letter-spacing:-.01em;padding:13px 0;white-space:nowrap;display:inline-flex;align-items:center}
+.marq span::after{content:"";width:12px;height:12px;margin:0 22px;background:currentColor;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);opacity:.8}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* sections */
+.sec .wrap{padding-block:88px}
+.sec.alt{background:var(--paper-2)}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--ink-2);margin-bottom:14px}
+.eyebrow .dq{color:var(--accent)}
+h2.disp{font-size:clamp(2.1rem,5.4vw,3.9rem)}
+.sub{color:var(--ink-2);max-width:60ch;margin-top:16px;font-size:1.04rem}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:36px;align-items:center}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:var(--r);overflow:hidden;background:var(--deep)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-decoration:none;color:var(--deep-ink)}
+.p-mark{position:absolute;top:18px;left:20px;display:flex;align-items:center;gap:6px;font:700 1rem var(--sans)}
+.p-mark svg{width:26px;height:21px}
+.p-ttl{font:600 clamp(1.3rem,3vw,2rem) var(--sans);letter-spacing:-.03em}
+.p-play{width:74px;height:74px;border-radius:50%;background:var(--grad-hi);display:grid;place-items:center;color:var(--deep);box-shadow:0 0 0 10px rgba(127,195,255,.12);transition:transform .25s}
+.p-play svg{margin-left:4px}
+.poster:hover .p-play{transform:scale(1.07)}
+.p-sub{font:500 .72rem var(--mono);color:var(--deep-mute);letter-spacing:.06em}
+.vid-note{margin-top:10px;font-size:.86rem;color:var(--ink-2)}
+@media (max-width:820px){.vid-grid{grid-template-columns:1fr;gap:20px}}
+
+/* letter */
+.letter-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start;margin-top:34px}
+.letter{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;padding:36px clamp(20px,4vw,40px) 32px}
+.letter::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--grad)}
+.ref{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font:500 .76rem var(--mono);color:var(--ink-2);padding-bottom:18px;margin-bottom:22px;border-bottom:1px dashed var(--line)}
+.ref b{font-weight:600;color:var(--ink);letter-spacing:.06em;text-transform:uppercase;font-size:.7rem}
+.letter p{max-width:62ch}
+.letter p+p{margin-top:14px}
+.sig{margin-top:24px;display:flex;flex-direction:column;gap:2px}
+.sig b{font-weight:600}
+.sig span{color:var(--ink-2);font-size:.9rem}
+.glance{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gl{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px}
+.gl .n{font:600 clamp(2rem,4vw,2.7rem)/.95 var(--sans);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.gl p:last-child{margin-top:8px;font-size:.86rem;color:var(--ink-2);line-height:1.4}
+.gl.hl{background:var(--grad);border-color:transparent;color:var(--deep-ink)}
+.gl.hl p:last-child{color:var(--deep-ink)}
+.glance .src{grid-column:1/-1;font:500 .72rem var(--mono);color:var(--ink-2)}
+@media (max-width:880px){.letter-grid{grid-template-columns:1fr}}
+
+/* guesses */
+.pz-list{margin-top:36px;border-top:1px solid var(--line)}
+.pz{border-bottom:1px solid var(--line)}
+.pz summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:150px minmax(0,1fr) 28px;gap:18px;align-items:center;padding:22px 4px}
+.pz summary::-webkit-details-marker{display:none}
+.pz summary .label{color:var(--ink-2)}
+.pz summary h3{font:600 clamp(1.25rem,2.6vw,1.8rem)/1.15 var(--sans);letter-spacing:-.03em}
+.pz summary .pm{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:transform .3s}
+.pz summary .pm::before{content:"";width:10px;height:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.pz[open] summary .pm{transform:rotate(180deg);background:var(--sel-bg);color:var(--sel-ink);border-color:transparent}
+.pz[open] summary h3{color:var(--accent)}
+.pz summary:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.pz-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:24px;align-items:end;padding:0 4px 26px 172px}
+.pz-body p{font-size:.98rem;color:var(--ink-2)}
+.pz-body p b{display:block;font:500 .66rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+.pz-body .milo-says{color:var(--ink)}
+.go{all:unset;box-sizing:border-box;cursor:pointer;font:500 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:10px 16px;border-radius:999px;background:var(--sel-bg);color:var(--sel-ink);white-space:nowrap}
+.go:hover{background:var(--accent);color:var(--paper)}
+.go:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:860px){.pz summary{grid-template-columns:minmax(0,1fr) 28px;gap:6px 14px}.pz summary .label{grid-column:1/-1}.pz-body{grid-template-columns:1fr;padding-left:4px;gap:14px;align-items:start}.go{justify-self:start}}
+
+/* ask demo */
+.askd{display:grid;grid-template-columns:236px minmax(0,1fr);gap:22px;margin-top:36px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:6px}
+.seat{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 15px;font:500 .94rem var(--sans);color:var(--ink);border:1px solid transparent;border-radius:999px}
+.seat:hover{background:var(--paper);border-color:var(--line)}
+.seat[aria-selected="true"]{background:var(--sel-bg);color:var(--sel-ink)}
+.seat:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.seat small{font:500 .58rem var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.seat svg{width:14px;height:14px;opacity:.75}
+.chat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;min-width:0}
+.chat-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 18px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.chat-h .milo{font-size:.95rem}
+.chat-h .as{font:500 .72rem var(--mono);color:var(--ink-2);text-align:right}
+.chat-b{padding:22px clamp(16px,3vw,26px) 24px;display:flex;flex-direction:column;gap:16px;min-height:430px}
+.q{align-self:flex-end;max-width:85%;background:var(--sel-bg);color:var(--sel-ink);padding:11px 16px;border-radius:16px 16px 4px 16px;font-weight:500}
+.a{display:flex;gap:12px;align-items:flex-start}
+.a>svg{width:28px;height:22px;flex:none;margin-top:3px}
+.a-body{min-width:0;flex:1;display:flex;flex-direction:column;gap:14px}
+.a-txt{font-size:1.02rem}
+.a-txt.refuse{display:flex;gap:10px;padding:12px 14px;border:1px dashed var(--ink-2);border-radius:12px;background:var(--paper-2)}
+.a-txt.refuse svg{width:18px;height:18px;flex:none;margin-top:3px}
+.thinking{display:flex;gap:5px;padding:8px 0}
+.thinking i{width:7px;height:7px;border-radius:50%;background:var(--ink);animation:bob 1s infinite ease-in-out}
+.thinking i:nth-child(2){animation-delay:.15s}
+.thinking i:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-5px);opacity:1}}
+.chart{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:9px}
+.chart .cap{font:500 .72rem var(--mono);color:var(--ink-2);margin-bottom:2px}
+.cr{display:grid;grid-template-columns:minmax(96px,200px) minmax(0,1fr) 64px;gap:10px;align-items:center}
+.cr span{font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr .tr{position:relative;height:12px;background:var(--paper-2);border-radius:4px}
+.cr .tr i{position:absolute;top:0;bottom:0;background:var(--bar);border-radius:4px;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.cr .tr i.g{background:var(--good)}
+.cr .tr i.r{background:var(--bad)}
+.cr .tr .zero{position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:var(--ink-2)}
+.cr b{font:600 .78rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.srcs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:500 .72rem var(--mono);color:var(--ink-2)}
+.srcs span{padding:3px 9px;border-radius:999px;background:var(--paper-2);border:1px solid var(--line)}
+.auto{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:12px;background:var(--tint)}
+.auto p{font-size:.9rem}
+.auto p b{font-weight:600}
+.auto button{all:unset;cursor:pointer;font:500 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px;background:var(--ink);color:var(--paper)}
+.auto button[aria-pressed="true"]{background:var(--good);color:var(--paper)}
+.auto button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:880px){
+  .askd{grid-template-columns:1fr}
+  .seats{flex-direction:row;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+  .seat{flex:none;border-color:var(--line)}
+  .chat-b{min-height:0}
+}
+@media (max-width:480px){.cr{grid-template-columns:100px minmax(0,1fr) 54px;gap:8px}}
+
+/* one ad, thirty days */
+.band .wrap{padding-block:88px}
+.band .eyebrow{color:var(--deep-mute)}
+.band .eyebrow .dq{color:var(--deep-ink)}
+.band .sub{color:var(--deep-mute)}
+.ad{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:0;margin-top:36px;border:1px solid var(--deep-line);border-radius:var(--r);overflow:hidden;background:rgba(12,11,15,.86)}
+.ad-plot{padding:20px 18px 14px;min-width:0}
+.ad-plot .rb-head{margin-bottom:8px}
+#ad-svg{display:block;width:100%;touch-action:pan-y;cursor:crosshair}
+#ad-svg text{font:500 11px var(--mono);fill:var(--deep-mute)}
+#ad-svg .t-head{font:600 12px var(--sans);fill:var(--deep-ink)}
+#ad-svg .t-red{fill:var(--d-red)}
+#ad-svg .t-vio{fill:var(--d-violet)}
+.ad-range{display:flex;align-items:center;gap:12px;margin-top:8px}
+.ad-range label{font:500 .66rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--deep-mute);white-space:nowrap}
+.ad-range input{flex:1;min-width:0;accent-color:#7FC3FF}
+.ad-side{padding:22px;background:var(--deep-2);border-left:1px solid var(--deep-line);display:flex;flex-direction:column;gap:16px;min-width:0}
+.ad-day{font:600 clamp(2.2rem,4vw,3rem)/1 var(--sans);letter-spacing:-.04em}
+.ad-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ad-stats div{padding:10px 12px;border:1px solid var(--deep-line);border-radius:10px}
+.ad-stats span{display:block;font:500 .6rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--deep-mute)}
+.ad-stats b{display:block;margin-top:4px;font:600 1.05rem var(--mono);font-variant-numeric:tabular-nums}
+.ad-stats b.over{color:var(--d-red)}
+.stt{display:inline-flex;align-items:center;gap:6px;font:600 .62rem var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:10px}
+.stt::before{content:"";width:7px;height:7px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:currentColor}
+.stt.g{background:rgba(0,255,242,.12);color:var(--d-teal)}
+.stt.v{background:rgba(205,105,255,.14);color:var(--d-violet)}
+.stt.a{background:rgba(255,196,107,.14);color:var(--d-amber)}
+.stt.r{background:rgba(255,107,125,.14);color:var(--d-red)}
+.marks{display:flex;flex-wrap:wrap;gap:6px}
+.marks button{all:unset;cursor:pointer;font:500 .68rem var(--mono);letter-spacing:.04em;padding:7px 11px;border-radius:999px;border:1px solid var(--deep-line);color:var(--deep-mute)}
+.marks button:hover{color:var(--deep-ink)}
+.marks button[aria-pressed="true"]{background:var(--deep-ink);color:var(--deep);border-color:transparent}
+.marks button:focus-visible{outline:2px solid var(--d-sky);outline-offset:2px}
+@media (max-width:900px){.ad{grid-template-columns:1fr}.ad-side{border-left:0;border-top:1px solid var(--deep-line)}}
+@media (max-width:480px){.ad-plot,.ad-side{padding:16px 12px}}
+
+/* start */
+.waves{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.wv{padding:24px 22px;border:1px solid var(--line);border-radius:var(--r);background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.wv:first-child{background:var(--deep);color:var(--deep-ink);border-color:var(--deep-line);position:relative;overflow:hidden}
+.wv:first-child::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--grad-hi)}
+.wv .label{color:var(--ink-2)}
+.wv:first-child .label{color:var(--d-sky)}
+.wv h3{font:600 1.4rem/1.15 var(--sans);letter-spacing:-.03em}
+.wv p{font-size:.94rem;color:var(--ink-2)}
+.wv:first-child p{color:var(--deep-mute)}
+.st-note{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;font:500 .78rem var(--mono);color:var(--ink-2)}
+.st-note span::before{content:"+ ";color:var(--good);font-weight:600}
+@media (max-width:820px){.waves{grid-template-columns:1fr}}
+
+/* systems */
+.desks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:36px}
+.desk{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--paper);min-width:0}
+.desk h3{font:600 1rem var(--sans)}
+.desk .why{font-size:.82rem;color:var(--ink-2);margin-top:2px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.pills span{display:inline-flex;align-items:center;gap:6px;font:500 .82rem var(--sans);padding:5px 11px;border-radius:999px;background:var(--paper-2);border:1px solid var(--line)}
+.pills span.seen{border-color:var(--good)}
+.pills span.seen::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good)}
+.key{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font:500 .74rem var(--mono);color:var(--ink-2)}
+.key i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:6px}
+@media (max-width:900px){.desks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.desks{grid-template-columns:1fr}}
+
+/* proof */
+.feature{margin-top:36px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;padding:32px clamp(20px,3.4vw,36px);border-radius:var(--r)}
+.feature .label{color:var(--d-sky)}
+.feature h3{font:600 clamp(1.7rem,3.4vw,2.4rem)/1.02 var(--sans);letter-spacing:-.04em;margin-top:10px}
+.feature p{margin-top:12px;max-width:56ch;color:var(--deep-mute)}
+.feature p b{color:var(--deep-ink);font-weight:600}
+.feature a{color:var(--d-sky)}
+.chain{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;align-self:center}
+.chain li{background:var(--deep-2);padding:14px 16px;display:flex;flex-direction:column;gap:2px;border:1px solid var(--deep-line);border-radius:12px}
+.chain .t{font:500 .64rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--deep-mute)}
+.chain li.end{background:var(--grad);border-color:transparent}
+.chain li.end .t{color:var(--deep-ink)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.pcard{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:var(--paper)}
+.pcard .label{color:var(--ink-2)}
+.pcard .big{font:600 clamp(2.6rem,5.4vw,3.8rem)/.95 var(--sans);letter-spacing:-.05em;margin-top:12px}
+.pcard .body{margin-top:12px;color:var(--ink-2)}
+@media (max-width:820px){.feature,.pgrid{grid-template-columns:1fr}}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:32px}
+.tr-i{display:flex;gap:12px;align-items:flex-start;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.tr-i svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--good)}
+.tr-i b{display:block;font-weight:600}
+.tr-i span{display:block;font-size:.88rem;color:var(--ink-2);margin-top:2px}
+@media (max-width:860px){.trust{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.trust{grid-template-columns:1fr}}
+
+footer .wrap{padding-block:36px;display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;justify-content:space-between;font-size:.86rem;color:var(--deep-mute)}
+footer b{color:var(--deep-ink);font-weight:600}
+footer img{height:20px;width:auto;display:block;margin-bottom:10px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.marq-in,.hero h1 .grad-t{animation:none}.thinking i{animation:none;opacity:1}.rb-f,.cr .tr i,.p-play,.rb-row,.pz summary .pm{transition:none}}
+</style>
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="cq" viewBox="0 0 20 20"><path d="M1 4L4 1L7 4L4 7L1 4Z" fill="currentColor"/><path d="M1 16L4 13L7 16L4 19L1 16Z" fill="currentColor"/><path d="M13 4L16 1L19 4L16 7L13 4Z" fill="currentColor"/><path d="M13 16L16 13L19 16L16 19L13 16Z" fill="currentColor"/><path d="M7 10L10 7L13 10L10 13L7 10Z" fill="currentColor"/></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <div class="lock"><img src="data:image/png;base64,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" alt="Catalyst" width="95" height="22"><span class="x">×</span><span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span></div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#board">Board</a><a href="#letter">Letter</a><a href="#guesses">Guesses</a><a href="#ask">Ask</a><a href="#one-ad">One ad</a><a href="#start">Start</a><a href="#systems">Systems</a><a href="#proof">Proof</a><a href="#trust">Trust</a>
+    </nav>
+    <span class="for">For the Catalyst team</span>
+  </div>
+</header>
+
+<section class="hero stage" id="board" aria-labelledby="h1">
+  <div class="wrap">
+    <p class="kicker label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>Catalyst × Milo · November 2026</p>
+    <h1 id="h1" class="disp"><span>Every ad, every platform.</span><span class="grad-t">One answer.</span></h1>
+    <p class="lede">Meta, TikTok, Google, Pinterest, TikTok Shop and each client’s own sales, <b>joined up in one place</b>. Anyone at Catalyst can ask which hook, creator or format is working, and get the answer in seconds.</p>
+
+    <div class="board" id="rb-board">
+      <div class="rb-main">
+        <div class="rb-head">
+          <p class="rb-title">Live ads across every account</p>
+          <span class="chip">Sample data</span>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Board layers">
+          <button class="tab" role="tab" data-l="s" aria-selected="true">Spend</button>
+          <button class="tab" role="tab" data-l="h" aria-selected="false">+ Hook rate</button>
+          <button class="tab" role="tab" data-l="c" aria-selected="false">+ CPA trend</button>
+          <button class="tab" role="tab" data-l="a" aria-selected="false">Milo’s answer</button>
+        </div>
+        <ul class="rb-rows" aria-live="polite"></ul>
+        <div class="rb-axis" aria-hidden="true"></div>
+      </div>
+      <div class="rb-side">
+        <p class="label rb-lt"></p>
+        <p class="rb-note"></p>
+        <div class="legend"></div>
+        <div class="rb-ans-box">
+          <p class="who label"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</p>
+          <p class="rb-ans"></p>
+        </div>
+        <p class="rb-src">Spend and hooks from Meta, TikTok and Pinterest · sales from each client’s store or app</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true">
+  <div class="marq-in">
+    <span>Creative strategy</span><span>UGC</span><span>Hi-Fi</span><span>Motion</span><span>Static</span><span>Stills</span><span>Performance</span><span>TikTok Shop</span><span>Meta</span><span>TikTok</span><span>Google</span><span>Pinterest</span>
+    <span>Creative strategy</span><span>UGC</span><span>Hi-Fi</span><span>Motion</span><span>Static</span><span>Stills</span><span>Performance</span><span>TikTok Shop</span><span>Meta</span><span>TikTok</span><span>Google</span><span>Pinterest</span>
+  </div>
+</div>
+
+<section class="sec alt" id="video" aria-labelledby="vid-h">
+  <div class="wrap vid-grid">
+    <div>
+      <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>See it</p>
+      <h2 id="vid-h" class="disp">Ninety seconds of Milo working.</h2>
+      <p class="sub">The question box, the answers and the dashboards, without anyone describing them.</p>
+    </div>
+    <div>
+      <div class="video stage" id="vidframe" data-vid="1196983997">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+          <span class="p-ttl">Milo product overview</span>
+          <span class="p-sub">Press play · 1 min 29 sec</span>
+        </a>
+      </div>
+      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="letter" aria-labelledby="letter-h">
+  <div class="wrap">
+    <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>A note from Liam</p>
+    <h2 id="letter-h" class="disp">Data as fast as your creative.</h2>
+    <div class="letter-grid">
+      <article class="letter">
+        <div class="ref">
+          <b>Our ref</b><span>MILO / CAT / 01</span>
+          <b>Re</b><span>Milo for Catalyst</span>
+          <b>For</b><span>The Catalyst team</span>
+        </div>
+        <p>Dear Catalyst team,</p>
+        <p>Since 2023 you’ve grown from a creator network into 50+ people making thousands of ads a year for brands like Runna, Zoe and Perplexity. Your website says data informs every decision. Milo makes that data quick to reach, for everyone on the team.</p>
+        <p>It joins the ad platforms, TikTok Shop, your creator records and each client’s sales in one place. Anyone can ask a question in plain English and get an answer, a dashboard or an alert.</p>
+        <p>This page is built from your website, not your data. Where we’ve guessed at what’s hard, tell us what we got wrong. Everything you can click runs on sample numbers.</p>
+        <div class="sig"><b>Liam James Rabone</b><span>Milo · liam@milo.ai</span></div>
+      </article>
+      <aside class="glance" aria-label="Catalyst at a glance">
+        <div class="gl"><p class="n">50+</p><p>Creatives, strategists and makers</p></div>
+        <div class="gl hl"><p class="n">6,000+</p><p>Creators in your network</p></div>
+        <div class="gl"><p class="n">300+</p><p>New ads a month for Perplexity</p></div>
+        <div class="gl"><p class="n">£300k</p><p>Spent on one Runna ad in 30 days</p></div>
+        <p class="src">From catalyst-growth.com</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="guesses" aria-labelledby="g-h">
+  <div class="wrap">
+    <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>Our guesses</p>
+    <h2 id="g-h" class="disp">Where it probably pinches.</h2>
+    <p class="sub">Read from your website, so treat these as questions. Each one opens a seat in the demo below.</p>
+    <div class="pz-list">
+      <details class="pz" name="pz" open>
+        <summary><span class="label">Ads and results</span><h3>Tying each ad to what it sold</h3><span class="pm" aria-hidden="true"></span></summary>
+        <div class="pz-body">
+          <p><b>Why it’s hard</b>Spend sits in four ad platforms and TikTok Shop, sales in each client’s own tools. A £300k ad can fade between checks.</p>
+          <p class="milo-says"><b>What Milo does</b>Tags every ad by hook, creator, format and angle, joins it to spend and sales, and flags fatigue the day it starts.</p>
+          <button class="go" type="button" data-seat="0">Ask as Performance →</button>
+        </div>
+      </details>
+      <details class="pz" name="pz">
+        <summary><span class="label">Reporting</span><h3>Reports eat account managers’ weeks</h3><span class="pm" aria-hidden="true"></span></summary>
+        <div class="pz-body">
+          <p><b>Why it’s hard</b>Daily management, monthly reports and quarterly reviews across many clients, each wanting it shown their way.</p>
+          <p class="milo-says"><b>What Milo does</b>Drafts each client’s report in their own format from live numbers, ready to check rather than build.</p>
+          <button class="go" type="button" data-seat="1">Ask as Accounts →</button>
+        </div>
+      </details>
+      <details class="pz" name="pz">
+        <summary><span class="label">Capacity and margin</span><h3>Knowing which clients make money</h3><span class="pm" aria-hidden="true"></span></summary>
+        <div class="pz-body">
+          <p><b>Why it’s hard</b>UGC, motion and shoot days all cost differently, and revision rounds hide in the margin. When a client doubles spend, the asset count jumps too.</p>
+          <p class="milo-says"><b>What Milo does</b>Margin by client and format, and how many assets next month’s spend plans need from each team.</p>
+          <button class="go" type="button" data-seat="5">Ask as Finance →</button>
+        </div>
+      </details>
+      <details class="pz" name="pz">
+        <summary><span class="label">Creators</span><h3>Fees, rights and affiliate payouts</h3><span class="pm" aria-hidden="true"></span></summary>
+        <div class="pz-body">
+          <p><b>Why it’s hard</b>Creator cost, delivery, performance and usage rights usually live in Airtable or Notion, updated by hand.</p>
+          <p class="milo-says"><b>What Milo does</b>Joins creator records to how their ads perform, and warns before rights expire on an ad that’s still spending.</p>
+          <button class="go" type="button" data-seat="4">Ask as Creators →</button>
+        </div>
+      </details>
+      <details class="pz" name="pz">
+        <summary><span class="label">Retention</span><h3>Seeing a wobble before the client does</h3><span class="pm" aria-hidden="true"></span></summary>
+        <div class="pz-body">
+          <p><b>Why it’s hard</b>Falling spend, slipping results and slow sign-offs tend to surface once a client is already unhappy.</p>
+          <p class="milo-says"><b>What Milo does</b>A Monday list of accounts that need attention, and QBR packs that show your impact and where to grow.</p>
+          <button class="go" type="button" data-seat="6">Ask as Leadership →</button>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>Ask Milo</p>
+    <h2 id="ask-h" class="disp">How Milo fits, by team.</h2>
+    <p class="sub">Pick a seat. Each login sees only what that role should see.</p>
+    <div class="askd">
+      <div class="seats" id="seats" role="tablist" aria-label="Seats" aria-orientation="vertical"></div>
+      <div class="chat" role="tabpanel" aria-labelledby="ask-h">
+        <div class="chat-h"><span class="milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span><span class="as" id="as"></span></div>
+        <div class="chat-b" id="chat" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band stage" id="one-ad" aria-labelledby="ad-h">
+  <div class="wrap">
+    <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>One ad, thirty days</p>
+    <h2 id="ad-h" class="disp">Winners fade. See it start.</h2>
+    <p class="sub">Drag across the month to see what Milo sees each day.</p>
+    <div class="ad" id="ad">
+      <div class="ad-plot">
+        <div class="rb-head"><p class="rb-title">Talk-to-camera UGC · Meta</p><span class="chip">Sample data</span></div>
+        <svg id="ad-svg" role="img" aria-label="Daily spend and CPA for one sample ad over 30 days. CPA passes the £30 target on day 21. Milo flags it on day 19."></svg>
+        <div class="ad-range"><label for="ad-day">Day</label><input type="range" id="ad-day" min="1" max="30" value="19"></div>
+      </div>
+      <div class="ad-side">
+        <p class="ad-day" id="ad-dn">Day 19</p>
+        <div class="ad-stats">
+          <div><span>Spend</span><b id="ad-s"></b></div>
+          <div><span>So far</span><b id="ad-t"></b></div>
+          <div><span>CPA</span><b id="ad-c"></b></div>
+        </div>
+        <div class="rb-ans-box">
+          <p class="who label"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</p>
+          <span class="stt" id="ad-tag"></span>
+          <p class="rb-ans" id="ad-note"></p>
+        </div>
+        <div class="marks" id="ad-marks">
+          <button type="button" data-d="1" aria-pressed="false">Day 1 · Launch</button>
+          <button type="button" data-d="12" aria-pressed="false">Day 12 · Full spend</button>
+          <button type="button" data-d="19" aria-pressed="true">Day 19 · Flagged</button>
+          <button type="button" data-d="21" aria-pressed="false">Day 21 · Past target</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="start" aria-labelledby="start-h">
+  <div class="wrap">
+    <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>How it would start</p>
+    <h2 id="start-h" class="disp">Performance first. Then everyone.</h2>
+    <ol class="waves">
+      <li class="wv"><p class="label">First team</p><h3>Performance and accounts</h3><p>One agile team on a handful of clients. Ad platforms, TikTok Shop and client sales connected, their questions answered first.</p></li>
+      <li class="wv"><p class="label">Next</p><h3>Strategy and production</h3><p>Creative tags, creator records and capacity joined to what each ad did.</p></li>
+      <li class="wv"><p class="label">Then</p><h3>Finance and leadership</h3><p>Margin by client, account health and one set of numbers for every QBR.</p></li>
+    </ol>
+    <p class="st-note"><span>Unlimited users, so the price stays the same as teams join</span><span>Onboarding in person, on Walworth Road or at ours</span><span>Missing connectors built at our cost</span></p>
+  </div>
+</section>
+
+<section class="sec" id="systems" aria-labelledby="sys-h">
+  <div class="wrap">
+    <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>Systems</p>
+    <h2 id="sys-h" class="disp">Connects what you already run.</h2>
+    <p class="sub">1,500+ connections. If one you need isn’t there yet, we build it at our cost.</p>
+    <div class="desks">
+      <div class="desk"><h3>Ad platforms</h3><p class="why">Spend, delivery, hook and hold</p><div class="pills"><span class="seen">Meta Ads</span><span class="seen">TikTok Ads</span><span class="seen">Google Ads</span><span class="seen">Pinterest Ads</span><span class="seen">YouTube</span><span class="seen">LinkedIn Ads</span></div></div>
+      <div class="desk"><h3>Commerce and attribution</h3><p class="why">What the ads sold</p><div class="pills"><span class="seen">TikTok Shop</span><span class="seen">Singular</span><span>Shopify</span><span>AppsFlyer</span><span>Google Analytics 4</span></div></div>
+      <div class="desk"><h3>Creators and production</h3><p class="why">Who made what, and when</p><div class="pills"><span>Airtable</span><span>Notion</span><span>Frame.io</span><span>Monday.com</span><span>Google Drive</span></div></div>
+      <div class="desk"><h3>Clients and pipeline</h3><p class="why">Accounts, deals, renewals</p><div class="pills"><span>HubSpot</span><span>Pipedrive</span><span>Gmail</span></div></div>
+      <div class="desk"><h3>Finance</h3><p class="why">Fees, costs, margin</p><div class="pills"><span>Xero</span><span>QuickBooks</span><span>Harvest</span></div></div>
+      <div class="desk"><h3>Reports and chat</h3><p class="why">Where answers land</p><div class="pills"><span>Google Sheets</span><span>Google Slides</span><span>Looker Studio</span><span>Slack</span></div></div>
+    </div>
+    <p class="key"><span><i aria-hidden="true"></i>Named on your website</span><span>Everything else is an example</span></p>
+  </div>
+</section>
+
+<section class="sec alt" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>Proof</p>
+    <h2 id="proof-h" class="disp">Teams already building on it.</h2>
+    <div class="feature stage">
+      <div>
+        <p class="label">Two Tribes · Brewery and taproom</p>
+        <h3>Every department, its own analyst, in seven weeks.</h3>
+        <p>Seven systems connected in two weeks, with no data team. <b>Seven weeks later, twelve people across six departments were building their own dashboards.</b> <a href="https://hey.milo.ai/two-tribes-case-study/" target="_blank" rel="noopener">Read the case study</a></p>
+      </div>
+      <ol class="chain" aria-label="What happened at Two Tribes">
+        <li><span class="t">Two weeks</span><b>All seven systems connected</b></li>
+        <li><span class="t">Six weeks</span><b>Twelve active users, six departments</b></li>
+        <li class="end"><span class="t">Built by them</span><b>Twenty dashboards and twenty apps</b></li>
+      </ol>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="label">BetGames · Commercial team</p>
+        <p class="big">Days → minutes</p>
+        <p class="body">The commercial team waited five to ten days for every report. Now a question gets a usable answer in minutes.</p>
+      </div>
+      <div class="pcard">
+        <p class="label">Nikki Beach Global · Four continents</p>
+        <p class="big">4 → 1</p>
+        <p class="body">Beach clubs, hotels and restaurants on four continents. SevenRooms, OpenTable, Square and SumUp in one view.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="trust" aria-labelledby="trust-h">
+  <div class="wrap">
+    <p class="eyebrow label"><svg class="dq" aria-hidden="true"><use href="#cq"/></svg>Trust</p>
+    <h2 id="trust-h" class="disp">Your clients’ data stays theirs.</h2>
+    <div class="trust">
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>ISO 27001</b><span>Certified information security</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>SOC 2 Type I</b><span>Type II in progress</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>Encrypted</b><span>In transit and at rest</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>Access by role</b><span>A client login sees its own account, never another’s</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>No model training</b><span>Your data never trains a model</span></p></div>
+      <div class="tr-i"><svg aria-hidden="true"><use href="#tick"/></svg><p><b>Hosted on AWS</b><span>Frankfurt, inside the EU</span></p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="stage">
+  <div class="wrap">
+    <div><img src="data:image/png;base64,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" alt="Catalyst" width="87" height="20"><p>Prepared for <b>the Catalyst team</b> by <b>Liam James Rabone</b> · Milo · liam@milo.ai · November 2026</p></div>
+    <p>Figures on this page are illustrative sample data, not Catalyst’s or its clients’.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function sgn(v){return(v>0?"+":"−")+Math.abs(v)}
+
+  /* hero board: live ads */
+  var R=[
+    {n:"Talk-to-camera, problem hook",sub:"Fitness app · UGC · Meta",s:284,h:38,c:31,t:"Refresh"},
+    {n:"Meme video, price angle",sub:"Credit card · Motion · TikTok",s:142,h:44,c:-12,t:"Scale"},
+    {n:"Founder film, 30 seconds",sub:"Health brand · Hi-Fi · Meta",s:118,h:21,c:6},
+    {n:"Unboxing, three creators",sub:"Beauty · UGC · TikTok Shop",s:96,h:35,c:-18,t:"Scale"},
+    {n:"Before and after",sub:"Nutrition · Motion · Meta",s:74,h:29,c:3},
+    {n:"Local creator, Lisbon",sub:"Food delivery · UGC · Meta",s:61,h:33,c:24,t:"Refresh"},
+    {n:"Gift guide pin",sub:"Homeware · Video · Pinterest",s:22,h:12,c:41,t:"Pause"}
+  ];
+  var BAR="<span><i></i>",L={
+    s:{t:"Spend",note:"Spend on each live ad over the last 30 days, across every platform.",axis:["£0","£300k"],lg:BAR+"Spend</span>",
+       ans:"The fitness app’s talk-to-camera ad has taken £284k this month. The top two ads take more than half the spend on this board.",
+       v:function(r){return{l:0,w:r.s/300*100,txt:"£"+r.s+"k"}}},
+    h:{t:"+ Hook rate",note:"Share of impressions still watching at three seconds.",axis:["0%","50%"],lg:BAR+'Hook rate</span><span><i class="red"></i>Under 25%</span>',
+       ans:"The meme video stops the most thumbs. The founder film and the Pinterest pin lose most viewers in the first three seconds.",
+       v:function(r){return{l:0,w:r.h/50*100,txt:r.h+"%",cls:r.h<25?"behind":""}}},
+    c:{t:"+ CPA trend",note:"CPA this week against the ad’s first fortnight.",axis:["−50%","0","+50%"],div:true,lg:'<span><i class="teal"></i>Cheaper</span><span><i></i>Steady</span><span><i class="red"></i>Up 20%+</span>',
+       ans:"Three ads are getting expensive fast: the fitness app UGC, the Lisbon creator and the Pinterest pin.",
+       v:function(r){var w=Math.abs(r.c);return{l:r.c<0?50-w:50,w:w,txt:sgn(r.c)+"%",cls:r.c>20?"behind":r.c<0?"good":""}}},
+    a:{t:"Milo’s answer",note:"What to do next, from all three layers.",axis:["£0","£300k"],tags:true,lg:BAR+"Spend</span>",
+       ans:"Brief new hooks for the fitness app and Lisbon ads before they fade. Move budget to the meme video and the unboxing. Pause the pin.",
+       v:function(r){return{l:0,w:r.s/300*100,txt:""}}}
+  };
+  (function(root){
+    var rows=root.querySelector(".rb-rows"),layer="s";
+    R.forEach(function(r){
+      var li=document.createElement("li");li.className="rb-row";
+      li.innerHTML='<span class="rb-n">'+esc(r.n)+"<small>"+esc(r.sub)+'</small></span><span class="rb-t"><i class="rb-f"></i></span><span class="rb-v"></span>';
+      rows.appendChild(li);
+    });
+    function render(){
+      var l=L[layer];
+      Array.prototype.forEach.call(rows.children,function(li,i){
+        var r=R[i],o=l.v(r),cls=o.cls?" "+o.cls:"",txt=o.txt,w=Math.max(Math.min(o.w,100-o.l),.8),f=li.querySelector(".rb-f");
+        if(l.tags){if(r.t){cls=" tag-"+r.t.toLowerCase();txt=r.t}else cls=" dim"}
+        li.className="rb-row"+cls;
+        f.style.setProperty("--ll",o.l+"%");f.style.setProperty("--rr",Math.max(100-o.l-w,0)+"%");
+        li.querySelector(".rb-t").classList.toggle("z",!!l.div);
+        li.querySelector(".rb-v").textContent=txt;
+      });
+      root.querySelector(".rb-lt").textContent=l.t;root.querySelector(".rb-note").textContent=l.note;
+      root.querySelector(".legend").innerHTML=l.lg;root.querySelector(".rb-ans").textContent=l.ans;
+      root.querySelector(".rb-axis").innerHTML=l.axis.map(function(a){return"<span>"+a+"</span>"}).join("");
+      root.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-selected",b.dataset.l===layer?"true":"false")});
+    }
+    root.querySelectorAll(".tab").forEach(function(b){b.addEventListener("click",function(){layer=b.dataset.l;render()})});
+    render();
+  })($("rb-board"));
+
+  /* seats */
+  function pct(v){return sgn(v)+"%"}
+  function k(v){return"£"+v+"k"}
+  function pc(v){return v+"%"}
+  function gbp(v){return"£"+v}
+  var S=[
+    {n:"Performance",first:1,q:"Across every account, which hook types convert best on TikTok?",
+     a:"Problem-first hooks, at 27% under the average CPA. Founder-led openers cost the most.",
+     cap:"CPA against each account’s average, by hook type · last 30 days",kind:"div",lowGood:1,f:pct,
+     rows:[["Problem-first",-27],["Product demo",-14],["Social proof",-6],["Trend or meme",4],["Founder-led",19]],
+     src:["TikTok Ads","Creative tags","Client sales"],auto:"Hook leaderboard to the strategy team every Monday"},
+    {n:"Accounts",first:1,q:"Draft October’s report for the health brand, in their usual format.",
+     a:"Done. Spend up 18%, CPA down 9% and new customers up 22%. The slides are ready to check.",
+     cap:"October against September",kind:"div",f:pct,
+     rows:[["New customers",22,"g"],["Spend",18,"g"],["Conversion rate",11,"g"],["Cost per acquisition",-9,"g"]],
+     src:["Meta Ads","Google Ads","Client store"],auto:"Every client’s monthly report drafted on the 1st"},
+    {n:"Creative strategy",q:"Which of last month’s winners haven’t we made in another format yet?",
+     a:"Three. Start with the before-and-after static: £118k spent under target CPA, and never shot as UGC.",
+     cap:"Spend last month on winners made in one format only",f:k,
+     rows:[["Before-and-after static",118],["Price meme video",86],["Day-in-the-life UGC",64]],
+     src:["Meta Ads","TikTok Ads","Creative tags"],auto:"Iteration ideas added to Friday’s briefs"},
+    {n:"Production",q:"Can we cover next month’s spend plans with the team we have?",
+     a:"Not quite. Motion is 14 assets short and Hi-Fi is two short. UGC has room for 22 more.",
+     cap:"Assets spare (+) or short (−) next month, by team",kind:"div",f:sgn,
+     rows:[["UGC",22],["Static",6],["Stills",3],["Hi-Fi",-2],["Motion",-14]],
+     src:["Client spend plans","Production tracker"],auto:"Alert when booked work passes a team’s capacity"},
+    {n:"Creators",q:"Whose usage rights expire this month on ads that are still spending?",
+     a:"Four creators, on ads spending £38k a week between them. Renew the top two and retire the rest.",
+     cap:"Weekly spend on ads with rights expiring this month",f:k,
+     rows:[["Creator 0418 · Fitness",16],["Creator 2207 · Beauty",12],["Creator 0931 · Nutrition",6],["Creator 1544 · Food",4]],
+     src:["Airtable","Meta Ads","TikTok Ads"],auto:"Alert 14 days before rights expire on a live ad"},
+    {n:"Finance",q:"What’s our margin by client once revisions, creator fees and shoot days are in?",
+     a:"UGC-led accounts average 41%. The Hi-Fi-heavy beauty account is lowest at 18%, mostly from four revision rounds a month.",
+     cap:"Margin by account, last quarter",f:pc,
+     rows:[["Food delivery · UGC",44],["Nutrition · UGC",38],["Fitness app · mixed",37],["Credit card · mixed",33],["Beauty · Hi-Fi",18,"r"]],
+     src:["Xero","Time tracking","Airtable"],auto:"Margin by client to leadership each month"},
+    {n:"Leadership",q:"Which accounts are showing early signs of churn?",
+     a:"Two. Beauty spend is down 18% in four weeks, and nutrition sign-offs have slowed from two days to six.",
+     cap:"Spend change by account · last four weeks",kind:"div",f:pct,
+     rows:[["Credit card",31],["Fitness app",22],["Food delivery",9],["Nutrition",-6],["Beauty",-18]],
+     src:["Ad platforms","Approval tracker"],auto:"Account health list to leadership every Monday"},
+    {n:"Client login",lock:1,q:"What CPA are your other clients getting?",
+     a:"Other clients’ results are outside what a client login can see. Here’s your own CPA by week.",
+     cap:"Your CPA by week · target £25",f:gbp,
+     rows:[["Week 1",24],["Week 2",22],["Week 3",21],["Week 4",23]],
+     src:["Your ad accounts"],auto:"Weekly results to your team every Monday"}
+  ];
+  var seatsEl=$("seats"),chat=$("chat"),cur=-1,timer=null;
+  S.forEach(function(s,i){
+    var b=document.createElement("button");b.className="seat";b.setAttribute("role","tab");b.id="seat-"+i;
+    b.innerHTML="<span>"+esc(s.n)+"</span>"+(s.lock?'<svg aria-hidden="true"><use href="#lock"/></svg>':s.first?"<small>First</small>":"");
+    b.addEventListener("click",function(){ask(i)});seatsEl.appendChild(b);
+  });
+  function chartHTML(s){
+    var max=0;s.rows.forEach(function(r){max=Math.max(max,Math.abs(r[1]))});
+    var h='<div class="chart"><p class="cap">'+esc(s.cap)+"</p>";
+    s.rows.forEach(function(r){
+      var v=r[1],neg=v<0,tone=r[2]||"",bar;
+      if(s.kind==="div"){
+        if(!tone)tone=(neg===!!s.lowGood)?"g":"r";
+        var w=Math.abs(v)/max*50;
+        bar='<span class="zero"></span><i class="'+tone+'" data-w="'+w+'" style="width:0;'+(neg?"right:50%":"left:50%")+'"></i>';
+      }else bar='<i class="'+tone+'" data-w="'+(v/max*100)+'" style="width:0;left:0"></i>';
+      h+='<div class="cr"><span>'+esc(r[0])+'</span><span class="tr">'+bar+"</span><b>"+esc(s.f(v))+"</b></div>";
+    });
+    return h+"</div>";
+  }
+  function ask(i,instant){
+    if(i===cur)return;cur=i;clearTimeout(timer);
+    var s=S[i];
+    Array.prototype.forEach.call(seatsEl.children,function(b,k){b.setAttribute("aria-selected",k===i?"true":"false")});
+    $("as").textContent="Signed in as "+s.n;
+    chat.innerHTML='<p class="q">'+esc(s.q)+'</p><div class="a"><svg aria-hidden="true"><use href="#milo-icon"/></svg><div class="a-body" id="a-body"><div class="thinking" aria-label="Milo is thinking"><i></i><i></i><i></i></div></div></div>';
+    function fill(){
+      var txt=s.lock?'<p class="a-txt refuse"><svg aria-hidden="true"><use href="#lock"/></svg><span>'+esc(s.a)+"</span></p>":'<p class="a-txt">'+esc(s.a)+"</p>";
+      $("a-body").innerHTML=txt+chartHTML(s)+'<p class="srcs">Sources '+s.src.map(function(x){return"<span>"+esc(x)+"</span>"}).join("")+'</p><div class="auto"><p><b>Make it automatic:</b> '+esc(s.auto)+'</p><button type="button" aria-pressed="false" id="auto-btn">Turn on</button></div>';
+      requestAnimationFrame(function(){requestAnimationFrame(function(){
+        chat.querySelectorAll(".tr i").forEach(function(el){el.style.width=el.dataset.w+"%"});
+      })});
+      $("auto-btn").addEventListener("click",function(){var on=this.getAttribute("aria-pressed")!=="true";this.setAttribute("aria-pressed",on?"true":"false");this.textContent=on?"On":"Turn on"});
+    }
+    if(instant||reduce)fill();else timer=setTimeout(fill,650);
+  }
+  ask(0,true);
+
+  /* guesses open a seat */
+  document.querySelectorAll(".go").forEach(function(b){
+    b.addEventListener("click",function(){ask(+b.dataset.seat);$("ask").scrollIntoView({behavior:reduce?"auto":"smooth"})});
+  });
+
+  /* one ad, thirty days: spend and CPA as two panels on one day axis */
+  var SP=[2,3,4,6,8,10,12,13,14,14,15,15,15,14,14,13,13,12,12,11,10,9,8,7,6,5,4,3,3,2];
+  var CP=[26,24,22,21,20,20,19,19,19,20,20,21,21,22,22,23,24,25,27,29,31,33,35,37,39,41,43,45,47,49];
+  var TGT=30,FLAG=19,day=19,NS="http://www.w3.org/2000/svg";
+  function note(d){
+    if(d<=7)return{c:"g",t:"Scale",n:"Launched well, with CPA under target. Put more behind it."};
+    if(d<=15)return{c:"v",t:"Iterate",n:"Full spend and still under target. Brief variations on the same angle while it’s winning."};
+    if(d<=18)return{c:"a",t:"Watch",n:"CPA is edging up. Nothing to act on yet, so Milo keeps checking daily."};
+    if(d<=20)return{c:"r",t:"Refresh",n:"CPA up more than 20% in four days. Brief two new hooks on this angle today."};
+    return{c:"r",t:"Past target",n:"CPA is over target. The hooks briefed on day 19 are ready to replace it."};
+  }
+  var svg=$("ad-svg"),G={};
+  function el(tag,a,parent){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);(parent||svg).appendChild(e);return e}
+  function draw(){
+    var W=Math.max(svg.clientWidth||600,280),pl=44,pr=14,pw=W-pl-pr,t1=22,h1=W<520?96:120,gap=40,t2=t1+h1+gap,h2=W<520?120:150,H=t2+h2+28;
+    svg.setAttribute("viewBox","0 0 "+W+" "+H);svg.setAttribute("height",H);svg.innerHTML="";
+    var bw=pw/30,x=function(d){return pl+(d-.5)*bw};
+    var ys=function(v){return t1+h1-v/16*h1};
+    var yc=function(v){return t2+h2-(v-15)/(50-15)*h2};
+    /* panel 1: spend per day */
+    el("text",{x:pl,y:t1-8,"class":"t-head"}).textContent="Spend per day";
+    [0,8,16].forEach(function(v){
+      el("line",{x1:pl,x2:W-pr,y1:ys(v),y2:ys(v),stroke:"rgba(246,244,236,.08)","stroke-width":1});
+      el("text",{x:pl-8,y:ys(v)+4,"text-anchor":"end"}).textContent=v?"£"+v+"k":"£0";
+    });
+    G.bars=SP.map(function(v,i){
+      var hgt=v/16*h1;
+      return el("path",{d:"M"+(x(i+1)-bw/2+1)+" "+ys(0)+"v"+(-hgt+3)+"q0 -3 3 -3h"+Math.max(bw-8,.5)+"q3 0 3 3v"+(hgt-3)+"z",fill:"#7FC3FF"});
+    });
+    /* panel 2: CPA */
+    el("text",{x:pl,y:t2-8,"class":"t-head"}).textContent="CPA";
+    [20,40].forEach(function(v){
+      el("line",{x1:pl,x2:W-pr,y1:yc(v),y2:yc(v),stroke:"rgba(246,244,236,.08)","stroke-width":1});
+      el("text",{x:pl-8,y:yc(v)+4,"text-anchor":"end"}).textContent="£"+v;
+    });
+    var cx=x(20)+(TGT-CP[19])/(CP[20]-CP[19])*bw,over="M"+cx+" "+yc(TGT);
+    for(var d=21;d<=30;d++)over+="L"+x(d)+" "+yc(CP[d-1]);
+    over+="L"+x(30)+" "+yc(TGT)+"Z";
+    el("path",{d:over,fill:"rgba(255,107,125,.16)"});
+    el("line",{x1:pl,x2:W-pr,y1:yc(TGT),y2:yc(TGT),stroke:"#FF6B7D","stroke-width":1.5,"stroke-dasharray":"4 4"});
+    el("text",{x:pl-8,y:yc(TGT)+4,"text-anchor":"end","class":"t-red"}).textContent="£30";
+    el("text",{x:x(2),y:yc(TGT)-8,"class":"t-red"}).textContent="Target";
+    el("path",{d:CP.map(function(v,i){return(i?"L":"M")+x(i+1)+" "+yc(v)}).join(""),fill:"none",stroke:"#F6F4EC","stroke-width":2,"stroke-linejoin":"round","stroke-linecap":"round"});
+    var fx=x(FLAG),fy=yc(CP[FLAG-1]);
+    el("path",{d:"M"+fx+" "+(fy-8)+"L"+(fx+8)+" "+fy+"L"+fx+" "+(fy+8)+"L"+(fx-8)+" "+fy+"Z",fill:"#CD69FF",stroke:"#000","stroke-width":2});
+    el("text",{x:fx+12,y:fy+18,"class":"t-vio"}).textContent="Milo flags it";
+    [1,10,20,30].forEach(function(d){el("text",{x:x(d),y:H-8,"text-anchor":"middle"}).textContent="Day "+d});
+    /* cursor */
+    G.cur=el("line",{y1:t1-2,y2:t2+h2,stroke:"rgba(246,244,236,.45)","stroke-width":1});
+    G.dot=el("circle",{r:5,fill:"#7FC3FF",stroke:"#000","stroke-width":2});
+    G.hit=el("rect",{x:pl,y:0,width:pw,height:H,fill:"transparent"});
+    G.x=x;G.yc=yc;G.pl=pl;G.pw=pw;
+    G.hit.addEventListener("pointermove",pick);G.hit.addEventListener("pointerdown",pick);
+    setDay(day);
+  }
+  function pick(e){
+    var r=svg.getBoundingClientRect(),vb=svg.viewBox.baseVal,px=(e.clientX-r.left)*vb.width/r.width;
+    setDay(Math.min(30,Math.max(1,Math.floor((px-G.pl)/G.pw*30)+1)));
+  }
+  function setDay(d){
+    day=d;var c=CP[d-1],sofar=0;for(var i=0;i<d;i++)sofar+=SP[i];
+    G.bars.forEach(function(b,i){b.setAttribute("fill-opacity",i===d-1?1:.4)});
+    G.cur.setAttribute("x1",G.x(d));G.cur.setAttribute("x2",G.x(d));
+    G.dot.setAttribute("cx",G.x(d));G.dot.setAttribute("cy",G.yc(c));
+    G.dot.setAttribute("fill",c>TGT?"#FF6B7D":"#7FC3FF");
+    $("ad-day").value=d;$("ad-dn").textContent="Day "+d;
+    $("ad-s").textContent="£"+SP[d-1]+"k";$("ad-t").textContent="£"+sofar+"k";
+    $("ad-c").textContent="£"+c;$("ad-c").className=c>TGT?"over":"";
+    var n=note(d),tag=$("ad-tag");tag.className="stt "+n.c;tag.textContent=n.t;$("ad-note").textContent=n.n;
+    document.querySelectorAll("#ad-marks button").forEach(function(b){b.setAttribute("aria-pressed",+b.dataset.d===d?"true":"false")});
+  }
+  $("ad-day").addEventListener("input",function(){setDay(+this.value)});
+  document.querySelectorAll("#ad-marks button").forEach(function(b){b.addEventListener("click",function(){setDay(+b.dataset.d)})});
+  draw();
+  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(draw,120)});
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+</body>
+</html>
