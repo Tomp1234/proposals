@@ -239,91 +239,18 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 @keyframes draw{from{stroke-dashoffset:1}}
 @keyframes grow{from{transform:scaleX(0)}}
 
-/* ---------- Demo ---------- */
-.demo{padding-block:clamp(96px,12vw,168px) clamp(72px,9vw,128px)}
-.prompt{display:flex;align-items:center;gap:14px;padding:10px 10px 10px 24px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:0 30px 60px -36px oklch(0.35 0.12 295 / .4)}
-.p-ic{color:var(--violet);flex:none;display:grid}
-.p-text{flex:1;min-width:0;font-size:clamp(16px,1.7vw,21px);font-weight:500;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.typing::after{content:"";display:inline-block;width:2px;height:1.05em;background:currentColor;margin-left:2px;vertical-align:-.17em;animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.p-send{width:50px;height:50px;flex:none;border-radius:50%;border:0;background:var(--violet);color:var(--on-v);display:grid;place-items:center;cursor:pointer;transition:transform .3s var(--expo)}
-.p-send:hover{transform:scale(1.06)}
-.p-send.fire{animation:fire .6s var(--expo)}
-@keyframes fire{30%{transform:scale(.85)}100%{transform:none}}
-.chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0 28px}
-.chips .lbl{font-size:13px;color:var(--ink-3);margin-right:4px}
-.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 15px;font-size:14px;color:var(--ink-2);cursor:pointer;transition:all .25s}
-.chip:hover{border-color:var(--ink-3);color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.duel{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:18px;align-items:stretch}
-.pane{position:relative;border-radius:28px;padding:22px 24px 24px;display:flex;flex-direction:column;gap:16px;min-height:470px;min-width:0}
-.pane-c{color:var(--graphite);border:1px solid var(--paper-line)}
-.pane-m{box-shadow:0 40px 80px -40px oklch(0.25 0.18 292 / .7)}
-.pane-h{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .who{display:flex;align-items:center;gap:9px;font-weight:600;font-size:15px;min-width:0}
 .who .logo{font-size:18px}
-.tag{font-size:11px;font-weight:400;font-family:var(--f-mono);color:var(--on-v-3);border:1px solid var(--v-line);border-radius:6px;padding:1px 6px;letter-spacing:0}
-.status{font-family:var(--f-mono);font-size:12px;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.pane-c .status{color:var(--graphite-2)}
-.pane-m .status{color:var(--on-v-3)}
-.pane-m .status.ok{color:var(--cyan)}
-.qb{align-self:flex-end;padding:10px 15px;border-radius:18px 18px 4px 18px;font-size:14.5px;max-width:92%}
-.pane-c .qb{background:var(--paper-2);border:1px solid var(--paper-line)}
-.pane-m .qb{background:oklch(0.97 0.015 300 / .1);border:1px solid var(--v-line)}
-.reply{font-size:16px;min-height:3.2em}
-.pane-c .reply{line-height:32px}
-.pane-m .reply{line-height:1.6;color:var(--on-v)}
-.dots{display:inline-flex;gap:5px;padding:12px 0}
-.dots i{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5;animation:bob 1s ease-in-out infinite}
-.dots i:nth-child(2){animation-delay:.15s}
-.dots i:nth-child(3){animation-delay:.3s}
-@keyframes bob{50%{transform:translateY(-4px);opacity:1}}
-.blocked{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;color:var(--graphite-2);border:1px dashed var(--graphite-2);border-radius:999px;padding:7px 13px;background:var(--paper);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--expo)}
-.blocked.in{opacity:1;transform:none}
-.blocked::before{content:"";width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor;animation:pulse 1.6s ease-in-out infinite}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-family:var(--f-mono);font-size:12.5px;color:var(--on-v-3)}
-.steps li{display:flex;align-items:center;gap:9px;opacity:0;transform:translateY(5px);transition:opacity .3s,transform .4s var(--expo)}
-.steps li.in{opacity:1;transform:none}
-.ic{width:15px;height:15px;border-radius:50%;flex:none;border:1.5px solid var(--v-line);border-top-color:var(--cyan);animation:spin .7s linear infinite;display:grid;place-items:center}
-.ic svg{opacity:0}
-.done .ic{animation:none;border-color:transparent;color:var(--cyan)}
-.done .ic svg{opacity:1}
-@keyframes spin{to{transform:rotate(360deg)}}
-.viz{border-top:1px solid var(--v-line);padding-top:16px;opacity:0;transition:opacity .4s}
-.viz.in{opacity:1}
-.viz-t{font-size:12.5px;color:var(--on-v-3);margin-bottom:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.legend{display:flex;gap:14px}
-.legend i{display:inline-block;width:12px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
-.lg-a{background:var(--v-fill)}
-.lg-b{background:linear-gradient(90deg,var(--violet-hi),var(--cyan))}
-.bars{display:grid;gap:11px}
-.br{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 12px;font-size:14px;align-items:baseline}
-.br .bl{color:var(--on-v-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.br .bv{font-family:var(--f-mono);font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--on-v-2)}
-.br.hi .bl,.br.hi .bv{color:var(--on-v)}
-.bt{grid-column:1/-1;position:relative;height:7px;border-radius:4px;background:var(--v-track);overflow:hidden}
-.bf{position:absolute;inset:0 auto 0 0;width:0;border-radius:4px;background:var(--v-fill);transition:width 1s var(--expo);transition-delay:calc(var(--i)*90ms)}
-.br.hi .bf{background:linear-gradient(90deg,var(--violet-hi),var(--cyan));box-shadow:0 0 14px oklch(0.8 0.14 212 / .5)}
-.viz.in .bf{width:var(--w)}
-.bt.pair{height:12px;background:none;display:grid;gap:3px;overflow:visible}
-.bt.pair .bf{position:relative;inset:auto;height:4.5px}
-.bt.pair .bf.b{background:linear-gradient(90deg,var(--violet-hi),var(--cyan))}
-.acts{display:flex;flex-wrap:wrap;gap:8px}
-.act{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--v-line);background:oklch(0.97 0.015 300 / .06);color:var(--on-v);border-radius:999px;padding:7px 13px 7px 11px;font-size:13px;font-weight:500;cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .5s var(--expo),background .2s,border-color .2s;transition-delay:calc(var(--i)*80ms),calc(var(--i)*80ms),0s,0s}
-.acts.in .act{opacity:1;transform:none}
-.act:hover{background:oklch(0.97 0.015 300 / .14);border-color:var(--on-v-3)}
-.act[aria-pressed="true"]{border-color:var(--cyan);color:var(--cyan)}
 
 /* ---------- Versus table ---------- */
-.vsec{padding-block:clamp(48px,6vw,96px) clamp(72px,9vw,128px)}
+.vsec{padding-block:clamp(96px,12vw,168px) clamp(72px,9vw,128px)}
 .vsec h2 .logo{font-size:1em;gap:.22em;letter-spacing:-.045em;font-weight:700}
 .vsec h2 .mk{width:1em;height:.87em}
 .vtools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .vtools .lbl{display:inline-flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-3)}
 .ghost{border:0;background:none;padding:6px 0;font-size:13.5px;font-weight:500;color:var(--ink-3);cursor:pointer;display:inline-flex;gap:7px;align-items:center;transition:color .2s}
 .ghost:hover{color:var(--ink)}
-.vt-row{display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1fr);width:100%;text-align:left;background:none;border:0;padding:0;cursor:pointer;align-items:stretch}
-.vt-head{cursor:default}
+.vt-row{display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1fr);width:100%;text-align:left;align-items:stretch}
 .vt-k{padding:24px 24px 24px 0;border-top:1px solid var(--line);font-size:14px;font-weight:500;color:var(--ink-3);transition:color .2s}
 .vt-m{padding:24px 28px;background:var(--violet-deep);color:var(--on-v);border-top:1px solid var(--v-line);font-weight:600;font-size:16.5px;letter-spacing:-.01em;transition:background .3s}
 .vt-c{padding:24px 28px;border-top:1px solid var(--line);color:var(--ink-2);font-size:16px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
@@ -337,14 +264,8 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .vt-head .vt-c small{color:var(--ink-3)}
 .vt-body .vt-row:last-child .vt-m{border-radius:0 0 28px 28px;padding-bottom:30px}
 .vt-body .vt-row:last-child .vt-k,.vt-body .vt-row:last-child .vt-c{border-bottom:1px solid var(--line)}
-.vt-body .vt-row:hover .vt-k{color:var(--ink)}
-.vt-body .vt-row:hover .vt-m{background:oklch(0.32 0.16 291)}
-.vt-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--expo)}
-.vt-more>span{overflow:hidden;min-height:0;display:block}
 .vt-mi{display:block;padding-top:10px;font-weight:400;font-size:14.5px;color:var(--on-v-2);line-height:1.55}
-.open .vt-more{grid-template-rows:1fr}
 .pl{color:var(--ink-3);flex:none;transition:transform .45s var(--expo),color .2s;margin-top:2px}
-.open .pl{transform:rotate(45deg);color:var(--ink)}
 .fine{margin-top:20px;font-size:13px;color:var(--ink-3)}
 .fine a{color:var(--ink-2)}
 
@@ -359,19 +280,10 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .mc-chart.scrub .scl,.mc-chart.scrub .scd{opacity:1}
 .mc-chart.scrub .evt,.mc-chart.scrub .ev{opacity:.35}
 
-/* Prompt input */
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.prompt{transition:border-color .25s,box-shadow .35s var(--expo)}
-.prompt:focus-within{border-color:color-mix(in oklab,var(--violet) 55%,var(--line));box-shadow:0 0 0 5px color-mix(in oklab,var(--violet) 14%,transparent),0 30px 60px -36px oklch(0.35 0.12 295 / .45)}
-.p-input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:500 clamp(16px,1.7vw,21px)/1.3 var(--f);letter-spacing:-.02em;padding:12px 0;outline:none}
-.p-input::placeholder{color:var(--ink-3);font-weight:400}
-.near{font-family:var(--f-mono);font-size:11.5px;color:var(--on-v-3);margin-top:-6px}
-
 /* Table: toggle buttons and "see it" links */
 .vt-k{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .vt-see{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--violet);text-decoration:none;border:1px solid color-mix(in oklab,var(--violet) 35%,transparent);border-radius:999px;padding:4px 11px;transition:background .2s,color .2s}
 .vt-see:hover{background:var(--violet);color:var(--on-v)}
-.vt-c .pl{border:0;background:none;padding:4px;margin:-4px -4px 0 0;cursor:pointer;border-radius:50%;display:grid;place-items:center}
 .vt-row.key .vt-m{background:oklch(0.33 0.17 292)}
 
 /* ---------- After you connect ---------- */
@@ -485,8 +397,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   .mcard{position:relative;right:auto;top:auto;width:auto;max-width:440px;margin-top:44px;transform:rotate(1deg)}
   .trust{padding-top:48px;grid-template-columns:1fr}
   .sec-top{grid-template-columns:1fr}
-  .duel,.split{grid-template-columns:1fr}
-  .pane{min-height:0}
+  .split{grid-template-columns:1fr}
 }
 @media (max-width:760px){
   .vt-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px;padding:14px 0;border-top:1px solid var(--line)}
@@ -507,9 +418,6 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   .vsbadge{gap:9px;padding-left:12px}
   .vsbadge .c{font-size:0;gap:0}
   .vsw button{padding:6px 12px}
-  .prompt{border-radius:22px;align-items:flex-end}
-  .p-text{white-space:normal;padding-bottom:12px}
-  .p-ic{display:none}
   .lgroup{gap:40px;padding-right:40px}
   .lgroup .cl{zoom:.8}
   details .ans{padding-right:0}
@@ -614,63 +522,13 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 </header>
 
 <main>
-  <section class="demo" id="demo">
-    <div class="wrap">
-      <div class="sec-top">
-        <h2><span class="lt">Ask them both</span> the same thing.</h2>
-        <p class="side">One gives you a starting point. The other gives you the answer.</p>
-      </div>
-
-      <form class="prompt" data-ask>
-        <span class="p-ic" aria-hidden="true"><svg viewBox="0 0 20 20" width="20" height="20" fill="currentColor"><path d="M10 1.5l1.9 5.1 5.1 1.9-5.1 1.9L10 15.5l-1.9-5.1L3 8.5l5.1-1.9z"/><path d="M16 13l.8 2.2 2.2.8-2.2.8L16 19l-.8-2.2-2.2-.8 2.2-.8z" opacity=".6"/></svg></span>
-        <label for="askq" class="sr">Ask Copilot and Milo a question</label>
-        <input id="askq" class="p-input" type="text" maxlength="120" autocomplete="off" placeholder="Ask anything about your business…" value="Why did gross margin drop last month?">
-        <button type="submit" class="p-send" data-send aria-label="Ask both"><svg viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3M4 7l4-4 4 4"/></svg></button>
-      </form>
-      <div class="chips" role="group" aria-label="Pick a question to ask">
-        <span class="lbl">Type your own, or try</span>
-        <button type="button" class="chip" data-q="margin" aria-pressed="true">Why did gross margin drop last month?</button>
-        <button type="button" class="chip" data-q="churn" aria-pressed="false">Which customers are at risk of churning?</button>
-        <button type="button" class="chip" data-q="ads" aria-pressed="false">Which ad channel is wasting the most budget?</button>
-        <button type="button" class="chip" data-q="inventory" aria-pressed="false">What will run out of stock next week?</button>
-        <button type="button" class="chip" data-q="cash" aria-pressed="false">Which invoices are overdue?</button>
-      </div>
-
-      <div class="duel">
-        <article class="pane pane-c ruled" aria-label="Copilot's answer">
-          <div class="pane-h">
-            <span class="who"><i class="cdot"></i><span data-t="pane">Copilot in Power BI</span></span>
-            <span class="status" data-c-status>Waiting on data team</span>
-          </div>
-          <p class="qb" data-qtext>Why did gross margin drop last month?</p>
-          <p class="reply" data-c-reply></p>
-          <span class="blocked in" data-t="blocked">Waiting for the semantic model</span>
-        </article>
-
-        <article class="pane pane-m vfield spot" aria-label="Milo's answer">
-          <i class="blob b1" style="opacity:.55"></i><i class="dotgrid"></i><i class="grain"></i>
-          <div class="pane-h">
-            <span class="who"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-w"/></svg>Milo</span><span class="tag">example data</span></span>
-            <span class="status" data-m-status></span>
-          </div>
-          <p class="qb" data-qtext>Why did gross margin drop last month?</p>
-          <p class="near" data-near hidden></p>
-          <ol class="steps" data-steps></ol>
-          <p class="reply" data-m-reply></p>
-          <div class="viz" data-viz></div>
-          <div class="acts" data-acts></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <section class="vsec" id="compare">
     <div class="wrap">
       <div class="sec-top">
         <h2><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span> <span class="lt" data-t="vsH">vs Fabric</span></h2>
-        <p class="side" data-t="vsSide">The ready-made analyst vs the platform you build. Tap any row for the detail.</p>
+        <p class="side" data-t="vsSide">The ready-made analyst vs the platform you build..</p>
       </div>
-      <div class="vtools"><span class="lbl">Compare with <span class="vsw" role="group" aria-label="Compare Milo with"><button type="button" data-vs="fabric" aria-pressed="true">Fabric</button><button type="button" data-vs="copilot" aria-pressed="false">Copilot</button></span></span><button type="button" class="ghost" data-expand>Show all details</button></div>
+      <div class="vtools"><span class="lbl">Compare with <span class="vsw" role="group" aria-label="Compare Milo with"><button type="button" data-vs="fabric" aria-pressed="true">Fabric</button><button type="button" data-vs="copilot" aria-pressed="false">Copilot</button></span></span></div>
       <div class="vt">
         <div class="vt-row vt-head">
           <span class="vt-k"></span>
@@ -799,19 +657,13 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-  const CHECK = '<svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg>';
-  const PLUS = '<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>';
-  const PLUS_LG = '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>';
   // The Microsoft side switches between Fabric (data platform) and Microsoft 365 Copilot (office assistant)
   const MODES = {
     fabric: {
       bar: 'vs Microsoft Fabric', hl: ['Fabric is a data project.', 'Milo is the answer.'],
       sub: 'Microsoft Fabric and Copilot are powerful once your data team has built the pipelines and semantic models. Milo connects to your CRM, finance and sales tools directly, so you get answers with your actual numbers from day one.',
       note: 'I couldn’t find margin by product in the semantic models you can access. Ask your Power BI admin to add it.', noteWait: 'Waiting on your data team',
-      pane: 'Copilot in Power BI', status: 'Waiting on data team', blocked: 'Waiting for the semantic model',
-      reply: 'I can answer from the Power BI semantic models you have access to, but none of them include your {data} yet. Ask your data team to add it, or upload an Excel file and I’ll take a look.',
-      vsH: 'vs Fabric', vsSide: 'The ready-made analyst vs the platform you build. Tap any row for the detail.',
+      vsH: 'vs Fabric', vsSide: 'The ready-made analyst vs the platform you build..',
       col: 'Microsoft Fabric', colSmall: 'Fabric and Power BI, with Copilot in Power BI',
       setupNote: 'Illustration of a typical rollout. Every project is different.', setupWho: 'Microsoft Fabric',
       tally1: 'to the first answer', tally2b: 'Your data team', tally2s: 'builds and maintains it', first: '12 weeks',
@@ -828,9 +680,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
       bar: 'vs Microsoft 365 Copilot', hl: ['Copilot knows your inbox.', 'Milo knows your numbers.'],
       sub: 'Microsoft 365 Copilot is great at email, documents and meetings. Milo is connected to your CRM, finance and sales tools, so it answers with your actual numbers.',
       note: 'I can’t see your sales data. Export it to Excel and upload it here, and I’ll take a look.', noteWait: 'Waiting for an export',
-      pane: 'Microsoft 365 Copilot', status: 'Waiting on you', blocked: 'Waiting for an Excel upload',
-      reply: 'I can search your emails, files and meetings, but I can’t see your live {data}. Export it to Excel and upload it here, and I’ll analyse it for you.',
-      vsH: 'vs Copilot', vsSide: 'The data analyst vs the office assistant. Tap any row for the detail.',
+      vsH: 'vs Copilot', vsSide: 'The data analyst vs the office assistant..',
       col: 'Microsoft 365 Copilot', colSmall: 'Copilot in Word, Excel, Outlook and Teams',
       setupNote: 'Illustration. Copilot can analyse the Excel files you upload.', setupWho: 'Microsoft 365 Copilot',
       tally1: 'to an answer from an export', tally2b: 'Every week', tally2s: 'you export and upload again', first: 'Day 1',
@@ -847,91 +697,6 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   let mode = qsMode === 'copilot' || location.hash === '#copilot' ? 'copilot' : 'fabric';
   const M = () => MODES[mode];
   const pick = v => typeof v === 'string' ? v : v[mode];
-
-  // Demo questions and Milo's (example) answers
-  const Q = {
-    margin: {
-      text: 'Why did gross margin drop last month?', data: 'sales and cost data', time: '3.8s',
-      steps: ['Querying Snowflake: sales, cost of goods', 'Applying your gross margin definition', 'Comparing with the month before, by SKU'],
-      answer: 'Gross margin fell 3.1 points last month, from 41.2% to 38.1%. About 70% of the drop came from two SKUs after supplier costs rose on the 12th.',
-      viz: { type: 'bars', title: 'Margin lost by driver', rows: [['Oat bar 12-pack', 1.4, '−1.4 pts', 1], ['Granola 500g', 0.8, '−0.8 pts', 1], ['Freight', 0.5, '−0.5 pts'], ['Everything else', 0.4, '−0.4 pts']] },
-      acts: [
-        ['Alert me if it slips', 'Alert set. Milo will post in #finance if margin drops below 39%.'],
-        ['Schedule weekly', 'Scheduled. This lands in your inbox every Monday at 8am.'],
-        ['Add to dashboard', 'Added to the Finance dashboard.']
-      ]
-    },
-    churn: {
-      text: 'Which customers are at risk of churning?', data: 'customer and usage data', time: '4.2s',
-      steps: ['Querying HubSpot and product usage', 'Applying your churn risk rules', 'Ranking accounts by annual revenue'],
-      answer: '14 accounts look at risk, worth £182k in annual revenue. Each has usage down more than 40% in the last 30 days, and 9 have an open support ticket.',
-      viz: { type: 'bars', title: 'At-risk revenue by account', rows: [['Northwind Foods', 48, '£48k', 1], ['Halden Retail', 31, '£31k', 1], ['Brightwell & Co', 27, '£27k', 1], ['11 more accounts', 76, '£76k']] },
-      acts: [
-        ['Send to CS in Slack', 'Sent to #customer-success with the full account list.'],
-        ['Watch these accounts', 'Watching. Milo will flag any account that drops further.'],
-        ['Add to dashboard', 'Added to the Retention dashboard.']
-      ]
-    },
-    ads: {
-      text: 'Which ad channel is wasting the most budget?', data: 'ad spend and conversion data', time: '4.6s',
-      steps: ['Pulling Meta, Google, LinkedIn and TikTok spend', 'Matching conversions from your CRM', 'Calculating cost per acquisition'],
-      answer: 'Meta prospecting. It took 34% of spend last month but drove 11% of conversions, at £127 per acquisition against a £41 average.',
-      viz: { type: 'pair', title: 'Share of spend vs conversions', rows: [['Meta prospecting', 34, 11, 1], ['Google Search', 28, 44], ['LinkedIn', 20, 30], ['TikTok', 18, 15]] },
-      acts: [
-        ['Draft a budget shift', 'Draft ready: move £8k from Meta prospecting to Google Search.'],
-        ['Alert on CPA', 'Alert set. Milo will flag any channel above £60 per acquisition.'],
-        ['Add to dashboard', 'Added to the Marketing dashboard.']
-      ]
-    },
-    inventory: {
-      text: 'What will run out of stock next week?', data: 'stock and sales data', time: '3.9s',
-      steps: ['Querying stock levels from your ERP', 'Projecting sell-through from the last 8 weeks', 'Checking open purchase orders'],
-      answer: '4 SKUs will run out before their next delivery, putting about £36k of sales at risk. Oat bar 12-pack runs out first, on Tuesday.',
-      viz: { type: 'bars', title: 'Days of stock left', rows: [['Oat bar 12-pack', 3, '3 days', 1], ['Granola 500g', 5, '5 days', 1], ['Protein balls', 6, '6 days', 1], ['Seed mix 1kg', 9, '9 days']] },
-      acts: [
-        ['Draft purchase orders', 'Draft purchase orders ready for 4 SKUs.'],
-        ['Alert ops in Teams', 'Sent to the Ops channel in Teams.'],
-        ['Add to dashboard', 'Added to the Operations dashboard.']
-      ]
-    },
-    cash: {
-      text: 'Which invoices are overdue?', data: 'invoicing data', time: '3.4s',
-      steps: ['Querying Xero receivables', 'Matching payments received this week', 'Ageing balances by customer'],
-      answer: '£214k is overdue across 23 invoices. Three customers account for 61% of it, and £58k is now more than 60 days late.',
-      viz: { type: 'bars', title: 'Overdue by age', rows: [['1 to 30 days', 96, '£96k'], ['31 to 60 days', 60, '£60k'], ['Over 60 days', 58, '£58k', 1]] },
-      acts: [
-        ['Draft reminder emails', 'Drafted reminders for all 23 invoices.'],
-        ['Weekly cash report', 'Scheduled. Every Monday at 8am.'],
-        ['Add to dashboard', 'Added to the Finance dashboard.']
-      ]
-    },
-    revenue: {
-      text: 'How is revenue tracking against target?', data: 'sales data', time: '4.0s',
-      steps: ['Querying Xero and your CRM', 'Applying your revenue definition, net of refunds', 'Comparing with target and last year'],
-      answer: 'Revenue is £1.84m month to date: 6% behind target but 11% up on last year. Almost all of the gap is wholesale, where two large orders slipped into next month.',
-      viz: { type: 'bars', title: 'Progress to target by channel', rows: [['Online', 104, '104%'], ['Retail', 97, '97%'], ['Wholesale', 82, '82%', 1]] },
-      acts: [
-        ['Notify the sales lead', 'Sent to #sales with the two delayed orders.'],
-        ['Forecast month end', 'Forecast ready: £2.31m, 2% under target.'],
-        ['Add to dashboard', 'Added to the Revenue dashboard.']
-      ]
-    }
-  };
-  // Free-text questions are matched to the closest prepared example
-  const ROUTES = [
-    ['margin', /margin|profit|gross|cogs|cost of goods|supplier|costs?\b/g],
-    ['churn', /churn|cancel|retention|retain|at risk|leaving|renewal|lost customers/g],
-    ['ads', /\bads?\b|advert|marketing|campaign|channel|cpa|cac|roas|budget|spend/g],
-    ['inventory', /stock|inventory|sku|run out|reorder|supply/g],
-    ['cash', /cash|invoice|overdue|receivable|debtor|unpaid|payment|runway|owe/g],
-    ['revenue', /revenue|sales|target|turnover|growth|sold|bookings|forecast/g]
-  ];
-  function route(text) {
-    const t = text.toLowerCase();
-    let best = null, score = 0;
-    ROUTES.forEach(([k, re]) => { const n = (t.match(re) || []).length; if (n > score) { score = n; best = k; } });
-    return best;
-  }
 
   // Side-by-side rows, from the comparison copy
   const ROWS = [
@@ -976,7 +741,6 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
               copilot: 'Plenty of teams use both. Copilot for documents and email, Milo for the numbers.' } }
   ];
 
-  let curQ = 'margin', otherData = Q.margin.data, cRun = 0, mRun = 0, pRun = 0, played = false;
   const hero = $('[data-hero]'), heroIn = $('[data-hero-in]'), h1 = $('.headline'), card = $('.mcard'), note = $('.cnote');
 
   /* ---------- Hero ---------- */
@@ -1061,118 +825,6 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   }
   $$('.mc-acts button').forEach(b => b.addEventListener('click', () => toast(b.dataset.toast)));
 
-  /* ---------- Demo ---------- */
-  async function typeInto(el, text, perChar, token, live) {
-    el.classList.add('typing');
-    for (let i = 0; i <= text.length; i += 2) {
-      if (live() !== token) return false;
-      el.textContent = text.slice(0, i);
-      await sleep(perChar * 2);
-    }
-    el.textContent = text;
-    el.classList.remove('typing');
-    return true;
-  }
-
-  async function playOther(instant) {
-    const t = ++cRun;
-    const el = $('[data-c-reply]'), bl = $('.blocked'), st = $('[data-c-status]');
-    const text = M().reply.replace('{data}', otherData);
-    if (instant || RM) {
-      el.classList.remove('typing'); el.textContent = text;
-      bl.classList.add('in'); st.textContent = M().status;
-      return;
-    }
-    bl.classList.remove('in'); st.textContent = 'Thinking…';
-    el.classList.remove('typing');
-    el.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
-    await sleep(750); if (t !== cRun) return;
-    st.textContent = 'Typing…';
-    if (!await typeInto(el, text, 17, t, () => cRun)) return;
-    bl.classList.add('in');
-    st.textContent = M().status;
-  }
-
-  function vizHTML(v) {
-    if (v.type === 'bars') {
-      const max = Math.max(...v.rows.map(r => r[1]));
-      return `<p class="viz-t"><span>${v.title}</span></p><div class="bars">` + v.rows.map((r, i) =>
-        `<div class="br${r[3] ? ' hi' : ''}" style="--i:${i}"><span class="bl">${r[0]}</span><span class="bv">${r[2]}</span><span class="bt"><span class="bf" style="--w:${(r[1] / max * 100).toFixed(1)}%"></span></span></div>`).join('') + '</div>';
-    }
-    const max = 50;
-    return `<p class="viz-t"><span>${v.title}</span><span class="legend"><span><i class="lg-a"></i>Spend</span><span><i class="lg-b"></i>Conversions</span></span></p><div class="bars">` + v.rows.map((r, i) =>
-      `<div class="br${r[3] ? ' hi' : ''}" style="--i:${i}"><span class="bl">${r[0]}</span><span class="bv">${r[1]}% → ${r[2]}%</span><span class="bt pair"><span class="bf a" style="--w:${r[1] / max * 100}%"></span><span class="bf b" style="--w:${r[2] / max * 100}%"></span></span></div>`).join('') + '</div>';
-  }
-
-  async function playMilo(instant) {
-    const t = ++mRun, q = Q[curQ];
-    const steps = $('[data-steps]'), el = $('[data-m-reply]'), viz = $('[data-viz]'), acts = $('[data-acts]'), st = $('[data-m-status]');
-    steps.innerHTML = q.steps.map(s => `<li><span class="ic">${CHECK}</span>${s}</li>`).join('');
-    viz.innerHTML = vizHTML(q.viz);
-    acts.innerHTML = q.acts.map((a, i) => `<button type="button" class="act" style="--i:${i}" data-i="${i}" aria-pressed="false">${PLUS}<span>${a[0]}</span></button>`).join('');
-    const done = () => { st.innerHTML = `${CHECK} Answered in ${q.time}`; st.classList.add('ok'); };
-    if (instant || RM) {
-      $$('li', steps).forEach(li => li.classList.add('in', 'done'));
-      el.classList.remove('typing'); el.textContent = q.answer;
-      viz.classList.add('in'); acts.classList.add('in'); done();
-      return;
-    }
-    st.classList.remove('ok'); st.textContent = 'Querying…';
-    el.classList.remove('typing'); el.textContent = '';
-    viz.classList.remove('in'); acts.classList.remove('in');
-    for (const li of $$('li', steps)) {
-      li.classList.add('in');
-      await sleep(430); if (t !== mRun) return;
-      li.classList.add('done');
-    }
-    st.textContent = 'Writing…';
-    if (!await typeInto(el, q.answer, 9, t, () => mRun)) return;
-    viz.classList.add('in');
-    await sleep(450); if (t !== mRun) return;
-    acts.classList.add('in'); done();
-  }
-
-  // Ask both. A chip types its question in first; free text is matched to the nearest example and says so.
-  const inp = $('#askq'), nearEl = $('[data-near]');
-  async function ask(key, { type = true, text = null } = {}) {
-    played = true;
-    const t = ++pRun;
-    const custom = text !== null;
-    const matched = custom ? route(text) : key;
-    curQ = matched || 'revenue';
-    otherData = custom && !matched ? 'business data' : Q[curQ].data;
-    const shown = custom ? text : Q[key].text;
-    $$('.chip').forEach(c => c.setAttribute('aria-pressed', !custom && c.dataset.q === key));
-    if (type && !custom && !RM) {
-      for (let i = 0; i <= shown.length; i += 2) {
-        if (t !== pRun) return;
-        inp.value = shown.slice(0, i);
-        await sleep(16);
-      }
-    }
-    inp.value = shown;
-    const send = $('[data-send]');
-    send.classList.remove('fire'); void send.offsetWidth; send.classList.add('fire');
-    if (!RM) { await sleep(240); if (t !== pRun) return; }
-    $$('[data-qtext]').forEach(el => el.textContent = shown);
-    nearEl.hidden = !custom;
-    nearEl.textContent = !custom ? '' : matched ? `Example answer to a similar question: “${Q[curQ].text}”` : `No example for that one yet. Here’s a popular one: “${Q[curQ].text}”`;
-    playOther(false); playMilo(false);
-  }
-  $$('.chip').forEach(c => c.addEventListener('click', () => ask(c.dataset.q)));
-  $('[data-ask]').addEventListener('submit', e => {
-    e.preventDefault();
-    const text = inp.value.trim();
-    if (!text) { inp.focus(); return; }
-    const exact = Object.keys(Q).find(k => Q[k].text.toLowerCase() === text.toLowerCase());
-    if (exact) ask(exact, { type: false }); else ask(null, { text });
-  });
-  $('[data-acts]').addEventListener('click', e => {
-    const b = e.target.closest('.act'); if (!b) return;
-    b.setAttribute('aria-pressed', 'true');
-    toast(Q[curQ].acts[+b.dataset.i][1]);
-  });
-
   let toastT;
   function toast(msg) {
     const t = $('.toast');
@@ -1185,22 +837,13 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   /* ---------- Versus table ---------- */
   const vtBody = $('[data-vt-body]');
   function renderRows() {
-    const was = $$('.vt-row', vtBody).map(r => r.classList.contains('open'));
-    vtBody.innerHTML = ROWS.map((r, i) =>
-    `<div class="vt-row${r.tab ? ' key' : ''}"><span class="vt-k">${r.k}${r.tab ? `<a class="vt-see" href="#after" data-goto="${r.tab}">${r.see} ↓</a>` : ''}</span><span class="vt-m"><span>${r.m}</span><span class="vt-more" id="more-${i}"><span><span class="vt-mi">${pick(r.more)}</span></span></span></span><span class="vt-c"><span>${pick(r.c)}</span><button type="button" class="pl" aria-expanded="false" aria-controls="more-${i}" aria-label="Details: ${r.k}">${PLUS_LG}</button></span></div>`).join('');
-    was.forEach((o, i) => o && setOpen($$('.vt-row', vtBody)[i], true));
+    vtBody.innerHTML = ROWS.map(r =>
+    `<div class="vt-row${r.tab ? ' key' : ''}"><span class="vt-k">${r.k}${r.tab ? `<a class="vt-see" href="#after" data-goto="${r.tab}">${r.see} ↓</a>` : ''}</span><span class="vt-m"><span>${r.m}</span><span class="vt-mi">${pick(r.more)}</span></span><span class="vt-c"><span>${pick(r.c)}</span></span></div>`).join('');
   }
-  const rows = () => $$('.vt-row', vtBody);
-  function setOpen(row, open) { row.classList.toggle('open', open); $('.pl', row).setAttribute('aria-expanded', open); }
-  const expandBtn = $('[data-expand]');
-  function syncExpand() { expandBtn.textContent = rows().every(r => r.classList.contains('open')) ? 'Hide details' : 'Show all details'; }
   vtBody.addEventListener('click', e => {
     const go = e.target.closest('[data-goto]');
-    if (go) { e.preventDefault(); goTo(go.dataset.goto); return; }
-    const r = e.target.closest('.vt-row'); if (!r) return;
-    setOpen(r, !r.classList.contains('open')); syncExpand();
+    if (go) { e.preventDefault(); goTo(go.dataset.goto); }
   });
-  expandBtn.addEventListener('click', () => { const all = rows().every(r => r.classList.contains('open')); rows().forEach(r => setOpen(r, !all)); syncExpand(); });
 
   /* ---------- After you connect: tabs ---------- */
   const tabs = $$('.tabs [role="tab"]'), tabInd = $('.tab-ind');
@@ -1354,12 +997,11 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     $$('[data-vs]').forEach(b => b.setAttribute('aria-pressed', b.dataset.vs === mode));
     $$('[data-t]').forEach(el => { el.textContent = M()[el.dataset.t]; });
     splitHeadline();
-    renderRows(); syncExpand();
+    renderRows();
     resetSim(); resetSetup();
     if (!user) return;
     if (!RM) { hero.classList.remove('swap'); void hero.offsetWidth; hero.classList.add('swap'); clearTimeout(swapT); swapT = setTimeout(() => hero.classList.remove('swap'), 1400); }
     layoutHero();
-    playOther(!played);
     if (setupPlayed && !$('#panel-setup').hidden) runSetup();
     history.replaceState(null, '', mode === 'copilot' ? '?vs=copilot' : location.pathname);
   }
@@ -1389,20 +1031,11 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   drawChart();
   layoutHero();
   placeTab(true);
-  $$('[data-qtext]').forEach(el => el.textContent = Q[curQ].text);
-  playOther(true); playMilo(true);
   setTimeout(() => hero.classList.remove('load'), 3200);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { layoutHero(); placeTab(true); });
   let rz;
   addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { layoutHero(); placeTab(true); }, 80); });
 
-  // Play the demo once when it first scrolls into view
-  if (!RM && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { io.disconnect(); if (!played) ask(curQ); }
-    }, { threshold: 0.4 });
-    io.observe($('.duel'));
-  }
 })();
 </script>
 
