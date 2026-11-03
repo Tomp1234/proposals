@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Milo × Fireaway</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="One data layer across POS, Deliveroo, Just Eat, Uber Eats and SharePoint. Twenty people self-serving, franchisees restricted to their own stores. Prepared for Afolasade Oresanya.">
+<meta name="description" content="One read-only data layer across SQL Server, WooCommerce, Deliveroo, Just Eat, Uber Eats and GA4. A six-week POC, franchisees restricted to their own stores. Prepared for Afolasade Oresanya.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -133,6 +133,14 @@ h2 .ac{color:var(--ember)}
 .pcard p{font-size:.92rem;color:var(--muted)}
 .fix{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:.86rem;font-weight:600;color:var(--ember);display:flex;gap:9px}
 
+/* ── integration scope ──────────────────────────── */
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:52px}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:16px;background:rgba(254,241,233,.14);border-radius:22px;overflow:hidden}
+.trio>div{background:var(--ink);padding:28px 26px}
+.trio .t{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:14px}
+.trio h3{font-size:1.08rem;font-weight:700;letter-spacing:-.025em;margin-bottom:9px;color:#fff;line-height:1.25}
+.trio p{font-size:.9rem;color:rgba(254,241,233,.7)}
+
 /* ── today vs milo split ────────────────────────── */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:52px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
 .sp{background:var(--paper);padding:30px 28px}
@@ -248,6 +256,7 @@ table.ct td.m{background:rgba(var(--accent-rgb),.06);color:var(--ink)}
 .side .amt2{font-size:2.4rem;font-weight:800;letter-spacing:-.05em;line-height:1}
 .side .amt2 small{font-size:.9rem;font-weight:400;color:var(--muted);letter-spacing:-.01em}
 .side p{color:var(--muted);font-size:.94rem;margin-top:20px}
+.side hr{border:0;border-top:1px solid var(--line);margin:26px 0}
 .nofee{margin-top:18px;font-size:.86rem;font-weight:600;color:var(--ember);display:flex;gap:9px}
 
 /* ── footer ─────────────────────────────────────── */
@@ -256,17 +265,17 @@ footer a{color:var(--amber);text-decoration:none}
 
 /* ── grid reflow: counts chosen so no row is ever left part-empty ── */
 @media(max-width:1000px){
-  .g4,.steps,.cf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g4,.g3,.steps,.cf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:760px){
   .sgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:620px){
-  .g4,.steps,.cf-grid{grid-template-columns:minmax(0,1fr)}
+  .g4,.g3,.steps,.cf-grid{grid-template-columns:minmax(0,1fr)}
 }
 
 @media(max-width:860px){
-  .pgrid,.split{grid-template-columns:1fr}
+  .pgrid,.split,.trio{grid-template-columns:1fr}
   .bar{grid-template-columns:1fr auto}
   .bar .who{display:none}
   .sec{padding:78px 0}
@@ -329,7 +338,7 @@ footer a{color:var(--amber);text-decoration:none}
     <div class="hero-q">
       <span style="animation-delay:.15s">160</span>
       <span style="animation-delay:.25s">stores.</span>
-      <span style="animation-delay:.35s">Seven</span>
+      <span style="animation-delay:.35s">Eight</span>
       <span style="animation-delay:.45s">systems.</span>
       <span style="animation-delay:.6s" class="hl">One</span>
       <span style="animation-delay:.7s" class="hl">person</span>
@@ -338,20 +347,21 @@ footer a{color:var(--amber);text-decoration:none}
       <span style="animation-delay:1s" class="hl">report.</span>
     </div>
 
-    <p class="hero-note">SharePoint, the POS SQL Server, the delivery APIs, GA4 and four social platforms have never met each other. So every question from marketing, ops, finance, logistics or HR lands on one desk. Milo connects all of it into one live layer and lets all twenty people ask it themselves, franchisees included, seeing only their own stores.</p>
+    <p class="hero-note">The SQL Server under Power BI, the WooCommerce warehouse, the delivery platforms, SharePoint, GA4 and the social channels have never met each other. So every question from marketing, ops, finance, logistics or HR lands on one desk. Milo connects all of it into one live layer and lets all twenty people ask it themselves, franchisees included, seeing only their own stores.</p>
 
     <div class="chips">
       <span class="chip solid">SQL Server / POS</span>
       <span class="chip solid">Deliveroo</span>
       <span class="chip solid">Just Eat</span>
       <span class="chip solid">Uber Eats</span>
+      <span class="chip solid">WooCommerce</span>
       <span class="chip">SharePoint</span>
       <span class="chip">GA4</span>
-      <span class="chip">TikTok · Meta · LinkedIn</span>
+      <span class="chip">Meta · TikTok · YouTube · LinkedIn</span>
     </div>
 
     <div class="acts">
-      <a class="btn btn-p" href="#poc">See the one-month POC</a>
+      <a class="btn btn-p" href="#poc">See the six-week POC</a>
       <a class="btn btn-s" href="#demo">Walk the demo</a>
     </div>
   </div>
@@ -362,6 +372,7 @@ footer a{color:var(--amber);text-decoration:none}
   <div class="in">
     <a href="#heard">The problem</a>
     <a href="#confirmed">Delivery platforms</a>
+    <a href="#scope">Scope</a>
     <a href="#demo">Demo</a>
     <a href="#buildbuy">Build vs buy</a>
     <a href="#poc" class="go">Pricing</a>
@@ -370,8 +381,8 @@ footer a{color:var(--amber);text-decoration:none}
 
 <div class="ticker" aria-hidden="true">
   <div class="tk">
-    <span class="on">Deliveroo</span><span>Confirmed by our engineers</span><span class="on">Just Eat</span><span>Confirmed by our engineers</span><span class="on">Uber Eats</span><span>Commission and payouts</span><span class="on">SQL Server</span><span>Live POS sales</span><span class="on">SharePoint</span><span>Static &amp; office data</span><span>1,000+ integrations</span><span>Role-restricted franchise access</span><span>SOC 2 · ISO 27001</span>
-    <span class="on">Deliveroo</span><span>Confirmed by our engineers</span><span class="on">Just Eat</span><span>Confirmed by our engineers</span><span class="on">Uber Eats</span><span>Commission and payouts</span><span class="on">SQL Server</span><span>Live POS sales</span><span class="on">SharePoint</span><span>Static &amp; office data</span><span>1,000+ integrations</span><span>Role-restricted franchise access</span><span>SOC 2 · ISO 27001</span>
+    <span class="on">Deliveroo</span><span>Confirmed by our engineers</span><span class="on">Just Eat</span><span>Confirmed by our engineers</span><span class="on">Uber Eats</span><span>Commission and payouts</span><span class="on">SQL Server</span><span>Live POS sales</span><span class="on">WooCommerce</span><span>Warehouse data</span><span class="on">SharePoint</span><span>Static &amp; office data</span><span>Read-only by design</span><span>1,500+ integrations</span><span>Role-restricted franchise access</span><span>SOC 2 · ISO 27001</span>
+    <span class="on">Deliveroo</span><span>Confirmed by our engineers</span><span class="on">Just Eat</span><span>Confirmed by our engineers</span><span class="on">Uber Eats</span><span>Commission and payouts</span><span class="on">SQL Server</span><span>Live POS sales</span><span class="on">WooCommerce</span><span>Warehouse data</span><span class="on">SharePoint</span><span>Static &amp; office data</span><span>Read-only by design</span><span>1,500+ integrations</span><span>Role-restricted franchise access</span><span>SOC 2 · ISO 27001</span>
   </div>
 </div>
 
@@ -475,13 +486,74 @@ footer a{color:var(--amber);text-decoration:none}
       </div>
       <div class="cf-card">
         <div class="t">Timeline</div>
-        <h3>Built inside the POC month</h3>
-        <p>Our engineers build Deliveroo and Just Eat inside the proof of concept and start the Uber Eats licence on day one. No AWS ticket to chase, no work for your team.</p>
+        <h3>About a day per platform</h3>
+        <p>Our engineers build Deliveroo, Just Eat and your own app and web orders inside the POC, and start the Uber Eats licence on day one. No AWS ticket to chase, no work for your team.</p>
       </div>
       <div class="cf-card">
         <div class="t">What it unlocks</div>
         <h3>True channel margin</h3>
         <p>Commission and payouts come straight from Uber Eats. For Deliveroo and Just Eat we reconcile hub exports against the order feed, so margin still resolves per store, per channel, per hour.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INTEGRATION SCOPE ═══ -->
+<section class="sec" id="scope" style="background:var(--cream-lt)">
+  <div class="tex noise" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="kicker">Proposed integration scope</div>
+    <h2>Everything in one place. <span class="lt">Nothing written back.</span></h2>
+    <p class="lede">Milo would bring Fireaway's operational, marketing and external data into one place for analysis and reporting. The starting points are a direct connection to the underlying SQL Server for live reporting, WooCommerce on MariaDB for warehouse data, and GA4 for marketing analytics. Aggregator connections get built for Fireaway, and the data and history available depends on each platform's access. Milo's integrations are <b style="color:var(--ink)">read-only</b>: GrowDash and the aggregator managers are still where ads, offers and other changes get set up.</p>
+
+    <div class="g3">
+      <div class="pcard">
+        <span class="lbl">Live reporting</span>
+        <h3>SQL Server, direct</h3>
+        <p>Power BI can stay. Milo reads the SQL Server underneath it, so reporting is instant rather than refreshed. Any Azure egress fees sit on Microsoft's side, not ours.</p>
+      </div>
+      <div class="pcard">
+        <span class="lbl">Warehouse</span>
+        <h3>WooCommerce on MariaDB</h3>
+        <p>An existing Milo integration, so it plugs straight in. Row-level security comes as standard.</p>
+      </div>
+      <div class="pcard">
+        <span class="lbl">Marketing</span>
+        <h3>GA4 and every channel</h3>
+        <p>GA4, currently integrated through SAP S/4HANA, alongside Facebook, Instagram, TikTok, YouTube and LinkedIn.</p>
+      </div>
+      <div class="pcard">
+        <span class="lbl">Aggregators</span>
+        <h3>Deliveroo, Just Eat, Uber Eats, your app and web</h3>
+        <p>Built for Fireaway, about a day each. History goes back as far as each platform exposes, and that varies.</p>
+      </div>
+      <div class="pcard">
+        <span class="lbl">Office data</span>
+        <h3>SharePoint</h3>
+        <p>Cost files, rotas, HR and the rest of what lives in spreadsheets, joined to the operational data.</p>
+      </div>
+      <div class="pcard">
+        <span class="lbl">External</span>
+        <h3>Demographics and footfall</h3>
+        <p>Loaded by CSV download, or by API where the provider offers one.</p>
+      </div>
+    </div>
+
+    <div class="trio">
+      <div>
+        <div class="t">Read-only</div>
+        <h3>Milo never writes to your databases</h3>
+        <p>Every connection reads. Nothing in GrowDash, the aggregator managers or SQL Server gets changed.</p>
+      </div>
+      <div>
+        <div class="t">One source of truth</div>
+        <h3>Aggregator revenue vs your records</h3>
+        <p>Today the two don't match. Your data team defines the source of truth once in Milo's company knowledge base, and it applies to every answer.</p>
+      </div>
+      <div>
+        <div class="t">Accuracy</div>
+        <h3>93% floor, running at 95%+</h3>
+        <p>Milo runs six multimodal models. Accuracy has a floor of 93% and currently sits above 95%.</p>
       </div>
     </div>
   </div>
@@ -647,7 +719,7 @@ footer a{color:var(--amber);text-decoration:none}
                 </table>
               </div>
               Failures concentrate <b>Friday and Saturday, 7–9pm</b>, in 22 stores. In 18 of those, kitchen ticket time is within target, so the delay is rider wait, not production. Stock-outs on the American range account for a further 1,900 substituted orders.
-              <div class="srcs"><span class="src">Deliveroo</span><span class="src">Just Eat</span><span class="src">Uber Eats</span><span class="src">SQL Server POS</span><span class="src">SharePoint stock</span></div>
+              <div class="srcs"><span class="src">Deliveroo</span><span class="src">Just Eat</span><span class="src">Uber Eats</span><span class="src">SQL Server POS</span><span class="src">WooCommerce warehouse</span></div>
               <div class="outcome"><b>Alert live.</b> Any store breaching 12% late for two consecutive days pings the area manager on WhatsApp.</div>
             </div>
           </div>
@@ -697,7 +769,7 @@ footer a{color:var(--amber);text-decoration:none}
   <div class="tex noise" aria-hidden="true"></div>
   <div class="wrap">
     <div class="kicker">The decision on the table</div>
-    <h2>Build it in-house, <span class="lt">or have it running in a month.</span></h2>
+    <h2>Build it in-house, <span class="lt">or have it running in six weeks.</span></h2>
     <p class="lede">You are weighing an in-house agentic build against buying. Here is the honest comparison, including where building wins.</p>
 
     <div class="cmp">
@@ -710,7 +782,7 @@ footer a{color:var(--amber);text-decoration:none}
             <td class="f">Time to first answer</td>
             <td>6–12 months to a usable agent over joined data</td>
             <td>Live, but only for views already built</td>
-            <td class="m"><b>Days.</b> Plug-and-play sources in minutes, SQL and custom APIs in 1–3 days</td>
+            <td class="m"><b>Days.</b> Plug-and-play sources in minutes, SQL Server and WooCommerce direct, each aggregator in about a day</td>
           </tr>
           <tr>
             <td class="f">Who builds the connections</td>
@@ -722,7 +794,7 @@ footer a{color:var(--amber);text-decoration:none}
             <td class="f">Integration surface</td>
             <td>Each one built and maintained from scratch</td>
             <td>Connector-limited</td>
-            <td class="m"><b>1,000+ integrations</b> maintained by us, including Deliveroo, Just Eat and Uber Eats</td>
+            <td class="m"><b>1,500+ integrations</b> maintained by us, including Deliveroo, Just Eat and Uber Eats</td>
           </tr>
           <tr>
             <td class="f">Franchise access control</td>
@@ -740,7 +812,7 @@ footer a{color:var(--amber);text-decoration:none}
             <td class="f">Ongoing cost</td>
             <td>Engineering headcount + infra, indefinitely</td>
             <td>Licences + analyst time</td>
-            <td class="m"><b>~£2,000/month</b> for ~20 users, all-in</td>
+            <td class="m"><b>~£1,900/month</b> all-in, 1,000 interactions a month</td>
           </tr>
           <tr>
             <td class="f">Where it wins</td>
@@ -752,7 +824,7 @@ footer a{color:var(--amber);text-decoration:none}
       </table>
     </div>
 
-    <p class="lede" style="margin-top:34px"><b style="color:var(--ink)">These aren't mutually exclusive.</b> Pizza Hut shed around 300 UK franchises this year and you're targeting 400 stores. The question isn't whether an in-house platform is achievable, it's whether it arrives in time to matter. Run the month while you scope the build. You'll know far more about what your teams actually ask for, which makes the in-house spec better if you still want it.</p>
+    <p class="lede" style="margin-top:34px"><b style="color:var(--ink)">These aren't mutually exclusive.</b> Pizza Hut shed around 300 UK franchises this year and you're targeting 400 stores. The question isn't whether an in-house platform is achievable, it's whether it arrives in time to matter. Run the six weeks while you scope the build. You'll know far more about what your teams actually ask for, which makes the in-house spec better if you still want it.</p>
   </div>
 </section>
 
@@ -762,24 +834,24 @@ footer a{color:var(--amber);text-decoration:none}
   <div class="tex grid-dark" aria-hidden="true"></div>
   <div class="wrap">
     <div class="kicker">The process</div>
-    <h2>What actually happens in month one.</h2>
+    <h2>What actually happens in the six weeks.</h2>
     <p class="lede">Our engineers do the building. Your team does the asking.</p>
 
     <div class="steps">
       <div class="step">
         <div class="n">01</div>
         <h3>Connect</h3>
-        <p>SharePoint, Google, GA4 and the social platforms go in within minutes. SQL Server, Deliveroo and Just Eat take 1–3 days each, built by our engineers, not yours. Uber Eats runs in parallel, gated on its partner licence rather than on build time.</p>
+        <p>SharePoint, GA4 and the social platforms go in within minutes. SQL Server and WooCommerce connect directly. Deliveroo, Just Eat and your app and web orders take about a day each, built by our engineers, not yours. Uber Eats runs in parallel, gated on its partner licence.</p>
       </div>
       <div class="step">
         <div class="n">02</div>
         <h3>Join</h3>
-        <p>Aggregator orders reconcile against POS transactions, store by store. This is the layer you don't have today, and the reason margin questions currently can't be answered.</p>
+        <p>Aggregator orders reconcile against POS transactions, store by store. Your data team sets which revenue figure counts once, and every answer uses it.</p>
       </div>
       <div class="step">
         <div class="n">03</div>
         <h3>Open it up</h3>
-        <p>Twenty users across marketing, ops, finance, logistics and HR. Each with a role, a memory layer for their team's context, and access via web, Teams, Slack or WhatsApp.</p>
+        <p>Lakshan and Andrew from customer success onboard the team in person. Unlimited users across every department, each with a role and access via web, Teams, Slack or WhatsApp.</p>
       </div>
       <div class="step">
         <div class="n">04</div>
@@ -795,28 +867,33 @@ footer a{color:var(--amber);text-decoration:none}
   <div class="tex noise" aria-hidden="true"></div>
   <div class="wrap">
     <div class="kicker">The offer</div>
-    <h2>One month. <span class="lt">Then you decide.</span></h2>
-    <p class="lede">The POC is deliberately cheap and deliberately complete. Every connection built, unlimited usage, full support. The decision at the end is made on evidence rather than a demo.</p>
+    <h2>Six weeks. <span class="lt">Then you decide.</span></h2>
+    <p class="lede">Six weeks rather than our standard four, and deliberately complete: every integration built, unlimited users, onboarding in person. The decision at the end is made on evidence rather than a demo.</p>
 
     <div class="pgrid">
       <div class="plan">
         <div class="tex noise" aria-hidden="true"></div>
         <div class="tex grid-dark" aria-hidden="true"></div>
         <span class="rec">Recommended start</span>
-        <div class="amt">£1,900<small>one month, all in</small></div>
+        <div class="amt">£1,900<small>six weeks, all in</small></div>
         <ul>
-          <li><b>Every connection built by our engineers:</b> SQL Server POS, Deliveroo, Just Eat, Uber Eats, SharePoint, GA4 and the social platforms</li>
-          <li><b>Unlimited usage.</b> No query caps, no seat throttling during the month</li>
+          <li><b>Every integration built by our engineers:</b> SQL Server, WooCommerce, Deliveroo, Just Eat, Uber Eats, your app and web, SharePoint, GA4 and the social channels</li>
+          <li><b>Unlimited users.</b> No query caps, no seat throttling for the six weeks</li>
+          <li><b>In-person onboarding</b> with Lakshan and Andrew from our customer success team</li>
+          <li><b>Real dashboards for every department</b>, built against your live data, not sample data</li>
           <li><b>Full support:</b> dedicated Teams channel, account manager and two engineers</li>
-          <li><b>Real dashboards for all five departments</b>, built against your live data, not sample data</li>
           <li><b>A go / no-go at the end</b> with nothing to unwind if it's no</li>
         </ul>
       </div>
 
       <div class="side">
         <div class="h">If you continue</div>
-        <div class="amt2">~£2,000<small> / month</small></div>
-        <p>Approximately 20 users with full access, on a 12-month agreement paid monthly. Includes all connections, support and new integrations as you need them.</p>
+        <div class="amt2">~£1,900<small> / month</small></div>
+        <p>The same ballpark as the POC, covering 1,000 interactions a month, on a 12-month agreement paid monthly. Includes all connections, support and new integrations as you need them.</p>
+        <hr>
+        <div class="h">Franchise tier</div>
+        <div class="amt2">£200–500<small> / month each</small></div>
+        <p>Indicative only. Franchisee pricing gets worked out properly once the pilot is running and we can see what a franchisee actually uses. It should be a revenue line for you, not a cost.</p>
         <div class="nofee"><span aria-hidden="true">→</span><span>No setup fee. No implementation charge.</span></div>
       </div>
     </div>
@@ -824,7 +901,7 @@ footer a{color:var(--amber);text-decoration:none}
 </section>
 
 <footer>
-  Prepared for Fireaway Pizza by <a href="mailto:liam@milo.ai">Liam Rabone</a> · Milo
+  Prepared for Fireaway Pizza by <a href="mailto:liam@milo.ai">Liam James Rabone</a> · Milo
 </footer>
 
 </body>
