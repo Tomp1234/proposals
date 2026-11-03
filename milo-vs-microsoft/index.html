@@ -136,7 +136,6 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .bar .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .bar .logo{font-size:21px;color:var(--graphite)}
 .bar .vsx{font-size:14px;font-weight:400;letter-spacing:0;color:var(--graphite-2);margin-left:6px}
-.bar-r{display:flex;gap:8px}
 
 /* ---------- Hero ---------- */
 .hero{position:relative;isolation:isolate;--split:58%}
@@ -149,7 +148,6 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .hero-in{position:relative;display:flex;flex-direction:column;padding-bottom:clamp(24px,3vw,36px)}
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:24px}
 .top .logo{font-size:27px;color:var(--graphite)}
-.top-r{display:flex;gap:10px}
 .hero-main{max-width:63%;display:flex;flex-direction:column;padding-top:clamp(28px,5.5vw,72px)}
 .vsbadge{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;padding:6px 6px 6px 14px;margin:0;border-radius:999px;background:var(--surface);border:1px solid var(--paper-line);box-shadow:0 10px 24px -16px oklch(0.3 0.03 70 / .4);font-size:15px}
 .vsbadge .logo{font-size:17px;color:var(--ink)}
@@ -172,7 +170,6 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .hero.load .hl-m .w{animation-delay:calc(560ms + var(--i)*45ms)}
 @keyframes wIn{from{opacity:0;transform:translateY(.4em) rotate(2deg);filter:blur(10px)}}
 .sub{font-size:clamp(17px,1.5vw,20px);color:var(--on-v-2);max-width:46ch;margin-top:24px;line-height:1.5}
-.hero .ctas{margin-top:32px}
 .trust{margin-top:auto;padding-top:40px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px 32px}
 .trust .lbl{font-size:13px;color:var(--on-v-3);white-space:nowrap}
 .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
@@ -225,7 +222,6 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .hero.load .hero-bg .vfield{animation:flood 1.15s var(--expo) .3s both}
 @keyframes flood{from{clip-path:inset(100% 0 0 0)}}
 .hero.load .sub{animation:rise .9s var(--expo) .85s both}
-.hero.load .ctas{animation:rise .9s var(--expo) .95s both}
 .hero.load .trust{animation:rise .9s var(--expo) 1.1s both}
 .hero.load .cnote{animation:noteIn 1.1s var(--expo) .35s both,bobble 7s ease-in-out 1.5s infinite}
 .hero.load .mcard{animation:cardIn 1.3s var(--expo) .75s both}
@@ -414,7 +410,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   .vt-head .vt-c .cdot{--s:15px}
 }
 @media (max-width:640px){
-  .top-r .btn-line,.bar .vsx,.bar .btn-line{display:none}
+  .bar .vsx{display:none}
   .vsbadge{gap:9px;padding-left:12px}
   .vsbadge .c{font-size:0;gap:0}
   .vsw button{padding:6px 12px}
@@ -452,10 +448,6 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   <i class="prog" data-prog></i>
   <div class="wrap">
     <span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo<span class="vsx" data-t="bar">vs Microsoft Fabric</span></span>
-    <div class="bar-r">
-      <a class="btn btn-line btn-sm" style="color:var(--graphite)" href="https://meetings-eu1.hubspot.com/tpickett" target="_blank" rel="noopener">Book a demo</a>
-      <a class="btn btn-v btn-sm" href="https://app.milo.ai/signup" target="_blank" rel="noopener">Try Milo free<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
-    </div>
   </div>
 </div>
 
@@ -468,20 +460,12 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   <div class="wrap hero-in" data-hero-in>
     <nav class="top">
       <a class="logo" href="https://www.milo.ai" target="_blank" rel="noopener" aria-label="Milo home"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</a>
-      <div class="top-r">
-        <a class="btn btn-line btn-sm" style="color:var(--graphite)" href="https://meetings-eu1.hubspot.com/tpickett" target="_blank" rel="noopener">Book a demo</a>
-        <a class="btn btn-v btn-sm" href="https://app.milo.ai/signup" target="_blank" rel="noopener">Try Milo free<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
-      </div>
     </nav>
 
     <div class="hero-main">
       <div class="vsbadge"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span><span class="x">vs</span><span class="c" aria-label="Microsoft"><i class="cdot"></i>Microsoft</span><span class="vsw" role="group" aria-label="Compare Milo with"><button type="button" data-vs="fabric" aria-pressed="true">Fabric</button><button type="button" data-vs="copilot" aria-pressed="false">Copilot</button></span></div>
       <h1 class="headline"><span class="hl hl-c">Fabric is a data project.</span><span class="hl hl-m">Milo is the answer.</span></h1>
       <p class="sub" data-t="sub">Microsoft Fabric and Copilot are powerful once your data team has built the pipelines and semantic models. Milo connects to your CRM, finance and sales tools directly, so you get answers with your actual numbers from day one.</p>
-      <div class="ctas" data-hero-ctas>
-        <a class="btn btn-w" href="https://app.milo.ai/signup" target="_blank" rel="noopener">Try Milo free<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
-        <a class="btn btn-line" style="color:var(--on-v)" href="https://meetings-eu1.hubspot.com/tpickett" target="_blank" rel="noopener">Book a demo</a>
-      </div>
     </div>
 
     <aside class="cnote" aria-hidden="true">
@@ -637,10 +621,6 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     <div class="wrap">
       <h2><span class="a">Stop asking for numbers.</span><span class="b">Start using them.</span></h2>
       <p class="lede">Connect your data in minutes and ask your first question today.</p>
-      <div class="ctas">
-        <a class="btn btn-w" href="https://app.milo.ai/signup" target="_blank" rel="noopener">Try Milo free<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
-        <a class="btn btn-line" style="color:var(--on-v)" href="https://meetings-eu1.hubspot.com/tpickett" target="_blank" rel="noopener">Book a demo</a>
-      </div>
       <footer>
         <span style="display:inline-flex;align-items:center"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-w"/></svg>Milo</span>The AI data analyst for the people who run the business</span>
         <span>Microsoft, Microsoft Fabric, Power BI and Copilot are trademarks of the Microsoft group of companies. Figures on this page are illustrative examples.</span>
@@ -1014,7 +994,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     bar.classList.toggle('show', show);
     bar.toggleAttribute('inert', !show);
     bar.setAttribute('aria-hidden', !show);
-  }).observe($('[data-hero-ctas]'));
+  }).observe($('.headline'));
   let ticking = false;
   addEventListener('scroll', () => {
     if (ticking) return;
