@@ -226,19 +226,6 @@ table.dt td.n{font-family:'JetBrains Mono',monospace;font-size:.82rem}
 .step h3{font-size:1.05rem;font-weight:700;letter-spacing:-.025em;margin-bottom:9px;color:#fff}
 .step p{font-size:.9rem;color:rgba(254,241,233,.72)}
 
-/* ── compare ────────────────────────────────────── */
-.cmp{margin-top:52px;border:1px solid var(--line);border-radius:22px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--paper)}
-table.ct{width:100%;border-collapse:collapse;min-width:780px}
-table.ct th,table.ct td{padding:18px 22px;text-align:left;border-bottom:1px solid var(--line);font-size:.9rem;vertical-align:top}
-table.ct thead th{background:var(--cream-lt);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:700}
-table.ct thead th.m{color:var(--ember)}
-table.ct tbody tr:last-child td{border-bottom:0}
-table.ct td{color:var(--muted)}
-table.ct td.f{color:var(--ink);font-weight:600;width:24%}
-table.ct td.m{background:rgba(var(--accent-rgb),.06);color:var(--ink)}
-.yes{color:var(--ember);font-weight:800}
-.no{color:#B4442C;font-weight:700}
-
 /* ── pricing ────────────────────────────────────── */
 .pgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:52px;align-items:start}
 .plan{background:var(--ink);color:var(--cream);border-radius:24px;padding:38px;position:relative;overflow:hidden}
@@ -374,7 +361,6 @@ footer a{color:var(--amber);text-decoration:none}
     <a href="#confirmed">Delivery platforms</a>
     <a href="#scope">Scope</a>
     <a href="#demo">Demo</a>
-    <a href="#buildbuy">Build vs buy</a>
     <a href="#poc" class="go">Pricing</a>
   </div>
 </nav>
@@ -761,70 +747,6 @@ footer a{color:var(--amber);text-decoration:none}
     </div>
 
     <p class="demo-note">Figures above are illustrative: realistic shapes for a 160-store estate, used to show the form of the answer. In the POC these are replaced by your live numbers in week two.</p>
-  </div>
-</section>
-
-<!-- ═══ BUILD VS BUY ═══ -->
-<section class="sec" id="buildbuy" style="background:var(--cream-lt)">
-  <div class="tex noise" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="kicker">The decision on the table</div>
-    <h2>Build it in-house, <span class="lt">or have it running in six weeks.</span></h2>
-    <p class="lede">You are weighing an in-house agentic build against buying. Here is the honest comparison, including where building wins.</p>
-
-    <div class="cmp">
-      <table class="ct">
-        <thead>
-          <tr><th>&nbsp;</th><th>Build in-house</th><th>Power BI as-is</th><th class="m">Milo</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="f">Time to first answer</td>
-            <td>6–12 months to a usable agent over joined data</td>
-            <td>Live, but only for views already built</td>
-            <td class="m"><b>Days.</b> Plug-and-play sources in minutes, SQL Server and WooCommerce direct, each aggregator in about a day</td>
-          </tr>
-          <tr>
-            <td class="f">Who builds the connections</td>
-            <td>Your team, plus the AWS delivery API request you raised</td>
-            <td>Your team</td>
-            <td class="m"><b>Our engineers.</b> Included, not billed</td>
-          </tr>
-          <tr>
-            <td class="f">Integration surface</td>
-            <td>Each one built and maintained from scratch</td>
-            <td>Connector-limited</td>
-            <td class="m"><b>1,500+ integrations</b> maintained by us, including Deliveroo, Just Eat and Uber Eats</td>
-          </tr>
-          <tr>
-            <td class="f">Franchise access control</td>
-            <td>Build a permissions model yourself</td>
-            <td class="no">No store-level restriction</td>
-            <td class="m"><b>Built in.</b> Franchisee sees their store only</td>
-          </tr>
-          <tr>
-            <td class="f">Certification</td>
-            <td>Yours to obtain and maintain</td>
-            <td>Microsoft's</td>
-            <td class="m"><b>SOC 2 · ISO 27001 · pen tested</b></td>
-          </tr>
-          <tr>
-            <td class="f">Ongoing cost</td>
-            <td>Engineering headcount + infra, indefinitely</td>
-            <td>Licences + analyst time</td>
-            <td class="m"><b>~£1,900/month</b> all-in, 1,000 interactions a month</td>
-          </tr>
-          <tr>
-            <td class="f">Where it wins</td>
-            <td class="yes">Total control, and it's yours forever</td>
-            <td>Familiar to the finance team</td>
-            <td class="m">Speed, and you stop being the bottleneck this quarter</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="lede" style="margin-top:34px"><b style="color:var(--ink)">These aren't mutually exclusive.</b> Pizza Hut shed around 300 UK franchises this year and you're targeting 400 stores. The question isn't whether an in-house platform is achievable, it's whether it arrives in time to matter. Run the six weeks while you scope the build. You'll know far more about what your teams actually ask for, which makes the in-house spec better if you still want it.</p>
   </div>
 </section>
 
