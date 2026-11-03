@@ -14,7 +14,7 @@
 </head>
 <body>
 <style>
-/* Two worlds. Fabric + Copilot live on a cool gridded canvas (a platform you build on). Milo lives in a deep violet field with luminous data.
+/* Two worlds. Microsoft (Fabric or Copilot, switchable) lives on a cool gridded canvas (a platform you build on). Milo lives in a deep violet field with luminous data.
    Light weight = the platform. Heavy weight = the specialist. Every section repeats that contrast. */
 :root{
   --bg:oklch(0.985 0.004 300);
@@ -151,10 +151,17 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .top .logo{font-size:27px;color:var(--graphite)}
 .top-r{display:flex;gap:10px}
 .hero-main{max-width:63%;display:flex;flex-direction:column;padding-top:clamp(28px,5.5vw,72px)}
-.vsbadge{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;padding:8px 16px 8px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--paper-line);box-shadow:0 10px 24px -16px oklch(0.3 0.03 70 / .4);font-size:15px}
+.vsbadge{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;padding:6px 6px 6px 14px;margin:0;border-radius:999px;background:var(--surface);border:1px solid var(--paper-line);box-shadow:0 10px 24px -16px oklch(0.3 0.03 70 / .4);font-size:15px}
 .vsbadge .logo{font-size:17px;color:var(--ink)}
 .vsbadge .x{font-family:var(--f-mono);font-size:12px;color:var(--graphite-2)}
-.vsbadge .c{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--graphite)}
+.vsbadge .c{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--graphite-2);letter-spacing:-.01em}
+.vsbadge .cdot{--s:15px}
+/* Fabric | Copilot switch */
+.vsw{display:inline-flex;padding:3px;border-radius:999px;background:var(--paper-2);border:1px solid var(--paper-line)}
+.vsw button{border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px;color:var(--graphite-2);cursor:pointer;transition:background .3s var(--expo),color .2s,box-shadow .3s}
+.vsw button:hover{color:var(--graphite)}
+.vsw button[aria-pressed="true"]{background:var(--graphite);color:var(--paper);box-shadow:0 4px 12px -6px oklch(0.2 0.02 250 / .6)}
+.hero.swap .w{animation:wIn .8s var(--expo) both;animation-delay:calc(var(--i)*35ms)}
 .headline{font-size:clamp(44px,6.6vw,96px);line-height:1;letter-spacing:-.052em;margin-top:clamp(26px,3.6vw,40px);display:flex;flex-direction:column}
 .hl{display:block}
 .hl-c{font-weight:300;color:var(--graphite)}
@@ -179,7 +186,7 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 /* Copilot note (canvas side) */
 .cnote{position:absolute;right:calc(var(--gut-r) + 24px);top:110px;width:min(320px,30%);padding:18px 20px 16px;border-radius:6px 18px 18px 18px;background:var(--surface);border:1px solid var(--paper-line);box-shadow:0 1px 0 var(--paper-line),0 24px 40px -24px oklch(0.3 0.03 70 / .35);transform:rotate(-2.5deg);color:var(--graphite);animation:bobble 7s ease-in-out infinite}
 .cn-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;margin-bottom:6px}
-.cdot{width:9px;height:9px;border-radius:2px;background:var(--clay);flex:none;display:inline-block}
+.cdot{--s:12px;width:var(--s);height:var(--s);flex:none;display:inline-block;background:linear-gradient(#f25022,#f25022) 0 0/calc(50% - .045em) calc(50% - .045em) no-repeat,linear-gradient(#7fba00,#7fba00) 100% 0/calc(50% - .045em) calc(50% - .045em) no-repeat,linear-gradient(#00a4ef,#00a4ef) 0 100%/calc(50% - .045em) calc(50% - .045em) no-repeat,linear-gradient(#ffb900,#ffb900) 100% 100%/calc(50% - .045em) calc(50% - .045em) no-repeat;font-size:var(--s)}
 .cn-t{font-size:15px;line-height:1.6}
 .cn-w{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-family:var(--f-mono);font-size:11.5px;color:var(--graphite-2);border:1px dashed var(--paper-line);border-radius:999px;padding:4px 10px}
 .cn-w::before{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor;animation:pulse 1.6s ease-in-out infinite}
@@ -311,7 +318,8 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .vsec{padding-block:clamp(48px,6vw,96px) clamp(72px,9vw,128px)}
 .vsec h2 .logo{font-size:1em;gap:.22em;letter-spacing:-.045em;font-weight:700}
 .vsec h2 .mk{width:1em;height:.87em}
-.vtools{display:flex;justify-content:flex-end;margin-bottom:10px}
+.vtools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.vtools .lbl{display:inline-flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-3)}
 .ghost{border:0;background:none;padding:6px 0;font-size:13.5px;font-weight:500;color:var(--ink-3);cursor:pointer;display:inline-flex;gap:7px;align-items:center;transition:color .2s}
 .ghost:hover{color:var(--ink)}
 .vt-row{display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1fr);width:100%;text-align:left;background:none;border:0;padding:0;cursor:pointer;align-items:stretch}
@@ -325,6 +333,7 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .vt-head small{font-size:13px;font-weight:400;color:var(--on-v-3);letter-spacing:0}
 .vt-head .vt-c{display:grid;gap:6px;align-content:end;padding-top:30px}
 .vt-head .vt-c b{font-size:22px;font-weight:600;color:var(--ink);letter-spacing:-.03em;display:flex;align-items:center;gap:10px}
+.vt-head .vt-c .cdot{--s:20px}
 .vt-head .vt-c small{color:var(--ink-3)}
 .vt-body .vt-row:last-child .vt-m{border-radius:0 0 28px 28px;padding-bottom:30px}
 .vt-body .vt-row:last-child .vt-k,.vt-body .vt-row:last-child .vt-c{border-bottom:1px solid var(--line)}
@@ -491,9 +500,13 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   .vt-body .vt-row:last-child{border-bottom:1px solid var(--line)}
   .vt-head .vt-m .logo{font-size:22px}
   .vt-head .vt-c b{font-size:17px}
+  .vt-head .vt-c .cdot{--s:15px}
 }
 @media (max-width:640px){
   .top-r .btn-line,.bar .vsx,.bar .btn-line{display:none}
+  .vsbadge{gap:9px;padding-left:12px}
+  .vsbadge .c{font-size:0;gap:0}
+  .vsw button{padding:6px 12px}
   .prompt{border-radius:22px;align-items:flex-end}
   .p-text{white-space:normal;padding-bottom:12px}
   .p-ic{display:none}
@@ -530,7 +543,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 <div class="bar" aria-hidden="true" inert>
   <i class="prog" data-prog></i>
   <div class="wrap">
-    <span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo<span class="vsx">vs Fabric &amp; Copilot</span></span>
+    <span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo<span class="vsx" data-t="bar">vs Microsoft Fabric</span></span>
     <div class="bar-r">
       <a class="btn btn-line btn-sm" style="color:var(--graphite)" href="https://meetings-eu1.hubspot.com/tpickett" target="_blank" rel="noopener">Book a demo</a>
       <a class="btn btn-v btn-sm" href="https://app.milo.ai/signup" target="_blank" rel="noopener">Try Milo free<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
@@ -554,9 +567,9 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     </nav>
 
     <div class="hero-main">
-      <p class="vsbadge"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span><span class="x">vs</span><span class="c"><i class="cdot"></i>Fabric + Copilot</span></p>
+      <div class="vsbadge"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span><span class="x">vs</span><span class="c" aria-label="Microsoft"><i class="cdot"></i>Microsoft</span><span class="vsw" role="group" aria-label="Compare Milo with"><button type="button" data-vs="fabric" aria-pressed="true">Fabric</button><button type="button" data-vs="copilot" aria-pressed="false">Copilot</button></span></div>
       <h1 class="headline"><span class="hl hl-c">Fabric is a data project.</span><span class="hl hl-m">Milo is the answer.</span></h1>
-      <p class="sub">Microsoft Fabric and Copilot are powerful once your data team has built the pipelines and semantic models. Milo connects to your CRM, finance and sales tools directly, so you get answers with your actual numbers from day one.</p>
+      <p class="sub" data-t="sub">Microsoft Fabric and Copilot are powerful once your data team has built the pipelines and semantic models. Milo connects to your CRM, finance and sales tools directly, so you get answers with your actual numbers from day one.</p>
       <div class="ctas" data-hero-ctas>
         <a class="btn btn-w" href="https://app.milo.ai/signup" target="_blank" rel="noopener">Try Milo free<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
         <a class="btn btn-line" style="color:var(--on-v)" href="https://meetings-eu1.hubspot.com/tpickett" target="_blank" rel="noopener">Book a demo</a>
@@ -565,8 +578,8 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 
     <aside class="cnote" aria-hidden="true">
       <div class="cn-h"><i class="cdot"></i>Copilot</div>
-      <p class="cn-t">I couldn’t find margin by product in the semantic models you can access. Ask your Power BI admin to add it.</p>
-      <span class="cn-w">Waiting on your data team</span>
+      <p class="cn-t" data-t="note">I couldn’t find margin by product in the semantic models you can access. Ask your Power BI admin to add it.</p>
+      <span class="cn-w" data-t="noteWait">Waiting on your data team</span>
     </aside>
 
     <figure class="mcard" data-tilt aria-label="Example Milo answer">
@@ -626,12 +639,12 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
       <div class="duel">
         <article class="pane pane-c ruled" aria-label="Copilot's answer">
           <div class="pane-h">
-            <span class="who"><i class="cdot"></i>Copilot in Power BI</span>
+            <span class="who"><i class="cdot"></i><span data-t="pane">Copilot in Power BI</span></span>
             <span class="status" data-c-status>Waiting on data team</span>
           </div>
           <p class="qb" data-qtext>Why did gross margin drop last month?</p>
           <p class="reply" data-c-reply></p>
-          <span class="blocked in">Waiting for the semantic model</span>
+          <span class="blocked in" data-t="blocked">Waiting for the semantic model</span>
         </article>
 
         <article class="pane pane-m vfield spot" aria-label="Milo's answer">
@@ -654,19 +667,19 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   <section class="vsec" id="compare">
     <div class="wrap">
       <div class="sec-top">
-        <h2><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span> <span class="lt">vs Fabric + Copilot</span></h2>
-        <p class="side">The ready-made analyst vs the platform you build. Tap any row for the detail.</p>
+        <h2><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span> <span class="lt" data-t="vsH">vs Fabric</span></h2>
+        <p class="side" data-t="vsSide">The ready-made analyst vs the platform you build. Tap any row for the detail.</p>
       </div>
-      <div class="vtools"><button type="button" class="ghost" data-expand>Show all details</button></div>
+      <div class="vtools"><span class="lbl">Compare with <span class="vsw" role="group" aria-label="Compare Milo with"><button type="button" data-vs="fabric" aria-pressed="true">Fabric</button><button type="button" data-vs="copilot" aria-pressed="false">Copilot</button></span></span><button type="button" class="ghost" data-expand>Show all details</button></div>
       <div class="vt">
         <div class="vt-row vt-head">
           <span class="vt-k"></span>
           <span class="vt-m"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-w"/></svg>Milo</span><small>The AI data analyst</small></span>
-          <span class="vt-c"><b><i class="cdot"></i>Fabric + Copilot</b><small>Microsoft Fabric, Power BI and Microsoft 365 Copilot</small></span>
+          <span class="vt-c"><b><i class="cdot"></i><span data-t="col">Microsoft Fabric</span></b><small data-t="colSmall">Fabric and Power BI, with Copilot in Power BI</small></span>
         </div>
         <div class="vt-body" data-vt-body></div>
       </div>
-      <p class="fine">Microsoft features and licensing change often. Check <a href="https://www.microsoft.com/microsoft-fabric" target="_blank" rel="noopener">microsoft.com/microsoft-fabric</a> for current plans.</p>
+      <p class="fine">Microsoft features and licensing change often. Check <a href="https://www.microsoft.com" target="_blank" rel="noopener">microsoft.com</a> for current plans.</p>
     </div>
   </section>
 
@@ -686,15 +699,15 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
         <div class="sim-bar">
           <button type="button" class="btn btn-v" data-setup-go>Start the clock<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
           <button type="button" class="ghost" data-setup-reset hidden>Reset</button>
-          <span class="sim-note">Illustration of a typical rollout. Every project is different.</span>
+          <span class="sim-note" data-t="setupNote">Illustration of a typical rollout. Every project is different.</span>
         </div>
         <div class="sim">
-          <article class="spanel spanel-c ruled" aria-label="Rolling out Fabric and Copilot">
-            <div class="sp-h"><span class="who"><i class="cdot"></i>Fabric + Copilot</span><span class="sp-clock" data-sclock="c">Not started</span></div>
+          <article class="spanel spanel-c ruled" aria-label="Getting a first answer with Microsoft">
+            <div class="sp-h"><span class="who"><i class="cdot"></i><span data-t="setupWho">Microsoft Fabric</span></span><span class="sp-clock" data-sclock="c">Not started</span></div>
             <ol class="tl" data-tl="c"></ol>
             <div class="tally">
-              <div><b data-sfirst="c">–</b><span>to the first answer</span></div>
-              <div><b class="sm">Your data team</b><span>builds and maintains it</span></div>
+              <div><b data-sfirst="c">–</b><span data-t="tally1">to the first answer</span></div>
+              <div><b class="sm" data-t="tally2b">Your data team</b><span data-t="tally2s">builds and maintains it</span></div>
             </div>
           </article>
           <article class="spanel spanel-m vfield spot" aria-label="Rolling out Milo">
@@ -716,8 +729,8 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
           <span class="sim-note">Illustration. Times are sped up.</span>
         </div>
         <div class="sim">
-          <article class="spanel spanel-c ruled" aria-label="Fabric with your own pipelines">
-            <div class="sp-h"><span class="who"><i class="cdot"></i>Fabric + your pipelines</span><span class="sp-clock" data-clock="c">All synced</span></div>
+          <article class="spanel spanel-c ruled" aria-label="Microsoft with your own connectors">
+            <div class="sp-h"><span class="who"><i class="cdot"></i><span data-t="apiWho">Fabric + your pipelines</span></span><span class="sp-clock" data-clock="c">All synced</span></div>
             <ul class="conns" data-conns="c"></ul>
             <ol class="log" data-log="c" aria-live="polite"></ol>
           </article>
@@ -790,7 +803,50 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   const CHECK = '<svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg>';
   const PLUS = '<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>';
   const PLUS_LG = '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>';
-  const OTHER_REPLY = 'I can answer from the Power BI semantic models you have access to, but none of them include your {data} yet. Ask your data team to add it, or upload an Excel file and I’ll take a look.';
+  // The Microsoft side switches between Fabric (data platform) and Microsoft 365 Copilot (office assistant)
+  const MODES = {
+    fabric: {
+      bar: 'vs Microsoft Fabric', hl: ['Fabric is a data project.', 'Milo is the answer.'],
+      sub: 'Microsoft Fabric and Copilot are powerful once your data team has built the pipelines and semantic models. Milo connects to your CRM, finance and sales tools directly, so you get answers with your actual numbers from day one.',
+      note: 'I couldn’t find margin by product in the semantic models you can access. Ask your Power BI admin to add it.', noteWait: 'Waiting on your data team',
+      pane: 'Copilot in Power BI', status: 'Waiting on data team', blocked: 'Waiting for the semantic model',
+      reply: 'I can answer from the Power BI semantic models you have access to, but none of them include your {data} yet. Ask your data team to add it, or upload an Excel file and I’ll take a look.',
+      vsH: 'vs Fabric', vsSide: 'The ready-made analyst vs the platform you build. Tap any row for the detail.',
+      col: 'Microsoft Fabric', colSmall: 'Fabric and Power BI, with Copilot in Power BI',
+      setupNote: 'Illustration of a typical rollout. Every project is different.', setupWho: 'Microsoft Fabric',
+      tally1: 'to the first answer', tally2b: 'Your data team', tally2s: 'builds and maintains it', first: '12 weeks',
+      steps: [['Week 1', 'Buy Fabric capacity, set up workspaces and licences'],
+              ['Weeks 2–6', 'Build pipelines for HubSpot, Xero, Shopify and Meta Ads'],
+              ['Weeks 4–8', 'Model the data in a lakehouse or warehouse'],
+              ['Weeks 6–10', 'Build semantic models and DAX measures'],
+              ['Week 11', 'Prepare the models for Copilot: descriptions, synonyms, instructions'],
+              ['Week 12', 'First Copilot answer', 1]],
+      apiWho: 'Fabric + your pipelines',
+      apiLog: ['HubSpot pipeline failed after an API update', 'Reports and Copilot answers now use stale CRM data', 'Your data team or partner has to find the fix', 'Waiting for a data engineer']
+    },
+    copilot: {
+      bar: 'vs Microsoft 365 Copilot', hl: ['Copilot knows your inbox.', 'Milo knows your numbers.'],
+      sub: 'Microsoft 365 Copilot is great at email, documents and meetings. Milo is connected to your CRM, finance and sales tools, so it answers with your actual numbers.',
+      note: 'I can’t see your sales data. Export it to Excel and upload it here, and I’ll take a look.', noteWait: 'Waiting for an export',
+      pane: 'Microsoft 365 Copilot', status: 'Waiting on you', blocked: 'Waiting for an Excel upload',
+      reply: 'I can search your emails, files and meetings, but I can’t see your live {data}. Export it to Excel and upload it here, and I’ll analyse it for you.',
+      vsH: 'vs Copilot', vsSide: 'The data analyst vs the office assistant. Tap any row for the detail.',
+      col: 'Microsoft 365 Copilot', colSmall: 'Copilot in Word, Excel, Outlook and Teams',
+      setupNote: 'Illustration. Copilot can analyse the Excel files you upload.', setupWho: 'Microsoft 365 Copilot',
+      tally1: 'to an answer from an export', tally2b: 'Every week', tally2s: 'you export and upload again', first: 'Day 1',
+      steps: [['Day 1', 'Export HubSpot, Xero and Shopify reports to Excel'],
+              ['Day 1', 'Clean up the files and upload them to Copilot'],
+              ['Day 1', 'First answer, from a snapshot', 1],
+              ['Week 2', 'The numbers have moved. Export and upload again', 0, 'Snapshot out of date'],
+              ['Every week', 'Repeat for every report, by hand', 0, 'Repeat every week']],
+      apiWho: 'Copilot + custom connectors',
+      apiLog: ['HubSpot connector failed after an API update', 'Copilot answers now miss your CRM data', 'Your IT team or partner has to find the fix', 'Waiting for a developer']
+    }
+  };
+  const qsMode = new URLSearchParams(location.search).get('vs');
+  let mode = qsMode === 'copilot' || location.hash === '#copilot' ? 'copilot' : 'fabric';
+  const M = () => MODES[mode];
+  const pick = v => typeof v === 'string' ? v : v[mode];
 
   // Demo questions and Milo's (example) answers
   const Q = {
@@ -879,30 +935,45 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 
   // Side-by-side rows, from the comparison copy
   const ROWS = [
-    { k: 'Built for', m: 'Ops, finance, marketing and leadership teams', c: 'Data engineers and Power BI developers build it. Everyone else uses what they publish',
+    { k: 'Built for', m: 'Ops, finance, marketing and leadership teams',
+      c: { fabric: 'Data engineers and Power BI developers build it. Everyone else uses what they publish', copilot: 'Everyone in Microsoft 365, for email, documents and meetings' },
       more: 'Your Milo team connects your tools once. After that anyone can ask, with no SQL, no DAX and no waiting for a new report.' },
-    { k: 'First answer', m: 'Day one. Connect your tools and ask', c: 'After the platform is built: pipelines, lakehouse, semantic models, then Copilot',
-      more: 'Copilot in Power BI answers from semantic models, so the data has to be landed, modelled and prepared for AI first. Milo queries your tools directly from the start.', tab: 'setup', see: 'See the timeline' },
-    { k: 'Getting data in', m: 'HubSpot, Xero, Shopify, ad platforms, warehouses and Fabric itself, connected once', c: 'Easiest for Microsoft sources. Others need pipelines built and maintained',
+    { k: 'First answer', m: 'Day one. Connect your tools and ask',
+      c: { fabric: 'After the platform is built: pipelines, lakehouse, semantic models, then Copilot', copilot: 'Once someone exports the data to Excel and uploads it, every time' },
+      more: { fabric: 'Copilot in Power BI answers from semantic models, so the data has to be landed, modelled and prepared for AI first. Milo queries your tools directly from the start.',
+              copilot: 'Copilot works from your emails, files and meetings. To answer from HubSpot or Xero, someone exports the data or builds a connector. Milo queries your tools directly, always current.' },
+      tab: 'setup', see: 'See the timeline' },
+    { k: 'Getting data in', m: 'HubSpot, Xero, Shopify, ad platforms, warehouses and Fabric itself, connected once',
+      c: { fabric: 'Easiest for Microsoft sources. Others need pipelines built and maintained', copilot: 'Files, emails and meetings in Microsoft 365. Other tools need exports or custom connectors' },
       more: 'Milo queries your sources live, so nobody copies, uploads or rebuilds anything when you add a new tool.' },
-    { k: 'Knows', m: 'Your live business data, plus your definitions', c: 'Copilot in Power BI: your semantic models. Microsoft 365 Copilot: your emails, files and meetings',
+    { k: 'Knows', m: 'Your live business data, plus your definitions',
+      c: { fabric: 'What’s in your semantic models, once someone has prepared them for AI', copilot: 'Your emails, files, chats and meetings, plus whatever you upload' },
       more: 'Milo learns what “net revenue” or “active customer” means at your company once, with you, and every answer uses it.' },
-    { k: 'When things break', m: 'A dedicated engineer and account manager. We always have your back.', c: 'Your data team or Microsoft partner fixes failed pipelines and refreshes',
+    { k: 'When things break', m: 'A dedicated engineer and account manager. We always have your back.',
+      c: { fabric: 'Your data team or Microsoft partner fixes failed pipelines and refreshes', copilot: 'Exports go stale, and your IT team maintains any connectors it builds' },
       more: 'APIs change and connections break. Our engineers keep every connection working, and your account manager keeps you in the loop.', tab: 'api', see: 'Watch it happen' },
-    { k: 'Cost', m: 'One subscription. Setup and support included', c: 'Fabric capacity, plus Power BI and Copilot licences, plus the people to build it',
-      more: 'Fabric is billed by capacity, Power BI and Microsoft 365 Copilot are licensed per person, and the build needs data engineers and Power BI developers, in house or through a partner.' },
+    { k: 'Cost', m: 'One subscription. Setup and support included',
+      c: { fabric: 'Fabric capacity, plus Power BI and Copilot licences, plus the people to build it', copilot: 'A per-person licence on top of Microsoft 365, plus whoever builds connectors' },
+      more: { fabric: 'Fabric is billed by capacity, Power BI and Microsoft 365 Copilot are licensed per person, and the build needs data engineers and Power BI developers, in house or through a partner.',
+              copilot: 'Microsoft 365 Copilot is licensed per person. Answering from your business tools usually means connectors or agents built by IT or a partner. Milo is one subscription, with setup and support included.' } },
     { k: 'Your data', m: 'Stays with you. We never train on it.', c: 'Stays in your Microsoft tenant. Not used to train models',
       more: 'Both keep your data private. Milo works with your data where it lives and it’s never used to train models.' },
-    { k: 'Access control', m: 'Role and row-level permissions, set up with you', c: 'Entra ID, workspace roles and row-level security, set up by your admins',
+    { k: 'Access control', m: 'Role and row-level permissions, set up with you',
+      c: { fabric: 'Entra ID, workspace roles and row-level security, set up by your admins', copilot: 'Sees everything each person can open in Microsoft 365' },
       more: 'Microsoft 365 Copilot can surface anything a person is able to open, so permissions need tidying before rollout. Milo only reaches the sources and rows you approve.' },
-    { k: 'Output', m: 'Answers, dashboards, reports, alerts, apps', c: 'Power BI reports and summaries, plus drafts in Word, Excel and Outlook',
+    { k: 'Output', m: 'Answers, dashboards, reports, alerts, apps',
+      c: { fabric: 'Power BI reports and summaries, plus drafts in Word, Excel and Outlook', copilot: 'Drafts, summaries and analysis in Word, Excel, Outlook and Teams' },
       more: 'Not just a reply. Dashboards, scheduled reports, alerts in Slack, Teams or email, and files ready to send to the board.' },
-    { k: 'Runs on its own', m: 'Scheduled reports and alerts, ready to go', c: 'Subscriptions and alert rules, once someone sets them up',
+    { k: 'Runs on its own', m: 'Scheduled reports and alerts, ready to go',
+      c: { fabric: 'Subscriptions and alert rules, once someone sets them up', copilot: 'When you prompt it, or through agents your team builds' },
       more: 'Milo watches the numbers and posts to Slack, Teams or email when something moves.' },
-    { k: 'Lives in', m: 'Web, Slack, Teams, WhatsApp, email', c: 'Microsoft 365 apps, Teams and Power BI',
+    { k: 'Lives in', m: 'Web, Slack, Teams, WhatsApp, email',
+      c: { fabric: 'Power BI, Teams and Microsoft 365 apps', copilot: 'Microsoft 365 apps and Teams' },
       more: 'Ask wherever your team already talks. The answer is the same in every channel.' },
-    { k: 'Best for', m: '“What’s actually happening in the business, right now?”', c: '“We’re building a company-wide data platform on Microsoft.”',
-      more: 'Plenty of teams run both. Fabric as the warehouse, Milo as the analyst that answers from it and everything else.' }
+    { k: 'Best for', m: '“What’s actually happening in the business, right now?”',
+      c: { fabric: '“We’re building a company-wide data platform on Microsoft.”', copilot: '“Summarise this thread and draft a reply.”' },
+      more: { fabric: 'Plenty of teams run both. Fabric as the warehouse, Milo as the analyst that answers from it and everything else.',
+              copilot: 'Plenty of teams use both. Copilot for documents and email, Milo for the numbers.' } }
   ];
 
   let curQ = 'margin', otherData = Q.margin.data, cRun = 0, mRun = 0, pRun = 0, played = false;
@@ -911,7 +982,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   /* ---------- Hero ---------- */
   const words = (line, off) => line.split(' ').map((w, i) => `<span class="w" style="--i:${i + off}">${w}</span>`).join(' ');
   function splitHeadline() {
-    const c = $('.hl-c', h1).textContent, m = $('.hl-m', h1).textContent;
+    const [c, m] = M().hl;
     h1.innerHTML = `<span class="hl hl-c">${words(c, 0)}</span><span class="hl hl-m">${words(m, c.split(' ').length)}</span>`;
   }
   // The violet field starts exactly at Milo's line; the card straddles the seam
@@ -1006,10 +1077,10 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   async function playOther(instant) {
     const t = ++cRun;
     const el = $('[data-c-reply]'), bl = $('.blocked'), st = $('[data-c-status]');
-    const text = OTHER_REPLY.replace('{data}', otherData);
+    const text = M().reply.replace('{data}', otherData);
     if (instant || RM) {
       el.classList.remove('typing'); el.textContent = text;
-      bl.classList.add('in'); st.textContent = 'Waiting on data team';
+      bl.classList.add('in'); st.textContent = M().status;
       return;
     }
     bl.classList.remove('in'); st.textContent = 'Thinking…';
@@ -1019,7 +1090,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     st.textContent = 'Typing…';
     if (!await typeInto(el, text, 17, t, () => cRun)) return;
     bl.classList.add('in');
-    st.textContent = 'Waiting on data team';
+    st.textContent = M().status;
   }
 
   function vizHTML(v) {
@@ -1113,8 +1184,12 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 
   /* ---------- Versus table ---------- */
   const vtBody = $('[data-vt-body]');
-  vtBody.innerHTML = ROWS.map((r, i) =>
-    `<div class="vt-row${r.tab ? ' key' : ''}"><span class="vt-k">${r.k}${r.tab ? `<a class="vt-see" href="#after" data-goto="${r.tab}">${r.see} ↓</a>` : ''}</span><span class="vt-m"><span>${r.m}</span><span class="vt-more" id="more-${i}"><span><span class="vt-mi">${r.more}</span></span></span></span><span class="vt-c"><span>${r.c}</span><button type="button" class="pl" aria-expanded="false" aria-controls="more-${i}" aria-label="Details: ${r.k}">${PLUS_LG}</button></span></div>`).join('');
+  function renderRows() {
+    const was = $$('.vt-row', vtBody).map(r => r.classList.contains('open'));
+    vtBody.innerHTML = ROWS.map((r, i) =>
+    `<div class="vt-row${r.tab ? ' key' : ''}"><span class="vt-k">${r.k}${r.tab ? `<a class="vt-see" href="#after" data-goto="${r.tab}">${r.see} ↓</a>` : ''}</span><span class="vt-m"><span>${r.m}</span><span class="vt-more" id="more-${i}"><span><span class="vt-mi">${pick(r.more)}</span></span></span></span><span class="vt-c"><span>${pick(r.c)}</span><button type="button" class="pl" aria-expanded="false" aria-controls="more-${i}" aria-label="Details: ${r.k}">${PLUS_LG}</button></span></div>`).join('');
+    was.forEach((o, i) => o && setOpen($$('.vt-row', vtBody)[i], true));
+  }
   const rows = () => $$('.vt-row', vtBody);
   function setOpen(row, open) { row.classList.toggle('open', open); $('.pl', row).setAttribute('aria-expanded', open); }
   const expandBtn = $('[data-expand]');
@@ -1191,15 +1266,15 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     breakBtn.disabled = true; breakBtn.firstChild.textContent = 'Change pushed '; simReset.hidden = false;
     setConn('c', 'bad', 'Auth failed'); setConn('m', 'bad', 'Auth failed');
     ['c', 'm'].forEach(s => { clock(s).textContent = 'Broken'; clock(s).className = 'sp-clock bad'; });
-    at(300, () => { log('c', '0:00', 'HubSpot pipeline failed after an API update'); log('m', '0:00', 'Change detected automatically'); });
+    at(300, () => { log('c', '0:00', M().apiLog[0]); log('m', '0:00', 'Change detected automatically'); });
     at(1200, () => log('m', '0:02', 'Your Milo engineer picked it up'));
-    at(1500, () => log('c', '0:01', 'Reports and Copilot answers now use stale CRM data'));
+    at(1500, () => log('c', '0:01', M().apiLog[1]));
     at(2300, () => { setConn('m', 'fixing', 'Fixing'); clock('m').textContent = 'Fixing'; clock('m').className = 'sp-clock'; });
-    at(2900, () => log('c', '0:05', 'Your data team or partner has to find the fix'));
+    at(2900, () => log('c', '0:05', M().apiLog[2]));
     at(3200, () => { log('m', '0:14', 'Connector updated and tested'); setConn('m', 'fixed', 'Fixed in 14 min'); clock('m').textContent = 'Back in 14 min'; clock('m').className = 'sp-clock ok'; });
     at(4000, () => log('m', '0:15', '<span class="am">Account manager:</span> All sorted. Nothing for you to do.'));
     at(4300, () => {
-      log('c', '…', 'Waiting for a data engineer');
+      log('c', '…', M().apiLog[3]);
       let m = 5;
       simClock = setInterval(() => {
         m += 37;
@@ -1220,25 +1295,20 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 
   /* ---------- Setup timeline ---------- */
   const STEPS = {
-    c: [['Week 1', 'Buy Fabric capacity, set up workspaces and licences'],
-        ['Weeks 2–6', 'Build pipelines for HubSpot, Xero, Shopify and Meta Ads'],
-        ['Weeks 4–8', 'Model the data in a lakehouse or warehouse'],
-        ['Weeks 6–10', 'Build semantic models and DAX measures'],
-        ['Week 11', 'Prepare the models for Copilot: descriptions, synonyms, instructions'],
-        ['Week 12', 'First Copilot answer', 1]],
     m: [['Day 1', 'Connect HubSpot, Xero, Shopify and Meta Ads'],
         ['Day 1', 'First answer, with your real numbers', 1],
         ['Week 1', 'Your Milo engineer maps your definitions with you'],
         ['Week 1', 'Alerts and dashboards set up for each team']]
   };
-  const FIRST = { c: '12 weeks', m: 'Day 1' };
+  const steps = side => side === 'm' ? STEPS.m : M().steps;
+  const first = side => side === 'm' ? 'Day 1' : M().first;
   const setupGo = $('[data-setup-go]'), setupReset = $('[data-setup-reset]');
   const setupLabel = setupGo.firstChild.textContent;
   let setupTimers = [], setupRunning = false, answered = {};
   const sclock = s => $(`[data-sclock="${s}"]`);
   function renderSetup() {
     ['c', 'm'].forEach(s => {
-      $(`[data-tl="${s}"]`).innerHTML = STEPS[s].map((st, i) => `<li class="${st[2] ? 'goal' : ''}" data-i="${i}"><time>${st[0]}</time><span>${st[1]}</span></li>`).join('');
+      $(`[data-tl="${s}"]`).innerHTML = steps(s).map((st, i) => `<li class="${st[2] ? 'goal' : ''}" data-i="${i}"><time>${st[0]}</time><span>${st[1]}</span></li>`).join('');
       $(`[data-sfirst="${s}"]`).textContent = '–';
       sclock(s).textContent = 'Not started'; sclock(s).className = 'sp-clock';
     });
@@ -1248,23 +1318,25 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     const li = $(`[data-tl="${side}"] li[data-i="${i}"]`);
     $$(`[data-tl="${side}"] li`).forEach(l => l.classList.remove('now'));
     li.classList.add('in', 'now');
-    if (!answered[side]) sclock(side).textContent = STEPS[side][i][0];
-    if (STEPS[side][i][2]) {
+    const st = steps(side)[i];
+    if (!answered[side]) sclock(side).textContent = st[0];
+    if (st[2]) {
       answered[side] = true;
       const b = $(`[data-sfirst="${side}"]`);
-      b.textContent = FIRST[side];
+      b.textContent = first(side);
       b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump');
-      sclock(side).textContent = 'Answering since ' + STEPS[side][i][0].toLowerCase();
+      sclock(side).textContent = 'Answering since ' + st[0].toLowerCase();
       sclock(side).className = side === 'm' ? 'sp-clock ok' : 'sp-clock';
     }
+    if (st[3]) { sclock(side).textContent = st[3]; sclock(side).className = 'sp-clock bad'; }
   }
   function runSetup() {
     if (setupRunning) return;
     setupRunning = true;
     setupGo.disabled = true; setupGo.firstChild.textContent = 'Clock running '; setupReset.hidden = false;
     STEPS.m.forEach((_, i) => sat(300 + i * 650, () => step('m', i)));
-    STEPS.c.forEach((_, i) => sat(300 + i * 1000, () => step('c', i)));
-    sat(300 + STEPS.c.length * 1000, () => { setupGo.firstChild.textContent = 'Done '; });
+    steps('c').forEach((_, i) => sat(300 + i * 1000, () => step('c', i)));
+    sat(300 + steps('c').length * 1000, () => { setupGo.firstChild.textContent = 'Done '; });
   }
   function resetSetup() {
     setupTimers.forEach(clearTimeout); setupTimers = [];
@@ -1274,6 +1346,24 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   }
   setupGo.addEventListener('click', runSetup);
   setupReset.addEventListener('click', resetSetup);
+
+  /* ---------- Fabric | Copilot switch ---------- */
+  let swapT;
+  function setMode(next, user) {
+    mode = next;
+    $$('[data-vs]').forEach(b => b.setAttribute('aria-pressed', b.dataset.vs === mode));
+    $$('[data-t]').forEach(el => { el.textContent = M()[el.dataset.t]; });
+    splitHeadline();
+    renderRows(); syncExpand();
+    resetSim(); resetSetup();
+    if (!user) return;
+    if (!RM) { hero.classList.remove('swap'); void hero.offsetWidth; hero.classList.add('swap'); clearTimeout(swapT); swapT = setTimeout(() => hero.classList.remove('swap'), 1400); }
+    layoutHero();
+    playOther(!played);
+    if (setupPlayed && !$('#panel-setup').hidden) runSetup();
+    history.replaceState(null, '', mode === 'copilot' ? '?vs=copilot' : location.pathname);
+  }
+  $$('[data-vs]').forEach(b => b.addEventListener('click', () => { if (b.dataset.vs !== mode) setMode(b.dataset.vs, true); }));
 
   /* ---------- Sticky bar + scroll progress ---------- */
   const bar = $('.bar'), prog = $('[data-prog]');
@@ -1295,11 +1385,9 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   }, { passive: true });
 
   /* ---------- Boot ---------- */
-  splitHeadline();
+  setMode(mode, false);
   drawChart();
   layoutHero();
-  renderConns();
-  renderSetup();
   placeTab(true);
   $$('[data-qtext]').forEach(el => el.textContent = Q[curQ].text);
   playOther(true); playMilo(true);
