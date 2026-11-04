@@ -361,6 +361,119 @@ footer{padding-block:28px 40px;font-size:12.5px;color:var(--muted);border-top:1p
 footer p+p{margin-top:6px}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.thinking i{animation:none}.bf,.p-play,.et,.pr-chart .b{transition:none}}
+/* marquee */
+.marq{background:var(--teal);color:var(--on-bright);overflow:hidden;padding-block:9px}
+.marq-in{display:flex;width:max-content;animation:marq 60s linear infinite}
+.marq span{position:relative;font-family:var(--display);font-stretch:125%;font-weight:650;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding-inline:22px;white-space:nowrap}
+.marq span::after{content:"";position:absolute;right:-4px;top:50%;width:8px;height:8px;transform:translateY(-50%);background:var(--on-bright);-webkit-mask:var(--scallop) center/contain no-repeat;mask:var(--scallop) center/contain no-repeat}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* where milo sits: self-contained and reusable. Everything client-specific lives in the WS data block in the script. */
+.ws-tabs{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-bottom:18px}
+.ws-tab{position:relative;background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:8px 6px;cursor:pointer;font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;transition:background .2s,border-color .2s,color .2s}
+.ws-tab:hover{border-color:var(--ink);color:var(--ink)}
+.ws-tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.ws-tabs.touring .ws-tab[aria-pressed="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--teal);transform-origin:left;animation:wsprog 5.5s linear}
+.ws-all:hover .ws-tabs.touring .ws-tab::after{display:none}
+@keyframes wsprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.ws{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:stretch}
+.ws-left{display:flex;flex-direction:column;gap:12px;min-width:0}
+.ws-qs{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ws-qb{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px;align-items:center;text-align:left;padding:11px 14px;background:var(--card);border:1px solid var(--rule);border-radius:12px;font-size:14px;font-weight:600;line-height:1.35;color:var(--ink);cursor:pointer;transition:border-color .2s,opacity .2s,box-shadow .2s}
+.ws-qb:hover{border-color:var(--teal-ink)}
+.ws-qb .d{width:13px;height:13px;background:var(--tan);-webkit-mask:var(--scallop) center/contain no-repeat;mask:var(--scallop) center/contain no-repeat}
+.ws-qb.m .d{background:var(--teal-ink)}
+.ws-qb[aria-pressed="true"]{border-color:var(--teal-ink);box-shadow:0 0 0 2px var(--teal-ink)}
+.ws-qb.fade{opacity:.42}
+.ws-panel{flex:1;background:var(--panel);border-radius:16px;padding:16px 18px 18px;min-height:208px;display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.ws-v{font-size:12px;font-weight:700;padding:3px 11px;border-radius:999px;border:1px solid var(--muted);color:var(--muted)}
+.ws-v.m{background:var(--teal);border-color:var(--teal);color:var(--on-bright)}
+.ws-v.hand{background:transparent;border-color:var(--rasp-ink);color:var(--rasp-ink)}
+.ws-qq{font-family:var(--display);font-stretch:78%;font-weight:750;font-size:23px;line-height:1.08}
+.ws-a{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.ws-a svg{width:24px;height:19px;flex:none;margin-top:3px;color:var(--muted)}
+.ws-src{font-family:var(--mono);font-size:10.5px;line-height:1.5;color:var(--muted);margin-top:auto}
+.ws-kb{display:grid;gap:10px;width:100%}
+.ws-kb .label{display:block;color:var(--teal-ink);margin-bottom:3px}
+.ws-kb .no{color:var(--rasp-ink)}
+.ws-kb p{font-size:14.5px}
+.ws-meter{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:var(--muted)}
+.ws-meter b{color:var(--ink);font-weight:700}
+.ws-sq{display:inline-flex;gap:3px}
+.ws-sq i{width:9px;height:9px;border-radius:2px;background:var(--tan)}
+.ws-sq i.m{background:var(--teal-ink)}
+.ws-stage{position:relative;background:var(--night);color:var(--on-night);border-radius:18px;overflow:hidden;min-width:0}
+.ws-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--night-line)}
+.ws-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ws-mode{display:inline-flex;border:1px solid var(--night-line);border-radius:999px;overflow:hidden}
+.ws-mode button{background:none;border:0;padding:6px 13px;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--on-night-2);white-space:nowrap}
+.ws-mode button:hover{color:var(--on-night)}
+.ws-mode button[aria-pressed="true"]{background:var(--on-night);color:var(--night-deep)}
+.ws-tourb{background:none;border:1px solid var(--night-line);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--on-night-2);white-space:nowrap}
+.ws-tourb:hover{color:var(--on-night);border-color:var(--on-night-2)}
+.ws-dg{position:relative;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) minmax(0,128px);align-items:center;padding:14px 16px 20px}
+.ws-dg::before{content:"";position:absolute;left:50%;top:50%;width:440px;height:440px;transform:translate(-50%,-50%);background:var(--tan);opacity:.05;-webkit-mask:var(--scallop) center/contain no-repeat;mask:var(--scallop) center/contain no-repeat;pointer-events:none}
+.ws-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.ws-w{fill:none;stroke:var(--night-line);stroke-width:1}
+.ws-w.on{stroke:var(--teal);stroke-opacity:.45}
+.ws-w.on.o{stroke:var(--banana)}
+.ws-f{fill:none;stroke:var(--teal);stroke-width:3.2;stroke-linecap:round;stroke-dasharray:.1 13;animation:wsflow 1.1s linear infinite}
+.ws-f.o{stroke:var(--banana)}
+.ws-f.hand{stroke:var(--rasp);stroke-width:1.6;stroke-linecap:butt;stroke-dasharray:5 5;animation:none}
+@keyframes wsflow{to{stroke-dashoffset:-13.1}}
+.ws-col{position:relative;z-index:1;display:grid;gap:5px;min-width:0}
+.ws-col .label{color:var(--on-night-2);margin-bottom:3px}
+.ws-sy{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:0 8px;align-items:center;width:100%;text-align:left;padding:4px 9px;background:var(--night-deep);border:1px solid var(--night-line);border-radius:9px;cursor:pointer;color:var(--on-night-2);transition:background .2s,border-color .2s,color .2s,transform .2s}
+.ws-sy i{grid-row:1/3;grid-column:1;width:7px;height:7px;border-radius:50%;background:var(--night-line);transition:background .2s,box-shadow .2s}
+.ws-sy b{grid-column:2;font-size:13px;font-weight:700;line-height:1.25}
+.ws-sy small{grid-column:2;font-size:11px;font-weight:500;line-height:1.25;opacity:.8}
+.ws-sy svg{grid-row:1/3;grid-column:3;width:12px;height:12px;color:var(--teal)}
+.ws-sy:hover{border-color:var(--teal)}
+.ws-sy.on{background:var(--on-night);border-color:var(--on-night);color:var(--night-deep);transform:translateX(3px)}
+.ws-sy.on i{background:var(--teal-ink);box-shadow:0 0 8px var(--teal)}
+.ws-sy.on svg{color:var(--teal-ink)}
+.ws-node{position:relative;z-index:1;justify-self:center;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;width:128px}
+.ws-orbw{position:relative;width:96px;height:96px;display:grid;place-items:center}
+.ws-orbw::before{content:"";position:absolute;inset:-13px;background:var(--teal);opacity:.3;-webkit-mask:var(--scallop) center/contain no-repeat;mask:var(--scallop) center/contain no-repeat;animation:wsspin 26s linear infinite}
+@keyframes wsspin{to{transform:rotate(360deg)}}
+.ws-orb{position:relative;width:96px;height:96px;display:grid;place-items:center;background:var(--on-night);-webkit-mask:var(--scallop) center/contain no-repeat;mask:var(--scallop) center/contain no-repeat;transition:background .3s}
+.ws-orb svg{width:50px;height:40px;color:var(--night-deep)}
+.ws-node b{font-family:var(--display);font-stretch:78%;font-weight:750;font-size:19px;line-height:1.05;text-transform:uppercase}
+.ws-node small{font-size:12px;font-weight:500;line-height:1.35;color:var(--on-night-2)}
+.ws-dg.hand .ws-orbw::before{animation:none;background:var(--rasp);opacity:.22}
+.ws-dg.hand .ws-orb{background:var(--night-line)}
+.ws-dg.hand .ws-orb svg{color:var(--on-night)}
+.ws-o{display:flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--night-line);border-radius:9px;background:var(--night-deep);font-size:12.5px;font-weight:600;color:var(--on-night-2);opacity:.75;transition:border-color .2s,color .2s,opacity .2s}
+.ws-o i{width:6px;height:6px;border-radius:50%;background:var(--night-line);flex:none}
+.ws-o.on{border-color:var(--banana);color:var(--on-night);opacity:1}
+.ws-o.on i{background:var(--banana);box-shadow:0 0 8px var(--banana)}
+.ws-dg.hand .ws-o.on{border-color:var(--rasp)}
+.ws-dg.hand .ws-o.on i{background:var(--rasp);box-shadow:none}
+.seen{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:14px}
+.seen i,.pills span.v::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);flex:none;margin-right:6px}
+.seen i{margin-right:0}
+@media (max-width:980px){
+  .ws{grid-template-columns:minmax(0,1fr)}
+  .ws-tabs{display:flex;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .ws-tabs::-webkit-scrollbar{display:none}
+  .ws-tab{flex:none;padding-inline:15px}
+  .ws-panel{min-height:0}
+}
+@media (max-width:620px){
+  .ws-lines{display:none}
+  .ws-dg{grid-template-columns:minmax(0,1fr);justify-items:stretch;padding:14px 14px 18px}
+  .ws-sys{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ws-sys .label{grid-column:1/-1}
+  .ws-sys .ws-sy:last-child{grid-column:1/-1}
+  .ws-sy.on{transform:none}
+  .ws-node{justify-self:center;margin-block:38px 30px;width:auto}
+  .ws-node::before,.ws-node::after{content:"";position:absolute;left:50%;width:1px;height:20px;background:var(--teal);opacity:.5}
+  .ws-node::before{top:-34px}
+  .ws-node::after{bottom:-26px}
+  .ws-out{display:flex;flex-wrap:wrap;gap:6px}
+  .ws-out .label{flex-basis:100%}
+}
+@media (prefers-reduced-motion:reduce){.marq-in,.ws-f,.ws-orbw::before,.ws-tab::after{animation:none}}
 </style>
 </head>
 <body>
@@ -368,6 +481,7 @@ footer p+p{margin-top:6px}
   <defs>
     <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
     <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="ws-sheet" viewBox="0 0 46 37"><rect x="4" y="3" width="38" height="31" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 12h38M4 21h38M17 3v31M30 3v31" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
     <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
     <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
@@ -381,11 +495,12 @@ footer p+p{margin-top:6px}
       <span class="lk-su" role="img" aria-label="Shaken Udder"></span>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="#video">Video</a>
+      <a href="#sits">Where Milo sits</a>
       <a href="#ask">Ask</a>
       <a href="#cycle">Launch cycle</a>
       <a href="#systems">Systems</a>
       <a href="#proof">Proof</a>
-      <a href="#video">Video</a>
       <a href="#start">Start</a>
       <a href="#trust">Trust</a>
     </nav>
@@ -415,7 +530,31 @@ footer p+p{margin-top:6px}
     </div>
   </div>
 </section>
+<div class="marq" aria-hidden="true"><div class="marq-in"><span>Rate of sale</span><span>Promo payback</span><span>Shelf gaps</span><span>Depot stock</span><span>Depletions</span><span>Trade spend</span><span>New buyers</span><span>Repeat buyers</span><span>Code dates</span><span>Amazon fees</span><span>January demand</span><span>The Idilia pack</span><span>Rate of sale</span><span>Promo payback</span><span>Shelf gaps</span><span>Depot stock</span><span>Depletions</span><span>Trade spend</span><span>New buyers</span><span>Repeat buyers</span><span>Code dates</span><span>Amazon fees</span><span>January demand</span><span>The Idilia pack</span></div></div>
 <svg class="drip" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1200V10L1151 10C1151 20 1151 32 1138 32C1125 32 1125 20 1125 10L1086 10C1086 22 1086 37 1077 37C1068 37 1068 22 1068 10L992 10C992 23 992 38 983 38C974 38 974 23 974 10L880 10C880 17 880 26 871 26C862 26 862 17 862 10L821 10C821 20 821 33 812 33C803 33 803 20 803 10L765 10C765 18 765 27 750 27C735 27 735 18 735 10L651 10C651 15 651 21 642 21C633 21 633 15 633 10L588 10C588 18 588 27 570 27C552 27 552 18 552 10L515 10C515 23 515 38 497 38C479 38 479 23 479 10L399 10C399 15 399 21 381 21C363 21 363 15 363 10L328 10C328 22 328 37 317 37C306 37 306 22 306 10L239 10C239 20 239 33 228 33C217 33 217 20 217 10L172 10C172 23 172 38 161 38C150 38 150 23 150 10L97 10C97 16 97 23 84 23C71 23 71 16 71 10L0 10Z"/></svg>
+
+<section class="band first" id="video" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="vid-grid">
+      <div>
+        <p class="eyebrow"><span class="sc" aria-hidden="true"></span>See it</p>
+        <h2 id="vid-h">Ninety seconds of <em>Milo working</em>.</h2>
+        <p class="s">The question box, the answers and the dashboards, without anyone describing them.</p>
+      </div>
+      <div>
+        <div class="video" id="vidframe" data-vid="1196983997">
+          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="intro">
   <div class="wrap">
@@ -423,14 +562,14 @@ footer p+p{margin-top:6px}
       <article class="letter" aria-label="A note from Liam">
         <div class="refs">
           <span>Our ref</span><b>MILO / SHAKEN UDDER / 01</b>
-          <span>Re</span><b>Milo across Shaken Udder's grocers, wholesale and online</b>
+          <span>Re</span><b>Milo across the whole of Shaken Udder</b>
           <span>For</span><b>The Shaken Udder team</b>
         </div>
         <p class="sal">Dear Shaken Udder team,</p>
         <p>Shaken Udder started in 2004 with a black truck and a cow on the side, making shakes at festivals. Twenty-one years on it's the UK's number one premium milkshake brand, with fibre and protein ranges, an ambient range for shelves without a fridge, and a new owner in Idilia.</p>
         <p>Every route to the shopper reports in its own way: grocer portals, wholesaler depletions, Amazon, your own shop, the production plan and the ledger. A simple question, like whether last month's promotion paid for itself, means pulling four of them together by hand.</p>
         <p>Milo connects them. Anyone at Shaken Udder asks a question in plain English and gets the answer in seconds, with its sources. A question can keep running as an alert, and the monthly pack can build itself.</p>
-        <p>Your campaign line is “do what makes you happy”, and for most people that isn't rebuilding a promo report on a Monday morning. The demo below starts at the marketing seat, with the fibre launch. Everything runs on sample data, so click around.</p>
+        <p>Your campaign line is “do what makes you happy”, and for most people that isn't rebuilding a promo report on a Monday morning. Below, you can see where Milo sits across the whole business, team by team. Everything runs on sample data, so click around.</p>
         <div class="sign">
           <p class="nm">Liam James Rabone</p>
           <p class="ml">Milo · liam@milo.ai</p>
@@ -452,7 +591,50 @@ footer p+p{margin-top:6px}
   </div>
 </section>
 
-<section class="band first" id="ask" aria-labelledby="ask-h">
+<section class="band first" id="sits" aria-labelledby="ws-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sc" aria-hidden="true"></span>Where Milo sits</p>
+      <h2 id="ws-h">Your stack stays. <em>Milo sits on top.</em></h2>
+      <p>Every part of the business reports in its own way. Pick a team and a question to see what it takes to answer, or click a system to see what it can't see alone.</p>
+    </div>
+    <div class="ws-all" id="ws-all">
+      <div class="ws-tabs" id="ws-tabs" role="group" aria-label="Choose a team"></div>
+      <div class="ws">
+        <div class="ws-left">
+          <ul class="ws-qs" id="ws-qs" aria-label="Questions"></ul>
+          <div class="ws-panel" id="ws-panel" aria-live="polite"></div>
+          <p class="ws-meter" id="ws-meter"></p>
+        </div>
+        <div class="ws-stage" id="ws-stage">
+          <div class="ws-top">
+            <div class="ws-ctl">
+              <div class="ws-mode" id="ws-mode" role="group" aria-label="Compare">
+                <button type="button" data-m="with" aria-pressed="true">With Milo</button>
+                <button type="button" data-m="without" aria-pressed="false">Without Milo</button>
+              </div>
+              <button type="button" class="ws-tourb" id="ws-tour">Pause tour</button>
+            </div>
+            <span class="tag">Sample data</span>
+          </div>
+          <div class="ws-dg" id="ws-dg">
+            <svg class="ws-lines" id="ws-lines" aria-hidden="true"></svg>
+            <div class="ws-col ws-sys" id="ws-sys" role="group" aria-label="Shaken Udder's systems"></div>
+            <div class="ws-node">
+              <span class="ws-orbw" id="ws-orb"><span class="ws-orb"><svg aria-hidden="true"><use id="ws-nu" href="#milo-icon"/></svg></span></span>
+              <b id="ws-nt">Milo</b>
+              <small id="ws-ns">One question box over all of it</small>
+            </div>
+            <div class="ws-col ws-out" id="ws-out"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Ticked systems appear on shakenudder.com. The rest are what a brand selling this way usually runs, so we'd confirm yours first. Every figure is invented, and the grocers are deliberately unnamed.</p>
+  </div>
+</section>
+
+<section class="band" id="ask" aria-labelledby="ask-h">
   <div class="wrap">
     <div class="head">
       <p class="eyebrow"><span class="sc" aria-hidden="true"></span>Ask Milo</p>
@@ -502,8 +684,8 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="head">
       <p class="eyebrow"><span class="sc" aria-hidden="true"></span>Systems</p>
-      <h2 id="int-h">Your systems, <em>as they are</em>.</h2>
-      <p>What Milo connects for a brand that sells the way Shaken Udder does. It shows what Milo reads, not a guess at your stack, and nothing gets replaced.</p>
+      <h2 id="int-h">Everything <em>we can connect</em>.</h2>
+      <p>What Milo connects for a brand that sells the way Shaken Udder does, desk by desk, and nothing gets replaced.</p>
     </div>
     <div class="three">
       <div class="card"><p class="k label"><span class="sc" aria-hidden="true"></span>The connections</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including the grocer portals and the spreadsheets that arrive by email, and fix them when a system changes.</p></div>
@@ -513,10 +695,10 @@ footer p+p{margin-top:6px}
     <div class="intg">
       <div>
         <div class="ig-h" style="--c:var(--teal-ink)"><h3>Selling</h3><span class="label">Four desks</span></div>
-        <div class="desk"><div><b>Grocers</b><small>Sales and stock, store by store</small></div><div class="pills"><span>Tesco Partners Toolkit</span><span>dunnhumby</span><span>Nectar360</span><span>Other grocer portals</span><span>NIQ</span><span>Circana</span><span>Kantar</span></div></div>
+        <div class="desk"><div><b>Grocers</b><small>Sales and stock, store by store</small></div><div class="pills"><span>Tesco Partners Toolkit</span><span>dunnhumby</span><span>Nectar360</span><span>Other grocer portals</span><span class="v">NIQ</span><span>Circana</span><span>Kantar</span></div></div>
         <div class="desk"><div><b>Wholesale and convenience</b><small>Cash and carry, symbols, forecourts</small></div><div class="pills"><span>Wholesaler depletions</span><span>EDI orders</span><span>Symbol group EPOS</span><span>Field sales apps</span><span>Spreadsheets by email</span></div></div>
-        <div class="desk"><div><b>Online</b><small>Amazon and your own shop</small></div><div class="pills"><span>Amazon Vendor Central</span><span>Seller Central</span><span>Shop platform</span><span>Google Analytics</span><span>Mailchimp</span><span>Klaviyo</span><span>Couriers</span></div></div>
-        <div class="desk"><div><b>Marketing</b><small>Spend, social and sampling</small></div><div class="pills"><span>TikTok</span><span>Meta</span><span>Google Ads</span><span>YouTube</span><span>Agency reports</span><span>Sampling logs</span></div></div>
+        <div class="desk"><div><b>Online</b><small>Amazon and your own shop</small></div><div class="pills"><span class="v">Amazon</span><span class="v">WooCommerce</span><span class="v">GA4</span><span class="v">Mailchimp</span><span>Klaviyo</span><span>Couriers</span></div></div>
+        <div class="desk"><div><b>Marketing</b><small>Spend, social and sampling</small></div><div class="pills"><span class="v">TikTok</span><span class="v">Meta</span><span class="v">Instagram</span><span>Google Ads</span><span>YouTube</span><span>Agency reports</span><span>Sampling logs</span></div></div>
       </div>
       <div>
         <div class="ig-h" style="--c:var(--tan-ink)"><h3>Running the business</h3><span class="label">Four desks</span></div>
@@ -526,6 +708,7 @@ footer p+p{margin-top:6px}
         <div class="desk"><div><b>Outside data</b><small>The reasons behind the numbers</small></div><div class="pills"><span>Weather</span><span>Category data</span><span>Excel</span><span>SharePoint</span><span>Google Drive</span></div></div>
       </div>
     </div>
+    <p class="seen"><i aria-hidden="true"></i>Seen on shakenudder.com. The rest are examples.</p>
     <div class="outs"><b class="label">Answers arrive in</b><span>Microsoft Teams</span><span>Slack</span><span>WhatsApp</span><span>Email</span><span>The browser</span><span>PDF for buyers</span></div>
     <p class="build">Most of these connect in minutes. Anything without a ready connector, including a grocer portal that only exports to Excel, our engineers build and keep running.</p>
   </div>
@@ -595,29 +778,6 @@ footer p+p{margin-top:6px}
   </div>
 </section>
 
-<section class="band" id="video" aria-labelledby="vid-h">
-  <div class="wrap">
-    <div class="vid-grid">
-      <div>
-        <p class="eyebrow"><span class="sc" aria-hidden="true"></span>See it</p>
-        <h2 id="vid-h">Ninety seconds of <em>Milo working</em>.</h2>
-        <p class="s">The question box, the answers and the dashboards, without anyone describing them.</p>
-      </div>
-      <div>
-        <div class="video" id="vidframe" data-vid="1196983997">
-          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
-            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
-            <span class="p-ttl">Milo product overview</span>
-            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
-            <span class="p-sub">Press play · 1 min 29 sec</span>
-          </a>
-        </div>
-        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="band" id="start" aria-labelledby="start-h">
   <div class="wrap">
     <div class="head">
@@ -650,7 +810,7 @@ footer p+p{margin-top:6px}
 
 <footer>
   <div class="wrap">
-    <p>Prepared for the Shaken Udder team by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
+    <p>Prepared for the Shaken Udder team by Liam James Rabone · November 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
     <p>Shaken Udder facts are from shakenudder.com, Retail Times and Just Drinks. Every grocer, store and figure in the demos is sample data.</p>
   </div>
 </footer>
@@ -811,6 +971,16 @@ footer p+p{margin-top:6px}
        kpis:[["Ready","September's pack, in the group's format"],["£ and €","at the month's average rate"],["+19%","net revenue on last September"],["3","items flagged for the board"]],
        say:"September's pack is ready in the format the group asks for, in pounds and euros at the month's average rate. Net revenue is up 19% on last September. Three items are flagged: the Chocolush promotion's payback, fibre running ahead of plan, and the shelf gaps at Grocer B.",
        src:["Ledger","Trade spend","Grocer EPOS","Bank and FX"],alert:"The pack will build itself on the third working day of each month, for finance to check before it goes to the group."}
+    ]},
+    {g:"Leadership",c:"var(--rasp-ink)",name:"Leadership",sub:"The whole business",sys:["Ledger","Grocer EPOS","Wholesaler depletions","Amazon","Your shop","NIQ"],qs:[
+      {q:"How is the whole business doing?",kw:["whole","business","doing","overall","how","performance","results","summary","company","group","week","month","ceo","leadership"],type:"summary",
+       kpis:[["+19%","net revenue on last year"],["9.4","fibre bottles per store per week, against a plan of 7.5"],["+31%","ambient through forecourts"],["1,900","bottles a week lost to shelf gaps at Grocer B"]],
+       say:"Net revenue is up 19% on last year. Fibre and forecourts are ahead of plan. Shelf gaps at Grocer B are the biggest thing to fix, at about 1,900 bottles a week.",
+       src:["Ledger","Grocer EPOS","Wholesaler depletions"],alert:"Every Monday at 8am, Milo will send the leadership team the whole business on one page."},
+      {q:"Where does the next 10% of growth come from?",kw:["next","growth","grow","where","opportunity","opportunities","biggest","strategy","expand","expansion","plan"],type:"list",
+       rows:[["Fibre in more grocers","Selling 9.4 a store at the launch grocer, against a plan of 7.5","First","ok"],["Ambient in forecourts","Up 31%, and 52p a bottle against 34p in the grocers","Next","ok"],["Protein by the case online","It out-sells everything online, so try a subscription","Test","over"]],
+       say:"Two places first: fibre in the grocers that don't list it yet, and ambient in forecourts, where margin is highest after your own shop.",
+       src:["NIQ","Grocer EPOS","Wholesaler depletions","Ledger"],alert:null}
     ]}
   ];
 
@@ -955,6 +1125,160 @@ footer p+p{margin-top:6px}
   });
 
   renderPR();renderSeats();renderQs();ask(null,true);renderStages();renderRecs();
+
+  /* where milo sits: swap this WS block for another client's stack and the section rebuilds itself */
+  var WS={
+    hand:{node:"A Monday spreadsheet",sub:"Exports, matched by hand",out:"Out of the spreadsheet",report:"A report, by hand"},
+    systems:[
+      {id:"gr",name:"Grocer portals",what:"Sales and stock by store",knows:"What sold in each store, and what the depot holds.",blind:"What the promotion cost, or what you made on it."},
+      {id:"mk",name:"NIQ",what:"Category and share",seen:1,knows:"Your share of the category, and who's gaining.",blind:"Why, or which of your own actions moved it."},
+      {id:"wh",name:"Wholesaler reports",what:"Depletions and orders",knows:"Cases out of depots, and who stopped ordering.",blind:"Whether those cases made any money."},
+      {id:"am",name:"Amazon",what:"Orders and fees",seen:1,knows:"Online orders, reviews and what Amazon charges.",blind:"Whether a buyer is new to the brand or switched from the chiller."},
+      {id:"wc",name:"WooCommerce",what:"Your own shop",seen:1,knows:"Orders, baskets and repeat customers on your shop.",blind:"How they compare with Amazon after courier costs."},
+      {id:"ad",name:"Meta, TikTok, GA4",what:"Ads, social and web",seen:1,knows:"Who watched, who clicked and what it cost.",blind:"Whether it sold a single extra bottle in store."},
+      {id:"sp",name:"Production and stock",what:"Plan, 3PL and code dates",knows:"What's being made, what's in stock and its code dates.",blind:"What next month's promotions will need."},
+      {id:"fi",name:"Finance ledger",what:"Margin, costs and cash",knows:"Revenue, costs and cash, down to the penny.",blind:"Which flavour, store or promotion earned it."},
+      {id:"xl",name:"Spreadsheets",what:"Trade spend and plans",knows:"Promo calendars, trade spend and plans.",blind:"Anything since the last paste."}
+    ],
+    outputs:[{id:"ans",name:"Answers"},{id:"dash",name:"Dashboards"},{id:"alert",name:"Alerts"},{id:"auto",name:"Automations"},{id:"app",name:"Apps"}],
+    teams:[{id:"mkt",name:"Marketing"},{id:"nat",name:"National accounts"},{id:"whs",name:"Wholesale"},{id:"onl",name:"Online"},{id:"sup",name:"Supply"},{id:"fin",name:"Finance"},{id:"led",name:"Leadership"}],
+    qs:[
+      {t:"mkt",q:"Which activity sold the most shakes this summer?",s:["ad","gr","xl"],o:"dash",a:"Creator videos on TikTok: 1,450 extra bottles per £1,000, almost three times a member price promotion."},
+      {t:"mkt",q:"Is fibre bringing in new shoppers?",s:["gr"],o:"ans",a:"Yes. 38% of fibre shoppers had never bought Shaken Udder before, and 24% bought again within four weeks."},
+      {t:"nat",q:"Did the Chocolush promotion pay for itself?",s:["gr","xl","fi"],o:"ans",a:"No. Only 41,000 of the 86,000 extra bottles were truly new, at about £1.80 of funding each. Run two weeks next time."},
+      {t:"nat",q:"Where are we losing sales to empty shelves?",s:["gr","sp"],o:"alert",a:"62 stores at Grocer B have sold nothing for two weeks while their depot holds stock. That's about 1,900 bottles a week."},
+      {t:"whs",q:"Is ambient growing where it makes money?",s:["wh","fi","xl"],o:"dash",a:"Mostly, yes. Forecourts grew fastest, up 31%, and make 52p a bottle against 34p in the grocers."},
+      {t:"whs",q:"Which stores have stopped reordering?",s:["wh"],o:"auto",a:"140 stores in Symbol group B ordered every month this year and haven't ordered in six weeks."},
+      {t:"onl",q:"Is Amazon or our own shop more profitable?",s:["am","wc","fi"],o:"dash",a:"Your shop, at 63p a bottle against 41p on Amazon. Amazon still takes 71% of online volume."},
+      {t:"onl",q:"Which flavours sell best online?",s:["am","wc"],o:"ans",a:"Protein, with 9,400 chocolate bottles in 90 days. In the grocers, Chocolush leads."},
+      {t:"sup",q:"What's at risk of going out of date?",s:["sp","xl"],o:"alert",a:"One batch of Raspberry Ripple, with nine days of life left and 14 days of cover. Wholesale can take 4,000 bottles this week."},
+      {t:"sup",q:"How much protein and fibre will January need?",s:["gr","sp"],o:"ans",a:"Fibre is forecast up 41%, which means two extra production runs, starting in week 51."},
+      {t:"fin",q:"Which channel makes the most per bottle?",s:["fi","xl","gr","wh","am","wc"],o:"dash",a:"Your shop at 63p, then forecourts at 52p, Amazon at 41p and the grocers at 34p after trade spend."},
+      {t:"fin",q:"Build this month's pack for Idilia",s:["fi","xl","gr"],o:"auto",a:"Ready in the group's format, in pounds and euros. Net revenue is up 19%, with three items flagged for the board."},
+      {t:"led",q:"How is the whole business doing?",s:["gr","wh","am","wc","sp","fi"],o:"dash",a:"Net revenue is up 19% on last year. Fibre and forecourts are ahead of plan, and shelf gaps at Grocer B are the biggest thing to fix."},
+      {t:"led",q:"Where does the next 10% of growth come from?",s:["mk","gr","wh","am","fi"],o:"ans",a:"Two places first: fibre in the grocers that don't list it yet, and ambient in forecourts."}
+    ]
+  };
+  function wsFirst(team){for(var i=0;i<WS.qs.length;i++){if(WS.qs[i].t===team&&WS.qs[i].s.length>1)return i}return 0}
+  var wsMode="with",wsTeam=WS.teams[0].id,wsQ=wsFirst(wsTeam),wsSys=null;
+  function wsById(list,id){return list.filter(function(x){return x.id===id})[0]}
+  function wsList(a){return a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1]}
+  function wsQs(){
+    var h="";
+    WS.qs.forEach(function(x,i){
+      if(x.t===wsTeam)h+='<li><button type="button" class="ws-qb'+(x.s.length>1?" m":"")+'" data-i="'+i+'"><span class="d" aria-hidden="true"></span><span>'+esc(x.q)+'</span></button></li>';
+    });
+    $("ws-qs").innerHTML=h;
+  }
+  function wsOuts(){
+    var list=wsMode==="with"?WS.outputs:[{id:"rep",name:WS.hand.report}];
+    $("ws-out").innerHTML='<p class="label">'+esc(wsMode==="with"?"Out of Milo":WS.hand.out)+'</p>'+list.map(function(o){return '<span class="ws-o" data-o="'+o.id+'"><i aria-hidden="true"></i>'+esc(o.name)+'</span>'}).join("");
+  }
+  function wsDraw(){
+    var svg=$("ws-lines");
+    if(getComputedStyle(svg).display==="none")return;
+    var box=$("ws-dg").getBoundingClientRect(),orb=$("ws-orb").getBoundingClientRect();
+    var oy=orb.top+orb.height/2-box.top,ol=orb.left-box.left-6,or=orb.right-box.left+6,h="";
+    function curve(x1,y1,x2,y2){var d=Math.max(20,(x2-x1)*.55);return "M"+x1+" "+y1+" C"+(x1+d)+" "+y1+" "+(x2-d)+" "+y2+" "+x2+" "+y2}
+    function path(d,on,cls){h+='<path class="ws-w'+(on?" on":"")+(cls.indexOf(" o")>-1?" o":"")+'" d="'+d+'"/>';if(on)h+='<path class="ws-f'+cls+'" d="'+d+'"/>'}
+    var hand=wsMode==="without"?" hand":"";
+    $("ws-sys").querySelectorAll(".ws-sy").forEach(function(b){
+      var r=b.getBoundingClientRect();
+      path(curve(r.right-box.left,r.top+r.height/2-box.top,ol,oy),b.classList.contains("on"),hand);
+    });
+    $("ws-out").querySelectorAll(".ws-o").forEach(function(c){
+      var r=c.getBoundingClientRect();
+      path(curve(or,oy,r.left-box.left,r.top+r.height/2-box.top),c.classList.contains("on"),hand||" o");
+    });
+    svg.setAttribute("viewBox","0 0 "+box.width+" "+box.height);
+    svg.innerHTML=h;
+  }
+  function wsUpdate(){
+    var q=WS.qs[wsQ],hand=wsMode==="without",tabs=$("ws-tabs");
+    var names=q.s.map(function(id){return wsById(WS.systems,id).name});
+    tabs.querySelectorAll(".ws-tab").forEach(function(b){
+      var on=b.dataset.t===wsTeam;
+      b.setAttribute("aria-pressed",on?"true":"false");
+      if(on&&tabs.scrollWidth>tabs.clientWidth)tabs.scrollLeft=b.offsetLeft-(tabs.clientWidth-b.offsetWidth)/2;
+    });
+    $("ws-mode").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.m===wsMode?"true":"false")});
+    $("ws-qs").querySelectorAll(".ws-qb").forEach(function(b){
+      var x=WS.qs[+b.dataset.i];
+      b.setAttribute("aria-pressed",!wsSys&&+b.dataset.i===wsQ?"true":"false");
+      b.classList.toggle("fade",!!wsSys&&x.s.indexOf(wsSys)<0);
+    });
+    $("ws-sys").querySelectorAll(".ws-sy").forEach(function(b){
+      var on=wsSys?b.dataset.s===wsSys:q.s.indexOf(b.dataset.s)>-1;
+      b.classList.toggle("on",on);
+      b.setAttribute("aria-pressed",b.dataset.s===wsSys?"true":"false");
+    });
+    $("ws-out").querySelectorAll(".ws-o").forEach(function(c){c.classList.toggle("on",!wsSys&&(hand||c.dataset.o===q.o))});
+    $("ws-dg").classList.toggle("hand",hand);
+    $("ws-nu").setAttribute("href",hand?"#ws-sheet":"#milo-icon");
+    $("ws-nt").textContent=hand?WS.hand.node:"Milo";
+    $("ws-ns").textContent=hand?WS.hand.sub:"One question box over all of it";
+    var h;
+    if(wsSys){
+      var s=wsById(WS.systems,wsSys),n=WS.qs.filter(function(x){return x.s.indexOf(wsSys)>-1}).length;
+      h='<p class="ws-v">'+esc(s.name)+'</p><div class="ws-kb"><div><span class="label">Knows</span><p>'+esc(s.knows)+'</p></div><div><span class="label no">Can\'t see alone</span><p>'+esc(s.blind)+'</p></div></div><p class="ws-src">Used in '+n+' of the '+WS.qs.length+' questions here, across the business</p>';
+    }else if(hand){
+      var how=q.s.length>1?"Export from "+wsList(names)+", match them by hand in a spreadsheet, then do it again next week.":"Export from "+names[0]+" into a spreadsheet, then do it again next week.";
+      h='<p class="ws-v hand">'+q.s.length+(q.s.length>1?" exports, matched by hand":" export, pasted by hand")+'</p><p class="ws-qq">'+esc(q.q)+'</p><p class="ws-a"><svg aria-hidden="true"><use href="#ws-sheet"/></svg><span>'+esc(how)+'</span></p>';
+    }else{
+      var multi=q.s.length>1;
+      h='<p class="ws-v'+(multi?" m":"")+'">'+(multi?"Needs "+q.s.length+" systems. Milo joins them.":"One system holds this. Milo saves the export.")+'</p><p class="ws-qq">'+esc(q.q)+'</p><p class="ws-a"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>'+esc(q.a)+'</span></p><p class="ws-src">Sources · '+names.map(esc).join(" · ")+' · Delivered as '+esc(wsById(WS.outputs,q.o).name.toLowerCase())+'</p>';
+    }
+    $("ws-panel").innerHTML=h;
+    wsDraw();
+  }
+  $("ws-tabs").innerHTML=WS.teams.map(function(x){return '<button type="button" class="ws-tab" data-t="'+x.id+'" aria-pressed="false">'+esc(x.name)+'</button>'}).join("");
+  $("ws-sys").innerHTML='<p class="label">Your systems</p>'+WS.systems.map(function(s){return '<button type="button" class="ws-sy" data-s="'+s.id+'" aria-pressed="false"><i aria-hidden="true"></i><b>'+esc(s.name)+'</b><small>'+esc(s.what)+'</small>'+(s.seen?'<svg role="img" aria-label="Seen on their site"><use href="#tick"/></svg>':'')+'</button>'}).join("");
+  (function(){
+    var one=WS.qs.filter(function(x){return x.s.length<2}).length,all=WS.qs.length,sq="";
+    WS.qs.slice().sort(function(a,b){return a.s.length-b.s.length}).forEach(function(x){sq+='<i'+(x.s.length>1?' class="m"':'')+'></i>'});
+    $("ws-meter").innerHTML='<span class="ws-sq" aria-hidden="true">'+sq+'</span><span><b>'+one+' of '+all+'</b> stay inside one system. <b>'+(all-one)+'</b> need two or more.</span>';
+  })();
+  /* the tour walks through each team until someone takes over */
+  var wsTour=!reduce,wsTimer=null,wsSeen=false;
+  function wsTourUI(){
+    $("ws-tour").textContent=wsTour?"Pause tour":"Play tour";
+    $("ws-panel").setAttribute("aria-live",wsTour?"off":"polite");
+    $("ws-tabs").classList.toggle("touring",wsTour&&wsSeen);
+  }
+  function wsTick(){
+    clearTimeout(wsTimer);
+    wsTourUI();
+    if(!wsTour||!wsSeen)return;
+    wsTimer=setTimeout(function(){
+      var ids=WS.teams.map(function(x){return x.id});
+      wsTeam=ids[(ids.indexOf(wsTeam)+1)%ids.length];wsQ=wsFirst(wsTeam);wsSys=null;
+      wsQs();wsUpdate();wsTick();
+    },5500);
+  }
+  function wsStop(){wsTour=false;wsTick()}
+  $("ws-tour").addEventListener("click",function(){wsTour=!wsTour;wsTick()});
+  $("ws-all").addEventListener("mouseenter",function(){clearTimeout(wsTimer)});
+  $("ws-all").addEventListener("mouseleave",wsTick);
+  $("ws-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-t]");if(!b)return;
+    wsStop();wsTeam=b.dataset.t;wsSys=null;wsQ=wsFirst(wsTeam);wsQs();wsUpdate();
+  });
+  $("ws-qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-i]");if(!b)return;
+    wsStop();wsQ=+b.dataset.i;wsSys=null;wsUpdate();
+  });
+  $("ws-sys").addEventListener("click",function(e){
+    var b=e.target.closest("[data-s]");if(!b)return;
+    wsStop();wsSys=wsSys===b.dataset.s?null:b.dataset.s;wsUpdate();
+  });
+  $("ws-mode").addEventListener("click",function(e){
+    var b=e.target.closest("[data-m]");if(!b)return;
+    wsStop();wsMode=b.dataset.m;wsOuts();wsUpdate();
+  });
+  wsQs();wsOuts();wsUpdate();wsTourUI();
+  if(window.ResizeObserver)new ResizeObserver(wsDraw).observe($("ws-dg"));
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(wsDraw);
+  if(window.IntersectionObserver)new IntersectionObserver(function(en){wsSeen=en[0].isIntersecting;wsTick()},{threshold:.35}).observe($("ws-stage"));
 
   /* video */
   var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
