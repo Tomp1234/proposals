@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milo × Lickd</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Shadows+Into+Light&display=swap">
+<style>
+/* Layout: Lickd's own kit. Gunmetal navy, hot pink and cyan, tall Bebas capitals and Inter, as on lickd.co. The hero is a mixing desk for revenue lines: layer buttons, LED meters, one answer. Stickers carry the sample-data flags, like their tilted logo. Finance shows up in the detail: tabular figures, statement rows, a licence followed to the ledger. Light and dark, with hero, video, comparison and footer always navy. */
+:root{
+  color-scheme:light;
+  --paper:#F5F6FB;--card:#FFFFFF;--panel:#ECEEF7;--ink:#13192D;--muted:#555D78;--rule:#DDE0EC;--line:#C6CBDD;
+  --accent:#B0128A;--accent-soft:#FCE6F6;--cyan-t:#00776B;
+  --deep:#13192D;--deep-2:#1B2336;--deep-3:#262E3F;--on-deep:#FFFFFF;--on-deep-m:#B4BCD3;--deep-rule:rgba(255,255,255,.14);
+  --pink:#FD57C9;--magenta:#D52AA8;--cyan:#03DAC5;--lime:#CFF401;--amber:#FFB547;--midnight:#070B1E;
+  --sel-bg:#13192D;--sel-fg:#FFFFFF;--sel-sub:#FD57C9;
+  --warn:#8A5600;--warn-bg:#FBEBC6;--bad:#A3202A;--bad-bg:#FBE1E3;
+  --display:"Bebas Neue","Arial Narrow",Impact,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --hand:"Shadows Into Light","Marker Felt","Comic Sans MS",cursive;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#0C1022;--card:#161C33;--panel:#11162B;--ink:#EEF0F8;--muted:#A6AEC8;--rule:#262D4A;--line:#343C5E;
+  --accent:#FD57C9;--accent-soft:#3A1533;--cyan-t:#4FE6D6;
+  --deep:#070B1E;--deep-2:#13192D;--deep-3:#1B2336;
+  --sel-bg:#FD57C9;--sel-fg:#13192D;--sel-sub:#4A0F3C;
+  --warn:#F2C46B;--warn-bg:#3A2E0E;--bad:#F59AA0;--bad-bg:#3D1519;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0C1022;--card:#161C33;--panel:#11162B;--ink:#EEF0F8;--muted:#A6AEC8;--rule:#262D4A;--line:#343C5E;
+  --accent:#FD57C9;--accent-soft:#3A1533;--cyan-t:#4FE6D6;
+  --deep:#070B1E;--deep-2:#13192D;--deep-3:#1B2336;
+  --sel-bg:#FD57C9;--sel-fg:#13192D;--sel-sub:#4A0F3C;
+  --warn:#F2C46B;--warn-bg:#3A2E0E;--bad:#F59AA0;--bad-bg:#3D1519;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--deep)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+button{font:inherit;color:inherit}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(40px,5.4vw,66px);line-height:.98;letter-spacing:.005em;text-transform:uppercase;text-wrap:balance}
+h2 em{font-style:normal;color:var(--accent)}
+.deep h2 em{color:var(--pink)}
+.eyebrow{font:500 12px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.deep .eyebrow{color:var(--pink)}
+.lead{color:var(--muted);font-size:17px;max-width:58ch;margin-top:14px;text-wrap:pretty}
+.deep .lead{color:var(--on-deep-m)}
+.band{padding-block:76px}
+.band.alt{background:var(--panel)}
+.deep{background:var(--deep);color:var(--on-deep)}
+.sticker{display:inline-block;background:var(--lime);color:#13192D;font:500 11px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:6px 8px;transform:rotate(-2deg);white-space:nowrap}
+.fine{font-size:12.5px;color:var(--muted);margin-top:14px}
+
+/* bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--deep);color:var(--on-deep);border-bottom:1px solid var(--deep-rule)}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:20px;height:60px}
+.lockup{display:flex;align-items:center;gap:9px;text-decoration:none;flex:none}
+.lockup .mi{width:30px;height:24px}
+.lockup b{font-weight:700;font-size:17px;letter-spacing:-.01em}
+.lockup .x{color:var(--on-deep-m);font-size:14px}
+.lockup .lk{width:44px;height:32px;color:#fff}
+.bar nav{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;font-size:13.5px;font-weight:500;min-width:0}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav a{text-decoration:none;color:var(--on-deep-m);white-space:nowrap;padding-block:8px}
+.bar nav a:hover{color:var(--on-deep)}
+@media (max-width:760px){.bar nav{display:none}}
+
+/* hero */
+.hero{background:var(--deep);color:var(--on-deep);padding-block:64px 72px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:52px;align-items:center}
+.kick{font:500 12.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(62px,8.4vw,112px);line-height:.93;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance}
+h1 em{display:block;font-style:normal;color:var(--pink)}
+.hero-lede{font-size:18px;color:var(--on-deep-m);margin-top:24px;max-width:48ch;text-wrap:pretty}
+.hero-lede b{color:var(--on-deep);font-weight:600}
+.board{background:var(--deep-2);border:1px solid var(--deep-rule);border-radius:10px;padding:18px}
+.b-head{display:flex;justify-content:space-between;align-items:center;gap:12px;font:500 12.5px/1.3 var(--mono);color:var(--on-deep-m)}
+.b-hint{font-family:var(--hand);font-size:19px;color:var(--pink);margin:12px 0 6px;line-height:1.1}
+.b-layers{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.b-layers button{background:var(--deep-3);border:1px solid var(--deep-rule);border-radius:6px;padding:9px 4px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--on-deep-m);transition:background .15s,color .15s}
+.b-layers button:hover{color:#fff}
+.b-layers button[aria-pressed="true"]{background:var(--cyan);border-color:var(--cyan);color:#13192D}
+.b-layers button.b-ans[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#13192D}
+.b-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;padding-bottom:12px;border-bottom:1px solid var(--deep-rule)}
+.b-stats b{display:block;font-family:var(--display);font-weight:400;font-size:32px;line-height:1;letter-spacing:.01em}
+.b-stats span{display:block;font-size:12px;line-height:1.3;color:var(--on-deep-m);margin-top:3px}
+.b-rows{display:grid;gap:7px;margin-top:12px}
+.b-row{display:grid;grid-template-columns:minmax(92px,128px) minmax(0,1fr) 50px 52px;gap:9px;align-items:center;font-size:12.5px}
+.b-row .n{font-weight:500;line-height:1.2}
+.b-row .v{font:500 12.5px/1 var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.meter{height:13px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 5px,transparent 5px 7px)}
+.meter i{display:block;height:100%;width:var(--w,0%);--c:var(--cyan);background:repeating-linear-gradient(90deg,var(--c) 0 5px,transparent 5px 7px);transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.meter i.top{--c:var(--pink)}
+.meter i.low{--c:var(--amber)}
+.act{font:500 10.5px/1 var(--mono);text-align:center;padding:4px 0;border-radius:3px;visibility:hidden}
+.act.Grow{visibility:visible;background:var(--cyan);color:#13192D}
+.act.Fix{visibility:visible;background:var(--pink);color:#13192D}
+.act.Review{visibility:visible;background:var(--amber);color:#13192D}
+.act.Keep{visibility:visible;background:var(--deep-3);color:var(--on-deep-m)}
+.b-total{display:flex;justify-content:space-between;font:500 12.5px/1 var(--mono);margin-top:10px;padding-block:8px;border-top:1px solid var(--on-deep-m);border-bottom:3px double var(--on-deep-m)}
+.b-say{margin-top:12px;font-size:14.5px;line-height:1.45;min-height:64px;color:var(--on-deep)}
+.b-cap{font-size:12px;color:var(--on-deep-m);margin-top:8px}
+@media (max-width:980px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:36px}}
+@media (max-width:440px){.b-row{grid-template-columns:82px minmax(0,1fr) 44px 46px;gap:6px;font-size:12px}.b-layers button{font-size:11.5px}.b-stats b{font-size:27px}}
+
+/* letter */
+.let-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:56px}
+.ref{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font:400 12.5px/1.45 var(--mono);color:var(--muted);padding-bottom:16px;border-bottom:1px solid var(--rule);margin-bottom:20px}
+.ref b{font-weight:500;color:var(--ink)}
+.letter{display:grid;gap:14px;font-size:17px;max-width:60ch}
+.sign{font-family:var(--hand);font-size:32px;line-height:1;color:var(--accent);margin-top:6px}
+.signed{font-size:13.5px;color:var(--muted);line-height:1.45}
+.signed b{color:var(--ink);font-weight:600}
+.read h3{font:500 12px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.read li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:baseline;padding-block:12px;border-bottom:1px solid var(--rule)}
+.read b{font-family:var(--display);font-weight:400;font-size:38px;line-height:1}
+.read span{font-size:14px;color:var(--muted);line-height:1.4}
+@media (max-width:860px){.let-grid{grid-template-columns:minmax(0,1fr);gap:36px}}
+
+/* how it works */
+.chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:40px}
+.link{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.link+.link::before{content:"";position:absolute;left:-15px;top:36px;width:15px;height:2px;background:var(--accent)}
+.num{font-family:var(--display);font-size:44px;line-height:1;color:var(--accent)}
+.link h3{font-family:var(--display);font-weight:400;font-size:30px;line-height:1;text-transform:uppercase;margin-top:2px}
+.link p{font-size:14.5px;color:var(--muted);line-height:1.45;margin-top:8px}
+.mini{margin-top:auto;padding-top:14px;min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}
+.m-chips{display:flex;flex-wrap:wrap;gap:5px}
+.m-chips span{font:500 11px/1 var(--mono);padding:6px 7px;background:var(--panel);border-radius:4px}
+.m-into{font:500 11px/1.3 var(--mono);color:var(--cyan-t)}
+.m-q{align-self:flex-end;background:var(--deep);color:#fff;font-size:12.5px;line-height:1.3;padding:8px 10px;border-radius:9px 9px 2px 9px;max-width:92%}
+.m-a{align-self:flex-start;background:var(--accent-soft);font-size:12.5px;line-height:1.3;padding:8px 10px;border-radius:9px 9px 9px 2px}
+.m-a b{font-weight:600}
+.m-bars{display:grid;gap:5px}
+.m-bars div{display:grid;grid-template-columns:52px minmax(0,1fr);gap:7px;align-items:center;font:500 10.5px/1 var(--mono);color:var(--muted)}
+.m-bars i{display:block;height:10px;width:var(--w);background:var(--cyan-t)}
+.m-bars i.g{background:var(--accent)}
+.m-msg{background:var(--panel);border-radius:7px;padding:9px 10px;font-size:12.5px;line-height:1.35}
+.m-msg small{display:block;font:500 10.5px/1.2 var(--mono);color:var(--muted);margin-bottom:4px}
+@media (max-width:980px){.chain{grid-template-columns:repeat(2,minmax(0,1fr))}.link+.link::before{display:none}}
+@media (max-width:540px){.chain{grid-template-columns:minmax(0,1fr)}.mini{min-height:0}}
+
+/* video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);gap:44px;align-items:center}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--midnight);border-radius:10px;border:1px solid var(--deep-rule)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:#fff;overflow:hidden;padding-bottom:9%}
+.p-mark{display:flex;align-items:center;gap:7px;font-weight:700;font-size:15px}
+.p-mark svg{width:30px;height:24px}
+.p-ttl{font-family:var(--display);font-size:clamp(32px,5vw,58px);line-height:1;text-transform:uppercase}
+.p-play{display:grid;place-items:center;width:clamp(56px,8vw,78px);height:clamp(56px,8vw,78px);border-radius:50%;background:var(--pink);color:#13192D;padding-left:4px;transition:transform .15s}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font:500 12.5px/1 var(--mono);color:var(--on-deep-m)}
+.eq{position:absolute;left:0;right:0;bottom:0;height:22%;display:flex;align-items:flex-end;gap:3px;padding-inline:3px;opacity:.5}
+.eq i{flex:1;height:var(--h);background:linear-gradient(0deg,var(--cyan),var(--pink));animation:eq 1.8s ease-in-out infinite alternate;animation-delay:var(--d);transform-origin:bottom}
+@keyframes eq{to{transform:scaleY(.45)}}
+.vid-note{font-size:12.5px;color:var(--on-deep-m);margin-top:10px}
+.vid-note a{color:var(--on-deep)}
+@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr);gap:24px}}
+
+/* licence to ledger */
+.trail{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:36px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.trail button{background:var(--card);border:0;border-left:1px solid var(--line);padding:14px 12px;text-align:left;cursor:pointer;display:grid;gap:2px}
+.trail button:first-child{border-left:0}
+.trail small{font:500 11px/1 var(--mono);color:var(--muted)}
+.trail b{font-family:var(--display);font-weight:400;font-size:clamp(20px,2.3vw,27px);line-height:1;text-transform:uppercase}
+.trail button:hover b{color:var(--accent)}
+.trail button[aria-selected="true"]{background:var(--sel-bg);color:var(--sel-fg)}
+.trail button[aria-selected="true"] small{color:var(--sel-sub)}
+.trail button[aria-selected="true"]:hover b{color:inherit}
+.tr-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;margin-top:26px}
+.tr-q{font-family:var(--display);font-size:clamp(30px,3.6vw,44px);line-height:1.03;text-transform:uppercase;min-height:2.1em;text-wrap:balance}
+.tr-facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px 16px;margin-top:16px;font-size:14.5px;align-items:baseline}
+.tr-facts dt{font:500 11.5px/1.5 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.tr-facts dd{margin:0;display:flex;flex-wrap:wrap;gap:5px}
+.chip{font:500 11.5px/1 var(--mono);padding:6px 8px;background:var(--panel);border-radius:4px}
+.band.alt .chip{background:var(--card)}
+.gets{display:grid;gap:9px;align-content:start;font-size:14.5px}
+.gets h3{font:500 12px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.gets li{padding-bottom:9px;border-bottom:1px solid var(--rule)}
+@media (max-width:760px){.trail{grid-template-columns:minmax(0,1fr)}.trail button{border-left:0;border-top:1px solid var(--line);grid-template-columns:24px 1fr;align-items:center}.trail button:first-child{border-top:0}.trail b{font-size:23px}.tr-grid{grid-template-columns:minmax(0,1fr)}.tr-q{min-height:0}}
+
+/* team demo */
+.demo{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:18px;margin-top:36px;align-items:start}
+.desks{display:grid;gap:5px}
+.desks button{background:var(--card);border:1px solid var(--rule);border-radius:7px;padding:9px 12px;text-align:left;cursor:pointer;line-height:1.25}
+.desks b{display:block;font-weight:600;font-size:14.5px}
+.desks small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.desks button:hover{border-color:var(--accent)}
+.desks button[aria-pressed="true"]{background:var(--sel-bg);border-color:var(--sel-bg);color:var(--sel-fg)}
+.desks button[aria-pressed="true"] small{color:var(--sel-sub)}
+.ws{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px;min-width:0}
+.ws-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font:500 12.5px/1 var(--mono);color:var(--muted);padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.qs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.qs button{background:var(--panel);border:1px solid transparent;border-radius:16px;padding:6px 11px;font-size:13px;line-height:1.3;cursor:pointer;text-align:left}
+.qs button:hover{border-color:var(--accent)}
+.qs button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.askf{display:flex;gap:6px;margin-top:10px}
+.askf input{flex:1;min-width:0;font:inherit;font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:7px;padding:8px 11px}
+.askf input::placeholder{color:var(--muted)}
+.askf button{background:var(--sel-bg);color:var(--sel-fg);border:0;border-radius:7px;padding:0 16px;font-weight:600;cursor:pointer}
+.thread{margin-top:16px;display:grid;gap:10px;min-height:252px;align-content:start}
+.you{justify-self:end;background:var(--deep);color:#fff;font-size:14px;line-height:1.35;padding:9px 12px;border-radius:11px 11px 2px 11px;max-width:86%}
+.ans{display:grid;gap:10px}
+.ans-top{display:flex;gap:9px;align-items:flex-start}
+.ans-top svg{width:27px;height:22px;flex:none;margin-top:2px}
+.ans p{font-size:15.5px;line-height:1.45}
+.ans-time{font:500 11px/1 var(--mono);color:var(--muted);margin-top:5px}
+.rows{border-top:1px solid var(--line)}
+.rows div{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:13.5px}
+.rows b{font:500 13px/1.4 var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.rows .warn b{background:var(--warn-bg);color:var(--warn);padding-inline:5px}
+.rows .bad b{background:var(--bad-bg);color:var(--bad);padding-inline:5px}
+.srcs{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.srcs em{font:500 11px/1 var(--mono);font-style:normal;color:var(--muted);margin-right:2px}
+.keep{font-size:13px;color:var(--cyan-t);font-weight:600}
+.locked{background:var(--bad-bg);color:var(--bad);padding:9px 11px;border-radius:7px;font-size:14.5px;line-height:1.45}
+@media (max-width:860px){.demo{grid-template-columns:minmax(0,1fr)}.desks{grid-template-columns:repeat(2,minmax(0,1fr))}.desks small{display:none}.thread{min-height:0}}
+
+/* compare */
+.both{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
+.both-q{margin-top:34px;font-size:17px;font-weight:600}
+.both-q small{display:block;font:500 11.5px/1.3 var(--mono);color:var(--on-deep-m);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.way{border:1px solid var(--deep-rule);border-radius:10px;padding:18px}
+.way.m{background:var(--deep-3);border-color:var(--pink)}
+.way h3{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;margin-bottom:10px}
+.way h3 svg{width:26px;height:21px}
+.way li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:7px;font-size:14.5px;line-height:1.4;padding-block:5px;color:var(--on-deep-m)}
+.way li i{font:500 12px/1.6 var(--mono);font-style:normal;color:var(--on-deep-m)}
+.way.m li{color:var(--on-deep)}
+.way.m li i{color:var(--pink)}
+.cmp{margin-top:44px}
+.cmp-note{font-size:13.5px;color:var(--on-deep-m);margin-bottom:10px}
+.c-head,.c-row summary{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr) 20px;gap:16px;padding:12px 12px}
+.c-head{font-weight:600;font-size:14px;border-bottom:1px solid var(--on-deep-m);align-items:center}
+.c-head span:nth-child(2){display:flex;align-items:center;gap:7px;color:var(--pink)}
+.c-head svg{width:24px;height:19px}
+.c-row{border-bottom:1px solid var(--deep-rule)}
+.c-row summary{cursor:pointer;list-style:none;font-size:14.5px;line-height:1.4;align-items:baseline}
+.c-row summary::-webkit-details-marker{display:none}
+.c-row summary:hover{background:rgba(255,255,255,.04)}
+.c-k{font:500 12px/1.5 var(--mono);color:var(--on-deep-m)}
+.c-m{font-weight:600}
+.c-o{color:var(--on-deep-m)}
+.c-x{font:500 15px/1 var(--mono);color:var(--pink);text-align:right}
+.c-x::before{content:"+"}
+.c-row[open] .c-x::before{content:"−"}
+.c-more{padding:0 12px 14px;font-size:14px;color:var(--cyan);line-height:1.45}
+.keepboth{margin-top:24px;font-family:var(--display);font-size:clamp(26px,3.2vw,38px);line-height:1.05;text-transform:uppercase;max-width:26ch;text-wrap:balance}
+.deep .fine{color:var(--on-deep-m)}
+@media (max-width:640px){.both{grid-template-columns:minmax(0,1fr)}.c-head{display:none}.c-row summary{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px 14px}.c-k{grid-column:1;grid-row:1}.c-x{grid-column:2;grid-row:1}.c-m{grid-column:1;grid-row:2}.c-o{grid-column:2;grid-row:2}.c-m::before,.c-o::before{display:block;font:500 11px/1.5 var(--mono);color:var(--on-deep-m)}.c-m::before{content:"Milo";color:var(--pink)}.c-o::before{content:"Claude, ChatGPT"}}
+
+/* systems */
+.sys{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;margin-top:34px}
+.sys h3{font-size:14px;font-weight:600;margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.sys ul{display:flex;flex-wrap:wrap;gap:5px}
+.chip.out{background:transparent!important;box-shadow:inset 0 0 0 1px var(--line);color:var(--muted)}
+.sys-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;margin-top:26px;font-size:13px;color:var(--muted)}
+.sys-foot span{display:inline-flex;align-items:center;gap:7px;margin-right:14px}
+@media (max-width:980px){.sys{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.sys{grid-template-columns:minmax(0,1fr)}}
+
+/* proof */
+.proof{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:34px}
+.pc{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.pc small{font:500 11.5px/1.3 var(--mono);color:var(--muted)}
+.pc h3{font-family:var(--display);font-weight:400;font-size:32px;line-height:1;text-transform:uppercase}
+.pc b.big{font-family:var(--display);font-weight:400;font-size:52px;line-height:1;color:var(--accent)}
+.pc p{font-size:14.5px;line-height:1.45;color:var(--muted)}
+.pc ul{display:grid;gap:6px;font-size:13.5px;line-height:1.35;margin-top:4px}
+.pc li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px}
+.pc li b{font:500 11.5px/1.5 var(--mono);color:var(--accent)}
+@media (max-width:860px){.proof{grid-template-columns:minmax(0,1fr)}}
+
+/* trust + footer */
+.tr-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:flex-end}
+.tr-link{display:grid;gap:2px;text-decoration:none;border:1px solid var(--line);border-radius:7px;padding:10px 14px;font-weight:600;font-size:14px}
+.tr-link:hover{border-color:var(--accent)}
+.tr-link small{font:500 11.5px/1.2 var(--mono);color:var(--muted)}
+.tgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px;margin-top:26px}
+.tgrid li{padding-block:11px;border-top:1px solid var(--rule);font-size:13.5px;color:var(--muted);line-height:1.4}
+.tgrid b{display:block;color:var(--ink);font-weight:600;font-size:14.5px}
+@media (max-width:760px){.tgrid{grid-template-columns:minmax(0,1fr)}}
+footer{background:var(--deep);color:var(--on-deep-m);padding-block:30px;font-size:13px;line-height:1.5}
+footer p+p{margin-top:6px;font-size:12px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="lickd-logo" viewBox="0 0 133.46 97.135"><g transform="translate(-0.742 -0.514)" fill="currentColor"><path d="M336.923,104.325a3.343,3.343,0,0,0,2.053-4.646l-5.992-16.454a3.232,3.232,0,0,0-4.555-2.08l-2.692.98,8.447,23.2Z" transform="translate(-229.385 -56.7)"/><path d="M.742,41.517,21.148,97.65l113.054-41L113.795.514Zm21.381,4.965L16.032,48.7,28.271,82.316l15.679-5.7-1.907-5.234-9.586,3.486Zm19.2-6.979-6.141,2.232L47.419,75.356l6.144-2.236Zm6.667,6.544,6.436,17.681c2.06,5.658,7.027,7.107,12.465,5.121,5.1-1.858,7.644-6.307,5.791-11.4L71.172,53.3,65.647,55.31l1.389,3.82a3.16,3.16,0,0,1-2.014,4.31c-2.078.756-3.7-.04-4.528-2.3L54.245,43.975c-.722-1.981-.227-3.709,1.992-4.517a3.152,3.152,0,0,1,4.363,1.99l1.406,3.866L67.532,43.3l-1.612-4.431c-1.816-4.989-6.642-6.49-11.6-4.686C49.027,36.111,46.036,40.671,47.991,46.046ZM72.942,28,66.8,30.232,79.041,63.851l6.14-2.232L81.13,50.491l.723-5.07,9.8,13.841,6.518-2.371L84.452,38.6l1.336-15.275-6,2.181L78.47,43.18Zm15.432-5.544,9.4-3.419c5.006-1.824,9.852-.7,11.793,4.624l6.334,17.4c2.077,5.706-.882,9.773-5.935,11.611l-9.351,3.4Z" fill-rule="evenodd"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="lockup" href="#top" aria-label="Milo and Lickd">
+      <svg class="mi" aria-hidden="true"><use href="#milo-icon"/></svg><b>Milo</b><span class="x">×</span>
+      <svg class="lk" aria-hidden="true"><use href="#lickd-logo"/></svg>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#video">Video</a>
+      <a href="#trail">Finance</a>
+      <a href="#team">Team</a>
+      <a href="#vs">Claude and ChatGPT</a>
+      <a href="#systems">Systems</a>
+      <a href="#trust">Trust</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kick">An overview for Frankie Feast FCCA</p>
+      <h1>From licence to ledger, <em>in one question.</em></h1>
+      <p class="hero-lede">Every track you license leaves a trail through subscriptions, Content ID, label statements and the ledger. <b>Milo joins them</b>, so anyone at Lickd can ask in plain English and get the answer in seconds.</p>
+    </div>
+    <div>
+      <div class="board">
+        <div class="b-head"><span>Eight revenue lines · October</span><span class="sticker">Sample data</span></div>
+        <p class="b-hint" aria-hidden="true">press these ↓</p>
+        <div class="b-layers" id="b-layers" role="group" aria-label="Add a layer">
+          <button type="button" data-l="0" aria-pressed="true">Billed</button>
+          <button type="button" data-l="1" aria-pressed="false">+ Credits</button>
+          <button type="button" data-l="2" aria-pressed="false">+ Royalties</button>
+          <button type="button" data-l="3" class="b-ans" aria-pressed="false">Milo's answer</button>
+        </div>
+        <div class="b-stats" id="b-stats"></div>
+        <div class="b-rows" id="b-rows"></div>
+        <div class="b-total" id="b-total"></div>
+        <p class="b-say" id="b-say" aria-live="polite"></p>
+      </div>
+      <p class="b-cap">Lickd's plan names, invented figures. Add a layer and watch the best line change.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="letter">
+  <div class="wrap let-grid">
+    <div>
+      <div class="ref">
+        <span>For</span><b>Frankie Feast FCCA, Lickd</b>
+        <span>And</span><b>The wider Lickd team</b>
+      </div>
+      <div class="letter">
+        <p>Frankie,</p>
+        <p>Since Disciple I've been helping build Milo, and from what I can see of Lickd, it looks a good fit for what you're doing there.</p>
+        <p>Milo joins subscriptions, Content ID, label statements and the ledger. Anyone asks in plain English and gets the answer in seconds, with sources, and we build and run the connections. Everything here is sample data, so click around.</p>
+        <p>I've started with finance, then worked through the rest of the team from your job ads and press. You'll spot what I've got wrong. I've also answered the obvious question: why not just use Claude or ChatGPT?</p>
+        <p class="sign">Liam</p>
+        <p class="signed"><b>Liam James Rabone</b><br>Milo · liam@milo.ai</p>
+      </div>
+    </div>
+    <div class="read">
+      <h3>Lickd, as we read it</h3>
+      <ul>
+        <li><b>1.4m+</b><span>tracks, claims-managed for every upload</span></li>
+        <li><b>2</b><span>platforms to report on: creators and, since 2025, brands</span></li>
+        <li><b>3</b><span>currencies on the pricing page: USD, EUR and GBP</span></li>
+        <li><b>~20</b><span>people, on third-party estimates</span></li>
+      </ul>
+      <p class="fine">From lickd.co, brands.lickd.co, Music Week and company listings.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="how">
+  <div class="wrap">
+    <p class="eyebrow">How Milo works</p>
+    <h2>Four steps. <em>One question all the way through.</em></h2>
+    <div class="chain">
+      <div class="link">
+        <span class="num">1</span><h3>Connect</h3>
+        <p>We build the connections and keep them running. 1,500+ are ready, and anything missing we build at our cost.</p>
+        <div class="mini">
+          <div class="m-chips"><span>Stripe</span><span>Content ID</span><span>Statements</span><span>Ledger</span></div>
+          <div class="m-into">↓ joined in Milo</div>
+        </div>
+      </div>
+      <div class="link">
+        <span class="num">2</span><h3>Ask</h3>
+        <p>Anyone asks in plain English. The answer arrives in seconds, with its sources and the query behind it.</p>
+        <div class="mini">
+          <div class="m-q">What do we owe each label this quarter?</div>
+          <div class="m-a"><b>£186k accrued.</b> One gap to check.</div>
+        </div>
+      </div>
+      <div class="link">
+        <span class="num">3</span><h3>Pin</h3>
+        <p>Pin any answer and it's a live dashboard. Anyone in the company can build one.</p>
+        <div class="mini">
+          <div class="m-bars">
+            <div>Major A<i style="--w:100%"></i></div>
+            <div>Major B<i style="--w:82%"></i></div>
+            <div>Major C<i class="g" style="--w:39%"></i></div>
+            <div>Indies<i style="--w:30%"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="link">
+        <span class="num">4</span><h3>Automate</h3>
+        <p>That question keeps running. Send it on a schedule or set an alert, in Slack, Teams, email or WhatsApp.</p>
+        <div class="mini">
+          <div class="m-msg"><small>Monday 08:00 · Milo</small>Label accruals: £186k. Major C is £6.2k apart.</div>
+        </div>
+      </div>
+    </div>
+    <p class="fine">Sample data throughout.</p>
+  </div>
+</section>
+
+<section class="band deep" id="video">
+  <div class="wrap vid-grid">
+    <div>
+      <p class="eyebrow">The explainer</p>
+      <h2>Ninety seconds of <em>Milo working.</em></h2>
+    </div>
+    <div>
+      <div class="video" id="vidframe" data-vid="1196983997">
+        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+          <span class="p-ttl">Milo product overview</span>
+          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+          <span class="p-sub">Press play · 1 min 29 sec</span>
+          <span class="eq" id="eq" aria-hidden="true"></span>
+        </a>
+      </div>
+      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trail">
+  <div class="wrap">
+    <p class="eyebrow">For finance</p>
+    <h2>One licence. <em>Five systems.</em></h2>
+    <p class="lead">A single track touches most of the team before it reaches the ledger. Pick a step.</p>
+    <div class="trail" id="tr-tabs" role="tablist" aria-label="From licence to ledger"></div>
+    <div class="tr-grid">
+      <div role="tabpanel" id="tr-panel" aria-live="polite"></div>
+      <div class="gets">
+        <h3>What finance gets</h3>
+        <ul class="gets">
+          <li>Every answer shows the query behind it</li>
+          <li>USD, EUR and GBP, reported in pounds</li>
+          <li>Reports that send themselves</li>
+          <li>Access by role, with every question logged</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">Our reading from the outside, so you'll know where it differs. Lickd for Brands follows the same trail: a request, approval within 72 hours, a 12-month licence.</p>
+  </div>
+</section>
+
+<section class="band alt" id="team">
+  <div class="wrap">
+    <p class="eyebrow">Your team, as we read it</p>
+    <h2>About twenty people. <em>One place to ask.</em></h2>
+    <p class="lead">Built from your job ads and press. Pick a desk and a question, or type your own.</p>
+    <div class="demo">
+      <div class="desks" id="desks" role="group" aria-label="Choose a desk"></div>
+      <div class="ws">
+        <div class="ws-head"><span>Milo · Lickd workspace</span><span class="sticker">Sample data</span></div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <form class="askf" id="askf">
+          <input id="ask-input" type="text" placeholder="Type your own question" aria-label="Type your own question" autocomplete="off">
+          <button type="submit">Ask</button>
+        </form>
+        <div class="thread" id="thread" aria-live="polite"></div>
+      </div>
+    </div>
+    <p class="fine">Plan, playlist and system names are Lickd's. Labels are anonymised, and every figure is invented.</p>
+  </div>
+</section>
+
+<section class="band deep" id="vs">
+  <div class="wrap">
+    <p class="eyebrow">Milo vs Claude and ChatGPT</p>
+    <h2>They know a lot. <em>Milo knows Lickd.</em></h2>
+    <p class="lead">Claude and ChatGPT are brilliant for writing and thinking. Getting trusted company numbers out of them is a project of its own.</p>
+
+    <p class="both-q"><small>Same question, both ways</small>What do we owe each label this quarter, and does it tie to their statements?</p>
+    <div class="both">
+      <div class="way">
+        <h3>With Claude or ChatGPT</h3>
+        <ol>
+          <li><i>1</i>Export or connect Stripe, Content ID and the ledger</li>
+          <li><i>2</i>Explain what earned and accrued mean at Lickd</li>
+          <li><i>3</i>Check the maths yourself</li>
+          <li><i>4</i>Next quarter, start again</li>
+        </ol>
+      </div>
+      <div class="way m">
+        <h3><svg aria-hidden="true"><use href="#milo-icon"/></svg>With Milo</h3>
+        <ol>
+          <li><i>1</i>Ask</li>
+          <li><i>2</i>Read the answer, with its sources and query</li>
+          <li><i>3</i>Pin it to the finance dashboard</li>
+          <li><i>4</i>Next quarter, it's already there</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="cmp">
+      <p class="cmp-note">At a glance. Tap a row to see it at Lickd.</p>
+      <div class="c-head"><span></span><span><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span><span>Claude and ChatGPT</span><span></span></div>
+      <div id="cmp-rows"></div>
+    </div>
+    <p class="keepboth">Keep Claude or ChatGPT for writing and thinking. Milo is the one that knows your numbers.</p>
+    <p class="fine">Claude and ChatGPT change often. Check anthropic.com and openai.com for current plans.</p>
+  </div>
+</section>
+
+<section class="band" id="systems">
+  <div class="wrap">
+    <p class="eyebrow">What Milo connects</p>
+    <h2>Every system. <em>One set of numbers.</em></h2>
+    <p class="lead">Milo reads your systems as they are, and nothing gets replaced.</p>
+    <div class="sys">
+      <div><h3>Creators and billing</h3><ul><li class="chip out">Stripe</li><li class="chip">Product database</li><li class="chip out">HubSpot</li><li class="chip">Affiliate scheme</li></ul></div>
+      <div><h3>Music and licensing</h3><ul><li class="chip">YouTube Content ID</li><li class="chip">VOUCH</li><li class="chip">Rightsholder reports</li><li class="chip">S3 and FTP deliveries</li><li class="chip">DDEX and XML</li></ul></div>
+      <div><h3>Brands</h3><ul><li class="chip">My Requests</li><li class="chip">Platform credits</li><li class="chip">Licence approvals</li></ul></div>
+      <div><h3>Marketing</h3><ul><li class="chip out">Piwik PRO</li><li class="chip out">Microsoft Clarity</li><li class="chip">YouTube</li><li class="chip">TikTok</li><li class="chip">Instagram</li><li class="chip">Discord</li></ul></div>
+      <div><h3>Finance</h3><ul><li class="chip out">Your ledger</li><li class="chip out">Bank feeds</li><li class="chip out">Payroll</li><li class="chip out">Forecast model</li><li class="chip">Excel and Sheets</li></ul></div>
+    </div>
+    <div class="sys-foot">
+      <div><span><i class="chip">Solid</i>On your site or in your job ads</span><span><i class="chip out">Outline</i>Third-party listing, or an example</span></div>
+      <div>Answers arrive in Slack, Teams, email, WhatsApp and PDF.</div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="proof">
+  <div class="wrap">
+    <p class="eyebrow">Proof</p>
+    <h2>Lean teams, <em>already on Milo.</em></h2>
+    <div class="proof">
+      <div class="pc">
+        <small>Built Different · Manchester · Milo customer</small>
+        <h3>Profit every morning.</h3>
+        <p>A daily profit dashboard replaced a month-end pack that had been overstating profit three times over.</p>
+        <ul>
+          <li><b>Week one</b>Store, ledger, email and ads connected</li>
+          <li><b>Month one</b>Six figures of ad invoices found missing from the ledger</li>
+        </ul>
+      </div>
+      <div class="pc">
+        <small>Coolr · Social agency, London</small>
+        <b class="big">30 min</b>
+        <p>for a year-end board report the COO was about to build by hand. Then the rest of the company started asking Milo too.</p>
+      </div>
+      <div class="pc">
+        <small>Kellogg's · Commercial finance</small>
+        <b class="big">The cause</b>
+        <p>When sales fell across the Middle East and North Africa, Milo traced it to a shortage of Coco Pops rather than a drop in demand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust">
+  <div class="wrap">
+    <div class="tr-top">
+      <div>
+        <p class="eyebrow">Trust and security</p>
+        <h2>By role. <em>On the record.</em></h2>
+        <p class="lead">Each person sees what their role allows, and every question is logged. Hosted in Frankfurt on AWS, or on your own servers, and your data never trains a model.</p>
+      </div>
+      <a class="tr-link" href="https://trust.milo.ai/" target="_blank" rel="noopener">Open the Milo Trust Centre<small>trust.milo.ai</small></a>
+    </div>
+    <ul class="tgrid">
+      <li><b>ISO 27001</b>Compliant, certificate held by AI Data Labs Ltd</li>
+      <li><b>SOC 2 Type I</b>Compliant, with Type II in progress</li>
+      <li><b>Encrypted</b>In transit and at rest</li>
+      <li><b>Separated</b>Tenant segmentation, least-privilege production access</li>
+      <li><b>Tested</b>Penetration testing, intrusion detection, WAF</li>
+      <li><b>Starts in a sandbox</b>Test data first, never production</li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Frankie Feast FCCA, Lickd, by Liam James Rabone · November 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 Type I · GDPR</p>
+    <p>Lickd facts from lickd.co, brands.lickd.co, Music Week and public company listings. Every figure in the demos is sample data. Claude is a product of Anthropic and ChatGPT is a product of OpenAI.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function k(n){return "£"+(n%1?n.toFixed(1):n)+"k"}
+
+  /* revenue board: [line, £k billed this month, £k earned this month, % margin on earned after royalties, action] */
+  var LINES=[
+    ["Starter",18,16,41,"Keep"],
+    ["Plus",31,28,44,"Keep"],
+    ["Pro",46,41,38,"Keep"],
+    ["Unlimited",29,27,12,"Fix"],
+    ["Annual",52,14,46,"Keep"],
+    ["Single tracks",12,12,22,"Review"],
+    ["Brands · 5 videos",14,11,58,"Grow"],
+    ["Brands · 55 videos",22,19,63,"Grow"]
+  ];
+  function mg(r){return Math.round(r[2]*r[3])/100}
+  var billed=0,earned=0,margin=0;
+  LINES.forEach(function(r){billed+=r[1];earned+=r[2];margin+=mg(r)});
+  var LAYERS=[
+    {v:function(r){return r[1]},tot:["Total billed",k(billed)],
+     low:function(r){return false},
+     stats:[[k(billed),"billed this month"],["23%","from Annual"],["8","revenue lines"]],
+     say:"Annual bills the most. On billings alone, it looks like the best line."},
+    {v:function(r){return r[2]},tot:["Total earned",k(earned)],
+     low:function(r){return r[0]==="Annual"},
+     stats:[[k(earned),"earned this month"],[k(billed-earned),"held in annual plans and unspent credits"],["27%","of Annual's billing earned"]],
+     say:"Spread the annual plans, hold back unspent credits, and Annual falls from first to sixth."},
+    {v:mg,tot:["Margin after royalties",k(Math.round(margin))],
+     low:function(r){return r[3]<25},
+     stats:[[k(Math.round(margin)),"margin after royalties"],["39%","of earned revenue"],["12%","kept on Unlimited"]],
+     say:"After label royalties, the small Brands · 55 line nearly catches Plus, and Unlimited keeps just 12%."},
+    {v:mg,tot:["Margin after royalties",k(Math.round(margin))],act:true,
+     low:function(r){return r[3]<25},
+     stats:[["16%","of billings from Brands"],["28%","of margin from Brands"],["£3.2k","margin on Unlimited"]],
+     say:"Put next quarter's effort behind Brands. Then look at Unlimited, where heavy credit use seems to be eating the margin. Ask why, and Milo opens the creators behind it."}
+  ];
+  function renderBoard(i){
+    var L=LAYERS[i],max=Math.max.apply(null,LINES.map(L.v)),
+        hi=LINES.reduce(function(a,b){return L.v(b)>L.v(a)?b:a});
+    $("b-stats").innerHTML=L.stats.map(function(s){return "<div><b>"+esc(s[0])+"</b><span>"+esc(s[1])+"</span></div>"}).join("");
+    var host=$("b-rows");
+    if(!host.children.length){
+      host.innerHTML=LINES.map(function(r){return '<div class="b-row"><span class="n">'+esc(r[0])+'</span><span class="meter"><i></i></span><span class="v"></span><span class="act"></span></div>'}).join("");
+    }
+    LINES.forEach(function(r,n){
+      var row=host.children[n],bar=row.querySelector("i"),act=row.querySelector(".act");
+      bar.style.setProperty("--w",(L.v(r)/max*100).toFixed(1)+"%");
+      bar.className=(r===hi&&!L.act)?"top":(L.low(r)?"low":"");
+      if(L.act&&r[4]==="Grow")bar.className="top";
+      row.querySelector(".v").textContent=k(Math.round(L.v(r)*10)/10);
+      act.className="act"+(L.act?" "+r[4]:"");
+      act.textContent=L.act?r[4]:"";
+    });
+    $("b-total").innerHTML="<span>"+esc(L.tot[0])+"</span><span>"+esc(L.tot[1])+"</span>";
+    $("b-say").textContent=L.say;
+  }
+  $("b-layers").addEventListener("click",function(e){
+    var b=e.target.closest("[data-l]");if(!b)return;
+    [].forEach.call(this.children,function(c){c.setAttribute("aria-pressed",c===b)});
+    renderBoard(+b.dataset.l);
+  });
+  renderBoard(0);
+
+  /* licence to ledger */
+  var STEPS=[
+    {t:"Creator pays",q:"What did we bill in October, by plan, video-views band and currency?",in:["Stripe","Product database"],by:"Marketing, Finance"},
+    {t:"Credit held",q:"How much have we billed but not earned, and how old are the unspent credits?",in:["Product database","Ledger"],by:"Finance, Product"},
+    {t:"Track licensed",q:"Which tracks cost more in royalties than the credit brought in?",in:["Catalogue","Product database"],by:"Music & Licensing, Curation"},
+    {t:"Claim cleared",q:"Do claims cleared this month match licences sold, and where don't they?",in:["VOUCH","YouTube Content ID"],by:"Music & Licensing, Customer Success"},
+    {t:"Label paid",q:"What do we owe each label, and does it tie to their statement?",in:["Rightsholder reports","Ledger","Bank feeds"],by:"Finance, Music & Licensing"}
+  ];
+  function renderStep(i){
+    $("tr-tabs").innerHTML=STEPS.map(function(s,n){return '<button type="button" role="tab" data-s="'+n+'" aria-selected="'+(n===i)+'" aria-controls="tr-panel"><small>'+(n+1)+'</small><b>'+esc(s.t)+'</b></button>'}).join("");
+    var s=STEPS[i];
+    $("tr-panel").innerHTML='<p class="tr-q">'+esc(s.q)+'</p><dl class="tr-facts"><dt>Lives in</dt><dd>'+s.in.map(function(x){return '<span class="chip">'+esc(x)+'</span>'}).join("")+'</dd><dt>Owned by</dt><dd>'+esc(s.by)+'</dd></dl>';
+  }
+  $("tr-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-s]");if(!b)return;
+    var n=+b.dataset.s;renderStep(n);
+    $("tr-tabs").querySelector('[data-s="'+n+'"]').focus();
+  });
+  renderStep(0);
+
+  /* team demo. Every figure is invented. */
+  var DESKS=[
+    {d:"Finance",s:"Close, royalties, cash, board",qs:[
+      {q:"How much have we billed but not earned?",a:"£412k at the end of October: £268k of annual plans still to earn and £144k of unspent track credits. £31k of those credits have sat for over 90 days.",
+       r:[["Annual plans, still to earn","£268k"],["Unspent track credits","£144k"],["Of which over 90 days","£31k","warn"]],src:["Stripe","Product database","Ledger"],keep:"Month-end close pack, first working day, by email"},
+      {q:"What do we owe each label, and does it tie to their statement?",a:"£186k accrued this quarter. Three tie. Major C is £6.2k apart across 41 tracks, so start there.",
+       r:[["Major A","£74k · ties"],["Major B","£61k · ties"],["Major C","£29k · £6.2k gap","bad"],["Independents","£22k · ties"]],src:["Product database","Content ID","Label statements","Ledger"],keep:"Label accruals, Mondays at 08:00, in Slack"},
+      {q:"What's our runway if Brands stays flat and the dollar slips 5%?",a:"14 months on plan. Flat Brands takes it to 11, and a 5% weaker dollar takes it to 10.",
+       r:[["On plan","14 months"],["Brands flat","11 months","warn"],["Plus dollar down 5%","10 months","bad"]],src:["Ledger","Bank feeds","Stripe","Forecast model"],keep:"Runway line in the monthly board PDF"}]},
+    {d:"Leadership",s:"Growth, creators and brands",qs:[
+      {q:"Creators or Brands: where did this year's growth come from?",a:"Creators added £38k a month, mostly on Pro. Brands added £24k a month at nearly twice the margin.",
+       r:[["Creators","+£38k · 34% margin"],["Brands","+£24k · 61% margin"]],src:["Stripe","Ledger","HubSpot"],keep:"Board summary, monthly"},
+      {q:"What should I know before Monday?",a:"Three things: Pro cancellations are up 6%, one Brands agency has gone quiet, and Major C's statement is £6.2k apart.",
+       src:["Stripe","HubSpot","Label statements"],keep:"Monday briefing at 07:30, in Slack"}]},
+    {d:"Music & Licensing",s:"Rightsholders, Content ID, reporting",qs:[
+      {q:"Which claims missed VOUCH's 30 minutes this week?",a:"61 of 4,120, and 44 of them trace to one asset conflict across 12 tracks. Fix that first.",
+       r:[["Cleared inside 30 minutes","98.5%"],["Over 30 minutes","61","warn"],["From one asset conflict","44","bad"]],src:["VOUCH","Content ID"],keep:"Slack alert if it drops below 97%"},
+      {q:"Build this quarter's report for Major B.",a:"Done: licences, views and claims in their format. Three tracks have metadata mismatches, flagged for review.",
+       r:[["Licences","18,204"],["Claims cleared","17,966"],["Metadata mismatches","3","warn"]],src:["Product database","Content ID","Google Sheets"],keep:"Runs each quarter, ready for your review"}]},
+    {d:"Curation & Programming",s:"Catalogue, playlists, charts",qs:[
+      {q:"What do creators search for that we don't have?",a:"No-result searches rose 14% this month. The top 20 missing tracks make up a third of them, and six sit with rightsholders you already work with.",
+       r:[["No-result searches","+14%","warn"],["From the top 20 tracks","33%"],["With existing rightsholders","6 tracks"]],src:["Site search","Catalogue"],keep:"Weekly list to Music & Licensing"},
+      {q:"Which playlists lead to a licence?",a:"Viral Hits converts best, at 9.2% from preview to licence. Included tracks get the plays and Premium gets the credits.",
+       r:[["Viral Hits","9.2%"],["Most Licensed","7.4%"],["Included playlists","3.1%"]],src:["Piwik PRO","Product database"],keep:"Pinned to the curation dashboard"}]},
+    {d:"Marketing",s:"Brand, growth, creator marketing",qs:[
+      {q:"Which channels bring creators who stay six months?",a:"Affiliates stay longest, at 58% against 41% overall. TikTok brings the most sign-ups and the lowest retention.",
+       r:[["Affiliates","58%"],["YouTube","47%"],["TikTok","29%","warn"]],src:["Stripe","Piwik PRO","HubSpot"],keep:"Monthly retention by channel, by email"},
+      {q:"Who should be our next creator case study?",a:"Five creators grew views fastest after their first licence. All have over 100k subscribers and none has been featured.",
+       src:["Product database","YouTube"],keep:"Refreshes monthly"}]},
+    {d:"Brands & Partnerships",s:"Agencies, requests, clearances",qs:[
+      {q:"Which brand requests missed 72 hours?",a:"9 of 64 this quarter, worth £11k. Seven were waiting on one rightsholder.",
+       r:[["Approved inside 72 hours","86%"],["Late","9 requests","warn"],["Value of late requests","£11k"]],src:["My Requests","HubSpot"],keep:"Alert at 48 hours, before it's late"},
+      {q:"Which agencies have gone quiet?",a:"Three bought in Q2 and nothing since, £38k between them. Two have licences ending within 60 days, so there's a reason to call.",
+       r:[["Quiet agencies","3"],["Past spend","£38k"],["Licences ending in 60 days","2 agencies"]],src:["HubSpot","Stripe","My Requests"],keep:"Renewal list, every Monday"}]},
+    {d:"Customer Success",s:"Creators, claims, support",qs:[
+      {q:"Which Pro creators look likely to cancel?",a:"38 haven't used a credit in 60 days and their views are falling. Together they bill £4.1k a month, and the top five are ready to call.",
+       r:[["No credit used in 60 days","38 creators","warn"],["Billing at risk","£4.1k a month"]],src:["Stripe","Product database","YouTube"],keep:"Call list, every Monday"},
+      {q:"What royalty rate do we pay each label?",lock:true,a:"That isn't available on your login. Rates sit with Finance and Music & Licensing, and this question has been logged. I can show licences per creator instead."}]},
+    {d:"Product & Engineering",s:"Sign-up, VOUCH, platform",qs:[
+      {q:"Where do new sign-ups drop before a first licence?",a:"46% never reach a first licence. The biggest drop is at channel connect, where 28% leave.",
+       r:[["Connected a channel","72%","warn"],["Previewed a track","63%"],["Licensed a track","54%"]],src:["Piwik PRO","Microsoft Clarity","Product database"],keep:"Funnel pinned to the product dashboard"},
+      {q:"Did last week's release slow VOUCH down?",a:"Median clear time went from 11 to 19 minutes after Tuesday's release, only on tracks with more than one rightsholder.",
+       r:[["Before the release","11 min"],["After the release","19 min","warn"]],src:["VOUCH","AWS logs"],keep:"Alert if the median passes 20 minutes"}]}
+  ];
+  var desk=0,qi=0;
+  function renderDesks(){
+    $("desks").innerHTML=DESKS.map(function(d,i){return '<button type="button" data-d="'+i+'" aria-pressed="'+(i===desk)+'"><b>'+esc(d.d)+'</b><small>'+esc(d.s)+'</small></button>'}).join("");
+  }
+  function renderQs(){
+    $("qs").innerHTML=DESKS[desk].qs.map(function(q,i){return '<button type="button" data-q="'+i+'" aria-pressed="'+(i===qi)+'">'+esc(q.q)+'</button>'}).join("");
+  }
+  function renderAnswer(q,text){
+    var h='<div class="you">'+esc(text||q.q)+'</div><div class="ans"><div class="ans-top"><svg aria-hidden="true"><use href="#milo-icon"/></svg><div>';
+    if(q.lock){h+='<p class="locked">'+esc(q.a)+'</p>'}
+    else{h+='<p>'+esc(q.a)+'</p>';if(q.src)h+='<p class="ans-time">Answered in seconds · sample data</p>'}
+    h+='</div></div>';
+    if(q.r)h+='<div class="rows">'+q.r.map(function(r){return '<div'+(r[2]?' class="'+r[2]+'"':'')+'><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>'}).join("")+'</div>';
+    if(q.src)h+='<div class="srcs"><em>Sources</em>'+q.src.map(function(s){return '<span class="chip">'+esc(s)+'</span>'}).join("")+'</div>';
+    if(q.keep)h+='<p class="keep">Keep it running: '+esc(q.keep)+'</p>';
+    $("thread").innerHTML=h+'</div>';
+  }
+  function show(){renderDesks();renderQs();renderAnswer(DESKS[desk].qs[qi])}
+  $("desks").addEventListener("click",function(e){
+    var b=e.target.closest("[data-d]");if(!b)return;
+    desk=+b.dataset.d;qi=0;show();
+    $("desks").querySelector('[data-d="'+desk+'"]').focus();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    qi=+b.dataset.q;renderQs();renderAnswer(DESKS[desk].qs[qi]);
+    $("qs").querySelector('[data-q="'+qi+'"]').focus();
+  });
+  var STOP=/^(what|which|where|when|who|why|how|the|and|our|your|are|did|does|have|has|for|with|that|this|from|much|many|each|before|after|do|we|us|is|it|in|to|of|a|an|on)$/;
+  function words(s){return s.toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){return w.length>1&&!STOP.test(w)})}
+  $("askf").addEventListener("submit",function(e){
+    e.preventDefault();
+    var input=$("ask-input"),text=input.value.trim();if(!text)return;
+    var want=words(text),best=null,score=0;
+    DESKS.forEach(function(d,di){d.qs.forEach(function(q,i){
+      var have=words(q.q+" "+q.a),n=want.filter(function(w){return have.indexOf(w)>=0}).length;
+      if(n>score){score=n;best=[di,i]}
+    })});
+    if(best&&score>=2){desk=best[0];qi=best[1];renderDesks();renderQs();renderAnswer(DESKS[desk].qs[qi],text)}
+    else{[].forEach.call($("qs").children,function(c){c.setAttribute("aria-pressed","false")});
+      renderAnswer({a:"This demo only holds sample answers. On your own data, Milo would answer that from your connected systems."},text)}
+    input.value="";
+  });
+  show();
+
+  /* comparison: Milo first */
+  var CMP=[
+    ["Built for","Analysing and acting on business data","General thinking, writing and coding","Anyone at Lickd can ask, with no SQL and no prompt tricks."],
+    ["Data access","Managed syncs into one central place","Live connectors, set up by each person","Stripe, Content ID and the ledger get joined once, by us, for everyone."],
+    ["Accuracy on numbers","Checks the data and asks when a definition is unclear","Depends on what you paste in or connect","Ask for revenue and Milo checks whether you mean billed or earned. Then it remembers."],
+    ["Definitions","One set for the whole company","Depends on who asks and how they ask","Earned means the same in Finance, in Marketing and in the board pack."],
+    ["Permissions","Role and row-level","Based on each person's own access","Customer Success can ask about creators without seeing royalty rates."],
+    ["Output","Dashboards, automations, apps, files","Chat answers, one-off files","A label report, a board PDF or a live dashboard, with no copying out of a chat."],
+    ["Runs on its own","Scheduled reports and alerts","When you prompt it, or a scheduled task you set up","Label accruals reach you on the first working day without anyone asking."],
+    ["Team setup","Shared connections, roles, company definitions","Mostly individual","One workspace for the whole team, with nobody running their own version."],
+    ["Maintenance","Handled for you","Largely on you","When YouTube or Stripe changes an API, our engineers fix the connection."]
+  ];
+  $("cmp-rows").innerHTML=CMP.map(function(r){return '<details class="c-row"><summary><span class="c-k">'+esc(r[0])+'</span><span class="c-m">'+esc(r[1])+'</span><span class="c-o">'+esc(r[2])+'</span><span class="c-x" aria-hidden="true"></span></summary><p class="c-more">'+esc(r[3])+'</p></details>'}).join("");
+
+  /* poster equaliser */
+  var eq="";for(var i=0;i<56;i++){eq+='<i style="--h:'+(18+Math.abs(Math.sin(i*1.7)*Math.cos(i*.45))*82).toFixed(0)+'%;--d:-'+(i*.11%1.8).toFixed(2)+'s"></i>'}
+  $("eq").innerHTML=eq;
+
+  /* video */
+  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(f&&p&&inline){p.addEventListener("click",function(e){
+    e.preventDefault();
+    var fr=document.createElement("iframe");
+    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
+    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
+    fr.setAttribute("allowfullscreen","");
+    fr.setAttribute("title","Milo product overview");
+    f.appendChild(fr);p.remove();
+  })}
+})();
+</script>
+
+</body>
+</html>
