@@ -1,0 +1,2 @@
+import{t as e}from"./rolldown-runtime.Bi-D_2cA.mjs";function t(e,t){return{description:`Meet Milo, your AI data analyst. Connect your data, ask questions in plain language, and get instant, accurate insights.`,favicon:`fr/assets/6CxE8i0ipM3Kf86VeCuaSMk9dU.png`,robots:`max-image-preview:large`,socialImage:`fr/assets/Jt9TEJbuKPqsaZIb5A6zsl1chgw.png`,title:`Milo AI | AI Data Analyst for Business Analytics`}}function n(){return(n=e((()=>{})))()}export{t as n,n as t};
+//# sourceMappingURL=siteMetadata.DC5AQjC8.mjs.map
