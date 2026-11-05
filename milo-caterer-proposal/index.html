@@ -126,26 +126,6 @@ button,input{font:inherit;color:inherit}
   #rb-read{min-height:190px}
 }
 
-/* letter and glance */
-.intro{padding-block:60px 8px}
-.intro-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
-.letter{background:var(--card);border:1px solid var(--rule);border-top:4px solid var(--plum);padding:26px 28px;border-radius:4px 4px 14px 14px}
-.refs{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-family:var(--mono);font-size:11.5px;color:var(--muted);padding-bottom:14px;margin-bottom:16px;border-bottom:1px dashed var(--rule)}
-.refs b{font-weight:500;color:var(--ink)}
-.letter p{font-size:15px;margin-bottom:11px}
-.letter .sal{font-weight:900;font-size:24px;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
-.sign{margin-top:16px}
-.sign .nm{font-weight:900;font-size:17px}
-.sign .ml{font-size:13px;color:var(--muted)}
-.glance{list-style:none;margin:0;padding:0;display:grid}
-.glance li{display:grid;grid-template-columns:minmax(0,172px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
-.glance li:first-child{border-top:3px solid var(--plum)}
-.glance b{font-weight:900;font-size:33px;line-height:1;letter-spacing:-.03em;color:var(--plum-dd);font-variant-numeric:tabular-nums}
-.glance span{font-size:14px;color:var(--muted)}
-.glance-src{font-size:12px;color:var(--muted);margin-top:10px}
-@media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:420px){.glance li{grid-template-columns:minmax(0,118px) minmax(0,1fr)}.glance b{font-size:23px}.letter{padding:22px 20px}}
-
 /* sections */
 section.band{padding-block:76px;border-top:1px solid var(--rule)}
 section.band.first{border-top:0}
@@ -436,40 +416,9 @@ section.tint{background:var(--lilac-soft);border-top:0}
   .ws-out .label{flex-basis:100%}
 }
 
-/* one client, every system */
-.oc{margin-top:52px}
-.oc-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px 28px;margin-bottom:18px}
-.oc-head>div:first-child{flex:1 1 440px;min-width:0}
-.oc h3{font-size:clamp(28px,3.4vw,40px);margin-bottom:8px}
-.oc-head p{color:var(--muted);font-size:16px;line-height:1.45;max-width:58ch}
-.oc-tabs{display:flex;flex-wrap:wrap;gap:6px}
-.oc-tab{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13.5px;font-weight:800;text-align:left}
-.oc-tab small{display:block;font-size:11.5px;font-weight:600;color:var(--muted)}
-.oc-tab:hover{border-color:var(--plum)}
-.oc-tab[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
-.oc-tab[aria-pressed="true"] small{color:var(--on-plum-m)}
-.oc-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:22px}
-.oc-c{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--good);border-radius:4px 4px 10px 10px;padding:12px 13px 13px;min-width:0;animation:ocin .4s ease both;animation-delay:calc(var(--i)*70ms)}
-.oc-c.warn{border-top-color:var(--orange)}
-.oc-c.bad{border-top-color:var(--red)}
-.oc-c::after{content:"";position:absolute;left:50%;bottom:-23px;width:2px;height:22px;background:var(--line)}
-.oc-c .label{font-size:10px;color:var(--muted);line-height:1.3}
-.oc-c p{font-size:13.5px;font-weight:700;line-height:1.3}
-.oc-c .st{margin-top:auto;align-self:flex-start;font-size:11px;font-weight:800;padding:1px 8px;border-radius:5px;background:var(--good-bg);color:var(--good)}
-.oc-c.warn .st{background:var(--warn-bg);color:var(--warn)}
-.oc-c.bad .st{background:var(--bad-bg);color:var(--bad)}
-@keyframes ocin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.oc-read{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:1px;background:var(--plum-dd);border-radius:14px;overflow:hidden;animation:ocin .4s ease both;animation-delay:.42s}
-.oc-read>div{padding:18px 22px;min-width:0}
-.oc-read .label{display:flex;align-items:center;gap:8px;margin-bottom:6px;color:var(--on-plum-m)}
-.oc-read .label svg{width:22px;height:18px}
-.oc-read p{font-weight:900;font-size:20px;line-height:1.2;letter-spacing:-.015em;color:var(--on-plum)}
-.oc-read .nx{background:var(--sun)}
-.oc-read .nx .label{color:var(--ink)}
-.oc-read .nx p{color:var(--ink)}
-@media (max-width:980px){.oc-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:14px}.oc-c::after{display:none}}
-@media (max-width:620px){.oc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.oc-read{grid-template-columns:minmax(0,1fr)}.oc-read p{font-size:18px}}
-@media (prefers-reduced-motion:reduce){.marq-in,.ws-f,.ws-orbw::before,.ws-tab::after,.oc-c,.oc-read{animation:none}}
+@media (prefers-reduced-motion:reduce){.marq-in,.ws-f,.ws-orbw::before,.ws-tab::after{animation:none}}
+
+#sits .note{margin-top:30px}
 
 /* one answer */
 .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
@@ -653,38 +602,6 @@ footer p+p{margin-top:6px}
 
 <div class="marq" aria-hidden="true"><div class="marq-in"><span>The real forecast</span><span>Pipeline cover</span><span>Quiet deals</span><span>Slipped close dates</span><span>Renewals at risk</span><span>Usage against contract</span><span>Win rate</span><span>Time in stage</span><span>Calls to meetings</span><span>Who owes what</span><span>Rep targets</span><span>Territory balance</span><span>The real forecast</span><span>Pipeline cover</span><span>Quiet deals</span><span>Slipped close dates</span><span>Renewals at risk</span><span>Usage against contract</span><span>Win rate</span><span>Time in stage</span><span>Calls to meetings</span><span>Who owes what</span><span>Rep targets</span><span>Territory balance</span></div></div>
 
-<section class="intro">
-  <div class="wrap">
-    <div class="intro-grid">
-      <article class="letter" aria-label="A note from Liam">
-        <div class="refs">
-          <span>Our ref</span><b>MILO / CATERER / 02</b>
-          <span>For</span><b>Nathan Ward, Paul Rogers and Ollie Finerty</b>
-          <span>Re</span><b>A pilot for one sales team</b>
-        </div>
-        <p class="sal">Dear Nathan, Paul and Ollie,</p>
-        <p>Thank you for the time. This page shows how we would start, the way we do with most sales-led businesses: one agile team and the data that matters most.</p>
-        <p>Everyone on that team, from SDRs to revenue ops, gets their own AI analyst, operations and finance team. They ask Salesforce and Power BI questions in plain English, and deals that go quiet arrive in Teams before anyone has to look for them.</p>
-        <p>None of it needs a slot on the group roadmap. Everything here is sample data, so click around.</p>
-        <div class="sign">
-          <p class="nm">Liam James Rabone</p>
-          <p class="ml">Milo · liam@milo.ai</p>
-        </div>
-      </article>
-
-      <div>
-        <p class="eyebrow"><span class="sq" aria-hidden="true"></span>The pilot, at a glance</p>
-        <ul class="glance">
-          <li><b>4 weeks</b><span>one agile sales team, from SDRs to revenue ops</span></li>
-          <li><b>£1,500</b><span>for the pilot, then £1,500 a month with unlimited users</span></li>
-          <li><b>0</b><span>systems replaced. Salesforce and Power BI stay</span></li>
-          <li><b>Read-only</b><span>until you choose to switch on write-back</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="band first" id="sits" aria-labelledby="ws-h">
   <div class="wrap">
     <div class="head">
@@ -726,17 +643,6 @@ footer p+p{margin-top:6px}
       </div>
     </div>
 
-    <div class="oc" id="oc">
-      <div class="oc-head">
-        <div>
-          <h3>One client. Six systems. <em>One call to make.</em></h3>
-          <p>Milo matches the same client across every system. Each one holds a piece, and nobody sees them all.</p>
-        </div>
-        <div class="oc-tabs" id="oc-tabs" role="group" aria-label="Choose a client"></div>
-      </div>
-      <div class="oc-grid" id="oc-grid" aria-live="polite"></div>
-      <div class="oc-read" id="oc-read"></div>
-    </div>
     <p class="note">Ticked systems were named on our calls or seen on caterer.com. What each one holds is our assumption until we've seen your setup. Every figure is invented, and clients are described by type.</p>
   </div>
 </section>
@@ -1629,52 +1535,6 @@ footer p+p{margin-top:6px}
   if(window.ResizeObserver)new ResizeObserver(wsDraw).observe($("ws-dg"));
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(wsDraw);
   if(window.IntersectionObserver)new IntersectionObserver(function(en){wsSeen=en[0].isIntersecting;wsTick()},{threshold:.35}).observe($("ws-stage"));
-
-  /* one client, every system: [system, what it shows, state] */
-  var OC=[
-    {name:"Contract caterer",sub:"£120k deal, gone quiet",cards:[
-      ["Salesforce","£120k deal open. Close date moved twice.","warn"],
-      ["RingCentral","Last spoke 21 days ago.","warn"],
-      ["Global data platform","49% of credits used, 75% of the term gone.","warn"],
-      ["ATS feeds","Applications reaching their ATS late for three weeks.","bad"],
-      ["Invoices","£6.8k overdue on the CV database.","warn"],
-      ["Support tickets","Two tickets open about the feed.","bad"]],
-     read:"The deal went quiet when their applications started arriving late. Support knows. Sales doesn't.",
-     next:"Fix the feed, clear the invoice, then call with good news."},
-    {name:"Hotel group",sub:"£96k deal, looks fine",cards:[
-      ["Salesforce","£96k deal in proposal. Touched 3 days ago.","ok"],
-      ["RingCentral","Five calls this quarter, all to one contact.","warn"],
-      ["Global data platform","15 adverts a month. Never searches the CV database.","warn"],
-      ["ATS feeds","1,840 applications this quarter, all delivered.","ok"],
-      ["Invoices","Paid up, and on time.","ok"],
-      ["Support tickets","Nothing open.","ok"]],
-     read:"A healthy client that buys one product and knows one person here.",
-     next:"Bring in a second contact, and put the CV database in the proposal."},
-    {name:"Restaurant group",sub:"Renews in 48 days",cards:[
-      ["Salesforce","Renews in 48 days. Marked as healthy.","ok"],
-      ["RingCentral","Spoke 2 days ago, for four minutes.","ok"],
-      ["Global data platform","38% of credits used, 66% of the term gone.","bad"],
-      ["ATS feeds","Applications per advert down 30%.","warn"],
-      ["Invoices","Paid up.","ok"],
-      ["Support tickets","CV database login open for 3 days.","bad"]],
-     read:"Salesforce says healthy. Usage, applications and support all say this renewal is at risk.",
-     next:"Fix the login today, then book a usage review before the renewal talk."}
-  ];
-  var ocI=0,ocWord={ok:"Fine",warn:"Watch",bad:"Problem"};
-  function renderOC(){
-    $("oc-tabs").innerHTML=OC.map(function(c,i){return '<button type="button" class="oc-tab" data-oc="'+i+'" aria-pressed="'+(i===ocI)+'">'+esc(c.name)+'<small>'+esc(c.sub)+'</small></button>'}).join("");
-    var C=OC[ocI];
-    $("oc-grid").innerHTML=C.cards.map(function(x,i){return '<div class="oc-c '+x[2]+'" style="--i:'+i+'"><span class="label">'+esc(x[0])+'</span><p>'+esc(x[1])+'</p><span class="st">'+ocWord[x[2]]+'</span></div>'}).join("");
-    var r=$("oc-read");
-    r.innerHTML='<div><span class="label"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo joins them</span><p>'+esc(C.read)+'</p></div><div class="nx"><span class="label">The call to make</span><p>'+esc(C.next)+'</p></div>';
-    r.style.animation="none";void r.offsetWidth;r.style.animation="";
-  }
-  $("oc-tabs").addEventListener("click",function(e){
-    var b=e.target.closest("[data-oc]");if(!b)return;
-    ocI=+b.dataset.oc;renderOC();
-    var nb=$("oc-tabs").querySelector('[data-oc="'+ocI+'"]');if(nb)nb.focus();
-  });
-  renderOC();
 
   /* videos: embed inline only where the host allows frames */
   var host=location.hostname;
