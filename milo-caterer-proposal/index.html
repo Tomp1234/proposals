@@ -16,6 +16,7 @@
   --paper:#FFFFFF;--panel:#F7F2F8;--card:#FFFFFF;--ink:#2A2230;--muted:#665B6B;--rule:#E8DFEA;
   --plum:#924199;--plum-d:#792D80;--plum-dd:#601F66;--lilac:#F0CEF2;--lilac-soft:#FBF4FB;--on-plum:#FFFFFF;--on-plum-m:#EBD3EE;
   --sun:#FFCF1A;--orange:#F68620;--orange-t:#A34C05;--red:#C31129;
+  --night:#3B1240;--night-deep:#2B0C30;--night-line:#6A3A72;--on-night:#FFFFFF;--on-night-2:#D9BEDC;--hand:#FF8F80;
   --bar:#E4D8E6;--hlbar:#924199;--track:#F1EAF2;--line:#DCCFDE;
   --good:#256B3A;--good-bg:#DFF1E3;--warn:#7A5500;--warn-bg:#FBEFC8;--bad:#A60E22;--bad-bg:#FBE0E3;
   --display:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -114,6 +115,7 @@ button,input{font:inherit;color:inherit}
 .r-stats b{display:block;font-weight:900;font-size:28px;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--plum-dd)}
 .r-stats span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
 .r-say{font-size:14px;color:var(--ink)}
+#rb-read{min-height:136px}
 .rb-hint{font-size:12px;color:var(--muted);margin-top:12px}
 @media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:560px){
@@ -121,6 +123,7 @@ button,input{font:inherit;color:inherit}
   .rb-head,.rb-row{grid-template-columns:minmax(0,108px) minmax(0,1fr) 56px;gap:7px}
   .rb-n{font-size:12px}.rb-v{font-size:11px}
   .rb-panel{padding:16px 14px 14px;box-shadow:7px 7px 0 var(--sun)}
+  #rb-read{min-height:190px}
 }
 
 /* letter and glance */
@@ -135,13 +138,13 @@ button,input{font:inherit;color:inherit}
 .sign .nm{font-weight:900;font-size:17px}
 .sign .ml{font-size:13px;color:var(--muted)}
 .glance{list-style:none;margin:0;padding:0;display:grid}
-.glance li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
+.glance li{display:grid;grid-template-columns:minmax(0,172px) minmax(0,1fr);gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule)}
 .glance li:first-child{border-top:3px solid var(--plum)}
-.glance b{font-weight:900;font-size:38px;line-height:1;letter-spacing:-.03em;color:var(--plum-dd);font-variant-numeric:tabular-nums}
+.glance b{font-weight:900;font-size:33px;line-height:1;letter-spacing:-.03em;color:var(--plum-dd);font-variant-numeric:tabular-nums}
 .glance span{font-size:14px;color:var(--muted)}
 .glance-src{font-size:12px;color:var(--muted);margin-top:10px}
 @media (max-width:900px){.intro-grid{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:420px){.glance li{grid-template-columns:minmax(0,112px) minmax(0,1fr)}.glance b{font-size:30px}.letter{padding:22px 20px}}
+@media (max-width:420px){.glance li{grid-template-columns:minmax(0,118px) minmax(0,1fr)}.glance b{font-size:23px}.letter{padding:22px 20px}}
 
 /* sections */
 section.band{padding-block:76px;border-top:1px solid var(--rule)}
@@ -318,6 +321,156 @@ section.tint{background:var(--lilac-soft);border-top:0}
 @media (max-width:860px){.auto,.mocks{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:560px){.flow{grid-template-columns:minmax(0,1fr)}.fl:not(:last-child)::after{right:auto;left:24px;top:auto;bottom:-10px;transform:rotate(135deg)}}
 
+/* marquee */
+.marq{background:var(--sun);color:var(--ink);overflow:hidden;padding-block:10px}
+.marq-in{display:flex;width:max-content;animation:marq 60s linear infinite}
+.marq span{position:relative;font-weight:800;font-size:13.5px;padding-inline:20px;white-space:nowrap}
+.marq span::after{content:"";position:absolute;right:-3px;top:50%;width:6px;height:6px;transform:translateY(-50%);background:var(--plum-dd)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* where milo sits: everything client-specific lives in the WS data block in the script */
+.ws-tabs{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-bottom:18px}
+.ws-tab{position:relative;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 6px;cursor:pointer;font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap;overflow:hidden;transition:background .2s,border-color .2s,color .2s}
+.ws-tab:hover{border-color:var(--plum);color:var(--ink)}
+.ws-tab[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
+.ws-tabs.touring .ws-tab[aria-pressed="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--sun);transform-origin:left;animation:wsprog 5.5s linear}
+.ws-all:hover .ws-tabs.touring .ws-tab::after{display:none}
+@keyframes wsprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.ws{display:grid;grid-template-columns:minmax(0,350px) minmax(0,1fr);gap:24px;align-items:stretch}
+.ws-left{display:flex;flex-direction:column;gap:12px;min-width:0}
+.ws-gain{font-weight:900;font-size:19px;line-height:1.2;letter-spacing:-.015em;min-height:46px}
+.ws-gain .label{display:block;color:var(--plum);font-size:10.5px;letter-spacing:.06em;margin-bottom:4px}
+.ws-qs{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ws-qb{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;text-align:left;padding:9px 13px;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:700;line-height:1.3;color:var(--ink);cursor:pointer;transition:border-color .2s,opacity .2s,box-shadow .2s}
+.ws-qb:hover{border-color:var(--plum)}
+.ws-qb .d{width:9px;height:9px;background:var(--bar)}
+.ws-qb.m .d{background:var(--plum)}
+.ws-qb[aria-pressed="true"]{border-color:var(--plum);box-shadow:0 0 0 2px var(--plum)}
+.ws-qb.fade{opacity:.42}
+.ws-panel{flex:1;background:var(--panel);border-radius:14px;padding:15px 17px 16px;min-height:208px;display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.ws-v{font-size:12px;font-weight:800;padding:2px 10px;border-radius:6px;border:1px solid var(--muted);color:var(--muted)}
+.ws-v.m{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
+.ws-v.hand{background:transparent;border-color:var(--bad);color:var(--bad)}
+.ws-v.sys{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.ws-qq{font-weight:900;font-size:20px;line-height:1.12;letter-spacing:-.015em}
+.ws-a{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.ws-a svg{width:24px;height:19px;flex:none;margin-top:3px;color:var(--bad)}
+.ws-src{font-family:var(--mono);font-size:10.5px;line-height:1.5;color:var(--muted);margin-top:auto}
+.ws-kb{display:grid;gap:10px;width:100%}
+.ws-kb .label{display:block;color:var(--plum);margin-bottom:3px}
+.ws-kb .no{color:var(--bad)}
+.ws-kb p{font-size:14.5px}
+.ws-meter{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:var(--muted)}
+.ws-meter b{color:var(--ink);font-weight:800}
+.ws-sq{display:inline-flex;flex-wrap:wrap;gap:3px}
+.ws-sq i{width:8px;height:8px;background:var(--bar)}
+.ws-sq i.m{background:var(--plum)}
+.ws-stage{position:relative;background:var(--night);color:var(--on-night);border-radius:16px;overflow:hidden;min-width:0;box-shadow:12px 12px 0 var(--sun)}
+.ws-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--night-line)}
+.ws-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ws-mode{display:inline-flex;border:1px solid var(--night-line);border-radius:8px;overflow:hidden}
+.ws-mode button{background:none;border:0;padding:6px 13px;cursor:pointer;font-size:12.5px;font-weight:800;color:var(--on-night-2);white-space:nowrap}
+.ws-mode button:hover{color:var(--on-night)}
+.ws-mode button[aria-pressed="true"]{background:var(--on-night);color:var(--night-deep)}
+.ws-tourb{background:none;border:1px solid var(--night-line);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:12.5px;font-weight:800;color:var(--on-night-2);white-space:nowrap}
+.ws-tourb:hover{color:var(--on-night);border-color:var(--on-night-2)}
+.ws-dg{position:relative;flex:1;display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr) minmax(0,136px);align-items:center;padding:14px 16px 20px}
+.ws-dg::before{content:"";position:absolute;left:50%;top:50%;width:300px;height:300px;transform:translate(-50%,-50%);background:linear-gradient(var(--on-night),var(--on-night)) 0 0/48% 48% no-repeat,linear-gradient(var(--on-night),var(--on-night)) 100% 0/48% 48% no-repeat,linear-gradient(var(--on-night),var(--on-night)) 0 100%/48% 48% no-repeat;opacity:.035;pointer-events:none}
+.ws-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.ws-w{fill:none;stroke:var(--night-line);stroke-width:1}
+.ws-w.on{stroke:var(--sun);stroke-opacity:.45}
+.ws-w.on.o{stroke:var(--orange)}
+.ws-f{fill:none;stroke:var(--sun);stroke-width:3.2;stroke-linecap:round;stroke-dasharray:.1 13;animation:wsflow 1.1s linear infinite}
+.ws-f.o{stroke:var(--orange)}
+.ws-f.hand{stroke:var(--hand);stroke-width:1.6;stroke-linecap:butt;stroke-dasharray:5 5;animation:none}
+@keyframes wsflow{to{stroke-dashoffset:-13.1}}
+.ws-col{position:relative;z-index:1;display:grid;gap:5px;min-width:0}
+.ws-col .label{color:var(--on-night-2);margin-bottom:3px}
+.ws-sy{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:0 8px;align-items:center;width:100%;text-align:left;padding:4px 9px;background:var(--night-deep);border:1px solid var(--night-line);border-radius:8px;cursor:pointer;color:var(--on-night-2);transition:background .2s,border-color .2s,color .2s,transform .2s}
+.ws-sy i{grid-row:1/3;grid-column:1;width:7px;height:7px;background:var(--night-line);transition:background .2s,box-shadow .2s}
+.ws-sy b{grid-column:2;font-size:13px;font-weight:800;line-height:1.25}
+.ws-sy small{grid-column:2;font-size:11px;font-weight:600;line-height:1.25;opacity:.85}
+.ws-sy svg{grid-row:1/3;grid-column:3;width:12px;height:12px;color:var(--sun)}
+.ws-sy:hover{border-color:var(--sun)}
+.ws-sy.on{background:var(--on-night);border-color:var(--on-night);color:var(--night-deep);transform:translateX(3px)}
+.ws-sy.on i{background:var(--plum);box-shadow:0 0 8px var(--sun)}
+.ws-sy.on svg{color:var(--plum)}
+.ws-node{position:relative;z-index:1;justify-self:center;display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;width:132px}
+.ws-orbw{position:relative;width:88px;height:88px;display:grid;place-items:center}
+.ws-orbw::before{content:"";position:absolute;inset:-11px;border:2px dashed var(--sun);border-radius:50%;opacity:.6;animation:wsspin 26s linear infinite}
+@keyframes wsspin{to{transform:rotate(360deg)}}
+.ws-orb{position:relative;width:88px;height:88px;display:grid;place-items:center;background:var(--on-night);border-radius:50%;transition:background .3s}
+.ws-orb svg{width:50px;height:40px;color:var(--night-deep)}
+.ws-node b{font-weight:900;font-size:21px;line-height:1.05;letter-spacing:-.02em}
+.ws-node small{font-size:12px;font-weight:600;line-height:1.35;color:var(--on-night-2)}
+.ws-dg.hand .ws-orbw::before{animation:none;border-color:var(--hand);opacity:.5}
+.ws-dg.hand .ws-orb{background:var(--night-line)}
+.ws-dg.hand .ws-orb svg{color:var(--on-night)}
+.ws-o{display:flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--night-line);border-radius:8px;background:var(--night-deep);font-size:12.5px;font-weight:700;line-height:1.25;color:var(--on-night-2);opacity:.8;transition:border-color .2s,color .2s,opacity .2s}
+.ws-o i{width:6px;height:6px;background:var(--night-line);flex:none}
+.ws-o.on{border-color:var(--orange);color:var(--on-night);opacity:1}
+.ws-o.on i{background:var(--orange);box-shadow:0 0 8px var(--orange)}
+.ws-dg.hand .ws-o.on{border-color:var(--hand)}
+.ws-dg.hand .ws-o.on i{background:var(--hand);box-shadow:none}
+@media (max-width:1040px){
+  .ws{grid-template-columns:minmax(0,1fr)}
+  .ws-tabs{display:flex;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .ws-tabs::-webkit-scrollbar{display:none}
+  .ws-tab{flex:none;padding-inline:15px}
+  .ws-panel{min-height:0}
+  .ws-gain{min-height:0}
+  .ws-stage{box-shadow:7px 7px 0 var(--sun)}
+}
+@media (max-width:620px){
+  .ws-lines{display:none}
+  .ws-dg{grid-template-columns:minmax(0,1fr);justify-items:stretch;padding:14px 14px 18px}
+  .ws-sys{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ws-sys .label{grid-column:1/-1}
+  .ws-sys .ws-sy:last-child{grid-column:1/-1}
+  .ws-sy.on{transform:none}
+  .ws-node{justify-self:center;margin-block:38px 30px;width:auto}
+  .ws-node::before,.ws-node::after{content:"";position:absolute;left:50%;width:1px;height:20px;background:var(--sun);opacity:.6}
+  .ws-node::before{top:-34px}
+  .ws-node::after{bottom:-26px}
+  .ws-out{display:flex;flex-wrap:wrap;gap:6px}
+  .ws-out .label{flex-basis:100%}
+}
+
+/* one client, every system */
+.oc{margin-top:52px}
+.oc-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px 28px;margin-bottom:18px}
+.oc-head>div:first-child{flex:1 1 440px;min-width:0}
+.oc h3{font-size:clamp(28px,3.4vw,40px);margin-bottom:8px}
+.oc-head p{color:var(--muted);font-size:16px;line-height:1.45;max-width:58ch}
+.oc-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.oc-tab{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13.5px;font-weight:800;text-align:left}
+.oc-tab small{display:block;font-size:11.5px;font-weight:600;color:var(--muted)}
+.oc-tab:hover{border-color:var(--plum)}
+.oc-tab[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
+.oc-tab[aria-pressed="true"] small{color:var(--on-plum-m)}
+.oc-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:22px}
+.oc-c{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--good);border-radius:4px 4px 10px 10px;padding:12px 13px 13px;min-width:0;animation:ocin .4s ease both;animation-delay:calc(var(--i)*70ms)}
+.oc-c.warn{border-top-color:var(--orange)}
+.oc-c.bad{border-top-color:var(--red)}
+.oc-c::after{content:"";position:absolute;left:50%;bottom:-23px;width:2px;height:22px;background:var(--line)}
+.oc-c .label{font-size:10px;color:var(--muted);line-height:1.3}
+.oc-c p{font-size:13.5px;font-weight:700;line-height:1.3}
+.oc-c .st{margin-top:auto;align-self:flex-start;font-size:11px;font-weight:800;padding:1px 8px;border-radius:5px;background:var(--good-bg);color:var(--good)}
+.oc-c.warn .st{background:var(--warn-bg);color:var(--warn)}
+.oc-c.bad .st{background:var(--bad-bg);color:var(--bad)}
+@keyframes ocin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.oc-read{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:1px;background:var(--plum-dd);border-radius:14px;overflow:hidden;animation:ocin .4s ease both;animation-delay:.42s}
+.oc-read>div{padding:18px 22px;min-width:0}
+.oc-read .label{display:flex;align-items:center;gap:8px;margin-bottom:6px;color:var(--on-plum-m)}
+.oc-read .label svg{width:22px;height:18px}
+.oc-read p{font-weight:900;font-size:20px;line-height:1.2;letter-spacing:-.015em;color:var(--on-plum)}
+.oc-read .nx{background:var(--sun)}
+.oc-read .nx .label{color:var(--ink)}
+.oc-read .nx p{color:var(--ink)}
+@media (max-width:980px){.oc-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:14px}.oc-c::after{display:none}}
+@media (max-width:620px){.oc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.oc-read{grid-template-columns:minmax(0,1fr)}.oc-read p{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.marq-in,.ws-f,.ws-orbw::before,.ws-tab::after,.oc-c,.oc-read{animation:none}}
+
 /* one answer */
 .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .card{background:var(--card);border:1px solid var(--line);padding:22px;border-radius:12px;display:flex;flex-direction:column;min-width:0}
@@ -446,6 +599,7 @@ footer p+p{margin-top:6px}
     <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
     <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
     <symbol id="cc-logo" viewBox="66.26 212.33 821.39 139.08"><path fill="#333" d="M383.532 316.058c0 5.151-.468 7.962 7.493 6.088v2.811c-.937.468-2.576 1.17-3.98 1.404-7.024 1.171-12.644.234-13.814-7.727l-1.171 1.171c-5.62 5.619-11.708 8.429-19.668 8.429-9.366 0-17.795-6.321-17.795-16.156 0-15.219 12.175-17.092 24.585-19.199 10.537-1.64 14.049-2.576 14.049-8.897 0-9.834-5.62-15.454-15.454-15.454-9.6 0-14.985 6.322-15.922 9.132h-1.405v-7.492c6.322-4.449 13.581-7.259 21.307-7.259 14.049 0 21.542 7.259 21.542 22.244zm-10.771-22.009-4.683.937c-9.132 1.639-22.712 3.044-22.712 15.219 0 8.43 4.917 12.41 13.112 12.41 3.512 0 8.195-2.575 10.537-5.151.937-.937 3.512-3.278 3.512-4.215zM410.458 246.282v17.327h14.049c-.469 1.873-.469 3.746 0 5.151h-14.049v33.482c0 8.195-1.17 21.542 9.834 21.542 2.108 0 3.981-.469 6.088-.937v3.277c-3.513 1.405-7.259 2.342-11.239 2.342-10.068 0-15.922-4.683-15.22-20.839v-39.103h-8.195c.468-1.639.468-3.278 0-5.151h8.195v-13.112zM483.746 320.273c-6.556 4.684-14.751 7.961-22.946 7.961-18.264 0-31.375-12.176-31.375-32.78 0-18.497 10.536-32.78 30.438-32.78 14.751 0 28.332 10.303 26.927 32.547-9.132-.234-18.029-.469-26.927-.469h-18.731c-1.171 14.985 7.024 27.629 22.946 27.629 9.132 0 16.156-5.619 19.668-9.132zm-7.258-30.204c-.234-11.474-3.513-23.181-16.625-23.181-12.409 0-18.029 11.941-18.731 23.181zM497.093 263.61c1.639.234 3.512.469 5.386.469 1.639 0 3.277-.234 5.385-.469v13.347l.703-1.64c4.448-7.024 10.067-12.409 16.858-12.409 1.873 0 3.044.234 4.214.702l-1.873 11.239c-2.107-.469-3.98-2.107-6.321-2.107-3.044 0-6.557 1.171-8.43 3.278-4.683 5.385-4.917 9.6-4.917 16.858v34.419c-2.107-.234-3.513-.468-5.386-.468s-3.512.233-5.385.468zM586.771 320.273c-6.556 4.684-14.751 7.961-22.946 7.961-18.264 0-31.375-12.176-31.375-32.78 0-18.497 10.536-32.78 30.438-32.78 14.751 0 28.332 10.303 26.927 32.547-9.132-.234-18.029-.469-26.927-.469h-18.731c-1.171 14.985 7.024 27.629 22.946 27.629 9.132 0 16.156-5.619 19.668-9.132zm-7.259-30.204c-.233-11.474-3.512-23.181-16.624-23.181-12.409 0-18.029 11.941-18.731 23.181zM603.161 263.61c1.639.234 3.512.469 5.386.469 1.639 0 3.277-.234 5.385-.469v13.347l.702-1.64c4.449-7.024 10.068-12.409 16.858-12.409 1.874 0 2.811.234 4.215.702l-1.873 11.239c-2.107-.469-3.98-2.107-6.322-2.107-2.81 0-6.556 1.171-8.429 3.278-4.683 5.385-4.917 9.6-4.917 16.858v34.419c-2.107-.234-3.513-.468-5.386-.468s-3.512.233-5.385.468z"/><path fill="#ff8d27" d="M638.751 312.312c4.215 0 7.961 3.746 7.961 7.961 0 4.449-3.512 7.961-7.961 7.961s-8.195-3.512-8.195-7.961 3.747-7.961 8.195-7.961M710.634 276.956h-1.171c-1.17-1.405-2.106-3.278-3.512-4.449-3.044-3.512-8.663-5.385-13.112-5.385-15.453 0-22.946 13.346-22.946 27.16 0 17.093 9.6 29.034 24.117 29.034 7.727 0 12.878-3.512 18.264-8.663l.702.468-.702 6.088c-6.088 4.449-13.112 6.557-20.371 6.557-22.244 0-33.951-14.283-33.951-33.015 0-20.604 14.751-32.546 34.42-32.546 7.492 0 14.517 1.404 21.072 5.385zM753.015 262.673c18.264 0 30.907 12.644 30.907 32.547 0 16.857-11.239 33.014-33.249 33.014-18.029 0-32.546-13.112-31.375-33.482 0-18.967 14.751-32.079 33.717-32.079m-22.01 34.186c0 13.112 5.619 27.16 20.839 27.16 15.454 0 20.605-19.199 20.605-29.502 0-11.941-4.449-27.629-19.2-27.629-17.093 0-22.244 15.922-22.244 29.971M795.629 263.61c1.64.234 3.513.469 5.386.469 1.639 0 3.278-.234 5.386-.469v11.474c4.448-7.493 10.302-12.176 19.668-12.176 8.663 0 16.624 4.683 19.434 13.112 5.151-8.43 11.941-13.112 20.84-13.112 16.155 0 21.307 9.365 21.307 25.99v38.399c-2.107-.234-3.512-.468-5.385-.468s-3.513.233-5.386.468v-35.59c0-11.941-1.639-22.01-14.751-22.01-13.347 0-15.22 11.941-15.22 21.541v35.824c-2.107-.233-3.513-.468-5.386-.468s-3.512.234-5.385.468v-38.867c0-12.41-4.215-18.498-14.049-18.498-13.814 0-15.922 9.132-15.922 18.731v38.634c-2.107-.233-3.513-.468-5.386-.468s-3.512.234-5.385.468z"/><path fill="#333" d="M326.166 322.38c-3.278 2.576-14.517 7.727-28.098 7.727-28.332 0-49.171-17.561-49.171-48.233s20.839-48.234 50.576-48.234c11.473 0 22.01 2.81 29.268 6.088-1.405 2.342-2.341 7.727-2.81 10.536l-.702.234c-3.747-4.215-12.878-11.941-25.522-11.941-21.073 0-37.229 13.347-37.229 43.317s16.156 43.316 37.229 43.316c12.878 0 22.244-7.258 27.395-11.238l.468.468z"/><path fill="#f68620" d="M66.264 281.873h69.541v69.541H66.264z"/><path fill="#333" d="M135.571 281.873h69.542v69.541h-69.542z"/><path fill="#924199" d="M66.264 212.331h69.541v69.542H66.264z"/><path fill="#ffcf1a" d="M135.805 212.331h69.542v69.542h-69.542z"/><path fill="#333" d="M167.883 219.122h-.468c0 1.639.468 11.473.234 12.409-.234.703-.468.937-.703.937s-.468-.233-.702-.937c-.234-1.171-.469-11.005-.469-12.409h-.937c.234 11.473-.234 11.473-.468 12.409-.234.703-.468.937-.702.937s-.468-.233-.703-.937c-.234-1.171 0-11.005.234-12.409h-.703s-2.341 14.751-.703 16.39c.703.703 1.405.937 2.342 1.171-.234 4.917-.937 32.078-.234 35.122q.702 2.81 1.405 2.81h.234c.468-.234 1.171-.937 1.405-2.81.703-3.044-.234-30.439-.234-35.122.702-.234 1.405-.468 2.107-1.171 1.407-1.639-.935-16.39-.935-16.39M173.971 219.122v16.39c0 2.81-1.171 32.78-.234 36.059.468 1.873.937 2.81 1.639 2.81.468-.233 1.171-.937 1.639-2.81.703-3.278-.234-32.78-.234-36.059.937-.234 1.639-.702 2.576-1.171 2.575-1.404-1.64-14.049-5.386-15.219"/><path fill="#fff" d="M105.132 240.898c3.278-1.64 5.62-4.917 5.62-8.663 0-5.386-4.449-9.601-9.6-9.601-5.385 0-9.6 4.449-9.6 9.601 0 3.98 2.341 7.258 5.62 8.663l-.468 3.044-4.683 27.161h18.264l-4.683-27.161zM175.61 343.453h-10.537s-4.449-34.186-1.171-37.932c1.405-1.639 3.044-2.342 4.683-2.81v-9.834h-.234v-3.513h4.214v3.513h-.234v9.834c1.639.468 3.278 1.171 4.683 2.81 3.278 3.747-1.404 37.932-1.404 37.932m-.937-28.565c0-2.342-1.874-4.215-4.215-4.215s-4.214 1.873-4.214 4.215 1.873 4.214 4.214 4.214 4.215-1.873 4.215-4.214"/><g fill="#fff"><path d="M110.751 299.199c-1.171 0-2.107.234-3.044.703-1.171-3.044-3.747-5.151-7.024-5.151-3.044 0-5.854 2.107-7.024 5.151-.937-.469-1.639-.469-2.81-.469-3.512 0-6.556 2.81-6.556 6.088s3.044 6.088 6.556 6.088c1.874 0 3.747-.937 4.917-2.107 1.405 1.171 3.044 1.873 4.683 1.873 1.873 0 3.747-.937 5.151-2.107 1.17 1.405 3.044 2.107 4.917 2.107 3.512 0 6.556-2.81 6.556-6.088.234-3.277-2.575-6.088-6.322-6.088M92.02 335.024h17.795v4.449H92.02zM109.814 313.951c-1.405-.234-2.81-.703-3.98-1.405-1.405.937-3.278 1.405-5.151 1.405-1.639 0-3.278-.469-4.683-1.171q-1.756 1.405-4.215 1.404v18.966h17.795v-19.199z"/></g></symbol>
+    <symbol id="ws-sheet" viewBox="0 0 46 37"><rect x="4" y="3" width="38" height="31" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 12h38M4 21h38M17 3v31M30 3v31" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
     <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
     <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
@@ -460,6 +614,7 @@ footer p+p{margin-top:6px}
       <span class="lk-sub">Stepstone Group</span>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="#sits">Your tools</a>
       <a href="#rollout">Rollout</a>
       <a href="#ask">Ask</a>
       <a href="#alerts">Alerts</a>
@@ -496,6 +651,8 @@ footer p+p{margin-top:6px}
   </div>
 </section>
 
+<div class="marq" aria-hidden="true"><div class="marq-in"><span>The real forecast</span><span>Pipeline cover</span><span>Quiet deals</span><span>Slipped close dates</span><span>Renewals at risk</span><span>Usage against contract</span><span>Win rate</span><span>Time in stage</span><span>Calls to meetings</span><span>Who owes what</span><span>Rep targets</span><span>Territory balance</span><span>The real forecast</span><span>Pipeline cover</span><span>Quiet deals</span><span>Slipped close dates</span><span>Renewals at risk</span><span>Usage against contract</span><span>Win rate</span><span>Time in stage</span><span>Calls to meetings</span><span>Who owes what</span><span>Rep targets</span><span>Territory balance</span></div></div>
+
 <section class="intro">
   <div class="wrap">
     <div class="intro-grid">
@@ -508,7 +665,7 @@ footer p+p{margin-top:6px}
         <p class="sal">Dear Nathan, Paul and Ollie,</p>
         <p>Thank you for the time. This page shows how we would start, the way we do with most sales-led businesses: one agile team and the data that matters most.</p>
         <p>Everyone on that team, from SDRs to revenue ops, gets their own AI analyst, operations and finance team. They ask Salesforce and Power BI questions in plain English, and deals that go quiet arrive in Teams before anyone has to look for them.</p>
-        <p>None of it needs a slot on the group roadmap. Everything here is sample data, so click around. Feel free to pass it on to Umang.</p>
+        <p>None of it needs a slot on the group roadmap. Everything here is sample data, so click around.</p>
         <div class="sign">
           <p class="nm">Liam James Rabone</p>
           <p class="ml">Milo · liam@milo.ai</p>
@@ -516,23 +673,78 @@ footer p+p{margin-top:6px}
       </article>
 
       <div>
-        <p class="eyebrow"><span class="sq" aria-hidden="true"></span>Stepstone UK, as we understand it</p>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span>The pilot, at a glance</p>
         <ul class="glance">
-          <li><b>2</b><span>UK brands: Caterer.com and Totaljobs</span></li>
-          <li><b>100m+</b><span>site visits a week across the group's brands</span></li>
-          <li><b>2</b><span>places sales data lives: Salesforce and Power BI</span></li>
-          <li><b>1</b><span>team to start with: sales, from SDRs to revenue ops</span></li>
+          <li><b>4 weeks</b><span>one agile sales team, from SDRs to revenue ops</span></li>
+          <li><b>£1,500</b><span>for the pilot, then £1,500 a month with unlimited users</span></li>
+          <li><b>0</b><span>systems replaced. Salesforce and Power BI stay</span></li>
+          <li><b>Read-only</b><span>until you choose to switch on write-back</span></li>
         </ul>
-        <p class="glance-src">From our conversation.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="band first" id="team" aria-labelledby="tm-h">
+<section class="band first" id="sits" aria-labelledby="ws-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">02</span> For everyone on the team</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">02</span> Where Milo sits</p>
+      <h2 id="ws-h">Your tools stay. <em>Milo joins them up.</em></h2>
+      <p>Pick a team and a question to see which systems it takes. Click a system to see what it can't see alone.</p>
+    </div>
+    <div class="ws-all" id="ws-all">
+      <div class="ws-tabs" id="ws-tabs" role="group" aria-label="Choose a team"></div>
+      <div class="ws">
+        <div class="ws-left">
+          <p class="ws-gain" id="ws-gain"></p>
+          <ul class="ws-qs" id="ws-qs" aria-label="Questions"></ul>
+          <div class="ws-panel" id="ws-panel" aria-live="polite"></div>
+          <p class="ws-meter" id="ws-meter"></p>
+        </div>
+        <div class="ws-stage" id="ws-stage" style="display:flex;flex-direction:column">
+          <div class="ws-top">
+            <div class="ws-ctl">
+              <div class="ws-mode" id="ws-mode" role="group" aria-label="Compare">
+                <button type="button" data-m="with" aria-pressed="true">With Milo</button>
+                <button type="button" data-m="without" aria-pressed="false">Without Milo</button>
+              </div>
+              <button type="button" class="ws-tourb" id="ws-tour">Pause tour</button>
+            </div>
+            <span class="tag">Sample data</span>
+          </div>
+          <div class="ws-dg" id="ws-dg">
+            <svg class="ws-lines" id="ws-lines" aria-hidden="true"></svg>
+            <div class="ws-col ws-sys" id="ws-sys" role="group" aria-label="Caterer.com's systems"></div>
+            <div class="ws-node">
+              <span class="ws-orbw" id="ws-orb"><span class="ws-orb"><svg aria-hidden="true"><use id="ws-nu" href="#milo-icon"/></svg></span></span>
+              <b id="ws-nt">Milo</b>
+              <small id="ws-ns">One place to ask, over all of it</small>
+            </div>
+            <div class="ws-col ws-out" id="ws-out"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="oc" id="oc">
+      <div class="oc-head">
+        <div>
+          <h3>One client. Six systems. <em>One call to make.</em></h3>
+          <p>Milo matches the same client across every system. Each one holds a piece, and nobody sees them all.</p>
+        </div>
+        <div class="oc-tabs" id="oc-tabs" role="group" aria-label="Choose a client"></div>
+      </div>
+      <div class="oc-grid" id="oc-grid" aria-live="polite"></div>
+      <div class="oc-read" id="oc-read"></div>
+    </div>
+    <p class="note">Ticked systems were named on our calls or seen on caterer.com. What each one holds is our assumption until we've seen your setup. Every figure is invented, and clients are described by type.</p>
+  </div>
+</section>
+
+<section class="band" id="team" aria-labelledby="tm-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">03</span> For everyone on the team</p>
       <h2 id="tm-h">Everyone gets <em>their own team.</em></h2>
       <p>From SDRs to the sales director, each person on Milo gets the same three.</p>
     </div>
@@ -565,7 +777,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="video" aria-labelledby="vid-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">03</span> See it</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">04</span> See it</p>
       <h2 id="vid-h">Two short films. <em>Under three minutes.</em></h2>
       <p>What Milo is, then what it did for one commercial team. For anyone you share this with.</p>
     </div>
@@ -602,7 +814,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="rollout" aria-labelledby="ro-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">04</span> The rollout</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">05</span> The rollout</p>
       <h2 id="ro-h">Start where the deals are. <em>Then the next team.</em></h2>
       <p>We start with one agile team, where the most important data is. In a sales-led business, that is the sales floor. Pick a wave.</p>
     </div>
@@ -627,7 +839,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="ask" aria-labelledby="ask-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">05</span> Ask Milo</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">06</span> Ask Milo</p>
       <h2 id="ask-h">The whole sales team. <em>Answered in seconds.</em></h2>
       <p>SDRs, account executives, account managers, revenue and sales ops, and their leaders. Pick a seat and a question, or type your own.</p>
     </div>
@@ -654,7 +866,7 @@ footer p+p{margin-top:6px}
 <section class="band tint" id="alerts" aria-labelledby="al-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">06</span> Pull, then push</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">07</span> Pull, then push</p>
       <h2 id="al-h">Quiet deals arrive in Teams. <em>Before Monday's call.</em></h2>
       <p>Milo pulls from Salesforce, finds what needs doing, then pushes it back: a message to the owner and a task on the deal. Pick an alert.</p>
     </div>
@@ -672,7 +884,7 @@ footer p+p{margin-top:6px}
 <section class="band first" id="answer" aria-labelledby="an-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">07</span> One source of truth</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">08</span> One source of truth</p>
       <h2 id="an-h">Same question. <em>Same answer.</em></h2>
       <p>AI is now part of everyone's job. When each person asks on their own, the numbers drift in three ways.</p>
     </div>
@@ -703,7 +915,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="connect" aria-labelledby="cx-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">08</span> What Milo connects to</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> What Milo connects to</p>
       <h2 id="cx-h">The tools sales runs on. <em>All in one place.</em></h2>
       <p>Today it's Salesforce and Power BI. As more teams join, so do their tools.</p>
     </div>
@@ -735,7 +947,7 @@ footer p+p{margin-top:6px}
       </div>
       <div class="fam">
         <h3>Recruitment tech</h3>
-        <p class="fs">The systems your clients post from</p>
+        <p class="fs">Feeds, ATS and job distribution</p>
         <div class="pills"><span class="v">Appcast</span><span>Bullhorn</span><span>Broadbean</span><span>idibu</span><span>JobAdder</span><span>Vincere</span><span>Workday</span><span>SAP SuccessFactors</span><span>iCIMS</span><span>Tribepad</span></div>
       </div>
       <div class="fam">
@@ -752,7 +964,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="proof" aria-labelledby="proof-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">09</span> Proof</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">10</span> Proof</p>
       <h2 id="proof-h">Sales teams on Salesforce <em>already run on it.</em></h2>
       <p>The closest example is a B2B platform whose account teams work in Salesforce and Power BI.</p>
     </div>
@@ -793,7 +1005,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="pilot" aria-labelledby="pi-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">10</span> The pilot</p>
+      <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">11</span> The pilot</p>
       <h2 id="pi-h">Four weeks. <em>One team.</em></h2>
       <p>We do the heavy lifting. Your team asks the questions.</p>
     </div>
@@ -833,9 +1045,9 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="sec">
       <div>
-        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">11</span> Trust and security</p>
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span><span class="n">12</span> Trust and security</p>
         <h2 id="sec-h">Hosted in Frankfurt. <em>Access by role.</em></h2>
-        <p class="t">Each person sees only what their role allows. The pilot reads sales data only, with no HR or payment data, and stays read-only until you switch on write-back. Hosted in Frankfurt on AWS, or on your own servers. ISO 27001, SOC 2 and GDPR.</p>
+        <p class="t">Each person sees only what their role allows. HR and payment data stay out of the pilot, and every connection stays read-only until you switch on write-back. Hosted in Frankfurt on AWS, or on your own servers. ISO 27001, SOC 2 and GDPR.</p>
       </div>
       <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
     </div>
@@ -845,7 +1057,7 @@ footer p+p{margin-top:6px}
 
 <footer>
   <div class="wrap">
-    <p>Prepared for Nathan Ward, Paul Rogers and Ollie Finerty by Liam James Rabone · October 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
+    <p>Prepared for Nathan Ward, Paul Rogers and Ollie Finerty by Liam James Rabone · November 2026 · Milo is an Autonomous Minds product · ISO 27001 · SOC 2 · GDPR</p>
     <p>Deals and clients in the demos are described by type, and every figure in them is sample data.</p>
   </div>
 </footer>
@@ -932,6 +1144,17 @@ footer p+p{margin-top:6px}
     var nb=$("rb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
   });
 
+  /* the board plays through to Milo's answer once, until someone takes over */
+  var rbTimer=null;
+  function rbPlay(){
+    rbTimer=setTimeout(function(){
+      if(layer>=LAYERS.length-1)return;
+      layer++;renderRB();rbPlay();
+    },layer===0?2600:3200);
+  }
+  $("rb-tabs").addEventListener("click",function(){clearTimeout(rbTimer)});
+  if(!reduce)rbPlay();
+
   /* rollout: teams by wave */
   var TEAMS=[
     ["SDRs",1],["SMB and enterprise sales",1],["Account managers",1],["Revenue and sales ops",1],
@@ -979,31 +1202,40 @@ footer p+p{margin-top:6px}
 
   /* seats */
   var SEATS=[
-    {g:"Sales leadership",name:"Sales manager",sub:"Team pipeline and targets",sys:["Salesforce","Power BI"],qs:[
-      {q:"How is each team tracking against target?",kw:["team","teams","tracking","quota","kpi","kpis","performance","pace","october"],type:"bars",unit:"%",hl:2,
-       cap:"October so far, % of monthly target, three working days left",
-       rows:[["SMB · new business",91],["SMB · renewals",84],["Enterprise · new business",68],["Enterprise · renewals",79]],
-       say:"Enterprise new business is furthest behind. Two of its biggest deals have gone quiet.",
-       src:["Salesforce"],alert:"Every morning in Teams: each team against target."},
-      {q:"Why don't Salesforce and Power BI agree on October?",kw:["agree","disagree","different","differ","power","bi","report","reports","match","mismatch","definition","definitions","why"],type:"summary",
-       kpis:[["£412k","Salesforce, counted at close"],["£389k","Power BI report, counted at invoice"],["£23k","six deals closed, not yet invoiced"],["1","definition, used from now on"]],
-       say:"Both are right. They count a deal at different moments. Milo uses the definition you choose and shows it under every answer.",
-       src:["Salesforce","Power BI"],alert:null}
-    ]},
-    {g:"Sales leadership",name:"Sales director",sub:"The forecast and the quarter",sys:["Salesforce","Power BI"],qs:[
+    {g:"Sales leadership",name:"Sales director",sub:"The forecast and the quarter",sys:["Salesforce","Power BI","RingCentral"],qs:[
       {q:"What will we close this quarter?",kw:["close","forecast","quarter","q4","land","commit","expect","predict","win"],type:"summary",
        kpis:[["£1.26m","weighted forecast"],["89%","of the £1.41m target"],["£148k","in deals moved twice"],["3","deals to call this week"]],
        say:"On course for 89% of target. Most of the gap is three deals that went quiet and slipped.",
        src:["Salesforce"],alert:"Every Friday: the forecast, and what changed this week."},
+      {q:"What would it take to hit the number?",kw:["hit","number","gap","short","take","miss","missing","behind","target","make"],type:"list",
+       rows:[["Call the three quiet deals","£148k back in play","This week","bad"],["Move four proposals on","£96k, waiting 21+ days","This week","warn"],["Upsell two clients out of credits","£24k, usually closes in a week","This month","ok"]],
+       say:"You're £150k short of £1.41m. Three moves would more than cover it, and all three are already in your pipeline.",
+       src:["Salesforce","Power BI"],alert:"Every Monday in Teams: the gap to target, and the moves that close it."},
+      {q:"Which reps need help this month?",kw:["reps","rep","coaching","coach","help","who","people","individual","underperforming","struggling"],type:"bars",unit:"%",hl:4,
+       cap:"% of monthly target, with reps anonymised here",
+       rows:[["Rep A",112],["Rep B",97],["Rep C",88],["Rep D",71],["Rep E",54]],
+       say:"Rep E is furthest behind, with plenty of calls and few meetings. That points to coaching on the conversation, and the activity is already there.",
+       src:["Salesforce","RingCentral"],alert:"Every Friday: each rep against target, calls to meetings."},
       {q:"Where are deals stalling?",kw:["stalling","stall","stuck","stage","stages","slow","longest","wait","waiting","funnel"],type:"bars",unit:" days",hl:1,
        cap:"Average days in each stage, this quarter",
        rows:[["Discovery",9],["Proposal",21],["Negotiation",14],["Contract",6]],
        say:"Deals wait longest at proposal, more than twice as long as in discovery.",
        src:["Salesforce"],alert:"Monthly: days in each stage, by team."}
     ]},
+    {g:"Sales leadership",name:"Sales manager",sub:"Team pipeline and targets",sys:["Salesforce","Power BI"],qs:[
+      {q:"How is each team tracking against target?",kw:["team","teams","tracking","quota","kpi","kpis","performance","pace"],type:"bars",unit:"%",hl:2,
+       cap:"This month so far, % of monthly target, three working days left",
+       rows:[["SMB · new business",91],["SMB · renewals",84],["Enterprise · new business",68],["Enterprise · renewals",79]],
+       say:"Enterprise new business is furthest behind. Two of its biggest deals have gone quiet.",
+       src:["Salesforce"],alert:"Every morning in Teams: each team against target."},
+      {q:"Why don't Salesforce and Power BI agree on last month?",kw:["agree","disagree","different","differ","power","bi","report","reports","match","mismatch","definition","definitions","why"],type:"summary",
+       kpis:[["£412k","Salesforce, counted at close"],["£389k","Power BI report, counted at invoice"],["£23k","six deals closed, not yet invoiced"],["1","definition, used from now on"]],
+       say:"Both are right. They count a deal at different moments. Milo uses the definition you choose and shows it under every answer.",
+       src:["Salesforce","Power BI"],alert:null}
+    ]},
     {g:"Sales team",name:"SDR",sub:"New business and meetings",sys:["Salesforce","Power BI"],qs:[
       {q:"How do I hit my meetings target?",kw:["meetings","meeting","booked","book","booking","demos","demo","appointments","hit","target","sdr"],type:"summary",
-       kpis:[["19 of 22","meetings booked in October"],["3","to go, in three working days"],["1 in 16","of your calls becomes a meeting"],["16","calls a day gets you there"]],
+       kpis:[["19 of 22","meetings booked this month"],["3","to go, in three working days"],["1 in 16","of your calls becomes a meeting"],["16","calls a day gets you there"]],
        say:"Three more meetings in three working days. At one meeting per 16 calls, that's 16 calls a day, and your mornings convert best.",
        src:["Salesforce"],alert:"Every morning in Teams: where you are against target, and how many calls it takes."},
       {q:"What do the best SDRs do that I don't?",kw:["best","top","colleagues","colleague","compare","comparison","peers","others","same","numbers","differently","performers","benchmark","sdrs","better","improve"],type:"compare",
@@ -1018,7 +1250,7 @@ footer p+p{margin-top:6px}
     ]},
     {g:"Sales team",name:"SMB sales",sub:"A high-volume book",sys:["Salesforce","Power BI"],qs:[
       {q:"How do I reach my target this month?",kw:["reach","target","hit","month","quota","number","short","gap","make","revenue","line"],type:"summary",
-       kpis:[["£31k of £40k","booked in October"],["£9k","to go, in three working days"],["£19k","open and due to close this month"],["2","deals would get you there"]],
+       kpis:[["£31k of £40k","booked this month"],["£9k","to go, in three working days"],["£19k","open and due to close this month"],["2","deals would get you there"]],
        say:"Close the gastro pub (£8k) and the seaside hotel (£5.2k) and you're over the line. Both are on today's call list.",
        src:["Salesforce","Power BI"],alert:"Every morning in Teams: the gap to target, and the deals that close it."},
       {q:"Who should I call today?",kw:["call","calls","today","who","ring","phone","list","next"],type:"list",
@@ -1219,6 +1451,230 @@ footer p+p{margin-top:6px}
   });
 
   renderRB();renderWave();renderSeats();renderQs();ask(null,true);renderRule();
+
+  /* where milo sits: swap this WS block for another client's stack and the section rebuilds itself */
+  var WS={
+    hand:{node:"Spreadsheets",sub:"Exports, matched by hand",out:"Out of the spreadsheets",report:"A report, by hand"},
+    systems:[
+      {id:"sf",name:"Salesforce",what:"Accounts, deals, activity",seen:1,knows:"Every account, deal, stage and logged activity.",blind:"Whether the client is using what they bought, or has paid for it."},
+      {id:"pb",name:"Power BI",what:"The sales reports",seen:1,knows:"The agreed reports, by team and by month.",blind:"Why a number moved, or anything nobody built a report for."},
+      {id:"rc",name:"RingCentral",what:"Calls and connects",seen:1,knows:"Who called whom, when, and for how long.",blind:"Which calls turned into meetings, deals or renewals."},
+      {id:"gd",name:"Global data platform",what:"Adverts, searches, e-shots",seen:1,knows:"Adverts, CV searches, e-shots and visits, across brands.",blind:"Who owns the client, or what their contract says."},
+      {id:"am",name:"Amplitude",what:"How clients use the site",seen:1,knows:"Which features each client's users touch, and how often.",blind:"What that client pays, or when they renew."},
+      {id:"at",name:"ATS feeds and Appcast",what:"Applications and job feeds",seen:1,knows:"Applications moving from adverts into client systems.",blind:"Which renewal a broken feed is about to put at risk."},
+      {id:"fi",name:"Finance and invoices",what:"Three products, three invoices",seen:1,knows:"What's been invoiced and what's overdue, product by product.",blind:"Who's talking to that client this week."},
+      {id:"sh",name:"SharePoint and Excel",what:"Contracts, targets, rate cards",seen:1,knows:"Contracts, rate cards and target sheets.",blind:"Anything since the last time someone saved it."},
+      {id:"cs",name:"Support tickets",what:"What clients ask about",knows:"What clients are asking, and how long they've waited.",blind:"What the client is worth, or how soon they renew."}
+    ],
+    outputs:[{id:"ans",name:"Answers",low:"an answer"},{id:"dash",name:"Dashboards",low:"a dashboard"},{id:"alert",name:"Alerts in Teams",low:"an alert in Teams"},{id:"task",name:"Tasks in Salesforce",low:"a task in Salesforce"},{id:"pack",name:"Decks and packs",low:"a deck or pack"}],
+    teams:[
+      {id:"sd",name:"Sales director",gain:"The real forecast, and what to do about it, every Monday."},
+      {id:"sdr",name:"SDRs",gain:"More time calling. Less time working out who to call."},
+      {id:"smb",name:"SMB sales",gain:"A call list that writes itself, in value order."},
+      {id:"ent",name:"Enterprise sales",gain:"Walk into every meeting knowing the whole account."},
+      {id:"acc",name:"Account managers",gain:"Hear about the problem before the client calls you."},
+      {id:"rev",name:"Revenue ops",gain:"Fewer report requests, and one set of numbers."},
+      {id:"fin",name:"Finance",gain:"Sales and finance looking at the same figures."},
+      {id:"prd",name:"Product",gain:"Fixes ranked by the revenue they put at risk."}
+    ],
+    qs:[
+      {t:"sd",q:"What will we really close this quarter?",s:["sf","pb","rc"],o:"dash",a:"About £1.26m against a £1.41m target. £148k of it sits in three deals that have gone quiet and slipped twice."},
+      {t:"sd",q:"Which deals are in the forecast with nobody talking to them?",s:["sf","rc"],o:"alert",a:"Five deals worth £244k. Salesforce has them open, and RingCentral shows no conversation in over two weeks."},
+      {t:"sd",q:"Which renewals could we lose before anyone notices?",s:["sf","gd","fi"],o:"alert",a:"Three, worth £94k. All three are behind on usage, and one has an invoice overdue."},
+      {t:"sd",q:"What do my best reps do that the others don't?",s:["sf","rc"],o:"dash",a:"They follow up within a day and have two or more contacts on each deal. Neither shows up in a pipeline report."},
+      {t:"sd",q:"How much did we close last month?",s:["sf"],o:"ans",a:"£412k, up 6% on the month before."},
+      {t:"sdr",q:"Which leads should I call first?",s:["sf","am","rc"],o:"task",a:"The hotel group that came in yesterday and hasn't been called, then a lapsed pub group whose site visits have doubled."},
+      {t:"sdr",q:"How do I hit my meetings target?",s:["sf","rc"],o:"ans",a:"Three meetings to go. At one per 16 calls that's 16 calls a day, and your mornings convert best."},
+      {t:"sdr",q:"How many calls did I make this week?",s:["rc"],o:"ans",a:"187, up 12 on last week."},
+      {t:"smb",q:"How do I reach my target this month?",s:["sf","pb"],o:"ans",a:"You're £9k short. Close the gastro pub and the seaside hotel and you're over the line."},
+      {t:"smb",q:"Who's about to run out of credits?",s:["sf","gd"],o:"task",a:"Four clients will run out before their contract ends. The QSR chain has six weeks left, so that's today's call."},
+      {t:"smb",q:"Who should I win back?",s:["sf","fi"],o:"ans",a:"Fourteen clients spent with us last year and nothing this year. Start with the wedding venue, at £14k."},
+      {t:"ent",q:"Prep me for the hotel group meeting",s:["sf","gd","fi","sh"],o:"pack",a:"A one-page brief: £210k spent in two years, 46 adverts last quarter, two products they don't buy yet, and the contract end date."},
+      {t:"ent",q:"Which of my deals have gone quiet?",s:["sf","rc"],o:"alert",a:"Two, worth £194k. The contract caterer hasn't had a call in 21 days and its close date has moved twice."},
+      {t:"ent",q:"Who haven't we met at the contract caterer?",s:["sf","rc"],o:"ans",a:"You've spoken to one person there in 90 days. Your best closers have two or more contacts on a deal this size."},
+      {t:"acc",q:"Which of my clients are behind on usage?",s:["sf","gd"],o:"alert",a:"Three are well behind where they should be by now, and all three renew within 90 days."},
+      {t:"acc",q:"Build the quarterly review for the contract caterer",s:["sf","gd","at","fi"],o:"pack",a:"Twelve slides, with adverts, applications and CV searches against last quarter, and the overdue invoice flagged so it's sorted first."},
+      {t:"acc",q:"Has a broken feed hit any of my clients?",s:["at","sf"],o:"alert",a:"Yes. One client hasn't received applications in their ATS since Thursday, and they renew in 62 days."},
+      {t:"rev",q:"Why don't Salesforce and Power BI agree on last month?",s:["sf","pb"],o:"ans",a:"Both are right. £412k counted at close, £389k at invoice. Six deals sit between them, and Milo uses the definition you choose."},
+      {t:"rev",q:"How much pipeline do we need next quarter?",s:["sf","pb"],o:"dash",a:"£5.2m at a 29% win rate, and you have £3.6m. Most of the gap is SMB new business."},
+      {t:"rev",q:"Who isn't logging their calls?",s:["sf","rc"],o:"dash",a:"RingCentral shows 1,240 calls last week and Salesforce has 910. Enterprise has the biggest gap."},
+      {t:"rev",q:"Which deals have no close date?",s:["sf"],o:"task",a:"14 deals. Each owner gets their own list."},
+      {t:"fin",q:"What does each client owe across all three invoices?",s:["fi","sf"],o:"dash",a:"£17.8k overdue across four clients. Three invoices per client become one balance, sent to each account manager."},
+      {t:"fin",q:"Which closed deals haven't been invoiced?",s:["sf","fi"],o:"alert",a:"Six deals worth £23k closed last month with no invoice raised yet."},
+      {t:"fin",q:"Build the month-end pack",s:["fi","sf","pb","sh"],o:"pack",a:"Ready on the second working day, with three items flagged and every figure linked to its source."},
+      {t:"prd",q:"Do clients who use more features renew?",s:["am","sf","gd"],o:"dash",a:"Yes. Clients ahead on usage renew at 91%, and those behind renew at 58%."},
+      {t:"prd",q:"What should we fix first?",s:["cs","sf","gd"],o:"dash",a:"Separate invoices: 142 client contacts this week across 38 clients. Ranked by the revenue of the clients affected."},
+      {t:"prd",q:"Which partner feeds have problems?",s:["at"],o:"alert",a:"Two: one duplicating adverts, one mapping job categories wrongly."}
+    ]
+  };
+  function wsFirst(team){for(var i=0;i<WS.qs.length;i++){if(WS.qs[i].t===team&&WS.qs[i].s.length>1)return i}return 0}
+  var wsMode="with",wsTeam=WS.teams[0].id,wsQ=wsFirst(wsTeam),wsSys=null;
+  function wsById(list,id){return list.filter(function(x){return x.id===id})[0]}
+  function wsList(a){return a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1]}
+  function wsQs(){
+    var h="";
+    WS.qs.forEach(function(x,i){
+      if(x.t===wsTeam)h+='<li><button type="button" class="ws-qb'+(x.s.length>1?" m":"")+'" data-i="'+i+'"><span class="d" aria-hidden="true"></span><span>'+esc(x.q)+'</span></button></li>';
+    });
+    $("ws-qs").innerHTML=h;
+    var t=wsById(WS.teams,wsTeam);
+    $("ws-gain").innerHTML='<span class="label">What changes for '+esc(t.name==="SDRs"||t.name==="Account managers"?t.name:t.name==="Sales director"?"the sales director":t.name)+'</span>'+esc(t.gain);
+  }
+  function wsOuts(){
+    var list=wsMode==="with"?WS.outputs:[{id:"rep",name:WS.hand.report}];
+    $("ws-out").innerHTML='<p class="label">'+esc(wsMode==="with"?"Out of Milo":WS.hand.out)+'</p>'+list.map(function(o){return '<span class="ws-o" data-o="'+o.id+'"><i aria-hidden="true"></i>'+esc(o.name)+'</span>'}).join("");
+  }
+  function wsDraw(){
+    var svg=$("ws-lines");
+    if(getComputedStyle(svg).display==="none")return;
+    var box=$("ws-dg").getBoundingClientRect(),orb=$("ws-orb").getBoundingClientRect();
+    var oy=orb.top+orb.height/2-box.top,ol=orb.left-box.left-14,or=orb.right-box.left+14,h="";
+    function curve(x1,y1,x2,y2){var d=Math.max(20,(x2-x1)*.55);return "M"+x1+" "+y1+" C"+(x1+d)+" "+y1+" "+(x2-d)+" "+y2+" "+x2+" "+y2}
+    function path(d,on,cls){h+='<path class="ws-w'+(on?" on":"")+(cls.indexOf(" o")>-1?" o":"")+'" d="'+d+'"/>';if(on)h+='<path class="ws-f'+cls+'" d="'+d+'"/>'}
+    var hand=wsMode==="without"?" hand":"";
+    $("ws-sys").querySelectorAll(".ws-sy").forEach(function(b){
+      var r=b.getBoundingClientRect();
+      path(curve(r.right-box.left,r.top+r.height/2-box.top,ol,oy),b.classList.contains("on"),hand);
+    });
+    $("ws-out").querySelectorAll(".ws-o").forEach(function(c){
+      var r=c.getBoundingClientRect();
+      path(curve(or,oy,r.left-box.left,r.top+r.height/2-box.top),c.classList.contains("on"),hand||" o");
+    });
+    svg.setAttribute("viewBox","0 0 "+box.width+" "+box.height);
+    svg.innerHTML=h;
+  }
+  function wsUpdate(){
+    var q=WS.qs[wsQ],hand=wsMode==="without",tabs=$("ws-tabs");
+    var names=q.s.map(function(id){return wsById(WS.systems,id).name});
+    tabs.querySelectorAll(".ws-tab").forEach(function(b){
+      var on=b.dataset.t===wsTeam;
+      b.setAttribute("aria-pressed",on?"true":"false");
+      if(on&&tabs.scrollWidth>tabs.clientWidth)tabs.scrollLeft=b.offsetLeft-(tabs.clientWidth-b.offsetWidth)/2;
+    });
+    $("ws-mode").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.m===wsMode?"true":"false")});
+    $("ws-qs").querySelectorAll(".ws-qb").forEach(function(b){
+      var x=WS.qs[+b.dataset.i];
+      b.setAttribute("aria-pressed",!wsSys&&+b.dataset.i===wsQ?"true":"false");
+      b.classList.toggle("fade",!!wsSys&&x.s.indexOf(wsSys)<0);
+    });
+    $("ws-sys").querySelectorAll(".ws-sy").forEach(function(b){
+      var on=wsSys?b.dataset.s===wsSys:q.s.indexOf(b.dataset.s)>-1;
+      b.classList.toggle("on",on);
+      b.setAttribute("aria-pressed",b.dataset.s===wsSys?"true":"false");
+    });
+    $("ws-out").querySelectorAll(".ws-o").forEach(function(c){c.classList.toggle("on",!wsSys&&(hand||c.dataset.o===q.o))});
+    $("ws-dg").classList.toggle("hand",hand);
+    $("ws-nu").setAttribute("href",hand?"#ws-sheet":"#milo-icon");
+    $("ws-nt").textContent=hand?WS.hand.node:"Milo";
+    $("ws-ns").textContent=hand?WS.hand.sub:"One place to ask, over all of it";
+    var h;
+    if(wsSys){
+      var s=wsById(WS.systems,wsSys),n=WS.qs.filter(function(x){return x.s.indexOf(wsSys)>-1}).length;
+      h='<p class="ws-v sys">'+esc(s.name)+'</p><div class="ws-kb"><div><span class="label">Knows</span><p>'+esc(s.knows)+'</p></div><div><span class="label no">Can\'t see alone</span><p>'+esc(s.blind)+'</p></div></div><p class="ws-src">Used in '+n+' of the '+WS.qs.length+' questions here</p>';
+    }else if(hand){
+      var how=q.s.length>1?"Export from "+wsList(names)+", match them by hand in a spreadsheet, then do it again next week.":"Export from "+names[0]+" into a spreadsheet, then do it again next week.";
+      h='<p class="ws-v hand">'+q.s.length+(q.s.length>1?" exports, matched by hand":" export, pasted by hand")+'</p><p class="ws-qq">'+esc(q.q)+'</p><p class="ws-a"><svg aria-hidden="true"><use href="#ws-sheet"/></svg><span>'+esc(how)+'</span></p>';
+    }else{
+      var multi=q.s.length>1;
+      h='<p class="ws-v'+(multi?" m":"")+'">'+(multi?"Needs "+q.s.length+" systems. Milo joins them.":"One system holds this. Milo saves the export.")+'</p><p class="ws-qq">'+esc(q.q)+'</p><p class="ws-a"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>'+esc(q.a)+'</span></p><p class="ws-src">Sources · '+names.map(esc).join(" · ")+' · Delivered as '+esc(wsById(WS.outputs,q.o).low)+'</p>';
+    }
+    $("ws-panel").innerHTML=h;
+    wsDraw();
+  }
+  $("ws-tabs").innerHTML=WS.teams.map(function(x){return '<button type="button" class="ws-tab" data-t="'+x.id+'" aria-pressed="false">'+esc(x.name)+'</button>'}).join("");
+  $("ws-sys").innerHTML='<p class="label">Your systems</p>'+WS.systems.map(function(s){return '<button type="button" class="ws-sy" data-s="'+s.id+'" aria-pressed="false"><i aria-hidden="true"></i><b>'+esc(s.name)+'</b><small>'+esc(s.what)+'</small>'+(s.seen?'<svg role="img" aria-label="Named on our calls or seen on caterer.com"><use href="#tick"/></svg>':'')+'</button>'}).join("");
+  (function(){
+    var one=WS.qs.filter(function(x){return x.s.length<2}).length,all=WS.qs.length,sq="";
+    WS.qs.slice().sort(function(a,b){return a.s.length-b.s.length}).forEach(function(x){sq+='<i'+(x.s.length>1?' class="m"':'')+'></i>'});
+    $("ws-meter").innerHTML='<span class="ws-sq" aria-hidden="true">'+sq+'</span><span><b>'+one+' of '+all+'</b> stay inside one system. <b>'+(all-one)+'</b> need two or more.</span>';
+  })();
+  /* the tour walks through each team until someone takes over */
+  var wsTour=!reduce,wsTimer=null,wsSeen=false;
+  function wsTourUI(){
+    $("ws-tour").textContent=wsTour?"Pause tour":"Play tour";
+    $("ws-panel").setAttribute("aria-live",wsTour?"off":"polite");
+    $("ws-tabs").classList.toggle("touring",wsTour&&wsSeen);
+  }
+  function wsTick(){
+    clearTimeout(wsTimer);
+    wsTourUI();
+    if(!wsTour||!wsSeen)return;
+    wsTimer=setTimeout(function(){
+      var ids=WS.teams.map(function(x){return x.id});
+      wsTeam=ids[(ids.indexOf(wsTeam)+1)%ids.length];wsQ=wsFirst(wsTeam);wsSys=null;
+      wsQs();wsUpdate();wsTick();
+    },5500);
+  }
+  function wsStop(){wsTour=false;wsTick()}
+  $("ws-tour").addEventListener("click",function(){wsTour=!wsTour;wsTick()});
+  $("ws-all").addEventListener("mouseenter",function(){clearTimeout(wsTimer)});
+  $("ws-all").addEventListener("mouseleave",wsTick);
+  $("ws-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-t]");if(!b)return;
+    wsStop();wsTeam=b.dataset.t;wsSys=null;wsQ=wsFirst(wsTeam);wsQs();wsUpdate();
+  });
+  $("ws-qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-i]");if(!b)return;
+    wsStop();wsQ=+b.dataset.i;wsSys=null;wsUpdate();
+  });
+  $("ws-sys").addEventListener("click",function(e){
+    var b=e.target.closest("[data-s]");if(!b)return;
+    wsStop();wsSys=wsSys===b.dataset.s?null:b.dataset.s;wsUpdate();
+  });
+  $("ws-mode").addEventListener("click",function(e){
+    var b=e.target.closest("[data-m]");if(!b)return;
+    wsStop();wsMode=b.dataset.m;wsOuts();wsUpdate();
+  });
+  wsQs();wsOuts();wsUpdate();wsTourUI();
+  if(window.ResizeObserver)new ResizeObserver(wsDraw).observe($("ws-dg"));
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(wsDraw);
+  if(window.IntersectionObserver)new IntersectionObserver(function(en){wsSeen=en[0].isIntersecting;wsTick()},{threshold:.35}).observe($("ws-stage"));
+
+  /* one client, every system: [system, what it shows, state] */
+  var OC=[
+    {name:"Contract caterer",sub:"£120k deal, gone quiet",cards:[
+      ["Salesforce","£120k deal open. Close date moved twice.","warn"],
+      ["RingCentral","Last spoke 21 days ago.","warn"],
+      ["Global data platform","49% of credits used, 75% of the term gone.","warn"],
+      ["ATS feeds","Applications reaching their ATS late for three weeks.","bad"],
+      ["Invoices","£6.8k overdue on the CV database.","warn"],
+      ["Support tickets","Two tickets open about the feed.","bad"]],
+     read:"The deal went quiet when their applications started arriving late. Support knows. Sales doesn't.",
+     next:"Fix the feed, clear the invoice, then call with good news."},
+    {name:"Hotel group",sub:"£96k deal, looks fine",cards:[
+      ["Salesforce","£96k deal in proposal. Touched 3 days ago.","ok"],
+      ["RingCentral","Five calls this quarter, all to one contact.","warn"],
+      ["Global data platform","15 adverts a month. Never searches the CV database.","warn"],
+      ["ATS feeds","1,840 applications this quarter, all delivered.","ok"],
+      ["Invoices","Paid up, and on time.","ok"],
+      ["Support tickets","Nothing open.","ok"]],
+     read:"A healthy client that buys one product and knows one person here.",
+     next:"Bring in a second contact, and put the CV database in the proposal."},
+    {name:"Restaurant group",sub:"Renews in 48 days",cards:[
+      ["Salesforce","Renews in 48 days. Marked as healthy.","ok"],
+      ["RingCentral","Spoke 2 days ago, for four minutes.","ok"],
+      ["Global data platform","38% of credits used, 66% of the term gone.","bad"],
+      ["ATS feeds","Applications per advert down 30%.","warn"],
+      ["Invoices","Paid up.","ok"],
+      ["Support tickets","CV database login open for 3 days.","bad"]],
+     read:"Salesforce says healthy. Usage, applications and support all say this renewal is at risk.",
+     next:"Fix the login today, then book a usage review before the renewal talk."}
+  ];
+  var ocI=0,ocWord={ok:"Fine",warn:"Watch",bad:"Problem"};
+  function renderOC(){
+    $("oc-tabs").innerHTML=OC.map(function(c,i){return '<button type="button" class="oc-tab" data-oc="'+i+'" aria-pressed="'+(i===ocI)+'">'+esc(c.name)+'<small>'+esc(c.sub)+'</small></button>'}).join("");
+    var C=OC[ocI];
+    $("oc-grid").innerHTML=C.cards.map(function(x,i){return '<div class="oc-c '+x[2]+'" style="--i:'+i+'"><span class="label">'+esc(x[0])+'</span><p>'+esc(x[1])+'</p><span class="st">'+ocWord[x[2]]+'</span></div>'}).join("");
+    var r=$("oc-read");
+    r.innerHTML='<div><span class="label"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo joins them</span><p>'+esc(C.read)+'</p></div><div class="nx"><span class="label">The call to make</span><p>'+esc(C.next)+'</p></div>';
+    r.style.animation="none";void r.offsetWidth;r.style.animation="";
+  }
+  $("oc-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-oc]");if(!b)return;
+    ocI=+b.dataset.oc;renderOC();
+    var nb=$("oc-tabs").querySelector('[data-oc="'+ocI+'"]');if(nb)nb.focus();
+  });
+  renderOC();
 
   /* videos: embed inline only where the host allows frames */
   var host=location.hostname;
