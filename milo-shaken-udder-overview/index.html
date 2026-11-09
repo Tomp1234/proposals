@@ -282,7 +282,21 @@ section.dark h2 em{color:var(--teal)}
 .outs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:16px 18px;background:var(--panel);font-size:14px;border-radius:14px}
 .outs b{color:var(--muted)}
 .build{margin-top:18px;font-size:15.5px;max-width:72ch}
-@media (max-width:860px){.intg,.three{grid-template-columns:minmax(0,1fr)}}
+.gro{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px 36px;align-items:center;background:var(--night);color:var(--on-night);padding:28px 30px 32px;border-radius:20px;margin-bottom:44px}
+.gro::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,var(--teal) 0 25%,var(--tan) 25% 50%,var(--banana) 50% 75%,var(--rasp) 75% 100%)}
+.gro .label{color:var(--teal);margin-bottom:10px}
+.gro h3{font-size:clamp(28px,3.4vw,40px);font-stretch:68%;font-weight:850;line-height:.95;margin-bottom:12px}
+.gro h3 em{color:var(--teal)}
+.gro-t p:last-child{font-size:15px;color:var(--on-night-2)}
+.gro-l{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gro-l li{display:flex;align-items:center;gap:12px;border:1px solid var(--night-line);background:var(--night-deep);border-radius:14px;padding:14px 16px;min-width:0}
+.gro-l .tk{width:30px;height:30px;flex:none;display:grid;place-items:center;background:var(--teal);color:var(--on-bright);-webkit-mask:var(--scallop) center/contain no-repeat;mask:var(--scallop) center/contain no-repeat}
+.gro-l .tk svg{width:15px;height:15px}
+.gro-l b{display:block;font-family:var(--display);font-stretch:78%;font-weight:800;font-size:24px;line-height:1;text-transform:uppercase}
+.gro-l small{display:block;font-size:12px;color:var(--on-night-2);margin-top:3px}
+.pills span.g{border-color:var(--ink);font-weight:700}
+@media (max-width:860px){.intg,.three,.gro{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.gro{padding:22px 18px 26px}.gro-l{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:480px){.desk{grid-template-columns:minmax(0,1fr);gap:8px}}
 
 /* proof */
@@ -711,14 +725,27 @@ footer p+p{margin-top:6px}
       <p>What Milo connects for a brand that sells the way Shaken Udder does, desk by desk, and nothing gets replaced.</p>
     </div>
     <div class="three">
-      <div class="card"><p class="k label"><span class="sc" aria-hidden="true"></span>The connections</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including the grocer portals and the spreadsheets that arrive by email, and fix them when a system changes.</p></div>
+      <div class="card"><p class="k label"><span class="sc" aria-hidden="true"></span>The connections</p><h3>We build the integrations</h3><p>Our engineers build and maintain every connection, including Tesco, Waitrose, Morrisons and Ocado and the spreadsheets that arrive by email, and fix them when a system changes.</p></div>
       <div class="card"><p class="k label"><span class="sc" aria-hidden="true"></span>The dashboards</p><h3>Anyone can build one</h3><p>Pin an answer and it becomes a live dashboard. A field seller, a brand manager or the board can make their own, and each sees only what they should.</p></div>
       <div class="card"><p class="k label"><span class="sc" aria-hidden="true"></span>The automations</p><h3>Questions keep running</h3><p>Any question can become a Monday report or an alert when a store goes quiet. Nobody has to build a pipeline for it.</p></div>
+    </div>
+    <div class="gro">
+      <div class="gro-t">
+        <p class="label">Grocer integrations</p>
+        <h3>Tesco, Waitrose, Morrisons and Ocado. <em>Connected.</em></h3>
+        <p>Sales and stock from each grocer's supplier data, read next to wholesale, Amazon, your own shop and the ledger.</p>
+      </div>
+      <ul class="gro-l" aria-label="Grocer integrations">
+        <li><span class="tk" aria-hidden="true"><svg><use href="#tick"/></svg></span><div><b>Tesco</b><small>Partners Toolkit</small></div></li>
+        <li><span class="tk" aria-hidden="true"><svg><use href="#tick"/></svg></span><div><b>Waitrose</b><small>Supplier sales and stock</small></div></li>
+        <li><span class="tk" aria-hidden="true"><svg><use href="#tick"/></svg></span><div><b>Morrisons</b><small>Supplier sales and stock</small></div></li>
+        <li><span class="tk" aria-hidden="true"><svg><use href="#tick"/></svg></span><div><b>Ocado</b><small>Supplier sales and stock</small></div></li>
+      </ul>
     </div>
     <div class="intg">
       <div>
         <div class="ig-h" style="--c:var(--teal-ink)"><h3>Selling</h3><span class="label">Four desks</span></div>
-        <div class="desk"><div><b>Grocers</b><small>Sales and stock, store by store</small></div><div class="pills"><span>Tesco Partners Toolkit</span><span>dunnhumby</span><span>Nectar360</span><span>Other grocer portals</span><span class="v">NIQ</span><span>Circana</span><span>Kantar</span></div></div>
+        <div class="desk"><div><b>Grocers</b><small>Sales and stock, store by store</small></div><div class="pills"><span class="g">Tesco</span><span class="g">Waitrose</span><span class="g">Morrisons</span><span class="g">Ocado</span><span>Sainsbury's Nectar360</span><span>dunnhumby</span><span>Other grocer portals</span><span class="v">NIQ</span><span>Circana</span><span>Kantar</span></div></div>
         <div class="desk"><div><b>Wholesale and convenience</b><small>Cash and carry, symbols, forecourts</small></div><div class="pills"><span>Wholesaler depletions</span><span>EDI orders</span><span>Symbol group EPOS</span><span>Field sales apps</span><span>Spreadsheets by email</span></div></div>
         <div class="desk"><div><b>Online</b><small>Amazon and your own shop</small></div><div class="pills"><span class="v">Amazon</span><span class="v">WooCommerce</span><span class="v">GA4</span><span class="v">Mailchimp</span><span>Klaviyo</span><span>Couriers</span></div></div>
         <div class="desk"><div><b>Marketing</b><small>Spend, social and sampling</small></div><div class="pills"><span class="v">TikTok</span><span class="v">Meta</span><span class="v">Instagram</span><span>Google Ads</span><span>YouTube</span><span>Agency reports</span><span>Sampling logs</span></div></div>
@@ -1153,7 +1180,7 @@ footer p+p{margin-top:6px}
   var WS={
     hand:{node:"A Monday spreadsheet",sub:"Exports, matched by hand",out:"Out of the spreadsheet",report:"A report, by hand"},
     systems:[
-      {id:"gr",name:"Grocer portals",what:"Sales and stock by store",knows:"What sold in each store, and what the depot holds.",blind:"What the promotion cost, or what you made on it."},
+      {id:"gr",name:"Grocer portals",what:"Tesco, Waitrose, Morrisons, Ocado",knows:"What sold in each store, and what the depot holds.",blind:"What the promotion cost, or what you made on it."},
       {id:"mk",name:"NIQ",what:"Category and share",seen:1,knows:"Your share of the category, and who's gaining.",blind:"Why, or which of your own actions moved it."},
       {id:"wh",name:"Wholesaler reports",what:"Depletions and orders",knows:"Cases out of depots, and who stopped ordering.",blind:"Whether those cases made any money."},
       {id:"am",name:"Amazon",what:"Orders and fees",seen:1,knows:"Online orders, reviews and what Amazon charges.",blind:"Whether a buyer is new to the brand or switched from the chiller."},
