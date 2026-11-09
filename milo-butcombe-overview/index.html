@@ -361,12 +361,14 @@ section.dark h2 em{color:var(--gold)}
 .chain b{display:block;font-size:16px}
 .chain li.end{background:var(--gold);color:#231F20;border-color:var(--gold)}
 .chain li.end .t{color:#231F20}
-.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.pcard{background:var(--card);border:1px solid var(--rule);padding:22px;display:flex;flex-direction:column;border-radius:10px}
-.pcard .k{color:var(--muted);margin-bottom:8px}
-.pcard .big{font-family:var(--display);font-weight:900;font-size:58px;line-height:.9;margin-bottom:10px;color:var(--gold-ink)}
-.pcard .body{font-size:14px}
-@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
+.uses-h{font-size:clamp(26px,3vw,34px);margin:40px 0 16px}
+.uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.use{background:var(--card);padding:18px 18px 20px;display:grid;gap:4px;align-content:start;min-width:0}
+.use .when{color:var(--gold-ink)}
+.use b{font-size:17px;font-weight:800}
+.use p:last-child{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.uses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.uses{grid-template-columns:minmax(0,1fr)}}
 
 /* pilot */
 .pl{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:28px;align-items:start}
@@ -564,7 +566,7 @@ footer p+p{margin-top:6px}
     <div class="head">
       <p class="eyebrow"><span class="n">03</span> For the ops session</p>
       <h2 id="tq-h">Ten questions <em>for the ops team.</em></h2>
-      <p>The kind pub groups ask Milo, written in Butcombe's terms. Pick one, or type your own.</p>
+      <p>Drawn from what pub and hospitality groups use Milo for every week, in Butcombe's terms. Pick one, or type your own.</p>
     </div>
     <div class="tq">
       <ol class="tq-list" id="tq-list" aria-label="Ten questions"></ol>
@@ -634,7 +636,7 @@ footer p+p{margin-top:6px}
       <div class="df-who" id="df-who" role="group" aria-label="Whose definition"></div>
       <div class="df-card" id="df-card" aria-live="polite"></div>
     </div>
-    <p class="note">Example definitions and figures. Your team writes the real rule.</p>
+    <p class="note">Example definitions and figures. Groups on Milo save rules for headcount, venue labour, tips and their own finance calendar the same way.</p>
   </div>
 </section>
 
@@ -657,23 +659,16 @@ footer p+p{margin-top:6px}
         <li class="end"><span class="t">January</span><b>The whole season read back</b></li>
       </ol>
     </div>
-    <div class="pgrid">
-      <div class="pcard">
-        <p class="k label">Urban Leisure Group · London</p>
-        <p class="big">5 → 1</p>
-        <p class="body">Toast, Harri, Marketman, DesignMyNight and QuickBooks in one Monday pack, connected in under two weeks.</p>
-      </div>
-      <div class="pcard">
-        <p class="k label">Two Tribes Brewing · London</p>
-        <p class="big">1 → 12</p>
-        <p class="body">users in six weeks at a brewery with no data team, once its seven systems were connected.</p>
-      </div>
-      <div class="pcard">
-        <p class="k label">Nikki Beach Global · Hospitality</p>
-        <p class="big">4 → 1</p>
-        <p class="body">Hotels, beach clubs and restaurants on four continents, read as one.</p>
-      </div>
+    <h3 class="uses-h">What hospitality groups on Milo <em>run every week.</em></h3>
+    <div class="uses">
+      <div class="use"><p class="when label">Every Monday</p><b>Weekly scorecard</b><p>Sales and labour per venue against last year and budget, sent as a PDF with no analyst involved.</p></div>
+      <div class="use"><p class="when label">Every morning</p><b>Christmas pace tracker</b><p>Bookings against this point last year, where the season will land, and the enquiries to chase.</p></div>
+      <div class="use"><p class="when label">Every week</p><b>Events forecast</b><p>What similar past events spent, applied to confirmed bookings.</p></div>
+      <div class="use"><p class="when label">Every week</p><b>Stock variance</b><p>Actual against theoretical, problem items flagged, and deadstock tying up cash.</p></div>
+      <div class="use"><p class="when label">Every week</p><b>Staff loss alert</b><p>A flag when a venue's 90-day staff loss goes over 20%.</p></div>
+      <div class="use"><p class="when label">As they book</p><b>VIP guest alert</b><p>Big-spending regulars who just booked, so the pub can prepare.</p></div>
     </div>
+    <p class="note">One group alone runs about a dozen of these as scheduled emails and alerts.</p>
   </div>
 </section>
 
@@ -688,7 +683,7 @@ footer p+p{margin-top:6px}
       <ol class="pl-steps">
         <li><span class="w">Week 1</span><div><b>Connect</b><p>Read-only access to Zonal, S4labour and Collins. Our engineers build the connections.</p></div></li>
         <li><span class="w">Week 2</span><div><b>Define</b><p>We sit with your team and set spend per head and the rest, once.</p></div></li>
-        <li><span class="w">To Christmas</span><div><b>Ask</b><p>Ops managers ask, and the festive and match-day questions run every week.</p></div></li>
+        <li><span class="w">To Christmas</span><div><b>Ask</b><p>Ops managers ask, and the Christmas pace tracker and weekly scorecard arrive on their own.</p></div></li>
         <li><span class="w">January</span><div><b>Read it back</b><p>The season reviewed, then GMs, FP&amp;A and marketing join.</p></div></li>
       </ol>
       <div class="price">
@@ -808,11 +803,15 @@ footer p+p{margin-top:6px}
 
   /* ten questions for the ops team */
   var TQ=[
-    {tag:"Sales and labour",q:"Did I have too many staff on last Saturday?",kw:["too","many","staff","overstaffed","over","staffed","labour","labor","saturday","rota","hours","shift","people"],type:"bars",unit:"%",hi:"high",
+    {tag:"Sales and labour",q:"Did I have too many staff on last Saturday?",kw:["too","many","staff","overstaffed","over","staffed","labour","labor","saturday","rota","hours","shift","people","sessions","session","lunch","lose","losing","money","quiet"],type:"bars",unit:"%",hi:"high",
      cap:"Labour as a share of sales, by hour, last Saturday",
      rows:[["12–2pm",24],["2–4pm",41],["4–6pm",29],["6–8pm",22],["8–10pm",26]],
      say:"Yes, from 2 to 4pm: four on the floor for trade that needed two. Every other slot was within your 30% target.",
      src:["Zonal","S4labour"],alert:"Every Monday: last week's over-staffed hours, by pub."},
+    {tag:"Weekly scorecard",q:"How did each pub do this week against last year and budget?",kw:["each","pub","pubs","week","weekly","scorecard","budget","last","year","performance","trading","report","doing","attention"],type:"list",
+     rows:[["The Pig and Fiddle","Net sales +9% on last year · labour 24% · £71 per labour hour","Ahead","ok"],["The Ostrich","+4% on last year · labour 27% · £63 per labour hour","On plan","over"],["The Fulham Arms","−8% on last year · labour 33% · £48 per labour hour","Behind","bad"]],
+     say:"Your patch finished 3% ahead of budget. The Fulham Arms is the one behind, with sales down and labour up.",
+     src:["Zonal","S4labour","Budget"],alert:"Every Monday at 7am: this scorecard for every pub, as a PDF, with no analyst involved."},
     {tag:"Sales and labour",q:"What's coming up next week, and what should I change on the rota?",kw:["next","week","coming","up","recommend","change","rota","plan","ahead","upcoming","prepare"],type:"list",
      rows:[["Friday","Two Christmas parties, 140 covers booked","+2 on the floor","warn"],["Saturday","England at 3pm, match bookings up 60%","+1 bar from 2pm","warn"],["Sunday","Lunch bookings 12% below last year","−1 in the kitchen","ok"],["Wednesday","Rain forecast, garden closed","−1 on the floor","ok"]],
      say:"Two shifts to add and two to trim. The same hours overall, moved to where the bookings are.",
@@ -821,31 +820,26 @@ footer p+p{margin-top:6px}
      kpis:[["+15%","sales on the same Saturday last year"],["28.4%","labour, against a 30% target"],["£2.1k","labour above target at three pubs"],["7","pubs showed it, all up on last year"]],
      say:"Up 15% across the ten. Labour held under target overall, but three pubs ran over: two weren't showing the match and the Bear was rota'd for a full house.",
      src:["Zonal","S4labour","Collins"],alert:"After every match day: sales and labour by pub, against last year."},
-    {tag:"Events",q:"Did our match-day campaign pay for itself?",kw:["campaign","marketing","pay","itself","roi","return","worth","spend","ads","promotion","promo"],type:"summary",
-     kpis:[["£6.2k","campaign spend, ads and posters"],["+11 pts","faster sales growth at pubs in the campaign"],["£14.8k","extra gross profit, after labour"],["2.4×","return on the spend"]],
-     say:"Yes. Pubs in the campaign grew 11 points faster than those outside it, worth £14.8k after labour, about 2.4 times the spend.",
-     src:["Zonal","S4labour","Meta ads","Campaign budget"],alert:null},
-    {tag:"Christmas",q:"Are Christmas bookings ahead of last year?",kw:["christmas","festive","bookings","booked","ahead","behind","parties","december","season","xmas"],type:"summary",
-     kpis:[["£412k","festive revenue booked across the estate"],["+9%","on the same point last year"],["14","pubs behind last year"],["14 Dec","the week with the most space left"]],
-     say:"Booked festive revenue is 9% ahead, but 14 pubs are behind, mostly in Wiltshire and Gloucestershire. The week of 14 December has the most space left.",
-     src:["Collins","Zonal"],alert:"Every Monday until Christmas: bookings against last year, by pub."},
+    {tag:"Events",q:"What will next week's events take?",kw:["events","event","next","take","forecast","functions","pre-orders","preorders","spend","diary","private","hire"],type:"summary",
+     kpis:[["£48k","forecast from 23 confirmed events"],["£2,090","average per event, weighted on past events like them"],["3","events still missing pre-orders"],["Friday","the busiest night, five events across three pubs"]],
+     say:"About £48k, based on what similar past events actually spent. Three still have no pre-orders, and Friday is the night to staff for.",
+     src:["Collins","Zonal"],alert:"Every Monday: the week's events with their forecast and pre-orders, so no two clash."},
+    {tag:"Christmas",q:"Where will Christmas land?",kw:["christmas","festive","land","pace","season","ahead","behind","december","xmas","booked","rebooked","enquiries"],type:"summary",
+     kpis:[["£412k","booked so far, 9% ahead of this point last year"],["£538k","where the season is on pace to land"],["−14%","parties of 20 or more, the group furthest behind"],["12","of last year's parties not yet rebooked"]],
+     say:"On pace for £538k. Large parties are the gap, and 12 of last year's parties haven't rebooked yet.",
+     src:["Collins","Zonal"],alert:"Every morning until Christmas: the pace tracker, new enquiries against last year, and open ones to chase."},
     {tag:"Christmas",q:"Am I turning away regulars for Christmas parties?",kw:["regulars","regular","turning","away","parties","party","walk-ins","walkins","locals","tables","festive"],type:"summary",
      kpis:[["82%","of Friday tables held for parties in December"],["−31%","regular Friday covers on November"],["£46","a head from parties, £31 from regulars"],["6","party tables still unsold this Friday"]],
      say:"Partly. Parties spend more a head, but six tables held for them are still unsold this Friday. Release them to walk-ins on Thursday and regulars keep their table.",
      src:["Collins","Zonal","Atreemo"],alert:"Every Wednesday in December: unsold party tables to release."},
+    {tag:"Stock",q:"Where is stock going missing?",kw:["stock","missing","stocktake","stock-take","variance","theoretical","waste","shrinkage","deadstock","lost","yield","losing"],type:"list",
+     rows:[["The Cottage Inn","Draught 3.1% short of what the tills sold, mostly lager","Check lines","bad"],["The Whitmore Tap","Spirits 2.2% short, two gins","Recount","warn"],["The Brown Cow","£1,840 of wine with no sales in 60 days","Deadstock","over"],["Seven other pubs","Within 1%","Clear","ok"]],
+     say:"Two pubs are more than 2% short against what the tills say they sold. The Brown Cow has £1,840 of wine that hasn't sold in 60 days.",
+     src:["Stock takes","Zonal"],alert:"After every stock take: problem items by pub, by email."},
     {tag:"Guests",q:"Why is spend per head down at the Cross Keys?",kw:["spend","per","head","down","cross","keys","why","dropped","falling","sph","average"],type:"summary",
      kpis:[["+12%","covers on last year"],["−£3.40","spend per head, four weeks running"],["−18%","starters and desserts per cover"],["Flat","drinks per head"]],
      say:"Covers are up, but fewer guests add a starter or dessert since the menu changed on 12 October. Drinks are flat.",
      src:["Zonal","Collins","Company knowledge"],alert:"Weekly: any pub where spend per head falls three weeks running."},
-    {tag:"Your patch",q:"Which pubs need my attention this week?",kw:["which","pubs","attention","week","worst","struggling","behind","problems","issues","focus","visit","patch"],type:"list",
-     rows:[["The Fulham Arms","Sales −8%, labour 33%, two reviews mention slow service","Visit","bad"],["The Cross Keys","Spend per head down four weeks running","Menu","warn"],["The Brown Cow","Rota'd above bookings three Saturdays running","Rota","over"],["The rest of your patch","On or ahead of plan","Clear","ok"]],
-     say:"Three pubs. Start with the Fulham Arms: sales down, labour up and service mentioned in reviews.",
-     src:["Zonal","S4labour","Collins","Reviews"],alert:"Every Monday at 8am: the pubs in your patch that need you, and why."},
-    {tag:"Sales and labour",q:"Which sessions lose money across my pubs?",kw:["sessions","session","lose","losing","money","quiet","lunch","monday","tuesday","open","opening","hours","dead"],type:"bars",unit:"%",hi:"high",
-     cap:"Labour as a share of sales, by session, last four weeks",
-     rows:[["Monday lunch",46],["Tuesday lunch",41],["Wednesday evening",24],["Friday evening",21],["Sunday lunch",23]],
-     say:"Monday and Tuesday lunch run above 40% at most of your pubs. Opening at 4pm on those days at five pubs saves about 60 hours a week.",
-     src:["Zonal","S4labour"],alert:null},
     {tag:"Definitions",q:"What does spend per head mean here?",kw:["mean","means","definition","define","defined","what","spend","per","head","rule","calculate","calculated"],type:"def",
      rule:"Food and drink sales, net of VAT and service, divided by covers. Covers are table bookings plus walk-ins counted at the till.",
      meta:"Example rule · set by the data team · used by everyone",
