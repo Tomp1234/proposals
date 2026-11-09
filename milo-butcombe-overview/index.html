@@ -388,22 +388,33 @@ section.dark h2 em{color:var(--gold)}
 @media (max-width:860px){.pl{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:480px){.pl-steps li{grid-template-columns:minmax(0,1fr);gap:4px}}
 
-/* video */
-.vid-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
-.vid-grid h2{font-size:clamp(36px,4.4vw,56px);margin-bottom:12px}
-.vid-grid p.s{color:var(--muted)}
+/* films: the explainer and a customer case study, side by side */
+.films{padding-block:56px 8px}
+.films .head{margin-bottom:24px}
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.vcard{margin:0;min-width:0}
+.vcap{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+.vtag{align-self:flex-start;font-family:var(--label);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:var(--panel);color:var(--gold-ink);margin-bottom:6px}
+.vtag.cs{background:var(--gold);color:#231F20}
+.vcap b{font-weight:800;font-size:20px;line-height:1.2}
+.vlen{font-size:13px;color:var(--muted)}
 .video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--night);border-radius:10px}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:#F9F5EB;overflow:hidden;
   background:radial-gradient(55% 75% at 90% 0%,rgba(185,151,91,.24),transparent 60%),#2D2926}
-.p-mark{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:6px;font-weight:800}
+.p-mark{position:absolute;top:14px;left:16px;display:flex;align-items:center;gap:6px;font-weight:800}
 .p-mark svg{width:26px;height:20px}
-.p-ttl{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:.95;position:relative;z-index:1;text-align:center;padding-inline:12px}
-.p-play{width:72px;height:72px;border-radius:50%;background:var(--gold);color:#231F20;display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
+.p-kick{font-family:var(--label);font-size:11px;letter-spacing:.08em;text-transform:uppercase;position:relative;z-index:1}
+.p-ttl{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(22px,2.6vw,34px);line-height:.98;position:relative;z-index:1;text-align:center;padding-inline:16px;max-width:14em;text-wrap:balance}
+.p-play{width:64px;height:64px;border-radius:50%;background:var(--gold);color:#231F20;display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
 .poster:hover .p-play{transform:scale(1.08)}
 .p-sub{font-family:var(--label);font-size:11.5px;color:#BDB3A6;position:relative;z-index:1}
+.poster.cs{color:#231F20;background:radial-gradient(60% 80% at 100% 100%,#D4B577,transparent 70%),#B9975B}
+.poster.cs .p-kick{background:#231F20;color:#D4B577;padding:2px 10px;border-radius:999px}
+.poster.cs .p-play{background:#231F20;color:#D4B577}
+.poster.cs .p-sub{color:#231F20}
 .vid-note{font-size:13px;color:var(--muted);margin-top:10px}
-@media (max-width:860px){.vid-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:860px){.vids{grid-template-columns:minmax(0,1fr)}}
 
 /* trust */
 .sec{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;background:var(--panel);padding:28px 30px;border-radius:10px}
@@ -441,6 +452,7 @@ footer p+p{margin-top:6px}
       <span class="bc-logo lk-bc" role="img" aria-label="Butcombe Pubs and Inns"></span>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="#films">Films</a>
       <a href="#questions">Ten questions</a>
       <a href="#sits">Your stack</a>
       <a href="#definitions">Definitions</a>
@@ -473,6 +485,43 @@ footer p+p{margin-top:6px}
         <div id="rb-read" aria-live="polite"></div>
         <p class="rb-hint">Real pubs, invented figures. Add a layer.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="films" id="films" aria-labelledby="vid-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">02</span> See it</p>
+      <h2 id="vid-h">Two short films. <em>Under three minutes each.</em></h2>
+      <p>What Milo is, then what it did for a London bar group. For anyone on the ops team who missed the demo.</p>
+    </div>
+    <div class="vids">
+      <figure class="vcard">
+        <figcaption class="vcap"><span class="vtag">Milo explainer</span><b>What Milo is and how it works</b><span class="vlen">Product overview · 1 min 29 sec</span></figcaption>
+        <div class="video" data-src="https://player.vimeo.com/video/1196983997?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1&amp;autoplay=1" data-title="Milo product overview">
+          <a class="poster" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </figure>
+      <figure class="vcard">
+        <figcaption class="vcap"><span class="vtag cs">Customer case study</span><b>Urban Leisure Group's venues</b><span class="vlen">From five systems to one brain · 2 min 37 sec</span></figcaption>
+        <div class="video" data-src="https://www.youtube-nocookie.com/embed/cH3lrACjcaM?autoplay=1&amp;rel=0" data-title="From 5 Systems to One Brain: How Urban Leisure Group Unified Their Venue Operations with AI">
+          <a class="poster cs" href="https://www.youtube.com/watch?v=cH3lrACjcaM" target="_blank" rel="noopener" aria-label="Play the Urban Leisure Group case study, 2 minutes 37 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo × Urban Leisure Group</span>
+            <span class="p-kick">Case study</span>
+            <span class="p-ttl">From five systems to one brain</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 2 min 37 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://www.youtube.com/watch?v=cH3lrACjcaM" target="_blank" rel="noopener">Watch it on YouTube</a></p>
+      </figure>
     </div>
   </div>
 </section>
@@ -513,7 +562,7 @@ footer p+p{margin-top:6px}
 <section class="band first" id="questions" aria-labelledby="tq-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">02</span> For the ops session</p>
+      <p class="eyebrow"><span class="n">03</span> For the ops session</p>
       <h2 id="tq-h">Ten questions <em>for the ops team.</em></h2>
       <p>The kind pub groups ask Milo, written in Butcombe's terms. Pick one, or type your own.</p>
     </div>
@@ -539,7 +588,7 @@ footer p+p{margin-top:6px}
 <section class="band dark" id="sits" aria-labelledby="ws-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">03</span> Where Milo sits</p>
+      <p class="eyebrow"><span class="n">04</span> Where Milo sits</p>
       <h2 id="ws-h">Your stack stays. <em>Milo sits on top.</em></h2>
       <p>Pick a question to see which systems it needs, or click a system to see what it can't see alone. Switch to Today for the route it takes now.</p>
     </div>
@@ -577,7 +626,7 @@ footer p+p{margin-top:6px}
 <section class="band first" id="definitions" aria-labelledby="df-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">04</span> Company knowledge</p>
+      <p class="eyebrow"><span class="n">05</span> Company knowledge</p>
       <h2 id="df-h">One pub. One week. <em>Five answers.</em></h2>
       <p>Spend per head, as different people might work it out. Set the rule once in Milo and every answer uses it.</p>
     </div>
@@ -592,7 +641,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="proof" aria-labelledby="proof-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">05</span> Proof</p>
+      <p class="eyebrow"><span class="n">06</span> Proof</p>
       <h2 id="proof-h">Pub groups <em>already run on it.</em></h2>
       <p>The closest example runs Zonal and Collins too.</p>
     </div>
@@ -631,7 +680,7 @@ footer p+p{margin-top:6px}
 <section class="band" id="pilot" aria-labelledby="pl-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow"><span class="n">06</span> The pilot</p>
+      <p class="eyebrow"><span class="n">07</span> The pilot</p>
       <h2 id="pl-h">Ops first. <em>Through Christmas.</em></h2>
       <p>One team to start, then everyone else at the same price.</p>
     </div>
@@ -653,29 +702,6 @@ footer p+p{margin-top:6px}
           <p class="amt">£1,500 <small>a month</small></p>
           <p>Unlimited users, so every team joins at no extra cost.</p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="video" aria-labelledby="vid-h">
-  <div class="wrap">
-    <div class="vid-grid">
-      <div>
-        <p class="eyebrow"><span class="n">07</span> For the ops team</p>
-        <h2 id="vid-h">Ninety seconds of <em>Milo working.</em></h2>
-        <p class="s">For anyone who missed the demo.</p>
-      </div>
-      <div>
-        <div class="video" id="vidframe" data-vid="1196983997">
-          <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
-            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
-            <span class="p-ttl">Milo product overview</span>
-            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
-            <span class="p-sub">Press play · 1 min 29 sec</span>
-          </a>
-        </div>
-        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
       </div>
     </div>
   </div>
@@ -1059,18 +1085,21 @@ footer p+p{margin-top:6px}
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(wsDraw);
   renderDef();
 
-  /* video */
-  var f=$("vidframe"),p=$("vidplay"),host=location.hostname;
+  /* films: embed inline only where the host allows frames */
+  var host=location.hostname;
   var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
-  if(f&&p&&inline){p.addEventListener("click",function(e){
-    e.preventDefault();
-    var fr=document.createElement("iframe");
-    fr.src="https://player.vimeo.com/video/"+f.dataset.vid+"?title=0&byline=0&portrait=0&dnt=1&autoplay=1";
-    fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture");
-    fr.setAttribute("allowfullscreen","");
-    fr.setAttribute("title","Milo product overview");
-    f.appendChild(fr);p.remove();
-  })}
+  if(inline)Array.prototype.forEach.call(document.querySelectorAll(".video[data-src]"),function(f){
+    var p=f.querySelector(".poster");if(!p)return;
+    p.addEventListener("click",function(e){
+      e.preventDefault();
+      var fr=document.createElement("iframe");
+      fr.src=f.dataset.src;
+      fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture; encrypted-media");
+      fr.setAttribute("allowfullscreen","");
+      fr.setAttribute("title",f.dataset.title);
+      f.appendChild(fr);p.remove();
+    });
+  });
 })();
 </script>
 </body>
