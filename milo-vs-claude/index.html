@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Milo vs Claude</title>
-<meta name="description" content="Claude is brilliant at thinking and writing. Milo is connected to your business data and answers with your real numbers. See how they compare.">
+<meta name="description" content="Claude waits for your CSV. Milo already has the answer: 2,500+ connectors, live data, your definitions and an engineer on call.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <meta property="og:title" content="Milo vs Claude">
-<meta property="og:description" content="Claude is brilliant at thinking and writing. Milo is connected to your business data and answers with your real numbers.">
+<meta property="og:description" content="Claude waits for your CSV. Milo already has the answer. 2,500+ connectors, live from day one.">
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 </head>
 <body>
@@ -167,6 +167,9 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 @keyframes wIn{from{opacity:0;transform:translateY(.4em) rotate(2deg);filter:blur(10px)}}
 .sub{font-size:clamp(17px,1.5vw,20px);color:var(--on-v-2);max-width:46ch;margin-top:24px;line-height:1.5}
 .hero .ctas{margin-top:32px}
+.hype{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.hype li{padding:7px 14px;border-radius:999px;border:1px solid var(--v-line);background:oklch(0.97 0.015 300 / .08);color:var(--on-v);font-size:14px;font-weight:500;white-space:nowrap}
+.hype b{font-weight:750;color:var(--cyan)}
 .trust{margin-top:auto;padding-top:40px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px 32px}
 .trust .lbl{font-size:13px;color:var(--on-v-3);white-space:nowrap}
 .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
@@ -219,6 +222,7 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 .hero.load .hero-bg .vfield{animation:flood 1.15s var(--expo) .3s both}
 @keyframes flood{from{clip-path:inset(100% 0 0 0)}}
 .hero.load .sub{animation:rise .9s var(--expo) .85s both}
+.hero.load .hype{animation:rise .9s var(--expo) .9s both}
 .hero.load .ctas{animation:rise .9s var(--expo) .95s both}
 .hero.load .trust{animation:rise .9s var(--expo) 1.1s both}
 .hero.load .cnote{animation:noteIn 1.1s var(--expo) .35s both,bobble 7s ease-in-out 1.5s infinite}
@@ -562,8 +566,9 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 
     <div class="hero-main">
       <p class="vsbadge"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span><span class="x">vs</span><span class="c"><i class="cdot"></i>Claude</span></p>
-      <h1 class="headline"><span class="hl hl-c">Claude knows a lot.</span><span class="hl hl-m">Milo knows your business.</span></h1>
-      <p class="sub">Claude is brilliant at thinking and writing. Milo is plugged into your warehouse, CRM and finance tools, so it answers with your actual numbers.</p>
+      <h1 class="headline"><span class="hl hl-c">Claude waits for your CSV.</span><span class="hl hl-m">Milo already has the answer.</span></h1>
+      <p class="sub">Claude starts every question knowing nothing about your business. Milo is already plugged into all of it: your warehouse, CRM, ads, ERP and finance tools, live, with your real numbers.</p>
+      <ul class="hype" aria-label="Why Milo"><li><b>2,500+</b> connectors</li><li>Live data, never a CSV</li><li>Your own engineer on call</li><li>Never trains on your data</li></ul>
       <div class="ctas" data-hero-ctas>
         <a class="btn btn-w" href="https://app.milo.ai/signup" target="_blank" rel="noopener">Try Milo free<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
         <a class="btn btn-line" style="color:var(--on-v)" href="https://meetings-eu1.hubspot.com/tpickett" target="_blank" rel="noopener">Book a demo</a>
@@ -612,7 +617,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     <div class="wrap">
       <div class="sec-top">
         <h2><span class="lt">Ask them both</span> the same thing.</h2>
-        <p class="side">One gives you a starting point. The other gives you the answer.</p>
+        <p class="side">One asks you for a spreadsheet. The other has already looked.</p>
       </div>
 
       <form class="prompt" data-ask>
@@ -662,13 +667,13 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     <div class="wrap">
       <div class="sec-top">
         <h2><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span> <span class="lt">vs Claude</span></h2>
-        <p class="side">The data analyst vs the assistant. Tap any row for the detail.</p>
+        <p class="side">One is plugged into your business. The other is waiting for you to paste it in. Tap any row for the detail.</p>
       </div>
       <div class="vtools"><button type="button" class="ghost" data-expand>Show all details</button></div>
       <div class="vt">
         <div class="vt-row vt-head">
           <span class="vt-k"></span>
-          <span class="vt-m"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-w"/></svg>Milo</span><small>The AI data analyst</small></span>
+          <span class="vt-m"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-w"/></svg>Milo</span><small>The AI data analyst · 2,500+ connectors</small></span>
           <span class="vt-c"><b><i class="cdot"></i>Claude</b><small>Chat, Cowork and Code, by Anthropic</small></span>
         </div>
         <div class="vt-body" data-vt-body></div>
@@ -774,7 +779,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
       <div class="faq">
         <details name="faq" open>
           <summary>Can’t I just connect my data to Claude?<span class="pl"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></span></summary>
-          <p class="ans">You can connect some tools, but someone has to set it up, maintain it and decide what the numbers mean. Milo comes with that already handled: connectors, shared definitions, permissions and dashboards, built for business teams.</p>
+          <p class="ans">A handful of tools, yes, if someone sets it up, keeps it running and decides what every number means. Milo comes with all of that done: 2,500+ connectors, your definitions, permissions and dashboards. No engineers, no CSVs.</p>
         </details>
         <details name="faq">
           <summary>Is Milo built on Claude?<span class="pl"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></span></summary>
@@ -790,7 +795,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
         </details>
         <details name="faq">
           <summary>Can I use both?<span class="pl"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></span></summary>
-          <p class="ans">Yes, and plenty of teams do. Claude for thinking, Milo for the numbers.</p>
+          <p class="ans">Yes. Use Claude to write the email. Use Milo to know what to put in it.</p>
         </details>
       </div>
     </div>
@@ -799,8 +804,8 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   <section class="final vfield spot">
     <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="dotgrid"></i><i class="grain"></i>
     <div class="wrap">
-      <h2><span class="a">Stop asking for numbers.</span><span class="b">Start using them.</span></h2>
-      <p class="lede">Connect your data in minutes and ask your first question today.</p>
+      <h2><span class="a">Stop feeding a chatbot CSVs.</span><span class="b">Start getting answers.</span></h2>
+      <p class="lede">2,500+ connectors. Live in days. Ask your first question today.</p>
       <div class="ctas">
         <a class="btn btn-w" href="https://app.milo.ai/signup" target="_blank" rel="noopener">Try Milo free<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
         <a class="btn btn-line" style="color:var(--on-v)" href="https://meetings-eu1.hubspot.com/tpickett" target="_blank" rel="noopener">Book a demo</a>
@@ -915,28 +920,30 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 
   // Side-by-side rows, from the comparison copy
   const ROWS = [
-    { k: 'Built for', m: 'Ops, finance, marketing and leadership teams', c: 'Individuals (Chat, Cowork) or engineers (Code)',
-      more: 'Your data team connects Milo once. After that anyone can ask, with no SQL and no prompt tricks.' },
-    { k: 'Knows', m: 'Your live business data, plus your definitions', c: 'General knowledge, plus whatever you upload or connect',
+    { k: 'Connectors', m: '2,500+, live on day one. Warehouses, CRMs, ad platforms, ERPs, finance tools, spreadsheets', c: 'A short directory. For anything else, an engineer has to build and host it',
+      more: 'If your business runs on it, Milo connects to it. No developers, no exports, no CSVs.' },
+    { k: 'Knows', m: 'Your live numbers, and what they mean at your company', c: 'Whatever you upload, paste or wire up yourself',
       more: 'Milo learns what “active customer” or “net revenue” means at your company once, and every answer uses it.' },
-    { k: 'When things break', m: 'A dedicated engineer and account manager. We always have your back.', c: 'You set up the connectors, and you fix them when an API changes',
+    { k: 'Freshness', m: 'Live. Every answer uses today’s numbers', c: 'As fresh as your last export',
+      more: 'Milo queries your systems at the moment you ask, so nobody downloads, cleans or re-uploads anything.' },
+    { k: 'When things break', m: 'Our engineer fixes it, usually before you notice', c: 'You find out when the answers look wrong. Then you fix it',
       more: 'APIs change and connections break. Our engineers keep every connection working, and your account manager keeps you in the loop.', tab: 'api' },
-    { k: 'Your data', m: 'Stays with you. We never train on it.', c: 'Sent to and stored by Anthropic. Training depends on your plan and settings',
+    { k: 'Your data', m: 'Stays with you. Never used to train AI. Ever.', c: 'Sent to Anthropic. Training depends on your plan and settings',
       more: 'Milo works with your data where it lives, and it’s never used to train models.', tab: 'data' },
-    { k: 'Getting data in', m: 'Connected once, always current', c: 'Upload, paste, or set up connectors yourself',
-      more: 'Warehouse, CRM, ad platforms, ERP and spreadsheets. Milo queries them live, so you never copy, paste or upload anything.' },
-    { k: 'Consistency', m: 'One set of definitions for the whole company', c: 'Depends on who asks and how they ask',
-      more: 'Revenue means the same thing in finance as it does in marketing. Milo learns your definitions once and uses them for the whole team.' },
-    { k: 'Access control', m: 'Role and row-level permissions', c: 'Based on each person’s own access',
+    { k: 'Consistency', m: 'Same question, same answer, for the whole company', c: 'Phrase it differently, get a different number',
+      more: 'Revenue means the same thing in finance as it does in marketing. Milo uses your definitions every time, for everyone.' },
+    { k: 'Setup', m: 'Live in days. We do the work', c: 'Your team wires it up, then keeps it running',
+      more: 'Our engineers connect your systems and agree your definitions with you. Your team just starts asking.' },
+    { k: 'Access control', m: 'Role and row-level permissions across every source', c: 'Each person’s own access, set up one by one',
       more: 'Permissions control who sees what, so everyone can ask freely and only gets the numbers they’re allowed to see.' },
-    { k: 'Output', m: 'Answers, dashboards, reports, alerts, apps', c: 'Replies, drafts, documents, code',
+    { k: 'Output', m: 'Answers, live dashboards, scheduled reports, alerts, apps', c: 'Chat replies and files',
       more: 'Not just a reply. Dashboards, scheduled reports, alerts in Slack, Teams or email, and files ready to send to the board.' },
-    { k: 'Runs on its own', m: 'Scheduled reports and alerts', c: 'When you prompt it',
-      more: 'Milo watches the numbers and posts to Slack, Teams or email when something moves.' },
+    { k: 'Keeping watch', m: 'Watches your numbers around the clock and tells you when something moves', c: 'Built for conversations, not monitoring',
+      more: 'Milo posts to Slack, Teams or email the moment a number moves, before anyone thinks to ask.' },
     { k: 'Lives in', m: 'Web, Slack, Teams, WhatsApp, email', c: 'Claude apps, Slack, IDE, terminal',
       more: 'Ask wherever your team already talks. The answer is the same in every channel.' },
-    { k: 'Best for', m: '“What’s actually happening in the business?”', c: '“Help me think, write or build this.”',
-      more: 'Plenty of teams use both. Claude for thinking, Milo for the numbers.' }
+    { k: 'Best for', m: '“What’s actually happening in the business?”', c: '“Help me write this email.”',
+      more: 'Use Claude to write the email. Use Milo to know what to put in it.' }
   ];
 
   let curQ = 'margin', claudeData = Q.margin.data, cRun = 0, mRun = 0, pRun = 0, played = false;
