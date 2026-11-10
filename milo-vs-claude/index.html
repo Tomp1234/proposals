@@ -183,7 +183,8 @@ h2{font-size:clamp(34px,4.6vw,64px);font-weight:700;line-height:1.02;letter-spac
 /* Claude's note (paper side) */
 .cnote{position:absolute;right:calc(var(--gut-r) + 24px);top:110px;width:min(300px,30%);padding:18px 20px 16px;border-radius:6px 18px 18px 18px;background:repeating-linear-gradient(180deg,transparent 0 27px,var(--paper-line) 27px 28px),var(--surface);box-shadow:0 1px 0 var(--paper-line),0 24px 40px -24px oklch(0.3 0.03 70 / .35);transform:rotate(-2.5deg);color:var(--graphite);animation:bobble 7s ease-in-out infinite}
 .cn-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;margin-bottom:6px}
-.cdot{width:9px;height:9px;border-radius:50%;background:var(--clay);flex:none;display:inline-block}
+.cdot{width:1.15em;height:1.15em;flex:none;display:inline-block;background:url("data:image/svg+xml,%3Csvg%20fill%3D%22%23D97757%22%20role%3D%22img%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ctitle%3EClaude%3C%2Ftitle%3E%3Cpath%20d%3D%22m4.7144%2015.9555%204.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608%201.5179.1032%202.2767.1578%201.6514.0972%202.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973%209.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686%201.9064%201.4754%202.4893%201.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335%206.6997%200l.9957.1336.419.3642.6192%201.4147%201.0018%202.2282%201.5543%203.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853%201.8517-.5586%202.9021-.3643%201.9429h.2125l.2429-.2429.9835-1.3053%201.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759%201.1293-.34%201.1657-1.0625%201.3478-.8804%201.1414-1.2628%201.7-.7893%201.36.0729.1093.1882-.0183%202.8535-.607%201.5421-.2794%201.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607%201.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929%201.0686%202.0035%201.8092%202.5075%202.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496%202.3436%203.5214.1214%201.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38%2017.959l-1.1414-1.9428-.1397.079-.674%207.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328%201.9672-2.1796%202.9446-1.7243%201.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889%202.386-3.0357%201.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385%204.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429%201.9064-1.3114Z%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat}
+.vt-head .vt-c b .cdot{width:26px;height:26px}
 .cn-t{font-size:15px;line-height:28px}
 .cn-w{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-family:var(--f-mono);font-size:11.5px;color:var(--graphite-2);border:1px dashed var(--paper-line);border-radius:999px;padding:4px 10px}
 .cn-w::before{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor;animation:pulse 1.6s ease-in-out infinite}
@@ -479,6 +480,60 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast .ok{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--violet-hi),var(--cyan));display:grid;place-items:center;color:var(--on-v);flex:none}
 
+
+/* ---------- Claude gets it wrong ---------- */
+.pane-c{transition:border-color .4s,box-shadow .4s}
+.pane-c.broke{border-color:color-mix(in oklab,var(--neg) 55%,var(--paper-line));box-shadow:0 0 0 5px color-mix(in oklab,var(--neg) 9%,transparent),0 30px 60px -40px oklch(0.55 0.2 22 / .5)}
+.pane-c.glitch{animation:glitch .45s steps(2) 1}
+@keyframes glitch{15%{transform:translate(-4px,1px) skewX(-1deg)}35%{transform:translate(4px,-1px)}55%{transform:translate(-2px,2px) skewX(1deg)}75%{transform:translate(3px,0)}100%{transform:none}}
+.pane-c.broke .reply{text-decoration:line-through;text-decoration-color:color-mix(in oklab,var(--neg) 75%,transparent);text-decoration-thickness:2px;opacity:.75}
+.pane-c .status.bad{color:var(--neg);font-weight:600}
+.fails{list-style:none;margin:auto 0 0;padding:14px 0 0;display:grid;gap:9px;border-top:1px dashed color-mix(in oklab,var(--neg) 40%,var(--paper-line))}
+.fails:empty{display:none}
+.fails li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:var(--neg);font-weight:500;opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .45s var(--expo)}
+.fails li.in{opacity:1;transform:none}
+.xm{width:20px;height:20px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--neg);color:#fff;margin-top:-1px}
+.fails li.in .xm{animation:pop .45s var(--expo)}
+@keyframes pop{0%{transform:scale(.3)}60%{transform:scale(1.2)}100%{transform:none}}
+.score{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin:-8px 0 18px;font-size:14px;color:var(--ink-3)}
+.score .sc{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:600}
+.score .sc b{font-variant-numeric:tabular-nums;font-size:16px;display:inline-block}
+.score .sc.m b{color:var(--good)}
+.score .sc.c b{color:var(--neg)}
+.score .sc .logo{font-size:15px}
+.score b.bump{animation:pop .5s var(--expo)}
+.dramatised{margin-top:12px;font-size:12.5px;color:var(--ink-3)}
+/* Ticks and crosses in the table */
+.tk,.cx{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;margin-right:10px;vertical-align:-2px;flex:none}
+.tk{background:oklch(0.86 0.13 212 / .2);color:var(--cyan)}
+.cx{background:color-mix(in oklab,var(--neg) 14%,transparent);color:var(--neg)}
+.vt-c>span:first-child{display:block}
+/* ---------- Connectors ---------- */
+.consec{padding-block:clamp(72px,9vw,128px);overflow:hidden}
+.con-big{font-size:clamp(64px,11vw,168px);font-weight:800;letter-spacing:-.06em;line-height:.9;background:linear-gradient(90deg,var(--violet),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.con-sub{font-size:clamp(20px,2vw,28px);font-weight:600;letter-spacing:-.03em;margin-top:6px}
+.con-vs{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:18px;font-size:15px;color:var(--ink-2)}
+.con-vs span{display:inline-flex;align-items:center;gap:8px}
+.lanes{margin:44px calc(var(--gut) * -1) 0;display:grid;gap:12px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.lane{display:flex;width:max-content;gap:12px;animation:scroll 70s linear infinite}
+.lane.rev{animation-direction:reverse;animation-duration:85s}
+.lanes:hover .lane{animation-play-state:paused}
+.tool{display:inline-flex;align-items:center;gap:10px;padding:10px 16px 10px 10px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:15px;white-space:nowrap;transition:transform .3s var(--expo),border-color .2s,box-shadow .3s}
+.tool:hover{transform:translateY(-3px);border-color:color-mix(in oklab,var(--violet) 40%,var(--line));box-shadow:0 14px 30px -18px oklch(0.4 0.2 295 / .5)}
+.tool i{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;color:#fff}
+.finder{margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;max-width:640px}
+.finder form{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 20px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:0 30px 60px -36px oklch(0.35 0.12 295 / .4);transition:border-color .25s,box-shadow .35s var(--expo)}
+.finder form:focus-within{border-color:color-mix(in oklab,var(--violet) 55%,var(--line));box-shadow:0 0 0 5px color-mix(in oklab,var(--violet) 14%,transparent)}
+.finder input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:500 17px/1.3 var(--f);padding:10px 0;outline:none}
+.finder input::placeholder{color:var(--ink-3);font-weight:400}
+.find-out{min-height:28px;font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .4s var(--expo)}
+.find-out.in{opacity:1;transform:none}
+.find-out .tk{margin:0}
+/* ---------- Scroll reveal ---------- */
+.js-reveal .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform 1s var(--expo);transition-delay:calc(var(--d,0) * 70ms)}
+.js-reveal .reveal.in{opacity:1;transform:none}
+@media (max-width:640px){.score{margin-top:0}.finder form{border-radius:20px}}
+
 /* ---------- Responsive ---------- */
 @media (max-width:980px){
   .hero-main{max-width:none}
@@ -515,6 +570,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important;animation-delay:0s!important}
   .track{animation:none;width:auto}
+  .lane{animation:none;flex-wrap:wrap;width:auto}
   .lgroup{flex-wrap:wrap;gap:24px 40px}
   .lgroup[aria-hidden]{display:none}
 }
@@ -635,6 +691,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
         <button type="button" class="chip" data-q="cash" aria-pressed="false">Which invoices are overdue?</button>
       </div>
 
+      <div class="score" aria-live="polite"><span>Right answers so far</span><span class="sc m"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-c"/></svg>Milo</span><b data-score="m">0</b></span><span class="sc c"><i class="cdot"></i>Claude<b data-score="c">0</b></span></div>
       <div class="duel">
         <article class="pane pane-c ruled" aria-label="Claude's answer">
           <div class="pane-h">
@@ -643,7 +700,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
           </div>
           <p class="qb" data-qtext>Why did gross margin drop last month?</p>
           <p class="reply" data-c-reply></p>
-          <span class="blocked in">Waiting for a CSV upload</span>
+          <ul class="fails" data-fails></ul>
         </article>
 
         <article class="pane pane-m vfield spot" aria-label="Milo's answer">
@@ -659,6 +716,28 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
           <div class="viz" data-viz></div>
           <div class="acts" data-acts></div>
         </article>
+      </div>
+      <p class="dramatised">Dramatised example. Without live data, any assistant can only work from whatever you paste in.</p>
+    </div>
+  </section>
+
+  <section class="consec" id="connectors">
+    <div class="wrap">
+      <div class="sec-top reveal">
+        <div>
+          <div class="con-big"><span data-countup="2500">0</span>+</div>
+          <p class="con-sub">connectors. If your business runs on it, Milo plugs into it.</p>
+          <div class="con-vs"><span><i class="tk"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg></i>Milo: live on day one, maintained by our engineers</span><span><i class="cx"><svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></i>Claude: a short directory, then build your own</span></div>
+        </div>
+        <p class="side">Warehouses, CRMs, ad platforms, ERPs, tills, booking systems, finance tools and spreadsheets. No exports, no CSVs, no developers.</p>
+      </div>
+      <div class="lanes" aria-hidden="true">
+        <div class="lane"><span class="tool"><i style="background:#29B5E8;color:#fff">S</i>Snowflake</span><span class="tool"><i style="background:#4285F4;color:#fff">B</i>BigQuery</span><span class="tool"><i style="background:#00A1E0;color:#fff">S</i>Salesforce</span><span class="tool"><i style="background:#FF7A59;color:#fff">H</i>HubSpot</span><span class="tool"><i style="background:#13B5EA;color:#fff">X</i>Xero</span><span class="tool"><i style="background:#5E8E3E;color:#fff">S</i>Shopify</span><span class="tool"><i style="background:#635BFF;color:#fff">S</i>Stripe</span><span class="tool"><i style="background:#FBBC04;color:#111">GA</i>Google Ads</span><span class="tool"><i style="background:#0866FF;color:#fff">MA</i>Meta Ads</span><span class="tool"><i style="background:#1F4E79;color:#fff">N</i>NetSuite</span><span class="tool"><i style="background:#2CA01C;color:#fff">Q</i>QuickBooks</span><span class="tool"><i style="background:#00D639;color:#fff">S</i>Sage</span><span class="tool"><i style="background:#0FAAFF;color:#fff">S</i>SAP</span><span class="tool"><i style="background:#002050;color:#fff">D3</i>Dynamics 365</span><span class="tool"><i style="background:#8C4FFF;color:#fff">R</i>Redshift</span><span class="tool"><i style="background:#FF3621;color:#fff">D</i>Databricks</span><span class="tool"><i style="background:#336791;color:#fff">P</i>PostgreSQL</span><span class="tool"><i style="background:#0F9D58;color:#fff">GS</i>Google Sheets</span><span class="tool"><i style="background:#217346;color:#fff">E</i>Excel</span><span class="tool"><i style="background:#232426;color:#fff">K</i>Klaviyo</span><span class="tool"><i style="background:#29B5E8;color:#fff">S</i>Snowflake</span><span class="tool"><i style="background:#4285F4;color:#fff">B</i>BigQuery</span><span class="tool"><i style="background:#00A1E0;color:#fff">S</i>Salesforce</span><span class="tool"><i style="background:#FF7A59;color:#fff">H</i>HubSpot</span><span class="tool"><i style="background:#13B5EA;color:#fff">X</i>Xero</span><span class="tool"><i style="background:#5E8E3E;color:#fff">S</i>Shopify</span><span class="tool"><i style="background:#635BFF;color:#fff">S</i>Stripe</span><span class="tool"><i style="background:#FBBC04;color:#111">GA</i>Google Ads</span><span class="tool"><i style="background:#0866FF;color:#fff">MA</i>Meta Ads</span><span class="tool"><i style="background:#1F4E79;color:#fff">N</i>NetSuite</span><span class="tool"><i style="background:#2CA01C;color:#fff">Q</i>QuickBooks</span><span class="tool"><i style="background:#00D639;color:#fff">S</i>Sage</span><span class="tool"><i style="background:#0FAAFF;color:#fff">S</i>SAP</span><span class="tool"><i style="background:#002050;color:#fff">D3</i>Dynamics 365</span><span class="tool"><i style="background:#8C4FFF;color:#fff">R</i>Redshift</span><span class="tool"><i style="background:#FF3621;color:#fff">D</i>Databricks</span><span class="tool"><i style="background:#336791;color:#fff">P</i>PostgreSQL</span><span class="tool"><i style="background:#0F9D58;color:#fff">GS</i>Google Sheets</span><span class="tool"><i style="background:#217346;color:#fff">E</i>Excel</span><span class="tool"><i style="background:#232426;color:#fff">K</i>Klaviyo</span></div>
+        <div class="lane rev"><span class="tool"><i style="background:#03363D;color:#fff">Z</i>Zendesk</span><span class="tool"><i style="background:#1F8DED;color:#fff">I</i>Intercom</span><span class="tool"><i style="background:#017737;color:#fff">P</i>Pipedrive</span><span class="tool"><i style="background:#FF9900;color:#fff">AS</i>Amazon Seller</span><span class="tool"><i style="background:#111111;color:#fff">TA</i>TikTok Ads</span><span class="tool"><i style="background:#0A66C2;color:#fff">LA</i>LinkedIn Ads</span><span class="tool"><i style="background:#E37400;color:#fff">GA</i>Google Analytics</span><span class="tool"><i style="background:#7856FF;color:#fff">M</i>Mixpanel</span><span class="tool"><i style="background:#18BFFF;color:#fff">A</i>Airtable</span><span class="tool"><i style="background:#0052CC;color:#fff">J</i>Jira</span><span class="tool"><i style="background:#E8262C;color:#fff">L</i>Lightspeed</span><span class="tool"><i style="background:#FF4C00;color:#fff">T</i>Toast</span><span class="tool"><i style="background:#2B2D42;color:#fff">S</i>SevenRooms</span><span class="tool"><i style="background:#3D5AFE;color:#fff">D</i>Deputy</span><span class="tool"><i style="background:#84C225;color:#fff">S</i>ShipStation</span><span class="tool"><i style="background:#1D3557;color:#fff">L</i>Linnworks</span><span class="tool"><i style="background:#7F54B3;color:#fff">W</i>WooCommerce</span><span class="tool"><i style="background:#3E4348;color:#fff">S</i>Square</span><span class="tool"><i style="background:#FFE01B;color:#111">M</i>Mailchimp</span><span class="tool"><i style="background:#111111;color:#fff">N</i>Notion</span><span class="tool"><i style="background:#03363D;color:#fff">Z</i>Zendesk</span><span class="tool"><i style="background:#1F8DED;color:#fff">I</i>Intercom</span><span class="tool"><i style="background:#017737;color:#fff">P</i>Pipedrive</span><span class="tool"><i style="background:#FF9900;color:#fff">AS</i>Amazon Seller</span><span class="tool"><i style="background:#111111;color:#fff">TA</i>TikTok Ads</span><span class="tool"><i style="background:#0A66C2;color:#fff">LA</i>LinkedIn Ads</span><span class="tool"><i style="background:#E37400;color:#fff">GA</i>Google Analytics</span><span class="tool"><i style="background:#7856FF;color:#fff">M</i>Mixpanel</span><span class="tool"><i style="background:#18BFFF;color:#fff">A</i>Airtable</span><span class="tool"><i style="background:#0052CC;color:#fff">J</i>Jira</span><span class="tool"><i style="background:#E8262C;color:#fff">L</i>Lightspeed</span><span class="tool"><i style="background:#FF4C00;color:#fff">T</i>Toast</span><span class="tool"><i style="background:#2B2D42;color:#fff">S</i>SevenRooms</span><span class="tool"><i style="background:#3D5AFE;color:#fff">D</i>Deputy</span><span class="tool"><i style="background:#84C225;color:#fff">S</i>ShipStation</span><span class="tool"><i style="background:#1D3557;color:#fff">L</i>Linnworks</span><span class="tool"><i style="background:#7F54B3;color:#fff">W</i>WooCommerce</span><span class="tool"><i style="background:#3E4348;color:#fff">S</i>Square</span><span class="tool"><i style="background:#FFE01B;color:#111">M</i>Mailchimp</span><span class="tool"><i style="background:#111111;color:#fff">N</i>Notion</span></div>
+      </div>
+      <div class="finder reveal">
+        <form data-find><span class="p-ic" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="9" r="6"/><path d="M14 14l4 4"/></svg></span><label for="findq" class="sr">Does Milo connect to your tool?</label><input id="findq" type="text" autocomplete="off" maxlength="40" placeholder="Does Milo connect to… type your tool"><button type="submit" class="p-send" aria-label="Check"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button></form>
+        <p class="find-out" data-find-out aria-live="polite"></p>
       </div>
     </div>
   </section>
@@ -831,7 +910,24 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   const CHECK = '<svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg>';
   const PLUS = '<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>';
   const PLUS_LG = '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>';
-  const CLAUDE_REPLY = 'Happy to help. Could you upload your {data} as a CSV? Once I have it, I can dig in and look for patterns.';
+  const CROSS = '<svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>';
+  // What Claude says from an old export, and why it's wrong (dramatised)
+  const CQ = {
+    margin: { a: 'Based on the sales export from three weeks ago, gross margin looks stable at around 41%. I don’t see a significant drop. It may just be seasonal noise.',
+      fails: ['Wrong: margin fell 3.1 points, to 38.1%', 'Worked from a 3-week-old export', 'Missed the supplier cost rise on the 12th'] },
+    churn: { a: 'From the customer list you shared, churn risk looks low. Only 2 accounts haven’t placed an order recently.',
+      fails: ['Wrong: 14 accounts are at risk, worth £182k', 'Can’t see product usage', 'Can’t see support tickets'] },
+    ads: { a: 'Looking at the spend summary you pasted, Google Search costs the most, so I’d start trimming there.',
+      fails: ['Wrong: Meta prospecting is the waste, at £127 per acquisition', 'No conversion data from your CRM', 'Would cut your best channel'] },
+    inventory: { a: 'Your stock sheet shows healthy levels across all SKUs. Nothing looks likely to run out soon.',
+      fails: ['Wrong: 4 SKUs run out before their next delivery', 'Stock sheet was 9 days old', 'Didn’t check open purchase orders'] },
+    cash: { a: 'In the invoice CSV, I count 17 overdue invoices totalling about £150k.',
+      fails: ['Wrong: £214k is overdue, across 23 invoices', 'Missed every payment since the export', 'Can’t see Xero'] },
+    revenue: { a: 'Revenue looks on track. The sheet you uploaded shows £1.6m, roughly in line with last month.',
+      fails: ['Wrong: £1.84m, and 6% behind target', 'Export missed this week’s sales', 'Doesn’t know your target'] },
+    none: { a: 'I don’t have access to your business data. If you export it and upload it here, I can take a look.',
+      fails: ['No answer: no data connected', 'Someone has to export it first'] }
+  };
 
   // Demo questions and Milo's (example) answers
   const Q = {
@@ -946,7 +1042,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
       more: 'Use Claude to write the email. Use Milo to know what to put in it.' }
   ];
 
-  let curQ = 'margin', claudeData = Q.margin.data, cRun = 0, mRun = 0, pRun = 0, played = false;
+  let curQ = 'margin', claudeKey = 'margin', cRun = 0, mRun = 0, pRun = 0, played = false;
   const hero = $('[data-hero]'), heroIn = $('[data-hero-in]'), h1 = $('.headline'), card = $('.mcard'), note = $('.cnote');
 
   /* ---------- Hero ---------- */
@@ -1046,21 +1142,26 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 
   async function playClaude(instant) {
     const t = ++cRun;
-    const el = $('[data-c-reply]'), bl = $('.blocked'), st = $('[data-c-status]');
-    const text = CLAUDE_REPLY.replace('{data}', claudeData);
+    const pane = $('.pane-c'), el = $('[data-c-reply]'), fl = $('[data-fails]'), st = $('[data-c-status]');
+    const c = CQ[claudeKey] || CQ.none;
+    fl.innerHTML = c.fails.map(f => `<li><span class="xm">${CROSS}</span><span>${f}</span></li>`).join('');
+    const verdict = claudeKey === 'none' ? 'No answer' : 'Wrong answer';
+    const fail = () => { st.innerHTML = `${CROSS} ${verdict}`; st.classList.add('bad'); pane.classList.add('broke'); };
     if (instant || RM) {
-      el.classList.remove('typing'); el.textContent = text;
-      bl.classList.add('in'); st.textContent = 'Waiting on you';
+      el.classList.remove('typing'); el.textContent = c.a;
+      $$('li', fl).forEach(li => li.classList.add('in')); fail();
       return;
     }
-    bl.classList.remove('in'); st.textContent = 'Thinking…';
+    pane.classList.remove('broke', 'glitch'); st.classList.remove('bad');
+    st.textContent = 'Thinking…';
     el.classList.remove('typing');
     el.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
     await sleep(750); if (t !== cRun) return;
     st.textContent = 'Typing…';
-    if (!await typeInto(el, text, 17, t, () => cRun)) return;
-    bl.classList.add('in');
-    st.textContent = 'Waiting on you';
+    if (!await typeInto(el, c.a, 15, t, () => cRun)) return;
+    await sleep(350); if (t !== cRun) return;
+    void pane.offsetWidth; pane.classList.add('glitch'); fail();
+    for (const li of $$('li', fl)) { await sleep(260); if (t !== cRun) return; li.classList.add('in'); }
   }
 
   function vizHTML(v) {
@@ -1100,6 +1201,14 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     viz.classList.add('in');
     await sleep(450); if (t !== mRun) return;
     acts.classList.add('in'); done();
+    bumpScore();
+  }
+
+  const score = { m: 0, c: 0 };
+  function bumpScore() {
+    score.m++;
+    const b = $('[data-score="m"]');
+    b.textContent = score.m; b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump');
   }
 
   // Ask both. A chip types its question in first; free text is matched to the nearest example and says so.
@@ -1110,7 +1219,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     const custom = text !== null;
     const matched = custom ? route(text) : key;
     curQ = matched || 'revenue';
-    claudeData = custom && !matched ? 'business data' : Q[curQ].data;
+    claudeKey = custom && !matched ? 'none' : curQ;
     const shown = custom ? text : Q[key].text;
     $$('.chip').forEach(c => c.setAttribute('aria-pressed', !custom && c.dataset.q === key));
     if (type && !custom && !RM) {
@@ -1155,7 +1264,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   /* ---------- Versus table ---------- */
   const vtBody = $('[data-vt-body]');
   vtBody.innerHTML = ROWS.map((r, i) =>
-    `<div class="vt-row${r.tab ? ' key' : ''}"><span class="vt-k">${r.k}${r.tab ? `<a class="vt-see" href="#after" data-goto="${r.tab}">${r.tab === 'api' ? 'Watch it happen' : 'See where it goes'} ↓</a>` : ''}</span><span class="vt-m"><span>${r.m}</span><span class="vt-more" id="more-${i}"><span><span class="vt-mi">${r.more}</span></span></span></span><span class="vt-c"><span>${r.c}</span><button type="button" class="pl" aria-expanded="false" aria-controls="more-${i}" aria-label="Details: ${r.k}">${PLUS_LG}</button></span></div>`).join('');
+    `<div class="vt-row${r.tab ? ' key' : ''}"><span class="vt-k">${r.k}${r.tab ? `<a class="vt-see" href="#after" data-goto="${r.tab}">${r.tab === 'api' ? 'Watch it happen' : 'See where it goes'} ↓</a>` : ''}</span><span class="vt-m"><span><i class="tk">${CHECK}</i>${r.m}</span><span class="vt-more" id="more-${i}"><span><span class="vt-mi">${r.more}</span></span></span></span><span class="vt-c"><span><i class="cx">${CROSS}</i>${r.c}</span><button type="button" class="pl" aria-expanded="false" aria-controls="more-${i}" aria-label="Details: ${r.k}">${PLUS_LG}</button></span></div>`).join('');
   const rows = () => $$('.vt-row', vtBody);
   function setOpen(row, open) { row.classList.toggle('open', open); $('.pl', row).setAttribute('aria-expanded', open); }
   const expandBtn = $('[data-expand]');
@@ -1296,6 +1405,48 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   }
   function askFlow() { packet('c'); packet('m'); }
   $('[data-flow-go]').addEventListener('click', askFlow);
+
+  /* ---------- Connectors ---------- */
+  const TOOLS = ['Snowflake', 'BigQuery', 'Salesforce', 'HubSpot', 'Xero', 'Shopify', 'Stripe', 'Google Ads', 'Meta Ads', 'NetSuite', 'QuickBooks', 'Sage', 'SAP', 'Dynamics 365', 'Redshift', 'Databricks', 'PostgreSQL', 'Google Sheets', 'Excel', 'Klaviyo', 'Zendesk', 'Intercom', 'Pipedrive', 'Amazon Seller', 'TikTok Ads', 'LinkedIn Ads', 'Google Analytics', 'Mixpanel', 'Airtable', 'Jira', 'Lightspeed', 'Toast', 'SevenRooms', 'Deputy', 'ShipStation', 'Linnworks', 'WooCommerce', 'Square', 'Mailchimp', 'Notion'];
+  const countEl = $('[data-countup]');
+  function countUp() {
+    const to = +countEl.dataset.countup, t0 = performance.now(), dur = 1600;
+    const fmt = n => n.toLocaleString('en-GB');
+    if (RM) { countEl.textContent = fmt(to); return; }
+    const step = now => {
+      const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 4);
+      countEl.textContent = fmt(Math.round(to * e));
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  const findOut = $('[data-find-out]'), findIn = $('#findq');
+  $('[data-find]').addEventListener('submit', e => {
+    e.preventDefault();
+    const q = findIn.value.trim();
+    if (!q) { findIn.focus(); return; }
+    const hit = TOOLS.find(n => n.toLowerCase() === q.toLowerCase() || n.toLowerCase().startsWith(q.toLowerCase()));
+    const safe = q.replace(/[<>&"]/g, '');
+    findOut.innerHTML = hit
+      ? `<i class="tk">${CHECK}</i>Yes. Milo connects to ${hit} out of the box.`
+      : `<i class="tk">${CHECK}</i>Very likely. With 2,500+ connectors, ask us about ${safe} and we’ll confirm.`;
+    findOut.classList.remove('in'); void findOut.offsetWidth; findOut.classList.add('in');
+  });
+
+  // Sections ease in as they scroll into view
+  if (!RM && 'IntersectionObserver' in window) {
+    $$('.sec-top, .duel, .score, .vt-row, .tabs, .faq details, .final h2, .final .lede').forEach((el, i) => {
+      el.classList.add('reveal');
+      if (el.classList.contains('vt-row')) el.style.setProperty('--d', [...el.parentNode.children].indexOf(el) % 6);
+    });
+    document.documentElement.classList.add('js-reveal');
+    const rio = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in'); rio.unobserve(e.target);
+      if (e.target.contains(countEl)) countUp();
+    }), { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    $$('.reveal').forEach(el => rio.observe(el));
+  } else countUp();
 
   /* ---------- Sticky bar + scroll progress ---------- */
   const bar = $('.bar'), prog = $('[data-prog]');
