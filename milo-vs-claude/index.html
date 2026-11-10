@@ -508,6 +508,27 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 .tk{background:oklch(0.86 0.13 212 / .2);color:var(--cyan)}
 .cx{background:color-mix(in oklab,var(--neg) 14%,transparent);color:var(--neg)}
 .vt-c>span:first-child{display:block}
+/* ---------- Claude's data leaving ---------- */
+.spanel-c.danger{border-color:color-mix(in oklab,var(--neg) 45%,var(--paper-line));box-shadow:0 0 0 5px color-mix(in oklab,var(--neg) 7%,transparent),0 30px 60px -40px oklch(0.55 0.2 22 / .45)}
+.leak{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:#fff;background:var(--neg);border-radius:999px;padding:4px 10px;white-space:nowrap;animation:leakPulse 1.6s ease-in-out infinite}
+@keyframes leakPulse{50%{opacity:.62}}
+.spanel-c.danger .flow .wire{stroke:var(--neg);opacity:.8}
+.spanel-c.danger .flow .ext{fill:color-mix(in oklab,var(--neg) 16%,var(--surface));stroke:var(--neg)}
+.spanel-c.danger [data-node="c"] .ico{color:var(--neg)}
+.spanel-c.danger .flow .pk{fill:var(--neg);filter:drop-shadow(0 0 6px var(--neg))}
+.flow .anth{fill:var(--neg)}
+.flow .alarm{fill:none;stroke:var(--neg);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center;animation:alarm 2.2s ease-out infinite}
+.flow .alarm.a2{animation-delay:1.1s}
+@keyframes alarm{0%{transform:scale(.75);opacity:.75}100%{transform:scale(2);opacity:0}}
+.flow .breach circle{fill:var(--neg)}
+.flow .breach path{stroke:#fff;stroke-width:2.2;stroke-linecap:round;fill:none}
+.flow .exitb rect{fill:var(--neg)}
+.flow .exitb text{font:700 8.5px var(--f-mono);fill:#fff;letter-spacing:.06em}
+.spanel-c.danger .tally b{color:var(--neg)}
+.leaks{list-style:none;margin:0;padding:0;display:grid;gap:5px;align-content:start;font-family:var(--f-mono);font-size:12px;color:var(--neg);min-height:58px}
+.leaks li{display:flex;gap:10px;animation:rise .4s var(--expo) both}
+.leaks li:nth-child(2){opacity:.7}.leaks li:nth-child(3){opacity:.45}
+.leaks time{opacity:.75}
 /* ---------- Connectors ---------- */
 .consec{padding-block:clamp(72px,9vw,128px);overflow:hidden}
 .con-big{font-size:clamp(64px,11vw,168px);font-weight:800;letter-spacing:-.06em;line-height:.9;background:linear-gradient(90deg,var(--violet),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
@@ -520,7 +541,8 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 .lanes:hover .lane{animation-play-state:paused}
 .tool{display:inline-flex;align-items:center;gap:10px;padding:10px 16px 10px 10px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:15px;white-space:nowrap;transition:transform .3s var(--expo),border-color .2s,box-shadow .3s}
 .tool:hover{transform:translateY(-3px);border-color:color-mix(in oklab,var(--violet) 40%,var(--line));box-shadow:0 14px 30px -18px oklch(0.4 0.2 295 / .5)}
-.tool i{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;color:#fff}
+.tool i{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:#fff;box-shadow:inset 0 0 0 1px oklch(0 0 0 / .07)}
+.tool i img{width:20px;height:20px;object-fit:contain;display:block}
 .finder{margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;max-width:640px}
 .finder form{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 20px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:0 30px 60px -36px oklch(0.35 0.12 295 / .4);transition:border-color .25s,box-shadow .35s var(--expo)}
 .finder form:focus-within{border-color:color-mix(in oklab,var(--violet) 55%,var(--line));box-shadow:0 0 0 5px color-mix(in oklab,var(--violet) 14%,transparent)}
@@ -732,8 +754,8 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
         <p class="side">Warehouses, CRMs, ad platforms, ERPs, tills, booking systems, finance tools and spreadsheets. No exports, no CSVs, no developers.</p>
       </div>
       <div class="lanes" aria-hidden="true">
-        <div class="lane"><span class="tool"><i style="background:#29B5E8;color:#fff">S</i>Snowflake</span><span class="tool"><i style="background:#4285F4;color:#fff">B</i>BigQuery</span><span class="tool"><i style="background:#00A1E0;color:#fff">S</i>Salesforce</span><span class="tool"><i style="background:#FF7A59;color:#fff">H</i>HubSpot</span><span class="tool"><i style="background:#13B5EA;color:#fff">X</i>Xero</span><span class="tool"><i style="background:#5E8E3E;color:#fff">S</i>Shopify</span><span class="tool"><i style="background:#635BFF;color:#fff">S</i>Stripe</span><span class="tool"><i style="background:#FBBC04;color:#111">GA</i>Google Ads</span><span class="tool"><i style="background:#0866FF;color:#fff">MA</i>Meta Ads</span><span class="tool"><i style="background:#1F4E79;color:#fff">N</i>NetSuite</span><span class="tool"><i style="background:#2CA01C;color:#fff">Q</i>QuickBooks</span><span class="tool"><i style="background:#00D639;color:#fff">S</i>Sage</span><span class="tool"><i style="background:#0FAAFF;color:#fff">S</i>SAP</span><span class="tool"><i style="background:#002050;color:#fff">D3</i>Dynamics 365</span><span class="tool"><i style="background:#8C4FFF;color:#fff">R</i>Redshift</span><span class="tool"><i style="background:#FF3621;color:#fff">D</i>Databricks</span><span class="tool"><i style="background:#336791;color:#fff">P</i>PostgreSQL</span><span class="tool"><i style="background:#0F9D58;color:#fff">GS</i>Google Sheets</span><span class="tool"><i style="background:#217346;color:#fff">E</i>Excel</span><span class="tool"><i style="background:#232426;color:#fff">K</i>Klaviyo</span><span class="tool"><i style="background:#29B5E8;color:#fff">S</i>Snowflake</span><span class="tool"><i style="background:#4285F4;color:#fff">B</i>BigQuery</span><span class="tool"><i style="background:#00A1E0;color:#fff">S</i>Salesforce</span><span class="tool"><i style="background:#FF7A59;color:#fff">H</i>HubSpot</span><span class="tool"><i style="background:#13B5EA;color:#fff">X</i>Xero</span><span class="tool"><i style="background:#5E8E3E;color:#fff">S</i>Shopify</span><span class="tool"><i style="background:#635BFF;color:#fff">S</i>Stripe</span><span class="tool"><i style="background:#FBBC04;color:#111">GA</i>Google Ads</span><span class="tool"><i style="background:#0866FF;color:#fff">MA</i>Meta Ads</span><span class="tool"><i style="background:#1F4E79;color:#fff">N</i>NetSuite</span><span class="tool"><i style="background:#2CA01C;color:#fff">Q</i>QuickBooks</span><span class="tool"><i style="background:#00D639;color:#fff">S</i>Sage</span><span class="tool"><i style="background:#0FAAFF;color:#fff">S</i>SAP</span><span class="tool"><i style="background:#002050;color:#fff">D3</i>Dynamics 365</span><span class="tool"><i style="background:#8C4FFF;color:#fff">R</i>Redshift</span><span class="tool"><i style="background:#FF3621;color:#fff">D</i>Databricks</span><span class="tool"><i style="background:#336791;color:#fff">P</i>PostgreSQL</span><span class="tool"><i style="background:#0F9D58;color:#fff">GS</i>Google Sheets</span><span class="tool"><i style="background:#217346;color:#fff">E</i>Excel</span><span class="tool"><i style="background:#232426;color:#fff">K</i>Klaviyo</span></div>
-        <div class="lane rev"><span class="tool"><i style="background:#03363D;color:#fff">Z</i>Zendesk</span><span class="tool"><i style="background:#1F8DED;color:#fff">I</i>Intercom</span><span class="tool"><i style="background:#017737;color:#fff">P</i>Pipedrive</span><span class="tool"><i style="background:#FF9900;color:#fff">AS</i>Amazon Seller</span><span class="tool"><i style="background:#111111;color:#fff">TA</i>TikTok Ads</span><span class="tool"><i style="background:#0A66C2;color:#fff">LA</i>LinkedIn Ads</span><span class="tool"><i style="background:#E37400;color:#fff">GA</i>Google Analytics</span><span class="tool"><i style="background:#7856FF;color:#fff">M</i>Mixpanel</span><span class="tool"><i style="background:#18BFFF;color:#fff">A</i>Airtable</span><span class="tool"><i style="background:#0052CC;color:#fff">J</i>Jira</span><span class="tool"><i style="background:#E8262C;color:#fff">L</i>Lightspeed</span><span class="tool"><i style="background:#FF4C00;color:#fff">T</i>Toast</span><span class="tool"><i style="background:#2B2D42;color:#fff">S</i>SevenRooms</span><span class="tool"><i style="background:#3D5AFE;color:#fff">D</i>Deputy</span><span class="tool"><i style="background:#84C225;color:#fff">S</i>ShipStation</span><span class="tool"><i style="background:#1D3557;color:#fff">L</i>Linnworks</span><span class="tool"><i style="background:#7F54B3;color:#fff">W</i>WooCommerce</span><span class="tool"><i style="background:#3E4348;color:#fff">S</i>Square</span><span class="tool"><i style="background:#FFE01B;color:#111">M</i>Mailchimp</span><span class="tool"><i style="background:#111111;color:#fff">N</i>Notion</span><span class="tool"><i style="background:#03363D;color:#fff">Z</i>Zendesk</span><span class="tool"><i style="background:#1F8DED;color:#fff">I</i>Intercom</span><span class="tool"><i style="background:#017737;color:#fff">P</i>Pipedrive</span><span class="tool"><i style="background:#FF9900;color:#fff">AS</i>Amazon Seller</span><span class="tool"><i style="background:#111111;color:#fff">TA</i>TikTok Ads</span><span class="tool"><i style="background:#0A66C2;color:#fff">LA</i>LinkedIn Ads</span><span class="tool"><i style="background:#E37400;color:#fff">GA</i>Google Analytics</span><span class="tool"><i style="background:#7856FF;color:#fff">M</i>Mixpanel</span><span class="tool"><i style="background:#18BFFF;color:#fff">A</i>Airtable</span><span class="tool"><i style="background:#0052CC;color:#fff">J</i>Jira</span><span class="tool"><i style="background:#E8262C;color:#fff">L</i>Lightspeed</span><span class="tool"><i style="background:#FF4C00;color:#fff">T</i>Toast</span><span class="tool"><i style="background:#2B2D42;color:#fff">S</i>SevenRooms</span><span class="tool"><i style="background:#3D5AFE;color:#fff">D</i>Deputy</span><span class="tool"><i style="background:#84C225;color:#fff">S</i>ShipStation</span><span class="tool"><i style="background:#1D3557;color:#fff">L</i>Linnworks</span><span class="tool"><i style="background:#7F54B3;color:#fff">W</i>WooCommerce</span><span class="tool"><i style="background:#3E4348;color:#fff">S</i>Square</span><span class="tool"><i style="background:#FFE01B;color:#111">M</i>Mailchimp</span><span class="tool"><i style="background:#111111;color:#fff">N</i>Notion</span></div>
+        <div class="lane"><span class="tool"><i><img src="connectors/salesforce.png" alt="" width="20" height="20" decoding="async"></i>Salesforce</span><span class="tool"><i><img src="connectors/xero.svg" alt="" width="20" height="20" decoding="async"></i>Xero</span><span class="tool"><i><img src="connectors/snowflake.svg" alt="" width="20" height="20" decoding="async"></i>Snowflake</span><span class="tool"><i><img src="connectors/stripe.svg" alt="" width="20" height="20" decoding="async"></i>Stripe</span><span class="tool"><i><img src="connectors/meta.svg" alt="" width="20" height="20" decoding="async"></i>Meta Ads</span><span class="tool"><i><img src="connectors/excel.png" alt="" width="20" height="20" decoding="async"></i>Excel</span><span class="tool"><i><img src="connectors/netsuite.png" alt="" width="20" height="20" decoding="async"></i>NetSuite</span><span class="tool"><i><img src="connectors/sap.svg" alt="" width="20" height="20" decoding="async"></i>SAP</span><span class="tool"><i><img src="connectors/powerbi.png" alt="" width="20" height="20" decoding="async"></i>Power BI</span><span class="tool"><i><img src="connectors/databricks.svg" alt="" width="20" height="20" decoding="async"></i>Databricks</span><span class="tool"><i><img src="connectors/googlesheets.svg" alt="" width="20" height="20" decoding="async"></i>Google Sheets</span><span class="tool"><i><img src="connectors/intercom.svg" alt="" width="20" height="20" decoding="async"></i>Intercom</span><span class="tool"><i><img src="connectors/googleanalytics.svg" alt="" width="20" height="20" decoding="async"></i>Google Analytics</span><span class="tool"><i><img src="connectors/airtable.svg" alt="" width="20" height="20" decoding="async"></i>Airtable</span><span class="tool"><i><img src="connectors/woocommerce.svg" alt="" width="20" height="20" decoding="async"></i>WooCommerce</span><span class="tool"><i><img src="connectors/mailchimp.svg" alt="" width="20" height="20" decoding="async"></i>Mailchimp</span><span class="tool"><i><img src="connectors/asana.svg" alt="" width="20" height="20" decoding="async"></i>Asana</span><span class="tool"><i><img src="connectors/mysql.svg" alt="" width="20" height="20" decoding="async"></i>MySQL</span><span class="tool"><i><img src="connectors/ebay.svg" alt="" width="20" height="20" decoding="async"></i>eBay</span><span class="tool"><i><img src="connectors/looker.svg" alt="" width="20" height="20" decoding="async"></i>Looker</span><span class="tool"><i><img src="connectors/trello.svg" alt="" width="20" height="20" decoding="async"></i>Trello</span><span class="tool"><i><img src="connectors/aws.png" alt="" width="20" height="20" decoding="async"></i>Redshift</span><span class="tool"><i><img src="connectors/pipedrive.png" alt="" width="20" height="20" decoding="async"></i>Pipedrive</span><span class="tool"><i><img src="connectors/lightspeed.png" alt="" width="20" height="20" decoding="async"></i>Lightspeed</span><span class="tool"><i><img src="connectors/deputy.png" alt="" width="20" height="20" decoding="async"></i>Deputy</span><span class="tool"><i><img src="connectors/linnworks.png" alt="" width="20" height="20" decoding="async"></i>Linnworks</span><span class="tool"><i><img src="connectors/amplitude.png" alt="" width="20" height="20" decoding="async"></i>Amplitude</span><span class="tool"><i><img src="connectors/opentable.png" alt="" width="20" height="20" decoding="async"></i>OpenTable</span><span class="tool"><i><img src="connectors/amazon.png" alt="" width="20" height="20" decoding="async"></i>Amazon Seller</span><span class="tool"><i><img src="connectors/tableau.png" alt="" width="20" height="20" decoding="async"></i>Tableau</span><span class="tool"><i><img src="connectors/salesforce.png" alt="" width="20" height="20" decoding="async"></i>Salesforce</span><span class="tool"><i><img src="connectors/xero.svg" alt="" width="20" height="20" decoding="async"></i>Xero</span><span class="tool"><i><img src="connectors/snowflake.svg" alt="" width="20" height="20" decoding="async"></i>Snowflake</span><span class="tool"><i><img src="connectors/stripe.svg" alt="" width="20" height="20" decoding="async"></i>Stripe</span><span class="tool"><i><img src="connectors/meta.svg" alt="" width="20" height="20" decoding="async"></i>Meta Ads</span><span class="tool"><i><img src="connectors/excel.png" alt="" width="20" height="20" decoding="async"></i>Excel</span><span class="tool"><i><img src="connectors/netsuite.png" alt="" width="20" height="20" decoding="async"></i>NetSuite</span><span class="tool"><i><img src="connectors/sap.svg" alt="" width="20" height="20" decoding="async"></i>SAP</span><span class="tool"><i><img src="connectors/powerbi.png" alt="" width="20" height="20" decoding="async"></i>Power BI</span><span class="tool"><i><img src="connectors/databricks.svg" alt="" width="20" height="20" decoding="async"></i>Databricks</span><span class="tool"><i><img src="connectors/googlesheets.svg" alt="" width="20" height="20" decoding="async"></i>Google Sheets</span><span class="tool"><i><img src="connectors/intercom.svg" alt="" width="20" height="20" decoding="async"></i>Intercom</span><span class="tool"><i><img src="connectors/googleanalytics.svg" alt="" width="20" height="20" decoding="async"></i>Google Analytics</span><span class="tool"><i><img src="connectors/airtable.svg" alt="" width="20" height="20" decoding="async"></i>Airtable</span><span class="tool"><i><img src="connectors/woocommerce.svg" alt="" width="20" height="20" decoding="async"></i>WooCommerce</span><span class="tool"><i><img src="connectors/mailchimp.svg" alt="" width="20" height="20" decoding="async"></i>Mailchimp</span><span class="tool"><i><img src="connectors/asana.svg" alt="" width="20" height="20" decoding="async"></i>Asana</span><span class="tool"><i><img src="connectors/mysql.svg" alt="" width="20" height="20" decoding="async"></i>MySQL</span><span class="tool"><i><img src="connectors/ebay.svg" alt="" width="20" height="20" decoding="async"></i>eBay</span><span class="tool"><i><img src="connectors/looker.svg" alt="" width="20" height="20" decoding="async"></i>Looker</span><span class="tool"><i><img src="connectors/trello.svg" alt="" width="20" height="20" decoding="async"></i>Trello</span><span class="tool"><i><img src="connectors/aws.png" alt="" width="20" height="20" decoding="async"></i>Redshift</span><span class="tool"><i><img src="connectors/pipedrive.png" alt="" width="20" height="20" decoding="async"></i>Pipedrive</span><span class="tool"><i><img src="connectors/lightspeed.png" alt="" width="20" height="20" decoding="async"></i>Lightspeed</span><span class="tool"><i><img src="connectors/deputy.png" alt="" width="20" height="20" decoding="async"></i>Deputy</span><span class="tool"><i><img src="connectors/linnworks.png" alt="" width="20" height="20" decoding="async"></i>Linnworks</span><span class="tool"><i><img src="connectors/amplitude.png" alt="" width="20" height="20" decoding="async"></i>Amplitude</span><span class="tool"><i><img src="connectors/opentable.png" alt="" width="20" height="20" decoding="async"></i>OpenTable</span><span class="tool"><i><img src="connectors/amazon.png" alt="" width="20" height="20" decoding="async"></i>Amazon Seller</span><span class="tool"><i><img src="connectors/tableau.png" alt="" width="20" height="20" decoding="async"></i>Tableau</span></div>
+        <div class="lane rev"><span class="tool"><i><img src="connectors/hubspot.svg" alt="" width="20" height="20" decoding="async"></i>HubSpot</span><span class="tool"><i><img src="connectors/shopify.svg" alt="" width="20" height="20" decoding="async"></i>Shopify</span><span class="tool"><i><img src="connectors/bigquery.png" alt="" width="20" height="20" decoding="async"></i>BigQuery</span><span class="tool"><i><img src="connectors/googleads.svg" alt="" width="20" height="20" decoding="async"></i>Google Ads</span><span class="tool"><i><img src="connectors/quickbooks.svg" alt="" width="20" height="20" decoding="async"></i>QuickBooks</span><span class="tool"><i><img src="connectors/slack.png" alt="" width="20" height="20" decoding="async"></i>Slack</span><span class="tool"><i><img src="connectors/dynamics365.png" alt="" width="20" height="20" decoding="async"></i>Dynamics 365</span><span class="tool"><i><img src="connectors/sage.svg" alt="" width="20" height="20" decoding="async"></i>Sage</span><span class="tool"><i><img src="connectors/teams.png" alt="" width="20" height="20" decoding="async"></i>Microsoft Teams</span><span class="tool"><i><img src="connectors/postgresql.svg" alt="" width="20" height="20" decoding="async"></i>PostgreSQL</span><span class="tool"><i><img src="connectors/zendesk.svg" alt="" width="20" height="20" decoding="async"></i>Zendesk</span><span class="tool"><i><img src="connectors/tiktok.svg" alt="" width="20" height="20" decoding="async"></i>TikTok Ads</span><span class="tool"><i><img src="connectors/mixpanel.svg" alt="" width="20" height="20" decoding="async"></i>Mixpanel</span><span class="tool"><i><img src="connectors/jira.svg" alt="" width="20" height="20" decoding="async"></i>Jira</span><span class="tool"><i><img src="connectors/square.svg" alt="" width="20" height="20" decoding="async"></i>Square</span><span class="tool"><i><img src="connectors/notion.svg" alt="" width="20" height="20" decoding="async"></i>Notion</span><span class="tool"><i><img src="connectors/paypal.svg" alt="" width="20" height="20" decoding="async"></i>PayPal</span><span class="tool"><i><img src="connectors/mongodb.svg" alt="" width="20" height="20" decoding="async"></i>MongoDB</span><span class="tool"><i><img src="connectors/etsy.svg" alt="" width="20" height="20" decoding="async"></i>Etsy</span><span class="tool"><i><img src="connectors/bigcommerce.svg" alt="" width="20" height="20" decoding="async"></i>BigCommerce</span><span class="tool"><i><img src="connectors/calendly.svg" alt="" width="20" height="20" decoding="async"></i>Calendly</span><span class="tool"><i><img src="connectors/klaviyo.png" alt="" width="20" height="20" decoding="async"></i>Klaviyo</span><span class="tool"><i><img src="connectors/linkedin.png" alt="" width="20" height="20" decoding="async"></i>LinkedIn Ads</span><span class="tool"><i><img src="connectors/sevenrooms.png" alt="" width="20" height="20" decoding="async"></i>SevenRooms</span><span class="tool"><i><img src="connectors/shipstation.png" alt="" width="20" height="20" decoding="async"></i>ShipStation</span><span class="tool"><i><img src="connectors/monday.png" alt="" width="20" height="20" decoding="async"></i>monday.com</span><span class="tool"><i><img src="connectors/gorgias.png" alt="" width="20" height="20" decoding="async"></i>Gorgias</span><span class="tool"><i><img src="connectors/freshdesk.png" alt="" width="20" height="20" decoding="async"></i>Freshdesk</span><span class="tool"><i><img src="connectors/toast.png" alt="" width="20" height="20" decoding="async"></i>Toast</span><span class="tool"><i><img src="connectors/hubspot.svg" alt="" width="20" height="20" decoding="async"></i>HubSpot</span><span class="tool"><i><img src="connectors/shopify.svg" alt="" width="20" height="20" decoding="async"></i>Shopify</span><span class="tool"><i><img src="connectors/bigquery.png" alt="" width="20" height="20" decoding="async"></i>BigQuery</span><span class="tool"><i><img src="connectors/googleads.svg" alt="" width="20" height="20" decoding="async"></i>Google Ads</span><span class="tool"><i><img src="connectors/quickbooks.svg" alt="" width="20" height="20" decoding="async"></i>QuickBooks</span><span class="tool"><i><img src="connectors/slack.png" alt="" width="20" height="20" decoding="async"></i>Slack</span><span class="tool"><i><img src="connectors/dynamics365.png" alt="" width="20" height="20" decoding="async"></i>Dynamics 365</span><span class="tool"><i><img src="connectors/sage.svg" alt="" width="20" height="20" decoding="async"></i>Sage</span><span class="tool"><i><img src="connectors/teams.png" alt="" width="20" height="20" decoding="async"></i>Microsoft Teams</span><span class="tool"><i><img src="connectors/postgresql.svg" alt="" width="20" height="20" decoding="async"></i>PostgreSQL</span><span class="tool"><i><img src="connectors/zendesk.svg" alt="" width="20" height="20" decoding="async"></i>Zendesk</span><span class="tool"><i><img src="connectors/tiktok.svg" alt="" width="20" height="20" decoding="async"></i>TikTok Ads</span><span class="tool"><i><img src="connectors/mixpanel.svg" alt="" width="20" height="20" decoding="async"></i>Mixpanel</span><span class="tool"><i><img src="connectors/jira.svg" alt="" width="20" height="20" decoding="async"></i>Jira</span><span class="tool"><i><img src="connectors/square.svg" alt="" width="20" height="20" decoding="async"></i>Square</span><span class="tool"><i><img src="connectors/notion.svg" alt="" width="20" height="20" decoding="async"></i>Notion</span><span class="tool"><i><img src="connectors/paypal.svg" alt="" width="20" height="20" decoding="async"></i>PayPal</span><span class="tool"><i><img src="connectors/mongodb.svg" alt="" width="20" height="20" decoding="async"></i>MongoDB</span><span class="tool"><i><img src="connectors/etsy.svg" alt="" width="20" height="20" decoding="async"></i>Etsy</span><span class="tool"><i><img src="connectors/bigcommerce.svg" alt="" width="20" height="20" decoding="async"></i>BigCommerce</span><span class="tool"><i><img src="connectors/calendly.svg" alt="" width="20" height="20" decoding="async"></i>Calendly</span><span class="tool"><i><img src="connectors/klaviyo.png" alt="" width="20" height="20" decoding="async"></i>Klaviyo</span><span class="tool"><i><img src="connectors/linkedin.png" alt="" width="20" height="20" decoding="async"></i>LinkedIn Ads</span><span class="tool"><i><img src="connectors/sevenrooms.png" alt="" width="20" height="20" decoding="async"></i>SevenRooms</span><span class="tool"><i><img src="connectors/shipstation.png" alt="" width="20" height="20" decoding="async"></i>ShipStation</span><span class="tool"><i><img src="connectors/monday.png" alt="" width="20" height="20" decoding="async"></i>monday.com</span><span class="tool"><i><img src="connectors/gorgias.png" alt="" width="20" height="20" decoding="async"></i>Gorgias</span><span class="tool"><i><img src="connectors/freshdesk.png" alt="" width="20" height="20" decoding="async"></i>Freshdesk</span><span class="tool"><i><img src="connectors/toast.png" alt="" width="20" height="20" decoding="async"></i>Toast</span></div>
       </div>
       <div class="finder reveal">
         <form data-find><span class="p-ic" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="9" r="6"/><path d="M14 14l4 4"/></svg></span><label for="findq" class="sr">Does Milo connect to your tool?</label><input id="findq" type="text" autocomplete="off" maxlength="40" placeholder="Does Milo connect to… type your tool"><button type="submit" class="p-send" aria-label="Check"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button></form>
@@ -764,48 +786,24 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   <section class="after" id="after">
     <div class="wrap">
       <div class="sec-top">
-        <h2><span class="lt">What happens</span> after you connect.</h2>
-        <p class="side">Connecting your data is the easy part. Keeping it working, and keeping it yours, is the job. Try both.</p>
+        <h2><span class="lt">Where</span> your data goes.</h2>
+        <p class="side">Every question sends your data somewhere. With Claude, it leaves your company. With Milo, it never does.</p>
       </div>
-      <div class="tabs" role="tablist" aria-label="After you connect">
-        <span class="tab-ind"></span>
-        <button type="button" role="tab" id="tab-api" aria-controls="panel-api" aria-selected="true" data-tab="api">When an API changes</button>
-        <button type="button" role="tab" id="tab-data" aria-controls="panel-data" aria-selected="false" tabindex="-1" data-tab="data">Where your data goes</button>
-      </div>
-
-      <div class="tabpanel" id="panel-api" role="tabpanel" aria-labelledby="tab-api">
+      <div id="panel-data">
         <div class="sim-bar">
-          <button type="button" class="btn btn-v" data-break>Push a breaking API change<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M9.2 1 3 9h4.2L6.6 15 13 6.8H8.8z"/></svg></span></button>
-          <button type="button" class="ghost" data-sim-reset hidden>Reset</button>
-          <span class="sim-note">Illustration. Times are sped up.</span>
+          <button type="button" class="btn btn-v" data-flow-go>Ask 5 questions<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+          <span class="sim-note">Illustration. Watch where each question’s data ends up.</span>
         </div>
         <div class="sim">
-          <article class="spanel spanel-c ruled" aria-label="Claude with your own connectors">
-            <div class="sp-h"><span class="who"><i class="cdot"></i>Claude + your connectors</span><span class="sp-clock" data-clock="c">All synced</span></div>
-            <ul class="conns" data-conns="c"></ul>
-            <ol class="log" data-log="c" aria-live="polite"></ol>
-          </article>
-          <article class="spanel spanel-m vfield spot" aria-label="Milo">
-            <i class="blob b1" style="opacity:.5"></i><i class="grain"></i>
-            <div class="sp-h"><span class="who"><span class="logo"><svg class="mk" aria-hidden="true"><use href="#mk-w"/></svg>Milo</span></span><span class="sp-clock" data-clock="m">All synced</span></div>
-            <ul class="conns" data-conns="m"></ul>
-            <ol class="log" data-log="m" aria-live="polite"></ol>
-          </article>
-        </div>
-      </div>
-
-      <div class="tabpanel" id="panel-data" role="tabpanel" aria-labelledby="tab-data" hidden>
-        <div class="sim-bar">
-          <button type="button" class="btn btn-v" data-flow-go>Ask a question<span class="arr"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
-          <span class="sim-note">Every question sends data somewhere. Watch where it goes.</span>
-        </div>
-        <div class="sim">
-          <article class="spanel spanel-c ruled" aria-label="Where data goes with Claude">
-            <div class="sp-h"><span class="who"><i class="cdot"></i>Claude</span></div>
+          <article class="spanel spanel-c ruled danger" aria-label="Where data goes with Claude">
+            <div class="sp-h"><span class="who"><i class="cdot"></i>Claude</span><span class="leak"><svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor"><path d="M8 1.5 15 14H1zM7.2 6v4h1.6V6zm0 5.2v1.6h1.6v-1.6z"/></svg>Leaves your company</span></div>
             <svg class="flow" viewBox="0 0 400 230" data-flow="c" role="img" aria-label="Your data is exported from your company and sent to Anthropic's servers">
               <rect class="bnd" x="10" y="34" width="228" height="186" rx="18"/>
               <text class="sub" x="24" y="24">Your company</text>
               <path class="wire" d="M98 120H306" data-path/>
+              <circle class="alarm" cx="340" cy="121" r="26"/><circle class="alarm a2" cx="340" cy="121" r="26"/>
+              <g class="exitb"><rect x="190" y="72" width="124" height="18" rx="9"/><text x="252" y="84" text-anchor="middle">LEAVES YOUR COMPANY</text></g>
+              <g class="breach"><circle cx="238" cy="120" r="9"/><path d="M238 115.5v5M238 123.6v.4"/></g>
               <rect class="node" x="40" y="92" width="58" height="56" rx="14"/>
               <g class="ico" transform="translate(56 106)"><ellipse cx="13" cy="5" rx="11" ry="4"/><path d="M2 5v18c0 2.2 4.9 4 11 4s11-1.8 11-4V5"/><path d="M2 14c0 2.2 4.9 4 11 4s11-1.8 11-4"/></g>
               <text class="lbl" x="69" y="174" text-anchor="middle">Your systems</text>
@@ -814,14 +812,15 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
               <text class="lbl" x="172" y="174" text-anchor="middle">CSV export</text>
               <g data-node="c"><path class="node ext" d="M318 140h44a16 16 0 0 0 2-31.8a24 24 0 0 0-45.6-6.4a19.5 19.5 0 0 0-.4 38.2z"/>
               <g class="ico"><rect x="331" y="112" width="18" height="7" rx="2"/><rect x="331" y="122" width="18" height="7" rx="2"/></g></g>
-              <text class="lbl" x="340" y="174" text-anchor="middle">Anthropic</text>
-              <text class="sub" x="340" y="190" text-anchor="middle">servers</text>
+              <text class="lbl anth" x="340" y="174" text-anchor="middle">Anthropic</text>
+              <text class="sub anth" x="340" y="190" text-anchor="middle">their servers</text>
             </svg>
+            <ol class="leaks" data-leaks aria-live="polite"></ol>
             <div class="tally">
-              <div><b data-count="c">0</b><span>questions sent to Anthropic</span></div>
-              <div><b class="sm">Depends on plan</b><span>whether it’s used for training</span></div>
+              <div><b data-count="c">0</b><span>copies of your data now on Anthropic’s servers</span></div>
+              <div><b class="sm">Up to 5 years</b><span>how long chats can be kept when training is on</span></div>
             </div>
-            <p class="fcap">Exported, uploaded, then processed and stored on Anthropic’s servers. Whether it’s used to train models depends on your plan and settings.</p>
+            <p class="fcap">Exported, uploaded and stored on Anthropic’s servers, outside your company. On Free, Pro and Max plans, chats can be used to train AI models and kept for up to five years if the training setting is on.</p>
           </article>
           <article class="spanel spanel-m vfield spot" aria-label="Where data goes with Milo">
             <i class="blob b2" style="opacity:.6"></i><i class="grain"></i>
@@ -842,10 +841,10 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
               <text class="lbl" x="331" y="174" text-anchor="middle">Your team</text>
             </svg>
             <div class="tally">
-              <div><b data-count="m">0</b><span>questions answered</span></div>
+              <div><b data-count="m">0</b><span>questions answered, inside your company</span></div>
               <div><b class="sm">Never</b><span>used to train models</span></div>
             </div>
-            <p class="fcap">Milo works with your data where it lives. It stays with you, and we never train on it.</p>
+            <p class="fcap">Milo works with your data where it lives. Nothing leaves your company, and we never train on it. Ever.</p>
           </article>
         </div>
       </div>
@@ -1023,7 +1022,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     { k: 'Freshness', m: 'Live. Every answer uses today’s numbers', c: 'As fresh as your last export',
       more: 'Milo queries your systems at the moment you ask, so nobody downloads, cleans or re-uploads anything.' },
     { k: 'When things break', m: 'Our engineer fixes it, usually before you notice', c: 'You find out when the answers look wrong. Then you fix it',
-      more: 'APIs change and connections break. Our engineers keep every connection working, and your account manager keeps you in the loop.', tab: 'api' },
+      more: 'APIs change and connections break. Our engineers keep every connection working, and your account manager keeps you in the loop.', },
     { k: 'Your data', m: 'Stays with you. Never used to train AI. Ever.', c: 'Sent to Anthropic. Training depends on your plan and settings',
       more: 'Milo works with your data where it lives, and it’s never used to train models.', tab: 'data' },
     { k: 'Consistency', m: 'Same question, same answer, for the whole company', c: 'Phrase it differently, get a different number',
@@ -1277,97 +1276,13 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   });
   expandBtn.addEventListener('click', () => { const all = rows().every(r => r.classList.contains('open')); rows().forEach(r => setOpen(r, !all)); syncExpand(); });
 
-  /* ---------- After you connect: tabs ---------- */
-  const tabs = $$('.tabs [role="tab"]'), tabInd = $('.tab-ind');
+  /* ---------- Where your data goes ---------- */
   let dataPlayed = false;
-  function placeTab(instant) {
-    const b = tabs.find(t => t.getAttribute('aria-selected') === 'true');
-    if (instant) tabInd.style.transition = 'none';
-    tabInd.style.width = b.offsetWidth + 'px';
-    tabInd.style.transform = `translateX(${b.offsetLeft}px)`;
-    if (instant) { void tabInd.offsetWidth; tabInd.style.transition = ''; }
-  }
-  function selectTab(id) {
-    tabs.forEach(t => {
-      const on = t.dataset.tab === id;
-      t.setAttribute('aria-selected', on);
-      t.tabIndex = on ? 0 : -1;
-      $('#panel-' + t.dataset.tab).hidden = !on;
-    });
-    placeTab();
-    if (id === 'data' && !dataPlayed) { dataPlayed = true; setTimeout(askFlow, 450); }
-  }
-  tabs.forEach(t => {
-    t.addEventListener('click', () => selectTab(t.dataset.tab));
-    t.addEventListener('keydown', e => {
-      if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
-      const i = tabs.indexOf(t), n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
-      selectTab(n.dataset.tab); n.focus();
-    });
-  });
-  function goTo(id) {
-    selectTab(id);
+  function goTo() {
     $('#after').scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
-    if (id === 'api') setTimeout(() => { resetSim(); runBreak(); }, RM ? 0 : 850);
+    dataPlayed = true;
+    setTimeout(() => burst(3), RM ? 0 : 850);
   }
-
-  /* ---------- API change simulator ---------- */
-  const CONNS = [['H', 'HubSpot'], ['X', 'Xero'], ['B', 'BigQuery'], ['S', 'Salesforce']];
-  const breakBtn = $('[data-break]'), simReset = $('[data-sim-reset]');
-  const breakLabel = breakBtn.firstChild.textContent;
-  let simTimers = [], simClock = null, simRunning = false;
-  const clock = s => $(`[data-clock="${s}"]`);
-  function renderConns() {
-    $$('[data-conns]').forEach(ul => ul.innerHTML = CONNS.map((c, i) => `<li class="conn" data-i="${i}"><span class="cb">${c[0]}</span><span class="cn">${c[1]}</span><span class="cs">Synced</span></li>`).join(''));
-    $$('[data-log]').forEach(ol => ol.innerHTML = '<li class="idle"><time>now</time><span>All quiet. Push a change to see what happens.</span></li>');
-    ['c', 'm'].forEach(s => { clock(s).textContent = 'All synced'; clock(s).className = 'sp-clock'; });
-  }
-  function setConn(side, cls, text) {
-    const li = $(`[data-conns="${side}"] .conn[data-i="0"]`);
-    li.className = 'conn ' + cls;
-    $('.cs', li).textContent = text;
-  }
-  function log(side, time, html) {
-    const ol = $(`[data-log="${side}"]`);
-    const idle = $('.idle', ol); if (idle) idle.remove();
-    ol.insertAdjacentHTML('beforeend', `<li><time>${time}</time><span>${html}</span></li>`);
-  }
-  const at = (ms, fn) => simTimers.push(setTimeout(fn, RM ? 0 : ms));
-  const fmt = m => m < 60 ? `${Math.round(m)} min` : m < 1440 ? `${Math.floor(m / 60)}h ${Math.round(m % 60)}m` : `${Math.floor(m / 1440)}d ${Math.floor(m % 1440 / 60)}h`;
-  function runBreak() {
-    if (simRunning) return;
-    simRunning = true;
-    breakBtn.disabled = true; breakBtn.firstChild.textContent = 'Change pushed '; simReset.hidden = false;
-    setConn('c', 'bad', 'Auth failed'); setConn('m', 'bad', 'Auth failed');
-    ['c', 'm'].forEach(s => { clock(s).textContent = 'Broken'; clock(s).className = 'sp-clock bad'; });
-    at(300, () => { log('c', '0:00', 'HubSpot connector failed after an API update'); log('m', '0:00', 'Change detected automatically'); });
-    at(1200, () => log('m', '0:02', 'Your Milo engineer picked it up'));
-    at(1500, () => log('c', '0:01', 'Answers using CRM data are now out of date'));
-    at(2300, () => { setConn('m', 'fixing', 'Fixing'); clock('m').textContent = 'Fixing'; clock('m').className = 'sp-clock'; });
-    at(2900, () => log('c', '0:05', 'Someone on your team has to find the fix'));
-    at(3200, () => { log('m', '0:14', 'Connector updated and tested'); setConn('m', 'fixed', 'Fixed in 14 min'); clock('m').textContent = 'Back in 14 min'; clock('m').className = 'sp-clock ok'; });
-    at(4000, () => log('m', '0:15', '<span class="am">Account manager:</span> All sorted. Nothing for you to do.'));
-    at(4300, () => {
-      log('c', '…', 'Waiting for a developer');
-      let m = 5;
-      simClock = setInterval(() => {
-        m += 37;
-        if (m >= 7 * 1440) { clock('c').textContent = 'Broken 7d and counting'; clearInterval(simClock); return; }
-        clock('c').textContent = 'Broken for ' + fmt(m);
-      }, RM ? 1 : 100);
-    });
-  }
-  function resetSim() {
-    simTimers.forEach(clearTimeout); simTimers = [];
-    clearInterval(simClock);
-    simRunning = false;
-    breakBtn.disabled = false; breakBtn.firstChild.textContent = breakLabel; simReset.hidden = true;
-    renderConns();
-  }
-  breakBtn.addEventListener('click', runBreak);
-  simReset.addEventListener('click', resetSim);
-
-  /* ---------- Data flow ---------- */
   const counts = { c: 0, m: 0 };
   function packet(side) {
     const svg = $(`[data-flow="${side}"]`), path = $('[data-path]', svg), len = path.getTotalLength();
@@ -1381,6 +1296,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
       const b = $(`[data-count="${side}"]`);
       b.textContent = ++counts[side];
       b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump');
+      if (side === 'c') leak();
     };
     if (RM) { done(); return; }
     let copied = false;
@@ -1404,10 +1320,25 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
     requestAnimationFrame(step);
   }
   function askFlow() { packet('c'); packet('m'); }
-  $('[data-flow-go]').addEventListener('click', askFlow);
+  const burst = n => { for (let i = 0; i < n; i++) setTimeout(askFlow, RM ? 0 : i * 450); };
+  // Each Claude question leaves a file behind on Anthropic's side
+  const FILES = ['sales_export.csv', 'customers_full.csv', 'margin_by_sku.xlsx', 'payroll_oct.csv', 'invoices_overdue.csv', 'pipeline_q4.csv', 'board_pack_draft.xlsx'];
+  function leak() {
+    const ol = $('[data-leaks]'), f = FILES[(counts.c - 1) % FILES.length];
+    const tm = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    ol.insertAdjacentHTML('afterbegin', `<li><time>${tm}</time><span>${f} → Anthropic</span></li>`);
+    while (ol.children.length > 3) ol.lastElementChild.remove();
+  }
+  $('[data-flow-go]').addEventListener('click', () => burst(5));
+  if ('IntersectionObserver' in window) {
+    const dio = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { dio.disconnect(); if (!dataPlayed) { dataPlayed = true; burst(3); } }
+    }, { threshold: 0.4 });
+    dio.observe($('#panel-data .sim'));
+  }
 
   /* ---------- Connectors ---------- */
-  const TOOLS = ['Snowflake', 'BigQuery', 'Salesforce', 'HubSpot', 'Xero', 'Shopify', 'Stripe', 'Google Ads', 'Meta Ads', 'NetSuite', 'QuickBooks', 'Sage', 'SAP', 'Dynamics 365', 'Redshift', 'Databricks', 'PostgreSQL', 'Google Sheets', 'Excel', 'Klaviyo', 'Zendesk', 'Intercom', 'Pipedrive', 'Amazon Seller', 'TikTok Ads', 'LinkedIn Ads', 'Google Analytics', 'Mixpanel', 'Airtable', 'Jira', 'Lightspeed', 'Toast', 'SevenRooms', 'Deputy', 'ShipStation', 'Linnworks', 'WooCommerce', 'Square', 'Mailchimp', 'Notion'];
+  const TOOLS = ['Salesforce', 'HubSpot', 'Xero', 'Shopify', 'Snowflake', 'BigQuery', 'Stripe', 'Google Ads', 'Meta Ads', 'QuickBooks', 'Excel', 'Slack', 'NetSuite', 'Dynamics 365', 'SAP', 'Sage', 'Power BI', 'Microsoft Teams', 'Databricks', 'PostgreSQL', 'Google Sheets', 'Zendesk', 'Intercom', 'TikTok Ads', 'Google Analytics', 'Mixpanel', 'Airtable', 'Jira', 'WooCommerce', 'Square', 'Mailchimp', 'Notion', 'Asana', 'PayPal', 'MySQL', 'MongoDB', 'eBay', 'Etsy', 'Looker', 'BigCommerce', 'Trello', 'Calendly', 'Redshift', 'Klaviyo', 'Pipedrive', 'LinkedIn Ads', 'Lightspeed', 'SevenRooms', 'Deputy', 'ShipStation', 'Linnworks', 'monday.com', 'Amplitude', 'Gorgias', 'OpenTable', 'Freshdesk', 'Amazon Seller', 'Toast', 'Tableau'];
   const countEl = $('[data-countup]');
   function countUp() {
     const to = +countEl.dataset.countup, t0 = performance.now(), dur = 1600;
@@ -1435,7 +1366,7 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
 
   // Sections ease in as they scroll into view
   if (!RM && 'IntersectionObserver' in window) {
-    $$('.sec-top, .duel, .score, .vt-row, .tabs, .faq details, .final h2, .final .lede').forEach((el, i) => {
+    $$('.sec-top, .duel, .score, .vt-row, .sim-bar, .sim, .faq details, .final h2, .final .lede').forEach((el, i) => {
       el.classList.add('reveal');
       if (el.classList.contains('vt-row')) el.style.setProperty('--d', [...el.parentNode.children].indexOf(el) % 6);
     });
@@ -1471,14 +1402,12 @@ footer .logo{color:var(--on-v);font-size:20px;margin-right:10px}
   splitHeadline();
   drawChart();
   layoutHero();
-  renderConns();
-  placeTab(true);
   $$('[data-qtext]').forEach(el => el.textContent = Q[curQ].text);
   playClaude(true); playMilo(true);
   setTimeout(() => hero.classList.remove('load'), 3200);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { layoutHero(); placeTab(true); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutHero);
   let rz;
-  addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { layoutHero(); placeTab(true); }, 80); });
+  addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(layoutHero, 80); });
 
   // Play the demo once when it first scrolls into view
   if (!RM && 'IntersectionObserver' in window) {
