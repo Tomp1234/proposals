@@ -212,6 +212,8 @@ h1.eq-h1 .eqm{width:.9em;height:.72em;color:var(--eq);vertical-align:-.02em;marg
 .checking{margin-top:22px;display:flex;gap:12px;align-items:flex-start;padding:16px 18px;border-radius:14px;border:1.5px dashed var(--line);font-size:.95rem;color:var(--muted);max-width:52em}
 .checking b{color:var(--ink)}
 .checking svg{width:20px;height:20px;flex:none;margin-top:1px;color:var(--faint)}
+.checking.ok{border-style:solid;border-color:var(--good)}
+.checking.ok svg{color:var(--good)}
 
 /* comparison */
 .cmp-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--rule);background:var(--card)}
@@ -430,9 +432,9 @@ footer .wrap{padding-block:26px 34px;font-size:.84rem;color:var(--faint);display
         <p>Ask for labour by site once, then have it land every Monday. Where a platform's API allows, Milo can write back too, as in the HubSpot pipeline demo.</p>
       </div>
     </div>
-    <div class="checking">
-      <svg aria-hidden="true"><use href="#wrench"/></svg>
-      <p><b>Being confirmed:</b> exactly how several clients' Xero organisations connect under one practice login. I'm checking the mechanics with our engineers and will come back to you.</p>
+    <div class="checking ok">
+      <svg aria-hidden="true"><use href="#tick"/></svg>
+      <p><b>Confirmed with our engineers:</b> several Xero organisations can connect within one Milo account. Keep each client in its own account, or bring several Xero organisations together in one, which also suits a client group with a Xero per company.</p>
     </div>
   </div>
 </section>
@@ -455,7 +457,7 @@ footer .wrap{padding-block:26px 34px;font-size:.84rem;color:var(--faint);display
           <tr><th scope="row">Connections</th><td class="m">Built and maintained by our engineers, including ones we don't have yet</td><td class="o">You set them up, and fix them when an API changes</td></tr>
           <tr><th scope="row">Across systems</th><td class="m">Xero, till and rota joined in one database, so one question covers all three</td><td class="o">Each tool read live inside a chat, within its own API limits</td></tr>
           <tr><th scope="row">House rules</th><td class="m">Set once per client account and applied to every answer</td><td class="o">Instructions per project or chat, so answers depend on who asks and how</td></tr>
-          <tr><th scope="row">Many clients</th><td class="m">A separate account per client, one login, no logging out</td><td class="o">Built around one person's chats and projects</td></tr>
+          <tr><th scope="row">Many clients</th><td class="m">A separate account per client, or several Xero organisations in one. One login, no logging out</td><td class="o">Built around one person's chats and projects</td></tr>
           <tr><th scope="row">Models</th><td class="m">The best model for each question, picked from several providers</td><td class="o">One provider's models</td></tr>
           <tr><th scope="row">Support</th><td class="m">A dedicated engineer and customer success lead</td><td class="o">Self-serve help, or an account team on enterprise plans</td></tr>
         </tbody>
