@@ -166,7 +166,8 @@ a{color:var(--rose-ink)}
 .fam ul{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .fam li{font-size:13.5px;font-weight:500;padding:4px 10px;border-radius:3px;background:var(--surface);border:1px solid var(--line)}
 .fam li.chk{border-style:dashed;color:var(--muted)}
-.fam li.poc{border-color:var(--rose-ink);color:var(--rose-ink)}
+.fam li.on{border-color:var(--sage-ink);color:var(--sage-ink)}
+.fam li.on::before{content:"✓ ";font-weight:700}
 .also{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:32px}
 .also p{background:var(--butter);border-radius:4px;padding:16px 18px;font-size:15px;color:var(--ink-2)}
 .also b{color:var(--ink)}
@@ -197,11 +198,21 @@ a{color:var(--rose-ink)}
 .stack .k{font:400 15px/1.2 var(--head);letter-spacing:.08em;color:var(--muted)}
 .stack .sys{margin-top:8px}
 
-/* video */
-.vid-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,4vw,60px);align-items:center}
+/* films */
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,32px);margin-top:36px}
+.vcard{margin:0;min-width:0}
+.vcap{display:grid;gap:4px;margin-bottom:14px}
+.vtag{justify-self:start;font:400 15px/1.2 var(--head);letter-spacing:.08em;color:var(--muted);padding-block:3px 2px}
+.vtag.cs{background:var(--rose);color:var(--rose-ink);padding-inline:10px;border-radius:999px}
+.vcap b{font:300 clamp(22px,2.2vw,26px)/1.2 var(--serif);letter-spacing:-.01em}
+.vlen{font-size:13px;color:var(--muted)}
 .video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:4px;overflow:hidden;background:var(--rose)}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.poster{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:12px;text-decoration:none;color:var(--ink);background:var(--rose)}
+.poster{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:12px;padding:20px 32px;text-align:center;text-decoration:none;color:var(--ink);background:var(--rose)}
+.poster.cs{background:var(--band);color:var(--band-ink)}
+.poster.cs::before{box-shadow:inset 0 0 0 5px var(--band),inset 0 0 0 6px currentColor}
+.poster.cs .p-play{background:var(--band-ink);color:var(--band)}
+.vids .p-ttl{font-size:clamp(22px,2.4vw,28px)}
 .poster::before{content:"";position:absolute;inset:12px;border:1.5px solid currentColor;box-shadow:inset 0 0 0 5px var(--rose),inset 0 0 0 6px currentColor;opacity:.5}
 .p-mark{position:relative;display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;background:var(--surface);color:var(--ink);padding:5px 14px 5px 10px;border-radius:999px}
 .p-mark svg{width:24px;height:19px}
@@ -235,7 +246,7 @@ a{color:var(--rose-ink)}
 footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
 
 @media (max-width:960px){
-  .hero-grid,.vid-grid,.proof,.pt,.pilot,.trust{grid-template-columns:1fr}
+  .hero-grid,.vids,.proof,.pt,.pilot,.trust{grid-template-columns:1fr}
   .demo,.ways{grid-template-columns:1fr}
   .panel{min-height:0}
   .inbox{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -252,6 +263,13 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
 @media (max-width:560px){
   .facts,.inbox,.wall,.stats{grid-template-columns:1fr}
   .row{grid-template-columns:minmax(0,8.5em) minmax(0,1fr) 3.8em}
+  .poster{gap:8px;padding:20px 24px}
+  .p-play{width:54px;height:54px}
+  .vids .p-ttl{font-size:20px}
+  .vids .p-sub{display:none}
+}
+@media (max-width:380px){
+  .vids .p-mark{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -294,11 +312,44 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
     <aside class="letter frame" aria-label="A note from Liam James Rabone">
       <p class="to">Ben and Henry,</p>
       <p>I've updated this page after our latest call. It now has the integrations in the order you gave them, the use cases we talked through, and the terms.</p>
+      <p>To confirm, we're already in Morrisons, Ocado, Tesco and Waitrose.</p>
       <p>Henry asked why Milo over Claude. <a href="#claude">That's answered below</a>, with the cost side by side.</p>
       <p class="sig">Liam James Rabone<span>Milo · liam@milo.ai</span></p>
     </aside>
   </div>
 </header>
+
+<section class="wrap sec" id="films" aria-labelledby="vid-h" style="padding-top:0">
+  <p class="eyebrow">See it</p>
+  <h2 id="vid-h">Two short films. <em>Under four minutes.</em></h2>
+  <p class="intro">What Milo is, then how Two Tribes, a London brewery, gave every department an analyst in seven weeks.</p>
+  <div class="vids">
+    <figure class="vcard">
+      <figcaption class="vcap"><span class="vtag">Milo explainer</span><b>What Milo is and how it works</b><span class="vlen">Product overview · 1 min 29 sec</span></figcaption>
+      <div class="video" data-src="https://player.vimeo.com/video/1196983997?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1&amp;autoplay=1" data-title="Milo product overview">
+        <a class="poster" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+          <span class="p-ttl">Milo product overview</span>
+          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+          <span class="p-sub">Press play · 1 min 29 sec</span>
+        </a>
+      </div>
+      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+    </figure>
+    <figure class="vcard">
+      <figcaption class="vcap"><span class="vtag cs">Customer case study</span><b>Two Tribes, a London brewery</b><span class="vlen">Milo × Two Tribes · 2 min 24 sec</span></figcaption>
+      <div class="video" data-src="https://www.youtube-nocookie.com/embed/qFPcsNMManw?autoplay=1&amp;rel=0" data-title="How a Craft Brewery Gave Every Department an AI Analyst in 7 Weeks">
+        <a class="poster cs" href="https://www.youtube.com/watch?v=qFPcsNMManw" target="_blank" rel="noopener" aria-label="Play the Two Tribes case study, 2 minutes 24 seconds">
+          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo × Two Tribes</span>
+          <span class="p-ttl">Every department got an analyst in seven weeks</span>
+          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+          <span class="p-sub">Press play · 2 min 24 sec</span>
+        </a>
+      </div>
+      <p class="vid-note">Not playing? <a href="https://www.youtube.com/watch?v=qFPcsNMManw" target="_blank" rel="noopener">Watch it on YouTube</a></p>
+    </figure>
+  </div>
+</section>
 
 <section class="scl c-sage sec" id="try" aria-labelledby="try-h">
   <div class="wrap">
@@ -370,10 +421,10 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
 <section class="wrap sec" aria-labelledby="con-h">
   <p class="eyebrow">What we connect</p>
   <h2 id="con-h">From the North Kent Downs <em>to Wimbledon</em>.</h2>
-  <p class="intro">Every can leaves a record somewhere different on its way from the vineyard to the glass. Five connect first. Tesco has an open API, so it's a quick build. Waitrose Connect, Ocado Beads and one other get built first as the proof of concept.</p>
+  <p class="intro">Every can leaves a record somewhere different on its way from the vineyard to the glass. Five connect first. On the retail side, we're already in Morrisons, Ocado, Tesco and Waitrose.</p>
   <div class="wall">
     <div class="fam"><h3>Connect first</h3><p class="sub">The five you put at the top</p><ul><li>Shopify</li><li>Klaviyo</li><li>GA4</li><li>Xero</li><li>Google Sheets</li></ul></div>
-    <div class="fam"><h3>Retailers</h3><p class="sub">Sales data, retailer by retailer</p><ul><li>Tesco, open API</li><li class="poc">Waitrose Connect, proof of concept</li><li class="poc">Ocado Beads, proof of concept</li><li>Fortnum &amp; Mason</li></ul></div>
+    <div class="fam"><h3>Retailers</h3><p class="sub">We're already in all four supermarkets</p><ul><li class="on">Morrisons</li><li class="on">Ocado</li><li class="on">Tesco</li><li class="on">Waitrose</li><li>Fortnum &amp; Mason</li></ul></div>
     <div class="fam"><h3>Made and stored</h3><p class="sub">The cost of every can starts here</p><ul><li>Canning runs</li><li>Bulk wine purchases</li><li>Supplier invoices</li><li>Stock by location</li><li class="chk">Ferovinum, to check</li></ul></div>
     <div class="fam"><h3>Distributors and venues</h3><p class="sub">Delis, farm shops and where people meet the locals</p><ul><li>Cotswold Fayre</li><li>Four more distributors</li><li>Wimbledon</li><li>Tottenham Hotspur Stadium</li><li>Harlequins</li><li>Compass Group</li><li>Independents</li></ul></div>
     <div class="fam"><h3>Marketing and inbox</h3><p class="sub">Spend, campaigns and email</p><ul><li>Meta</li><li>Gmail</li></ul></div>
@@ -424,28 +475,7 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
   </div>
 </section>
 
-<section class="wrap sec" aria-labelledby="vid-h">
-  <div class="vid-grid">
-    <div>
-      <p class="eyebrow">See it</p>
-      <h2 id="vid-h">Ninety seconds of <em>Milo working</em>.</h2>
-      <p class="intro">The question box, the answers and the dashboards, without anyone describing them.</p>
-    </div>
-    <div>
-      <div class="video" id="vidframe" data-vid="1196983997">
-        <a class="poster" id="vidplay" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
-          <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
-          <span class="p-ttl">Milo product overview</span>
-          <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
-          <span class="p-sub">Press play · 1 min 29 sec</span>
-        </a>
-      </div>
-      <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
-    </div>
-  </div>
-</section>
-
-<section class="wrap sec" id="pilot" aria-labelledby="pilot-h" style="padding-top:0">
+<section class="wrap sec" id="pilot" aria-labelledby="pilot-h">
   <p class="eyebrow">How it starts</p>
   <h2 id="pilot-h">Start with Shopify. Prove <em>the retailers</em>.</h2>
   <p class="intro">You're deciding on tooling before Christmas. This is the order we'd build in, and what it costs.</p>
@@ -453,7 +483,7 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
     <ol class="weeks">
       <li class="wk"><p class="n">On signing</p><div><h3>Billing waits two weeks</h3><p>Billing starts about two weeks after you sign, so setup is under way before the first invoice. We come to you and meet the team.</p></div></li>
       <li class="wk"><p class="n">First</p><div><h3>The priority five</h3><p>Shopify, Klaviyo, GA4, Xero and Google Sheets. A rolling Shopify dashboard is the starting point.</p></div></li>
-      <li class="wk key"><p class="n">Proof of concept</p><div><h3>Waitrose, Ocado and one more</h3><p>Tesco's open API is a quick build. Waitrose Connect, Ocado Beads and one other integration get built first, to prove the retailer data works.</p></div></li>
+      <li class="wk key"><p class="n">Proof of concept</p><div><h3>The retailers</h3><p>We're already in Morrisons, Ocado, Tesco and Waitrose. The proof of concept is your retailer sales landing in Milo, next to Shopify.</p></div></li>
       <li class="wk"><p class="n">Then</p><div><h3>Put it to work</h3><p>The canning run tracker, debt reports, retailer pitches and the board pack, with a workspace each for sales, finance and production.</p></div></li>
     </ol>
     <div class="price frame">
@@ -569,17 +599,20 @@ footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted)}
   });
   show(0,false);
 
-  var f=document.getElementById('vidframe'),p=document.getElementById('vidplay'),host=location.hostname;
+  var host=location.hostname;
   var inline=host===''||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
-  if(f&&p&&inline){p.addEventListener('click',function(e){
-    e.preventDefault();
-    var fr=document.createElement('iframe');
-    fr.src='https://player.vimeo.com/video/'+f.dataset.vid+'?title=0&byline=0&portrait=0&dnt=1&autoplay=1';
-    fr.setAttribute('allow','autoplay; fullscreen; picture-in-picture');
-    fr.setAttribute('allowfullscreen','');
-    fr.setAttribute('title','Milo product overview');
-    f.appendChild(fr);p.remove();
-  })}
+  if(inline)[].forEach.call(document.querySelectorAll('.video[data-src]'),function(f){
+    var p=f.querySelector('.poster');if(!p)return;
+    p.addEventListener('click',function(e){
+      e.preventDefault();
+      var fr=document.createElement('iframe');
+      fr.src=f.dataset.src;
+      fr.setAttribute('allow','autoplay; fullscreen; picture-in-picture; encrypted-media');
+      fr.setAttribute('allowfullscreen','');
+      fr.setAttribute('title',f.dataset.title||'Video');
+      f.appendChild(fr);p.remove();
+    });
+  });
 })();
 </script>
 
