@@ -288,27 +288,40 @@ section.band.first{border-top:0}
   .ws-out .label{flex-basis:100%}
 }
 
-/* idea to shelf (dark band) */
+/* connections (dark band) */
 section.dark{background:var(--deep);color:var(--on-deep);border-top:0;position:relative;overflow:hidden}
 section.dark .wrap{position:relative;z-index:1}
 section.dark .head p{color:var(--on-deep-2)}
 section.dark .eyebrow{color:var(--amber-hi)}
 section.dark h2 em{color:var(--amber-hi)}
-.chain{list-style:none;margin:0 0 30px;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;position:relative}
-.chain::before{content:"";position:absolute;left:24px;right:24px;top:31px;border-top:2px dashed var(--amber-hi);opacity:.4}
-.st{position:relative;background:var(--deep-2);border:1px solid var(--deep-line);border-radius:14px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
-.st .n{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber-hi)}
-.st .n i{width:10px;height:10px;border-radius:50%;background:var(--amber-hi);box-shadow:0 0 0 4px var(--deep-2);flex:none}
-.st b{font-family:var(--display);font-weight:600;font-size:21px;line-height:1.1}
-.st span{font-size:13.5px;color:var(--on-deep-2)}
-.st small{margin-top:auto;padding-top:10px;border-top:1px dashed var(--deep-line);font-family:var(--mono);font-size:11.5px;color:var(--on-deep)}
-.unl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.unl>div{border-top:2px solid var(--amber-hi);padding-top:12px}
-.unl b{display:block;font-family:var(--display);font-weight:600;font-size:27px;line-height:1.05;color:var(--amber-hi);margin-bottom:6px}
-.unl p{font-size:14px;color:var(--on-deep-2)}
-@media (max-width:980px){.chain{grid-template-columns:minmax(0,1fr)}.chain::before{left:20px;right:auto;top:24px;bottom:24px;border-top:0;border-left:2px dashed var(--amber-hi)}.st{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:4px 16px}.st .n{grid-row:1/4}.st small{grid-column:2}}
-@media (max-width:900px){.unl{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:560px){.st{grid-template-columns:minmax(0,1fr)}.st .n{grid-row:auto}.st small{grid-column:auto}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.cfind{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-bottom:24px}
+.cfind label{position:relative;flex:1 1 300px;max-width:480px}
+.cfind input{width:100%;font-size:15px;padding:12px 16px 12px 42px;border-radius:999px;border:1px solid var(--deep-line);background:var(--deep-2);color:var(--on-deep)}
+.cfind input::placeholder{color:var(--on-deep-2);opacity:.85}
+.cfind input:focus{outline:none;border-color:var(--amber-hi)}
+.cfind svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--on-deep-2)}
+.cres{font-size:14px;color:var(--on-deep-2)}
+.cres b{color:var(--on-deep)}
+.cres.miss{color:var(--amber-hi)}
+.cx-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.cx-card{background:var(--deep-2);border:1px solid var(--deep-line);border-radius:14px;padding:18px 18px 16px;min-width:0}
+.cx-card.w2{grid-column:span 2}
+.cx-card h3{font-size:21px;line-height:1.1;margin-bottom:5px}
+.cx-card>p{font-size:13px;line-height:1.5;color:var(--on-deep-2);margin-bottom:12px}
+.cx-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.cx-chips li{padding:4px 10px;border-radius:999px;border:1px solid var(--deep-line);background:rgba(255,255,255,.035);font-size:12.5px;font-weight:600;line-height:1.5;color:var(--on-deep);transition:opacity .15s,border-color .15s}
+.cx-sub{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-deep-2);margin:16px 0 8px}
+.cx-chips li.afb{border-color:var(--amber-hi);box-shadow:inset 0 0 0 1px var(--amber-hi)}
+.searching .cx-chips li{opacity:.25}
+.searching .cx-chips li.hit{opacity:1;border-color:var(--on-deep);box-shadow:inset 0 0 0 1px var(--on-deep)}
+.cx-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px 24px;margin-top:22px}
+.cx-more{font-size:15px;color:var(--on-deep)}
+.cx-more b{color:var(--amber-hi)}
+.cx-key{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;color:var(--on-deep-2)}
+.cx-key i{width:22px;height:13px;border-radius:999px;border:2px solid var(--amber-hi);flex:none}
+@media (max-width:980px){.cx-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.cx-grid{grid-template-columns:minmax(0,1fr)}.cx-card.w2{grid-column:auto}}
 
 /* ask once */
 .trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
@@ -411,7 +424,7 @@ footer p+p{margin-top:6px}
     <nav class="nav" aria-label="Sections">
       <a href="#video">Films</a>
       <a href="#sits">Where Milo sits</a>
-      <a href="#shelf">Idea to shelf</a>
+      <a href="#tech">Connections</a>
       <a href="#keep">Ask once</a>
       <a href="#proof">Proof</a>
       <a href="#start">Start</a>
@@ -562,24 +575,31 @@ footer p+p{margin-top:6px}
   </div>
 </section>
 
-<section class="band dark" id="shelf" aria-labelledby="shelf-h">
+<section class="band dark" id="tech" aria-labelledby="tech-h">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow">Idea to shelf</p>
-      <h2 id="shelf-h">Every product, <em>from idea to shelf.</em></h2>
-      <p>Your phrase for what AFB does. Milo reads every step and tells the right person when one slips.</p>
+      <p class="eyebrow">Connections</p>
+      <h2 id="tech-h">1,500+ connections. <em>Every team covered.</em></h2>
+      <p>The systems a business like AFB tends to run, team by team. Our engineers build and run every connection, including the awkward ones like retailer portals and lab reports.</p>
     </div>
-    <ol class="chain">
-      <li class="st"><span class="n"><i aria-hidden="true"></i>1 · Idea</span><b>Design studio</b><span>Concepts, packaging and artwork, from first sketch to sign-off.</span><small>Alert · a sign-off misses its date</small></li>
-      <li class="st"><span class="n"><i aria-hidden="true"></i>2 · Sourced</span><b>Factory orders</b><span>What's on order with which factory, at what cost, and every date on the critical path.</span><small>Alert · a factory slips its ship date</small></li>
-      <li class="st"><span class="n"><i aria-hidden="true"></i>3 · Tested</span><b>Quality assurance</b><span>Every test, certificate and compliance check, product by product.</span><small>Alert · a test fails, every unit traced</small></li>
-      <li class="st"><span class="n"><i aria-hidden="true"></i>4 · Landed</span><b>Containers and stock</b><span>Where each container is, what's in the warehouse and what's promised to whom.</span><small>Alert · a line drops under four weeks' cover</small></li>
-      <li class="st"><span class="n"><i aria-hidden="true"></i>5 · On shelf</span><b>Retailers and online</b><span>What sold where, store by store, and what each brand's channels did to help.</span><small>Alert · a store stops selling a best seller</small></li>
-    </ol>
-    <div class="unl">
-      <div><b>Every brand</b><p>Own, partner and licensed, with margin after royalties and promotions.</p></div>
-      <div><b>Every retailer</b><p>Sales, cover and margin by account, ready for the next range review.</p></div>
-      <div><b>Every person</b><p>Everyone sees the numbers their role allows, from the studio to the board.</p></div>
+    <div class="cfind">
+      <label for="cx-q"><span class="sr">Search connections</span><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input id="cx-q" type="search" autocomplete="off" placeholder="Try Sage, Tesco or Flexport"></label>
+      <p class="cres" id="cx-res" aria-live="polite">82 named here, from 1,500+</p>
+    </div>
+    <div class="cx-grid" id="cx-grid">
+      <div class="cx-card w2"><h3>Retailers</h3><p>EPOS and supplier portals: sales, stock and promotions, store by store.</p><ul class="cx-chips"><li class="afb">Tesco</li><li class="afb">Asda</li><li class="afb">Morrisons</li><li class="afb">Boots</li><li class="afb">Waitrose</li><li class="afb">John Lewis</li><li class="afb">Ocado</li><li class="afb">NEXT</li><li class="afb">Primark</li><li class="afb">TK Maxx</li><li class="afb">Halfords</li><li class="afb">The Range</li></ul><p class="cx-sub">And the data behind them</p><ul class="cx-chips"><li>dunnhumby</li><li>Circana</li><li>NielsenIQ</li><li>Kantar</li></ul></div>
+      <div class="cx-card"><h3>Accounts</h3><p>Account plans, promotions and range reviews, retailer by retailer.</p><ul class="cx-chips"><li>Salesforce</li><li>HubSpot</li><li>Dynamics 365 Sales</li><li>Pipedrive</li><li>Zoho CRM</li></ul></div>
+      <div class="cx-card"><h3>Online</h3><p>Orders, returns and fees, by brand and channel.</p><ul class="cx-chips"><li class="afb">Amazon Vendor Central</li><li>Amazon Seller Central</li><li class="afb">TikTok Shop</li><li>Shopify</li><li>eBay</li><li>Mirakl</li><li>Linnworks</li></ul></div>
+      <div class="cx-card"><h3>Brand and marketing</h3><p>What each brand's channels and campaigns did for sales.</p><ul class="cx-chips"><li class="afb">Instagram</li><li class="afb">LinkedIn</li><li>TikTok</li><li>Meta Ads</li><li>TikTok Ads</li><li>Amazon Ads</li><li>Google Ads</li><li>Google Analytics 4</li><li>Klaviyo</li></ul></div>
+      <div class="cx-card"><h3>Studio and licensing</h3><p>Critical paths, artwork sign-off and licence royalties.</p><ul class="cx-chips"><li>Monday.com</li><li>Asana</li><li>Wrike</li><li>Bynder</li><li>Dropbox</li><li>Flowhaven</li></ul></div>
+      <div class="cx-card"><h3>Sourcing and QA</h3><p>Factory orders, costs, test results and certificates.</p><ul class="cx-chips"><li>Centric PLM</li><li>Bamboo Rose</li><li>Inspectorio</li><li>QIMA</li><li>Intertek</li><li>SGS</li><li>Bureau Veritas</li></ul></div>
+      <div class="cx-card"><h3>Logistics</h3><p>Containers on the water, the warehouse and retailer orders by EDI.</p><ul class="cx-chips"><li>Flexport</li><li>Kuehne+Nagel</li><li>DHL</li><li>Maersk</li><li>Mintsoft</li><li>Peoplevox</li><li>SnapFulfil</li><li>TrueCommerce</li><li>DPD</li><li>Royal Mail</li></ul></div>
+      <div class="cx-card w2"><h3>Finance, ERP and stock</h3><p>Margin, cash, landed cost and stock, product by product.</p><ul class="cx-chips"><li>Sage 200</li><li>Sage Intacct</li><li>Xero</li><li>NetSuite</li><li>SAP Business One</li><li>Dynamics 365 Business Central</li><li>QuickBooks</li><li>Unleashed</li><li>Cin7</li><li>Brightpearl</li><li>Pleo</li></ul></div>
+      <div class="cx-card w2"><h3>Everyone</h3><p>The spreadsheets, inboxes and chats the rest lives in, and any database you already keep.</p><ul class="cx-chips"><li>Excel</li><li>Outlook</li><li>SharePoint</li><li>Teams</li><li>Google Sheets</li><li>Gmail</li><li>Slack</li><li>WhatsApp</li><li>SQL Server</li><li>BigQuery</li><li>Snowflake</li></ul></div>
+    </div>
+    <div class="cx-foot">
+      <p class="cx-more"><b>Plus 1,400+ more.</b> Anything missing, our engineers build as part of setup.</p>
+      <span class="cx-key"><i aria-hidden="true"></i>Named on afb.co.uk. The rest are examples, not a guess at your stack.</span>
     </div>
   </div>
 </section>
@@ -968,6 +988,20 @@ footer p+p{margin-top:6px}
       fr.setAttribute("title",f.dataset.title||"Video");
       f.appendChild(fr);p.remove();
     });
+  });
+
+  /* connection search */
+  var cq=$("cx-q"),cres=$("cx-res"),cgrid=$("cx-grid"),cdef=cres.innerHTML;
+  cq.addEventListener("input",function(){
+    var q=cq.value.trim().toLowerCase(),seen={},n=0;
+    cgrid.classList.toggle("searching",!!q);
+    [].forEach.call(cgrid.querySelectorAll(".cx-chips li"),function(c){
+      var t=c.textContent.toLowerCase(),hit=!!q&&t.indexOf(q)>-1;
+      c.classList.toggle("hit",hit);
+      if(hit&&!seen[t]){seen[t]=1;n++}
+    });
+    cres.classList.toggle("miss",!!q&&!n);
+    cres.innerHTML=!q?cdef:n?"<b>"+n+"</b> match"+(n>1?"es":"")+" for “"+esc(cq.value.trim())+"”":"Not on this list. Our engineers would build it as part of setup.";
   });
 })();
 </script>
