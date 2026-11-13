@@ -143,7 +143,14 @@ section.band.first{border-top:0}
 .note{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:80ch}
 
 /* video */
-.vids{max-width:820px}
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+@media (max-width:860px){.vids{grid-template-columns:minmax(0,1fr)}}
+.vtag.cs{color:var(--em)}
+.poster.cs{background:#E9E2D6;color:#1A1714}
+.poster.cs .p-play{background:#1A1714;color:#E9E2D6;box-shadow:0 0 0 8px rgba(26,23,20,.12)}
+.poster.cs .p-sub{color:#5E5A54}
+.p-big{position:absolute;right:6px;bottom:-56px;font-family:var(--display);font-style:italic;font-weight:800;font-size:220px;line-height:1;color:#1A1714;opacity:.07;pointer-events:none}
+.p-kick{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8C4D1B;position:relative;z-index:1}
 .vcard{margin:0;min-width:0}
 .vcap{display:grid;gap:4px;margin-bottom:14px}
 .vtag{justify-self:start;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
@@ -347,7 +354,8 @@ section.dark h2 em{color:var(--amber-hi)}
 .kchain b{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.15}
 .kchain li.cause{border-color:var(--amber-hi);background:rgba(227,167,102,.1)}
 .kchain li.cause b{color:var(--amber-hi)}
-.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pcard a{margin-top:auto;padding-top:12px;font-size:14px;font-weight:700}
 .pcard{background:var(--card);border:1px solid var(--rule);padding:22px;display:flex;flex-direction:column;border-radius:16px}
 .pcard .k{color:var(--muted);margin-bottom:8px}
 .pcard .new{align-self:flex-start;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:var(--panel);color:var(--em);margin-bottom:12px}
@@ -401,7 +409,7 @@ footer p+p{margin-top:6px}
       <span class="lk-afb" role="img" aria-label="AFB"></span>
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#video">Video</a>
+      <a href="#video">Films</a>
       <a href="#sits">Where Milo sits</a>
       <a href="#shelf">Idea to shelf</a>
       <a href="#keep">Ask once</a>
@@ -442,8 +450,8 @@ footer p+p{margin-top:6px}
   <div class="wrap">
     <div class="head">
       <p class="eyebrow">See it</p>
-      <h2 id="vid-h">Milo in <em>a minute and a half.</em></h2>
-      <p>What it is and how it works, before you click around the rest.</p>
+      <h2 id="vid-h">What it is. <em>What it did for a brand.</em></h2>
+      <p>The explainer first, then Built Different on their first month with Milo.</p>
     </div>
     <div class="vids">
       <figure class="vcard">
@@ -458,6 +466,20 @@ footer p+p{margin-top:6px}
           </a>
         </div>
         <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </figure>
+      <figure class="vcard">
+        <figcaption class="vcap"><span class="vtag cs">Customer case study</span><b>Built Different on Milo</b><span class="vlen">Milo × Built Different · 2 min 57 sec</span></figcaption>
+        <div class="video">
+          <a class="poster cs" href="https://vimeo.com/1238868846/95602cef9e" target="_blank" rel="noopener" aria-label="Play the Built Different case study on Vimeo, 2 minutes 57 seconds">
+            <span class="p-big" aria-hidden="true">3×</span>
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo × Built Different</span>
+            <span class="p-kick">Case study</span>
+            <span class="p-ttl">A brand with no data team</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></svg></span>
+            <span class="p-sub">Press play · 2 min 57 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Opens on <a href="https://vimeo.com/1238868846/95602cef9e" target="_blank" rel="noopener">Vimeo</a> in a new tab.</p>
       </figure>
     </div>
   </div>
@@ -612,7 +634,7 @@ footer p+p{margin-top:6px}
     <div class="head">
       <p class="eyebrow">Proof</p>
       <h2 id="proof-h">Same shelves. <em>Same questions.</em></h2>
-      <p>One story from Kellogg's, and two brand businesses that joined Milo this autumn.</p>
+      <p>Stories from Kellogg's and Built Different, and two brand businesses that joined Milo this autumn.</p>
     </div>
     <div class="kf">
       <div>
@@ -628,6 +650,13 @@ footer p+p{margin-top:6px}
       </ol>
     </div>
     <div class="pgrid">
+      <div class="pcard">
+        <p class="new">Customer case study</p>
+        <p class="k label">Built Different · Manchester</p>
+        <p class="big">3×</p>
+        <p class="body">Fitted tees for big and tall men, sold from their own store, with no data team. Their month-end pack had overstated profit three times over, so a live profit dashboard replaced it. Month one also found six figures of ad invoices missing from the ledger.</p>
+        <a href="https://vimeo.com/1238868846/95602cef9e" target="_blank" rel="noopener">Watch the case study</a>
+      </div>
       <div class="pcard">
         <p class="new">New customer · autumn 2026</p>
         <p class="k label">Aspecta Group · Eyewear</p>
