@@ -289,13 +289,21 @@ h1 em{font-style:normal;color:var(--yellow)}
 .proof{display:grid;grid-template-columns:1fr 1fr;border-top:3px solid rgba(255,255,255,.4)}
 .pr{padding:30px 30px 34px;border-right:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.22)}
 .pr:nth-child(2n){border-right:0}
-.pr:nth-last-child(-n+2){border-bottom:0}
+.pr:last-child{border-bottom:0}
+.pr:nth-last-child(2):nth-child(odd){border-bottom:0}
+.pr:last-child:nth-child(odd){grid-column:1/-1;border-right:0}
+.pr-wide{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:32px;padding-top:34px}
+.pw-intro p b{color:#fff}
+.pw-pts{display:grid;grid-template-columns:1fr 1fr;gap:22px 26px}
+.pw-pt{border-top:1.5px solid rgba(255,219,0,.55);padding-top:12px}
+.pw-pt h5{font-family:"DM Sans",sans-serif;font-weight:700;font-size:.98rem;line-height:1.3;margin-bottom:6px;color:var(--yellow)}
+.pw-pt p{font-size:.88rem}
 .pr-tag{display:inline-flex;align-items:center;gap:7px;font-size:.68rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;background:var(--yellow);color:var(--ink);padding:5px 11px;margin-bottom:16px}
 .pr-tag.ghost{background:none;color:var(--yellow);border:1.5px solid rgba(255,219,0,.55)}
 .pr h4{font-size:1.2rem;margin-bottom:10px}
 .pr p{font-size:.93rem}
 .pr p+p{margin-top:10px}
-@media(max-width:700px){.proof{grid-template-columns:1fr}.pr{border-right:0;border-bottom:1px solid rgba(255,255,255,.22)}.pr:nth-last-child(-n+2){border-bottom:1px solid rgba(255,255,255,.22)}.pr:last-child{border-bottom:0}}
+@media(max-width:700px){.proof{grid-template-columns:1fr}.pr{border-right:0;border-bottom:1px solid rgba(255,255,255,.22)}.pr:nth-last-child(2):nth-child(odd){border-bottom:1px solid rgba(255,255,255,.22)}.pr:last-child{border-bottom:0}.pr-wide,.pw-pts{grid-template-columns:1fr}.pr-wide{gap:22px}}
 
 /* ── Tixly APIs ─────────────────────────────────────────── */
 .api{display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid var(--ink);border-left:1px solid var(--line);margin-bottom:46px}
@@ -726,7 +734,7 @@ footer{background:var(--ink);color:#fff;padding:52px 0 44px;border-top:3px solid
     <div class="sec-head reveal" style="margin-bottom:40px">
       <span class="eyebrow"><span class="dot"></span>Already running</span>
       <h2>You would be in<br/>good company.</h2>
-      <p class="lead">One of these is a ticket agency at national scale. The other three are multi-site hospitality: bars, restaurants, venues and a taproom. Between them that is both halves of what Lowry actually runs.</p>
+      <p class="lead">Two of these sell tickets: a ticket agency at national scale and a live show in its own arena. The other three are multi-site hospitality: bars, restaurants, venues and a taproom. Between them that is both halves of what Lowry actually runs.</p>
     </div>
     <div class="proof reveal d1">
       <div class="pr">
@@ -752,6 +760,20 @@ footer{background:var(--ink);color:#fff;padding:52px 0 44px;border-top:3px solid
         <h4>Two Tribes Brewing</h4>
         <p>Wholesale, hundreds of Tesco shelves, a King's Cross taproom and a distribution arm, across seven systems that had never spoken to each other.</p>
         <p>Seven weeks later twelve people were building their own dashboards, with twenty live across sales, finance and production. No data team involved.</p>
+      </div>
+      <div class="pr pr-wide">
+        <div class="pw-intro">
+          <span class="pr-tag">Live entertainment</span>
+          <h4>ABBA Voyage</h4>
+          <p>The ABBA concert residency, running in its own purpose-built arena in east London since 2022.</p>
+          <p><b>Used by commercial, pricing and operations teams on one data connection.</b> They connected their own data warehouse once. Since then, several people have built dashboards and small apps themselves, with no data team involved, covering everything from show-day operations to trade partner sales and the next year's budget.</p>
+        </div>
+        <div class="pw-pts">
+          <div class="pw-pt"><h5>Ticket pacing and forecasting</h5><p>They track how each performance is selling against budget, reforecast and last year. They also forecast how full upcoming concerts will be, from tonight's show through to next season.</p></div>
+          <div class="pw-pt"><h5>Pricing decisions they can measure</h5><p>They look at average ticket price by price band, seat area and show type. When they change prices or run discounts, they check whether it worked, and Milo emails them a daily before-and-after tracker.</p></div>
+          <div class="pw-pt"><h5>Daily emails that replace manual reporting</h5><p>Milo emails the team each morning with yesterday's sales, the reasons behind any rise or fall, and occupancy by area. There are also one-off trackers for campaigns like Black Friday and charity tickets.</p></div>
+          <div class="pw-pt"><h5>Understanding who buys and when</h5><p>They look at how far ahead people book, where buyers are based, repeat visitors, groups and families, and solo bookers. They use this to decide when and where to run campaigns.</p></div>
+        </div>
       </div>
     </div>
     </div>
