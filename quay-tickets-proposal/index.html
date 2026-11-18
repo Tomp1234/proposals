@@ -288,10 +288,10 @@ h1 em{font-style:normal;color:var(--yellow)}
 /* ── Proof ──────────────────────────────────────────────── */
 .proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:3px solid rgba(255,255,255,.4)}
 .pr{padding:30px 30px 34px;border-right:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.22)}
-.pr:nth-child(2),.pr:last-child{border-right:0}
-.pr:nth-child(n+3){border-bottom:0}
-.pr-wide{grid-column:span 2}
-.pw-intro{max-width:620px;margin-bottom:24px}
+.pr:first-child,.pr:last-child{border-right:0}
+.pr:nth-child(n+2){border-bottom:0}
+.pr-wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:36px;padding-top:34px;padding-bottom:38px}
+.pr.pr-wide h4{font-size:1.5rem}
 .pw-intro p b{color:#fff}
 .pw-pts{display:grid;grid-template-columns:1fr 1fr;gap:22px 26px}
 .pw-pt{border-top:1.5px solid rgba(255,219,0,.55);padding-top:12px}
@@ -302,7 +302,7 @@ h1 em{font-style:normal;color:var(--yellow)}
 .pr h4{font-size:1.2rem;margin-bottom:10px}
 .pr p{font-size:.93rem}
 .pr p+p{margin-top:10px}
-@media(max-width:900px){.proof{grid-template-columns:1fr}.pr-wide{grid-column:auto}.pr:nth-child(n){border-right:0;border-bottom:1px solid rgba(255,255,255,.22)}.pr:last-child{border-bottom:0}}
+@media(max-width:900px){.proof{grid-template-columns:1fr}.pr-wide{grid-column:auto;grid-template-columns:1fr;gap:24px}.pr:nth-child(n){border-right:0;border-bottom:1px solid rgba(255,255,255,.22)}.pr:last-child{border-bottom:0}}
 @media(max-width:640px){.pw-pts{grid-template-columns:1fr}}
 
 /* ── Tixly APIs ─────────────────────────────────────────── */
@@ -734,18 +734,12 @@ footer{background:var(--ink);color:#fff;padding:52px 0 44px;border-top:3px solid
     <div class="sec-head reveal" style="margin-bottom:40px">
       <span class="eyebrow"><span class="dot"></span>Already running</span>
       <h2>You would be in<br/>good company.</h2>
-      <p class="lead">Two of these sell tickets: a ticket agency at national scale and a live show in its own arena. The other three are multi-site hospitality: bars, restaurants, venues and a taproom. Between them that is both halves of what Lowry actually runs.</p>
+      <p class="lead">ABBA Voyage is the closest thing on our client list to Lowry and QuayTickets: a venue selling its own tickets, pricing its own seats and tracking every performance. The other three are multi-site hospitality: bars, restaurants, venues and a taproom. Between them that is both halves of what Lowry actually runs.</p>
     </div>
     <div class="proof reveal d1">
-      <div class="pr">
-        <span class="pr-tag">Ticketing</span>
-        <h4>See Tickets</h4>
-        <p>One of Europe's largest ticket agencies, selling for festivals, arenas, theatre and attractions. The first proof of concept we ran after Milo went to market, and the closest thing on our client list to a direct QuayTickets peer.</p>
-        <p>Almost twenty years of ticketing history in one database: shows, ticket types and the marketing tools behind each launch. Milo attributes launch revenue back to the activity that actually drove it.</p>
-      </div>
       <div class="pr pr-wide">
         <div class="pw-intro">
-          <span class="pr-tag">Live entertainment</span>
+          <span class="pr-tag">Ticketing and venue</span>
           <h4>ABBA Voyage</h4>
           <p>The ABBA concert residency, running in its own purpose-built arena in east London since 2022.</p>
           <p><b>Used by commercial, pricing and operations teams on one data connection.</b> They connected their own data warehouse once. Since then, several people have built dashboards and small apps themselves, with no data team involved, covering everything from show-day operations to trade partner sales and the next year's budget.</p>
