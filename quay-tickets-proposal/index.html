@@ -286,13 +286,12 @@ h1 em{font-style:normal;color:var(--yellow)}
 @media(max-width:700px){.vs{grid-template-columns:1fr}.vs-col:first-child{border-right:0;border-bottom:3px solid var(--ink)}}
 
 /* ── Proof ──────────────────────────────────────────────── */
-.proof{display:grid;grid-template-columns:1fr 1fr;border-top:3px solid rgba(255,255,255,.4)}
+.proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:3px solid rgba(255,255,255,.4)}
 .pr{padding:30px 30px 34px;border-right:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.22)}
-.pr:nth-child(2n){border-right:0}
-.pr:last-child{border-bottom:0}
-.pr:nth-last-child(2):nth-child(odd){border-bottom:0}
-.pr:last-child:nth-child(odd){grid-column:1/-1;border-right:0}
-.pr-wide{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:32px;padding-top:34px}
+.pr:nth-child(2),.pr:last-child{border-right:0}
+.pr:nth-child(n+3){border-bottom:0}
+.pr-wide{grid-column:span 2}
+.pw-intro{max-width:620px;margin-bottom:24px}
 .pw-intro p b{color:#fff}
 .pw-pts{display:grid;grid-template-columns:1fr 1fr;gap:22px 26px}
 .pw-pt{border-top:1.5px solid rgba(255,219,0,.55);padding-top:12px}
@@ -303,7 +302,8 @@ h1 em{font-style:normal;color:var(--yellow)}
 .pr h4{font-size:1.2rem;margin-bottom:10px}
 .pr p{font-size:.93rem}
 .pr p+p{margin-top:10px}
-@media(max-width:700px){.proof{grid-template-columns:1fr}.pr{border-right:0;border-bottom:1px solid rgba(255,255,255,.22)}.pr:nth-last-child(2):nth-child(odd){border-bottom:1px solid rgba(255,255,255,.22)}.pr:last-child{border-bottom:0}.pr-wide,.pw-pts{grid-template-columns:1fr}.pr-wide{gap:22px}}
+@media(max-width:900px){.proof{grid-template-columns:1fr}.pr-wide{grid-column:auto}.pr:nth-child(n){border-right:0;border-bottom:1px solid rgba(255,255,255,.22)}.pr:last-child{border-bottom:0}}
+@media(max-width:640px){.pw-pts{grid-template-columns:1fr}}
 
 /* ── Tixly APIs ─────────────────────────────────────────── */
 .api{display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid var(--ink);border-left:1px solid var(--line);margin-bottom:46px}
@@ -743,6 +743,20 @@ footer{background:var(--ink);color:#fff;padding:52px 0 44px;border-top:3px solid
         <p>One of Europe's largest ticket agencies, selling for festivals, arenas, theatre and attractions. The first proof of concept we ran after Milo went to market, and the closest thing on our client list to a direct QuayTickets peer.</p>
         <p>Almost twenty years of ticketing history in one database: shows, ticket types and the marketing tools behind each launch. Milo attributes launch revenue back to the activity that actually drove it.</p>
       </div>
+      <div class="pr pr-wide">
+        <div class="pw-intro">
+          <span class="pr-tag">Live entertainment</span>
+          <h4>ABBA Voyage</h4>
+          <p>The ABBA concert residency, running in its own purpose-built arena in east London since 2022.</p>
+          <p><b>Used by commercial, pricing and operations teams on one data connection.</b> They connected their own data warehouse once. Since then, several people have built dashboards and small apps themselves, with no data team involved, covering everything from show-day operations to trade partner sales and the next year's budget.</p>
+        </div>
+        <div class="pw-pts">
+          <div class="pw-pt"><h5>Ticket pacing and forecasting</h5><p>They track how each performance is selling against budget, reforecast and last year. They also forecast how full upcoming concerts will be, from tonight's show through to next season.</p></div>
+          <div class="pw-pt"><h5>Pricing decisions they can measure</h5><p>They look at average ticket price by price band, seat area and show type. When they change prices or run discounts, they check whether it worked, and Milo emails them a daily before-and-after tracker.</p></div>
+          <div class="pw-pt"><h5>Daily emails that replace manual reporting</h5><p>Milo emails the team each morning with yesterday's sales, the reasons behind any rise or fall, and occupancy by area. There are also one-off trackers for campaigns like Black Friday and charity tickets.</p></div>
+          <div class="pw-pt"><h5>Understanding who buys and when</h5><p>They look at how far ahead people book, where buyers are based, repeat visitors, groups and families, and solo bookers. They use this to decide when and where to run campaigns.</p></div>
+        </div>
+      </div>
       <div class="pr">
         <span class="pr-tag ghost">Hospitality, international</span>
         <h4>Nikki Beach Global</h4>
@@ -760,20 +774,6 @@ footer{background:var(--ink);color:#fff;padding:52px 0 44px;border-top:3px solid
         <h4>Two Tribes Brewing</h4>
         <p>Wholesale, hundreds of Tesco shelves, a King's Cross taproom and a distribution arm, across seven systems that had never spoken to each other.</p>
         <p>Seven weeks later twelve people were building their own dashboards, with twenty live across sales, finance and production. No data team involved.</p>
-      </div>
-      <div class="pr pr-wide">
-        <div class="pw-intro">
-          <span class="pr-tag">Live entertainment</span>
-          <h4>ABBA Voyage</h4>
-          <p>The ABBA concert residency, running in its own purpose-built arena in east London since 2022.</p>
-          <p><b>Used by commercial, pricing and operations teams on one data connection.</b> They connected their own data warehouse once. Since then, several people have built dashboards and small apps themselves, with no data team involved, covering everything from show-day operations to trade partner sales and the next year's budget.</p>
-        </div>
-        <div class="pw-pts">
-          <div class="pw-pt"><h5>Ticket pacing and forecasting</h5><p>They track how each performance is selling against budget, reforecast and last year. They also forecast how full upcoming concerts will be, from tonight's show through to next season.</p></div>
-          <div class="pw-pt"><h5>Pricing decisions they can measure</h5><p>They look at average ticket price by price band, seat area and show type. When they change prices or run discounts, they check whether it worked, and Milo emails them a daily before-and-after tracker.</p></div>
-          <div class="pw-pt"><h5>Daily emails that replace manual reporting</h5><p>Milo emails the team each morning with yesterday's sales, the reasons behind any rise or fall, and occupancy by area. There are also one-off trackers for campaigns like Black Friday and charity tickets.</p></div>
-          <div class="pw-pt"><h5>Understanding who buys and when</h5><p>They look at how far ahead people book, where buyers are based, repeat visitors, groups and families, and solo bookers. They use this to decide when and where to run campaigns.</p></div>
-        </div>
       </div>
     </div>
     </div>
