@@ -349,6 +349,18 @@ h1 em{font-style:normal;color:var(--yellow)}
 .note b{color:var(--yellow)}
 
 /* ── Footer ─────────────────────────────────────────────── */
+/* ── Trust Centre ───────────────────────────────────────── */
+.trust-end{padding:64px 0}
+.trust-row{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.trust-row>div{flex:1 1 420px;max-width:640px}
+.trust-row h3{margin:14px 0 10px}
+.trust-row p{font-size:.95rem;color:#3A3F4A;max-width:560px}
+.trust-cta{display:inline-flex;flex-direction:column;gap:3px;background:var(--ink);color:#fff;text-decoration:none;padding:18px 26px;border:3px solid var(--ink);transition:background .18s,color .18s}
+.trust-cta span{font-weight:700;font-size:1rem}
+.trust-cta span::after{content:' →'}
+.trust-cta small{font-size:.75rem;opacity:.65;letter-spacing:.04em}
+.trust-cta:hover,.trust-cta:focus-visible{background:var(--yellow);color:var(--ink)}
+
 footer{background:var(--ink);color:#fff;padding:52px 0 44px;border-top:3px solid var(--yellow)}
 .foot{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap}
 .foot-l{display:flex;align-items:center;gap:14px}
@@ -889,6 +901,18 @@ footer{background:var(--ink);color:#fff;padding:52px 0 44px;border-top:3px solid
     <div class="note reveal d2">
       <b>One open item.</b> ePOS connectivity through your in-house virtual data centre is the piece we still need to confirm. Philip, our CTO, will take that up with Darren directly as the first technical step.
     </div>
+  </div>
+</section>
+
+<!-- ══ TRUST CENTRE ══ -->
+<section id="trust" class="b-off trust-end">
+  <div class="wrap trust-row">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Security documentation</span>
+      <h3>Certificates, policies and security documents, in one place.</h3>
+      <p>Everything Darren and anyone at Lowry or QuayTickets reviewing security will want to read is in the Milo Trust Centre.</p>
+    </div>
+    <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener"><span>Open the Milo Trust Centre</span><small>trust.milo.ai</small></a>
   </div>
 </section>
 
