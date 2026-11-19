@@ -2,319 +2,1293 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Milo × BetGoodwin</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="data:image/jpeg;base64,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">
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&family=DM+Mono:wght@400;500&display=swap">
 <style>
+/* Layout: a race day at a family bookmaker. BetGoodwin black and yellow up top, a racecard for a hero, a yellow betting-board ticker, desks as tabs, Saturday drawn as a racecourse rail, and the trust document filed at the end like paper. Archivo condensed for board type, Nunito Sans (their own site's face) for reading, DM Mono for figures. */
 :root{
-  --char:#1f1f1f; --ink:#2a2a2a; --soft:#575757; --mute:#9a9a9a; --line:#e4e4e4;
-  --paper:#ffffff; --mist:#f6f6f4; --gold:#fdc615; --gold-d:#8a6400; --gold-l:#fff6d4; --gold-b:#f3dc8a;
-  --red:#bd362f;
+  color-scheme:light;
+  --paper:#FFFFFF;--panel:#F3F3EE;--card:#FFFFFF;--ink:#17170F;--muted:#5D5C51;--rule:#E4E3D9;--line:#D3D2C5;
+  --gold:#FFE20F;--on-gold:#17170F;--gold-t:#6E5A00;--gold-soft:#FFF8C7;
+  --red:#D7141D;--red-t:#B0101A;--amber:#F2A007;
+  --night:#141412;--night-2:#1F1F1C;--night-line:#3B3A33;--on-night:#FFFFFF;--on-night-2:#C8C6B6;--hand:#FF8A80;
+  --bar:#DBDACF;--track:#EEEDE5;--hl:#17170F;
+  --good:#1D6A35;--good-bg:#DDF0E1;--warn:#7A5600;--warn-bg:#FCEFC2;--bad:#B0101A;--bad-bg:#FBE0E1;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,monospace;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#ececea}
-body{font-family:"Nunito Sans",Helvetica,Arial,sans-serif;color:var(--ink);font-size:13px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-.page>*{flex-shrink:0}
-.page{width:210mm;height:297mm;margin:24px auto;background:var(--paper);padding:9mm 14mm 7mm;display:flex;flex-direction:column;box-shadow:0 2px 24px rgba(0,0,0,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --paper:#0E0E0C;--panel:#191916;--card:#151513;--ink:#F2F1E8;--muted:#A9A799;--rule:#2A2924;--line:#3A3932;
+  --gold-t:#FFE20F;--gold-soft:#2C2810;--red-t:#FF7076;
+  --night:#1C1C19;--night-2:#262622;--night-line:#403F38;
+  --bar:#3A3932;--track:#242420;--hl:#F2F1E8;
+  --good:#86D69F;--good-bg:#14301D;--warn:#F2C65A;--warn-bg:#352B0C;--bad:#FF7A80;--bad-bg:#3B1517}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --paper:#0E0E0C;--panel:#191916;--card:#151513;--ink:#F2F1E8;--muted:#A9A799;--rule:#2A2924;--line:#3A3932;
+  --gold-t:#FFE20F;--gold-soft:#2C2810;--red-t:#FF7076;
+  --night:#1C1C19;--night-2:#262622;--night-line:#403F38;
+  --bar:#3A3932;--track:#242420;--hl:#F2F1E8;
+  --good:#86D69F;--good-bg:#14301D;--warn:#F2C65A;--warn-bg:#352B0C;--bad:#FF7A80;--bad-bg:#3B1517}
 
-.top{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center}
-.milo{display:flex;align-items:center;gap:7px;font-weight:800;font-size:17px;letter-spacing:-.01em;color:var(--char)}
-.milo img{width:22px;height:22px;border-radius:5px}
-.x{color:var(--mute);margin:0 12px;font-size:13px}
-.bgw{font-weight:900;font-size:16px;letter-spacing:.01em;color:var(--char)}
-.bgw b{color:var(--gold-d);font-weight:900}
-.date{font-size:10px;color:var(--mute);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--night)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-stretch:78%;font-weight:850;letter-spacing:-.012em;text-wrap:balance;margin:0;line-height:.98}
+h2 em,h3 em{font-style:normal;color:var(--on-gold);background:linear-gradient(transparent 10%,var(--gold) 10%,var(--gold) 90%,transparent 90%);padding:0 .06em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+p{margin:0}
+b,strong{font-weight:800}
+a{color:inherit;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+.label{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+.eyebrow{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;color:var(--muted);margin-bottom:14px}
+.eyebrow .n{font-family:var(--mono);font-weight:500;font-size:12px;color:var(--on-gold);background:var(--gold);padding:1px 7px;border-radius:4px}
+.tag{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:5px;background:var(--gold);color:var(--on-gold);white-space:nowrap}
+.bg-logo{display:block;aspect-ratio:4252/573.3}
+.sr{position:absolute;left:-9999px}
 
-.caps{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d)}
-h2{font-size:19px;font-weight:900;letter-spacing:-.015em;margin-bottom:7px;color:var(--char)}
-section{margin-top:11px}
-b{font-weight:800}
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--night);color:var(--on-night);border-bottom:1px solid var(--night-line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--on-night)}
+.lk-milo{display:flex;align-items:center;gap:6px;font-weight:900;font-size:18px;letter-spacing:-.02em}
+.lk-milo svg{width:28px;height:22px}
+.lk-x{color:var(--on-night-2)}
+.lockup .bg-logo{height:19px;width:auto}
+.nav{display:flex;gap:2px}
+.nav a{font-size:13.5px;font-weight:700;color:var(--on-night-2);text-decoration:none;padding:6px 10px;border-radius:6px}
+.nav a:hover{color:var(--on-night);background:var(--night-2)}
+@media (max-width:1040px){.nav{display:none}}
 
 /* hero */
-.hero{margin-top:12px;background:var(--char);color:#fff;border-radius:16px;padding:16px 26px 14px;border-bottom:4px solid var(--gold)}
-.hero .caps{color:var(--gold)}
-.hero h1{font-size:27px;line-height:1.12;font-weight:900;letter-spacing:-.025em;margin-top:6px;max-width:20em}
-.hero h1 em{font-style:normal;color:var(--gold)}
-.hero p{margin-top:8px;font-size:13.5px;color:#cfcfcf;max-width:47em}
-.sys{margin-top:11px;font-size:11px;color:#a3a3a3;font-weight:700}
-.sys span+span:before{content:"·";margin:0 8px;color:#5a5a5a}
-.sys .go{color:var(--gold)}
+.hero{position:relative;overflow:hidden;background:var(--night);color:var(--on-night);padding-block:54px 76px}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,var(--gold) 0 26px,var(--night) 26px 52px);opacity:.9}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:52px;align-items:center}
+.kick{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:22px;color:var(--on-night-2)}
+.kick .tag{font-size:11px}
+.hero h1{font-size:clamp(46px,6.4vw,88px);text-transform:uppercase;letter-spacing:-.005em;line-height:.92;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--gold);display:block}
+.lede{font-size:18.5px;line-height:1.5;max-width:31em;color:var(--on-night-2)}
+.lede b{color:var(--on-night)}
+.for{margin:28px 0 0;padding:16px 0 0;border-top:1px solid var(--night-line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 22px;max-width:520px}
+.for dt{grid-column:1/-1;color:var(--gold);margin-bottom:2px}
+.for dd{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 10px;align-items:center;font-size:13px;line-height:1.3;color:var(--on-night-2);min-width:0}
+.for dd .cn{grid-row:1/3}
+.for dd b{color:var(--on-night);font-size:15.5px}
+.for dd span:not(.cn){grid-column:2}
+.cn{display:inline-grid;place-items:center;flex:none;width:21px;height:21px;border:1.5px solid currentColor;border-radius:3px;font-family:var(--mono);font-size:11.5px;font-weight:500;line-height:1}
 
-/* desks */
-.desks{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px}
-.desks>div{padding-top:9px;border-top:2px solid var(--char)}
-.desks h3{font-size:14px;font-weight:900;color:var(--char);margin-bottom:4px}
-.desks ul{list-style:none}
-.desks li{font-size:12px;color:var(--soft);padding:1.5px 0 1.5px 15px;position:relative;line-height:1.42}
-.desks li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:2px;background:var(--gold)}
-.desks li b{color:var(--ink)}
+/* racecard board (hero) */
+.rb-panel{background:var(--card);color:var(--ink);padding:18px 18px 16px;border-radius:12px;box-shadow:12px 12px 0 var(--gold)}
+.rb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.rb-k{color:var(--muted)}
+.rb-q{font-size:13px;font-weight:800;color:var(--gold-t);min-height:21px;margin-bottom:4px}
+.rb-head,.rb-row{display:grid;grid-template-columns:22px minmax(0,74px) minmax(0,1fr) 74px;gap:10px;align-items:center}
+.rb-head{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed var(--line)}
+.rb-head>span:last-child{text-align:right}
+.rb-scale{position:relative;height:15px}
+.rb-scale i{position:absolute;top:0;left:var(--ln);transform:translateX(-50%);font-style:normal;white-space:nowrap;color:var(--ink)}
+.rb{display:grid;gap:7px;margin-bottom:4px}
+.rb.noline .rb-t::before{display:none}
+.rb-row{min-height:21px;transition:opacity .3s}
+.rb-row.dim{opacity:.3}
+.rb-row .cn{width:20px;height:20px;font-size:11px;color:var(--ink)}
+.rb-n{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.rb-t{position:relative;height:11px;background:var(--track);border-radius:2px}
+.rb-t::before{content:"";position:absolute;top:-5px;bottom:-5px;left:var(--ln);border-left:2px solid var(--ink);opacity:.75;z-index:2}
+.rb-f{position:absolute;left:0;top:0;bottom:0;border-radius:2px;background:var(--hl);transition:width .5s ease,background .3s}
+.rb-f.tight{background:var(--amber)}
+.rb-f.bad{background:var(--red)}
+.rb-v{font-family:var(--mono);font-size:12px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rb-v.bad{color:var(--red-t)}
+.rb-v.tight{color:var(--warn)}
+.rb-v.pill{justify-self:end;border-radius:5px;padding:0 8px;font-weight:500}
+.rb-v.pill.bad{background:var(--red);color:#FFFFFF}
+.rb-v.pill.tight{background:var(--gold);color:var(--on-gold)}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);margin:12px 0;min-height:18px}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg i{display:inline-block;width:16px;height:9px;border-radius:2px;background:var(--hl)}
+.lg i.tight{background:var(--amber)}
+.lg i.bad{background:var(--red)}
+.lg i.gold{background:var(--gold)}
+.lg i.ln{width:0;height:12px;border-radius:0;background:none;border-left:2px solid var(--ink)}
+.et-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.et{border:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;padding:8px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;border-radius:7px;transition:border-color .2s,background .2s}
+.et small{font-size:11.5px;color:var(--muted);line-height:1.3}
+.et b{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:16px;line-height:1.15}
+.et:hover{border-color:var(--ink)}
+.et[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.et[aria-pressed="true"] small{color:var(--paper);opacity:.75}
+.r-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.r-stats b{display:block;font-family:var(--display);font-stretch:80%;font-weight:850;font-size:30px;line-height:1.02;font-variant-numeric:tabular-nums}
+.r-stats span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
+.r-say{font-size:14px}
+#rb-read{min-height:132px}
+.rb-hint{font-size:12px;color:var(--muted);margin-top:12px}
+@media (max-width:920px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){
+  .et-row{grid-template-columns:repeat(2,minmax(0,1fr))}.r-stats b{font-size:24px}
+  .rb-head,.rb-row{grid-template-columns:20px minmax(0,62px) minmax(0,1fr) 66px;gap:7px}
+  .rb-n{font-size:11.5px}.rb-v{font-size:11px}
+  .rb-panel{padding:16px 13px 14px;box-shadow:7px 7px 0 var(--gold)}
+  #rb-read{min-height:186px}
+  .for{grid-template-columns:minmax(0,1fr)}
+}
 
-/* answer */
-.ans{border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.ans .bar{display:flex;align-items:center;gap:8px;background:var(--mist);padding:8px 14px;font-size:11px;color:var(--soft);font-weight:700;border-bottom:1px solid var(--line)}
-.ans .bar img{width:16px;height:16px;border-radius:4px}
-.ans .bar .t{margin-left:auto;color:var(--gold-d)}
-.ans .body{padding:13px 16px 13px}
-.q{font-weight:800;font-size:13.5px;color:var(--char)}
-.q:before{content:"You  ";color:var(--mute);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-.a{margin-top:7px;font-size:15px;font-weight:900;letter-spacing:-.01em;color:var(--char);line-height:1.3}
-.a small{display:block;font-size:11px;font-weight:600;color:var(--mute);letter-spacing:0;margin-top:2px}
-.grid{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-top:10px}
-table{width:100%;border-collapse:collapse;font-size:11.5px}
-th{text-align:left;font-weight:800;color:var(--mute);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:4px 0;border-bottom:1px solid var(--line)}
-td{padding:4.5px 0;border-bottom:1px solid #f0f0ee}
-.n{text-align:right;padding-left:12px}
-.hi{color:var(--red);font-weight:800}
-.why h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--char);margin-bottom:6px}
-.chk{display:flex;gap:8px;font-size:11.5px;color:var(--soft);margin-bottom:6px;line-height:1.4}
-.chk i{flex:none;width:16px;height:16px;border-radius:50%;background:var(--gold-l);color:var(--gold-d);font-style:normal;font-weight:900;font-size:10px;display:flex;align-items:center;justify-content:center;margin-top:1px}
-.chk b{color:var(--ink)}
-.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
-.acts span{font-size:10.5px;font-weight:800;padding:4px 11px;border-radius:6px;background:var(--gold);color:var(--char)}
-.acts span+span{background:#fff;color:var(--char);border:1px solid var(--gold-b)}
-.illus{font-size:11px;color:var(--soft);border:1px solid var(--gold-b);background:#fffcf0;border-radius:8px;padding:5px 12px;margin-top:6px}
+/* ticker */
+.marq{background:var(--gold);color:var(--on-gold);overflow:hidden;padding-block:11px;border-block:2px solid var(--on-gold)}
+.marq-in{display:flex;width:max-content;animation:marq 70s linear infinite}
+.marq span{position:relative;font-family:var(--display);font-stretch:80%;font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.02em;padding-inline:22px;white-space:nowrap}
+.marq span::after{content:"";position:absolute;right:-4px;top:50%;width:8px;height:8px;transform:translateY(-50%);border-radius:50%;background:var(--red)}
+@keyframes marq{to{transform:translateX(-50%)}}
 
-/* why milo */
-.four{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px}
-.four>div{padding-top:9px;border-top:2px solid var(--char)}
-.four h3{font-size:14px;font-weight:900;color:var(--char);margin-bottom:3px}
-.four p{font-size:12.3px;color:var(--soft)}
-.four p b{color:var(--ink)}
+/* sections */
+section.band{padding-block:80px;border-top:1px solid var(--rule)}
+section.band.first{border-top:0}
+section.tint{background:var(--panel);border-top:0}
+.head{max-width:840px;margin-bottom:32px}
+.head h2{font-size:clamp(38px,5.2vw,66px);margin-bottom:14px}
+.head p{color:var(--muted);font-size:18px;line-height:1.45}
+.note{font-size:12.5px;color:var(--muted);margin-top:16px;max-width:82ch}
 
-/* mindway + dpo */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.two>div{border:1px solid var(--line);border-radius:12px;padding:12px 15px}
-.two .g{border-color:var(--gold-b);background:#fffcf0}
-.two h3{font-size:13.5px;font-weight:900;color:var(--char);margin:3px 0 4px}
-.two p{font-size:12px;color:var(--soft);line-height:1.5}
-.two p b{color:var(--ink)}
-.tags{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:7px;font-size:10.5px;font-weight:800;color:var(--char)}
-.tags span:before{content:"✓ ";color:var(--gold-d)}
+/* films */
+.vids{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:24px;align-items:end}
+.vcard{margin:0;min-width:0}
+.vcap{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+.vtag{align-self:flex-start;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:5px;background:var(--ink);color:var(--paper);margin-bottom:6px}
+.vtag.cs{background:var(--gold);color:var(--on-gold)}
+.vcap b{font-family:var(--display);font-stretch:82%;font-weight:850;font-size:26px;line-height:1.05}
+.vlen{font-size:13px;color:var(--muted)}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--night);border-radius:12px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-decoration:none;color:var(--on-night);overflow:hidden;background:radial-gradient(60% 80% at 100% 0%,var(--night-2),transparent 70%),var(--night)}
+.p-mark{position:absolute;top:14px;left:16px;display:flex;align-items:center;gap:6px;font-weight:900;font-size:14px}
+.p-mark svg{width:26px;height:20px}
+.p-kick{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;position:relative;z-index:1}
+.p-ttl{font-family:var(--display);font-stretch:78%;font-weight:850;text-transform:uppercase;font-size:clamp(24px,3vw,40px);line-height:.98;position:relative;z-index:1;text-align:center;padding-inline:18px;max-width:14em;text-wrap:balance}
+.p-play{width:66px;height:66px;border-radius:50%;background:var(--gold);color:var(--on-gold);display:flex;align-items:center;justify-content:center;padding-left:4px;transition:transform .3s;position:relative;z-index:1}
+.poster:hover .p-play{transform:scale(1.08)}
+.p-sub{font-family:var(--mono);font-size:12px;color:var(--on-night-2);position:relative;z-index:1}
+.poster.cs{color:var(--on-gold);background:repeating-linear-gradient(135deg,transparent 0 22px,rgba(0,0,0,.045) 22px 44px),var(--gold)}
+.poster.cs .p-kick{background:var(--on-gold);color:var(--gold);padding:2px 10px;border-radius:5px}
+.poster.cs .p-play{background:var(--on-gold);color:var(--gold)}
+.poster.cs .p-sub{color:var(--on-gold)}
+.poster.cs .p-mark{color:var(--on-gold)}
+.vid-note{font-size:13px;color:var(--muted);margin-top:10px}
+.cs-link{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;padding:16px 18px;background:var(--panel);border-radius:10px;font-size:15px}
+.cs-link a{font-weight:800}
+@media (max-width:860px){.vids{grid-template-columns:minmax(0,1fr)}}
 
-/* plan */
-.plan{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.step{border-top:2px solid var(--char);padding-top:7px}
-.when{font-weight:900;font-size:12px;color:var(--gold-d);padding-top:1px}
-.step h4{font-size:13px;font-weight:900;color:var(--char)}
-.step p{font-size:11.3px;color:var(--soft);margin-top:2px;line-height:1.42}
+/* where milo sits */
+.ws-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-bottom:18px}
+.ws-tab{position:relative;background:var(--card);border:1px solid var(--line);border-radius:7px;padding:9px 6px;cursor:pointer;font-size:13.5px;font-weight:800;color:var(--muted);white-space:nowrap;overflow:hidden;transition:background .2s,border-color .2s,color .2s}
+.ws-tab:hover{border-color:var(--ink);color:var(--ink)}
+.ws-tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.ws-tabs.touring .ws-tab[aria-pressed="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gold);transform-origin:left;animation:wsprog 5.5s linear}
+@keyframes wsprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.ws{display:grid;grid-template-columns:minmax(0,350px) minmax(0,1fr);gap:24px;align-items:stretch}
+.ws-left{display:flex;flex-direction:column;gap:12px;min-width:0}
+.ws-gain{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:21px;line-height:1.15;min-height:48px}
+.ws-gain .label{display:block;color:var(--gold-t);font-family:var(--mono);font-stretch:100%;font-size:10.5px;margin-bottom:4px}
+.ws-qs{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ws-qb{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;text-align:left;padding:9px 13px;background:var(--card);border:1px solid var(--line);border-radius:9px;font-size:13.5px;font-weight:700;line-height:1.3;cursor:pointer;transition:border-color .2s,opacity .2s,box-shadow .2s}
+.ws-qb:hover{border-color:var(--ink)}
+.ws-qb .d{width:9px;height:9px;border-radius:50%;background:var(--bar)}
+.ws-qb.m .d{background:var(--gold);box-shadow:0 0 0 1.5px var(--on-gold)}
+.ws-qb[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.ws-qb.fade{opacity:.4}
+.ws-panel{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px 16px;min-height:208px;display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.ws-v{font-size:12px;font-weight:800;padding:2px 10px;border-radius:5px;border:1px solid var(--muted);color:var(--muted)}
+.ws-v.m{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.ws-v.hand{background:transparent;border-color:var(--bad);color:var(--bad)}
+.ws-v.sys{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.ws-qq{font-family:var(--display);font-stretch:85%;font-weight:850;font-size:23px;line-height:1.08}
+.ws-a{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.ws-a svg{width:24px;height:19px;flex:none;margin-top:3px;color:var(--bad)}
+.ws-src{font-family:var(--mono);font-size:10.5px;line-height:1.5;color:var(--muted);margin-top:auto}
+.ws-kb{display:grid;gap:10px;width:100%}
+.ws-kb .label{display:block;color:var(--gold-t);margin-bottom:3px}
+.ws-kb .no{color:var(--bad)}
+.ws-kb p{font-size:14.5px}
+.ws-meter{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:var(--muted)}
+.ws-meter b{color:var(--ink);font-weight:800}
+.ws-sq{display:inline-flex;flex-wrap:wrap;gap:3px}
+.ws-sq i{width:8px;height:8px;border-radius:50%;background:var(--bar)}
+.ws-sq i.m{background:var(--gold);box-shadow:0 0 0 1px var(--on-gold)}
+.ws-stage{position:relative;display:flex;flex-direction:column;background:var(--night);color:var(--on-night);border-radius:14px;overflow:hidden;min-width:0;box-shadow:12px 12px 0 var(--gold)}
+.ws-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--night-line)}
+.ws-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ws-mode{display:inline-flex;border:1px solid var(--night-line);border-radius:7px;overflow:hidden}
+.ws-mode button{background:none;border:0;padding:6px 13px;cursor:pointer;font-size:12.5px;font-weight:800;color:var(--on-night-2);white-space:nowrap}
+.ws-mode button:hover{color:var(--on-night)}
+.ws-mode button[aria-pressed="true"]{background:var(--gold);color:var(--on-gold)}
+.ws-tourb{background:none;border:1px solid var(--night-line);border-radius:7px;padding:6px 12px;cursor:pointer;font-size:12.5px;font-weight:800;color:var(--on-night-2);white-space:nowrap}
+.ws-tourb:hover{color:var(--on-night);border-color:var(--on-night-2)}
+.ws-dg{position:relative;flex:1;display:grid;grid-template-columns:minmax(0,206px) minmax(0,1fr) minmax(0,150px);align-items:center;padding:14px 16px 20px}
+.ws-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.ws-w{fill:none;stroke:var(--night-line);stroke-width:1}
+.ws-w.on{stroke:var(--gold);stroke-opacity:.45}
+.ws-w.on.o{stroke:var(--on-night);stroke-opacity:.5}
+.ws-f{fill:none;stroke:var(--gold);stroke-width:3.2;stroke-linecap:round;stroke-dasharray:.1 13;animation:wsflow 1.1s linear infinite}
+.ws-f.o{stroke:var(--on-night)}
+.ws-f.hand{stroke:var(--hand);stroke-width:1.6;stroke-linecap:butt;stroke-dasharray:5 5;animation:none}
+@keyframes wsflow{to{stroke-dashoffset:-13.1}}
+.ws-col{position:relative;z-index:1;display:grid;gap:5px;min-width:0}
+.ws-col .label{color:var(--on-night-2);margin-bottom:3px}
+.ws-sy{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:0 8px;align-items:center;width:100%;text-align:left;padding:4px 9px;background:var(--night-2);border:1px solid var(--night-line);border-radius:7px;cursor:pointer;color:var(--on-night-2);transition:background .2s,border-color .2s,color .2s,transform .2s}
+.ws-sy i{grid-row:1/3;grid-column:1;width:7px;height:7px;border-radius:50%;background:var(--night-line);transition:background .2s,box-shadow .2s}
+.ws-sy b{grid-column:2;font-size:13px;font-weight:800;line-height:1.25}
+.ws-sy small{grid-column:2;font-size:11px;font-weight:600;line-height:1.25;opacity:.85}
+.ws-sy svg{grid-row:1/3;grid-column:3;width:12px;height:12px;color:var(--gold)}
+.ws-sy:hover{border-color:var(--gold)}
+.ws-sy.on{background:var(--gold);border-color:var(--gold);color:var(--on-gold);transform:translateX(3px)}
+.ws-sy.on i{background:var(--on-gold)}
+.ws-sy.on svg{color:var(--on-gold)}
+.ws-node{position:relative;z-index:1;justify-self:center;display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;width:132px}
+.ws-orbw{position:relative;width:88px;height:88px;display:grid;place-items:center}
+.ws-orbw::before{content:"";position:absolute;inset:-11px;border:2px dashed var(--gold);border-radius:50%;opacity:.6;animation:wsspin 26s linear infinite}
+@keyframes wsspin{to{transform:rotate(360deg)}}
+.ws-orb{position:relative;width:88px;height:88px;display:grid;place-items:center;background:#FFFFFF;border-radius:50%;transition:background .3s}
+.ws-orb svg{width:50px;height:40px;color:#17170F}
+.ws-node b{font-family:var(--display);font-stretch:85%;font-weight:850;font-size:23px;line-height:1.05}
+.ws-node small{font-size:12px;font-weight:600;line-height:1.35;color:var(--on-night-2)}
+.ws-dg.hand .ws-orbw::before{animation:none;border-color:var(--hand);opacity:.5}
+.ws-dg.hand .ws-orb{background:var(--night-line)}
+.ws-dg.hand .ws-orb svg{color:var(--on-night)}
+.ws-o{display:flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--night-line);border-radius:7px;background:var(--night-2);font-size:12.5px;font-weight:700;line-height:1.25;color:var(--on-night-2);opacity:.8;transition:border-color .2s,color .2s,opacity .2s}
+.ws-o i{width:6px;height:6px;border-radius:50%;background:var(--night-line);flex:none}
+.ws-o.on{border-color:var(--on-night);color:var(--on-night);opacity:1}
+.ws-o.on i{background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.ws-dg.hand .ws-o.on{border-color:var(--hand)}
+.ws-dg.hand .ws-o.on i{background:var(--hand);box-shadow:none}
+@media (max-width:1040px){
+  .ws{grid-template-columns:minmax(0,1fr)}
+  .ws-tabs{display:flex;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .ws-tabs::-webkit-scrollbar{display:none}
+  .ws-tab{flex:none;padding-inline:15px}
+  .ws-panel,.ws-gain{min-height:0}
+  .ws-stage{box-shadow:7px 7px 0 var(--gold)}
+}
+@media (max-width:620px){
+  .ws-lines{display:none}
+  .ws-dg{grid-template-columns:minmax(0,1fr);justify-items:stretch;padding:14px 14px 18px}
+  .ws-sys{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ws-sys .label{grid-column:1/-1}
+  .ws-sy.on{transform:none}
+  .ws-node{justify-self:center;margin-block:38px 30px;width:auto}
+  .ws-node::before,.ws-node::after{content:"";position:absolute;left:50%;width:1px;height:20px;background:var(--gold);opacity:.6}
+  .ws-node::before{top:-34px}
+  .ws-node::after{bottom:-26px}
+  .ws-out{display:flex;flex-wrap:wrap;gap:6px}
+  .ws-out .label{flex-basis:100%}
+}
+
+/* ask */
+.demo{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+.seats{display:flex;flex-direction:column;gap:4px}
+.seat{display:grid;gap:1px;text-align:left;border:1px solid transparent;background:transparent;padding:9px 12px;cursor:pointer;border-radius:8px}
+.seat b{font-size:15px;line-height:1.2}
+.seat span{font-size:12.5px;color:var(--muted);line-height:1.3}
+.seat:hover{background:var(--panel)}
+.seat[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.seat[aria-pressed="true"] span:not(.cn){color:var(--paper);opacity:.75}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.q{border:1px solid var(--line);background:var(--card);padding:7px 14px;font-size:13.5px;font-weight:700;cursor:pointer;text-align:left;border-radius:8px}
+.q:hover{border-color:var(--ink)}
+.q[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.console{background:var(--card);border:1px solid var(--line);overflow:hidden;border-radius:12px}
+.c-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--muted);background:var(--panel)}
+.c-head .who{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:900}
+.c-head .who svg{width:22px;height:18px}
+.c-body{padding:20px 18px;min-height:360px}
+.you{display:flex;justify-content:flex-end;margin-bottom:16px}
+.you p{background:var(--gold-soft);border:1px solid var(--gold);padding:9px 15px;max-width:82%;font-size:14px;border-radius:14px 14px 4px 14px}
+.thinking{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.thinking svg{width:26px;height:22px;animation:tick 1s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(.82);opacity:.6}}
+.say{font-size:15.5px;max-width:64ch;margin-bottom:16px}
+.cap{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.bars{display:grid;gap:8px;margin-bottom:16px}
+.bar-row{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr) 70px;gap:12px;align-items:center;font-size:13.5px}
+.bt{height:14px;overflow:hidden;border-radius:2px;background:var(--track)}
+.bf{display:block;height:100%;background:var(--bar);border-radius:2px;transition:width .5s ease}
+.bf.hl{background:var(--hl)}
+.bf.bad{background:var(--red)}
+.bv{font-family:var(--mono);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto;margin-bottom:16px;border:1px solid var(--rule);border-radius:9px}
+.tbl table{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 12px;background:var(--panel)}
+.tbl td{padding:8px 12px;border-top:1px solid var(--rule);font-variant-numeric:tabular-nums}
+.tbl td.num,.tbl th.num{text-align:right}
+.tbl td.over{color:var(--red-t);font-weight:800}
+.chip{font-size:11px;font-weight:800;padding:2px 9px;white-space:nowrap;border-radius:5px;display:inline-block}
+.chip.ok{background:var(--good-bg);color:var(--good)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden;margin-bottom:16px;border-radius:9px}
+.kpi{background:var(--card);padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-stretch:80%;font-weight:850;font-size:32px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.refuse{display:flex;gap:12px;align-items:flex-start;background:var(--bad-bg);padding:14px;margin-bottom:14px;font-size:14.5px;border-radius:9px}
+.refuse svg{width:20px;height:20px;flex:none;color:var(--bad);margin-top:2px}
+.refuse b{display:block;color:var(--bad)}
+.reply{margin:0 0 16px;padding:12px 16px;border-left:4px solid var(--gold);background:var(--panel);border-radius:0 9px 9px 0;font-size:14.5px}
+.a-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--rule)}
+.src{font-size:12px;color:var(--muted)}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.ghost{border:1.5px solid var(--ink);background:transparent;padding:5px 12px;font-size:12.5px;font-weight:800;border-radius:7px;cursor:default}
+.set{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--good)}
+.set svg{width:15px;height:15px;flex:none;margin-top:3px}
+@media (max-width:860px){
+  .demo{grid-template-columns:minmax(0,1fr)}
+  .seats{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .seat{flex:none;border-color:var(--rule)}
+  .seat span{display:none}
+  .bar-row{grid-template-columns:minmax(0,120px) minmax(0,1fr) 58px}
+  .tbl table{font-size:12.5px}.tbl th,.tbl td{padding:7px 8px}.tbl th{font-size:9.5px}
+}
+
+/* race day */
+.rd{background:var(--night);color:var(--on-night);border-top:0}
+.rd .head p{color:var(--on-night-2)}
+.rd .eyebrow{color:var(--on-night-2)}
+.rd h2 em{color:var(--on-gold)}
+.course{position:relative;margin:8px 0 26px;padding:34px 0 30px}
+.rail{position:relative;height:16px;border-radius:8px;background:var(--night-2);border:1px solid var(--night-line)}
+.rail::before{content:"";position:absolute;left:8px;right:8px;top:50%;border-top:2px dashed var(--night-line)}
+.rail-fill{position:absolute;left:0;top:0;bottom:0;border-radius:8px;background:var(--gold);width:0;transition:width .9s cubic-bezier(.3,.7,.3,1)}
+.post{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--night);border:2px solid var(--on-night-2);padding:0;cursor:pointer;z-index:2}
+.post.done{background:var(--gold);border-color:var(--on-gold)}
+.post[aria-pressed="true"]{background:var(--red);border-color:#FFFFFF;transform:scale(1.25)}
+.runner{position:absolute;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:#FFFFFF;display:grid;place-items:center;box-shadow:0 0 0 4px var(--gold);transition:left .9s cubic-bezier(.3,.7,.3,1);z-index:3;pointer-events:none}
+.runner svg{width:22px;height:18px}
+.c-ends{display:flex;justify-content:space-between;margin-top:12px;color:var(--on-night-2)}
+.c-ends span:last-child{text-align:right}
+.c-times{position:absolute;left:0;right:0;top:0;height:20px}
+.c-times span{position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--on-night-2)}
+.c-times span:first-child{transform:none}
+.c-times span:last-child{transform:translateX(-100%)}
+.steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-bottom:22px}
+.step{text-align:left;background:var(--night-2);border:1px solid var(--night-line);color:var(--on-night-2);border-radius:8px;padding:9px 11px;cursor:pointer;min-width:0}
+.step b{display:block;font-family:var(--mono);font-weight:500;font-size:12px;color:var(--on-night)}
+.step span{display:block;font-size:13px;font-weight:800;line-height:1.25}
+.step:hover{border-color:var(--gold)}
+.step[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.step[aria-pressed="true"] b{color:var(--on-gold)}
+.rd-panel{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.msg{background:#FFFFFF;color:#17170F;border-radius:12px;padding:16px 18px;min-width:0}
+.msg .hd{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12.5px;color:#5D5C51;margin-bottom:10px}
+.msg .hd b{color:#17170F;font-size:14px}
+.msg .hd svg{width:22px;height:18px}
+.msg .via{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:#17170F;color:#FFE20F;padding:1px 8px;border-radius:4px}
+.msg p{font-size:15px;line-height:1.5}
+.msg .to{font-size:12px;color:#5D5C51;margin-top:12px}
+.setup{border:1px solid var(--night-line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.setup .label{color:var(--gold)}
+.setup q{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:21px;line-height:1.15;quotes:"\201C" "\201D"}
+.setup p{font-size:14px;color:var(--on-night-2)}
+.setup p b{color:var(--on-night)}
+.rd .note{color:var(--on-night-2)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(3,minmax(0,1fr))}.rd-panel{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.c-times{display:none}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* proof */
-.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.proof>div{background:var(--mist);border-radius:12px;padding:9px 12px}
-.proof h4{font-size:12.5px;font-weight:900;color:var(--char);margin-bottom:2px}
-.proof .k{font-size:10px;font-weight:700;color:var(--mute);margin-bottom:4px;line-height:1.3}
-.proof .ref{background:var(--gold-l)}
-.proof p{font-size:10.8px;color:var(--soft);line-height:1.42}
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;background:var(--night);color:var(--on-night);padding:32px;border-radius:14px;margin-bottom:22px}
+.feature .k{color:var(--gold);margin-bottom:12px;display:block}
+.feature h3{font-size:clamp(36px,4.4vw,56px);text-transform:uppercase;margin-bottom:14px}
+.feature h3 em{color:var(--gold);background:none;padding:0}
+.feature p{font-size:15px;color:var(--on-night-2);margin-bottom:12px}
+.feature .links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:6px}
+.feature .links a{color:var(--gold);font-weight:800;font-size:14.5px}
+.fstats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--night-line);border:1px solid var(--night-line);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.fstats div{background:var(--night);padding:14px 16px}
+.fstats b{display:block;font-family:var(--display);font-stretch:78%;font-weight:850;font-size:44px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.fstats span{font-size:13px;color:var(--on-night-2)}
+blockquote.qt{margin:0;padding:0 0 0 16px;border-left:3px solid var(--gold);font-size:16px;line-height:1.5;color:var(--on-night)}
+blockquote.qt cite{display:block;font-style:normal;font-size:12.5px;color:var(--on-night-2);margin-top:8px}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.pcard{background:var(--card);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:10px;border-radius:12px;min-width:0}
+.pcard .k{color:var(--muted)}
+.pcard .big{font-family:var(--display);font-stretch:78%;font-weight:850;font-size:44px;line-height:1}
+.pcard .big i{font-style:normal;color:var(--gold-t)}
+.pcard blockquote{margin:0;font-size:15px}
+.pcard cite{font-style:normal;font-size:12.5px;color:var(--muted)}
+.names{display:flex;flex-wrap:wrap;gap:6px}
+.names span{font-size:13.5px;font-weight:800;border:1px solid var(--line);padding:3px 11px;border-radius:6px}
+.pcard .small{font-size:13px;color:var(--muted)}
+@media (max-width:860px){.feature{grid-template-columns:minmax(0,1fr);padding:24px}.pgrid{grid-template-columns:minmax(0,1fr)}}
 
-/* deal */
-.deal{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;overflow:hidden;background:var(--char);color:#fff;border-bottom:4px solid var(--gold)}
-.deal>div{padding:16px 20px}
-.deal>div+div{border-left:1px solid #3a3a3a}
-.deal .caps{color:var(--gold)}
-.deal .p{font-size:28px;font-weight:900;letter-spacing:-.02em;margin:3px 0 4px}
-.deal .p small{font-size:12px;font-weight:600;color:#a3a3a3;margin-left:4px;letter-spacing:0}
-.deal p{font-size:12px;color:#cfcfcf}
-.deal ul{list-style:none;margin-top:6px}
-.deal li{font-size:12px;color:#cfcfcf;padding:2px 0 2px 16px;position:relative}
-.deal li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:2px;background:var(--gold)}
-.hook{margin:12px 0 4px;font-size:12.5px;color:var(--ink);border-left:3px solid var(--gold);padding:2px 0 2px 12px}
+/* proof of concept */
+.weeks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 30px;padding:0;list-style:none}
+.wk{background:var(--panel);border-top:4px solid var(--ink);border-radius:3px 3px 12px 12px;padding:18px;min-width:0}
+.wk:last-child{border-top-color:var(--gold)}
+.wk .label{color:var(--gold-t);display:block;margin-bottom:6px}
+.wk b{display:block;font-family:var(--display);font-stretch:82%;font-weight:850;font-size:25px;line-height:1.05;margin-bottom:8px}
+.wk p{font-size:14px;color:var(--muted)}
+.price{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.9fr);gap:20px;align-items:stretch}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 26px;min-width:0}
+.pc .label{color:var(--muted)}
+.pc .big{font-family:var(--display);font-stretch:78%;font-weight:850;font-size:clamp(50px,6vw,72px);line-height:1;margin:10px 0 14px;font-variant-numeric:tabular-nums}
+.pc .big small{font-family:var(--body);font-stretch:100%;font-size:18px;font-weight:700;color:var(--muted)}
+.pc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 22px}
+.pc li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.pc li svg{width:15px;height:15px;flex:none;margin-top:4px;color:var(--gold-t)}
+.pc.go{background:var(--night);border-color:var(--night);color:var(--on-night);box-shadow:10px 10px 0 var(--gold)}
+.pc.go .label,.pc.go .big small{color:var(--on-night-2)}
+.pc.go .big{color:var(--gold)}
+.pc.go p:not(.big){font-size:14.5px;color:var(--on-night-2);margin-top:8px}
+.pc.go p b{color:var(--on-night)}
+@media (max-width:900px){.weeks{grid-template-columns:repeat(2,minmax(0,1fr))}.pc ul{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:680px){.price{grid-template-columns:minmax(0,1fr)}.pc.go{box-shadow:7px 7px 0 var(--gold)}}
+@media (max-width:480px){.weeks{grid-template-columns:minmax(0,1fr)}}
 
-.foot{margin-top:auto;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:10px;color:var(--mute);font-weight:700}
-.foot a{color:var(--gold-d);text-decoration:none}
+/* trust document */
+.trust-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+.doc{background:var(--card);border:1px solid var(--line);border-top:8px solid var(--ink);border-radius:4px 4px 12px 12px;padding:30px 34px 28px;box-shadow:0 18px 40px -28px rgba(0,0,0,.45);min-width:0}
+.doc-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:6px}
+.doc-h .brand{font-weight:900;font-size:18px}
+.doc-h .conf{color:var(--muted)}
+.doc h3{font-size:clamp(34px,4vw,48px);margin:14px 0 4px}
+.doc .sub{color:var(--muted);font-size:15px}
+.doc .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);padding:10px 0 4px;border-bottom:1px solid var(--rule);margin-bottom:6px}
+.ds{padding:18px 0 4px}
+.ds h4{display:flex;align-items:baseline;gap:10px;font-family:var(--display);font-stretch:85%;font-weight:850;font-size:22px;line-height:1.1;margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.ds h4 span{font-family:var(--mono);font-stretch:100%;font-weight:500;font-size:12px;color:var(--gold-t)}
+.ds p{font-size:14.5px;max-width:70ch}
+.ds dl{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:0;margin:0;font-size:14px}
+.ds dt,.ds dd{padding:8px 0;border-top:1px solid var(--rule);margin:0}
+.ds dt{font-weight:800;padding-right:14px}
+.ds dl>dt:first-of-type,.ds dl>dt:first-of-type+dd{border-top:0}
+.certs{display:grid;gap:0;font-size:14px}
+.cert{display:grid;grid-template-columns:minmax(0,150px) 112px minmax(0,1fr);gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--rule)}
+.cert:first-child{border-top:0}
+.cert b{font-weight:800}
+.cert span:last-child{color:var(--muted);font-size:13.5px}
+.ds ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.ds li{font-size:14.5px;padding-left:16px;position:relative}
+.ds li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;background:var(--gold);box-shadow:0 0 0 1px var(--on-gold)}
+.ds li b{font-weight:800}
+.doc-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--rule);margin-top:20px;padding-top:12px}
+.aside{display:flex;flex-direction:column;gap:16px;position:sticky;top:84px}
+.op{background:var(--night);color:var(--on-night);border-radius:12px;padding:20px}
+.op .label{color:var(--gold);display:block;margin-bottom:10px}
+.op h3{font-size:26px;margin-bottom:12px}
+.op ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.op li{font-size:14px;color:var(--on-night-2)}
+.op li b{display:block;color:var(--on-night);font-size:14.5px}
+.trust-cta{display:flex;flex-direction:column;gap:2px;background:var(--gold);color:var(--on-gold);text-decoration:none;padding:14px 18px;font-weight:800;font-size:15px;border-radius:10px}
+.trust-cta small{font-family:var(--mono);font-weight:400;font-size:11.5px}
+.save{border:1.5px solid var(--ink);background:transparent;padding:10px 16px;font-weight:800;font-size:14px;border-radius:10px;cursor:pointer;text-align:left}
+.save:hover{background:var(--ink);color:var(--paper)}
+@media (max-width:960px){.trust-grid{grid-template-columns:minmax(0,1fr)}.aside{position:static}}
+@media (max-width:600px){.doc{padding:22px 18px}.cert{grid-template-columns:minmax(0,1fr) auto}.cert span:last-child{grid-column:1/-1}.ds dl{grid-template-columns:minmax(0,1fr)}.ds dd{border-top:0;padding-top:0}}
 
-@media screen and (max-width:820px){
-  .page{width:auto;height:auto;margin:0 0 10px;padding:20px 16px;box-shadow:none}
-  .hero{padding:22px 18px}
-  .hero h1{font-size:24px}
-  .grid,.desks,.four,.two,.deal{grid-template-columns:1fr}
-  .proof{grid-template-columns:1fr 1fr}
-  .deal>div+div{border-left:none;border-top:1px solid #3a3a3a}
-  .plan{grid-template-columns:1fr 1fr}
-  .date{display:none}
-  .foot{flex-direction:column;gap:3px}
-}
-@page{size:A4;margin:0}
+footer{padding-block:28px 44px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule)}
+footer p+p{margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.marq-in,.ws-f,.ws-orbw::before,.ws-tab::after,.thinking svg{animation:none}.bf,.p-play,.et,.rb-f,.rb-row,.runner,.rail-fill{transition:none}}
+
 @media print{
-  html,body{background:#fff}
-  .page{margin:0;box-shadow:none;overflow:hidden;break-after:page}
-  .page:last-child{break-after:auto}
-  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body.print-trust .top,body.print-trust main>*:not(#trust),body.print-trust footer,body.print-trust #trust .head,body.print-trust .aside{display:none!important}
+  body.print-trust #trust{padding:0;border:0}
+  body.print-trust .trust-grid{display:block}
+  body.print-trust .doc{box-shadow:none;border-color:#CCCCCC}
+  body.print-trust{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
 </head>
 <body>
 
-<!-- PAGE 1 -->
-<div class="page">
-  <div class="top">
-    <div class="brand"><span class="milo"><img src="data:image/jpeg;base64,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" alt="">milo</span><span class="x">×</span><span class="bgw"><b>BET</b>GOODWIN</span></div>
-    <span class="date">16 October 2026</span>
-  </div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="milo-g" x1="4" y1="34" x2="45" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B8DEF"/><stop offset="1" stop-color="#B57BF3"/></linearGradient>
+    <symbol id="milo-icon" viewBox="0 0 50 40"><path d="M7 31 L19 19 L31 26 L43 12" fill="none" stroke="url(#milo-g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="31" r="4" fill="url(#milo-g)"/><circle cx="19" cy="19" r="4" fill="url(#milo-g)"/><circle cx="31" cy="26" r="4" fill="url(#milo-g)"/><circle cx="43" cy="12" r="4" fill="url(#milo-g)"/><g fill="url(#milo-g)"><path transform="translate(22,8) scale(2.7)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/><path transform="translate(36,5) scale(4)" d="M0,-1 L0.16,-0.16 L1,0 L0.16,0.16 L0,1 L-0.16,0.16 L-1,0 L-0.16,-0.16 Z"/></g></symbol>
+    <symbol id="bg-logo" viewBox="0 0 4252 573.3"><ellipse fill="#FFFFFF" stroke="#FFFFFF" stroke-width="6" cx="1800.8" cy="280.9" rx="111.1" ry="190.8"/><path fill="#FFF200" d="M33,33.5H217c104,0,155.5,45.3,155.5,136.8c0,65.8-29.6,103.4-81.2,107.6c64.7,4.1,101.7,45.7,101.7,117.9 c0,99.2-57.3,148.4-172.9,148.4H33V33.5z M201.8,236c38.4,0,47.6-10.8,47.6-50.6c0-40-9.2-50.9-47.5-50.9h-42.4V236H201.8z M206.3,440.7c45.9,0,56.9-11.8,56.9-55.4c0-43.4-11-55.1-56.8-55.1h-46.9v110.5H206.3z"/><path fill="#FFF200" d="M764.8,435.5v108.6H441.5V33.5h315.9V140H571.8v92.3h166.5V336H571.8v99.5H764.8z"/><path fill="#FFF200" d="M1159.9,148.9h-121.1v395.1H906.2V148.9H785V33.5h374.9V148.9z"/><path fill="#FFFFFF" d="M1352.4,551.1c-113.4,4-178.5-95.3-178.5-261.5c0-175.9,76.8-263.1,231.8-263.1c43.6,0,98.5,10.1,133.1,22.5 v109.9c-23.8-13.4-90.6-21.4-120.6-21.4c-89.3,0-111.6,30.4-111.6,152.1c0,116.3,21.4,148.7,96.4,148.7c13.1,0,24-3.5,32.9-10.6 V349l0,0l-0.3-68.2l109.4,2.4v236.2c0,8-5.7,14.8-13.6,16.1l-89.5,15.6"/><path fill="#ED1C24" stroke="#FFFFFF" stroke-width="15" d="M1592.8,289.6c0-175.9,71.4-263.1,215.5-263.1c144.1,0,215.5,87.2,215.5,263.1 c0,174.8-71.4,261.5-215.5,261.5C1664.2,551.1,1592.8,464.4,1592.8,289.6z M1890,289.6c0-121.6-16.3-152-81.7-152 c-65.4,0-81.7,30.4-81.7,152c0,119.3,16.3,149.2,81.7,149.2C1873.7,438.8,1890,409,1890,289.6z"/><path fill="#FFFFFF" d="M2067.2,289.6c0-175.9,71.4-263.1,215.5-263.1c144.1,0,215.5,87.2,215.5,263.1 c0,174.8-71.4,261.5-215.5,261.5C2138.6,551.1,2067.2,464.4,2067.2,289.6z M2364.4,289.6c0-121.6-16.3-152-81.7-152 c-65.4,0-81.7,30.4-81.7,152c0,119.3,16.3,149.2,81.7,149.2C2348.1,438.8,2364.4,409,2364.4,289.6z"/><path fill="#FFFFFF" d="M2552.2,33.5h184.9c145,0,216.9,84.9,216.9,256.1c0,170.1-71.9,254.5-216.9,254.5h-184.9V33.5z M2737.1,434.2c67.2,0,84-28.9,84-144.6c0-117.9-16.8-147.4-84-147.4h-54.5v291.9H2737.1z"/><path fill="#FFFFFF" d="M2958.1,33.5h135.5l60.4,321.7l59.7-321.8h110.5l59.1,321.7l59.8-321.6H3577l-125.2,510.6h-125.2L3267,249.2 l-61,294.9h-127.4L2958.1,33.5z"/><path fill="#FFFFFF" d="M3613.8,33.5h134v510.6h-134V33.5z"/><path fill="#FFFFFF" d="M3809.3,33.5h101.5l174.4,263.4V33.5h125.8v510.6h-101.5l-174.4-263.4v263.4h-125.8V33.5z"/></symbol>
+    <symbol id="ws-sheet" viewBox="0 0 46 37"><rect x="4" y="3" width="38" height="31" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 12h38M4 21h38M17 3v31M30 3v31" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    <symbol id="lock" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="play" viewBox="0 0 20 24"><path d="M5 2.5 L18 12 L5 21.5 Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
 
-  <div class="hero">
-    <div class="caps">Prepared for BetGoodwin</div>
-    <h1>Every customer, from sign-up to safer gambling review, <em>in one place you can ask.</em></h1>
-    <p>Gameplay and payments in EveryMatrix. Risk scores in MindWay. Conversations in live chat. Documents in SharePoint, casework in Monday. Milo connects all five, keeps them live and answers in plain English. The manual workaround behind every alert goes.</p>
-    <div class="sys"><span>EveryMatrix</span><span>MindWay</span><span>Live chat</span><span>SharePoint</span><span>Monday.com</span><span class="go">→ Milo</span></div>
+<header class="top">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Milo and BetGoodwin">
+      <span class="lk-milo"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+      <span class="lk-x" aria-hidden="true">×</span>
+      <svg class="bg-logo" role="img" aria-label="BetGoodwin"><use href="#bg-logo"/></svg>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#films">Films</a>
+      <a href="#desks">Your desks</a>
+      <a href="#ask">Ask</a>
+      <a href="#raceday">Race day</a>
+      <a href="#proof">Proof</a>
+      <a href="#pilot">Proof of concept</a>
+      <a href="#trust">Trust</a>
+    </nav>
   </div>
+</header>
 
-  <section>
-    <div class="caps">01 · What changes on each desk</div>
-    <h2>Four desks. One set of facts.</h2>
-    <div class="desks">
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
       <div>
-        <h3>AML and safer gambling</h3>
-        <ul>
-          <li>A customer moves to high risk. The reviewer gets <b>deposits, withdrawals, gameplay and chat</b> in one alert.</li>
-          <li>Every review timed, from alert to decision.</li>
-          <li>SharePoint KYC and source of funds read against <b>your risk policy</b>, with a rating to sign off.</li>
-        </ul>
+        <p class="kick"><span class="tag">Proposal</span><span class="label">19 November 2026</span></p>
+        <h1>Know every customer <em>before the off.</em></h1>
+        <p class="lede">Bets and payments in EveryMatrix. Risk scores in MindWay. Conversations in live chat. Documents in SharePoint, cases in Monday. <b>Milo joins all five</b>, so anyone on your team can ask a question in plain English and get the answer in seconds.</p>
+        <dl class="for">
+          <dt class="label">Prepared for</dt>
+          <dd><span class="cn" aria-hidden="true">1</span><b>Darren Russell</b><span>BetGoodwin</span></dd>
+          <dd><span class="cn" aria-hidden="true">2</span><b>Dee Burchmore</b><span>Customer Service</span></dd>
+          <dd><span class="cn" aria-hidden="true">3</span><b>Matthew Gifford</b><span>Head of AML</span></dd>
+          <dd><span class="cn" aria-hidden="true">4</span><b>Scott Russell</b><span>Senior Operations Lead</span></dd>
+        </dl>
       </div>
-      <div>
-        <h3>Customer Services</h3>
-        <ul>
-          <li>Live chat and email <b>feed the safer gambling picture</b>: chasing losses, money worries, frustration.</li>
-          <li>Agents see what they can tell a customer, and nothing they can't.</li>
-          <li>Contact volumes and topics by day, so a spike shows the morning it starts.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Payments and operations</h3>
-        <ul>
-          <li>Deposits, withdrawals and declines <b>live from EveryMatrix</b>.</li>
-          <li>An alert when money goes in and straight out, barely played.</li>
-          <li>Open cases on your Monday boards, next to the data.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Data protection</h3>
-        <ul>
-          <li><b>Access set by role.</b> Hidden fields stay hidden, even on a shared dashboard.</li>
-          <li>Anything sent outside is a snapshot nobody can question.</li>
-          <li>Read-only connections. Every question logged.</li>
-        </ul>
+
+      <div class="rb-panel">
+        <div class="rb-top"><span class="rb-k label">Customer card · Saturday · 10 customers</span><span class="tag">Sample data</span></div>
+        <p class="rb-q" id="rb-q"></p>
+        <div class="rb-head" aria-hidden="true"><span>No.</span><span>Customer</span><span class="rb-scale"><i id="rb-ll"></i></span><span id="rb-col"></span></div>
+        <div class="rb" id="rb" role="img" aria-label="Ten sample customers, each with a bar measured against a reference mark"></div>
+        <div class="lg" id="rb-lg"></div>
+        <div class="et-row" id="rb-tabs" role="group" aria-label="Add a layer of data"></div>
+        <div id="rb-read" aria-live="polite"></div>
+        <p class="rb-hint">Ten made-up customers on a big racing Saturday. Add a layer.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="caps">02 · The kind of question your team will ask</div>
-    <h2>Ask it. Milo does the joining up.</h2>
-    <div class="ans">
-      <div class="bar"><img src="data:image/jpeg;base64,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" alt="">Milo · BetGoodwin workspace<span class="t">AML desk</span></div>
-      <div class="body">
-        <div class="q">How long did high-risk reviews take last month, and where did they stall?</div>
-        <div class="a">36 customers moved to high risk. Median 3.1 days from alert to decision. Nine waited more than a week, seven of them on source of funds.</div>
-        <div class="grid">
-          <table>
-            <tr><th>Waiting on</th><th class="n">Reviews</th><th class="n">Median</th><th class="n">Hours</th></tr>
-            <tr><td>Decided on the data</td><td class="n">21</td><td class="n">1.4 days</td><td class="n">18</td></tr>
-            <tr><td>Fresh proof of ID</td><td class="n">8</td><td class="n">4.2 days</td><td class="n">11</td></tr>
-            <tr><td>Source of funds</td><td class="n">7</td><td class="n hi">9.6 days</td><td class="n">23</td></tr>
-          </table>
-          <div class="why">
-            <h4>What Milo checked</h4>
-            <div class="chk"><i>✓</i><span>Every <b>MindWay</b> score change, joined to <b>EveryMatrix</b> transactions.</span></div>
-            <div class="chk"><i>✓</i><span>The <b>live chat</b> history for each of the 36.</span></div>
-            <div class="chk"><i>!</i><span>Three of the seven are <b>still depositing</b> while they wait.</span></div>
+<div class="marq" aria-hidden="true"><div class="marq-in"><span>Source of funds</span><span>Deposit velocity</span><span>Safer gambling contacts</span><span>Affordability</span><span>Best Odds Guaranteed</span><span>Racing gross win</span><span>Withdrawal holds</span><span>Payment declines</span><span>Contact volumes</span><span>Complaint clock</span><span>Phone accounts</span><span>Free bet cost</span><span>Source of funds</span><span>Deposit velocity</span><span>Safer gambling contacts</span><span>Affordability</span><span>Best Odds Guaranteed</span><span>Racing gross win</span><span>Withdrawal holds</span><span>Payment declines</span><span>Contact volumes</span><span>Complaint clock</span><span>Phone accounts</span><span>Free bet cost</span></div></div>
+
+<section class="band first" id="films" aria-labelledby="films-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">01</span>See it first</p>
+      <h2 id="films-h">Two films. <em>Under three minutes.</em></h2>
+      <p>What Milo did at BetGames, then what Milo is. Easy to pass on to anyone else who should see this.</p>
+    </div>
+    <div class="vids">
+      <figure class="vcard">
+        <figcaption class="vcap"><span class="vtag cs">Customer case study</span><b>BetGames: AI analytics for the commercial team</b><span class="vlen">Milo x BetGames · 1 min 8 sec</span></figcaption>
+        <div class="video" data-src="https://www.youtube-nocookie.com/embed/lR4gm57I5a4?autoplay=1&amp;rel=0" data-title="Milo x BetGames: Empowering Commercial Teams with AI Analytics">
+          <a class="poster cs" href="https://www.youtube.com/watch?v=lR4gm57I5a4" target="_blank" rel="noopener" aria-label="Play the BetGames case study, 1 minute 8 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo × BetGames</span>
+            <span class="p-kick">Case study</span>
+            <span class="p-ttl">Empowering commercial teams with AI analytics</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26"><use href="#play"/></svg></span>
+            <span class="p-sub">Press play · 1 min 8 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://www.youtube.com/watch?v=lR4gm57I5a4" target="_blank" rel="noopener">Watch it on YouTube</a></p>
+      </figure>
+      <figure class="vcard">
+        <figcaption class="vcap"><span class="vtag">Milo explainer</span><b>What Milo is and how it works</b><span class="vlen">Product overview · 1 min 29 sec</span></figcaption>
+        <div class="video" data-src="https://player.vimeo.com/video/1196983997?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1&amp;autoplay=1" data-title="Milo product overview">
+          <a class="poster" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+            <span class="p-mark"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo</span>
+            <span class="p-ttl">Milo product overview</span>
+            <span class="p-play" aria-hidden="true"><svg width="22" height="26"><use href="#play"/></svg></span>
+            <span class="p-sub">Press play · 1 min 29 sec</span>
+          </a>
+        </div>
+        <p class="vid-note">Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></p>
+      </figure>
+    </div>
+    <p class="cs-link"><span class="tag">Read</span><span>The full BetGames story, written up for BetGoodwin:</span><a href="https://hey.milo.ai/milo-betgames-betgoodwin/" target="_blank" rel="noopener">Twice the games. Same team.</a></p>
+  </div>
+</section>
+
+<section class="band tint" id="desks" aria-labelledby="ws-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">02</span>Where Milo sits</p>
+      <h2 id="ws-h">Your systems stay. <em>Milo joins them up.</em></h2>
+      <p>Pick a desk and a question to see which systems it takes. Click a system to see what it can't see alone.</p>
+    </div>
+    <div class="ws-all" id="ws-all">
+      <div class="ws-tabs" id="ws-tabs" role="group" aria-label="Choose a desk"></div>
+      <div class="ws">
+        <div class="ws-left">
+          <p class="ws-gain" id="ws-gain"></p>
+          <ul class="ws-qs" id="ws-qs" aria-label="Questions"></ul>
+          <div class="ws-panel" id="ws-panel" aria-live="polite"></div>
+          <p class="ws-meter" id="ws-meter"></p>
+        </div>
+        <div class="ws-stage" id="ws-stage">
+          <div class="ws-top">
+            <div class="ws-ctl">
+              <div class="ws-mode" id="ws-mode" role="group" aria-label="Compare">
+                <button type="button" data-m="with" aria-pressed="true">With Milo</button>
+                <button type="button" data-m="without" aria-pressed="false">Without Milo</button>
+              </div>
+              <button type="button" class="ws-tourb" id="ws-tour">Pause tour</button>
+            </div>
+            <span class="tag">Sample data</span>
+          </div>
+          <div class="ws-dg" id="ws-dg">
+            <svg class="ws-lines" id="ws-lines" aria-hidden="true"></svg>
+            <div class="ws-col ws-sys" id="ws-sys" role="group" aria-label="BetGoodwin's systems"></div>
+            <div class="ws-node">
+              <span class="ws-orbw" id="ws-orb"><span class="ws-orb"><svg aria-hidden="true"><use id="ws-nu" href="#milo-icon"/></svg></span></span>
+              <b id="ws-nt">Milo</b>
+              <small id="ws-ns">One place to ask, over all of it</small>
+            </div>
+            <div class="ws-col ws-out" id="ws-out"></div>
           </div>
         </div>
-        <div class="acts"><span>Chase the seven SoF requests</span><span>Alert me past five days</span><span>Add the three to Monday</span></div>
       </div>
     </div>
-    <div class="illus">Illustrative figures. Once EveryMatrix and MindWay are connected, the same question runs on your own customers.</div>
-  </section>
-
-  <div class="foot"><span>Prepared for BetGoodwin · 16 October 2026</span><span>1 / 2</span></div>
-</div>
-
-<!-- PAGE 2 -->
-<div class="page">
-  <div class="top">
-    <div class="brand"><span class="milo"><img src="data:image/jpeg;base64,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" alt="">milo</span><span class="x">×</span><span class="bgw"><b>BET</b>GOODWIN</span></div>
-    <span class="date">16 October 2026</span>
+    <p class="note">Ticked systems are the ones you've told us about. What each one holds is our assumption until we've seen your setup. Any connector we don't already have, our engineers build at our cost. Every figure is invented.</p>
   </div>
+</section>
 
-  <section>
-    <div class="caps">03 · Why Milo</div>
-    <h2>Your data, your rules, answered now.</h2>
-    <div class="four">
-      <div><h3>Live, not last week</h3><p>The question asked in the morning meeting gets answered <b>in the morning meeting</b>, not in next week's pack.</p></div>
-      <div><h3>Facts, not flattery</h3><p>Milo won't massage the numbers. Calculated on your full data, <b>never estimated by the AI</b>.</p></div>
-      <div><h3>Anyone can build it</h3><p>Dashboards, apps, alerts and the monthly board email, built by asking. <b>No IT ticket, no pivot tables.</b></p></div>
-      <div><h3>It learns how BetGoodwin works</h3><p>Your risk profiles and thresholds, set once in <b>company knowledge</b>, so every desk works off the same rules.</p></div>
+<section class="band first" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">03</span>Ask Milo</p>
+      <h2 id="ask-h">A seat for each of you. <em>Try a question.</em></h2>
+      <p>The answers your desks would get, with the evidence attached and the next step one click away.</p>
     </div>
-  </section>
-
-  <section>
-    <div class="two">
-      <div class="g">
-        <div class="caps">MindWay</div>
-        <h3>Keep MindWay. Milo makes it complete.</h3>
-        <p>Milo reads MindWay's scores through its API and adds what MindWay can't see: <b>live chat, CS emails, SharePoint documents and Monday cases</b>. Then it tracks what happens after each alert.</p>
-      </div>
+    <div class="demo">
+      <div class="seats" id="seats" role="group" aria-label="Choose a seat"></div>
       <div>
-        <div class="caps">For your DPO</div>
-        <h3>Built for a licensed operator.</h3>
-        <p>Hosted in the EU, read-only, never used to train a model. Your NDA signed before anything connects. Documents at <b>trust.milo.ai</b>, and every question answered in writing.</p>
-        <div class="tags"><span>SOC 2 Type II</span><span>ISO 27001</span><span>GDPR</span><span>Pen tested</span></div>
+        <div class="qs" id="qs" role="group" aria-label="Sample questions"></div>
+        <div class="console">
+          <div class="c-head"><span class="who"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Milo · BetGoodwin</span><span class="tag">Sample data</span></div>
+          <div class="c-body" id="out" aria-live="polite"></div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="caps">04 · Built inside gaming</div>
-    <h2>Milo started at BetGames. Gaming runs on it now.</h2>
-    <div class="proof">
-      <div><h4>BetGames</h4><div class="k">Live dealer games</div><p>Reports from 3 days to 3 minutes. Flagged players watched live.</p></div>
-      <div><h4>Tsogo Sun</h4><div class="k">Casinos and hotels, South Africa</div><p>Live on their data warehouse.</p></div>
-      <div><h4>Lithuanian lottery</h4><div class="k">National lottery</div><p>Replaced an outsourced report under a strict regulator.</p></div>
-      <div><h4>Octoplay</h4><div class="k">Game studio, Malta</div><p>Gaming data and promotions in one place, used daily.</p></div>
-      <div><h4>Betcity</h4><div class="k">Online operator</div><p>An operator like you, on Milo today.</p></div>
-      <div><h4>7bet</h4><div class="k">Online sportsbook and casino</div><p>Another operator running on Milo today.</p></div>
-      <div><h4>Intelligent Gaming</h4><div class="k">Gaming platform, South Africa</div><p>Reporting and player marketing across 30+ operator brands.</p></div>
-      <div class="ref"><h4>Talk to them</h4><div class="k">Reference calls</div><p>We'll put you in touch with any of these teams before you decide.</p></div>
+<section class="band rd" id="raceday" aria-labelledby="rd-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">04</span>Race day</p>
+      <h2 id="rd-h">Ask once. <em>Then it watches the card.</em></h2>
+      <p>Any question can become an alert or a report. This is a Saturday, from the first show to the last settle.</p>
     </div>
-  </section>
-
-  <section>
-    <div class="caps">05 · One month</div>
-    <h2>Four people in a room, then the rest of the business.</h2>
-    <div class="plan">
-    <div class="step"><div class="when">Week 1</div><div><h4>Live by Friday</h4><p>All five sources connected. The first AML view is live: every customer's risk score, deposits and withdrawals in one place.</p></div></div>
-    <div class="step"><div class="when">Week 2</div><div><h4>Built with you, in Uckfield</h4><p>Your account manager on site. Each desk builds its first dashboards and alerts.</p></div></div>
-    <div class="step"><div class="when">Week 3</div><div><h4>Running on its own</h4><p>Risk alerts live, permissions set. The next ten people come in.</p></div></div>
-    <div class="step"><div class="when">Week 4</div><div><h4>You decide</h4><p>Look at the hours saved. Carry on, or walk away and we disconnect everything.</p></div></div>
+    <div class="course" id="course">
+      <div class="c-times" id="c-times" aria-hidden="true"></div>
+      <div class="rail"><div class="rail-fill" id="rail-fill"></div><div id="posts"></div><span class="runner" id="runner" aria-hidden="true"><svg><use href="#milo-icon"/></svg></span></div>
+      <div class="c-ends label" aria-hidden="true"><span>First show</span><span>Last settle</span></div>
     </div>
-  </section>
+    <div class="steps" id="steps" role="group" aria-label="Moments in the day"></div>
+    <div class="rd-panel" id="rd-panel" aria-live="polite"></div>
+    <p class="note">Customers and figures are invented. Alerts go wherever your team already works: email, Teams, Slack or WhatsApp.</p>
+  </div>
+</section>
 
-  <section>
-    <div class="deal">
+<section class="band first" id="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">05</span>Proof</p>
+      <h2 id="proof-h">Built inside <em>gaming.</em></h2>
+      <p>Milo grew up at BetGames. The same playbooks carry straight over to an operator.</p>
+    </div>
+    <div class="feature">
       <div>
-        <div class="caps">Proof of concept</div>
-        <div class="p">£2,000<small>one month</small></div>
+        <span class="k label">Case study · BetGames Risk &amp; Integrity</span>
+        <h3>Twice the games. <em>Same team.</em></h3>
+        <p>BetGames supplies live games to around 2,000 brands. When it doubled its portfolio, its Risk &amp; Integrity team used Milo to keep pace without hiring.</p>
+        <blockquote class="qt">Milo doesn't just alert, it explains with evidence and executes the next step. I finally took a vacation and came back to everything actioned.<cite>Aivaras Juškevičius · Head of Risk &amp; Integrity, BetGames</cite></blockquote>
+        <p class="links"><a href="#films">Watch the film</a><a href="https://hey.milo.ai/milo-betgames-betgoodwin/" target="_blank" rel="noopener">Read the case study</a></p>
+      </div>
+      <div>
+        <div class="fstats">
+          <div><b>50+</b><span>analyst hours saved a month</span></div>
+          <div><b>60+</b><span>partner reports delivered a month</span></div>
+          <div><b>100%</b><span>of incidents noted in Salesforce the same day</span></div>
+          <div><b>0</b><span>new hires, at twice the launch pace</span></div>
+        </div>
+        <p style="font-size:13px">Measured in the first four weeks.</p>
+      </div>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <span class="k label">BetGames Commercial</span>
+        <p class="big">5–10 days <i>→</i> minutes</p>
+        <blockquote>“The best thing about Milo is that I can use Slack or WhatsApp. It's like having a senior analyst in my pocket.”</blockquote>
+        <cite>Gary Francis · Head of Commercial, BetGames</cite>
+      </div>
+      <div class="pcard">
+        <span class="k label">Also on Milo in gaming</span>
+        <div class="names"><span>Lithuanian national lottery</span><span>Betcity</span><span>7bet</span><span>Tsogo Sun</span><span>Octoplay</span></div>
+        <p class="small">Reference calls with gaming customers on request.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band tint" id="pilot" aria-labelledby="pilot-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">06</span>Proof of concept</p>
+      <h2 id="pilot-h">One month. <em>Four desks first.</em></h2>
+      <p>AML, safer gambling, customer service and operations start together. The rest of the business joins once it has earned its place.</p>
+    </div>
+    <ol class="weeks">
+      <li class="wk"><span class="label">Week 1</span><b>Connected</b><p>NDA signed first. Then EveryMatrix, MindWay, live chat, SharePoint and Monday connected, read-only.</p></li>
+      <li class="wk"><span class="label">Week 2</span><b>In Uckfield</b><p>Our engineers and customer success team on site. Each desk builds its first dashboards and alerts with us.</p></li>
+      <li class="wk"><span class="label">Week 3</span><b>Running</b><p>Morning lists and alerts live, access set by role, and more of the team joins.</p></li>
+      <li class="wk"><span class="label">Week 4</span><b>Your call</b><p>We count the hours saved together. Carry on, or we disconnect and delete your data.</p></li>
+    </ol>
+    <div class="price">
+      <div class="pc">
+        <span class="label">Proof of concept</span>
+        <p class="big">£2,000 <small>for the month</small></p>
         <ul>
-          <li>All five sources connected for you</li>
-          <li>An account manager on site and on call</li>
-          <li>As many people as you want using it</li>
-          
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>All five systems <b>connected for you</b></span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span><b>On-site onboarding</b> in Uckfield</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>First dashboards, alerts and morning lists <b>built with you</b></span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span><b>As many of your team</b> as you like</span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>A support channel <b>straight to our engineers</b></span></li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg><span>Any missing connector <b>built at our cost</b></span></li>
         </ul>
       </div>
-      <div>
-        <div class="caps">After the month</div>
-        <div class="p">£2,200<small>a month</small></div>
-        <p>For around 50 to 60 people, depending on usage. No lock-in: decide at the end of the month. No seat licences and nothing to maintain on your side.</p>
+      <div class="pc go">
+        <span class="label">After the month</span>
+        <p class="big">£2,200 <small>a month</small></p>
+        <p>For around <b>50 to 60 people</b>, depending on usage. No seat licences and nothing to maintain on your side.</p>
+        <p>You decide at the end of the month.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="foot"><span>Tom Pickett · <a href="mailto:tom@milo.ai">tom@milo.ai</a> · milo.ai</span><span>2 / 2</span></div>
-</div>
+<section class="band first" id="trust" aria-labelledby="trust-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="n">07</span>Trust and compliance</p>
+      <h2 id="trust-h">For your <em>compliance file.</em></h2>
+      <p>Our trust document, with each status as it stands today. The certificates and reports behind it are on the Milo Trust Centre.</p>
+    </div>
+    <div class="trust-grid">
+      <article class="doc" id="trust-doc" aria-label="Milo Trust and Compliance document">
+        <div class="doc-h"><span class="brand">milo.ai</span><span class="conf label">Prepared for BetGoodwin</span></div>
+        <h3>Trust &amp; Compliance</h3>
+        <p class="sub">Security, privacy and data protection overview</p>
+        <p class="meta"><span>Milo.ai · Autonomous Minds</span><span>Statuses as listed on trust.milo.ai, 19 November 2026</span></p>
 
+        <div class="ds">
+          <h4><span>1</span>Overview</h4>
+          <p>Milo is built on a zero-trust architecture. Your data is never shared with third parties, and every request, including the AI model's, runs on our own servers.</p>
+        </div>
+
+        <div class="ds">
+          <h4><span>2</span>Compliance and certifications</h4>
+          <div class="certs">
+            <div class="cert"><b>GDPR</b><span><span class="chip ok">Compliant</span></span><span>EU customer data is processed only within the EU.</span></div>
+            <div class="cert"><b>ISO 27001</b><span><span class="chip ok">Compliant</span></span><span>Certificate available on the Trust Centre.</span></div>
+            <div class="cert"><b>SOC 2 Type I</b><span><span class="chip ok">Compliant</span></span><span>Report available on the Trust Centre.</span></div>
+            <div class="cert"><b>SOC 2 Type II</b><span><span class="chip warn">In progress</span></span><span>Audit under way.</span></div>
+            <div class="cert"><b>ICO</b><span><span class="chip ok">Registered</span></span><span>Milo.ai (Autonomous Minds) is registered as a data controller with the UK ICO.</span></div>
+          </div>
+        </div>
+
+        <div class="ds">
+          <h4><span>3</span>Security architecture</h4>
+          <ul>
+            <li><b>Zero trust by default.</b> Every request is authenticated and authorised, and all traffic between services is encrypted and verified.</li>
+            <li><b>Regional data residency.</b> Customer data stays in its designated region, to meet local regulatory and data sovereignty rules.</li>
+            <li><b>Enterprise controls.</b> Audit trails, identity and access management, multi-factor authentication, role-based access and single sign-on.</li>
+            <li><b>Zero data retention.</b> Customer data is never used to train models, and what is sent for an answer isn't kept once the answer is done.</li>
+          </ul>
+        </div>
+
+        <div class="ds">
+          <h4><span>4</span>External penetration test</h4>
+          <dl>
+            <dt>Assessment</dt><dd>Black-box and grey-box, by an independent third-party security firm</dd>
+            <dt>Scope</dt><dd>External infrastructure, the web application and API endpoints</dd>
+            <dt>Result</dt><dd>No critical or high vulnerabilities identified</dd>
+            <dt>Full report</dt><dd>Available on request, under NDA</dd>
+          </dl>
+        </div>
+
+        <div class="ds">
+          <h4><span>5</span>Trust Centre</h4>
+          <p>trust.milo.ai holds the SOC 2 Type I report, the ISO 27001 certificate, the data processing agreement, the sub-processor list (AWS, ClickHouse, Fivetran, Cloudflare, Clerk) and our security policies, from incident response to vendor management: 28 documents in all, each on request.</p>
+        </div>
+
+        <div class="ds">
+          <h4><span>6</span>Contact</h4>
+          <p>For security questions, compliance documents or the full penetration test report, ask your Milo contact or request it through the Trust Centre.</p>
+        </div>
+
+        <p class="doc-foot"><span>Milo.ai · Autonomous Minds</span><span>Trust &amp; Compliance</span></p>
+      </article>
+
+      <div class="aside">
+        <div class="op">
+          <span class="label">For a licensed operator</span>
+          <h3>How it works at BetGoodwin</h3>
+          <ul>
+            <li><b>AML notes stay with AML.</b>Access is set by role, so customer service sees that a hold exists, never why.</li>
+            <li><b>Read-only to start.</b>Milo reads your systems. Nothing writes back unless you switch it on.</li>
+            <li><b>Every question logged.</b>Who asked what, and what they saw, in the audit trail.</li>
+            <li><b>Leave, and it's deleted.</b>Disconnect at any time and your data is removed.</li>
+          </ul>
+        </div>
+        <a class="trust-cta" href="https://trust.milo.ai/" target="_blank" rel="noopener">Open the Milo Trust Centre<small>trust.milo.ai</small></a>
+        <button type="button" class="save" id="save-doc" hidden>Save the trust document as a PDF</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for BetGoodwin by Liam James Rabone, Co-Founder, Milo · 19 November 2026</p>
+    <p>Customer references, figures and messages on this page are sample data, made up to show the shape of an answer. None of it is BetGoodwin's data.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* racecard: [customer, deposits as a multiple of their usual week, MindWay level 1-3, risk signals in live chat this week] */
+  var RUN=[
+    ["C-20417",3.4,2,3],
+    ["C-18852",1.1,1,0],
+    ["C-31206",2.6,3,1],
+    ["C-09931",0.8,1,0],
+    ["C-27740",1.4,2,2],
+    ["C-15583",2.2,1,0],
+    ["C-22109",0.6,3,0],
+    ["C-30388",1.0,1,1],
+    ["C-11264",1.7,2,0],
+    ["C-25901",1.2,1,0]
+  ];
+  var LV=["","Low","Medium","High"];
+  function act(c){
+    if(c[1]>=2&&(c[2]>=3||c[3]>=2))return "Review";
+    if(c[2]>=3||c[3]>=2)return "Contact";
+    return "OK";
+  }
+  var LAYERS=[
+    {name:"Deposits",short:"Against their usual week",col:"vs usual",max:4,line:2,ll:"2×",
+     v:function(c){return c[1]},t:function(c){return c[1].toFixed(1)+"×"},k:function(c){return c[1]>=2?"tight":""},
+     lg:'<span><i></i>Deposits this week</span><span><i class="tight"></i>Twice their usual or more</span><span><i class="ln"></i>2× usual</span>',
+     stats:[["3","at twice their usual week or more"],["3.4×","the biggest jump, C-20417"],["7","inside their normal range"]],
+     say:"A big Saturday card brings more money in. Deposits alone can't tell a good week from a worrying one."},
+    {name:"+ MindWay",short:"Risk level",col:"Risk",max:3.3,line:3,ll:"High",
+     v:function(c){return c[2]},t:function(c){return LV[c[2]]},k:function(c){return c[2]>=3?"bad":(c[2]===2?"tight":"")},
+     lg:'<span><i></i>Low</span><span><i class="tight"></i>Medium</span><span><i class="bad"></i>High</span>',
+     stats:[["2","rated high by MindWay"],["1 of 3","big depositors rated high"],["Medium","C-20417, the biggest jump"]],
+     say:"MindWay rates two customers high. The biggest jump in deposits is only medium, because the score can't see the conversation."},
+    {name:"+ Live chat",short:"Signals this week",col:"Signals",max:4,line:2,ll:"2",
+     v:function(c){return c[3]},t:function(c){return c[3]?c[3]+(c[3]>1?" signals":" signal"):"None"},k:function(c){return c[3]>=2?"bad":(c[3]===1?"tight":"")},
+     lg:'<span><i class="tight"></i>One signal</span><span><i class="bad"></i>Two or more</span><span><i class="ln"></i>2 signals</span>',
+     stats:[["2","with two or more signals"],["3","from C-20417 alone"],["6","with nothing in chat"]],
+     say:"Live chat adds what the score can't see. C-20417 has asked twice to raise a deposit limit and talked about winning losses back."},
+    {name:"Milo's answer",short:"Before the first race",col:"Do",max:4,line:2,ll:"2×",q:"Asked: who needs a look before racing starts?",
+     v:function(c){return c[1]},t:act,k:function(c){var a=act(c);return a==="Review"?"bad":(a==="Contact"?"tight":"")},
+     lg:'<span><i class="bad"></i>Review today</span><span><i class="gold"></i>Safer gambling contact</span><span>Faded: leave alone</span>',
+     stats:[["2","reviews opened in Monday"],["2","contacts for customer service"],["6","left alone, no false alarms"]],
+     say:"Review C-20417 and C-31206 today, with deposits, MindWay and the chat history in one case. Customer service contacts the other two. Milo sends this list to AML at 8am every day."}
+  ];
+  var layer=0;
+  function drawRB(){
+    var L=LAYERS[layer],h="";
+    function pct(v){return Math.min(v,L.max)/L.max*100}
+    var ln=L.line!=null?pct(L.line).toFixed(1)+"%":"-99%";
+    $("rb").style.setProperty("--ln",ln);
+    $("rb").classList.toggle("noline",L.line==null||layer===1);
+    $("rb-ll").parentNode.style.setProperty("--ln",ln);
+    $("rb-ll").textContent=layer===1?"":(L.ll||"");
+    RUN.forEach(function(c,i){
+      var k=L.k(c),rc="rb-row",vc="rb-v",t=L.t(c);
+      if(layer===3){
+        if(t==="OK"){rc+=" dim";t="Leave"}
+        else vc+=" pill "+(t==="Review"?"bad":"tight");
+      }else if(k)vc+=" "+k;
+      h+='<div class="'+rc+'"><span class="cn">'+(i+1)+'</span><span class="rb-n">'+esc(c[0])+'</span><span class="rb-t"><span class="rb-f'+(k?" "+k:"")+'" style="width:'+pct(L.v(c)).toFixed(1)+'%"></span></span><span class="'+vc+'">'+esc(t)+'</span></div>';
+    });
+    $("rb").innerHTML=h;
+    $("rb-col").textContent=L.col;
+    $("rb-lg").innerHTML=L.lg;
+  }
+  function renderRB(){
+    $("rb-tabs").innerHTML=LAYERS.map(function(l,i){
+      return '<button type="button" class="et" data-layer="'+i+'" aria-pressed="'+(i===layer)+'"><b>'+esc(l.name)+'</b><small>'+esc(l.short)+'</small></button>';
+    }).join("");
+    var l=LAYERS[layer];
+    $("rb-q").textContent=l.q||"";
+    $("rb-read").innerHTML='<div class="r-stats">'+l.stats.map(function(s){return '<div><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join("")+'</div><p class="r-say">'+esc(l.say)+'</p>';
+    drawRB();
+  }
+  var rbTimer=null;
+  $("rb-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-layer]");if(!b)return;
+    clearTimeout(rbTimer);
+    layer=+b.dataset.layer;renderRB();
+    var nb=$("rb-tabs").querySelector('[data-layer="'+layer+'"]');if(nb)nb.focus();
+  });
+  function rbPlay(){
+    rbTimer=setTimeout(function(){
+      if(layer>=LAYERS.length-1)return;
+      layer++;renderRB();rbPlay();
+    },layer===0?2800:3400);
+  }
+  renderRB();
+  if(!reduce)rbPlay();
+
+  /* where milo sits: everything BetGoodwin-specific is in this block */
+  var WS={
+    hand:{node:"Spreadsheets",sub:"Exports, matched by hand",out:"Out of the spreadsheets",report:"A report, by hand"},
+    systems:[
+      {id:"em",name:"EveryMatrix",what:"Bets, accounts, payments",seen:1,knows:"Every account, bet, deposit and withdrawal, across sportsbook and casino.",blind:"What the customer said in chat, or what their source of funds file supports."},
+      {id:"mw",name:"MindWay",what:"Player risk scores",seen:1,knows:"Each customer's risk level, and how it has moved.",blind:"What happened after the alert, or what the customer told your agents."},
+      {id:"lc",name:"Live chat",what:"Customer conversations",seen:1,knows:"Every chat, with topics and waiting times.",blind:"Whether the customer chatting is under an AML review."},
+      {id:"ce",name:"Email",what:"Customer service inbox",seen:1,knows:"Complaints, account queries and document replies.",blind:"Which account each email belongs to, or what that customer bets."},
+      {id:"sp",name:"SharePoint",what:"KYC, source of funds, policy",seen:1,knows:"ID, proof of address, source of funds and your risk policy.",blind:"Whether deposits since have outgrown what the documents support."},
+      {id:"mo",name:"Monday.com",what:"Cases and tasks",seen:1,knows:"Open AML and safer gambling cases, who owns them and for how long.",blind:"The live account activity behind each case."},
+      {id:"ph",name:"Phone betting",what:"Telephone accounts",knows:"Phone bets, and the customers who still prefer to ring.",blind:"How the same customer plays online."},
+      {id:"rr",name:"Racing results",what:"Results, SPs, BOG",knows:"Results, starting prices and Best Odds Guaranteed payouts.",blind:"Which customers the BOG cost went to."}
+    ],
+    outputs:[{id:"ans",name:"Answers",low:"an answer"},{id:"dash",name:"Dashboards",low:"a dashboard"},{id:"alert",name:"Alerts",low:"an alert"},{id:"case",name:"Cases in Monday",low:"a case in Monday"},{id:"pack",name:"Reports and packs",low:"a report"}],
+    teams:[
+      {id:"aml",name:"AML",to:"AML",gain:"Every review starts with the full picture, not five tabs."},
+      {id:"sg",name:"Safer gambling",to:"safer gambling",gain:"Spot harm from what customers do and what they say."},
+      {id:"cs",name:"Customer service",to:"customer service",gain:"Know what to say to each customer, and what not to."},
+      {id:"ops",name:"Operations",to:"operations",gain:"Payments, settlements and backlogs, checked before the morning meeting."},
+      {id:"trd",name:"Trading",to:"trading",gain:"What racing really made, after BOG and free bets."},
+      {id:"dir",name:"Directors",to:"the directors",gain:"One set of numbers for the business, whenever you ask."}
+    ],
+    qs:[
+      {t:"aml",q:"Whose deposits have outgrown their source of funds?",s:["em","sp","mw"],o:"alert",a:"Four customers. Two are already high in MindWay. The other two aren't flagged anywhere yet."},
+      {t:"aml",q:"Which customers under review are still depositing?",s:["mo","em"],o:"alert",a:"Three, with £6,400 deposited between them this week while their reviews are open."},
+      {t:"aml",q:"How long did high-risk reviews take last month?",s:["mw","mo"],o:"dash",a:"A median of 3.1 days from alert to decision. Seven waited more than a week, all on source of funds."},
+      {t:"sg",q:"Who shows signs of harm that MindWay hasn't flagged?",s:["lc","ce","em","mw"],o:"alert",a:"Two customers. Both rated medium, both raising deposits, both talking about winning losses back in chat."},
+      {t:"sg",q:"Did our safer gambling interactions work?",s:["mo","em","mw"],o:"dash",a:"68% of customers reduced deposits within 30 days. Calls did better than emails."},
+      {t:"sg",q:"How many customers moved to high risk this week?",s:["mw"],o:"ans",a:"Nine, up from six last week."},
+      {t:"cs",q:"What should I know before I reply to this customer?",s:["em","lc","ce","mo"],o:"ans",a:"A racing regular since 2019, two chats this month about a withdrawal, and a flag to pass any payment question to AML."},
+      {t:"cs",q:"Why did contacts jump on Saturday?",s:["lc","ce","em"],o:"dash",a:"Withdrawals. 41% of Saturday's chats were about one payment method that slowed after 2pm."},
+      {t:"cs",q:"How long are customers waiting in chat?",s:["lc"],o:"ans",a:"48 seconds to a first reply on average, slowest between 1pm and 3pm on race days."},
+      {t:"ops",q:"Where are withdrawals stuck, and why?",s:["em","mo","sp"],o:"dash",a:"23 pending for over a day. 15 are waiting on documents, 6 on AML review and 2 on the payment provider."},
+      {t:"ops",q:"Build Monday's operations pack",s:["em","lc","mo","mw"],o:"pack",a:"Ready at 8am: turnover, payments, contact volumes, open cases, and anything that moved more than 10%."},
+      {t:"ops",q:"Which payment methods are failing today?",s:["em"],o:"alert",a:"Card deposits are declining at 7.8% since 11am, against 2.1% usually. All on one provider."},
+      {t:"trd",q:"What did Best Odds Guaranteed cost us on Saturday?",s:["em","rr"],o:"dash",a:"£3,180, or 9.4% of racing gross win. Three races made up 61% of it."},
+      {t:"trd",q:"Who keeps beating the starting price?",s:["em","rr"],o:"dash",a:"Fourteen customers beat the SP on more than 60% of their bets last month."},
+      {t:"trd",q:"How did racing do against football this month?",s:["em"],o:"ans",a:"Racing was 71% of sportsbook gross win and football 22%."},
+      {t:"dir",q:"How is November going against last year?",s:["em","ph"],o:"dash",a:"Gross win up 8%. Online grew 15% and phone fell 4%, so the mix keeps moving online."},
+      {t:"dir",q:"How many hours does compliance take each month?",s:["mo","mw","sp"],o:"dash",a:"About 260 across AML and safer gambling. 41% of it goes on chasing documents."},
+      {t:"dir",q:"Which regulars are we about to lose?",s:["em","lc","ce","ph"],o:"alert",a:"Eleven haven't bet in three weeks. Four of them complained about withdrawals before they stopped."}
+    ]
+  };
+  function wsFirst(team){for(var i=0;i<WS.qs.length;i++){if(WS.qs[i].t===team&&WS.qs[i].s.length>1)return i}return 0}
+  var wsMode="with",wsTeam=WS.teams[0].id,wsQ=wsFirst(wsTeam),wsSys=null;
+  function wsById(list,id){return list.filter(function(x){return x.id===id})[0]}
+  function wsList(a){return a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1]}
+  function wsQs(){
+    var h="";
+    WS.qs.forEach(function(x,i){
+      if(x.t===wsTeam)h+='<li><button type="button" class="ws-qb'+(x.s.length>1?" m":"")+'" data-i="'+i+'"><span class="d" aria-hidden="true"></span><span>'+esc(x.q)+'</span></button></li>';
+    });
+    $("ws-qs").innerHTML=h;
+    var t=wsById(WS.teams,wsTeam);
+    $("ws-gain").innerHTML='<span class="label">What changes for '+esc(t.to)+'</span>'+esc(t.gain);
+  }
+  function wsOuts(){
+    var list=wsMode==="with"?WS.outputs:[{id:"rep",name:WS.hand.report}];
+    $("ws-out").innerHTML='<p class="label">'+esc(wsMode==="with"?"Out of Milo":WS.hand.out)+'</p>'+list.map(function(o){return '<span class="ws-o" data-o="'+o.id+'"><i aria-hidden="true"></i>'+esc(o.name)+'</span>'}).join("");
+  }
+  function wsDraw(){
+    var svg=$("ws-lines");
+    if(getComputedStyle(svg).display==="none")return;
+    var box=$("ws-dg").getBoundingClientRect(),orb=$("ws-orb").getBoundingClientRect();
+    var oy=orb.top+orb.height/2-box.top,ol=orb.left-box.left-14,or=orb.right-box.left+14,h="";
+    function curve(x1,y1,x2,y2){var d=Math.max(20,(x2-x1)*.55);return "M"+x1+" "+y1+" C"+(x1+d)+" "+y1+" "+(x2-d)+" "+y2+" "+x2+" "+y2}
+    function path(d,on,cls){h+='<path class="ws-w'+(on?" on":"")+(cls.indexOf(" o")>-1?" o":"")+'" d="'+d+'"/>';if(on)h+='<path class="ws-f'+cls+'" d="'+d+'"/>'}
+    var hand=wsMode==="without"?" hand":"";
+    $("ws-sys").querySelectorAll(".ws-sy").forEach(function(b){
+      var r=b.getBoundingClientRect();
+      path(curve(r.right-box.left,r.top+r.height/2-box.top,ol,oy),b.classList.contains("on"),hand);
+    });
+    $("ws-out").querySelectorAll(".ws-o").forEach(function(c){
+      var r=c.getBoundingClientRect();
+      path(curve(or,oy,r.left-box.left,r.top+r.height/2-box.top),c.classList.contains("on"),hand||" o");
+    });
+    svg.setAttribute("viewBox","0 0 "+box.width+" "+box.height);
+    svg.innerHTML=h;
+  }
+  function wsUpdate(){
+    var q=WS.qs[wsQ],hand=wsMode==="without",tabs=$("ws-tabs");
+    var names=q.s.map(function(id){return wsById(WS.systems,id).name});
+    tabs.querySelectorAll(".ws-tab").forEach(function(b){
+      var on=b.dataset.t===wsTeam;
+      b.setAttribute("aria-pressed",on?"true":"false");
+      if(on&&tabs.scrollWidth>tabs.clientWidth)tabs.scrollLeft=b.offsetLeft-(tabs.clientWidth-b.offsetWidth)/2;
+    });
+    $("ws-mode").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.m===wsMode?"true":"false")});
+    $("ws-qs").querySelectorAll(".ws-qb").forEach(function(b){
+      var x=WS.qs[+b.dataset.i];
+      b.setAttribute("aria-pressed",!wsSys&&+b.dataset.i===wsQ?"true":"false");
+      b.classList.toggle("fade",!!wsSys&&x.s.indexOf(wsSys)<0);
+    });
+    $("ws-sys").querySelectorAll(".ws-sy").forEach(function(b){
+      var on=wsSys?b.dataset.s===wsSys:q.s.indexOf(b.dataset.s)>-1;
+      b.classList.toggle("on",on);
+      b.setAttribute("aria-pressed",b.dataset.s===wsSys?"true":"false");
+    });
+    $("ws-out").querySelectorAll(".ws-o").forEach(function(c){c.classList.toggle("on",!wsSys&&(hand||c.dataset.o===q.o))});
+    $("ws-dg").classList.toggle("hand",hand);
+    $("ws-nu").setAttribute("href",hand?"#ws-sheet":"#milo-icon");
+    $("ws-nt").textContent=hand?WS.hand.node:"Milo";
+    $("ws-ns").textContent=hand?WS.hand.sub:"One place to ask, over all of it";
+    var h;
+    if(wsSys){
+      var s=wsById(WS.systems,wsSys),n=WS.qs.filter(function(x){return x.s.indexOf(wsSys)>-1}).length;
+      h='<p class="ws-v sys">'+esc(s.name)+'</p><div class="ws-kb"><div><span class="label">Knows</span><p>'+esc(s.knows)+'</p></div><div><span class="label no">Can\'t see alone</span><p>'+esc(s.blind)+'</p></div></div><p class="ws-src">Used in '+n+' of the '+WS.qs.length+' questions here</p>';
+    }else if(hand){
+      var how=q.s.length>1?"Export from "+wsList(names)+", match them by hand in a spreadsheet, then do it all again next week.":"Export from "+names[0]+" into a spreadsheet, then do it again next week.";
+      h='<p class="ws-v hand">'+q.s.length+(q.s.length>1?" exports, matched by hand":" export, pasted by hand")+'</p><p class="ws-qq">'+esc(q.q)+'</p><p class="ws-a"><svg aria-hidden="true"><use href="#ws-sheet"/></svg><span>'+esc(how)+'</span></p>';
+    }else{
+      var multi=q.s.length>1;
+      h='<p class="ws-v'+(multi?" m":"")+'">'+(multi?"Needs "+q.s.length+" systems. Milo joins them.":"One system holds this. Milo saves the export.")+'</p><p class="ws-qq">'+esc(q.q)+'</p><p class="ws-a"><svg aria-hidden="true"><use href="#milo-icon"/></svg><span>'+esc(q.a)+'</span></p><p class="ws-src">Sources · '+names.map(esc).join(" · ")+' · Delivered as '+esc(wsById(WS.outputs,q.o).low)+'</p>';
+    }
+    $("ws-panel").innerHTML=h;
+    wsDraw();
+  }
+  $("ws-tabs").innerHTML=WS.teams.map(function(x){return '<button type="button" class="ws-tab" data-t="'+x.id+'" aria-pressed="false">'+esc(x.name)+'</button>'}).join("");
+  $("ws-sys").innerHTML='<p class="label">Your systems</p>'+WS.systems.map(function(s){return '<button type="button" class="ws-sy" data-s="'+s.id+'" aria-pressed="false"><i aria-hidden="true"></i><b>'+esc(s.name)+'</b><small>'+esc(s.what)+'</small>'+(s.seen?'<svg role="img" aria-label="One of your systems"><use href="#tick"/></svg>':'')+'</button>'}).join("");
+  (function(){
+    var one=WS.qs.filter(function(x){return x.s.length<2}).length,all=WS.qs.length,sq="";
+    WS.qs.slice().sort(function(a,b){return a.s.length-b.s.length}).forEach(function(x){sq+='<i'+(x.s.length>1?' class="m"':'')+'></i>'});
+    $("ws-meter").innerHTML='<span class="ws-sq" aria-hidden="true">'+sq+'</span><span><b>'+one+' of '+all+'</b> stay inside one system. <b>'+(all-one)+'</b> need two or more.</span>';
+  })();
+  var wsTour=!reduce,wsTimer=null,wsSeen=false;
+  function wsTourUI(){
+    $("ws-tour").textContent=wsTour?"Pause tour":"Play tour";
+    $("ws-panel").setAttribute("aria-live",wsTour?"off":"polite");
+    $("ws-tabs").classList.toggle("touring",wsTour&&wsSeen);
+  }
+  function wsTick(){
+    clearTimeout(wsTimer);
+    wsTourUI();
+    if(!wsTour||!wsSeen)return;
+    wsTimer=setTimeout(function(){
+      var ids=WS.teams.map(function(x){return x.id});
+      wsTeam=ids[(ids.indexOf(wsTeam)+1)%ids.length];wsQ=wsFirst(wsTeam);wsSys=null;
+      wsQs();wsUpdate();wsTick();
+    },5500);
+  }
+  function wsStop(){wsTour=false;wsTick()}
+  $("ws-tour").addEventListener("click",function(){wsTour=!wsTour;wsTick()});
+  $("ws-all").addEventListener("mouseenter",function(){clearTimeout(wsTimer)});
+  $("ws-all").addEventListener("mouseleave",wsTick);
+  $("ws-tabs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-t]");if(!b)return;
+    wsStop();wsTeam=b.dataset.t;wsSys=null;wsQ=wsFirst(wsTeam);wsQs();wsUpdate();
+  });
+  $("ws-qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-i]");if(!b)return;
+    wsStop();wsQ=+b.dataset.i;wsSys=null;wsUpdate();
+  });
+  $("ws-sys").addEventListener("click",function(e){
+    var b=e.target.closest("[data-s]");if(!b)return;
+    wsStop();wsSys=wsSys===b.dataset.s?null:b.dataset.s;wsUpdate();
+  });
+  $("ws-mode").addEventListener("click",function(e){
+    var b=e.target.closest("[data-m]");if(!b)return;
+    wsStop();wsMode=b.dataset.m;wsOuts();wsUpdate();
+  });
+  wsQs();wsOuts();wsUpdate();wsTourUI();
+  if(window.ResizeObserver)new ResizeObserver(wsDraw).observe($("ws-dg"));
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(wsDraw);
+  if(window.IntersectionObserver)new IntersectionObserver(function(en){wsSeen=en[0].isIntersecting;wsTick()},{threshold:.35}).observe($("ws-stage"));
+
+  /* ask: one seat per reader */
+  var SEATS=[
+    {id:"aml",n:3,who:"Matthew",role:"AML",qs:[
+      {q:"Whose deposits have outgrown their source of funds?",src:"EveryMatrix · SharePoint · MindWay",
+       say:"Four customers have deposited more in 90 days than their source of funds supports. Two of them aren't rated high in MindWay yet.",
+       table:{cols:["Customer","Deposited, 90 days","Documents support","MindWay"],num:[1,2],
+        rows:[["C-31206","£26,900","£15,000",["High","bad"]],["C-20417","£18,400","£9,000",["Medium","warn"]],["C-22109","£12,300","£10,000",["High","bad"]],["C-11264","£7,850","£5,000",["Medium","warn"]]]},
+       acts:["Open 4 cases in Monday","Check every morning"]},
+      {q:"How long did high-risk reviews take last month?",src:"MindWay · Monday.com · SharePoint",
+       say:"36 reviews, with a median of 3.1 days from alert to decision. Source of funds is where they stall.",
+       cap:"Median days from alert to decision",
+       bars:[["Decided on the data",1.4,"1.4 days"],["Waiting on proof of ID",4.2,"4.2 days"],["Waiting on source of funds",9.6,"9.6 days"]],max:10,hl:2,bad:true,
+       acts:["Alert me past five days"]}
+    ]},
+    {id:"cs",n:2,who:"Dee",role:"Customer service",qs:[
+      {q:"A customer wants to know why their withdrawal is pending. What can I say?",src:"EveryMatrix · Monday.com",
+       refuse:"This account has a hold from the AML team. The reason is restricted to AML, so Milo won't show it here.",
+       reply:"Thanks for bearing with us. Your withdrawal is with our accounts team for a routine check, and we'll update you by email within 24 hours.",
+       set:"Milo has told the AML team that the customer got in touch."},
+      {q:"What were customers contacting us about this week?",src:"Live chat · Email",
+       say:"1,120 chats and emails. Withdrawals led, and deposit limit requests are up 40% on last week.",
+       cap:"Share of contacts by topic",
+       bars:[["Withdrawals",34,"34%"],["Account checks",21,"21%"],["Bet settlement",16,"16%"],["Promotions",12,"12%"],["Deposit limits",9,"9%"],["Other",8,"8%"]],max:36,hl:4,
+       acts:["Send the limit requests to safer gambling"]}
+    ]},
+    {id:"ops",n:4,who:"Scott",role:"Operations",qs:[
+      {q:"Where are withdrawals stuck, and why?",src:"EveryMatrix · Monday.com · SharePoint",
+       kpis:[["23","pending for over a day"],["£18.4k","waiting to be paid"]],
+       cap:"Why they're waiting",
+       bars:[["Waiting on documents",15,"15"],["In AML review",6,"6"],["With the payment provider",2,"2"]],max:16,hl:0,
+       say:"Fifteen are only waiting on documents. Milo can remind each customer, using your template.",
+       acts:["Send 15 reminders","Post this daily at 9am"]},
+      {q:"What did Best Odds Guaranteed cost us on Saturday?",src:"EveryMatrix · Racing results",
+       kpis:[["£3,180","paid above the starting price"],["9.4%","of racing gross win"]],
+       say:"That's over your 8% line. Three races made up 61% of it, all big-field handicaps.",
+       acts:["Alert me over 8%"]}
+    ]},
+    {id:"dir",n:1,who:"Directors",role:"The whole business",qs:[
+      {q:"How is November going against last year?",src:"EveryMatrix · Phone betting",
+       say:"Gross win is up 8%. Online grew 15% and phone fell 4%, so the mix keeps moving online.",
+       table:{cols:["Gross win","Nov 2025","Nov 2026","Change"],num:[1,2,3],
+        rows:[["Online","100","115",["+15%","ok"]],["Phone","100","96",["−4%","bad"]],["Racing","100","108",["+8%","ok"]],["Football","100","104",["+4%","ok"]]]},
+       note:"Shown as an index, last November = 100.",
+       acts:["Send this every Monday"]},
+      {q:"How many hours does compliance take each month?",src:"Monday.com · MindWay · SharePoint",
+       kpis:[["~260","hours a month, AML and safer gambling"],["41%","of it chasing documents"]],
+       say:"Most of the time goes on gathering, not deciding. Gathering is the part Milo takes off the desk."}
+    ]}
+  ];
+  var seat=0,sq=0,askTimer=null;
+  function renderSeats(){
+    $("seats").innerHTML=SEATS.map(function(s,i){
+      return '<button type="button" class="seat" data-s="'+i+'" aria-pressed="'+(i===seat)+'"><b>'+esc(s.who)+'</b><span>'+esc(s.role)+'</span></button>';
+    }).join("");
+    $("qs").innerHTML=SEATS[seat].qs.map(function(q,i){
+      return '<button type="button" class="q" data-q="'+i+'" aria-pressed="'+(i===sq)+'">'+esc(q.q)+'</button>';
+    }).join("");
+  }
+  function answer(a){
+    var h='<div class="you"><p>'+esc(a.q)+'</p></div>';
+    if(a.refuse)h+='<div class="refuse"><svg aria-hidden="true"><use href="#lock"/></svg><div><b>Restricted to AML</b>'+esc(a.refuse)+'</div></div><p class="cap">Suggested reply</p><p class="reply">'+esc(a.reply)+'</p>';
+    if(a.kpis)h+='<div class="kpis">'+a.kpis.map(function(k){return '<div class="kpi"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>'}).join("")+'</div>';
+    if(a.say&&!a.kpis)h+='<p class="say">'+esc(a.say)+'</p>';
+    if(a.table){
+      var t=a.table;
+      h+='<div class="tbl"><table><thead><tr>'+t.cols.map(function(c,i){return '<th'+(t.num.indexOf(i)>-1?' class="num"':'')+'>'+esc(c)+'</th>'}).join("")+'</tr></thead><tbody>'+
+        t.rows.map(function(r){return '<tr>'+r.map(function(v,i){
+          if(Array.isArray(v))return '<td'+(t.num.indexOf(i)>-1?' class="num"':'')+'><span class="chip '+v[1]+'">'+esc(v[0])+'</span></td>';
+          return '<td'+(t.num.indexOf(i)>-1?' class="num"':'')+'>'+esc(v)+'</td>';
+        }).join("")+'</tr>'}).join("")+'</tbody></table></div>';
+    }
+    if(a.bars){
+      h+=(a.cap?'<p class="cap">'+esc(a.cap)+'</p>':'')+'<div class="bars">'+a.bars.map(function(b,i){
+        var cls=i===a.hl?(a.bad?" bad":" hl"):"";
+        return '<div class="bar-row"><span>'+esc(b[0])+'</span><span class="bt"><span class="bf'+cls+'" style="width:'+(b[1]/a.max*100).toFixed(1)+'%"></span></span><span class="bv">'+esc(b[2])+'</span></div>';
+      }).join("")+'</div>';
+    }
+    if(a.say&&a.kpis)h+='<p class="say">'+esc(a.say)+'</p>';
+    if(a.note)h+='<p class="cap">'+esc(a.note)+'</p>';
+    h+='<div class="a-foot"><span class="src">Sources · '+esc(a.src)+'</span>';
+    if(a.set)h+='<span class="set"><svg aria-hidden="true"><use href="#tick"/></svg>'+esc(a.set)+'</span>';
+    if(a.acts)h+='<span class="acts">'+a.acts.map(function(x){return '<span class="ghost">'+esc(x)+'</span>'}).join("")+'</span>';
+    return h+'</div>';
+  }
+  function ask(instant){
+    var a=SEATS[seat].qs[sq];
+    clearTimeout(askTimer);
+    if(instant||reduce){$("out").innerHTML=answer(a);return}
+    $("out").innerHTML='<div class="you"><p>'+esc(a.q)+'</p></div><p class="thinking"><svg aria-hidden="true"><use href="#milo-icon"/></svg>Checking '+esc(a.src.replace(/ · /g,", "))+'…</p>';
+    askTimer=setTimeout(function(){$("out").innerHTML=answer(a)},650);
+  }
+  $("seats").addEventListener("click",function(e){
+    var b=e.target.closest("[data-s]");if(!b)return;
+    seat=+b.dataset.s;sq=0;renderSeats();ask();
+  });
+  $("qs").addEventListener("click",function(e){
+    var b=e.target.closest("[data-q]");if(!b)return;
+    sq=+b.dataset.q;renderSeats();ask();
+  });
+  renderSeats();ask(true);
+
+  /* race day: alerts that started life as questions */
+  var DAY=[
+    {t:"08:00",name:"Morning list",to:"AML",via:"Email",
+     msg:"Good morning. Three customers moved to high risk overnight, and one has deposited since. Cases are open in Monday with deposits, documents and chat history attached.",
+     ask:"Every morning at 8, who moved to high risk overnight?",runs:"Every day at 8am"},
+    {t:"11:40",name:"Payment declines",to:"Operations",via:"Teams",
+     msg:"Card deposit declines are at 7.8% since 11:00, against 2.1% usually. All on one payment provider, 46 customers so far.",
+     ask:"Tell me if declines on any payment method double within an hour.",runs:"The moment it happens"},
+    {t:"13:55",name:"Deposit spike",to:"AML and safer gambling",via:"Teams",
+     msg:"C-20417 has deposited five times in 40 minutes, 3.4× their usual week. MindWay: medium. Today's chat mentions winning losses back. A case is open in Monday.",
+     ask:"Alert me when a customer deposits three times their usual rate in a day.",runs:"The moment it happens"},
+    {t:"15:20",name:"Limit request",to:"Customer service",via:"Live chat",
+     msg:"This customer has asked to raise their deposit limit twice this week. Offer a safer gambling conversation before any change is made.",
+     ask:"Flag any chat asking to raise a limit for the second time in a week.",runs:"While the chat is open"},
+    {t:"17:50",name:"BOG check",to:"Trading",via:"Email",
+     msg:"Best Odds Guaranteed paid £3,180 today, 9.4% of racing gross win and over your 8% line. Three races made up 61% of it.",
+     ask:"Tell me when BOG goes over 8% of racing gross win.",runs:"After the last race"},
+    {t:"21:30",name:"The day",to:"Directors",via:"Email",
+     msg:"Saturday in one email: gross win by channel, new accounts, two AML reviews opened, three safer gambling contacts and the busiest hour for customer service. Every figure links to its source.",
+     ask:"On race days, send me the day's numbers at 9:30pm.",runs:"Race days at 9:30pm"}
+  ];
+  function xOf(t){var p=t.split(":");return ((+p[0]+p[1]/60)-8)/14*100}
+  var day=0,dayTimer=null,dayAuto=!reduce,daySeen=false;
+  $("posts").innerHTML=DAY.map(function(d,i){return '<button type="button" class="post" data-d="'+i+'" style="left:'+xOf(d.t).toFixed(2)+'%" aria-label="'+esc(d.t+" "+d.name)+'" aria-pressed="false"></button>'}).join("");
+  $("c-times").innerHTML=["08:00","11:00","14:00","17:00","20:00","22:00"].map(function(t,i,a){return '<span style="left:'+(i===a.length-1?100:xOf(t)).toFixed(2)+'%">'+t+'</span>'}).join("");
+  $("steps").innerHTML=DAY.map(function(d,i){return '<button type="button" class="step" data-d="'+i+'" aria-pressed="false"><b>'+d.t+'</b><span>'+esc(d.name)+'</span></button>'}).join("");
+  function renderDay(){
+    var d=DAY[day],x=xOf(d.t);
+    $("runner").style.left=x.toFixed(2)+"%";
+    $("rail-fill").style.width=x.toFixed(2)+"%";
+    document.querySelectorAll(".post").forEach(function(p,i){p.classList.toggle("done",i<day);p.setAttribute("aria-pressed",i===day?"true":"false")});
+    document.querySelectorAll(".step").forEach(function(p,i){p.setAttribute("aria-pressed",i===day?"true":"false")});
+    $("rd-panel").innerHTML='<div class="msg"><div class="hd"><svg aria-hidden="true"><use href="#milo-icon"/></svg><b>Milo</b><span class="via">'+esc(d.via)+'</span><span>'+d.t+'</span></div><p>'+esc(d.msg)+'</p><p class="to">To: '+esc(d.to)+'</p></div>'+
+      '<div class="setup"><span class="label">Set up once, by asking</span><q>'+esc(d.ask)+'</q><p>Runs: <b>'+esc(d.runs)+'</b></p></div>';
+  }
+  function dayStop(){dayAuto=false;clearTimeout(dayTimer)}
+  function dayTick(){
+    clearTimeout(dayTimer);
+    if(!dayAuto||!daySeen)return;
+    dayTimer=setTimeout(function(){day=(day+1)%DAY.length;renderDay();dayTick()},4200);
+  }
+  function pick(e){var b=e.target.closest("[data-d]");if(!b)return;dayStop();day=+b.dataset.d;renderDay()}
+  $("posts").addEventListener("click",pick);
+  $("steps").addEventListener("click",pick);
+  renderDay();
+  if(window.IntersectionObserver)new IntersectionObserver(function(en){daySeen=en[0].isIntersecting;dayTick()},{threshold:.3}).observe($("course"));
+
+  /* videos and the PDF button: only where the host allows frames and printing */
+  var host=location.hostname;
+  var inline=host===""||/(^|\.)milo\.ai$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(host);
+  if(inline){
+    Array.prototype.forEach.call(document.querySelectorAll(".video[data-src]"),function(f){
+      var p=f.querySelector(".poster");if(!p)return;
+      p.addEventListener("click",function(e){
+        e.preventDefault();
+        var fr=document.createElement("iframe");
+        fr.src=f.dataset.src;
+        fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture; encrypted-media");
+        fr.setAttribute("allowfullscreen","");
+        fr.setAttribute("title",f.dataset.title);
+        f.appendChild(fr);p.remove();
+      });
+    });
+    var sv=$("save-doc");
+    sv.hidden=false;
+    sv.addEventListener("click",function(){
+      document.body.classList.add("print-trust");
+      var done=function(){document.body.classList.remove("print-trust");window.removeEventListener("afterprint",done)};
+      window.addEventListener("afterprint",done);
+      window.print();
+    });
+  }
+})();
+</script>
 </body>
 </html>
