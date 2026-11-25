@@ -297,6 +297,54 @@ section.band{padding-block:76px}
   .ws-out .label{flex-basis:100%}
 }
 
+/* clean data */
+#clean{background:var(--panel);padding-block:76px 92px}
+#trust::before{background:var(--panel)}
+.cl-top{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:52px;align-items:end;margin-bottom:34px}
+.cl-top .head{margin-bottom:0}
+.cl-top .head h2 em{display:block}
+.cq{margin:0;padding:24px 0 4px;position:relative}
+.cq::before{content:"";position:absolute;left:0;top:0;width:34px;height:16px;background:linear-gradient(90deg,var(--teal) 0 50%,var(--cyan) 50%);clip-path:polygon(0 100%,38% 0,44% 100%,56% 100%,94% 0,100% 100%)}
+.cq blockquote{margin:0;font-family:var(--head);font-weight:400;font-size:20px;line-height:1.38}
+.cq figcaption{margin-top:10px;font-size:14.5px;line-height:1.4;color:var(--muted)}
+.cl{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:22px;align-items:stretch}
+.cl-h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;min-height:27px}
+.cl h3{font-size:21px}
+.cl-f{display:flex;flex-direction:column;min-width:0}
+.cl-bs{flex:1;display:grid;gap:10px;grid-auto-rows:1fr}
+.cl-b{display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;align-items:center;text-align:left;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:13px 18px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.cl-b b{font-family:var(--head);font-weight:700;font-size:31px;line-height:1;color:var(--em);font-variant-numeric:tabular-nums}
+.cl-b span{font-size:16.5px;line-height:1.35}
+.cl-b:hover{border-color:var(--teal)}
+.cl-b[aria-pressed="true"]{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal)}
+.cl-s{background:var(--deep);color:var(--on-deep);border-radius:6px;padding:20px 24px 22px;min-width:0;display:flex;flex-direction:column}
+.cl-s ol{list-style:none;margin:0;padding:0;display:grid;flex:1}
+.cl-s li{position:relative;display:grid;align-content:start;grid-template-columns:26px 84px minmax(0,1fr);gap:0 12px;padding:0 0 16px}
+.cl-s li::before{content:"";position:relative;z-index:1;width:22px;height:20px;margin-top:3px;background:var(--cyan);clip-path:polygon(0 0,100% 18%,30% 100%)}
+.cl-s li:last-child::before{background:var(--light)}
+.cl-s li:not(:last-child)::after{content:"";position:absolute;left:8px;top:28px;bottom:0;border-left:2px dashed var(--deep-line)}
+.cl-s b{font-family:var(--head);font-weight:700;font-size:20px;line-height:1.3}
+.cl-s .df{font-size:16.5px;line-height:1.4}
+.cl-s .dt{grid-column:3;font-size:15.5px;line-height:1.4;color:var(--on-deep-2);margin-top:2px}
+.cl-s li.in{animation:clin .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes clin{from{opacity:.25;transform:translateX(-6px)}}
+.cl-p{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;border-top:1px solid var(--deep-line);padding-top:14px;font-size:16.5px;color:var(--on-deep-2)}
+.cl-p b{font-family:var(--head);font-weight:700;font-size:32px;line-height:1;color:var(--on-deep);font-variant-numeric:tabular-nums}
+.cl-p b.end{color:var(--light)}
+.cl-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:26px}
+.cl-3>div{background:var(--card);border-radius:6px;padding:22px 24px 24px;min-width:0}
+.cl-3 h3{font-size:20px;margin-bottom:12px}
+.cl-3 p{font-size:16.5px;line-height:1.45;margin-bottom:10px}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:7px}
+.chips li{font-size:15px;font-weight:500;line-height:1.25;padding:6px 10px;background:var(--panel);border-radius:3px}
+.never{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.never li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;font-size:16.5px;line-height:1.4}
+.never svg{width:16px;height:16px;margin-top:4px;color:var(--pink-t)}
+.cl-3 .go{background:var(--deep);color:var(--on-deep)}
+.go .never svg{color:var(--light)}
+@media (max-width:980px){.cl-top{grid-template-columns:minmax(0,1fr);gap:26px}.cl,.cl-3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.cl-b{grid-template-columns:76px minmax(0,1fr);padding:12px 14px}.cl-b b{font-size:26px}.cl-s{padding:18px 16px}.cl-s li{grid-template-columns:22px minmax(0,1fr)}.cl-s .df,.cl-s .dt{grid-column:2}}
+
 /* trust (deep band) */
 section.dark{position:relative;background:var(--deep);color:var(--on-deep);padding-block:112px 108px;overflow:hidden}
 section.dark::before{content:"";position:absolute;left:0;right:0;top:-1px;height:54px;background:var(--paper);clip-path:polygon(0 0,100% 0,0 100%)}
@@ -364,7 +412,7 @@ footer{padding-block:30px 44px;font-size:14.5px;line-height:1.5;color:var(--mute
 footer p{max-width:100ch}
 footer p+p{margin-top:8px}
 
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ws-f,.ws-tabs.touring .ws-tab::after,.rt .in{animation:none}.p-play,.house *,.sg li,.sg i,.rc,.rc::before{transition:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ws-f,.ws-tabs.touring .ws-tab::after,.rt .in,.cl-s li.in{animation:none}.p-play,.house *,.sg li,.sg i,.rc,.rc::before{transition:none}}
 </style>
 </head>
 <body>
@@ -375,6 +423,7 @@ footer p+p{margin-top:8px}
     <symbol id="ws-sheet" viewBox="0 0 46 37"><rect x="4" y="3" width="38" height="31" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 12h38M4 21h38M17 3v31M30 3v31" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
     <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7" rx="1" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="cross" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
     <symbol id="half" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2.4a5.6 5.6 0 0 1 0 11.2Z" fill="currentColor"/></symbol>
     <symbol id="kite" viewBox="0 0 24 16"><path d="M0 0 L12 8 L1 16 Z" fill="#05C3DE"/><path d="M24 3 L12 8 L20 15 Z" fill="#007FA6"/></symbol>
     <symbol id="kite-d" viewBox="0 0 24 16"><path d="M0 0 L12 8 L1 16 Z" fill="#05C3DE"/><path d="M24 3 L12 8 L20 15 Z" fill="#FFD36B"/></symbol>
@@ -390,7 +439,7 @@ footer p+p{margin-top:8px}
       <svg class="lk-sw" role="img" aria-label="Stonewater"><use href="#sw-logo"/></svg>
     </a>
     <nav class="nav" aria-label="On this page">
-      <a href="#return">The return</a><a href="#sits">Where Milo sits</a><a href="#trust">Trust</a><a href="#landing">What’s landing</a>
+      <a href="#return">The return</a><a href="#sits">Where Milo sits</a><a href="#clean">Clean data</a><a href="#trust">Trust</a><a href="#landing">What’s landing</a>
     </nav>
   </div>
 </header>
@@ -530,6 +579,57 @@ footer p+p{margin-top:8px}
   </div>
 </section>
 
+<section class="band" id="clean" aria-labelledby="cl-h">
+  <div class="wrap">
+    <div class="cl-top">
+      <div class="head">
+        <p class="eyebrow"><svg class="mk" aria-hidden="true"><use href="#kite"/></svg>Clean data, used well</p>
+        <h2 id="cl-h">Clean data first. <em>Used for good, always.</em></h2>
+        <p>Regulation asks Stonewater to know every home and every customer accurately. Milo finds where the data falls short and sends each gap to the person who owns it. It then checks that the fix went in.</p>
+      </div>
+      <figure class="cq">
+        <blockquote>“If we don’t have the data quality right in our organisation, that foundational building block, there’s no point just putting AI on top of it.”</blockquote>
+        <figcaption>Gareth Lloyd, then Stonewater’s Chief Information and Transformation Officer, on the <a href="https://www.stonewater.org/media/ufpfbsw2/s5-ep4-transcript.pdf" target="_blank" rel="noopener">On the Air podcast</a>, 2025</figcaption>
+      </figure>
+    </div>
+    <div class="cl">
+      <div class="cl-f">
+        <div class="cl-h"><h3>What it finds</h3><span class="tag">Sample data</span></div>
+        <div class="cl-bs" id="cl-bs" role="group" aria-label="Choose a finding"></div>
+      </div>
+      <div class="cl-s">
+        <div class="cl-h"><h3>How it cleans</h3></div>
+        <ol id="cl-st"></ol>
+        <p class="cl-p" id="cl-p" aria-live="polite"></p>
+      </div>
+    </div>
+    <p class="note">Every finding and figure here is invented to show how it works. None of it is Stonewater’s data.</p>
+    <div class="cl-3">
+      <div>
+        <h3>Built for the regulator</h3>
+        <ul class="chips"><li>Consumer Standards</li><li>Tenant Satisfaction Measures</li><li>Ombudsman Complaint Handling Code</li><li>Awaab’s Law</li><li>Building Safety golden thread</li><li>UK GDPR</li></ul>
+      </div>
+      <div>
+        <h3>What Milo will never do</h3>
+        <ul class="never">
+          <li><svg aria-hidden="true"><use href="#cross"/></svg>Make decisions about tenancies.</li>
+          <li><svg aria-hidden="true"><use href="#cross"/></svg>Use money signals for anything but offering support.</li>
+          <li><svg aria-hidden="true"><use href="#cross"/></svg>Read health or vulnerability data Stonewater hasn’t chosen to connect.</li>
+        </ul>
+      </div>
+      <div class="go">
+        <h3>Start small</h3>
+        <p>A 30-day data health check on two or three systems. You get:</p>
+        <ul class="never">
+          <li><svg aria-hidden="true"><use href="#tick"/></svg>A baseline score</li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg>The top 10 issues, with named owners</li>
+          <li><svg aria-hidden="true"><use href="#tick"/></svg>A re-check at the end</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="dark" id="trust" aria-labelledby="tr-h">
   <svg class="hero-fx" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <polygon points="1400,120 1400,620 980,120" fill="#007FA6" opacity=".4"/>
@@ -540,13 +640,8 @@ footer p+p{margin-top:8px}
       <p class="eyebrow"><svg class="mk" aria-hidden="true"><use href="#kite-d"/></svg>Trust</p>
       <h2 id="tr-h">Trust first. <em>Then answers.</em></h2>
     </div>
-    <figure class="quote">
-      <blockquote>“If we don’t have the data quality right in our organisation, that foundational building block, there’s no point just putting AI on top of it.”</blockquote>
-      <figcaption>Gareth Lloyd, then Stonewater’s Chief Information and Transformation Officer, on the <a href="https://www.stonewater.org/media/ufpfbsw2/s5-ep4-transcript.pdf" target="_blank" rel="noopener">On the Air podcast</a>, 2025</figcaption>
-    </figure>
     <div class="tr">
       <ul class="pr">
-        <li><svg aria-hidden="true"><use href="#kite-d"/></svg><div><b>Data quality is a question you can ask</b><p>Find where two systems disagree about a home, and send each mismatch to its owner before anyone relies on it.</p></div></li>
         <li><svg aria-hidden="true"><use href="#kite-d"/></svg><div><b>A colleague decides</b><p>Milo reads and suggests. It can’t change a record, and every answer shows where it came from.</p></div></li>
         <li><svg aria-hidden="true"><use href="#kite-d"/></svg><div><b>Some records stay out</b><p>Stonewater chooses what Milo can’t read. Refuge and Safe Space records never need to be connected.</p></div></li>
         <li><svg aria-hidden="true"><use href="#kite-d"/></svg><div><b>Champions can join freely</b><p>Users are unlimited. Start with one team or one locality, and let the people who want it bring the next.</p></div></li>
@@ -680,6 +775,27 @@ footer p+p{margin-top:8px}
   }
   $("sw").addEventListener("click",function(e){var b=e.target.closest("[data-v]");if(b)ret(b.dataset.v,!reduce)});
   ret("home",false);
+
+  /* clean data: one finding, four steps */
+  var ST=[["Find","Checks run across every system at once."],["Explain","Shows which systems disagree, and why it matters."],["Route","Each list goes to its data owner, who fixes it at the source."],["Prove","Milo re-checks each fix and tracks quality over time."]];
+  var CL=[
+    {n:"86",t:"repair notes mention mould, but no damp and mould case was ever opened",end:"9",
+     d:["Repair notes, read for damp and mould.","Repairs jobs mentions mould. Plentific has no case. The Awaab’s Law clock starts when you become aware.","To the damp and mould lead, with each note and address."]},
+    {n:"1,120",t:"homes where one system shows a safety check as missing or overdue and another doesn’t",end:"140",
+     d:["Check dates, compared home by home.","One of the two is wrong, so a home could be visited twice or not at all.","To the compliance lead for each type of check."]},
+    {n:"640",t:"customers with two different phone numbers",end:"75",
+     d:["Contact details in ActiveH, Salesforce and MyHome.","The call before a visit may never reach the customer.","To the customer data owner, before records move to Salesforce."]},
+    {n:"210",t:"needs recorded in one system only",end:"18",
+     d:["Recorded needs, compared across every system.","A need held in one place is invisible to whoever visits next.","To each home’s Housing Officer, to check with the customer."]}];
+  $("cl-bs").innerHTML=CL.map(function(c,i){return '<button type="button" class="cl-b" data-n="'+i+'" aria-pressed="false"><b>'+esc(c.n)+'</b><span>'+esc(c.t)+'</span></button>'}).join("");
+  function clean(n,anim){
+    var C=CL[n];
+    $("cl-bs").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",+b.dataset.n===n?"true":"false")});
+    $("cl-st").innerHTML=ST.map(function(s,i){return '<li'+(anim?' class="in" style="animation-delay:'+(i*160)+'ms"':'')+'><b>'+esc(s[0])+'</b><span class="df">'+esc(s[1])+'</span>'+(C.d[i]?'<span class="dt">'+esc(C.d[i])+'</span>':'')+'</li>'}).join("");
+    $("cl-p").innerHTML='<b>'+esc(C.n)+'</b>at the start,<b class="end">'+esc(C.end)+'</b>left after four weeks';
+  }
+  $("cl-bs").addEventListener("click",function(e){var b=e.target.closest("[data-n]");if(b)clean(+b.dataset.n,!reduce)});
+  clean(0,false);
 
   /* view as */
   var VA=[
