@@ -441,8 +441,8 @@ footer p+p{margin-top:8px}
       <p class="sign"><b>Liam James Rabone</b><span>Co-Founder, Milo</span></p>
     </div>
     <figure class="film">
-      <div class="video" data-src="https://player.vimeo.com/video/1196983997?title=0&amp;byline=0&amp;portrait=0&amp;dnt=1&amp;autoplay=1" data-title="Milo product overview">
-        <a class="poster" href="https://vimeo.com/1196983997" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
+      <div class="video" data-src="https://www.youtube-nocookie.com/embed/eHeqphX3h7Q?rel=0&amp;playsinline=1&amp;autoplay=1" data-title="Milo product overview">
+        <a class="poster" href="https://www.youtube.com/watch?v=eHeqphX3h7Q" target="_blank" rel="noopener" aria-label="Play the Milo product overview, 1 minute 29 seconds">
           <svg class="fx" viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <polygon points="0,0 300,0 0,190" fill="#007FA6" opacity=".7"/>
             <polygon points="640,360 640,120 330,360" fill="#05C3DE" opacity=".3"/>
@@ -455,7 +455,7 @@ footer p+p{margin-top:8px}
           <span class="p-sub">Press play · 1 min 29 sec</span>
         </a>
       </div>
-      <figcaption>What Milo is, in 90 seconds. Not playing? <a href="https://vimeo.com/1196983997" target="_blank" rel="noopener">Watch it on Vimeo</a></figcaption>
+      <figcaption>What Milo is, in 90 seconds. Not playing? <a href="https://www.youtube.com/watch?v=eHeqphX3h7Q" target="_blank" rel="noopener">Watch it on YouTube</a></figcaption>
     </figure>
   </div>
 </section>
@@ -861,6 +861,7 @@ footer p+p{margin-top:8px}
     p.addEventListener("click",function(e){
       e.preventDefault();
       var fr=document.createElement("iframe");
+      fr.referrerPolicy="strict-origin-when-cross-origin";
       fr.src=f.dataset.src;
       fr.setAttribute("allow","autoplay; fullscreen; picture-in-picture; encrypted-media");
       fr.setAttribute("allowfullscreen","");
